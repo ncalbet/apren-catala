@@ -62,6 +62,8 @@
 
     /* BADGES */
     .ct-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ct-badge.a2 { background: #dcfce7; color: #166534; }
+    .ct-badge.b1 { background: #f3e8ff; color: #6b21a8; }
     .ct-badge.b2 { background: #dbeafe; color: #1e40af; }
     .ct-badge.c1 { background: #fef3c7; color: #92400e; }
 
@@ -270,12 +272,15 @@ const ENCOURAGEMENT = {
   'Cohesió textual':          "🧩 La cohesió es nota molt en textos escrits. Segueix endavant!",
   'Comprensió lectora':       "📖 Llegir bé és una habilitat que millora amb el temps. No t'aturis!",
   'Producció escrita':        "✏️ Escriure és la millor manera de consolidar tot el que aprens.",
+  'Lèxic formal B2':          "📚 El vocabulari precís és el que distingeix un bon text. Continua!",
   'Lèxic formal':             "📚 El lèxic precís marca la diferència en textos professionals.",
   'Interferències':           "🚧 Les interferències del castellà costen, però amb pràctica s'eviten!",
   'Perífrasis verbals':       "⚙️ Les perífrasis donen molta riquesa expressiva. Continua!",
   'Temps verbals':            "⏱️ Els temps verbals en català tenen matisos únics. Quasi!",
   'Preposicions':             "🔧 El règim preposicional s'aprèn amb la pràctica. Endavant!",
   'Construccions comparatives':"⚖️ Els comparatius irregulars cal memoritzar-los. Tu pots!",
+  'Ortografia B2':             "✏️ L'ortografia és la targeta de visita d'un bon text. No et rendeixis!",
+  'Pronoms febles B2':         "🔵 Els pronoms febles del català no s'assemblen a res en castellà. Paciència i pràctica!",
   'Subjuntiu avançat':        "🔀 El subjuntiu avançat és complex fins i tot per a nadius. Molt bé pel fet d'intentar-ho!",
   'Connectors concessius':    "🔗 Els concessius marquen un nivell alt de domini. Segueix!",
   'Argumentació':             "🧠 Argumentar bé en català és una habilitat molt valorada.",
@@ -412,7 +417,7 @@ function renderMenu() {
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--c1);margin-bottom:8px;">Benvingut/da!</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
-        Exercicis de nivell A2, B2 i C1 de català amb repetició espaïada.<br>Cada tema inclou teoria + exercicis pràctics.
+        Exercicis de nivell A2, B1, B2 i C1 de català amb repetició espaïada.<br>Cada tema inclou teoria + exercicis pràctics.
       </p>
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
         <div style="background:#eff6ff;border-radius:12px;padding:16px 22px;min-width:100px;">
@@ -886,7 +891,14 @@ function markDone(ok, xp) {
   // Ratxa diària + historial
   const today = new Date().toDateString();
   if (progress.lastDay !== today) {
-    progress.streak++;
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toDateString();
+    if (progress.lastDay && progress.lastDay !== yesterdayStr) {
+      progress.streak = 1;
+    } else {
+      progress.streak++;
+    }
     progress.lastDay = today;
     if (!progress.practiceHistory) progress.practiceHistory = [];
     if (!progress.practiceHistory.includes(today)) {
@@ -1501,6 +1513,83 @@ function renderProgress() {
     </div>`;
 }
 
+// ══ ONBOARDING ══
+const ONBOARDING_KEY = 'cat_onboarding_v1';
+
+const ONBOARDING_STEPS = [
+  {
+    emoji: '👋',
+    title: 'Benvingut/da a AprènCatalà!',
+    body: 'L\'app per aprendre català de manera rigorosa i motivadora. Cobreix els nivells <strong>A2, B1, B2 i C1</strong> del Marc Europeu de Referència.',
+  },
+  {
+    emoji: '📚',
+    title: 'Teoria + pràctica',
+    body: 'Cada tema comença amb una <strong>lliçó de teoria</strong> i segueix amb exercicis pràctics: opció múltiple, omplir buits, reordenar frases i més.',
+  },
+  {
+    emoji: '⭐',
+    title: 'Sistema de domini',
+    body: 'Cada exercici té <strong>5 nivells de domini</strong>. L\'app et fa repassar el que necessites fins que ho dominis del tot.',
+  },
+  {
+    emoji: '🔥',
+    title: 'Ratxa i repte diari',
+    body: 'Practica cada dia per mantenir la <strong>ratxa</strong>. Completa el <strong>repte diari</strong> per guanyar XP extra i desbloqueja assoliments i medalles!',
+  },
+];
+
+function shouldShowOnboarding() {
+  return !localStorage.getItem(ONBOARDING_KEY);
+}
+
+function renderOnboarding() {
+  let step = 0;
+
+  function render() {
+    const s = ONBOARDING_STEPS[step];
+    const isLast = step === ONBOARDING_STEPS.length - 1;
+    const dots = ONBOARDING_STEPS.map((_, i) =>
+      `<span style="width:8px;height:8px;border-radius:50%;display:inline-block;transition:background 0.2s;background:${i === step ? 'var(--c1)' : '#d1d5db'};"></span>`
+    ).join('');
+
+    const overlay = document.createElement('div');
+    overlay.id = 'onboarding-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    overlay.innerHTML = `
+      <div style="background:#fff;border-radius:22px;padding:40px 28px 32px;max-width:360px;width:100%;text-align:center;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+        <div style="font-size:62px;margin-bottom:14px;">${s.emoji}</div>
+        <div style="font-family:'Fraunces',serif;font-size:23px;color:var(--c1);margin-bottom:12px;line-height:1.25;">${s.title}</div>
+        <p style="font-size:14px;color:#374151;line-height:1.7;margin-bottom:28px;">${s.body}</p>
+        <div style="display:flex;gap:6px;justify-content:center;margin-bottom:24px;">${dots}</div>
+        <button class="ct-btn primary" id="onb-next" style="width:100%;font-size:15px;padding:13px;">
+          ${isLast ? 'Comencem! 🚀' : 'Següent →'}
+        </button>
+        <button class="ct-btn secondary" id="onb-skip" style="width:100%;margin-top:10px;font-size:12px;padding:9px;opacity:0.7;">
+          Saltar tutorial
+        </button>
+      </div>`;
+
+    const existing = document.getElementById('onboarding-overlay');
+    if (existing) existing.remove();
+    document.body.appendChild(overlay);
+
+    document.getElementById('onb-next').onclick = () => {
+      if (isLast) { finishOnboarding(); } else { step++; render(); }
+    };
+    document.getElementById('onb-skip').onclick = finishOnboarding;
+  }
+
+  render();
+}
+
+function finishOnboarding() {
+  localStorage.setItem(ONBOARDING_KEY, '1');
+  const el = document.getElementById('onboarding-overlay');
+  if (el) el.remove();
+  renderMenu();
+}
+
 /* INICI */
 if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
   document.getElementById('ct-body').innerHTML = `
@@ -1515,7 +1604,8 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
     </div>`;
 } else {
   updateHeader();
-  renderMenu();
+  if (shouldShowOnboarding()) renderOnboarding();
+  else renderMenu();
 }
 
 /* ══ PWA: Registre del Service Worker ══ */
