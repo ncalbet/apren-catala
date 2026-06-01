@@ -639,6 +639,31 @@ function renderTheorySection(s) {
     </div>`;
 }
 
+// ══ TEORIA OBLIGATÒRIA (A2/B1) ══
+let _pendingStart = null;
+function hasSeenTheory(cat) { return localStorage.getItem('cat_th_' + cat) === '1'; }
+function markTheorySeen(cat) { localStorage.setItem('cat_th_' + cat, '1'); }
+function continuePendingSession() { if (_pendingStart) { _pendingStart(); _pendingStart = null; } }
+
+function showMandatoryTheory(level, cat, onContinue) {
+  const th = THEORY[cat];
+  if (!th) { onContinue(); return; }
+  markTheorySeen(cat);
+  _pendingStart = onContinue;
+  const sectionsHTML = (th.sections || []).map(renderTheorySection).join('');
+  document.getElementById('ct-body').innerHTML = `
+    <div style="max-width:640px;margin:0 auto;">
+      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
+      <div class="th-hero">
+        <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
+        <div class="th-hero-title">${th.icon} ${cat}</div>
+        <div class="th-hero-sub">${th.subtitle || ''}</div>
+      </div>
+      ${sectionsHTML}
+      <button class="ct-btn primary" style="width:100%;margin-top:24px;font-size:16px;padding:16px;" onclick="continuePendingSession()">He entès — Comencem els exercicis →</button>
+    </div>`;
+}
+
 // ══ SESSIONS ══
 function startAllSession(level) {
   currentSession = { items: sortBySRS(DATA[level]), idx:0, correct:0, level, returnTo: level };
@@ -646,13 +671,17 @@ function startAllSession(level) {
 }
 function startCategorySession(level, cat) {
   const items = sortBySRS(DATA[level].filter(q => q.category === cat));
-  currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat };
-  renderExercise();
+  const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
+  if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
+    showMandatoryTheory(level, cat, doStart);
+  } else { doStart(); }
 }
 function startCategoryExercise(level, cat, i) {
   const allItems = DATA[level].filter(q => q.category === cat);
-  currentSession = { items: allItems, idx:i, correct:0, level, returnTo:'cat', cat };
-  renderExercise();
+  const doStart = () => { currentSession = { items: allItems, idx:i, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
+  if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
+    showMandatoryTheory(level, cat, doStart);
+  } else { doStart(); }
 }
 
 // ══ REPÀS SRS ══
