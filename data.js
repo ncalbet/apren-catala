@@ -2127,6 +2127,7 @@ const DATA = {
 
     { id:'a2-ses4', type:'choice', level:'a2', category:'Ser, estar i semblar',
       question:'Tria la frase correcta amb el pronom «ho»:',
+      text:'Amb ser, estar i semblar, quan volem evitar repetir un adjectiu o atribut ja esmentat, usem el pronom «ho». No es pot ometre ni substituir per «la» o «el».',
       options:["La Gina és simpàtica i la seva amiga també la és.","La Gina és simpàtica i la seva amiga també ho és.","La Gina és simpàtica i la seva amiga també és."],
       correct:1, theory:"El pronom «ho» substitueix l'atribut ja esmentat amb els verbs ser, estar i semblar. No es pot ometre ni usar «la/el».", example:"La Marta és tímida i la seva germana també ho és." },
 
@@ -2244,7 +2245,7 @@ const DATA = {
       correct:2, theory:"«En» s'usa com a pronom partitiu quan el CD no porta article determinat o quan hi ha quantitat indeterminada.", example:"«Tens germans?» «Sí, en tinc dos.» / «Vols cafè?» «En vull una mica.»" },
 
     { id:'a2-pfa5', type:'fill', level:'a2', category:'Pronoms febles A2',
-      question:'Usa «ho» per completar la resposta:',
+      question:'Omple el buit amb el pronom feble adequat:',
       sentence:"«La Raquel és divertida?» «Sí, ___ és molt.»",
       display:"pronom que substitueix l'adjectiu «divertida»",
       answers:['ho'],
@@ -2318,7 +2319,7 @@ const DATA = {
       correct:1, theory:"«Em vaig posar molt vermella» indica vergonya intensa. Posar-se vermell/a és una reacció física associada a la vergonya.", example:"Quan vaig dir alguna cosa inoportuna, em vaig posar vermella de vergonya." },
 
     { id:'a2-lex5', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
-      question:"Quin adjectiu expressa un estat transitori de nerviosisme?",
+      question:"Tria l'adjectiu correcte per completar la frase:",
       text:"Estic molt ___ perquè demà tinc una entrevista de feina.",
       options:['nerviós/osa','seriós/osa','tímid/ida'],
       correct:0, theory:"«Nerviós/osa» s'usa amb «estar» per a un estat d'agitació temporal. «Seriós/osa» i «tímid/ida» solen descriure característiques permanents de caràcter, no estats transitoris.", example:"Estic nerviosa avui. / Normalment soc força tranquil·la." },

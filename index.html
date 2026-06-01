@@ -133,6 +133,7 @@
     .ct-parts { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
     .ct-part { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; cursor: grab; font-size: 14px; display: flex; align-items: flex-start; gap: 10px; color: var(--text); user-select: none; line-height: 1.5; }
     .ct-part.drag-over { border-color: var(--c1); background: var(--hover); }
+    .ct-part.tap-selected { border-color: var(--c1); background: var(--hover); box-shadow: 0 0 0 2px var(--c1); }
     .ct-handle { color: var(--muted); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
 
     /* THEORY CALLOUT (inside exercise) */
@@ -356,6 +357,7 @@ let progress = (function() {
 
 let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
+let tapSelectedIdx = null;
 
 function saveProgress() { localStorage.setItem('cat_prog_v7', JSON.stringify(progress)); }
 
@@ -734,27 +736,30 @@ function renderExercise() {
         </div>
       </div>
     </div>`;
-  if (q.type==='reorder') dragIdx = null;
+  if (q.type==='reorder') { dragIdx = null; tapSelectedIdx = null; }
 }
 
 /* RENDERITZADORS */
 function renderChoice(q) {
-  return `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>
+  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
     <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
 }
 function renderFill(q) {
   return `<div class="ct-sentence">${q.sentence.replace('___','<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">')}</div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>
+    ${q.display ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>` : ''}
     <button class="ct-btn primary" onclick="checkFill()">Comprovar</button>`;
+}
+function reorderBlockHTML(parts) {
+  return parts.map((p,i)=>`
+    <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})" onclick="onTapSelect(${i})">
+      <span class="ct-handle">⠿</span><span>${p}</span>
+    </div>`).join('');
 }
 function renderReorder(q) {
   const shuffled = [...q.parts].sort(() => Math.random()-0.5);
   window._reorder_parts = shuffled;
-  return `<p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Arrossega els blocs per ordenar-los:</p>
-    <div class="ct-parts" id="reorder-list">${shuffled.map((p,i)=>`
-      <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})">
-        <span class="ct-handle">⠿</span><span>${p}</span>
-      </div>`).join('')}</div>
+  return `<p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Toca un bloc per seleccionar-lo i toca un altre per intercanviar-los (o arrossega):</p>
+    <div class="ct-parts" id="reorder-list">${reorderBlockHTML(shuffled)}</div>
     <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()">Comprovar ordre</button>`;
 }
 function renderReading(q) {
@@ -799,6 +804,24 @@ function checkFill() {
     : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q); markDone(ok, 10);
 }
+function onTapSelect(i) {
+  if (dragIdx !== null) return;
+  const parts = window._reorder_parts;
+  if (tapSelectedIdx === null) {
+    tapSelectedIdx = i;
+    document.querySelectorAll('.ct-part')[i].classList.add('tap-selected');
+  } else if (tapSelectedIdx === i) {
+    tapSelectedIdx = null;
+    document.querySelectorAll('.ct-part')[i].classList.remove('tap-selected');
+  } else {
+    const temp = parts[tapSelectedIdx];
+    parts[tapSelectedIdx] = parts[i];
+    parts[i] = temp;
+    window._reorder_parts = parts;
+    tapSelectedIdx = null;
+    document.getElementById('reorder-list').innerHTML = reorderBlockHTML(parts);
+  }
+}
 function onDragStart(i) { dragIdx = i; }
 function onDragOver(e, i) {
   e.preventDefault();
@@ -812,10 +835,7 @@ function onDrop(target) {
   const moved = parts.splice(dragIdx,1)[0];
   parts.splice(target,0,moved);
   window._reorder_parts = parts;
-  document.getElementById('reorder-list').innerHTML = parts.map((p,i)=>`
-    <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})">
-      <span class="ct-handle">⠿</span><span>${p}</span>
-    </div>`).join('');
+  document.getElementById('reorder-list').innerHTML = reorderBlockHTML(parts);
   dragIdx = null;
 }
 function checkReorder() {
