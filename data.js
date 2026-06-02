@@ -3322,8 +3322,7 @@ const DATA = {
 
     { id:'c1-ff8', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quina frase feta expressa millor la idea que algú va ignorar deliberadament tots els advertiments?',
-      text:'«Fer el sord», «perdre el fil» i «fer els ulls grossos» impliquen actituds davant d\'informació o situació. Pensa en quin tipus d\'ignorar implica cadascuna: voluntari, accidental, o tolerant.',
-      text:'El responsable ___ a totes les advertències del comitè de seguretat.',
+      text:'El responsable ___ a totes les advertències del comitè de seguretat. Les tres frases fetes de les opcions descriuen actituds diferentes: ignorar activament, perdre el seguiment, o tolerar una falta.',
       options:['va fer el sord','va perdre el fil','va fer els ulls grossos'],
       correct:0,
       theory:'«Fer el sord» significa ignorar deliberadament una petició o avís (negar-se a «escoltar»). «Fer els ulls grossos» és diferent: implica haver vist una falta però decidir no sancionar-la. «Perdre el fil» és perdre el seguiment d\'un raonament.',
