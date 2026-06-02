@@ -3227,8 +3227,7 @@ const DATA = {
     // PASSIVA I IMPERSONAL
     { id:'c1-pi1', type:'choice', level:'c1', category:'Passiva i impersonal',
       question:'Quina és la construcció preferida en català per expressar passiva sense agent?',
-      text:'El català prefereix la passiva pronominal («es va aprovar») a la passiva perifràstica («va ser aprovat»), que és menys genuïna i sol sonar a traducció del castellà o del francés.',
-      text:'«El projecte fue aprobado» → En català formal:',
+      text:'En català, hi ha dues maneres d\'expressar la passiva. Una és més genuïna i preferida; l\'altra sona a traducció. Tria com traduiries al català formal: «El projecte fue aprobado».',
       options:['El projecte va ser aprovat.','Es va aprovar el projecte.','El projecte ha sigut aprovat.'],
       correct:1, theory:'El català prefereix la passiva reflexa (es + verb) quan l\'agent és irrellevant. «Va ser aprovat» és correcte però menys habitual; «ha sigut» és híbrid incorrecte.', example:'Es van prendre mesures. / Es va signar l\'acord. / Es va decidir ajornar.' },
     { id:'c1-pi2', type:'fill', level:'c1', category:'Passiva i impersonal',
