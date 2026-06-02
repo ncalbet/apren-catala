@@ -1829,6 +1829,7 @@ const DATA = {
 
     { id:'b1-ip6', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Quin parell de frases utilitza correctament els dos temps?',
+      text:'En una narració podem combinar l\'imperfet (per a l\'estat de fons) i el perifràstic (per a l\'acció puntual i delimitada). Cada temps té el seu rol en la frase.',
       options:["Ahir estava molt cansada, per tant vaig dormir onze hores.","Ahir era molt cansada, per tant dormia onze hores.","Ahir vaig estar molt cansada, per tant dormia onze hores."],
       correct:0, theory:"«Estava cansada» = estat de fons (imperfet). «Vaig dormir onze hores» = resultat puntual i delimitat (perifràstic).", example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
 
@@ -1853,7 +1854,7 @@ const DATA = {
       theory:"«Parlar de + cosa» → pronom «en». «En parlo molt» substitueix «de la meva feina».", example:"«Parles de política?» «Sí, en parlo.»" },
 
     { id:'b1-pf4', type:'choice', level:'b1', category:'Pronoms febles B1',
-      question:'On va el pronom en una frase amb infinitiu?',
+      question:'Tria l\'opció que usa correctament el pronom feble:',
       text:'Vull comprar-___ tres, de pomes.',
       options:['en','hi','en (darrere de l\'infinitiu unit amb guionet)'],
       correct:2, theory:"Amb infinitiu, el pronom va darrere unit amb guionet: «comprar-ne». «En» substitueix el CD partitiu (tres pomes).", example:"Vull menjar-ne. / Puc comprar-ne dos." },
@@ -1866,6 +1867,7 @@ const DATA = {
 
     { id:'b1-pf6', type:'fill', level:'b1', category:'Pronoms febles B1',
       question:'Completa amb «en» o «hi»:',
+      text:'El pronom «hi» substitueix complements de lloc i també complements introduïts per «en» amb verbs com pensar, confiar o fixar-se. El pronom «en» s\'usa per a complements introduïts per «de».',
       sentence:"Penses molt en els teus amics? — Sí, ___ penso molt.",
       display:'en / hi',
       answers:['hi'],
@@ -1874,6 +1876,7 @@ const DATA = {
     // ── VERBS IRREGULARS B1 ──
     { id:'b1-vi1', type:'fill', level:'b1', category:'Verbs irregulars B1',
       question:'Conjuga el verb en la persona indicada (present d\'indicatiu):',
+      text:'El verb «fer» és un dels verbs irregulars més freqüents en català. La 1a persona del singular té una forma especial que no segueix el patró regular dels verbs en -er.',
       sentence:'Jo ___ (fer) els deures cada vespre.',
       display:'fer → 1a persona singular',
       answers:['faig'],
@@ -1881,11 +1884,13 @@ const DATA = {
 
     { id:'b1-vi2', type:'choice', level:'b1', category:'Verbs irregulars B1',
       question:'Quina és la forma correcta de «venir» en primera persona del plural?',
+      text:'El verb «venir» en català és irregular. Atenció a les interferències del castellà: les formes catalanes no coincideixen amb les castellanes i cal conèixer-les bé.',
       options:['venimos','venim','vins','venín'],
       correct:1, theory:"«Venim» és la 1a persona del plural de «venir» en present. No és «venimos» (castellà).", example:"Venim d'Alemanya. / Nosaltres venim a peu." },
 
     { id:'b1-vi3', type:'fill', level:'b1', category:'Verbs irregulars B1',
       question:'Escriu la forma correcta:',
+      text:'El verb «saber» és irregular en present. La 1a persona és «sé», però la 3a persona del singular té una forma pròpia que cal no confondre amb la de «poder» o «voler».',
       sentence:'Ella ___ (saber) molt bé on és el mercat.',
       display:'saber → 3a persona singular',
       answers:['sap'],
@@ -1893,6 +1898,7 @@ const DATA = {
 
     { id:'b1-vi4', type:'choice', level:'b1', category:'Verbs irregulars B1',
       question:'Quina forma de «poder» és correcta per a «ells»?',
+      text:'El verb «poder» és irregular en present d\'indicatiu. Les formes del subjuntiu (amb «pugu-») són correctes en subjuntiu, però la 3a persona del plural del present d\'indicatiu segueix un altre patró.',
       options:['puguen','poden','pugan','podin'],
       correct:1, theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguen» i «pugan» no existeixen en català normatiu; «podin» seria una forma incorrecta del subjuntiu (la forma correcta seria «puguin»).", example:"Ells poden venir demà si volen." },
 
@@ -1944,6 +1950,7 @@ const DATA = {
 
     { id:'b1-con6', type:'fill', level:'b1', category:'Connectors B1',
       question:'Tria el connector de conseqüència adequat:',
+      text:'Els connectors de conseqüència lliguen una causa amb el seu resultat lògic. En català hi ha diverses opcions equivalents per a registre formal: «per tant», «per això» i «així doncs».',
       sentence:"Ha après molt de vocabulari nou; ___, pot llegir textos més complexos.",
       display:'per tant / per això / així doncs',
       answers:['per tant','per això','així doncs'],
@@ -1952,6 +1959,7 @@ const DATA = {
     // ── FUTUR I CONDICIONAL B1 ──
     { id:'b1-fc1', type:'fill', level:'b1', category:'Futur i condicional B1',
       question:'Escriu la forma de futur correcta:',
+      text:'El verb «fer» és irregular no només en present sinó també en futur. La base del futur canvia respecte a l\'infinitiu: faré, faràs, farà, farem, fareu, faran.',
       sentence:'Demà ___ (fer) molt bon temps, diuen a la ràdio.',
       display:'fer → 3a persona singular futur',
       answers:['farà'],
@@ -1959,11 +1967,13 @@ const DATA = {
 
     { id:'b1-fc2', type:'choice', level:'b1', category:'Futur i condicional B1',
       question:'Quina frase expressa un desig educat?',
+      text:'En català, el condicional s\'usa per fer peticions de manera cortesa i suavitzada. És l\'equivalent del «would like» en anglès o del «quisiera» en castellà formal.',
       options:["Vull un cafè!","Voldria un cafè, si us plau.","Dóna'm un cafè."],
       correct:1, theory:"El condicional «voldria» suavitza la petició i la fa educada. És equivalent a «would like» en anglès.", example:"Voldria reservar una taula per a dos, si us plau." },
 
     { id:'b1-fc3', type:'fill', level:'b1', category:'Futur i condicional B1',
       question:'Completa amb el condicional:',
+      text:'Les frases condicionals irrels (si + imperfet de subjuntiu + condicional) expressen hipòtesis sobre el present: allò que faries si les circumstàncies fossin diferents.',
       sentence:"Si tingués més temps, ___ (estudiar) música.",
       display:'estudiar → 1a pers. sing. condicional',
       answers:['estudiaria'],
@@ -2035,6 +2045,7 @@ const DATA = {
 
     { id:'b1-sub2', type:'fill', level:'b1', category:'Subordinades B1',
       question:'Omple amb el mode verbal correcte (indicatiu o subjuntiu):',
+      text:'La conjunció «perquè» pot expressar dos significats: causa (+ indicatiu: «perquè ho saps») o finalitat (+ subjuntiu: «perquè ho sàpigues»). El context determina quin mode cal usar.',
       sentence:"T'ho explico perquè ho ___ (saber, 2a pers. sing.).",
       display:'sàpigues (subj.) — finalitat, canvi de subjecte',
       answers:['sàpigues'],
@@ -2054,7 +2065,7 @@ const DATA = {
       ],
       correct:0,
       theory:"La clau és el valor de «perquè»: causal (expressa el motiu d'una acció passada o present) → indicatiu; final (expressa l'objectiu de l'acció) → subjuntiu. «Per tal que» sempre porta subjuntiu. El canvi de subjecte és freqüent en les finals però no n'és la causa.",
-      example:"Ho faig perquè em sento malament [causal, ind.]. / Ho faig perquè te sentis millor [final, subj., canvi de subjecte]." },
+      example:"Ho faig perquè em sento malament [causal, ind.]. / Ho faig perquè et sentis millor [final, subj., canvi de subjecte]." },
 
     { id:'b1-sub5', type:'reading', level:'b1', category:'Subordinades B1',
       text:"Mentre estudiava per a l'examen, va sonar el telèfon. Era la seva amiga, que li deia que no podria venir a la festa perquè tenia molta feina. Li va proposar que quedessin un altre dia perquè poguessin parlar amb tranquil·litat.",
@@ -2065,7 +2076,7 @@ const DATA = {
     { id:'b1-sub6', type:'choice', level:'b1', category:'Subordinades B1',
       question:'Quina frase té la subordinada temporal correctament construïda?',
       options:["Truqueu-me quan haureu arribat.","Truqueu-me quan arribareu.","Truqueu-me quan arribeu.","Truqueu-me quan arribaràs."],
-      correct:2, theory:"«Quan» + qualsevol temps d'indicatiu (present, futur, futur anterior: arribareu, arribaràs, haureu llegit) és incorrecte en temporals de futur en català. Cal usar el present de subjuntiu: «quan arribeu». Per marcar que l'acció temporal ha de quedar acabada, s'usa el perfet de subjuntiu: «quan hàgiu llegit tota la documentació, passeu a signar.»", example:"Quan tingui temps, vindré. / Avisar-me quan surtin." },
+      correct:2, theory:"En temporals de futur, «quan» + futur d'indicatiu (arribareu, arribaràs, haureu llegit) és incorrecte en català. Cal usar el present de subjuntiu: «quan arribeu». Per marcar que l'acció ha de quedar acabada, s'usa el perfet de subjuntiu: «quan hàgiu llegit tota la documentació, passeu a signar.»", example:"Quan tingui temps, vindré. / Avisa'm quan surtin." },
 
     // ── LÈXIC QUOTIDIÀ B1 ──
     { id:'b1-lq1', type:'choice', level:'b1', category:'Lèxic quotidià B1',
@@ -2099,7 +2110,7 @@ const DATA = {
 
     { id:'b1-lq6', type:'fill', level:'b1', category:'Lèxic quotidià B1',
       question:'Substitueix el mot incorrecte pel terme català:',
-      sentence:"He de reciclar els *basura abans de sortir de casa.",
+      sentence:"He de reciclar la *basura abans de sortir de casa.",
       display:'residus / brossa / deixalles',
       answers:['residus','brossa','deixalles'],
       theory:"«Brossa» (llenguatge col·loquial) i «residus» (formal) equivalen a «basura». «Deixalles» s'usa en contextos de reciclatge.", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
@@ -2107,32 +2118,34 @@ const DATA = {
   a2: [
     // ── SER, ESTAR I SEMBLAR ──
     { id:'a2-ses1', type:'choice', level:'a2', category:'Ser, estar i semblar',
-      question:'Quin verb és el correcte per a una característica permanent?',
+      question:'Tria el verb adequat per completar la frase:',
       text:'La Berta ___ una persona molt alegre i sociable.',
       options:['està','és','sembla molt'],
       correct:1, theory:"«Ser» s'usa per a característiques definitòries d'una persona. ✗ «Està» seria incorrecte perquè indica un estat temporal (avui, ara), no un tret de personalitat estable. ✗ «Sembla molt» és incorrecte perquè «semblar» expressa aparença subjectiva i no admet «molt» en aquesta posició.", example:"La Maria és molt divertida, però avui està trista." },
 
     { id:'a2-ses2', type:'choice', level:'a2', category:'Ser, estar i semblar',
-      question:"Quin verb expressa un estat d'ànim transitori?",
+      question:"Quin verb és el correcte per completar la frase?",
       text:'Avui el Martí ___ molt nerviós perquè té un examen important.',
       options:['és','sembla','està'],
-      correct:2, theory:"«Estar» s'usa per a estats transitoris com l'estat d'ànim. ✗ «Ser nerviós» seria incorrecte si és un estat puntual d'avui (indicaria que el nerviosisme és un tret permanent del caràcter). ✗ «Sembla nerviós» podria ser acceptable però expressa una impressió externa, no un estat real; aquí el text afirma que el nerviossisme és real.", example:"Avui estic nerviós. / Normalment soc força tranquil." },
+      correct:2, theory:"«Estar» s'usa per a estats transitoris com l'estat d'ànim. ✗ «Ser nerviós» seria incorrecte si és un estat puntual d'avui (indicaria que el nerviosisme és un tret permanent del caràcter). ✗ «Sembla nerviós» podria ser acceptable però expressa una impressió externa, no un estat real; aquí el text afirma que el nerviosisme és real.", example:"Avui estic nerviós. / Normalment soc força tranquil." },
 
     { id:'a2-ses3', type:'fill', level:'a2', category:'Ser, estar i semblar',
       question:'Omple amb el verb correcte (ser, estar o semblar):',
+      text:'«Semblar» s\'usa per expressar l\'aparença que una persona dona als altres, sense afirmar que sigui una realitat. És diferent de «ser» (tret permanent) i «estar» (estat temporal).',
       sentence:"L'Aniol ___ tímid, però en realitat és molt obert quan el coneixes.",
       display:"verb d'aparença (la impressió que dona)",
       answers:['sembla'],
       theory:"«Semblar» expressa l'aparença que una persona dona als altres, sense implicar que sigui una característica real.", example:"En Martí sembla tímid, però és molt obert." },
 
     { id:'a2-ses4', type:'choice', level:'a2', category:'Ser, estar i semblar',
-      question:'Tria la frase correcta amb el pronom «ho»:',
-      text:'Amb ser, estar i semblar, quan volem evitar repetir un adjectiu o atribut ja esmentat, usem el pronom «ho». No es pot ometre ni substituir per «la» o «el».',
+      question:'Tria la frase correcta:',
+      text:'La Gina i la seva amiga comparteixen el mateix caràcter. En català, quan volem evitar repetir un adjectiu amb els verbs ser, estar i semblar, cal usar un pronom especial.',
       options:["La Gina és simpàtica i la seva amiga també la és.","La Gina és simpàtica i la seva amiga també ho és.","La Gina és simpàtica i la seva amiga també és."],
       correct:1, theory:"El pronom «ho» substitueix l'atribut ja esmentat amb els verbs ser, estar i semblar. No es pot ometre ni usar «la/el».", example:"La Marta és tímida i la seva germana també ho és." },
 
     { id:'a2-ses5', type:'fill', level:'a2', category:'Ser, estar i semblar',
       question:'Omple amb ser o estar:',
+      text:'El cansament és un estat temporal que canvia d\'un dia a l\'altre. En català, els estats temporals es construeixen amb un verb diferent que els trets permanents de caràcter.',
       sentence:'El Josep ___ cansat avui perquè ha treballat moltes hores.',
       display:'ser o estar?',
       answers:['està'],
@@ -2147,11 +2160,13 @@ const DATA = {
     // ── ADJECTIUS DE CARÀCTER ──
     { id:'a2-adc1', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina és la forma femenina correcta de «simpàtic»?',
+      text:'En català, molts adjectius de caràcter canvien de forma segons el gènere. Prova de trobar la forma femenina correcta de «simpàtic».',
       options:['simpàtique','simpàtica','simpàtics'],
       correct:1, theory:"Els adjectius acabats en -c fan el femení en -ca: simpàtic → simpàtica, antipàtic → antipàtica.", example:"En Santi sembla antipàtic, però la Berta és molt simpàtica." },
 
     { id:'a2-adc2', type:'fill', level:'a2', category:'Adjectius de caràcter',
       question:"Omple amb la forma correcta de l'adjectiu:",
+      text:"Els adjectius en català han de concordar en gènere amb el nom que acompanyen. «Extravertit» (masculí) canvia de forma quan descriu una dona.",
       sentence:"La Conxa és molt ___ (extravertit): li encanta conèixer gent nova.",
       display:"forma femenina d'«extravertit»",
       answers:['extravertida'],
@@ -2159,13 +2174,15 @@ const DATA = {
 
     { id:'a2-adc3', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina paraula significa el contrari de «tímid»?',
+      text:'En català hi ha molts parells d\'adjectius contraris per descriure el caràcter: tímid/obert, introvertit/extravertit, reservat/parlador. Pensa quin s\'oposa millor a «tímid».',
       options:['introvertit','obert','seriós'],
       correct:1, theory:"«Obert» s'usa per a persones que es comuniquen sense reserves ni dificultat.", example:"Sembla tímida, però quan la coneixes és molt oberta i parladora." },
 
     { id:'a2-adc4', type:'fill', level:'a2', category:'Adjectius de caràcter',
       question:'Forma el plural correcte:',
+      text:'Els adjectius en català han de concordar en gènere i nombre amb el nom. Els adjectius acabats en -ble (amable, sociable...) no canvien entre masculí i femení, però sí fan el plural.',
       sentence:'Els meus companys de classe són molt ___ (sociable).',
-      display:"plural d'«sociable»",
+      display:"plural de «sociable»",
       answers:['sociables'],
       theory:"Els adjectius acabats en -ble (amable, sociable) no canvien entre masculí i femení. El plural afegeix -s.", example:"Són persones molt amables i sociables." },
 
@@ -2177,6 +2194,7 @@ const DATA = {
 
     { id:'a2-adc6', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina forma plural és correcta?',
+      text:'L\'adjectiu «tranquil» té una ortografia especial: el femení s\'escriu «tranquil·la» (amb l·l geminada). Al plural, cadascuna de les formes segueix la seva pròpia norma.',
       options:['tranquils i tranquil·les','tranquiles i tranquilas','tranquils i tranquiles'],
       correct:0, theory:"«Tranquil» fa femení «tranquil·la» (l·l geminada) i plurals «tranquils» (masc.) i «tranquil·les» (fem.).", example:"Ells són molt tranquils. / Elles són molt tranquil·les." },
 
@@ -2190,6 +2208,7 @@ const DATA = {
 
     { id:'a2-pas2', type:'choice', level:'a2', category:'Passat perifràstic',
       question:'Quina forma de passat perifràstic és correcta per a «nosaltres»?',
+      text:'El passat perifràstic es forma amb l\'auxiliar «anar» en present + infinitiu. La conjugació de l\'auxiliar per a «nosaltres» no segueix la forma del present regular d\'«anar».',
       options:['anem menjar','vam menjar','vem menjar'],
       correct:1, theory:"Conjugació: jo vaig, tu vas, ell/ella va, nosaltres vam, vosaltres vau, ells/elles van + infinitiu.", example:"Ahir vam menjar tots junts a casa de l'àvia." },
 
@@ -2233,7 +2252,7 @@ const DATA = {
       theory:"«Les» substitueix un CD femení plural determinat. El pronom va davant del verb conjugat.", example:"«Has vist les claus?» «Sí, les he vistes a la taula.»" },
 
     { id:'a2-pfa3', type:'choice', level:'a2', category:'Pronoms febles A2',
-      question:"On va el pronom feble quan acompanya un infinitiu?",
+      question:"Quina frase usa correctament el pronom feble?",
       text:"Necessito ___ veure ___ (la directora) ara.",
       options:["La necessito veure.","Necessito veure-la.","Necessito-la veure."],
       correct:1, theory:"Amb infinitius, el pronom feble va enclític (darrere i unit) a l'infinitiu amb guionet: veure-la, fer-ho, trucar-los.", example:"Vull veure-la. / He d'explicar-ho. / Cal trucar-los." },
@@ -2246,6 +2265,7 @@ const DATA = {
 
     { id:'a2-pfa5', type:'fill', level:'a2', category:'Pronoms febles A2',
       question:'Omple el buit amb el pronom feble adequat:',
+      text:'El pronom «ho» substitueix un adjectiu o atribut predicatiu quan apareix amb els verbs ser, estar i semblar. A diferència de «el/la», «ho» no concorda en gènere ni nombre.',
       sentence:"«La Raquel és divertida?» «Sí, ___ és molt.»",
       display:"pronom que substitueix l'adjectiu «divertida»",
       answers:['ho'],
@@ -2253,12 +2273,14 @@ const DATA = {
 
     { id:'a2-pfa6', type:'choice', level:'a2', category:'Pronoms febles A2',
       question:'Quina frase usa correctament el pronom feble?',
+      text:'En frases declaratives amb verb conjugat, el pronom feble es col·loca DAVANT del verb. La posició darrere del verb (enclítica) s\'usa en imperatiu o infinitiu, no en oracions normals.',
       options:["Busco els documents. Busco-los demà.","Busco els documents. Els busco demà.","Busco els documents. Busco'ls demà."],
       correct:1, theory:"En frases declaratives amb verb conjugat, el pronom feble va davant del verb: els busco, la crido, ho faig.", example:"Els documents? Els busco demà. / Necessito buscar-los ara." },
 
     // ── IMPERFET D'INDICATIU ──
     { id:'a2-imp1', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Omple amb l'imperfet correcte:",
+      text:"L'imperfet d'indicatiu s'usa per a hàbits i rutines del passat. Els verbs de la 1a conjugació (-ar) segueixen el patró: -ava, -aves, -ava, -àvem, -àveu, -aven.",
       sentence:"De petit, el meu avi sempre ___ (explicar) contes fantàstics.",
       display:"imperfet, 3a pers. sing. d'«explicar»",
       answers:['explicava'],
@@ -2266,16 +2288,19 @@ const DATA = {
 
     { id:'a2-imp2', type:'choice', level:'a2', category:"Imperfet d'indicatiu",
       question:"Quina forma d'imperfet és correcta per a «nosaltres» amb «ser»?",
+      text:"El verb «ser» té un imperfet completament irregular. Les formes regulars no funcionen aquí: cal memoritzar el paradigma complet (era, eres, era, érem, éreu, eren).",
       options:['erem','érem','eram'],
       correct:1, theory:"El verb «ser» en imperfet és irregular: era, eres, era, érem, éreu, eren. La primera persona del plural porta accent: érem.", example:"Quan érem petits, érem molt traviesos." },
 
     { id:'a2-imp3', type:'choice', level:'a2', category:"Imperfet d'indicatiu",
       question:"Quan s'usa l'imperfet en lloc del passat perifràstic?",
+      text:"En català hi ha dos temps de passat principals: l'imperfet i el passat perifràstic. El passat perifràstic s'usa per a accions puntuals i acabades; l'imperfet, per a situacions més duradores.",
       options:['Per a accions acabades en un moment concret del passat','Per a descripcions, hàbits i estats del passat','Per a accions que passen ara'],
       correct:1, theory:"Imperfet = descripció, hàbit, estat sense moment concret. Passat perifràstic = acció acabada en un moment específic.", example:"Cada dia anava a l'escola a peu. (hàbit) / Ahir vaig anar en cotxe. (acció concreta)" },
 
     { id:'a2-imp4', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Completa amb la perífrasi d'hàbit passat:",
+      text:"La perífrasi «soler + infinitiu» en imperfet expressa un hàbit del passat: allò que algú feia regularment. El verb «soler» en imperfet: solia, solies, solia, solíem, solíeu, solien.",
       sentence:"La meva àvia ___ (soler) fer el mercat cada dissabte al matí.",
       display:"imperfet de «soler» (3a pers. sing.)",
       answers:['solia'],
@@ -2289,6 +2314,7 @@ const DATA = {
 
     { id:'a2-imp6', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Escriu la forma correcta de l'imperfet:",
+      text:"El verb «fer» és irregular en imperfet. No segueix el patró regular (-ava), sinó un de propi: feia, feies, feia, fèiem, fèieu, feien.",
       sentence:"Quan tenia vint anys, ___ (fer) molt esport i tenia molta energia.",
       display:"imperfet 1a pers. sing. de «fer»",
       answers:['feia'],
@@ -2297,6 +2323,7 @@ const DATA = {
     // ── LÈXIC A2: CARÀCTER I EMOCIONS ──
     { id:'a2-lex1', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
       question:"Quina expressió s'usa per dir que algú sent molta vergonya i vol desaparèixer?",
+      text:'El català té expressions molt vives per descriure reaccions emocionals intenses. Per a la vergonya màxima, hi ha una expressió que evoca la imatge de desaparèixer del tot.',
       options:['em poso a riure','em vull fondre','em quedo callat'],
       correct:1, theory:"«Em vull fondre» expressa la màxima vergonya: voler desaparèixer. Prové de la imatge de fondre's com si fos mantega.", example:"Quan vaig dir el nom equivocat, em volia fondre!" },
 
@@ -2338,24 +2365,29 @@ const DATA = {
       correct:1, theory:'«On» pregunta per llocs. «Quan» per temps. «Com» per manera. «Qui» per persones.', example:'On és l\'escola? / On vius?' },
     { id:'a2-pi2', type:'fill', level:'a2', category:'Preguntes i interrogació',
       question:'Completa la pregunta amb la paraula interrogativa correcta:',
+      text:'En català, per preguntar el nom d\'una persona s\'usa «com», no «qui». «Qui» s\'usa per preguntar per la identitat d\'una persona, però «com» és la forma correcta per demanar el nom.',
       sentence:'___ es diu el teu professor?',
       display:'interrogatiu per a noms de persones', answers:['Com'],
       theory:'«Com» s\'usa per preguntar el nom: «Com et dius?» / «Com es diu?». No «Qui» per a noms.', example:'Com et dius? / Com es diu ella?' },
     { id:'a2-pi3', type:'choice', level:'a2', category:'Preguntes i interrogació',
       question:'Quina pregunta és correcta en català?',
+      text:'En català, el pronom subjecte (jo, tu, ell...) s\'omet habitualment perquè la terminació verbal ja indica la persona. A més, «tu» en català mai porta accent (a diferència del castellà «tú»).',
       options:['Quants anys tens tú?','Quants anys tens?','Quants anys tu tens?'],
       correct:1, theory:'En català el pronom subjecte (tu, ell, ella) s\'omet habitualment perquè la desinència verbal ja l\'indica. «Tu» és opcional i se sol ometre. Atenció: en català «tu» no porta accent gràfic (a diferència del castellà «tú»); l\'opció «Quants anys tens tú?» conté, a més d\'un ordre forçat, un accent inexistent en català.', example:'Quants anys tens? / D\'on ets? / Que treballes?' },
     { id:'a2-pi4', type:'fill', level:'a2', category:'Preguntes i interrogació',
       question:'Omple amb la paraula interrogativa correcta:',
+      text:'Per preguntar per preus i quantitats generals s\'usa «quant» (invariable). Quan preguntem per elements comptables usem «quants» (masc.) o «quantes» (fem.).',
       sentence:'___ costa aquest llibre?',
       display:'interrogatiu per a preus', answers:['Quant'],
       theory:'«Quant» (invariable) per a preus i quantitats indeterminades. «Quants/Quantes» per a quantitats comptables: «Quants llibres tens?»', example:'Quant costa? / Quant val? / Quants en vols?' },
     { id:'a2-pi5', type:'choice', level:'a2', category:'Preguntes i interrogació',
       question:'Com es forma una pregunta de confirmació en català?',
+      text:'Les preguntes de confirmació s\'usen per verificar informació que es creu certa. En català s\'afegeix «no?» o «oi?» al final. El castellà «¿verdad?» no s\'usa en català.',
       options:['Parles català, no?','Parles català, ¿verdad?','Tu parles català, si?'],
       correct:0, theory:'La coletilla de confirmació en català és «no?» (o «oi?» en registre col·loquial). «¿Verdad?» és castellà. «Si?» no és la forma estàndard.', example:'Ets d\'aquí, no? / Ja has menjat, oi?' },
     { id:'a2-pi6', type:'reorder', level:'a2', category:'Preguntes i interrogació',
       question:'Ordena les paraules per formar una pregunta correcta:',
+      text:'En les preguntes en català, la paraula interrogativa va al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.',
       parts:['véns','D\'on','tu','?'],
       correct:[1,0,2,3],
       theory:'Les paraules interrogatives van al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.', example:'D\'on véns? / On vas? / Quan arribes?' },
