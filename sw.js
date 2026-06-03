@@ -1,6 +1,6 @@
 // Català Trainer — Service Worker
 // Versió de la caché — canvia aquest número per forçar actualització
-const CACHE_VERSION = 'catala-trainer-v4';
+const CACHE_VERSION = 'catala-trainer-v5';
 
 // Fitxers a guardar en caché per funcionar offline
 const ASSETS_TO_CACHE = [
@@ -40,40 +40,47 @@ self.addEventListener('activate', event => {
   );
 });
 
-// ── FETCH: servim des de caché, si no des de xarxa ──
+// ── FETCH ──
+// index.html i data.js: NETWORK-FIRST (els testers reben sempre l'última versió si tenen xarxa).
+// Resta d'assets (icones, manifest): cache-first amb actualització en segon pla.
 self.addEventListener('fetch', event => {
   // Deixem passar les peticions externes (Google Fonts, APIs)
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) {
-        // Tenim la versió en caché — la servim i actualitzem en segon pla
-        const fetchPromise = fetch(event.request).then(networkResponse => {
-          caches.open(CACHE_VERSION).then(cache => {
-            cache.put(event.request, networkResponse.clone());
-          });
-          return networkResponse;
-        }).catch(() => cached);
-        return cached;
-      }
+  const path = new URL(event.request.url).pathname;
+  const isContent = event.request.mode === 'navigate'
+    || path === '/' || path.endsWith('/')
+    || path.endsWith('/index.html') || path.endsWith('/data.js');
 
-      // No hi ha caché — anem a xarxa
-      return fetch(event.request).then(networkResponse => {
-        // Guardem en caché per la propera vegada
+  if (isContent) {
+    // NETWORK-FIRST: provem la xarxa; si falla, servim la caché.
+    event.respondWith(
+      fetch(event.request).then(networkResponse => {
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
-          caches.open(CACHE_VERSION).then(cache => {
-            cache.put(event.request, responseClone);
-          });
+          caches.open(CACHE_VERSION).then(cache => cache.put(event.request, responseClone));
         }
         return networkResponse;
-      }).catch(() => {
-        // Sense xarxa ni caché — pàgina offline
-        return caches.match('./index.html');
-      });
+      }).catch(() =>
+        caches.match(event.request).then(cached => cached || caches.match('./index.html'))
+      )
+    );
+    return;
+  }
+
+  // CACHE-FIRST (stale-while-revalidate) per a assets estàtics
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      const fetchPromise = fetch(event.request).then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_VERSION).then(cache => cache.put(event.request, responseClone));
+        }
+        return networkResponse;
+      }).catch(() => cached);
+      return cached || fetchPromise;
     })
   );
 });

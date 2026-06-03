@@ -733,6 +733,7 @@ function renderExercise() {
   if (idx >= items.length) return renderSummary();
   const q = items[idx];
   const pct = Math.round(idx / items.length * 100);
+  currentSession.answered = false;
 
   let body = '';
   if (q.type==='choice') body = renderChoice(q);
@@ -816,6 +817,8 @@ function renderTransform(q) {
 
 /* COMPROVACIÓ */
 function checkChoice(selected, correct) {
+  if (currentSession.answered) return;
+  currentSession.answered = true;
   const opts = document.querySelectorAll('.ct-opt');
   opts.forEach(o => o.onclick = null);
   const isOk = selected === correct;
@@ -825,9 +828,14 @@ function checkChoice(selected, correct) {
   markDone(isOk, 10);
 }
 function checkFill() {
+  if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
-  const val = normalize(document.getElementById('fill-in').value);
-  const ok = q.answers.some(a => normalize(a) === val || normalize(a).startsWith(val));
+  const input = document.getElementById('fill-in');
+  const val = normalize(input.value);
+  if (!val) { alert('Escriu una resposta primer.'); return; }
+  currentSession.answered = true;
+  input.disabled = true;
+  const ok = q.answers.some(a => normalize(a) === val);
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Correcte! La forma és: <strong>${q.answers[0]}</strong></div>`
     : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
@@ -868,6 +876,8 @@ function onDrop(target) {
   dragIdx = null;
 }
 function checkReorder() {
+  if (currentSession.answered) return;
+  currentSession.answered = true;
   const q = currentSession.items[currentSession.idx];
   const cur = window._reorder_parts;
   const correctOrder = q.correct.map(i=>q.parts[i]);
@@ -920,25 +930,33 @@ function localFeedbackTransform(q, text) {
 }
 
 function checkWriting() {
+  if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('write-area').value.trim();
   if (!text) { alert('Escriu una resposta primer.'); return; }
+  currentSession.answered = true;
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackWriting(q, text)}</div>`;
   showTheory(q); markDone(true, 20);
 }
 function checkTransform() {
+  if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('transform-area').value.trim();
   if (!text) { alert('Escriu una reformulació primer.'); return; }
+  currentSession.answered = true;
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackTransform(q, text)}</div>`;
   showTheory(q); markDone(true, 20);
 }
 function showSample() {
+  if (currentSession.answered) return;
+  currentSession.answered = true;
   const q = currentSession.items[currentSession.idx];
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Exemple: <em>${q.sample}</em></div>`;
   showTheory(q); markDone(false, 5);
 }
 function showTransformSample() {
+  if (currentSession.answered) return;
+  currentSession.answered = true;
   const q = currentSession.items[currentSession.idx];
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Model: <em>${q.sample}</em></div>`;
   showTheory(q); markDone(false, 5);
