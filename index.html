@@ -535,10 +535,11 @@ function renderLevelMenu(level) {
         ${allMastered ? '<div class="ct-lesson-done">✓</div>' : ''}
         <div class="ct-lesson-icon">${icon}</div>
         <div class="ct-lesson-title">${cat}</div>
-        <div class="ct-lesson-desc">${qs.length} exercicis · ${nDone} iniciats</div>
+        <div class="ct-lesson-desc">${nDone}/${qs.length} exercicis començats</div>
         <div style="margin-top:8px;height:4px;background:var(--track);border-radius:2px;overflow:hidden;">
           <div style="height:100%;width:${masteryPct}%;background:${masteryColor};transition:width 0.3s;border-radius:2px;"></div>
         </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;text-align:right;">${masteryPct}% de domini</div>
         <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
           ${th ? '<span style="background:#ede9fe;color:#6d28d9;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">TEORIA</span>' : ''}
           <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">EXERCICIS</span>
@@ -685,17 +686,55 @@ function startCategoryExercise(level, cat, i) {
 }
 
 // ══ REPÀS SRS ══
+const REVIEW_SIZE = 8;
+let reviewLevel = 'all';
+
+function getReviewPool() {
+  let all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  if (reviewLevel !== 'all') all = all.filter(q => q.level === reviewLevel);
+  return all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4);
+}
+
+// Tria fins a REVIEW_SIZE exercicis prioritzant domini baix, però repartint
+// entre categories (round-robin) perquè la sessió no sigui tota del mateix bloc.
+function getReviewItems() {
+  const pending = sortBySRS(getReviewPool());
+  const byCat = {};
+  pending.forEach(q => { (byCat[q.category] = byCat[q.category] || []).push(q); });
+  const cats = Object.keys(byCat);
+  const out = [];
+  let added = true;
+  while (out.length < REVIEW_SIZE && added) {
+    added = false;
+    for (const c of cats) {
+      if (byCat[c].length) {
+        out.push(byCat[c].shift());
+        added = true;
+        if (out.length >= REVIEW_SIZE) break;
+      }
+    }
+  }
+  return out;
+}
+
+function setReviewLevel(lv) { reviewLevel = lv; renderReview(); }
+
 function renderReview() {
-  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
-  const toStudy = sortBySRS(all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4)).slice(0, 15);
+  const pool = getReviewPool();
+  const toStudy = getReviewItems();
+  const chips = [['all','Tot'],['a2','A2'],['b1','B1'],['b2','B2'],['c1','C1']].map(([lv,lab]) => {
+    const active = reviewLevel === lv;
+    return `<button onclick="setReviewLevel('${lv}')" style="padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ${active ? 'var(--c1)' : 'var(--border)'};background:${active ? 'var(--c1)' : 'var(--surface)'};color:${active ? '#fff' : 'var(--muted)'};">${lab}</button>`;
+  }).join('');
 
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:12px;">🔁 Repàs intel·ligent</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">${chips}</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
-        ${toStudy.length > 0
-          ? `Tens <strong>${toStudy.length}</strong> exercicis que necessiten repàs. Prioritzem els de domini més baix.`
-          : 'No hi ha exercicis pendents. Practica més exercicis per activar el repàs!'}
+        ${pool.length > 0
+          ? `Repassaràs <strong>${toStudy.length}</strong> exercicis variats${pool.length > toStudy.length ? ` (de <strong>${pool.length}</strong> pendents)` : ''}. Prioritzem els de domini més baix.`
+          : 'No hi ha exercicis pendents en aquest nivell. Practica més exercicis per activar el repàs!'}
       </p>
       ${toStudy.length > 0 ? `
         <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startReviewSession()">
@@ -720,8 +759,7 @@ function renderReview() {
 }
 
 function startReviewSession() {
-  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
-  const items = sortBySRS(all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4)).slice(0, 15);
+  const items = getReviewItems();
   if (!items.length) return;
   currentSession = { items, idx:0, correct:0, level:'mixed', returnTo:'review' };
   renderExercise();
