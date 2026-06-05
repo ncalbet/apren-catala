@@ -813,7 +813,8 @@ function renderChoice(q) {
     <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
 }
 function renderFill(q) {
-  return `<div class="ct-sentence">${q.sentence.replace('___','<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">')}</div>
+  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
+    <div class="ct-sentence">${q.sentence.replace('___','<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">')}</div>
     ${q.display ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>` : ''}
     <button class="ct-btn primary" onclick="checkFill()">Comprovar</button>`;
 }
@@ -826,7 +827,8 @@ function reorderBlockHTML(parts) {
 function renderReorder(q) {
   const shuffled = [...q.parts].sort(() => Math.random()-0.5);
   window._reorder_parts = shuffled;
-  return `<p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Toca un bloc per seleccionar-lo i toca un altre per intercanviar-los (o arrossega):</p>
+  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
+    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Toca un bloc per seleccionar-lo i toca un altre per intercanviar-los (o arrossega):</p>
     <div class="ct-parts" id="reorder-list">${reorderBlockHTML(shuffled)}</div>
     <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()">Comprovar ordre</button>`;
 }
@@ -835,7 +837,8 @@ function renderReading(q) {
     <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
 }
 function renderWriting(q) {
-  return `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:#1e40af;font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
+  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:#1e40af;font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
     <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
@@ -843,7 +846,8 @@ function renderWriting(q) {
     </div>`;
 }
 function renderTransform(q) {
-  return `<div style="background:#fef3c7;border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:#78350f;line-height:1.55;">
+  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
+    <div style="background:#fef3c7;border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:#78350f;line-height:1.55;">
       Original: <strong>${q.original}</strong></div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
     <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
