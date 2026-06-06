@@ -1867,7 +1867,7 @@ const DATA = {
 
     { id:'b1-pf6', type:'fill', level:'b1', category:'Pronoms febles B1',
       question:'Completa amb «en» o «hi»:',
-      text:'El pronom «hi» substitueix complements de lloc i també complements introduïts per «en» amb verbs com pensar, confiar o fixar-se. El pronom «en» s\'usa per a complements introduïts per «de».',
+      text:'Alguns verbs com pensar, confiar o fixar-se introdueixen el complement amb «en»; el pronom feble que el substitueix no és el mateix que el dels complements amb «de».',
       sentence:"Penses molt en els teus amics? — Sí, ___ penso molt.",
       display:'pronom feble adequat',
       answers:['hi'],
@@ -1950,7 +1950,7 @@ const DATA = {
 
     { id:'b1-con6', type:'fill', level:'b1', category:'Connectors B1',
       question:'Tria el connector de conseqüència adequat:',
-      text:'Els connectors de conseqüència lliguen una causa amb el seu resultat lògic. En català hi ha diverses opcions equivalents per a registre formal: «per tant», «per això» i «així doncs».',
+      text:'Els connectors de conseqüència lliguen una causa amb el seu resultat lògic. Quin encaixa en un registre formal per introduir la conseqüència?',
       sentence:"Ha après molt de vocabulari nou; ___, pot llegir textos més complexos.",
       display:'connector de conseqüència (registre formal)',
       answers:['per tant','per això','així doncs'],
@@ -1959,7 +1959,7 @@ const DATA = {
     // ── FUTUR I CONDICIONAL B1 ──
     { id:'b1-fc1', type:'fill', level:'b1', category:'Futur i condicional B1',
       question:'Escriu la forma de futur correcta:',
-      text:'El verb «fer» és irregular no només en present sinó també en futur. La base del futur canvia respecte a l\'infinitiu: faré, faràs, farà, farem, fareu, faran.',
+      text:'El verb «fer» és irregular no només en present sinó també en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.',
       sentence:'Demà ___ (fer) molt bon temps, diuen a la ràdio.',
       display:'fer → 3a persona singular futur',
       answers:['farà'],
@@ -1973,7 +1973,7 @@ const DATA = {
 
     { id:'b1-fc3', type:'fill', level:'b1', category:'Futur i condicional B1',
       question:'Completa amb el condicional:',
-      text:'Les frases condicionals irrels (si + imperfet de subjuntiu + condicional) expressen hipòtesis sobre el present: allò que faries si les circumstàncies fossin diferents.',
+      text:'Les frases condicionals irreals (si + imperfet de subjuntiu + condicional) expressen hipòtesis sobre el present: allò que faries si les circumstàncies fossin diferents.',
       sentence:"Si tingués més temps, ___ (estudiar) música.",
       display:'estudiar → 1a pers. sing. condicional',
       answers:['estudiaria'],
@@ -2045,7 +2045,7 @@ const DATA = {
 
     { id:'b1-sub2', type:'fill', level:'b1', category:'Subordinades B1',
       question:'Omple amb el mode verbal correcte (indicatiu o subjuntiu):',
-      text:'La conjunció «perquè» pot expressar dos significats: causa (+ indicatiu: «perquè ho saps») o finalitat (+ subjuntiu: «perquè ho sàpigues»). El context determina quin mode cal usar.',
+      text:'La conjunció «perquè» pot expressar causa (amb indicatiu) o finalitat (amb subjuntiu). Aquí la intenció és la finalitat: amb quin mode va el verb?',
       sentence:"T'ho explico perquè ho ___ (saber, 2a pers. sing.).",
       display:'saber (2a pers. sing.) — tria el mode segons la finalitat',
       answers:['sàpigues'],
@@ -2131,7 +2131,7 @@ const DATA = {
 
     { id:'a2-ses3', type:'fill', level:'a2', category:'Ser, estar i semblar',
       question:'Omple amb el verb correcte (ser, estar o semblar):',
-      text:'«Semblar» s\'usa per expressar l\'aparença que una persona dona als altres, sense afirmar que sigui una realitat. És diferent de «ser» (tret permanent) i «estar» (estat temporal).',
+      text:'Aquí has de triar entre ser, estar i semblar. Pensa en la diferència entre un tret real i la simple impressió que algú fa als altres.',
       sentence:"L'Aniol ___ tímid, però en realitat és molt obert quan el coneixes.",
       display:"verb d'aparença (la impressió que dona)",
       answers:['sembla'],
@@ -2194,7 +2194,7 @@ const DATA = {
 
     { id:'a2-adc6', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina forma plural és correcta?',
-      text:'L\'adjectiu «tranquil» té una ortografia especial: el femení s\'escriu «tranquil·la» (amb l·l geminada). Al plural, cadascuna de les formes segueix la seva pròpia norma.',
+      text:'L\'adjectiu «tranquil» té una particularitat ortogràfica en femení relacionada amb la ela geminada (l·l). Pensa com queden les formes de plural.',
       options:['tranquils i tranquil·les','tranquiles i tranquilas','tranquils i tranquiles'],
       correct:0, theory:"«Tranquil» fa femení «tranquil·la» (l·l geminada) i plurals «tranquils» (masc.) i «tranquil·les» (fem.).", example:"Ells són molt tranquils. / Elles són molt tranquil·les." },
 
@@ -2265,7 +2265,7 @@ const DATA = {
 
     { id:'a2-pfa5', type:'fill', level:'a2', category:'Pronoms febles A2',
       question:'Omple el buit amb el pronom feble adequat:',
-      text:'El pronom «ho» substitueix un adjectiu o atribut predicatiu quan apareix amb els verbs ser, estar i semblar. A diferència de «el/la», «ho» no concorda en gènere ni nombre.',
+      text:'Per substituir un adjectiu o atribut amb els verbs ser, estar i semblar, el català fa servir un pronom neutre que no concorda en gènere ni nombre.',
       sentence:"«La Raquel és divertida?» «Sí, ___ és molt.»",
       display:"pronom que substitueix l'adjectiu «divertida»",
       answers:['ho'],
@@ -2300,7 +2300,7 @@ const DATA = {
 
     { id:'a2-imp4', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Completa amb la perífrasi d'hàbit passat:",
-      text:"La perífrasi «soler + infinitiu» en imperfet expressa un hàbit del passat: allò que algú feia regularment. El verb «soler» en imperfet: solia, solies, solia, solíem, solíeu, solien.",
+      text:"La perífrasi «soler + infinitiu» en imperfet expressa un hàbit del passat: allò que algú feia regularment. Recorda com es conjuga «soler» en imperfet.",
       sentence:"La meva àvia ___ (soler) fer el mercat cada dissabte al matí.",
       display:"imperfet de «soler» (3a pers. sing.)",
       answers:['solia'],
@@ -2314,7 +2314,7 @@ const DATA = {
 
     { id:'a2-imp6', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Escriu la forma correcta de l'imperfet:",
-      text:"El verb «fer» és irregular en imperfet. No segueix el patró regular (-ava), sinó un de propi: feia, feies, feia, fèiem, fèieu, feien.",
+      text:"El verb «fer» és irregular en imperfet: no segueix el patró regular en -ava, sinó un de propi. Recorda'n la forma.",
       sentence:"Quan tenia vint anys, ___ (fer) molt esport i tenia molta energia.",
       display:"imperfet 1a pers. sing. de «fer»",
       answers:['feia'],
@@ -2365,7 +2365,7 @@ const DATA = {
       correct:1, theory:'«On» pregunta per llocs. «Quan» per temps. «Com» per manera. «Qui» per persones.', example:'On és l\'escola? / On vius?' },
     { id:'a2-pi2', type:'fill', level:'a2', category:'Preguntes i interrogació',
       question:'Completa la pregunta amb la paraula interrogativa correcta:',
-      text:'En català, per preguntar el nom d\'una persona s\'usa «com», no «qui». «Qui» s\'usa per preguntar per la identitat d\'una persona, però «com» és la forma correcta per demanar el nom.',
+      text:'En català, l\'interrogatiu per demanar el nom d\'algú no és el mateix que el que fem servir per preguntar per la seva identitat. Vigila la interferència del castellà.',
       sentence:'___ es diu el teu professor?',
       display:'interrogatiu per a noms de persones', answers:['Com'],
       theory:'«Com» s\'usa per preguntar el nom: «Com et dius?» / «Com es diu?». No «Qui» per a noms.', example:'Com et dius? / Com es diu ella?' },
@@ -2376,7 +2376,7 @@ const DATA = {
       correct:1, theory:'En català el pronom subjecte (tu, ell, ella) s\'omet habitualment perquè la desinència verbal ja l\'indica. «Tu» és opcional i se sol ometre. Atenció: en català «tu» no porta accent gràfic (a diferència del castellà «tú»); l\'opció «Quants anys tens tú?» conté, a més d\'un ordre forçat, un accent inexistent en català.', example:'Quants anys tens? / D\'on ets? / Que treballes?' },
     { id:'a2-pi4', type:'fill', level:'a2', category:'Preguntes i interrogació',
       question:'Omple amb la paraula interrogativa correcta:',
-      text:'Per preguntar per preus i quantitats generals s\'usa «quant» (invariable). Quan preguntem per elements comptables usem «quants» (masc.) o «quantes» (fem.).',
+      text:'Per preguntar pel preu d\'una cosa, l\'interrogatiu de quantitat té una forma invariable, diferent de la que concorda amb noms comptables.',
       sentence:'___ costa aquest llibre?',
       display:'interrogatiu per a preus', answers:['Quant'],
       theory:'«Quant» (invariable) per a preus i quantitats indeterminades. «Quants/Quantes» per a quantitats comptables: «Quants llibres tens?»', example:'Quant costa? / Quant val? / Quants en vols?' },
