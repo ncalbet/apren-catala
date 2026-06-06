@@ -358,6 +358,8 @@ let progress = (function() {
 let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
 let tapSelectedIdx = null;
+let _navState = { screen: 'menu' };
+function _setNav(s) { _navState = s; }
 
 function saveProgress() { localStorage.setItem('cat_prog_v7', JSON.stringify(progress)); }
 
@@ -475,6 +477,8 @@ function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300
 
 // ══ NAV ══
 function showTab(tab) {
+  if (['a2','b1','b2','c1'].includes(tab)) _setNav({screen:'level', level:tab});
+  else _setNav({screen: tab});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('nav-' + tab).classList.add('active');
   if (tab === 'menu') renderMenu();
@@ -600,6 +604,7 @@ function renderLevelMenu(level) {
 
 // ══ TEORIA + EXERCICIS ══
 function openCategory(level, cat) {
+  _setNav({screen:'cat', level, cat});
   const th = THEORY[cat];
   const exercises = DATA[level].filter(q => q.category === cat);
 
@@ -809,6 +814,7 @@ function startReviewSession() {
 
 // ══ EXERCICI ══
 function renderExercise() {
+  _setNav({screen:'exercise'});
   const { items, idx } = currentSession;
   if (idx >= items.length) return renderSummary();
   const q = items[idx];
@@ -1157,6 +1163,7 @@ function goNext() { currentSession.idx++; renderExercise(); }
 function renderSummary() {
   clearActiveSession();
   const { items, correct, level, returnTo, cat } = currentSession;
+  _setNav({screen:'summary', returnTo, level, cat: cat||null});
   const pct = Math.round(correct / items.length * 100);
   if (pct === 100 && items.length >= 3) { progress.perfectSessions = (progress.perfectSessions||0)+1; saveProgress(); }
   const emoji = pct>=80?'🏆':pct>=60?'👍':'📚';
@@ -1818,19 +1825,35 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
 }
 
 /* ══ Botó enrere del dispositiu/navegador ══
-   Sense això, el botó enrere tancava la pestanya (queixa de testers).
-   Mantenim sempre un estat "tampó" a l'historial: en prémer enrere,
-   si s'està fent un exercici el desem i tornem a l'inici; des de
-   qualsevol altra subpantalla també tornem a l'inici. */
+   Navega jeràrquicament: exercici→categoria, categoria→nivell,
+   nivell/repàs/etc→inici. A l'inici no fa res (no tanca l'app). */
+function _goBack() {
+  const s = _navState;
+  if (s.screen === 'exercise') {
+    saveActiveSession();
+    const rt = currentSession.returnTo;
+    const lv = currentSession.level;
+    const cat = currentSession.cat;
+    if (rt === 'cat' && cat) { openCategory(lv, cat); }
+    else if (rt === 'review') { showTab('review'); }
+    else { showTab(lv); }
+  } else if (s.screen === 'summary') {
+    if (s.returnTo === 'cat' && s.cat) { openCategory(s.level, s.cat); }
+    else if (s.returnTo === 'review') { showTab('review'); }
+    else { showTab(s.level); }
+  } else if (s.screen === 'cat') {
+    showTab(s.level);
+  } else if (s.screen !== 'menu') {
+    showTab('menu');
+  }
+  // si és 'menu', no fem res (no tanca l'app)
+}
+
 function initBackHandler() {
   history.pushState({ ac: 1 }, '');
   window.addEventListener('popstate', () => {
     history.pushState({ ac: 1 }, '');
-    const inExercise = !!document.querySelector('.ct-step');
-    if (inExercise) saveActiveSession();
-    const onMenu = document.getElementById('nav-menu') &&
-      document.getElementById('nav-menu').classList.contains('active');
-    if (inExercise || !onMenu) showTab('menu');
+    _goBack();
   });
 }
 
