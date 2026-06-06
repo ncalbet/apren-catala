@@ -361,6 +361,37 @@ let tapSelectedIdx = null;
 
 function saveProgress() { localStorage.setItem('cat_prog_v7', JSON.stringify(progress)); }
 
+// ══ SESSIÓ ACTIVA (persistència per reprendre on s'ha deixat) ══
+const SESSION_KEY = 'cat_session_v1';
+function findExerciseById(id) {
+  return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].find(q => q.id === id) || null;
+}
+function saveActiveSession() {
+  const s = currentSession;
+  if (!s || !s.items || !s.items.length || s.idx >= s.items.length) { clearActiveSession(); return; }
+  localStorage.setItem(SESSION_KEY, JSON.stringify({
+    ids: s.items.map(q => q.id), idx: s.idx, correct: s.correct,
+    level: s.level, returnTo: s.returnTo, cat: s.cat || null
+  }));
+}
+function clearActiveSession() { localStorage.removeItem(SESSION_KEY); }
+function getSavedSession() {
+  const d = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+  if (!d || !d.ids || !d.ids.length || d.idx >= d.ids.length) return null;
+  return d;
+}
+function resumeSavedSession() {
+  const d = getSavedSession();
+  if (!d) { renderMenu(); return; }
+  const items = d.ids.map(findExerciseById).filter(Boolean);
+  if (!items.length) { clearActiveSession(); renderMenu(); return; }
+  currentSession = {
+    items, idx: Math.min(d.idx, items.length - 1), correct: d.correct || 0,
+    level: d.level, returnTo: d.returnTo, cat: d.cat || undefined
+  };
+  renderExercise();
+}
+
 // ══ MODE FOSC ══
 function updateThemeIcon() {
   const btn = document.getElementById('ct-theme-toggle');
@@ -463,7 +494,18 @@ function renderMenu() {
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
   const needsReview = [...(DATA.a2||[]),...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
+  const saved = getSavedSession();
+  const resumeBanner = saved ? `
+    <div class="ct-card" style="padding:16px 18px;margin-bottom:16px;border:1px solid var(--c1);background:var(--surface);">
+      <div style="font-size:14px;font-weight:600;color:var(--heading);margin-bottom:4px;">⏸️ Tens una sessió a mitges</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Exercici ${saved.idx + 1} de ${saved.ids.length}. Vols continuar on ho vas deixar?</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="ct-btn primary" style="flex:1;min-width:140px;" onclick="resumeSavedSession()">▶ Continuar</button>
+        <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="clearActiveSession();renderMenu()">Descartar</button>
+      </div>
+    </div>` : '';
   document.getElementById('ct-body').innerHTML = `
+    ${resumeBanner}
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">Benvingut/da!</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
@@ -772,6 +814,7 @@ function renderExercise() {
   const q = items[idx];
   const pct = Math.round(idx / items.length * 100);
   currentSession.answered = false;
+  saveActiveSession();
 
   let body = '';
   if (q.type==='choice') body = renderChoice(q);
@@ -813,8 +856,13 @@ function renderChoice(q) {
     <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
 }
 function renderFill(q) {
+  const inputHTML = '<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">';
+  const hasBlank = q.sentence.includes('___');
+  const sentenceHTML = hasBlank
+    ? q.sentence.replace('___', inputHTML)
+    : `${q.sentence}<div style="margin-top:10px;">${inputHTML}</div>`;
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div class="ct-sentence">${q.sentence.replace('___','<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">')}</div>
+    <div class="ct-sentence">${sentenceHTML}</div>
     ${q.display ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>` : ''}
     <button class="ct-btn primary" onclick="checkFill()">Comprovar</button>`;
 }
@@ -1106,6 +1154,7 @@ function markDone(ok, xp) {
 function goNext() { currentSession.idx++; renderExercise(); }
 
 function renderSummary() {
+  clearActiveSession();
   const { items, correct, level, returnTo, cat } = currentSession;
   const pct = Math.round(correct / items.length * 100);
   if (pct === 100 && items.length >= 3) { progress.perfectSessions = (progress.perfectSessions||0)+1; saveProgress(); }
@@ -1768,6 +1817,14 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
 
 /* ══ PWA: Registre del Service Worker ══ */
 if ('serviceWorker' in navigator) {
+  // Quan un SW nou pren el control (codi actualitzat), recarreguem un sol cop
+  // perquè el client deixi de servir versions antigues en caché.
+  let _swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (_swReloaded) return;
+    _swReloaded = true;
+    window.location.reload();
+  });
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
       .then(reg => console.log('[SW] Registrat correctament:', reg.scope))

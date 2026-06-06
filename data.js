@@ -38,7 +38,7 @@
         title: 'Errors freqüents',
         icon: '⚠️',
         rules: [
-          { bad: 'Estic molt simpàtic avui.', good: "Soc molt simpàtic. (característica) / Estic de molt bon humor. (estat d'avui)" },
+          { bad: 'Avui soc malalt, no aniré a treballar.', good: "Avui estic malalt, no aniré a treballar. (estat de salut transitori)" },
           { bad: 'És nerviós ara mateix.', good: 'Està nerviós ara mateix. (estat transitori)' },
           { bad: 'Ell és cansat.', good: 'Ell està cansat. (estat passatger)' },
         ]
@@ -2883,7 +2883,7 @@ const DATA = {
       text:'Quan en una frase coincideixen un complement directe i un d\'indirecte, els pronoms febles es combinen seguint un ordre i unes formes concretes.',
       question:'Substitueix el CD (les notes) i el CI (a mi) pel pronom combinat correcte:',
       sentence:'El director m\'ha promès les notes. → El director ___ ha promès.',
-      display:'me + les (CI 1a pers. + CD fem. pl.)',
+      display:'CI de 1a persona + CD femení plural (forma i ordre correctes)',
       answers:['me les'],
       theory:'Quan es combinen CI i CD, l\'ordre és sempre CI + CD: me\'l, te\'ls, me les, li ho... «A mi» (CI) → me · «les notes» (CD fem. pl.) → les · Combinació: me les.', example:'M\'has donat el regal → Me l\'has donat. / T\'ha explicat la situació → Te l\'ha explicada.' },
 

@@ -1,6 +1,6 @@
 // Català Trainer — Service Worker
 // Versió de la caché — canvia aquest número per forçar actualització
-const CACHE_VERSION = 'catala-trainer-v8';
+const CACHE_VERSION = 'catala-trainer-v9';
 
 // Fitxers a guardar en caché per funcionar offline
 const ASSETS_TO_CACHE = [
