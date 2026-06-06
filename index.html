@@ -834,8 +834,8 @@ function renderExercise() {
             <span class="ct-badge ${q.level||'b2'}">${(q.level||'b2').toUpperCase()}</span>
             <span style="font-size:11px;color:var(--muted);margin-left:6px;">${q.category}</span>
           </div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);">
-            Domini ${masteryHTML(q.id)}
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);" title="El teu domini d'aquest exercici (de 0 a 5). Puja quan l'encertes i baixa si falles.">
+            Domini ${getMastery(q.id)}/5 ${masteryHTML(q.id)}
           </div>
         </div>
         <div class="ct-q">${q.question}</div>
@@ -926,8 +926,9 @@ function checkFill() {
   currentSession.answered = true;
   input.disabled = true;
   const ok = q.answers.some(a => normalize(a) === val);
+  const alts = q.answers.filter(a => normalize(a) !== val);
   document.getElementById('feedback-area').innerHTML = ok
-    ? `<div class="ct-feedback ok">✓ Correcte! La forma és: <strong>${q.answers[0]}</strong></div>`
+    ? `<div class="ct-feedback ok">✓ Correcte!${alts.length ? ` Altres formes vàlides: <strong>${alts.join(', ')}</strong>.` : ''}</div>`
     : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q); markDone(ok, 10);
 }
@@ -1813,6 +1814,24 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
   updateThemeIcon();
   if (shouldShowOnboarding()) renderOnboarding();
   else renderMenu();
+  initBackHandler();
+}
+
+/* ══ Botó enrere del dispositiu/navegador ══
+   Sense això, el botó enrere tancava la pestanya (queixa de testers).
+   Mantenim sempre un estat "tampó" a l'historial: en prémer enrere,
+   si s'està fent un exercici el desem i tornem a l'inici; des de
+   qualsevol altra subpantalla també tornem a l'inici. */
+function initBackHandler() {
+  history.pushState({ ac: 1 }, '');
+  window.addEventListener('popstate', () => {
+    history.pushState({ ac: 1 }, '');
+    const inExercise = !!document.querySelector('.ct-step');
+    if (inExercise) saveActiveSession();
+    const onMenu = document.getElementById('nav-menu') &&
+      document.getElementById('nav-menu').classList.contains('active');
+    if (inExercise || !onMenu) showTab('menu');
+  });
 }
 
 /* ══ PWA: Registre del Service Worker ══ */
