@@ -2924,7 +2924,7 @@ const DATA = {
       display:'ser (imperfet subj. 3a pers. sing.)', answers:['fos','sigui'],
       theory:'«Tant de bo» amb imperfet de subjuntiu: desig difícil o impossible. Amb present: desig possible.', example:'Tant de bo pugui venir! (possible) / Tant de bo pogués volar! (impossible)' },
     { id:'c1-sa6', type:'choice', level:'c1', category:'Subjuntiu avançat',
-      question:'Quina és la forma correcta amb «per bé que» en registre formal?',
+      question:'Quin connector concessiu completa correctament aquesta frase formal?',
       text:'___ els resultats siguin positius, cal continuar vigilant l\'evolució.',
       options:['Malgrat que','Per bé que','Ja que','Per tant'],
       correct:1, theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },

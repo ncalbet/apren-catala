@@ -94,7 +94,7 @@
     .ct-badge.c1 { background: #fef3c7; color: #92400e; }
 
     /* QUESTION */
-    .ct-q { font-family: 'Fraunces', serif; font-size: 20px; line-height: 1.4; margin-bottom: 16px; color: var(--heading); }
+    .ct-q { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; line-height: 1.4; margin-bottom: 16px; color: var(--heading); }
 
     /* INPUTS */
     .ct-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); margin-top: 8px; transition: border-color 0.15s; outline: none; }
@@ -147,7 +147,7 @@
     .th-hero-sub { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
 
     .th-section { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 22px; margin-bottom: 12px; max-width: 640px; margin-left: auto; margin-right: auto; }
-    .th-section-title { font-family: 'Fraunces', serif; font-size: 16px; color: var(--heading); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .th-section-title { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--heading); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .th-section-icon { font-size: 18px; }
     .th-body { font-size: 14px; line-height: 1.75; color: var(--text-soft); }
     .th-body p { margin-bottom: 10px; }
@@ -264,7 +264,7 @@
 </script>
 
 <div class="ct-header">
-  <div class="ct-logo">Aprèn<span>Català</span></div>
+  <div class="ct-logo" onclick="showTab('menu')" style="cursor:pointer;" title="Inici">Aprèn<span>Català</span></div>
   <div class="ct-stats">
     <button class="ct-theme-toggle" id="ct-theme-toggle" onclick="toggleTheme()" aria-label="Canviar tema" title="Mode clar / fosc">🌙</button>
     <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ <span class="kofi-text">Convida'm a un cafè</span></a>
@@ -595,7 +595,7 @@ function renderLevelMenu(level) {
 
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
-      <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">Nivell ${level.toUpperCase()}</div>
+      <div style="font-size:24px;font-weight:700;color:var(--heading);margin-bottom:4px;">Nivell ${level.toUpperCase()}</div>
       <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">${desc}</p>
       <button class="ct-btn primary" style="margin-bottom:20px;" onclick="startAllSession('${level}')">▶ Practicar tots els exercicis (${items.length})</button>
       <div class="ct-grid">${catCards}</div>
@@ -618,7 +618,7 @@ function openCategory(level, cat) {
       </div>
       ${th.sections.map(s => renderTheorySection(s)).join('')}
       <div style="max-width:640px;margin:0 auto 8px;">
-        <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--heading);margin:8px 0 4px;padding:0 4px;">Ara practica</div>
+        <div style="font-size:20px;font-weight:700;color:var(--heading);margin:8px 0 4px;padding:0 4px;">Ara practica</div>
         <p style="font-size:13px;color:var(--muted);padding:0 4px;margin-bottom:12px;">Posa en pràctica el que has après amb ${exercises.length} exercici${exercises.length>1?'s':''}.</p>
       </div>`;
   }
@@ -776,7 +776,8 @@ function renderReview() {
 
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:12px;">🔁 Repàs intel·ligent</div>
+      <button class="ct-btn secondary" style="margin-bottom:14px;padding:6px 14px;font-size:13px;" onclick="showTab('menu')">← Inici</button>
+      <div style="font-size:22px;font-weight:700;color:var(--heading);margin-bottom:12px;">🔁 Repàs intel·ligent</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">${chips}</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
         ${pool.length > 0
@@ -862,7 +863,7 @@ function renderChoice(q) {
     <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
 }
 function renderFill(q) {
-  const inputHTML = '<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">';
+  const inputHTML = '<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:'DM Sans',sans-serif;outline:none;display:inline;margin:0 4px;">';
   const hasBlank = q.sentence.includes('___');
   const sentenceHTML = hasBlank
     ? q.sentence.replace('___', inputHTML)
@@ -1172,6 +1173,8 @@ function renderSummary() {
     ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="openCategory('${level}','${(cat||'').replace(/'/g,"\\'")}')">← Tornar al tema</button>`
     : returnTo === 'review'
     ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="renderReview();document.getElementById('nav-review').classList.add('active')">← Tornar al repàs</button>`
+    : returnTo === 'menu'
+    ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="showTab('menu')">← Tornar a l'inici</button>`
     : `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="renderLevelMenu('${level}')">← Tornar al nivell</button>`;
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card ct-summary" style="max-width:480px;">
@@ -1407,9 +1410,8 @@ function startDailySession() {
   const dc = getDailyChallenge();
   const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
-  currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
+  currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'menu' };
   renderExercise();
-  document.getElementById('nav-review').click();
 }
 
 function getMidnightCountdown() {
@@ -1425,7 +1427,7 @@ function getMidnightCountdown() {
 function render7DayHistory() {
   const history = new Set(progress.practiceHistory || []);
   const days = [];
-  for (let i = 0; i <= 6; i++) {
+  for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     days.push(d);
@@ -1438,12 +1440,13 @@ function render7DayHistory() {
         const label = d.toLocaleDateString('ca', { weekday: 'short' });
         const isToday = ds === new Date().toDateString();
         return `<div style="text-align:center;flex:1;">
-          <div style="height:36px;border-radius:8px;background:${done ? '#059669' : 'var(--track)'};
+          <div style="height:${isToday ? '40px' : '36px'};border-radius:8px;background:${done ? '#059669' : 'var(--track)'};
             display:flex;align-items:center;justify-content:center;font-size:18px;
-            border:${isToday ? '2px solid var(--c1)' : '2px solid transparent'};">
+            border:${isToday ? '2px solid var(--c1)' : '2px solid transparent'};
+            box-shadow:${isToday ? '0 0 0 2px var(--c1)' : 'none'};">
             ${done ? '✓' : (isToday ? '·' : '')}
           </div>
-          <div style="font-size:9px;color:var(--muted);margin-top:4px;text-transform:capitalize;">${label}</div>
+          <div style="font-size:9px;color:${isToday ? 'var(--c1)' : 'var(--muted)'};font-weight:${isToday ? '700' : '400'};margin-top:4px;text-transform:capitalize;">${label}</div>
         </div>`;
       }).join('')}
     </div>`;
@@ -1544,11 +1547,11 @@ function renderAchievements() {
 
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">🏅 Assoliments i Medalles</div>
+      <div style="font-size:22px;font-weight:700;color:var(--heading);margin-bottom:20px;">🏅 Assoliments i Medalles</div>
 
       ${renderDailyChallengeSection()}
 
-      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">📅 Activitat dels últims 7 dies</div>
+      <div style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:8px;">📅 Activitat dels últims 7 dies</div>
       ${render7DayHistory()}
 
       <div style="font-size:13px;color:var(--muted);margin:16px 0 8px;">${nAll} de ${totalAll} assoliments desblocats</div>
@@ -1556,30 +1559,30 @@ function renderAchievements() {
         <div style="background:#059669;height:100%;width:${Math.round(nAll/totalAll*100)}%;border-radius:10px;transition:width 0.5s;"></div>
       </div>
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border);">
+      <div style="font-size:18px;font-weight:700;color:var(--heading);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border);">
         ⭐ Assoliments generals
       </div>
       ${groupsHTML}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#059669;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #d1fae5;">
+      <div style="font-size:18px;font-weight:700;color:#059669;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #d1fae5;">
         🟢 Medalles B1 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b1done}/${b1medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B1.</p>
       ${renderMedalGrid(b1medals, unlockedM)}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#1e40af;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
+      <div style="font-size:18px;font-weight:700;color:#1e40af;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
         🥉 Medalles B2 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b2done}/${b2medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B2.</p>
       ${renderMedalGrid(b2medals, unlockedM)}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#d97706;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #fef3c7;">
+      <div style="font-size:18px;font-weight:700;color:#d97706;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #fef3c7;">
         🥇 Medalles C1 <span style="font-size:13px;font-weight:400;color:var(--muted);">${c1done}/${c1medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell C1.</p>
       ${renderMedalGrid(c1medals, unlockedM)}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#7c3aed;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #ede9fe;">
+      <div style="font-size:18px;font-weight:700;color:#7c3aed;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #ede9fe;">
         🏆 Supermedalles <span style="font-size:13px;font-weight:400;color:var(--muted);">${superDone}/${superMs.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">El repte final. Reservades per als millors.</p>
@@ -1633,12 +1636,12 @@ function renderProgress() {
 
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">El teu progrés</div>
+      <div style="font-size:22px;font-weight:700;color:var(--heading);margin-bottom:20px;">El teu progrés</div>
       <div style="background:linear-gradient(135deg,#1a2f4e,#2d4a7a);border-radius:14px;padding:20px 24px;color:#fff;margin-bottom:24px;">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
           <span style="font-size:40px;">${lv.emoji}</span>
           <div>
-            <div style="font-family:'Fraunces',serif;font-size:20px;">${lv.name}</div>
+            <div style="font-size:20px;font-weight:700;">${lv.name}</div>
             <div style="font-size:12px;opacity:0.75;">${lv.title}</div>
           </div>
         </div>
@@ -1678,7 +1681,7 @@ function renderProgress() {
         </div>
         <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(c1done/c1total*100)}%;background:#d97706;"></div></div>
       </div>
-      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:12px;">Distribució del domini</div>
+      <div style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:12px;">Distribució del domini</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px;">
         <div style="background:#f3f4f6;border-radius:10px;padding:12px;text-align:center;">
           <div style="font-size:22px;font-weight:700;color:var(--muted);">${m0}</div>
@@ -1809,7 +1812,7 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:480px;margin:0 auto;text-align:center;padding:32px;">
       <div style="font-size:40px;margin-bottom:12px;">⚠️</div>
-      <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--heading);margin-bottom:12px;">Error carregant les dades</div>
+      <div style="font-size:20px;font-weight:700;color:var(--heading);margin-bottom:12px;">Error carregant les dades</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
         El fitxer <code>data.js</code> no s'ha pogut carregar.<br>
         Prova de recarregar la pàgina o buida la caché del navegador.
@@ -1836,10 +1839,12 @@ function _goBack() {
     const cat = currentSession.cat;
     if (rt === 'cat' && cat) { openCategory(lv, cat); }
     else if (rt === 'review') { showTab('review'); }
+    else if (rt === 'menu') { showTab('menu'); }
     else { showTab(lv); }
   } else if (s.screen === 'summary') {
     if (s.returnTo === 'cat' && s.cat) { openCategory(s.level, s.cat); }
     else if (s.returnTo === 'review') { showTab('review'); }
+    else if (s.returnTo === 'menu') { showTab('menu'); }
     else { showTab(s.level); }
   } else if (s.screen === 'cat') {
     showTab(s.level);
