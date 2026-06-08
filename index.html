@@ -1594,9 +1594,8 @@ function checkNewAchievements(prevUnlocked) {
   const nowUnlocked = getUnlockedAchievements();
   const newOnes = nowUnlocked.filter(id => !prevUnlocked.includes(id));
   // Medalles de gramàtica
-  const prevMedals = prevUnlocked.filter(id => id.startsWith('b2__') || id.startsWith('c1__') || id.startsWith('master_'));
   const nowMedals  = getUnlockedMedals();
-  const newMedals  = nowMedals.filter(id => !prevMedals.includes(id));
+  const newMedals  = nowMedals.filter(id => !prevUnlocked.includes(id));
   const allNew = [...newOnes, ...newMedals];
   allNew.forEach((id, i) => {
     const a = ACHIEVEMENTS.find(x => x.id === id) || getAllMedals().find(x => x.id === id);
