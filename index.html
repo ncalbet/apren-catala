@@ -726,7 +726,8 @@ function startCategorySession(level, cat) {
 }
 function startCategoryExercise(level, cat, i) {
   const allItems = DATA[level].filter(q => q.category === cat);
-  const doStart = () => { currentSession = { items: allItems, idx:i, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
+  const items = allItems.slice(i);
+  const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
   if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
     showMandatoryTheory(level, cat, doStart);
   } else { doStart(); }
