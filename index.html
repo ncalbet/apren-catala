@@ -418,7 +418,7 @@ function masteryHTML(id) {
     ).join('') + '</div>';
 }
 function sortBySRS(items) {
-  return [...items].sort((a, b) => getMastery(a.id) - getMastery(b.id));
+  return [...items].sort((a, b) => (getMastery(a.id) - getMastery(b.id)) || (Math.random() - 0.5));
 }
 
 // ══ UI ══
