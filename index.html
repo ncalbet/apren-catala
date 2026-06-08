@@ -1408,8 +1408,9 @@ function startDailySession() {
   const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
+  document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-review').classList.add('active');
   renderExercise();
-  document.getElementById('nav-review').click();
 }
 
 function getMidnightCountdown() {
