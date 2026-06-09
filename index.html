@@ -135,6 +135,10 @@
     .ct-part.drag-over { border-color: var(--c1); background: var(--hover); }
     .ct-part.tap-selected { border-color: var(--c1); background: var(--hover); box-shadow: 0 0 0 2px var(--c1); }
     .ct-handle { color: var(--muted); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .ct-move { display: flex; flex-direction: column; gap: 3px; margin-left: auto; flex-shrink: 0; }
+    .ct-move-btn { width: 38px; height: 28px; border: 1.5px solid var(--c1); background: var(--surface); border-radius: 7px; cursor: pointer; font-size: 13px; line-height: 1; color: var(--c1); display: flex; align-items: center; justify-content: center; padding: 0; }
+    .ct-move-btn:active { background: var(--hover); }
+    .ct-move-btn:disabled { opacity: 0.25; cursor: default; border-color: var(--border); color: var(--muted); }
 
     /* THEORY CALLOUT (inside exercise) */
     .ct-theory { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 13px 15px; margin-top: 14px; font-size: 13px; color: #78350f; line-height: 1.6; }
@@ -888,16 +892,31 @@ function renderFill(q) {
     <button class="ct-btn primary" onclick="checkFill()">Comprovar</button>`;
 }
 function reorderBlockHTML(parts) {
+  const n = parts.length;
   return parts.map((p,i)=>`
     <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})" onclick="onTapSelect(${i})">
-      <span class="ct-handle">⠿</span><span>${p}</span>
+      <span class="ct-handle">⠿</span><span style="flex:1;">${p}</span>
+      <span class="ct-move">
+        <button type="button" class="ct-move-btn" ${i===0?'disabled':''} onclick="moveReorderBlock(${i},-1,event)" aria-label="Mou amunt">▲</button>
+        <button type="button" class="ct-move-btn" ${i===n-1?'disabled':''} onclick="moveReorderBlock(${i},1,event)" aria-label="Mou avall">▼</button>
+      </span>
     </div>`).join('');
+}
+function moveReorderBlock(i, dir, ev) {
+  if (ev) ev.stopPropagation();
+  const parts = window._reorder_parts;
+  const j = i + dir;
+  if (j < 0 || j >= parts.length) return;
+  [parts[i], parts[j]] = [parts[j], parts[i]];
+  window._reorder_parts = parts;
+  tapSelectedIdx = null;
+  document.getElementById('reorder-list').innerHTML = reorderBlockHTML(parts);
 }
 function renderReorder(q) {
   const shuffled = [...q.parts].sort(() => Math.random()-0.5);
   window._reorder_parts = shuffled;
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Toca un bloc per seleccionar-lo i toca un altre per intercanviar-los (o arrossega):</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Ordena els blocs amb les fletxes ▲ ▼ de cada línia per moure'l amunt o avall (també pots tocar-ne dos per intercanviar-los, o arrossegar).</p>
     <div class="ct-parts" id="reorder-list">${reorderBlockHTML(shuffled)}</div>
     <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()">Comprovar ordre</button>`;
 }
