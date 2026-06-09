@@ -1483,10 +1483,15 @@ function getMidnightCountdown() {
 
 function render7DayHistory() {
   const history = new Set(progress.practiceHistory || []);
+  // Setmana actual de dilluns a diumenge
+  const base = new Date();
+  const offset = (base.getDay() + 6) % 7; // dies des de dilluns (0 = dilluns)
+  const monday = new Date(base);
+  monday.setDate(base.getDate() - offset);
   const days = [];
   for (let i = 0; i <= 6; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
     days.push(d);
   }
   return `
@@ -1607,7 +1612,7 @@ function renderAchievements() {
 
       ${renderDailyChallengeSection()}
 
-      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">📅 Activitat dels últims 7 dies</div>
+      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">📅 Activitat d'aquesta setmana</div>
       ${render7DayHistory()}
 
       <div style="font-size:13px;color:var(--muted);margin:16px 0 8px;">${nAll} de ${totalAll} assoliments desblocats</div>
