@@ -545,7 +545,9 @@ function renderMenu() {
         </div>
       </div>
       <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:24px;">${pct}% dominat</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:20px;">${pct}% dominat</div>
+      <div style="font-size:13px;font-weight:600;color:var(--heading);text-align:left;">🔥 La teva ratxa</div>
+      ${render7DayHistory()}
       ${(()=>{
         const dc = getDailyChallenge();
         const dcDone = dc.completed.length === dc.ids.length;
