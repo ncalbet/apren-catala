@@ -648,13 +648,17 @@ function openCategory(level, cat) {
         `<span class="ct-mastery-dot${i < avg ? (avg >= 5 ? ' mastered' : ' filled') : ''}"></span>`
       ).join('') + '</div>';
     const n = group.length;
+    const m0 = masteries[0];
+    const desc = n === 1
+      ? (m0 === 0 ? 'Nou' : m0 <= 2 ? 'En aprenentatge' : m0 <= 4 ? 'Ben après' : 'Dominat')
+      : `${n} exercicis`;
     return `
       <div class="ct-lesson-card ${allMastered ? 'done' : ''}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" style="cursor:pointer;">
         ${allMastered ? '<div class="ct-lesson-done">✓</div>' : ''}
         <div class="ct-lesson-icon">${icons[t]}</div>
         <div class="ct-lesson-title">${names[t]}</div>
         ${dots}
-        <div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${n} exercici${n>1?'s':''}</div>
+        <div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${desc}</div>
       </div>`;
   }).join('');
 
