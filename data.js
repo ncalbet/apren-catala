@@ -2851,7 +2851,7 @@ const DATA = {
     { id:'b2-ort6', type:'choice', level:'b2', category:'Ortografia B2',
       question:'Quina frase conté un error ortogràfic?',
       text:'Atenció als errors ortogràfics habituals: dièresi (veïna ✓, raïm ✓), però «conduir» no porta dièresi. Un d\'aquests exemples amaga un error.',
-      options:['La raïm és especialment dolça a la tardor.','La veïna de dalt té una veu molt bonica.','Cal conduïr amb prudència per la carretera.','El pingüí és un ocell que no pot volar.'],
+      options:['El raïm és especialment dolç a la tardor.','La veïna de dalt té una veu molt bonica.','Cal conduïr amb prudència per la carretera.','El pingüí és un ocell que no pot volar.'],
       correct:2, theory:'Els infinitius acabats en -uir no porten dièresi: conduir, construir, produir, destruir. La dièresi (ï) apareix en altres contextos (veïna, raïm) però mai en la terminació -uir d\'un infinitiu.', example:'conduir, construir, produir (sense ï) / veïna, raïm, heroïna (amb ï).' },
 
     // PRONOMS FEBLES B2
