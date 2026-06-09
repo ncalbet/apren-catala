@@ -630,17 +630,27 @@ function openCategory(level, cat) {
 
   const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
   const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',writing:'Producció',transform:'Transformació'};
+  const typeOrder = ['choice','fill','reorder','reading','writing','transform'];
 
-  const exCards = exercises.map((q, i) => {
-    const m = getMastery(q.id);
-    const mLabel = m === 0 ? 'Nou' : m <= 2 ? 'En aprenentatge' : m <= 4 ? 'Ben après' : 'Dominat';
+  const byType = {};
+  exercises.forEach(q => { (byType[q.type] = byType[q.type] || []).push(q); });
+  const exCards = typeOrder.filter(t => byType[t]).map(t => {
+    const group = byType[t];
+    const masteries = group.map(q => getMastery(q.id));
+    const allMastered = masteries.every(m => m >= 4);
+    const avg = Math.round(masteries.reduce((a,b) => a+b, 0) / group.length);
+    const dots = '<div class="ct-mastery">' +
+      Array.from({length:5}, (_,i) =>
+        `<span class="ct-mastery-dot${i < avg ? (avg >= 5 ? ' mastered' : ' filled') : ''}"></span>`
+      ).join('') + '</div>';
+    const n = group.length;
     return `
-      <div class="ct-lesson-card ${m >= 4 ? 'done' : ''}" onclick="startCategoryExercise('${level}','${cat.replace(/'/g,"\\'")}',${i})" style="cursor:pointer;">
-        ${m >= 4 ? '<div class="ct-lesson-done">✓</div>' : ''}
-        <div class="ct-lesson-icon">${icons[q.type]}</div>
-        <div class="ct-lesson-title">${names[q.type]}</div>
-        ${masteryHTML(q.id)}
-        <div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${mLabel}</div>
+      <div class="ct-lesson-card ${allMastered ? 'done' : ''}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" style="cursor:pointer;">
+        ${allMastered ? '<div class="ct-lesson-done">✓</div>' : ''}
+        <div class="ct-lesson-icon">${icons[t]}</div>
+        <div class="ct-lesson-title">${names[t]}</div>
+        ${dots}
+        <div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${n} exercici${n>1?'s':''}</div>
       </div>`;
   }).join('');
 
@@ -729,9 +739,8 @@ function startCategorySession(level, cat) {
     showMandatoryTheory(level, cat, doStart);
   } else { doStart(); }
 }
-function startCategoryExercise(level, cat, i) {
-  const allItems = DATA[level].filter(q => q.category === cat);
-  const items = allItems.slice(i, i + 1);
+function startCategoryType(level, cat, type) {
+  const items = DATA[level].filter(q => q.category === cat && q.type === type);
   const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
   if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
     showMandatoryTheory(level, cat, doStart);
@@ -1184,7 +1193,10 @@ function renderSummary() {
       <div style="font-size:48px;margin-bottom:12px;">${emoji}</div>
       <div class="big">${pct}%</div>
       <p style="color:var(--muted);font-size:15px;margin:8px 0 6px;">${correct} de ${items.length} correctes</p>
-      <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">${msg}</p>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">${msg}</p>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
+        💡 Els punts de <strong>domini</strong> (●) de cada exercici pugen un nivell cada cop que l'encertes. Torna-hi un altre dia per arribar a 5/5 i consolidar-ho.
+      </div>
       <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${((cat||items[0]?.category)||'').replace(/'/g,"\\'")}')">Repetir els exercicis</button>
       ${backBtn}
     </div>`;
