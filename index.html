@@ -576,12 +576,17 @@ function renderLevelMenu(level) {
     const nDone = masteries.filter(m => m > 0).length;
     const masteryPct = Math.round(avgMastery / 5 * 100);
     const masteryColor = avgMastery === 0 ? 'var(--track)' : avgMastery < 2 ? '#f59e0b' : avgMastery < 4 ? '#3b82f6' : '#059669';
+    const statusBadge = allMastered
+      ? '<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ Completat</span>'
+      : nDone === 0
+      ? '<span style="display:inline-block;background:#f1f5f9;color:#64748b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⚪ Per començar</span>'
+      : `<span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🔵 En curs (${nDone}/${qs.length})</span>`;
     return `
       <div class="ct-lesson-card ${allMastered ? 'done' : ''}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')">
         ${allMastered ? '<div class="ct-lesson-done">✓</div>' : ''}
         <div class="ct-lesson-icon">${icon}</div>
         <div class="ct-lesson-title">${cat}</div>
-        <div class="ct-lesson-desc">${nDone}/${qs.length} exercicis començats</div>
+        <div style="margin-top:6px;">${statusBadge}</div>
         <div style="margin-top:8px;height:4px;background:var(--track);border-radius:2px;overflow:hidden;">
           <div style="height:100%;width:${masteryPct}%;background:${masteryColor};transition:width 0.3s;border-radius:2px;"></div>
         </div>
