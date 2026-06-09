@@ -219,6 +219,8 @@
     .ct-mastery-dot { width:7px; height:7px; border-radius:50%; background:var(--track); display:inline-block; }
     .ct-mastery-dot.filled { background:var(--c1); }
     .ct-mastery-dot.mastered { background:#059669; }
+    .ct-lesson-card.mastered { border-color:#d4a72c; }
+    .ct-state { font-size:12px; font-weight:600; margin-top:6px; }
 
     /* LEVEL BADGE al header */
     .ct-level-badge {
@@ -424,6 +426,15 @@ function masteryHTML(id) {
 function sortBySRS(items) {
   return [...items].sort((a, b) => (getMastery(a.id) - getMastery(b.id)) || (Math.random() - 0.5));
 }
+// Estat d'un grup d'exercicis segons el domini SRS:
+//  'empty' = cap intent · 'started' = començat · 'completed' = tots encertats (≥2) · 'mastered' = tots dominats (≥4)
+function groupState(masteries) {
+  if (!masteries.length) return 'empty';
+  if (masteries.every(m => m >= 4)) return 'mastered';
+  if (masteries.every(m => m >= 2)) return 'completed';
+  if (masteries.some(m => m > 0))   return 'started';
+  return 'empty';
+}
 
 // ══ UI ══
 function updateHeader() {
@@ -576,18 +587,21 @@ function renderLevelMenu(level) {
     const icon = th ? th.icon : icons[qs[0].q.type];
     const masteries = qs.map(({q}) => getMastery(q.id));
     const avgMastery = masteries.reduce((a,b) => a+b, 0) / qs.length;
-    const allMastered = masteries.every(m => m >= 4);
-    const nDone = masteries.filter(m => m > 0).length;
+    const state = groupState(masteries);
+    const nDone = masteries.filter(m => m >= 2).length;
     const masteryPct = Math.round(avgMastery / 5 * 100);
-    const masteryColor = avgMastery === 0 ? 'var(--track)' : avgMastery < 2 ? '#f59e0b' : avgMastery < 4 ? '#3b82f6' : '#059669';
-    const statusBadge = allMastered
-      ? '<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ Completat</span>'
-      : nDone === 0
-      ? '<span style="display:inline-block;background:#f1f5f9;color:#64748b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⚪ Per començar</span>'
-      : `<span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🔵 En curs (${nDone}/${qs.length})</span>`;
+    const masteryColor = avgMastery === 0 ? 'var(--track)' : avgMastery < 2 ? '#f59e0b' : avgMastery < 4 ? '#3b82f6' : '#d4a72c';
+    const statusBadge =
+        state === 'mastered'  ? '<span style="display:inline-block;background:#fdf0d5;color:#9a6700;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🥇 Dominat</span>'
+      : state === 'completed' ? '<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ Completat</span>'
+      : state === 'started'   ? `<span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🔵 En curs (${nDone}/${qs.length})</span>`
+      :                         '<span style="display:inline-block;background:#f1f5f9;color:#64748b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⚪ Per començar</span>';
+    const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
+    const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
+                 : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
     return `
-      <div class="ct-lesson-card ${allMastered ? 'done' : ''}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')">
-        ${allMastered ? '<div class="ct-lesson-done">✓</div>' : ''}
+      <div class="ct-lesson-card ${cardClass}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')">
+        ${corner}
         <div class="ct-lesson-icon">${icon}</div>
         <div class="ct-lesson-title">${cat}</div>
         <div style="margin-top:6px;">${statusBadge}</div>
@@ -641,24 +655,25 @@ function openCategory(level, cat) {
   const exCards = typeOrder.filter(t => byType[t]).map(t => {
     const group = byType[t];
     const masteries = group.map(q => getMastery(q.id));
-    const allMastered = masteries.every(m => m >= 4);
-    const avg = Math.round(masteries.reduce((a,b) => a+b, 0) / group.length);
-    const dots = '<div class="ct-mastery">' +
-      Array.from({length:5}, (_,i) =>
-        `<span class="ct-mastery-dot${i < avg ? (avg >= 5 ? ' mastered' : ' filled') : ''}"></span>`
-      ).join('') + '</div>';
+    const state = groupState(masteries);
     const n = group.length;
-    const m0 = masteries[0];
-    const desc = n === 1
-      ? (m0 === 0 ? 'Nou' : m0 <= 2 ? 'En aprenentatge' : m0 <= 4 ? 'Ben après' : 'Dominat')
-      : `${n} exercicis`;
+    const nDone = masteries.filter(m => m >= 2).length;
+    const stateBadge =
+        state === 'mastered'  ? '<div class="ct-state" style="color:#9a6700;">⭐ Dominat</div>'
+      : state === 'completed' ? '<div class="ct-state" style="color:#166534;">✓ Completat</div>'
+      : state === 'started'   ? `<div class="ct-state" style="color:#1d4ed8;">● En curs (${nDone}/${n})</div>`
+      :                         '<div class="ct-state" style="color:var(--muted);">○ Per començar</div>';
+    const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
+    const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
+                 : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
+    const desc = n > 1 ? `<div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${n} exercicis</div>` : '';
     return `
-      <div class="ct-lesson-card ${allMastered ? 'done' : ''}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" style="cursor:pointer;">
-        ${allMastered ? '<div class="ct-lesson-done">✓</div>' : ''}
+      <div class="ct-lesson-card ${cardClass}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" style="cursor:pointer;">
+        ${corner}
         <div class="ct-lesson-icon">${icons[t]}</div>
         <div class="ct-lesson-title">${names[t]}</div>
-        ${dots}
-        <div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${desc}</div>
+        ${stateBadge}
+        ${desc}
       </div>`;
   }).join('');
 
@@ -1218,7 +1233,7 @@ function renderSummary() {
       <p style="color:var(--muted);font-size:15px;margin:8px 0 6px;">${correct} de ${items.length} correctes</p>
       <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">${msg}</p>
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
-        💡 Els punts de <strong>domini</strong> (●) de cada exercici pugen un nivell cada cop que l'encertes. Torna-hi un altre dia per arribar a 5/5 i consolidar-ho.
+        💡 <strong>Completat</strong> ✅ vol dir que ja l'has encertat. El <strong>domini</strong> ⭐ es consolida tornant-hi altres dies fins a 5/5: així aconsegueixes la medalla daurada del tema.
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${((cat||items[0]?.category)||'').replace(/'/g,"\\'")}')">Repetir els exercicis</button>
       ${backBtn}
