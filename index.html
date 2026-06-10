@@ -358,13 +358,15 @@ let progress = (function() {
     (v5.done || []).forEach(id => { mastery[id] = 3; });
     return { xp: v5.xp || 0, streak: v5.streak || 0, mastery, lastDay: v5.lastDay || null };
   }
-  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, practiceHistory: [] };
+  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, practiceHistory: [], freezes: 1 };
 })();
+if (progress.freezes === undefined) progress.freezes = 1; // gel de ratxa (sembra 1 als testers existents)
 
 let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
 let tapSelectedIdx = null;
 let _navState = { screen: 'menu' };
+let _streakFrozen = 0;
 function _setNav(s) { _navState = s; }
 
 function saveProgress() { localStorage.setItem('cat_prog_v7', JSON.stringify(progress)); }
@@ -480,6 +482,16 @@ function showLevelUp(newLevel) {
     </div>`;
   document.body.appendChild(overlay);
 }
+function showFreezeToast(n) {
+  const el = document.createElement('div');
+  el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:#0e7490;color:#fff;padding:12px 20px;border-radius:12px;
+    font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
+    display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+  el.innerHTML = `<span style="font-size:22px;">🛡️</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">GEL DE RATXA</div>Has salvat la ratxa! Et queden ${progress.freezes} gel${progress.freezes===1?'':'s'}.</div>`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
 function showEncouragement(category) {
   const msg = ENCOURAGEMENT[category] || ENCOURAGEMENT['default'];
   const el = document.createElement('div');
@@ -548,6 +560,7 @@ function renderMenu() {
       <div style="font-size:12px;color:var(--muted);margin-bottom:20px;">${pct}% dominat</div>
       <div style="font-size:13px;font-weight:600;color:var(--heading);text-align:left;">🔥 La teva ratxa</div>
       ${render7DayHistory()}
+      <div style="font-size:11px;color:var(--muted);text-align:center;margin:-6px 0 18px;">🛡️ ${progress.freezes} gel${progress.freezes===1?'':'s'} de ratxa · et salven la ratxa si et saltes un dia</div>
       ${(()=>{
         const dc = getDailyChallenge();
         const dcDone = dc.completed.length === dc.ids.length;
@@ -1155,16 +1168,27 @@ function markDone(ok, xp) {
   if (ok) { progress.consec = (progress.consec || 0) + 1; }
   else     { progress.consec = 0; }
 
-  // Ratxa diària + historial
+  // Ratxa diària + historial (amb gel de ratxa)
   const today = new Date().toDateString();
   if (progress.lastDay !== today) {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toDateString();
-    if (progress.lastDay && progress.lastDay !== yesterdayStr) {
-      progress.streak = 1;
+    const daysSince = progress.lastDay
+      ? Math.round((new Date(today) - new Date(progress.lastDay)) / 86400000)
+      : 1;
+    if (daysSince <= 1) {
+      progress.streak = (progress.streak || 0) + 1;
     } else {
-      progress.streak++;
+      const missed = daysSince - 1;
+      if ((progress.freezes || 0) >= missed) {
+        progress.freezes -= missed;              // un gel cobreix cada dia saltat
+        progress.streak = (progress.streak || 0) + 1;
+        _streakFrozen = missed;
+      } else {
+        progress.streak = 1;                     // ratxa trencada
+      }
+    }
+    // Guanya un gel cada 5 dies de ratxa (màxim 3)
+    if (progress.streak > 0 && progress.streak % 5 === 0 && (progress.freezes || 0) < 3) {
+      progress.freezes = (progress.freezes || 0) + 1;
     }
     progress.lastDay = today;
     if (!progress.practiceHistory) progress.practiceHistory = [];
@@ -1200,6 +1224,7 @@ function markDone(ok, xp) {
   const _prevUnlocked = [...getUnlockedAchievements(), ...getUnlockedMedals()];
   saveProgress(); updateHeader();
   checkNewAchievements(_prevUnlocked);
+  if (_streakFrozen > 0) { showFreezeToast(_streakFrozen); _streakFrozen = 0; }
   if (ok) currentSession.correct++;
   document.getElementById('nav-row').style.display = 'flex';
 
@@ -1483,15 +1508,11 @@ function getMidnightCountdown() {
 
 function render7DayHistory() {
   const history = new Set(progress.practiceHistory || []);
-  // Setmana actual de dilluns a diumenge
-  const base = new Date();
-  const offset = (base.getDay() + 6) % 7; // dies des de dilluns (0 = dilluns)
-  const monday = new Date(base);
-  monday.setDate(base.getDate() - offset);
+  // Finestra mòbil dels últims 7 dies, en ordre cronològic (avui a la dreta)
   const days = [];
-  for (let i = 0; i <= 6; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
     days.push(d);
   }
   return `
@@ -1612,7 +1633,7 @@ function renderAchievements() {
 
       ${renderDailyChallengeSection()}
 
-      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">📅 Activitat d'aquesta setmana</div>
+      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">📅 Activitat dels últims 7 dies</div>
       ${render7DayHistory()}
 
       <div style="font-size:13px;color:var(--muted);margin:16px 0 8px;">${nAll} de ${totalAll} assoliments desblocats</div>
