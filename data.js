@@ -1700,7 +1700,7 @@
             ["haver de + inf.", 'Obligació', 'He de treballar demà.'],
             ['poder + inf.', 'Possibilitat / permís', 'Pots quedar-te si vols.'],
             ['voler + inf.', 'Voluntat', 'Vull aprendre català.'],
-            ['anar a + inf.', 'Futur immediat (intenció)', 'Avui vespre vaig a estudiar.'],
+            ['estar a punt de + inf.', 'Imminència', 'El tren està a punt de sortir.'],
             ['estar + gerundi', 'Acció en curs', 'Estic llegint un llibre molt bo.'],
             ['acabar de + inf.', 'Acció recent', 'Acabo de dinar.'],
             ["deixar de + inf.", "Fi d'un hàbit/acció", 'He deixat de fumar.'],
@@ -2031,10 +2031,10 @@ const DATA = {
       correct:1, theory:"Hi ha cinc perífrasis: «acaba de trobar» (acció recent), «ha de signar» i «ha d'anar» (obligació ×2), «està preparant» (acció en curs), «vol deixar de treballar» (desig + fi d'un hàbit). Total: cinc perífrasis amb cinc valors aspectuals o modals diferenciats.", example:"Identificar cada perífrasi: auxiliar + infinitiu/gerundi → valor aspectual o modal." },
 
     { id:'b1-per6', type:'choice', level:'b1', category:'Perífrasis B1',
-      question:'Quina perífrasi indica intenció en un futur immediat?',
+      question:'Quina perífrasi indica intenció de fer una cosa?',
       text:'Avui a la nit ___ estudiar per a l\'examen.',
-      options:["vaig a","acabo de","deixo de"],
-      correct:0, theory:"«Anar a + infinitiu» expressa la intenció o el pla per a un futur immediat. No és el passat perifràstic: aquí «vaig» és l'auxiliar d'intenció.", example:"Vaig a trucar-te aquesta tarda. / Anem a menjar fora?" },
+      options:["penso","acabo de","deixo de"],
+      correct:0, theory:"«Pensar + infinitiu» expressa intenció o pla. Atenció: «anar a + infinitiu» amb valor de futur («vaig a estudiar») és un calc del castellà; en català només és correcte en passat («anava a estudiar quan...»).", example:"Penso trucar-li aquesta tarda. / Pensem anar-hi aviat." },
 
     // ── SUBORDINADES B1 ──
     { id:'b1-sub1', type:'choice', level:'b1', category:'Subordinades B1',
@@ -2667,8 +2667,8 @@ const DATA = {
     { id:'b2-per6', type:'choice', level:'b2', category:'Perífrasis verbals',
       question:'Quina perífrasi expressa que alguna cosa passarà immediatament?',
       text:'Espera, ___ sortir. No marxis encara.',
-      options:['acabo de','vaig a','solia','haig de'],
-      correct:1, theory:'«Anar a + infinitiu» expressa un futur immediat o una acció a punt de produir-se.', example:'Vés preparant-te, que anem a sortir.' },
+      options:['acabo de','estic a punt de','solia','haig de'],
+      correct:1, theory:'«Estar a punt de + infinitiu» expressa imminència. Atenció: «anar a + infinitiu» amb valor de futur és un calc del castellà en present; només és correcte en passat («anava a sortir quan vas trucar»).', example:'Afanya\'t, que el tren està a punt de sortir.' },
 
     // TEMPS VERBALS
     { id:'b2-tv1', type:'choice', level:'b2', category:'Temps verbals',
