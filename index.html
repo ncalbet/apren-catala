@@ -2004,11 +2004,44 @@ function renderProfile() {
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
         <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Nom per mostrar a l'app" value="${esc(p.pseudo)}">
       </div>
-      <div style="margin-bottom:20px;opacity:0.45;">
-        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CORREU ELECTRÒNIC</label>
-        <input class="ct-input" style="margin-top:0;" placeholder="Disponible amb compte (properament)" disabled>
-      </div>
       <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;">🎓 Model pedagògic</div>
+      <p style="font-size:13px;color:var(--text-soft);line-height:1.75;margin-bottom:14px;">Aprèn Català no és un diccionari ni un traductor: és una eina d'<strong>aprenentatge profund</strong> dissenyada perquè la llengua et quedi. Cada decisió de disseny respon a evidència sobre com funciona la memòria a llarg termini.</p>
+
+      <details class="ct-acc">
+        <summary>📚 Contingut actualitzat i rigorós</summary>
+        <div class="ct-acc-body">
+          Els 279 exercicis cobreixen els quatre nivells del Marc Europeu Comú de Referència (MECR): <strong>A2, B1, B2 i C1</strong>. El contingut segueix la normativa de l'<strong>Institut d'Estudis Catalans (IEC)</strong> i el <em>Diccionari de la llengua catalana</em> (DIEC2), i és apte per a la preparació dels exàmens oficials de català de la <strong>Generalitat de Catalunya</strong> (CIELE, DILE i equivalents).<br><br>
+          Les frases i els contextos estan actualitzats: trobaràs vocabulari real d'àmbits professionals, acadèmics i quotidians, no pas frases artificials ni desfasades.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>🧠 Repetició espaçada (SRS)</summary>
+        <div class="ct-acc-body">
+          L'app utilitza un sistema de <strong>repetició espaçada</strong> (Spaced Repetition System, SRS), el mètode d'estudi més eficaç demostrat per la recerca en ciències cognitives.<br><br>
+          La idea és simple: <em>repetir un concepte just quan estàs a punt d'oblidar-lo</em> el consolida amb molt menys esforç que estudiar-ho tot alhora. El que domines apareix poc; el que et costa, sovint. Cada exercici té un nivell de domini de l'1 al 5 que puja amb la pràctica distribuïda en el temps.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>✍️ Pràctica activa, no passiva</summary>
+        <div class="ct-acc-body">
+          Llegir gramàtica no és el mateix que usar-la. A Aprèn Català <strong>produïu llengua</strong> en cada sessió: completeu frases, ordeneu elements, trieu entre opcions amb raonament, escriviu reformulacions. La teoria apareix <em>després</em> de respondre, no abans, perquè la memòria es consolida millor quan primer has activat el coneixement propi.<br><br>
+          El <strong>repàs intel·ligent</strong> selecciona els exercicis que més necessites en cada moment, assegurant que el temps d'estudi rendeixi al màxim.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>🎯 Aprenentatge contextualitzat</summary>
+        <div class="ct-acc-body">
+          Cada exercici té un context real: una situació laboral, un correu formal, una conversa, un text periodístic. No memoritzeu regles aïllades, sinó que practiqueu la llengua en situacions en les quals la haureu d'usar.<br><br>
+          Els exercicis de nivell B2 i C1 incideixen especialment en el <strong>registre formal, la cohesió textual, els connectors i la precisió lèxica</strong> que els exàmens oficials avaluen.
+        </div>
+      </details>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
