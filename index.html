@@ -527,14 +527,8 @@ function showLevelUp(newLevel) {
       <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
         Continuar 🎉
       </button>
-      <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareLevelUp('${newLevel.name}','${newLevel.emoji}')">
-        📣 Comparteix-ho
-      </button>
     </div>`;
   document.body.appendChild(overlay);
-}
-function shareLevelUp(name, emoji) {
-  shareText(`${emoji} He pujat a nivell «${name}» aprenent català amb AprènCatalà! 🎉 És gratis i sense anuncis.`);
 }
 function showFreezeToast(n) {
   const el = document.createElement('div');
@@ -555,41 +549,6 @@ function showEncouragement(category) {
   if (fa) fa.appendChild(el);
 }
 function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
-
-// \u2550\u2550 COMPARTIR A XARXES \u2550\u2550
-const APP_SHARE_URL = 'https://app.aprencatala.cat';
-function shareText(text) {
-  const full = text + '\n\ud83d\udc49 ' + APP_SHARE_URL;
-  if (navigator.share) {
-    navigator.share({ text: full }).catch(() => {});
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(full).then(() => {
-      const el = document.createElement('div');
-      el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
-        background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
-        font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
-      el.textContent = "\ud83d\udccb Text copiat! Enganxa'l on vulguis.";
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 3000);
-    });
-  }
-}
-function shareSessionResult(pct, n) {
-  const text = pct === 100
-    ? `⭐ Sessió perfecta! He encertat els ${n} exercicis de català d'una sessió a AprènCatalà 💪`
-    : `💪 Acabo de practicar català a AprènCatalà amb un ${pct}% d'encerts. Cada dia una mica millor!`;
-  shareText(text + ' És gratis i sense anuncis.');
-}
-function shareProgress() {
-  const lv = getLevel(progress.xp);
-  const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
-  let text = `${lv.emoji} Estic aprenent catal\u00e0 amb Apr\u00e8nCatal\u00e0: nivell ${lv.name} amb ${progress.xp} XP`;
-  if ((progress.streak || 0) >= 2) text += ` i ${progress.streak} dies seguits practicant \ud83d\udd25`;
-  if (mastered > 0) text += `. Ja domino ${mastered} exercicis!`;
-  else text += '.';
-  text += ' \u00c9s gratis i sense anuncis.';
-  shareText(text);
-}
 
 // ══ NAV ══
 function showTab(tab) {
@@ -1382,7 +1341,6 @@ function renderSummary() {
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${((cat||items[0]?.category)||'').replace(/'/g,"\\'")}')">Repetir els exercicis</button>
       ${backBtn}
-      ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>` : ''}
     </div>`;
 }
 
@@ -1915,7 +1873,6 @@ function renderProgress() {
           <div style="font-size:11px;color:#3b82f6;margin-top:2px;">Intentats</div>
         </div>
       </div>
-      <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="shareProgress()">📣 Comparteix el teu progrés</button>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
         style="display:flex;align-items:center;gap:12px;background:#fef9ec;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:#78350f;">
