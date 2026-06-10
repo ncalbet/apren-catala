@@ -2174,7 +2174,7 @@ const DATA = {
 
     { id:'a2-adc3', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina paraula significa el contrari de «tímid»?',
-      text:'En català hi ha molts parells d\'adjectius contraris per descriure el caràcter: tímid/obert, introvertit/extravertit, reservat/parlador. Pensa quin s\'oposa millor a «tímid».',
+      text:'En català hi ha molts adjectius de caràcter que es contraposen en parells. Pensa quin s\'oposa millor a «tímid».',
       options:['introvertit','obert','seriós'],
       correct:1, theory:"«Obert» s'usa per a persones que es comuniquen sense reserves ni dificultat.", example:"Sembla tímida, però quan la coneixes és molt oberta i parladora." },
 
@@ -2924,7 +2924,7 @@ const DATA = {
       display:'ser (imperfet subj. 3a pers. sing.)', answers:['fos','sigui'],
       theory:'«Tant de bo» amb imperfet de subjuntiu: desig difícil o impossible. Amb present: desig possible.', example:'Tant de bo pugui venir! (possible) / Tant de bo pogués volar! (impossible)' },
     { id:'c1-sa6', type:'choice', level:'c1', category:'Subjuntiu avançat',
-      question:'Quina és la forma correcta amb «per bé que» en registre formal?',
+      question:'Quin connector concessiu completa correctament aquesta frase formal?',
       text:'___ els resultats siguin positius, cal continuar vigilant l\'evolució.',
       options:['Malgrat que','Per bé que','Ja que','Per tant'],
       correct:1, theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
