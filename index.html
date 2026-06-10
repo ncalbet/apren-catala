@@ -198,6 +198,14 @@
     .ct-nav-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap; }
     .ct-sentence { font-size: 17px; line-height: 1.9; margin: 16px 0; font-family: 'Fraunces', serif; color: var(--heading); }
 
+    /* PERFIL — accordion */
+    .ct-acc { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+    .ct-acc summary { padding: 13px 16px; font-size: 14px; font-weight: 600; color: var(--heading); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+    .ct-acc summary::-webkit-details-marker { display: none; }
+    .ct-acc summary::after { content: '›'; font-size: 20px; color: var(--muted); transition: transform 0.2s; }
+    .ct-acc[open] summary::after { transform: rotate(90deg); }
+    .ct-acc-body { padding: 4px 16px 14px; font-size: 13px; color: var(--text-soft); line-height: 1.75; background: var(--bg); }
+
     /* XP POP */
     .ct-xp-pop { position: fixed; top: 80px; right: 20px; background: #fbbf24; color: #78350f; font-weight: 700; font-size: 18px; padding: 8px 18px; border-radius: 20px; opacity: 0; animation: popXP 1.8s ease forwards; z-index: 999; pointer-events: none; }
     @keyframes popXP { 0%{opacity:0;transform:translateY(10px) scale(0.8)} 20%{opacity:1;transform:translateY(0) scale(1.1)} 70%{opacity:1} 100%{opacity:0;transform:translateY(-20px)} }
@@ -288,6 +296,7 @@
   <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
   <button onclick="showTab('achievements')" id="nav-achievements">🏅 Assoliments</button>
   <button onclick="showTab('progress')" id="nav-progress">Progrés</button>
+  <button onclick="showTab('profile')" id="nav-profile">👤 Perfil</button>
 </div>
 <div class="ct-body" id="ct-body"></div>
 
@@ -515,6 +524,7 @@ function showTab(tab) {
   else if (tab === 'c1') renderLevelMenu('c1');
   else if (tab === 'review') renderReview();
   else if (tab === 'achievements') renderAchievements();
+  else if (tab === 'profile') renderProfile();
   else renderProgress();
 }
 
@@ -1932,6 +1942,147 @@ function _goBack() {
     showTab('menu');
   }
   // si és 'menu', no fem res (no tanca l'app)
+}
+
+// ══ PERFIL ══
+function saveProfileData() {
+  const nom = document.getElementById('prof-nom').value.trim();
+  const pseudo = document.getElementById('prof-pseudo').value.trim();
+  localStorage.setItem('cat_profile_v1', JSON.stringify({ nom, pseudo }));
+  const btn = document.getElementById('prof-save');
+  btn.textContent = '✓ Desat!';
+  btn.style.background = '#059669';
+  setTimeout(() => { btn.textContent = 'Desar canvis'; btn.style.background = ''; }, 2000);
+}
+
+function renderProfile() {
+  const p = JSON.parse(localStorage.getItem('cat_profile_v1') || '{}');
+  const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="max-width:600px;margin:0 auto;">
+
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">👤 El teu perfil</div>
+
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">NOM</label>
+        <input id="prof-nom" class="ct-input" style="margin-top:0;" placeholder="El teu nom" value="${esc(p.nom)}">
+      </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
+        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Nom per mostrar a l'app" value="${esc(p.pseudo)}">
+      </div>
+      <div style="margin-bottom:20px;opacity:0.45;">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CORREU ELECTRÒNIC</label>
+        <input class="ct-input" style="margin-top:0;" placeholder="Disponible amb compte (properament)" disabled>
+      </div>
+      <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;">📖 Com funciona l'app</div>
+
+      <details class="ct-acc">
+        <summary>🎯 Sistema de domini (1 → 5)</summary>
+        <div class="ct-acc-body">
+          Cada exercici té un nivell de domini de <strong>1 a 5</strong>. Comença a 1 quan el fas per primera vegada i puja +1 cada vegada que l'encertes en sessions diferents.<br><br>
+          <strong>1 — Nou:</strong> encara no l'has fet.<br>
+          <strong>2 — En aprenentatge:</strong> l'has encertat un cop.<br>
+          <strong>3 — Consolidant:</strong> dos encerts en dies diferents.<br>
+          <strong>4 — Ben après:</strong> tres o més encerts.<br>
+          <strong>5 — Dominat:</strong> màxim domini, apareixerà menys sovint al repàs.<br><br>
+          Aquest sistema s'anomena <em>repetició espaçada (SRS)</em>: el que ja domines apareix menys, i el que et costa, més sovint. Així aprens de forma eficient.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>✅ Completat vs 🥇 Dominat</summary>
+        <div class="ct-acc-body">
+          Una categoria es marca com a <strong>✅ Completat</strong> quan has encertat tots els exercicis almenys una vegada (domini ≥ 2 a tots).<br><br>
+          Es marca com a <strong>🥇 Dominat</strong> (vora daurada) quan tots els exercicis de la categoria han arribat a domini ≥ 4.<br><br>
+          Completat vol dir «he practicat tot». Dominat vol dir «ho tinc ben après».
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>⭐ XP i nivells</summary>
+        <div class="ct-acc-body">
+          Guanyes <strong>XP</strong> (punts d'experiència) cada vegada que encertes un exercici. L'XP acumulat determina el teu <strong>nivell</strong>, que va d'Aprenent fins a Mestre del Català.<br><br>
+          Els nivells són decoratius i no afecten el contingut disponible: pots practicar qualsevol nivell de l'app (A2, B1, B2, C1) des del primer dia.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>🔥 Ratxa diària i gels de ratxa</summary>
+        <div class="ct-acc-body">
+          La <strong>ratxa</strong> compta els dies consecutius en què has practicat. Si practiques cada dia, la ratxa creix.<br><br>
+          Si et saltes un dia, la ratxa es reinicia a 1... tret que tinguis <strong>gels de ratxa</strong> 🛡️. Cada gel protegeix un dia de descans: si et saltes un dia i tens gels disponibles, un gel es consumeix i la ratxa es manté.<br><br>
+          Guanyes 1 gel cada 5 dies de ratxa, fins a un màxim de 3 gels.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>📅 Repte diari</summary>
+        <div class="ct-acc-body">
+          Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis seleccionats aleatòriament. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
+          El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>🔁 Repàs intel·ligent</summary>
+        <div class="ct-acc-body">
+          El <strong>repàs intel·ligent</strong> selecciona els exercicis que més necessites practicar: prioritza els que tens pitjor dominats i assegura varietat entre categories.<br><br>
+          Pots filtrar el repàs per nivell (A2, B1, B2, C1 o Tots) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
+        </div>
+      </details>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;">❓ Preguntes freqüents</div>
+
+      <details class="ct-acc">
+        <summary>Per què el meu domini no arriba a 5/5 de cop?</summary>
+        <div class="ct-acc-body">
+          El domini puja gradualment: cal encertar l'exercici en <strong>sessions diferents</strong> per consolidar-lo. No és un error: és la mecànica de la repetició espaçada. Si l'encertes avui i demà, el domini pujarà de 2 a 3, i així fins a 5.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>Puc perdre el progrés?</summary>
+        <div class="ct-acc-body">
+          El progrés es desa al dispositiu (memòria local del navegador). Si esborres les dades del navegador o canvies de dispositiu, el progrés es perd.<br><br>
+          Properament s'afegirà un sistema de compte d'usuari perquè el progrés quedi desat al núvol i accessible des de qualsevol dispositiu.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>La puntuació de la sessió és diferent del domini?</summary>
+        <div class="ct-acc-body">
+          Sí. La puntuació de la sessió (p. ex. «4 de 5 correctes») mesura com t'ha anat <strong>avui</strong>. El domini (1–5) és una mesura a <strong>llarg termini</strong> que reflecteix quantes vegades has consolidat cada exercici al llarg dels dies.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>Puc fer exercicis d'un nivell superior al meu?</summary>
+        <div class="ct-acc-body">
+          Sí, tots els nivells (A2, B1, B2, C1) estan disponibles des del primer dia. El teu nivell a l'app (Aprenent, Estudiant…) es basa en l'XP acumulat i és independent del nivell de català que tries practicar.
+        </div>
+      </details>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☕ Suport l'app</div>
+      <p style="font-size:14px;color:var(--text-soft);line-height:1.75;margin-bottom:20px;">
+        <strong>Aprèn Català és completament gratuïta i sense anuncis.</strong> No hi ha subscripcions ni dades que es venguin: l'aprenentatge ha de ser accessible per a tothom.<br><br>
+        Mantenir l'app activa i millorar-la té un cost. Si t'ha estat útil i vols contribuir-hi, qualsevol aportació és molt benvinguda.
+      </p>
+      <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
+        style="display:flex;align-items:center;justify-content:center;gap:10px;background:#ff5e5b;color:white;border-radius:12px;padding:15px 20px;font-weight:700;font-size:15px;text-decoration:none;">
+        <span style="font-size:22px;">☕</span> Convida'm a un cafè a Ko-fi
+      </a>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;">Ko-fi processa el pagament de forma segura. No cal registrar-se.</p>
+
+    </div>`;
 }
 
 function initBackHandler() {
