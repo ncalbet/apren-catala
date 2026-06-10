@@ -915,7 +915,7 @@ function renderChoice(q) {
     <div class="ct-opts">${q.options.map((o,i)=>`<button class="ct-opt" onclick="checkChoice(${i},${q.correct})">${o}</button>`).join('')}</div>`;
 }
 function renderFill(q) {
-  const inputHTML = '<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;">';
+  const inputHTML = '<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;color:var(--text);caret-color:var(--text);">';
   const hasBlank = q.sentence.includes('___');
   const sentenceHTML = hasBlank
     ? q.sentence.replace('___', inputHTML)
