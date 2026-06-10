@@ -1547,8 +1547,16 @@ function getDailyChallenge() {
   if (progress.dailyChallenge && progress.dailyChallenge.date === today) {
     return progress.dailyChallenge;
   }
-  // Genera repte nou basat en la data (consistent per a tots els usuaris)
-  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  // Genera repte nou basat en la data, ponderat al nivell de l'usuari:
+  // es trien els 2 nivells més avançats on ha practicat (si és nou: A2+B1)
+  const counts = { a2: 0, b1: 0, b2: 0, c1: 0 };
+  Object.keys(progress.mastery).forEach(id => {
+    const lv = id.split('-')[0];
+    if (counts[lv] !== undefined) counts[lv]++;
+  });
+  const active = ['a2', 'b1', 'b2', 'c1'].filter(lv => counts[lv] > 0);
+  const levels = active.length ? active.slice(-2) : ['a2', 'b1'];
+  const all = levels.flatMap(lv => DATA[lv] || []);
   const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const indices = [];
   let attempts = 0;
