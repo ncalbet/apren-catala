@@ -992,8 +992,21 @@ function moveReorderBlock(i, dir, ev) {
   tapSelectedIdx = null;
   document.getElementById('reorder-list').innerHTML = reorderBlockHTML(parts);
 }
+// Barreja Fisher-Yates; torna a barrejar si el resultat ja és una solució vàlida
+function shuffleReorderParts(q) {
+  const valid = [q.correct, ...(q.alternates || [])].map(order => order.map(i => q.parts[i]).join(''));
+  const parts = [...q.parts];
+  for (let attempt = 0; attempt < 10; attempt++) {
+    for (let i = parts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [parts[i], parts[j]] = [parts[j], parts[i]];
+    }
+    if (!valid.includes(parts.join(''))) break;
+  }
+  return parts;
+}
 function renderReorder(q) {
-  const shuffled = [...q.parts].sort(() => Math.random()-0.5);
+  const shuffled = shuffleReorderParts(q);
   window._reorder_parts = shuffled;
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
     <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Ordena els blocs amb les fletxes ▲ ▼ de cada línia per moure'l amunt o avall (també pots tocar-ne dos per intercanviar-los, o arrossegar).</p>
