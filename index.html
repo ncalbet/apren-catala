@@ -55,12 +55,12 @@
     .ct-header { background: var(--c1); color: white; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; gap: 8px; }
     .ct-logo { font-family: 'Fraunces', serif; font-size: 17px; white-space: nowrap; flex-shrink: 0; }
     .ct-logo span { color: #f59e0b; font-style: italic; }
-    .ct-stats { display: flex; gap: 6px; font-size: 12px; align-items: center; flex-wrap: nowrap; overflow: hidden; }
+    .ct-stats { display: flex; gap: 6px; font-size: 12px; align-items: center; flex-wrap: nowrap; min-width: 0; }
     .ct-kofi {
       font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
       background: transparent; border: 1px solid rgba(255,255,255,0.25);
       color: rgba(255,255,255,0.7); cursor: pointer; text-decoration: none;
-      transition: all 0.2s; white-space: nowrap; display: inline-flex; align-items: center;
+      transition: all 0.2s; white-space: nowrap; display: inline-flex; align-items: center; flex-shrink: 1;
     }
     .ct-theme-toggle {
       font-size: 15px; line-height: 1; padding: 4px 7px; border-radius: 20px;
@@ -70,9 +70,10 @@
     .ct-theme-toggle:hover { background: rgba(255,255,255,0.12); border-color: #fbbf24; }
     .ct-kofi .kofi-text { display: none; }
     @media (min-width: 400px) { .ct-kofi .kofi-text { display: inline; } }
+    @media (max-width: 340px) { .ct-kofi { display: none; } }
     .ct-kofi:hover { background: rgba(255,255,255,0.1); border-color: #fbbf24; color: #fbbf24; }
-    .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
-    .ct-streak { color: #fbbf24; font-weight: 500; }
+    .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; flex-shrink: 0; white-space: nowrap; }
+    .ct-streak { color: #fbbf24; font-weight: 500; flex-shrink: 0; }
 
     /* NAV */
     .ct-nav { display: flex; background: #162840; border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto; position: sticky; top: 52px; z-index: 99; }
@@ -232,9 +233,12 @@
 
     /* LEVEL BADGE al header */
     .ct-level-badge {
-      font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px;
-      background:#fef3c7; color:#92400e; border:1px solid #fcd34d; white-space:nowrap;
+      font-weight:700; padding:3px 8px; border-radius:12px;
+      background:#fef3c7; color:#92400e; border:1px solid #fcd34d;
+      display:flex; flex-direction:column; align-items:center; line-height:1.2; flex-shrink:0;
     }
+    .ct-level-badge .lv-emoji { font-size:14px; line-height:1; }
+    .ct-level-badge .lv-name  { font-size:8px; letter-spacing:0.2px; }
     /* LEVEL-UP OVERLAY */
     .ct-levelup-overlay {
       position:fixed; inset:0; background:rgba(0,0,0,0.55);
@@ -282,9 +286,9 @@
   <div class="ct-stats">
     <button class="ct-theme-toggle" id="ct-theme-toggle" onclick="toggleTheme()" aria-label="Canviar tema" title="Mode clar / fosc">🌙</button>
     <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ <span class="kofi-text">Convida'm a un cafè</span></a>
-    <span class="ct-level-badge" id="ct-level-badge">Aprenent</span>
     <span class="ct-streak" id="ct-streak">🔥 0</span>
     <span class="ct-xp" id="ct-xp">0 XP</span>
+    <span class="ct-level-badge" id="ct-level-badge"><span class="lv-emoji">🌱</span><span class="lv-name">Aprenent</span></span>
   </div>
 </div>
 <div class="ct-nav">
@@ -453,7 +457,7 @@ function updateHeader() {
   document.getElementById('ct-streak').textContent = '🔥 ' + progress.streak;
   const lv = getLevel(progress.xp);
   const badge = document.getElementById('ct-level-badge');
-  if (badge) badge.textContent = lv.emoji + ' ' + lv.name;
+  if (badge) badge.innerHTML = `<span class="lv-emoji">${lv.emoji}</span><span class="lv-name">${lv.name}</span>`;
 }
 function showXPPop(n) {
   const el = document.createElement('div');
