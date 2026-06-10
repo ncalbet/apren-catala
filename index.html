@@ -562,7 +562,7 @@ function renderMenu() {
   const total = (DATA.a2||[]).length + (DATA.b1||[]).length + DATA.b2.length + DATA.c1.length;
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
-  const needsReview = [...(DATA.a2||[]),...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
+  const needsReview = [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
   const saved = getSavedSession();
   const resumeBanner = saved ? `
     <div class="ct-card" style="padding:16px 18px;margin-bottom:16px;border:1px solid var(--c1);background:var(--surface);">
