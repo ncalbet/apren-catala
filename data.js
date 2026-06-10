@@ -2415,7 +2415,7 @@ const DATA = {
     { id:'b2-con4', type:'reorder', level:'b2', category:'Connectors',
       question:'Ordena les frases perquè el text sigui lògicament coherent:',
       text:'Els connectors textuals (en primer lloc, d\'altra banda, per consegüent, finalment) organitzen el discurs i indiquen la relació lògica entre les idees.',
-      parts:['Per consegüent, es recomana adoptar mesures immediates.','En primer lloc, s\'ha detectat un augment del soroll urbà.','D\'altra banda, la qualitat de l\'aire ha empitjorat notablement.','Finalment, cal revisar la normativa vigent.'],
+      parts:['Per consegüent, la qualitat de vida dels veïns s\'ha deteriorat.','En primer lloc, s\'ha detectat un augment del soroll urbà.','D\'altra banda, la qualitat de l\'aire ha empitjorat notablement.','Finalment, recomanem adoptar mesures immediates.'],
       correct:[1,2,0,3], theory:'Estructura: problema → dades → conseqüència → recomanació.', example:'En primer lloc... D\'altra banda... Per consegüent... Finalment...' },
     { id:'b2-con5', type:'reading', level:'b2', category:'Connectors',
       text:'L\'ús adequat dels connectors és fonamental en qualsevol text formal. Tanmateix, molts escriptors tendeixen a abusar dels connectors simples, com ara «però» o «i». Per consegüent, el resultat és un discurs que sembla poc elaborat, malgrat que el contingut pugui ser valuós.',
