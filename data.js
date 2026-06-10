@@ -2301,7 +2301,7 @@ const DATA = {
     { id:'a2-imp4', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Completa amb la perífrasi d'hàbit passat:",
       text:"La perífrasi «soler + infinitiu» en imperfet expressa un hàbit del passat: allò que algú feia regularment. Recorda com es conjuga «soler» en imperfet.",
-      sentence:"La meva àvia ___ (soler) fer el mercat cada dissabte al matí.",
+      sentence:"La meva àvia ___ (soler) anar al mercat cada dissabte al matí.",
       display:"imperfet de «soler» (3a pers. sing.)",
       answers:['solia'],
       theory:"«Soler + infinitiu» expressa un hàbit del passat. En imperfet: solia, solies, solia, solíem, solíeu, solien.", example:"Solia anar al gimnàs tres cops per setmana." },
