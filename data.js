@@ -2246,7 +2246,7 @@ const DATA = {
 
     { id:'a2-pfa2', type:'fill', level:'a2', category:'Pronoms febles A2',
       question:'Substitueix el CD subratllat pel pronom feble adequat:',
-      sentence:"He trucat les meves amigues. → ___ he trucat.",
+      sentence:"Convido les meves amigues. → ___ convido.",
       display:'pronom CD femení plural',
       answers:['les'],
       theory:"«Les» substitueix un CD femení plural determinat. El pronom va davant del verb conjugat.", example:"«Has vist les claus?» «Sí, les he vistes a la taula.»" },
