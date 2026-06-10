@@ -1853,7 +1853,7 @@ function renderProgress() {
         </div>
         <span style="font-size:18px;margin-left:auto;">→</span>
       </a>
-      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},maxMastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[]};saveProgress();updateHeader();renderProgress();}">
+      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},maxMastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[],freezes:1};saveProgress();updateHeader();renderProgress();}">
         Reiniciar progrés
       </button>
     </div>`;
