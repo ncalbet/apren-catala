@@ -370,14 +370,20 @@ const ENCOURAGEMENT = {
   'default':                  "💪 Cada error és una oportunitat d'aprendre. Continua practicant!",
 };
 
+// Llegeix i parseja una clau de localStorage; si està corrupta retorna null en lloc de petar tota l'app
+function safeParse(key) {
+  try { return JSON.parse(localStorage.getItem(key) || 'null'); }
+  catch (e) { console.warn('[Storage] Clau corrupta:', key, e); return null; }
+}
+
 let progress = (function() {
-  const raw = JSON.parse(localStorage.getItem('cat_prog_v7') || 'null');
+  const raw = safeParse('cat_prog_v7');
   if (raw && raw.mastery) return raw;
   // Migra de v6
-  const v6 = JSON.parse(localStorage.getItem('cat_prog_v6') || 'null');
+  const v6 = safeParse('cat_prog_v6');
   if (v6 && v6.mastery) return { ...v6 };
   // Migra de v5
-  const v5 = JSON.parse(localStorage.getItem('cat_prog_v5') || 'null');
+  const v5 = safeParse('cat_prog_v5');
   if (v5) {
     const mastery = {};
     (v5.done || []).forEach(id => { mastery[id] = 3; });
@@ -411,7 +417,7 @@ function saveActiveSession() {
 }
 function clearActiveSession() { localStorage.removeItem(SESSION_KEY); }
 function getSavedSession() {
-  const d = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+  const d = safeParse(SESSION_KEY);
   if (!d || !d.ids || !d.ids.length || d.idx >= d.ids.length) return null;
   return d;
 }
@@ -1991,7 +1997,7 @@ function saveProfileData() {
 }
 
 function renderProfile() {
-  const p = JSON.parse(localStorage.getItem('cat_profile_v1') || '{}');
+  const p = safeParse('cat_profile_v1') || {};
   const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
