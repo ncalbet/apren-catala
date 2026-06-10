@@ -1049,7 +1049,7 @@ function renderWriting(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:#1e40af;font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
     <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
-    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+    <div id="write-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
       <button class="ct-btn secondary" onclick="showSample()">Veure exemple</button>
     </div>`;
@@ -1060,7 +1060,7 @@ function renderTransform(q) {
       Original: <strong>${q.original}</strong></div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
     <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
-    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+    <div id="transform-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkTransform()">Comprovar reformulació</button>
       <button class="ct-btn secondary" onclick="showTransformSample()">Veure model</button>
     </div>`;
@@ -1182,12 +1182,20 @@ function localFeedbackTransform(q, text) {
   return lines.join('<br>');
 }
 
+function disableActionButtons(containerId) {
+  document.querySelectorAll(`#${containerId} button`).forEach(b => {
+    b.disabled = true;
+    b.style.opacity = '0.45';
+    b.style.cursor = 'default';
+  });
+}
 function checkWriting() {
   if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('write-area').value.trim();
   if (!text) { alert('Escriu una resposta primer.'); return; }
   currentSession.answered = true;
+  disableActionButtons('write-actions');
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackWriting(q, text)}</div>`;
   showTheory(q); markDone(true, 20);
 }
@@ -1197,12 +1205,14 @@ function checkTransform() {
   const text = document.getElementById('transform-area').value.trim();
   if (!text) { alert('Escriu una reformulació primer.'); return; }
   currentSession.answered = true;
+  disableActionButtons('transform-actions');
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackTransform(q, text)}</div>`;
   showTheory(q); markDone(true, 20);
 }
 function showSample() {
   if (currentSession.answered) return;
   currentSession.answered = true;
+  disableActionButtons('write-actions');
   const q = currentSession.items[currentSession.idx];
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Exemple: <em>${q.sample}</em></div>`;
   showTheory(q); markDone(false, 5);
@@ -1210,6 +1220,7 @@ function showSample() {
 function showTransformSample() {
   if (currentSession.answered) return;
   currentSession.answered = true;
+  disableActionButtons('transform-actions');
   const q = currentSession.items[currentSession.idx];
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Model: <em>${q.sample}</em></div>`;
   showTheory(q); markDone(false, 5);
