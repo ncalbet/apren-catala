@@ -75,7 +75,15 @@
     .ct-streak { color: #fbbf24; font-weight: 500; flex-shrink: 0; }
 
     /* NAV */
-    .ct-nav { display: flex; background: #162840; border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto; position: sticky; top: 52px; z-index: 99; }
+    .ct-nav-wrap { position: sticky; top: 52px; z-index: 99; }
+    .ct-nav { display: flex; background: #162840; border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto; }
+    .ct-levels-drop { display: none; position: absolute; left: 0; right: 0; background: #1a3252; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 10px; gap: 8px; z-index: 98; }
+    .ct-levels-drop.open { display: grid; grid-template-columns: repeat(2,1fr); }
+    .ct-lv-btn { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; color: white; padding: 10px 14px; text-align: left; cursor: pointer; font-family: 'DM Sans',sans-serif; transition: background 0.15s; }
+    .ct-lv-btn:hover, .ct-lv-btn.active { background: rgba(245,158,11,0.18); border-color: #fbbf24; }
+    .ct-lv-btn .lc { font-size: 11px; font-weight: 700; color: #fbbf24; margin-bottom: 2px; }
+    .ct-lv-btn .ll { font-size: 13px; font-weight: 600; }
+    .ct-lv-btn .ls { font-size: 11px; opacity: 0.6; }
     .ct-nav button { flex: none; background: none; border: none; color: rgba(255,255,255,0.6); padding: 11px 18px; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; width: auto; }
     .ct-nav button:hover { color: white; background: rgba(255,255,255,0.05); }
     .ct-nav button.active { color: white; border-bottom-color: #f59e0b; }
@@ -290,16 +298,21 @@
     <span class="ct-level-badge" id="ct-level-badge"><span class="lv-emoji">🌱</span><span class="lv-name">Aprenent</span></span>
   </div>
 </div>
-<div class="ct-nav">
-  <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
-  <button onclick="showTab('a2')" id="nav-a2">Nivell A2</button>
-  <button onclick="showTab('b1')" id="nav-b1">Nivell B1</button>
-  <button onclick="showTab('b2')" id="nav-b2">Nivell B2</button>
-  <button onclick="showTab('c1')" id="nav-c1">Nivell C1</button>
-  <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
-  <button onclick="showTab('achievements')" id="nav-achievements">🏅 Assoliments</button>
-  <button onclick="showTab('progress')" id="nav-progress">Progrés</button>
-  <button onclick="showTab('profile')" id="nav-profile">👤 Perfil</button>
+<div class="ct-nav-wrap">
+  <div class="ct-nav">
+    <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
+    <button onclick="toggleLevelsMenu()" id="nav-levels">Nivells ▾</button>
+    <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
+    <button onclick="showTab('achievements')" id="nav-achievements">🏅 Assoliments</button>
+    <button onclick="showTab('progress')" id="nav-progress">Progrés</button>
+    <button onclick="showTab('profile')" id="nav-profile">👤 Perfil</button>
+  </div>
+  <div class="ct-levels-drop" id="ct-levels-drop">
+    <button class="ct-lv-btn" id="drop-a2" onclick="showTab('a2')"><div class="lc">A2</div><div class="ll">Bàsic</div><div class="ls">Vocabulari i gramàtica inicial</div></button>
+    <button class="ct-lv-btn" id="drop-b1" onclick="showTab('b1')"><div class="lc">B1</div><div class="ll">Elemental</div><div class="ls">Comunicació quotidiana</div></button>
+    <button class="ct-lv-btn" id="drop-b2" onclick="showTab('b2')"><div class="lc">B2</div><div class="ll">Intermedi</div><div class="ls">Registres i matissos</div></button>
+    <button class="ct-lv-btn" id="drop-c1" onclick="showTab('c1')"><div class="lc">C1</div><div class="ll">Avançat</div><div class="ls">Llengua formal i complexa</div></button>
+  </div>
 </div>
 <div class="ct-body" id="ct-body"></div>
 
@@ -516,10 +529,18 @@ function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300
 
 // ══ NAV ══
 function showTab(tab) {
-  if (['a2','b1','b2','c1'].includes(tab)) _setNav({screen:'level', level:tab});
+  const levelTabs = ['a2','b1','b2','c1'];
+  if (levelTabs.includes(tab)) _setNav({screen:'level', level:tab});
   else _setNav({screen: tab});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('nav-' + tab).classList.add('active');
+  document.querySelectorAll('.ct-lv-btn').forEach(b => b.classList.remove('active'));
+  if (levelTabs.includes(tab)) {
+    document.getElementById('nav-levels').classList.add('active');
+    document.getElementById('drop-' + tab).classList.add('active');
+  } else {
+    document.getElementById('nav-' + tab).classList.add('active');
+  }
+  document.getElementById('ct-levels-drop').classList.remove('open');
   if (tab === 'menu') renderMenu();
   else if (tab === 'a2') renderLevelMenu('a2');
   else if (tab === 'b1') renderLevelMenu('b1');
@@ -529,6 +550,10 @@ function showTab(tab) {
   else if (tab === 'achievements') renderAchievements();
   else if (tab === 'profile') renderProfile();
   else renderProgress();
+}
+function toggleLevelsMenu() {
+  const drop = document.getElementById('ct-levels-drop');
+  drop.classList.toggle('open');
 }
 
 // ══ MENU PRINCIPAL ══
@@ -581,11 +606,11 @@ function renderMenu() {
           ? `<div style="background:#f0fdf4;border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:#065f46;font-weight:600;">✅ Repte diari completat! +50 XP</div>`
           : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
       })()}
-      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('a2');document.getElementById('nav-a2').click()">Practicar Nivell A2</button>
-      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b1');document.getElementById('nav-b1').click()">Practicar Nivell B1</button>
-      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('b2');document.getElementById('nav-b2').click()">Practicar Nivell B2</button>
-      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="renderLevelMenu('c1');document.getElementById('nav-c1').click()">Practicar Nivell C1</button>
-      ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="renderReview();document.getElementById('nav-review').click()">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('a2')">Practicar Nivell A2</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b1')">Practicar Nivell B1</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b2')">Practicar Nivell B2</button>
+      <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('c1')">Practicar Nivell C1</button>
+      ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="showTab('review')">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
     </div>`;
 }
 
@@ -1265,7 +1290,7 @@ function renderSummary() {
   const backBtn = returnTo === 'cat'
     ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="openCategory('${level}','${(cat||'').replace(/'/g,"\\'")}')">← Tornar al tema</button>`
     : returnTo === 'review'
-    ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="renderReview();document.getElementById('nav-review').classList.add('active')">← Tornar al repàs</button>`
+    ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="showTab('review')">← Tornar al repàs</button>`
     : `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="renderLevelMenu('${level}')">← Tornar al nivell</button>`;
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card ct-summary" style="max-width:480px;">
@@ -1505,6 +1530,7 @@ function startDailySession() {
   const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
+  _setNav({screen:'review'});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('nav-review').classList.add('active');
   renderExercise();
@@ -1920,6 +1946,10 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
   if (shouldShowOnboarding()) renderOnboarding();
   else renderMenu();
   initBackHandler();
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#nav-levels') && !e.target.closest('#ct-levels-drop'))
+      document.getElementById('ct-levels-drop').classList.remove('open');
+  });
 }
 
 /* ══ Botó enrere del dispositiu/navegador ══
