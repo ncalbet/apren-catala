@@ -568,6 +568,12 @@ function shareText(text) {
     });
   }
 }
+function shareSessionResult(pct, n) {
+  const text = pct === 100
+    ? `⭐ Sessió perfecta! He encertat els ${n} exercicis de català d'una sessió a AprènCatalà 💪`
+    : `💪 Acabo de practicar català a AprènCatalà amb un ${pct}% d'encerts. Cada dia una mica millor!`;
+  shareText(text + ' És gratis i sense anuncis.');
+}
 function shareProgress() {
   const lv = getLevel(progress.xp);
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
@@ -1370,6 +1376,7 @@ function renderSummary() {
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="startCategorySession('${level}','${((cat||items[0]?.category)||'').replace(/'/g,"\\'")}')">Repetir els exercicis</button>
       ${backBtn}
+      ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>` : ''}
     </div>`;
 }
 
