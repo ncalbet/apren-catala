@@ -1020,7 +1020,7 @@
             ['el qual / la qual...', 'Amb preposició o per evitar ambigüitat', 'El tema del qual hem parlat... / La comissió la qual va redactar...'],
             ['qui', 'Persones, quan és subjecte de la subordinada', 'Els qui vulguin participar que ho comuniquin.'],
             ['on', 'Lloc', 'La ciutat on va néixer és Barcelona.'],
-            ['quan', 'Temps (registre literari)', 'En el moment en què es va produir...'],
+            ['quan', 'Temps (registre literari)', 'Recordo l\'estiu quan ens vam conèixer.'],
             ['com', 'Mode', 'La manera com ho ha resolt és exemplar.'],
           ]
         }
