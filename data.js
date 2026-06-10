@@ -2468,7 +2468,7 @@ const DATA = {
       question:'Ordena les parts per formar un paràgraf coherent:',
       text:'Un text ben cohesionat segueix una estructura lògica: introducció del tema, desenvolupament i conclusió. Els connectors (en primer lloc, a continuació, finalment) marquen el progrés del discurs.',
       parts:['D\'altra banda, cal considerar els aspectes econòmics de la mesura.','En primer lloc, analitzarem els factors socials que hi intervenen.','Finalment, presentarem les nostres conclusions i recomanacions.','A continuació, veurem l\'impacte ambiental a curt i llarg termini.'],
-      correct:[1,0,3,2], theory:'Un text ben estructurat segueix: introducció → arguments ordenats → conclusió.', example:'En primer lloc... A continuació... D\'altra banda... Finalment...' },
+      correct:[1,0,3,2], alternates:[[1,3,0,2]], theory:'Un text ben estructurat segueix: introducció → arguments ordenats → conclusió. «A continuació» i «d\'altra banda» poden intercanviar-se: tots dos introdueixen arguments intermedis.', example:'En primer lloc... A continuació... D\'altra banda... Finalment...' },
     { id:'b2-coh2', type:'choice', level:'b2', category:'Cohesió textual',
       question:'Quin mecanisme de cohesió usa la frase subratllada?',
       text:'La nova política mediambiental ha generat un ampli debat. <u>Aquesta mesura</u> ha rebut crítiques de nombrosos experts.',
