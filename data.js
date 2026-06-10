@@ -558,7 +558,7 @@
             ['realitzar un treball', 'fer un treball / dur a terme un treball'],
             ['a nivell de', 'quant a / pel que fa a / en matèria de'],
             ['de cara a', 'per a / amb vista a / de cara a (admès en alguns contextos)'],
-            ['tenir en compte', 'tenir en compte (correcte) / considerar'],
+            ['tenir que + infinitiu', 'haver de + infinitiu'],
           ]
         }
       }
