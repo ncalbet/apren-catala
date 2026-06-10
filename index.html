@@ -924,6 +924,7 @@ function renderExercise() {
 
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
+      ${currentSession.isDailyChallenge ? `<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:0.5px;color:#f59e0b;margin-bottom:4px;">🎯 REPTE DIARI</div>` : ''}
       <div class="ct-step">${idx+1} / ${items.length}</div>
       <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
       <div class="ct-card">
@@ -1530,7 +1531,7 @@ function startDailySession() {
   const dc = getDailyChallenge();
   const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
-  currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review' };
+  currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review', isDailyChallenge: true };
   _setNav({screen:'review'});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('nav-review').classList.add('active');
