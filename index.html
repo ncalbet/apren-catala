@@ -1636,7 +1636,7 @@ function startDailySession() {
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review', isDailyChallenge: true };
   _setNav({screen:'review'});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('nav-review').classList.add('active');
+  document.getElementById('nav-levels').classList.add('active');
   renderExercise();
 }
 
