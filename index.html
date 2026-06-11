@@ -985,8 +985,8 @@ function shuffledOptionsHTML(q) {
     const j = Math.floor(Math.random() * (i + 1));
     [idxs[i], idxs[j]] = [idxs[j], idxs[i]];
   }
-  const newCorrect = idxs.indexOf(q.correct);
-  return `<div class="ct-opts">${idxs.map((oi, pos) => `<button class="ct-opt" onclick="checkChoice(${pos},${newCorrect})">${q.options[oi]}</button>`).join('')}</div>`;
+  currentSession.correctIdx = idxs.indexOf(q.correct);
+  return `<div class="ct-opts">${idxs.map((oi, pos) => `<button class="ct-opt" onclick="checkChoice(${pos})">${q.options[oi]}</button>`).join('')}</div>`;
 }
 function renderChoice(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
@@ -1071,9 +1071,10 @@ function renderTransform(q) {
 }
 
 /* COMPROVACIÓ */
-function checkChoice(selected, correct) {
+function checkChoice(selected) {
   if (currentSession.answered) return;
   currentSession.answered = true;
+  const correct = currentSession.correctIdx;
   const opts = document.querySelectorAll('.ct-opt');
   opts.forEach(o => o.onclick = null);
   const isOk = selected === correct;
