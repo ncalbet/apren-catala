@@ -312,7 +312,7 @@
 </script>
 
 <div class="ct-header">
-  <div class="ct-logo" onclick="showTab('menu')" style="cursor:pointer;">Aprèn<span>Català</span></div>
+  <div class="ct-logo" onclick="showTab('menu')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('menu')" role="button" tabindex="0" style="cursor:pointer;">Aprèn<span>Català</span></div>
   <div class="ct-stats">
     <button class="ct-theme-toggle" id="ct-theme-toggle" onclick="toggleTheme()" aria-label="Canviar tema" title="Mode clar / fosc">🌙</button>
     <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ <span class="kofi-text">Convida'm a un cafè</span></a>
@@ -686,7 +686,7 @@ function renderLevelMenu(level) {
     const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
     return `
-      <div class="ct-lesson-card ${cardClass}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')">
+      <div class="ct-lesson-card ${cardClass}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}'")" onkeydown="if(event.key==='Enter'||event.key===' ')openCategory('${level}','${cat.replace(/'/g,"\\'")}'")" role="button" tabindex="0">
         ${corner}
         <div class="ct-lesson-icon">${icon}</div>
         <div class="ct-lesson-title">${cat}</div>
@@ -754,7 +754,7 @@ function openCategory(level, cat) {
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
     const desc = n > 1 ? `<div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${n} exercicis</div>` : '';
     return `
-      <div class="ct-lesson-card ${cardClass}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" style="cursor:pointer;">
+      <div class="ct-lesson-card ${cardClass}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" onkeydown="if(event.key==='Enter'||event.key===' ')startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" role="button" tabindex="0" style="cursor:pointer;">
         ${corner}
         <div class="ct-lesson-icon">${icons[t]}</div>
         <div class="ct-lesson-title">${names[t]}</div>
@@ -1012,7 +1012,7 @@ function renderFill(q) {
 function reorderBlockHTML(parts) {
   const n = parts.length;
   return parts.map((p,i)=>`
-    <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})" onclick="onTapSelect(${i})">
+    <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})" onclick="onTapSelect(${i})" onkeydown="if(event.key==='Enter'||event.key===' ')onTapSelect(${i})" role="button" tabindex="0">
       <span class="ct-handle">⠿</span><span style="flex:1;">${p}</span>
       <span class="ct-move">
         <button type="button" class="ct-move-btn" ${i===0?'disabled':''} onclick="moveReorderBlock(${i},-1,event)" aria-label="Mou amunt">▲</button>
