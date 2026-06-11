@@ -50,6 +50,15 @@
       --track: #e5e7eb;
       --hover: #eef2f7;
       --radius: 14px;
+      --accent-blue-bg: #eff6ff;
+      --accent-green-bg: #f0fdf4;
+      --accent-amber-bg: #fffbeb;
+      --accent-blue-text: #1e40af;
+      --accent-green-text: #065f46;
+      --accent-amber-text: #78350f;
+      --accent-blue-val: #3b82f6;
+      --accent-green-val: #059669;
+      --accent-amber-val: #d97706;
     }
     [data-theme="dark"] {
       --bg: #0f1623;
@@ -63,6 +72,15 @@
       --surface-2: #243043;
       --track: #2d3a4d;
       --hover: #243043;
+      --accent-blue-bg: rgba(59,130,246,0.12);
+      --accent-green-bg: rgba(5,150,105,0.12);
+      --accent-amber-bg: rgba(245,158,11,0.12);
+      --accent-blue-text: #93c5fd;
+      --accent-green-text: #6ee7b7;
+      --accent-amber-text: #fcd34d;
+      --accent-blue-val: #60a5fa;
+      --accent-green-val: #34d399;
+      --accent-amber-val: #fbbf24;
     }
     html { color-scheme: light dark; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -292,7 +310,7 @@
     .ct-encouragement {
       background:#fef9ec; border-left:3px solid #f59e0b;
       border-radius:0 8px 8px 0; padding:10px 14px;
-      font-size:13px; color:#78350f; margin-top:10px; animation:fadeIn 0.4s ease;
+      font-size:13px; color:var(--accent-amber-text); margin-top:10px; animation:fadeIn 0.4s ease;
     }
     /* MODALS */
     .ct-modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px; }
@@ -614,17 +632,17 @@ function renderMenu() {
         Exercicis de nivell A2, B1, B2 i C1 de català amb repetició espaïada.<br>Cada tema inclou teoria + exercicis pràctics.
       </p>
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
-        <div style="background:#eff6ff;border-radius:12px;padding:16px 22px;min-width:100px;">
-          <div style="font-size:22px;font-weight:700;color:#1e40af;">${lv.emoji} ${lv.name}</div>
-          <div style="font-size:12px;color:#3b82f6;margin-top:2px;">${progress.xp} XP</div>
+        <div style="background:var(--accent-blue-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
+          <div style="font-size:22px;font-weight:700;color:var(--accent-blue-text);">${lv.emoji} ${lv.name}</div>
+          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">${progress.xp} XP</div>
         </div>
-        <div style="background:#f0fdf4;border-radius:12px;padding:16px 22px;min-width:100px;">
-          <div style="font-size:26px;font-weight:700;color:#065f46;">${mastered}/${total}</div>
+        <div style="background:var(--accent-green-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
+          <div style="font-size:26px;font-weight:700;color:var(--accent-green-text);">${mastered}/${total}</div>
           <div style="font-size:12px;color:#059669;margin-top:2px;">Dominats</div>
         </div>
-        <div style="background:#fffbeb;border-radius:12px;padding:16px 22px;min-width:100px;">
+        <div style="background:var(--accent-amber-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:26px;font-weight:700;color:#92400e;">🔥 ${progress.streak}</div>
-          <div style="font-size:12px;color:#d97706;margin-top:2px;">Dies de ratxa</div>
+          <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">Dies de ratxa</div>
         </div>
       </div>
       <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
@@ -636,14 +654,14 @@ function renderMenu() {
         const dc = getDailyChallenge();
         const dcDone = dc.completed.length === dc.ids.length;
         return dcDone
-          ? `<div style="background:#f0fdf4;border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:#065f46;font-weight:600;">✅ Repte diari completat! +50 XP</div>`
+          ? `<div style="background:var(--accent-green-bg);border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-green-text);font-weight:600;">✅ Repte diari completat! +50 XP</div>`
           : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
       })()}
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('a2')">Practicar Nivell A2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b1')">Practicar Nivell B1</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b2')">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('c1')">Practicar Nivell C1</button>
-      ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:#f0fdf4;border-color:#059669;color:#059669;" onclick="showTab('review')">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
+      ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:var(--accent-green-bg);border-color:#059669;color:#059669;" onclick="showTab('review')">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
     </div>`;
 }
 
@@ -789,7 +807,7 @@ function renderTheorySection(s) {
       <div class="th-rule">
         ${r.label ? `<strong>${r.label}:</strong> ` : ''}
         ${r.example || ''}
-        ${r.bad ? `<span style="color:#991b1b;">✗ ${r.bad}</span> → <span style="color:#065f46;">✓ ${r.good}</span>` : ''}
+        ${r.bad ? `<span style="color:#991b1b;">✗ ${r.bad}</span> → <span style="color:var(--accent-green-text);">✓ ${r.good}</span>` : ''}
       </div>`).join('');
   }
   if (s.examples) {
@@ -1057,7 +1075,7 @@ function renderReading(q) {
 }
 function renderWriting(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:#1e40af;font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:var(--accent-blue-text);font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
     <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
     <div id="write-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
@@ -1066,7 +1084,7 @@ function renderWriting(q) {
 }
 function renderTransform(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div style="background:#fef3c7;border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:#78350f;line-height:1.55;">
+    <div style="background:#fef3c7;border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:var(--accent-amber-text);line-height:1.55;">
       Original: <strong>${q.original}</strong></div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
     <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
@@ -1781,7 +1799,7 @@ function renderAchievements() {
       ${render7DayHistory()}
 
       <div style="font-size:13px;color:var(--muted);margin:16px 0 8px;">${nAll} de ${totalAll} assoliments desblocats</div>
-      <div style="background:#f0fdf4;border-radius:10px;height:8px;margin-bottom:28px;overflow:hidden;">
+      <div style="background:var(--accent-green-bg);border-radius:10px;height:8px;margin-bottom:28px;overflow:hidden;">
         <div style="background:#059669;height:100%;width:${Math.round(nAll/totalAll*100)}%;border-radius:10px;transition:width 0.5s;"></div>
       </div>
 
@@ -1796,13 +1814,13 @@ function renderAchievements() {
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B1.</p>
       ${renderMedalGrid(b1medals, unlockedM)}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#1e40af;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent-blue-text);margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #dbeafe;">
         🥉 Medalles B2 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b2done}/${b2medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B2.</p>
       ${renderMedalGrid(b2medals, unlockedM)}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#d97706;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #fef3c7;">
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent-amber-val);margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #fef3c7;">
         🥇 Medalles C1 <span style="font-size:13px;font-weight:400;color:var(--muted);">${c1done}/${c1medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell C1.</p>
@@ -1912,36 +1930,36 @@ function renderProgress() {
           <div style="font-size:22px;font-weight:700;color:var(--muted);">${m0}</div>
           <div style="font-size:10px;color:var(--muted);margin-top:2px;">Nous</div>
         </div>
-        <div style="background:#fffbeb;border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-size:22px;font-weight:700;color:#d97706;">${m12}</div>
+        <div style="background:var(--accent-amber-bg);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:var(--accent-amber-val);">${m12}</div>
           <div style="font-size:10px;color:#f59e0b;margin-top:2px;">Aprenent</div>
         </div>
-        <div style="background:#eff6ff;border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-size:22px;font-weight:700;color:#1e40af;">${m34}</div>
-          <div style="font-size:10px;color:#3b82f6;margin-top:2px;">Après</div>
+        <div style="background:var(--accent-blue-bg);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:var(--accent-blue-text);">${m34}</div>
+          <div style="font-size:10px;color:var(--accent-blue-val);margin-top:2px;">Après</div>
         </div>
-        <div style="background:#f0fdf4;border-radius:10px;padding:12px;text-align:center;">
+        <div style="background:var(--accent-green-bg);border-radius:10px;padding:12px;text-align:center;">
           <div style="font-size:22px;font-weight:700;color:#059669;">${m5}</div>
           <div style="font-size:10px;color:#10b981;margin-top:2px;">Dominat ★</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
-        <div style="background:#f0fdf4;border-radius:10px;padding:14px;text-align:center;">
-          <div style="font-size:26px;font-weight:700;color:#065f46;">${progress.xp}</div>
+        <div style="background:var(--accent-green-bg);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:26px;font-weight:700;color:var(--accent-green-text);">${progress.xp}</div>
           <div style="font-size:11px;color:#059669;margin-top:2px;">XP totals</div>
         </div>
-        <div style="background:#fffbeb;border-radius:10px;padding:14px;text-align:center;">
+        <div style="background:var(--accent-amber-bg);border-radius:10px;padding:14px;text-align:center;">
           <div style="font-size:26px;font-weight:700;color:#92400e;">🔥 ${progress.streak}</div>
-          <div style="font-size:11px;color:#d97706;margin-top:2px;">Dies de ratxa</div>
+          <div style="font-size:11px;color:var(--accent-amber-val);margin-top:2px;">Dies de ratxa</div>
         </div>
-        <div style="background:#eff6ff;border-radius:10px;padding:14px;text-align:center;">
-          <div style="font-size:26px;font-weight:700;color:#1e40af;">${total - m0}</div>
-          <div style="font-size:11px;color:#3b82f6;margin-top:2px;">Intentats</div>
+        <div style="background:var(--accent-blue-bg);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:26px;font-weight:700;color:var(--accent-blue-text);">${total - m0}</div>
+          <div style="font-size:11px;color:var(--accent-blue-val);margin-top:2px;">Intentats</div>
         </div>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
-        style="display:flex;align-items:center;gap:12px;background:#fef9ec;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:#78350f;">
+        style="display:flex;align-items:center;gap:12px;background:#fef9ec;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--accent-amber-text);">
         <span style="font-size:28px;">☕</span>
         <div>
           <div style="font-size:14px;font-weight:700;">T'ha estat útil? Convida'm un cafè</div>
