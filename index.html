@@ -704,7 +704,7 @@ function renderLevelMenu(level) {
     const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
     return `
-      <div class="ct-lesson-card ${cardClass}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}'")" onkeydown="if(event.key==='Enter'||event.key===' ')openCategory('${level}','${cat.replace(/'/g,"\\'")}'")" role="button" tabindex="0">
+      <div class="ct-lesson-card ${cardClass}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" onkeydown="if(event.key==='Enter'||event.key===' ')openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" role="button" tabindex="0">
         ${corner}
         <div class="ct-lesson-icon">${icon}</div>
         <div class="ct-lesson-title">${cat}</div>
