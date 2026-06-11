@@ -294,6 +294,12 @@
       border-radius:0 8px 8px 0; padding:10px 14px;
       font-size:13px; color:#78350f; margin-top:10px; animation:fadeIn 0.4s ease;
     }
+    /* MODALS */
+    .ct-modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px; }
+    .ct-modal { background:var(--surface);border-radius:16px;padding:24px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.3);animation:popIn 0.2s ease; }
+    .ct-modal p { font-size:15px;color:var(--text);margin:0 0 20px;line-height:1.5; }
+    .ct-modal-btns { display:flex;gap:8px; }
+    .ct-modal-btns button { flex:1; }
   </style>
 </head>
 <body>
@@ -1088,7 +1094,7 @@ function checkFill() {
   const q = currentSession.items[currentSession.idx];
   const input = document.getElementById('fill-in');
   const val = normalize(input.value);
-  if (!val) { alert('Escriu una resposta primer.'); return; }
+  if (!val) { showAlert('Escriu una resposta primer.'); return; }
   currentSession.answered = true;
   input.disabled = true;
   const ok = q.answers.some(a => normalize(a) === val);
@@ -1198,7 +1204,7 @@ function checkWriting() {
   if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('write-area').value.trim();
-  if (!text) { alert('Escriu una resposta primer.'); return; }
+  if (!text) { showAlert('Escriu una resposta primer.'); return; }
   currentSession.answered = true;
   disableActionButtons('write-actions');
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackWriting(q, text)}</div>`;
@@ -1208,7 +1214,7 @@ function checkTransform() {
   if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
   const text = document.getElementById('transform-area').value.trim();
-  if (!text) { alert('Escriu una reformulació primer.'); return; }
+  if (!text) { showAlert('Escriu una reformulació primer.'); return; }
   currentSession.answered = true;
   disableActionButtons('transform-actions');
   document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackTransform(q, text)}</div>`;
@@ -1943,7 +1949,7 @@ function renderProgress() {
         </div>
         <span style="font-size:18px;margin-left:auto;">→</span>
       </a>
-      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="if(confirm('Segur que vols reiniciar tot el progrés?')){progress={xp:0,streak:0,mastery:{},maxMastery:{},lastDay:null,consec:0,perfectSessions:0,dailyChallenge:null,practiceHistory:[],freezes:1};saveProgress();updateHeader();renderProgress();}">
+      <button class="ct-btn secondary" style="margin-top:12px;font-size:12px;padding:8px 16px;" onclick="resetProgress()">
         Reiniciar progrés
       </button>
     </div>`;
@@ -2261,6 +2267,27 @@ function initBackHandler() {
   window.addEventListener('popstate', () => {
     history.pushState({ ac: 1 }, '');
     _goBack();
+  });
+}
+
+/* ══ MODALS ══ */
+function showAlert(msg) {
+  const el = document.createElement('div');
+  el.className = 'ct-modal-overlay';
+  el.innerHTML = `<div class="ct-modal"><p>${msg}</p><button class="ct-btn primary" onclick="this.closest('.ct-modal-overlay').remove()">D'acord</button></div>`;
+  document.body.appendChild(el);
+}
+function showConfirm(msg, onConfirm) {
+  const el = document.createElement('div');
+  el.className = 'ct-modal-overlay';
+  el.innerHTML = `<div class="ct-modal"><p>${msg}</p><div class="ct-modal-btns"><button class="ct-btn secondary" onclick="this.closest('.ct-modal-overlay').remove()">Cancel·lar</button><button class="ct-btn primary" id="ct-confirm-ok">Sí, continua</button></div></div>`;
+  document.body.appendChild(el);
+  el.querySelector('#ct-confirm-ok').onclick = () => { el.remove(); onConfirm(); };
+}
+function resetProgress() {
+  showConfirm('Segur que vols reiniciar tot el progrés? Aquesta acció no es pot desfer.', () => {
+    progress = { xp:0, streak:0, mastery:{}, maxMastery:{}, lastDay:null, consec:0, perfectSessions:0, dailyChallenge:null, practiceHistory:[], freezes:1 };
+    saveProgress(); updateHeader(); renderProgress();
   });
 }
 
