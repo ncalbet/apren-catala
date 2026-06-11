@@ -317,9 +317,9 @@
 </div>
 <div class="ct-nav-wrap">
   <div class="ct-nav">
-    <button onclick="showTab('menu')" id="nav-menu" class="active">Inici</button>
+    <button onclick="showTab('menu')" id="nav-menu" class="active">🏠</button>
     <button onclick="toggleLevelsMenu()" id="nav-levels">Nivells ▾</button>
-    <button onclick="showTab('review')" id="nav-review">🔁 Repàs</button>
+    <button onclick="showTab('help')" id="nav-help">❓ Ajuda</button>
     <button onclick="showTab('achievements')" id="nav-achievements">🏅 Assoliments</button>
     <button onclick="showTab('progress')" id="nav-progress">Progrés</button>
     <button onclick="showTab('profile')" id="nav-profile">👤 Perfil</button>
@@ -329,6 +329,7 @@
     <button class="ct-lv-btn" id="drop-b1" onclick="showTab('b1')"><div class="lc">B1</div><div class="ll">Elemental</div><div class="ls">Comunicació quotidiana</div></button>
     <button class="ct-lv-btn" id="drop-b2" onclick="showTab('b2')"><div class="lc">B2</div><div class="ll">Intermedi</div><div class="ls">Registres i matissos</div></button>
     <button class="ct-lv-btn" id="drop-c1" onclick="showTab('c1')"><div class="lc">C1</div><div class="ll">Avançat</div><div class="ls">Llengua formal i complexa</div></button>
+    <button class="ct-lv-btn" id="drop-review" onclick="showTab('review')" style="border-top:1px solid var(--border);"><div class="lc">🔁</div><div class="ll">Repàs</div><div class="ls">Exercicis que necessites practicar</div></button>
   </div>
 </div>
 <div class="ct-body" id="ct-body"></div>
@@ -560,6 +561,8 @@ function showTab(tab) {
   if (levelTabs.includes(tab)) {
     document.getElementById('nav-levels').classList.add('active');
     document.getElementById('drop-' + tab).classList.add('active');
+  } else if (tab === 'review') {
+    document.getElementById('nav-levels').classList.add('active');
   } else {
     document.getElementById('nav-' + tab).classList.add('active');
   }
@@ -571,6 +574,7 @@ function showTab(tab) {
   else if (tab === 'c1') renderLevelMenu('c1');
   else if (tab === 'review') renderReview();
   else if (tab === 'achievements') renderAchievements();
+  else if (tab === 'help') renderHelp();
   else if (tab === 'profile') renderProfile();
   else renderProgress();
 }
@@ -2070,36 +2074,12 @@ function _goBack() {
   // si és 'menu', no fem res (no tanca l'app)
 }
 
-// ══ PERFIL ══
-function saveProfileData() {
-  const nom = document.getElementById('prof-nom').value.trim();
-  const pseudo = document.getElementById('prof-pseudo').value.trim();
-  localStorage.setItem('cat_profile_v1', JSON.stringify({ nom, pseudo }));
-  const btn = document.getElementById('prof-save');
-  btn.textContent = '✓ Desat!';
-  btn.style.background = '#059669';
-  setTimeout(() => { btn.textContent = 'Desar canvis'; btn.style.background = ''; }, 2000);
-}
-
-function renderProfile() {
-  const p = safeParse('cat_profile_v1') || {};
-  const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+// ══ AJUDA ══
+function renderHelp() {
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">👤 El teu perfil</div>
-
-      <div style="margin-bottom:10px;">
-        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">NOM</label>
-        <input id="prof-nom" class="ct-input" style="margin-top:0;" placeholder="El teu nom" value="${esc(p.nom)}">
-      </div>
-      <div style="margin-bottom:10px;">
-        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
-        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Nom per mostrar a l'app" value="${esc(p.pseudo)}">
-      </div>
-      <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
-
-      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">❓ Ajuda</div>
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;">🎓 Model pedagògic</div>
       <p style="font-size:13px;color:var(--text-soft);line-height:1.75;margin-bottom:14px;">Aprèn Català és una eina d'<strong>aprenentatge profund</strong> dissenyada per a l'aprenentatge de la llengua catalana.</p>
@@ -2142,13 +2122,13 @@ function renderProfile() {
       <details class="ct-acc">
         <summary>🎯 Sistema de domini (1 → 5)</summary>
         <div class="ct-acc-body">
-          Cada exercici té un nivell de domini de <strong>1 a 5</strong>. Comença a 1 quan el fas per primera vegada i puja +1 cada vegada que l'encertes en sessions diferents.<br><br>
+          Cada exercici té un nivell de domini de <strong>1 a 5</strong>. Comença a 1 quan el fas per primera vegada i puja +1 cada vegada que l'encertes en un <strong>dia diferent</strong>.<br><br>
           <strong>1 — Nou:</strong> encara no l'has fet.<br>
           <strong>2 — En aprenentatge:</strong> l'has encertat un cop.<br>
           <strong>3 — Consolidant:</strong> dos encerts en dies diferents.<br>
           <strong>4 — Ben après:</strong> tres o més encerts.<br>
           <strong>5 — Dominat:</strong> màxim domini, apareixerà menys sovint al repàs.<br><br>
-          Aquest sistema s'anomena <em>repetició espaiada (SRS)</em>: el que ja domines apareix menys, i el que et costa, més sovint. Així aprens de forma eficient.
+          Practicar el mateix exercici diverses vegades el mateix dia no puja el domini: cal fer-ho en <strong>dies naturals diferents</strong> perquè l'aprenentatge es consolidi de veritat.
         </div>
       </details>
 
@@ -2201,7 +2181,7 @@ function renderProfile() {
       <details class="ct-acc">
         <summary>Per què el meu domini no arriba a 5/5 de cop?</summary>
         <div class="ct-acc-body">
-          El domini puja gradualment: cal encertar l'exercici en <strong>sessions diferents</strong> per consolidar-lo. No és un error: és la mecànica de la repetició espaiada. Si l'encertes avui i demà, el domini pujarà de 2 a 3, i així fins a 5.
+          El domini puja gradualment: cal encertar l'exercici en <strong>dies naturals diferents</strong> per consolidar-lo. La pràctica espaçada en el temps és la clau per aprendre de veritat, no la repetició massiva en un sol dia. Si l'encertes avui i demà, el domini pujarà de 2 a 3, i així fins a 5.
         </div>
       </details>
 
@@ -2226,6 +2206,38 @@ function renderProfile() {
           Sí, tots els nivells (A2, B1, B2, C1) estan disponibles des del primer dia. El teu nivell a l'app (Aprenent, Estudiant…) es basa en l'XP acumulat i és independent del nivell de català que tries practicar.
         </div>
       </details>
+
+    </div>`;
+}
+
+// ══ PERFIL ══
+function saveProfileData() {
+  const nom = document.getElementById('prof-nom').value.trim();
+  const pseudo = document.getElementById('prof-pseudo').value.trim();
+  localStorage.setItem('cat_profile_v1', JSON.stringify({ nom, pseudo }));
+  const btn = document.getElementById('prof-save');
+  btn.textContent = '✓ Desat!';
+  btn.style.background = '#059669';
+  setTimeout(() => { btn.textContent = 'Desar canvis'; btn.style.background = ''; }, 2000);
+}
+
+function renderProfile() {
+  const p = safeParse('cat_profile_v1') || {};
+  const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="max-width:600px;margin:0 auto;">
+
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">👤 El teu perfil</div>
+
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">NOM</label>
+        <input id="prof-nom" class="ct-input" style="margin-top:0;" placeholder="El teu nom" value="${esc(p.nom)}">
+      </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
+        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Nom per mostrar a l'app" value="${esc(p.pseudo)}">
+      </div>
+      <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
