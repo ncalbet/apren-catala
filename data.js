@@ -2354,7 +2354,7 @@ const DATA = {
     { id:'a2-lex6', type:'writing', level:'a2', category:"Lèxic A2: caràcter i emocions",
       question:"Descriu una situació compromesa que has viscut. Usa el passat perifràstic i almenys dos connectors temporals.",
       keywords:['passat perifràstic: vaig/vas/va...','connectors: quan / al principi / llavors / finalment','reacció: em vaig posar... / em vaig quedar...'],
-      sample:"Un dia vaig confondre la meva professora amb una alumna. Al principi no em vaig adonar de l'error. Quan ella em va mirar molt sorpresa, llavors vaig entendre el que havia passat. Finalment em vaig disculpar i em vaig posar molt vermell.",
+      sample:"Un dia vaig confondre la meva professora amb una alumna. Al principi no em vaig adonar de l'error. Quan ella em va mirar molt sorpresa, llavors vaig entendre la situació. Finalment em vaig disculpar i em vaig posar molt vermell.",
       theory:"Una bona narració al passat combina: context (imperfet) + accions (passat perifràstic) + connectors temporals.", example:"Al principi... Llavors... Finalment... em vaig posar vermell/a." },
 
     // PREGUNTES I INTERROGACIÓ
