@@ -2107,6 +2107,49 @@ function _goBack() {
   // si és 'menu', no fem res (no tanca l'app)
 }
 
+// ══ CÒPIA DE SEGURETAT ══
+function exportProgress() {
+  const data = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('cat_')) data[key] = localStorage.getItem(key);
+  }
+  const payload = { app: 'aprencatala', version: 1, date: new Date().toISOString(), data };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'aprencatala-progres-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function importProgress(ev) {
+  const file = ev.target.files[0];
+  ev.target.value = '';
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    let payload = null;
+    try { payload = JSON.parse(reader.result); } catch (e) {}
+    let prog = null;
+    try { prog = payload && payload.data ? JSON.parse(payload.data.cat_prog_v7) : null; } catch (e) {}
+    if (!payload || payload.app !== 'aprencatala' || !prog || typeof prog.mastery !== 'object') {
+      showAlert("El fitxer no és una còpia de seguretat vàlida d'AprènCatalà.");
+      return;
+    }
+    showConfirm('Importar aquesta còpia substituirà el progrés actual del dispositiu. Vols continuar?', () => {
+      Object.entries(payload.data).forEach(([k, v]) => {
+        if (k.startsWith('cat_') && typeof v === 'string') localStorage.setItem(k, v);
+      });
+      location.reload();
+    });
+  };
+  reader.readAsText(file);
+}
+
 // ══ AJUDA ══
 function renderHelp() {
   document.getElementById('ct-body').innerHTML = `
@@ -2271,6 +2314,19 @@ function renderProfile() {
         <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Nom per mostrar a l'app" value="${esc(p.pseudo)}">
       </div>
       <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;">💾 Còpia de seguretat</div>
+      <p style="font-size:13px;color:var(--text-soft);line-height:1.75;margin-bottom:14px;">
+        El progrés es desa només en aquest dispositiu. Exporta'l a un fitxer per guardar-ne una còpia o per passar-lo a un altre dispositiu.
+      </p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="ct-btn primary" style="flex:1;min-width:150px;margin:0;" onclick="exportProgress()">⬇️ Exportar progrés</button>
+        <button class="ct-btn secondary" style="flex:1;min-width:150px;margin:0;" onclick="document.getElementById('import-file').click()">⬆️ Importar progrés</button>
+      </div>
+      <input type="file" id="import-file" accept="application/json,.json" style="display:none;" onchange="importProgress(event)">
+      <p style="font-size:11px;color:var(--muted);margin-top:10px;">En importar una còpia, el progrés actual del dispositiu se substitueix pel del fitxer.</p>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
