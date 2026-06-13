@@ -2290,7 +2290,7 @@ const DATA = {
       question:"Quina forma d'imperfet és correcta per a «nosaltres» amb «ser»?",
       text:"El verb «ser» té un imperfet completament irregular: les formes regulars no hi funcionen. Tria la forma correcta per a «nosaltres».",
       options:['erem','érem','eram'],
-      correct:1, theory:"El verb «ser» en imperfet és irregular: era, eres, era, érem, éreu, eren. La primera persona del plural porta accent: érem.", example:"Quan érem petits, érem molt traviesos." },
+      correct:1, theory:"El verb «ser» en imperfet és irregular: era, eres, era, érem, éreu, eren. La primera persona del plural porta accent: érem.", example:"Quan érem petits, érem molt entremaliadets." },
 
     { id:'a2-imp3', type:'choice', level:'a2', category:"Imperfet d'indicatiu",
       question:"Quan s'usa l'imperfet en lloc del passat perifràstic?",
