@@ -573,7 +573,7 @@ function showEncouragement(category) {
   const fa = document.getElementById('feedback-area');
   if (fa) fa.appendChild(el);
 }
-function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim(); }
 
 // ══ NAV ══
 function showTab(tab) {
@@ -661,7 +661,7 @@ function renderMenu() {
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b1')">Practicar Nivell B1</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b2')">Practicar Nivell B2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('c1')">Practicar Nivell C1</button>
-      ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:var(--accent-green-bg);border-color:#059669;color:#059669;" onclick="showTab('review')">🔁 Repàs intel·ligent (${needsReview} pendents)</button>` : ''}
+      ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:var(--accent-green-bg);border-color:#059669;color:#059669;" onclick="showTab('review')">🔁 Repàs intel·ligent</button>` : ''}
     </div>`;
 }
 
@@ -881,7 +881,9 @@ let reviewLevel = 'all';
 function getReviewPool() {
   let all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
   if (reviewLevel !== 'all') all = all.filter(q => q.level === reviewLevel);
-  return all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4);
+  const dc = progress.dailyChallenge;
+  const todayDC = (dc && dc.date === new Date().toDateString()) ? dc.ids : [];
+  return all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4 && !todayDC.includes(q.id));
 }
 
 // Tria fins a REVIEW_SIZE exercicis prioritzant domini baix, però repartint
@@ -923,8 +925,8 @@ function renderReview() {
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">${chips}</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
         ${pool.length > 0
-          ? `Repassaràs <strong>${toStudy.length}</strong> exercicis variats${pool.length > toStudy.length ? ` (de <strong>${pool.length}</strong> pendents)` : ''}. Prioritzem els de domini més baix.`
-          : 'No hi ha exercicis pendents en aquest nivell. Practica més exercicis per activar el repàs!'}
+          ? `Repassaràs <strong>${toStudy.length}</strong> exercicis variats, triats entre els que més et convé consolidar. Prioritzem els de domini més baix.`
+          : 'Encara no tens exercicis per repassar en aquest nivell. Practica una mica més i el repàs s\'activarà sol!'}
       </p>
       ${toStudy.length > 0 ? `
         <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startReviewSession()">
@@ -1269,21 +1271,27 @@ function markDone(ok, xp) {
   const prevMax = (progress.maxMastery || {})[q.id] || 0;
   const prevLevel = getLevel(progress.xp);
 
-  // Gating per dia natural: el domini només puja si l'exercici es fa en un dia diferent
-  // (la pràctica espaçada en dies separats consolida l'aprenentatge)
   if (!progress.lastMasteryDate) progress.lastMasteryDate = {};
+  if (!progress.masteryDayStart) progress.masteryDayStart = {};
   const todayISO = new Date().toISOString().slice(0, 10);
   const sameDayBlock = ok && prev > 0 && progress.lastMasteryDate[q.id] === todayISO;
+
+  // Sostre del dia: el domini només pot pujar +1 respecte el valor amb què començava el dia
+  // (pràctica espaçada), però els encerts SÍ poden recuperar el que s'hagi perdut avui per errades.
+  const dsRec = progress.masteryDayStart[q.id];
+  if (!dsRec || dsRec.date !== todayISO) progress.masteryDayStart[q.id] = { date: todayISO, value: prev };
+  const dayStart = progress.masteryDayStart[q.id].value;
+  const dayCeiling = dayStart === 0 ? 2 : Math.min(5, dayStart + 1);
 
   // Actualitza domini
   if (prev === 0) {
     progress.mastery[q.id] = ok ? 2 : 1;
     if (ok) progress.lastMasteryDate[q.id] = todayISO;
-  } else if (sameDayBlock) {
-    // Encert el mateix dia: domini no puja (les errades sí baixen, sense restricció de dia)
+  } else if (ok) {
+    progress.mastery[q.id] = Math.min(prev + 1, dayCeiling);
+    progress.lastMasteryDate[q.id] = todayISO;
   } else {
-    progress.mastery[q.id] = ok ? Math.min(5, prev + 1) : Math.max(1, prev - 1);
-    if (ok) progress.lastMasteryDate[q.id] = todayISO;
+    progress.mastery[q.id] = Math.max(1, prev - 1);
   }
   const newM = getMastery(q.id);
 
