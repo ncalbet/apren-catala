@@ -2119,9 +2119,9 @@ const DATA = {
     // ── SER, ESTAR I SEMBLAR ──
     { id:'a2-ses1', type:'choice', level:'a2', category:'Ser, estar i semblar',
       question:'Tria el verb adequat per completar la frase:',
-      text:'La Berta ___ una persona molt alegre i sociable.',
-      options:['està','és','sembla molt'],
-      correct:1, theory:"«Ser» s'usa per a característiques definitòries d'una persona. ✗ «Està» seria incorrecte perquè indica un estat temporal (avui, ara), no un tret de personalitat estable. ✗ «Sembla molt» és incorrecte perquè «semblar» expressa aparença subjectiva i no admet «molt» en aquesta posició.", example:"La Maria és molt divertida, però avui està trista." },
+      text:'La conec molt bé: la Berta ___ una persona molt alegre i sociable.',
+      options:['està','és','sembla'],
+      correct:1, theory:"«La conec molt bé» indica que ho saps del cert → SER (fet, no impressió). ✗ «Sembla» implicaria que només t'ho sembla, però has dit que la coneixes bé. ✗ «Està» és agramatical: amb un sintagma nominal («una persona…») només hi va «ser».", example:"La Maria és molt divertida, però avui està trista." },
 
     { id:'a2-ses2', type:'choice', level:'a2', category:'Ser, estar i semblar',
       question:"Quin verb és el correcte per completar la frase?",
@@ -2253,7 +2253,7 @@ const DATA = {
 
     { id:'a2-pfa3', type:'choice', level:'a2', category:'Pronoms febles A2',
       question:"Quina frase usa correctament el pronom feble?",
-      text:"Necessito ___ veure ___ (la directora) ara.",
+      text:"Vols dir «Necessito veure la directora ara.» Quina és la construcció correcta amb el pronom feble?",
       options:["La necessito veure.","Necessito veure-la.","Necessito-la veure."],
       correct:1, theory:"Amb infinitius, el pronom feble va enclític (darrere i unit) a l'infinitiu amb guionet: veure-la, fer-ho, trucar-los.", example:"Vull veure-la. / He d'explicar-ho. / Cal trucar-los." },
 
@@ -2266,7 +2266,7 @@ const DATA = {
     { id:'a2-pfa5', type:'fill', level:'a2', category:'Pronoms febles A2',
       question:'Omple el buit amb el pronom feble adequat:',
       text:'Per substituir un adjectiu o atribut amb els verbs ser, estar i semblar, el català fa servir un pronom neutre que no concorda en gènere ni nombre.',
-      sentence:"«La Raquel és divertida?» «Sí, ___ és molt.»",
+      sentence:"«La Raquel és divertida?» «Sí, ___ és, i molt.»",
       display:"pronom que substitueix l'adjectiu «divertida»",
       answers:['ho'],
       theory:"«Ho» substitueix l'atribut (adjectiu) dels verbs ser, estar i semblar. No s'usa «la» o «el» per substituir adjectius.", example:"«Sembla tímid?» «Sí, ho sembla, però no ho és.»" },
