@@ -1982,8 +1982,8 @@ const DATA = {
     { id:'b1-fc4', type:'choice', level:'b1', category:'Futur i condicional B1',
       question:'Quin temps verbal és el correcte?',
       text:"Si tens fred, ___ la finestra.",
-      options:['tancaràs','tanques','tanca'],
-      correct:2, theory:"Les condicionals reals (si + present indicatiu) porten l'apòdosi en imperatiu o present. «Si tens... tanca!»", example:"Si tens gana, menja alguna cosa." },
+      options:['tancaries','tanquis','tanca'],
+      correct:2, theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dóna una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
 
     { id:'b1-fc5', type:'reading', level:'b1', category:'Futur i condicional B1',
       text:"—Quin seria el teu treball ideal?\n—M'agradaria ser periodista. Viatjaria molt i escriuria sobre cultures diferents. A més, podria conèixer persones molt interessants. I tu?\n—Jo voldria treballar en una editorial. Corregiria texts i descobriria nous autors.",
@@ -2082,8 +2082,8 @@ const DATA = {
     { id:'b1-lq1', type:'choice', level:'b1', category:'Lèxic quotidià B1',
       question:'Quina és la paraula catalana correcta?',
       text:"He de trucar al ___ per demanar una cita mèdica.",
-      options:['médico','metge','doctor en castellà'],
-      correct:1, theory:"«Metge/essa» és el mot català per «médico/médica». «Metge» és masculí, «metgessa» és femení.", example:"La meva metgessa diu que haig de descansar més." },
+      options:['médico','metge','doctor'],
+      correct:1, theory:"«Metge/metgessa» és el terme català estàndard per al professional sanitari. ✗ «Médico» és castellà. ✗ «Doctor» en català designa qui té un doctorat; per a qui exerceix la medicina, la forma estàndard és «metge/metgessa».", example:"La meva metgessa diu que haig de descansar més." },
 
     { id:'b1-lq2', type:'fill', level:'b1', category:'Lèxic quotidià B1',
       question:'Omple amb la paraula catalana adequada (evita el calc):',
@@ -2094,8 +2094,8 @@ const DATA = {
 
     { id:'b1-lq3', type:'choice', level:'b1', category:'Lèxic quotidià B1',
       question:'Quin terme és incorrecte en català?',
-      options:['el cotxe','el carro (vehicle)','el car (vehicle)'],
-      correct:2, theory:"«Car» en anglès i «carro» en castellà no es tradueixen directament. El català usa «cotxe» per al vehicle de motor. «Carro» pot ser un vehicle de tracció animal.", example:"Vine en cotxe o en transport públic?" },
+      options:['el cotxe','el carro (de tracció animal)','el car (vehicle)'],
+      correct:2, theory:"Per al vehicle de motor, el català usa «cotxe». ✗ «Car» (anglès) i el seu calc no són catalans. «Carro» sí que existeix en català, però designa un vehicle de tracció animal (carruatge), no un cotxe.", example:"Vine en cotxe o en transport públic?" },
 
     { id:'b1-lq4', type:'reorder', level:'b1', category:'Lèxic quotidià B1',
       question:'Ordena per formar una frase correcta:',
