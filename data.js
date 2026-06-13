@@ -2327,14 +2327,14 @@ const DATA = {
       options:['em poso a riure','em vull fondre','em quedo callat'],
       correct:1, theory:"«Em vull fondre» expressa la màxima vergonya: voler desaparèixer. Prové de la imatge de fondre's com si fos mantega.", example:"Quan vaig dir el nom equivocat, em volia fondre!" },
 
-    { id:'a2-lex2', type:'fill', level:'a2', category:"Lèxic A2: caràcter i emocions",
+    { id:'a2-lex2', type:'fill', level:'a2', category:'Passat perifràstic',
       question:'Omple amb el connector temporal adequat:',
       sentence:"___ vaig arribar a la porta, vaig adonar-me que havia oblidat les claus.",
       display:'connector temporal que introdueix el moment en què passa alguna cosa',
       answers:['quan'],
       theory:"«Quan» introdueix el moment precís en què una acció té lloc.", example:"Quan vaig obrir la porta, vaig veure que no hi havia ningú." },
 
-    { id:'a2-lex3', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
+    { id:'a2-lex3', type:'choice', level:'a2', category:'Passat perifràstic',
       question:"Quin connector indica el moment inicial d'una narració?",
       options:['finalment','al principi','llavors'],
       correct:1, theory:"«Al principi» situa el lector al moment inicial del relat. Seqüència típica: al principi → llavors/aleshores → finalment.", example:"Al principi no entenia res. Llavors vaig demanar ajuda. Finalment ho vaig entendre." },
