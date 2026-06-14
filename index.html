@@ -1274,7 +1274,6 @@ function markDone(ok, xp) {
   if (!progress.lastMasteryDate) progress.lastMasteryDate = {};
   if (!progress.masteryDayStart) progress.masteryDayStart = {};
   const todayISO = new Date().toISOString().slice(0, 10);
-  const sameDayBlock = ok && prev > 0 && progress.lastMasteryDate[q.id] === todayISO;
 
   // Sostre del dia: el domini només pot pujar +1 respecte el valor amb què començava el dia
   // (pràctica espaçada), però els encerts SÍ poden recuperar el que s'hagi perdut avui per errades.
@@ -1299,12 +1298,27 @@ function markDone(ok, xp) {
   if (!progress.maxMastery) progress.maxMastery = {};
   if (newM > prevMax) progress.maxMastery[q.id] = newM;
 
-  // XP: nou màxim de domini, O repetició el mateix dia (el domini no puja però sí l'experiència)
-  if (ok && (newM > prevMax || sameDayBlock)) {
-    progress.xp += xp;
-    showXPPop(xp);
-    const newLevel = getLevel(progress.xp);
-    if (newLevel.name !== prevLevel.name) showLevelUp(newLevel);
+  // XP amb rendiment decreixent per repetició el mateix dia:
+  // la 1a vegada que es fa bé un exercici cada dia val l'XP sencer; les repeticions del
+  // mateix dia valen menys (½, ¼) i a partir de la 3a ja no sumen. Reforça la pràctica
+  // espaiada (tornar-hi en dies diferents) per damunt de la repetició continuada.
+  // El comptador es reinicia cada dia, de manera que la 1a pràctica diària sempre val sencera.
+  if (!progress.xpReps) progress.xpReps = {};
+  let xpDecayNote = null;
+  if (ok) {
+    const rec = progress.xpReps[q.id];
+    const repsToday = (rec && rec.date === todayISO) ? rec.n : 0;
+    const FACTORS = [1, 0.5, 0.25];          // fet bé / 1a rep / 2a rep ; 3a rep en endavant = 0
+    const xpAwarded = repsToday < FACTORS.length ? Math.round(xp * FACTORS[repsToday]) : 0;
+    if (repsToday >= FACTORS.length) xpDecayNote = 'zero';
+    else if (repsToday > 0)          xpDecayNote = 'reduced';
+    progress.xpReps[q.id] = { date: todayISO, n: repsToday + 1 };
+    if (xpAwarded > 0) {
+      progress.xp += xpAwarded;
+      showXPPop(xpAwarded);
+      const newLevel = getLevel(progress.xp);
+      if (newLevel.name !== prevLevel.name) showLevelUp(newLevel);
+    }
   }
 
   // Missatge d'ànim si falla
@@ -1381,10 +1395,16 @@ function markDone(ok, xp) {
       const arrow = newM > prev ? '⬆️' : '⬇️';
       el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:6px;text-align:right;">${arrow} Domini: ${newM}/5</div>`;
     }
-  } else if (sameDayBlock) {
+  }
+
+  // Avís amable de pràctica espaiada quan l'XP decau per repetició el mateix dia
+  if (xpDecayNote) {
     const el = document.getElementById('theory-area');
     if (el) {
-      el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:6px;text-align:right;">📅 Domini: ${newM}/5 · el domini pujarà quan ho tornis a fer un altre dia — practicar en dies diferents consolida l'aprenentatge.</div>`;
+      const msg = xpDecayNote === 'zero'
+        ? `🌱 <strong>Ja has practicat prou aquest exercici per avui!</strong> Repetir-lo més estones seguides ja no suma XP, i està bé que sigui així. El que de debò fixa un tema és tornar-hi <strong>un altre dia</strong>: la repetició espaiada (no la continuada) és el secret per dominar-lo de veritat. Ara passa al següent exercici i segueix avançant! 💪`
+        : `🌱 Aquesta repetició suma menys XP, i no passa res. Per consolidar de debò un tema, el que funciona és <strong>tornar-hi en dies diferents</strong> més que repetir-lo molts cops seguits. Vas pel bon camí!`;
+      el.innerHTML += `<div style="font-size:12.5px;line-height:1.5;color:var(--accent-green-text);background:var(--accent-green-bg);border-radius:10px;padding:10px 12px;margin-top:8px;">${msg}</div>`;
     }
   }
 }
