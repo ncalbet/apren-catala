@@ -308,7 +308,7 @@
     @keyframes popIn   { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
     /* MISSATGE D'ÀNIM */
     .ct-encouragement {
-      background:#fef9ec; border-left:3px solid #f59e0b;
+      background:var(--accent-amber-bg); border-left:3px solid #f59e0b;
       border-radius:0 8px 8px 0; padding:10px 14px;
       font-size:13px; color:var(--accent-amber-text); margin-top:10px; animation:fadeIn 0.4s ease;
     }
@@ -1077,7 +1077,7 @@ function renderReading(q) {
 }
 function renderWriting(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:#dbeafe;color:var(--accent-blue-text);font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:var(--accent-blue-bg);color:var(--accent-blue-text);font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
     <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
     <div id="write-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
@@ -1086,7 +1086,7 @@ function renderWriting(q) {
 }
 function renderTransform(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div style="background:#fef3c7;border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:var(--accent-amber-text);line-height:1.55;">
+    <div style="background:var(--accent-amber-bg);border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:var(--accent-amber-text);line-height:1.55;">
       Original: <strong>${q.original}</strong></div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
     <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
@@ -1987,7 +1987,7 @@ function renderProgress() {
       </div>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
-        style="display:flex;align-items:center;gap:12px;background:#fef9ec;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--accent-amber-text);">
+        style="display:flex;align-items:center;gap:12px;background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--accent-amber-text);">
         <span style="font-size:28px;">☕</span>
         <div>
           <div style="font-size:14px;font-weight:700;">T'ha estat útil? Convida'm un cafè</div>
