@@ -3197,7 +3197,7 @@ const DATA = {
 
     // FRASES FETES
     { id:'c1-ff1', type:'choice', level:'c1', category:'Frases fetes',
-      question:'Quina és la frase feta catalana equivalent a «estar muy ocupado»?',
+      question:'Quina frase feta catalana significa «estar molt enfeinat, sense un moment lliure»?',
       text:'Les frases fetes no es tradueixen literalment. Cal aprendre-les en context, associant-les al seu significat global i no a les paraules que les componen.',
       options:['Estar a les vores','Anar de bòlit','Tenir moltes mans'],
       correct:1, theory:'«Anar de bòlit» és la locució per expressar que s\'està molt ocupat. Pertany al registre col·loquial.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
@@ -3213,8 +3213,8 @@ const DATA = {
       options:['agafar una decisió','prendre una decisió','fer una decisió'],
       correct:1, theory:'«Prendre una decisió» és la col·locació correcta en català. «Agafar» seria un calc incorrecte en aquest context.', example:'El consell va prendre la decisió d\'ajornar la reunió.' },
     { id:'c1-ff4', type:'choice', level:'c1', category:'Frases fetes',
-      question:'Quina és la frase feta catalana per a «estar entre la espada y la pared»?',
-      text:'Les frases fetes equivalents entre llengues utilitzen imatges metafòriques diferents. En català, la imatge de l\'ofici del ferrer substitueix la imatge bèl·lica del castellà.',
+      question:'Quina frase feta catalana significa «trobar-se en una situació difícil, sense cap sortida bona entre dues opcions»?',
+      text:'Les frases fetes recorren a imatges metafòriques per descriure situacions. Algunes evoquen l\'ofici del ferrer per il·lustrar el fet de quedar atrapat entre dues forces.',
       options:['Estar entre martell i enclusa','Estar en la corda fluixa','Anar a poc a poc'],
       correct:0, theory:'«Estar entre el martell i l\'enclusa» expressa una situació difícil sense bona sortida. Ambdues variants s\'usen en català.', example:'Es trobava entre el martell i l\'enclusa: tant si acceptava com si refusava, sortia perdent.' },
     { id:'c1-ff5', type:'writing', level:'c1', category:'Frases fetes',
@@ -3417,7 +3417,7 @@ const DATA = {
 
     { id:'c1-ff8', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quina frase feta expressa millor la idea que algú va ignorar deliberadament tots els advertiments?',
-      text:'El responsable ___ a totes les advertències del comitè de seguretat. Les tres frases fetes de les opcions descriuen actituds diferentes: ignorar activament, perdre el seguiment, o tolerar una falta.',
+      text:'El responsable ___ a totes les advertències del comitè de seguretat. Les tres frases fetes de les opcions descriuen actituds diferents: ignorar activament, perdre el seguiment, o tolerar una falta.',
       options:['va fer el sord','va perdre el fil','va fer els ulls grossos'],
       correct:0,
       theory:'«Fer el sord» significa ignorar deliberadament una petició o avís (negar-se a «escoltar»). «Fer els ulls grossos» és diferent: implica haver vist una falta però decidir no sancionar-la. «Perdre el fil» és perdre el seguiment d\'un raonament.',
@@ -3432,7 +3432,7 @@ const DATA = {
         '«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.'
       ],
       correct:1,
-      theory:'La distinció és semànticament rellevant: «fer el sord» → no vull rebre el missatge (negar-se a percebre). «Fer els ulls grossos» → he vist la irregularitat però la perdono o la deixo passar conscientemente.',
+      theory:'La distinció és semànticament rellevant: «fer el sord» → no vull rebre el missatge (negar-se a percebre). «Fer els ulls grossos» → he vist la irregularitat però la perdono o la deixo passar conscientment.',
       example:'«Va fer el sord a les meves crides d\'ajuda.» / «El supervisor va fer els ulls grossos davant l\'error del becari.»' },
 
     { id:'c1-ff10', type:'choice', level:'c1', category:'Frases fetes',
@@ -3455,15 +3455,15 @@ const DATA = {
 
     { id:'c1-ff12', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quin refrany s\'aplica a una persona que vol gestionar deu projectes a la vegada i cap no li surt bé?',
-      text:'Els refranys expressen saviesa popular de manera concisa. «De mica en mica» parla de la constància, «qui molt abarca» parla de la dispersió d\'esforços, i «qui dia passa» parla del pas del temps.',
+      text:'Els refranys expressen saviesa popular de manera concisa. «De mica en mica» parla de la constància, «qui molt abraça» parla de la dispersió d\'esforços, i «qui dia passa» parla del pas del temps.',
       options:[
         'De mica en mica s\'omple la pica.',
-        'Qui molt abarca, poc estreny.',
+        'Qui molt abraça, poc estreny.',
         'Qui dia passa, any empeny.'
       ],
       correct:1,
-      theory:'«Qui molt abarca, poc estreny» critica la dispersió d\'esforços: voler fer massa coses alhora porta a no fer-ne cap bé. «De mica en mica» elogia la constància progressiva. «Qui dia passa, any empeny» parla de la rapidesa amb què passa el temps.',
-      example:'Ha obert tres negocis alhora i tots van malament. Qui molt abarca, poc estreny.' },
+      theory:'«Qui molt abraça, poc estreny» critica la dispersió d\'esforços: voler fer massa coses alhora porta a no fer-ne cap bé. «De mica en mica» elogia la constància progressiva. «Qui dia passa, any empeny» parla de la rapidesa amb què passa el temps.',
+      example:'Ha obert tres negocis alhora i tots van malament. Qui molt abraça, poc estreny.' },
 
     { id:'c1-ff13', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quin refrany defensa que és millor tenir una cosa petita però segura que arriscar-se per una de gran i incerta?',
@@ -3499,16 +3499,16 @@ const DATA = {
       example:'El president de la comissió va prendre la paraula per tancar el debat. / En el parlament, es demana la paraula abans de prendre-la.' },
 
     { id:'c1-ff16', type:'choice', level:'c1', category:'Frases fetes',
-      question:'Quin és el significat precís de «ficar-se en camisa de onze vares»?',
-      text:'«Ficar-se en camisa de onze vares» prové de la imatge d\'algú que intenta entrar en una camisa massa gran per a ell, generant-se dificultats innecessàries. Quin comportament descriu?',
+      question:'Quin és el significat precís de «ficar-se en camisa d\'onze vares»?',
+      text:'«Ficar-se en camisa d\'onze vares» prové de la imatge d\'algú que intenta entrar en una camisa massa gran per a ell, generant-se dificultats innecessàries. Quin comportament descriu?',
       options:[
         'Fer un gran esforç per superar un obstacle molt difícil.',
         'Involucrar-se innecessàriament en una situació complicada que portarà problemes.',
         'Tenir molta experiència en un àmbit complex i especialitzat.'
       ],
       correct:1,
-      theory:'«Ficar-se en camisa de onze vares» significa posar-se en dificultats per haver-se involucrat en alguna cosa que no calia. La imatge és d\'una camisa desproporcionadament gran i embolicada de dur. L\'accent és en la imprudència d\'involucrar-s\'hi.',
-      example:'En publicar aquell comentari polèmic, es va ficar en camisa de onze vares i va haver de fer declaracions durant setmanes.' },
+      theory:'«Ficar-se en camisa d\'onze vares» significa posar-se en dificultats per haver-se involucrat en alguna cosa que no calia. La imatge és d\'una camisa desproporcionadament gran i embolicada de dur. L\'accent és en la imprudència d\'involucrar-s\'hi.',
+      example:'En publicar aquell comentari polèmic, es va ficar en camisa d\'onze vares i va haver de fer declaracions durant setmanes.' },
 
     { id:'c1-ff17', type:'transform', level:'c1', category:'Frases fetes',
       text:'Un informe institucional no admet locucions col·loquials: cal traduir-ne el sentit a un llenguatge objectiu i precís.',
