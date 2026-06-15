@@ -2588,7 +2588,7 @@ const DATA = {
       question:'Tria el verb precís per completar la frase formal:',
       sentence:'Les autoritats van ___ les mesures de seguretat davant el risc d\'inundació.',
       display:'verb formal precís (no «fer» ni «posar»)',
-      answers:['reforçar','endurir','implementar','intensificar','activar','extremar','reactivar','ampliar','incrementar','augmentar'],
+      answers:['reforçar','endurir','implementar','intensificar','activar','extremar','reactivar','ampliar','incrementar','augmentar','portar a terme','dur a terme'],
       theory:'En contextos de seguretat i gestió, verbs com «reforçar», «implementar», «activar» aporten precisió al discurs formal.', example:'Les autoritats van activar el protocol d\'emergència davant la situació.' },
     { id:'b2-lex6', type:'reorder', level:'b2', category:'Lèxic formal B2',
       question:'Ordena les paraules per formar una frase formal i ben construïda:',
