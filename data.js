@@ -312,7 +312,7 @@
         body: `<p>Per demanar confirmació d'allò que s'acaba de dir, s'afegeix <strong>«no?»</strong> o <strong>«oi?»</strong> al final de la frase.</p>`,
         examples: [
           { text: '«Ets d\'aquí, no?» / «Ja has menjat, oi?»' },
-          { text: '«Véns amb nosaltres, no?» / «Ho has entès, oi?»' },
+          { text: '«Vens amb nosaltres, no?» / «Ho has entès, oi?»' },
         ]
       },
       {
@@ -321,7 +321,7 @@
         rules: [
           { bad: '¿Verdad? / ¿No?', good: 'No? / Oi? (les formes castellanes no s\'usen en català)' },
           { bad: 'Como et dius?', good: 'Com et dius? («com», no «como»)' },
-          { bad: 'Porque no véns?', good: 'Per què no véns? (dues paraules, amb accent a «què»)' },
+          { bad: 'Porque no vens?', good: 'Per què no vens? (dues paraules, amb accent a «què»)' },
         ]
       }
     ]
@@ -1105,7 +1105,7 @@
         rules: [
           { label: 'CD partitiu (sense article o amb indefinit)', example: '«Vols formatge?» «Sí, en vull.» / «En tinc molt.»' },
           { label: 'Substitut de complement amb «de»', example: '«Parleu de política?» «Sí, en parlem.»' },
-          { label: 'Procedència (lloc d\'origen)', example: '«Véns de Barcelona?» «Sí, en vinc.»' },
+          { label: 'Procedència (lloc d\'origen)', example: '«Vens de Barcelona?» «Sí, en vinc.»' },
           { label: 'Quantitat com a complement', example: '«Quants llibres tens?» «En tinc cinc.»' },
         ]
       },
@@ -1551,7 +1551,7 @@
           rows: [
             ['en', 'CD partitiu (sense article / amb indefinit)', "«Vols pa?» «Sí, en vull.»"],
             ['en', "Complement amb «de»", "«Parles de la reunió?» «Sí, en parlo.»"],
-            ['en', 'Procedència', "«Véns de Girona?» «Sí, en vinc.»"],
+            ['en', 'Procedència', "«Vens de Girona?» «Sí, en vinc.»"],
             ['hi', "Lloc on es va o on s'és", "«Vas al mercat?» «Sí, hi vaig.»"],
             ['hi', "Complement amb «a/en» (no lloc físic)", "«Hi penso molt, en la teva proposta.»"],
           ]
@@ -1590,7 +1590,7 @@
             ['poder', 'puc', 'pots', 'pot', 'podem', 'podeu', 'poden'],
             ['voler', 'vull', 'vols', 'vol', 'volem', 'voleu', 'volen'],
             ['tenir', 'tinc', 'tens', 'té', 'tenim', 'teniu', 'tenen'],
-            ['venir', 'vinc', 'véns', 've', 'venim', 'veniu', 'vénen'],
+            ['venir', 'vinc', 'vens', 've', 'venim', 'veniu', 'venen'],
             ['dir', 'dic', 'dius', 'diu', 'diem', 'dieu', 'diuen'],
           ]
         }
@@ -2253,9 +2253,9 @@ const DATA = {
 
     { id:'a2-pfa3', type:'choice', level:'a2', category:'Pronoms febles A2',
       question:"Quina frase usa correctament el pronom feble?",
-      text:"Vols dir «Necessito veure la directora ara.» Quina és la construcció correcta amb el pronom feble?",
-      options:["La necessito veure.","Necessito veure-la.","Necessito-la veure."],
-      correct:1, theory:"Amb infinitius, el pronom feble va enclític (darrere i unit) a l'infinitiu amb guionet: veure-la, fer-ho, trucar-los.", example:"Vull veure-la. / He d'explicar-ho. / Cal trucar-los." },
+      text:"Vols dir «He vingut per veure la directora.» Quina és la construcció correcta amb el pronom feble?",
+      options:["L'he vingut per veure.","He vingut per veure-la.","He vingut per-la veure."],
+      correct:1, theory:"Quan l'infinitiu va darrere una preposició (per, de, a, sense...), el pronom feble SEMPRE va enclític (darrere i unit) a l'infinitiu amb guionet: per veure-la. No pot saltar davant del verb conjugat.", example:"He vingut per veure-la. / Estic content de conèixer-lo. / Va marxar sense dir-ho." },
 
     { id:'a2-pfa4', type:'choice', level:'a2', category:'Pronoms febles A2',
       question:"Quin pronom s'usa per substituir una quantitat indeterminada?",
@@ -2388,9 +2388,9 @@ const DATA = {
     { id:'a2-pi6', type:'reorder', level:'a2', category:'Preguntes i interrogació',
       question:'Ordena les paraules per formar una pregunta correcta:',
       text:'En les preguntes en català, la paraula interrogativa va al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.',
-      parts:['véns','D\'on','tu','?'],
+      parts:['vens','D\'on','tu','?'],
       correct:[1,0,2,3],
-      theory:'Les paraules interrogatives van al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.', example:'D\'on véns? / On vas? / Quan arribes?' },
+      theory:'Les paraules interrogatives van al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.', example:'D\'on vens? / On vas? / Quan arribes?' },
   ],
 
   b2: [
@@ -2812,7 +2812,7 @@ const DATA = {
     { id:'b2-int7', type:'choice', level:'b2', category:'Interferències',
       question:'Quina frase és correcta en català?',
       text:'El verb «dependre» exigeix una construcció concreta davant d\'una condició introduïda per «si». Dues de les frases la deformen per influència del castellà. Tria la correcta.',
-      options:['Això depèn de si véns o no.','Això depèn de si o no véns.','Això depèn si véns o no.'],
+      options:['Això depèn de si vens o no.','Això depèn de si o no vens.','Això depèn si vens o no.'],
       correct:0, theory:'«Dependre de si» és la construcció catalana correcta. Ometre «de» davant «si» és una interferència del castellà «depende si».', example:'Depèn de si tinc temps. / Dependrà de si aproven el pressupost.' },
 
     // ORTOGRAFIA B2
@@ -2891,7 +2891,7 @@ const DATA = {
       text:'La Júlia havia comprat un regal especial per al seu nebot, però quan en va parlar a la mare del nen, li va dir que el nen ja en tenia un d\'igual. La Júlia ho va trobar molt divertit.',
       question:'A quin element fa referència «en» en la frase «quan en va parlar a la mare»?',
       options:['Al regal: substitueix «de + el regal» (parlar de → en va parlar)','A la mare del nen, que és el CI de la frase','Al fet de trobar-ho divertit (pronom neutre)','Al nebot, que és el CD de la frase'],
-      correct:0, theory:'«En» substitueix un complement introduït per «de» (parlar de + cosa → en va parlar). «Li» → CI singular (a la mare). «Ho» → pronom neutre per a un fet o atribut. «En tenia un» → partitiu (quantitat de regal).', example:'Va parlar del problema → En va parlar. / Véns del treball? → En vinc.' },
+      correct:0, theory:'«En» substitueix un complement introduït per «de» (parlar de + cosa → en va parlar). «Li» → CI singular (a la mare). «Ho» → pronom neutre per a un fet o atribut. «En tenia un» → partitiu (quantitat de regal).', example:'Va parlar del problema → En va parlar. / Vens del treball? → En vinc.' },
   ],
 
   c1: [
@@ -2926,8 +2926,8 @@ const DATA = {
     { id:'c1-sa6', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Quin connector concessiu completa correctament aquesta frase formal?',
       text:'___ els resultats siguin positius, cal continuar vigilant l\'evolució.',
-      options:['Malgrat que','Per bé que','Ja que','Per tant'],
-      correct:1, theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
+      options:['Atès que','Per bé que','Ja que','Per tant'],
+      correct:1, theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
 
     // CONNECTORS CONCESSIUS
     { id:'c1-cc1', type:'fill', level:'c1', category:'Connectors concessius',
@@ -3192,8 +3192,8 @@ const DATA = {
       text:'Quan combinem dos pronoms febles (complement indirecte i directe), l\'ordre i la forma canvien segons el verb.',
       question:'Pronominalitza CD i CI: «Dóna el llibre a la Maria» → «Dóna-___»:',
       sentence:'Escriu la combinació completa de pronoms amb guionet darrere el verb.',
-      display:'CI (li) + CD masculí sing. (el → \'l)', answers:['li\'l','dóna-li\'l'],
-      theory:'Ordre en imperatius: verb + CI + CD. «li» + «el» → «li\'l» (contracció). S\'uneix amb guionet al verb.', example:'Dóna-li\'l. / Porta-me\'l.' },
+      display:'CI (li) + CD masculí sing. (el → \'l)', answers:['li\'l','dóna-li\'l','l\'hi','dóna-l\'hi'],
+      theory:'Ordre en imperatius: verb + CI + CD. «li» + «el» → «li\'l» (contracció), unit amb guionet al verb. En català central també s\'accepta «l\'hi» (dóna-l\'hi), molt habitual en la parla.', example:'Dóna-li\'l. / Dóna-l\'hi. / Porta-me\'l.' },
 
     // FRASES FETES
     { id:'c1-ff1', type:'choice', level:'c1', category:'Frases fetes',
