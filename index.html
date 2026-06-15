@@ -1261,7 +1261,7 @@ function markDone(ok, xp) {
   const todayISO = new Date().toISOString().slice(0, 10);
 
   // Sostre del dia: el domini només pot pujar +1 respecte el valor amb què començava el dia
-  // (pràctica espaçada), però els encerts SÍ poden recuperar el que s'hagi perdut avui per errades.
+  // (pràctica espaiada), però els encerts SÍ poden recuperar el que s'hagi perdut avui per errades.
   const dsRec = progress.masteryDayStart[q.id];
   if (!dsRec || dsRec.date !== todayISO) progress.masteryDayStart[q.id] = { date: todayISO, value: prev };
   const dayStart = progress.masteryDayStart[q.id].value;
@@ -1417,7 +1417,7 @@ function renderSummary() {
       <p style="color:var(--muted);font-size:15px;margin:8px 0 6px;">${correct} de ${items.length} correctes</p>
       <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">${msg}</p>
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
-        💡 <strong>Completat</strong> ✅ vol dir que ja l'has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaçada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
+        💡 <strong>Completat</strong> ✅ vol dir que ja l'has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaiada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
@@ -2219,7 +2219,7 @@ function renderHelp() {
       <details class="ct-acc">
         <summary>Per què el meu domini no arriba a 5/5 de cop?</summary>
         <div class="ct-acc-body">
-          El domini puja gradualment: cal encertar l'exercici en <strong>dies naturals diferents</strong> per consolidar-lo. La pràctica espaçada en el temps és la clau per aprendre de veritat, no la repetició massiva en un sol dia. Si l'encertes avui i demà, el domini pujarà de 2 a 3, i així fins a 5.
+          El domini puja gradualment: cal encertar l'exercici en <strong>dies naturals diferents</strong> per consolidar-lo. La pràctica espaiada en el temps és la clau per aprendre de veritat, no la repetició massiva en un sol dia. Si l'encertes avui i demà, el domini pujarà de 2 a 3, i així fins a 5.
         </div>
       </details>
 
