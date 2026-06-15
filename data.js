@@ -3437,8 +3437,7 @@ const DATA = {
 
     { id:'c1-ff10', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quina expressió indica que el model de gestió té greus problemes estructurals i és a punt de col·lapsar?',
-      text:'«Fer aigua» s\'aplica a sistemes o organitzacions que presenten deficiències greus. La metàfora és d\'un vaixell que fa aigua pels forats i és a punt d\'enfonsar-se.',
-      text:'Des que va canviar la direcció, el sistema intern ___.',
+      text:'Diverses locucions catalanes amb «fer» descriuen actituds o estats. Tria la que indica que un sistema pateix fallades greus i és a punt de col·lapsar.',
       options:['fa mans i mànigues','fa aigua','fa el sord'],
       correct:1,
       theory:'«Fer aigua» significa tenir fallades greus, estar a punt de fracassar o col·lapsar. «Fer mans i mànigues» és l\'esforç màxim per aconseguir alguna cosa (sentit positiu). «Fer el sord» és ignorar.',
