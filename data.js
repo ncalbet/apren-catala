@@ -2112,7 +2112,7 @@ const DATA = {
       question:'Substitueix el mot incorrecte pel terme català:',
       sentence:"He de reciclar la *basura abans de sortir de casa.",
       display:'terme català per a les escombraries',
-      answers:['residus','brossa','deixalles'],
+      answers:['residus','brossa','deixalles','escombraries'],
       theory:"«Brossa» (llenguatge col·loquial) i «residus» (formal) equivalen a «basura». «Deixalles» s'usa en contextos de reciclatge.", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
   ],
   a2: [
