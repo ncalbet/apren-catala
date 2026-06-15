@@ -3185,7 +3185,7 @@ const DATA = {
       theory:'«En» s\'usa com a pronom partitiu quan el CD no porta article determinat o porta un quantificador.', example:'«Tens germanes?» «Sí, en tinc dues.»' },
     { id:'c1-pf5', type:'choice', level:'c1', category:'Pronoms febles',
       question:'Quina frase conté un ús incorrecte d\'un pronom feble?',
-      text:'«Haver-hi» és un verb impersonal: no té subjecte real i, per tant, el verb «haver» no concorda mai en plural. L\'error «hi han» és molt freqüent però incorrecte.',
+      text:'«Haver-hi» és un verb impersonal d\'existència: no té subjecte real, de manera que «haver» no concorda mai en nombre amb el sintagma que el segueix. Tria la frase que no ho respecta.',
       options:['Hi ha molts participants a la sala.','Hi han molts participants a la sala.','A la sala hi ha molts participants.'],
       correct:1, theory:'«Hi ha» és invariable en nombre: mai «hi han». El verb «haver-hi» d\'existència no concorda amb el sintagma que el segueix.', example:'✓ Hi ha moltes persones. ✗ Hi han moltes persones.' },
     { id:'c1-pf6', type:'fill', level:'c1', category:'Pronoms febles',
