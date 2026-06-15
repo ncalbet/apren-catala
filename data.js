@@ -2754,7 +2754,7 @@ const DATA = {
       question:'Quina frase expressa igualtat correctament?',
       text:'Hi ha una única manera correcta d\'expressar la igualtat en català; les altres opcions són calcs o errors de concordança. Tria la frase correcta.',
       options:['Aquesta proposta és igual de bona que l\'anterior.','Aquesta proposta és tan bona com l\'anterior.','Aquesta proposta és tant bona com l\'anterior.','Aquesta proposta és más bona que l\'anterior.'],
-      correct:1, theory:'Igualtat amb adjectiu o adverbi: «tan + adj./adv. + com». No «igual de...que» (calc del castellà), no «tant» davant adjectiu (tant va davant nom: tanta gent), no «más» (castellà).', example:'És tan ràpid com el vent. / Parla tan bé com la seva professora.' },
+      correct:1, theory:'Igualtat amb adjectiu o adverbi: «tan + adj./adv. + com». Atenció a la diferència d\'una sola lletra: ✓ «tan bona» (sense -t davant adjectiu) ✗ «tant bona». «Tant» només va davant un NOM: «tanta gent», «tants llibres». Tampoc «igual de...que» (calc) ni «más» (castellà).', example:'✓ Tan bona com l\'anterior. ✗ Tant bona. / «tant» + nom: tanta feina, tants anys.' },
     { id:'b2-cmp2', type:'choice', level:'b2', category:'Construccions comparatives',
       question:'Quina forma comparativa és correcta?',
       text:'Per expressar superioritat, només una de les frases segueix la construcció catalana correcta. Tria-la.',
