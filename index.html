@@ -1022,7 +1022,7 @@ function renderChoice(q) {
     ${shuffledOptionsHTML(q)}`;
 }
 function renderFill(q) {
-  const inputHTML = '<input id="fill-in" placeholder="..." style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;color:var(--text);caret-color:var(--text);">';
+  const inputHTML = '<input id="fill-in" placeholder="..." autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;color:var(--text);caret-color:var(--text);">';
   const hasBlank = q.sentence.includes('___');
   const sentenceHTML = hasBlank
     ? q.sentence.replace('___', inputHTML)
@@ -1081,7 +1081,7 @@ function renderReading(q) {
 function renderWriting(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:var(--accent-blue-bg);color:var(--accent-blue-text);font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
-    <textarea id="write-area" class="ct-input" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
+    <textarea id="write-area" class="ct-input" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
     <div id="write-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
       <button class="ct-btn secondary" onclick="showSample()">Veure exemple</button>
@@ -1092,7 +1092,7 @@ function renderTransform(q) {
     <div style="background:var(--accent-amber-bg);border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:var(--accent-amber-text);line-height:1.55;">
       Original: <strong>${q.original}</strong></div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
-    <textarea id="transform-area" class="ct-input" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
+    <textarea id="transform-area" class="ct-input" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
     <div id="transform-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
       <button class="ct-btn primary" onclick="checkTransform()">Comprovar reformulació</button>
       <button class="ct-btn secondary" onclick="showTransformSample()">Veure model</button>
