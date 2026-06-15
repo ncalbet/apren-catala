@@ -3244,7 +3244,7 @@ const DATA = {
     { id:'c1-df3', type:'fill', level:'c1', category:'Derivació i flexió',
       text:'Alguns mots acabats en consonant formen el plural de manera que cal vigilar l\'accentuació i les regles ortogràfiques.',
       question:'Forma el plural correcte del mot indicat:',
-      sentence:'Els ___ dels partits es reuniran dimecres per negociar l\'acord.',
+      sentence:'Els ___ polítics autoritaris solen restringir les llibertats fonamentals.',
       display:'plural de «règim»', answers:['règims'],
       theory:'Els mots plans acabats en consonant formen el plural afegint «-s»: «règim» → «règims». No «règimes».', example:'règim → règims; caràcter → caràcters; síntesi → síntesis.' },
     { id:'c1-df4', type:'choice', level:'c1', category:'Derivació i flexió',
