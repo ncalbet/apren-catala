@@ -367,7 +367,7 @@ const LEVELS = [
   { min:100,  max:249,  name:'Estudiant',    emoji:'📖', title:'Ja coneixes les bases.' },
   { min:250,  max:499,  name:'Parlant',      emoji:'💬', title:'Ja et defenses en català!' },
   { min:500,  max:999,  name:'Avançat',      emoji:'🎓', title:'Domini sòlid de la llengua.' },
-  { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Gairebé un expert!' },
+  { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Ja ets tot un expert!' },
   { min:2000, max:Infinity, name:'Mestre del Català', emoji:'🏆', title:'Has assolit el màxim nivell!' },
 ];
 function getLevel(xp) { return LEVELS.find(l => xp >= l.min && xp <= l.max) || LEVELS[0]; }
@@ -1906,7 +1906,7 @@ function renderProgress() {
         </div>
         <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.8;margin-top:5px;">
           <span>${progress.xp} XP</span>
-          <span>${nextLv ? nextLv.name + ' a ' + nextLv.min + ' XP' : 'Nivell màxim assolit! 🏆'}</span>
+          <span>${nextLv ? 'Falten ' + (nextLv.min - progress.xp) + ' XP per a ' + nextLv.name : 'Nivell màxim assolit! 🏆'}</span>
         </div>
       </div>
       <div style="margin-bottom:20px;">
