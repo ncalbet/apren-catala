@@ -367,7 +367,7 @@ const LEVELS = [
   { min:100,  max:249,  name:'Estudiant',    emoji:'📖', title:'Ja coneixes les bases.' },
   { min:250,  max:499,  name:'Parlant',      emoji:'💬', title:'Ja et defenses en català!' },
   { min:500,  max:999,  name:'Avançat',      emoji:'🎓', title:'Domini sòlid de la llengua.' },
-  { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Ja ets tot un expert!' },
+  { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Has arribat al nivell expert!' },
   { min:2000, max:Infinity, name:'Mestre del Català', emoji:'🏆', title:'Has assolit el màxim nivell!' },
 ];
 function getLevel(xp) { return LEVELS.find(l => xp >= l.min && xp <= l.max) || LEVELS[0]; }
@@ -1504,7 +1504,7 @@ const ACHIEVEMENTS = [
     desc:"Acumula 1000 punts d'experiència.",
     check: p => p.xp >= 1000 },
   { id:'xp2000', group:'xp', icon:'💜', name:'2000 XP — Mestre',
-    desc:"Acumula 2000 punts. Ets un mestre del català!",
+    desc:"Acumula 2000 punts. Has assolit el nivell de Mestre del Català!",
     check: p => p.xp >= 2000 },
 ];
 
