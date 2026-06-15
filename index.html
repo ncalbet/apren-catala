@@ -1176,42 +1176,24 @@ function checkReorder() {
 }
 
 function localFeedbackWriting(q, text) {
-  const t = normalize(text);
   const words = text.trim().split(/\s+/).filter(Boolean);
   if (words.length < 5) return '✏️ La resposta és massa curta. Intenta desenvolupar-la amb una frase completa.';
-  const hits = q.keywords.filter(k => {
-    const kn = normalize(k.replace(/→.*/, '').replace(/[«»]/g,'').trim());
-    return t.includes(kn.split(' ')[0]);
-  });
-  const pct = Math.round(hits.length / q.keywords.length * 100);
   const lines = [];
-  if (pct >= 66) lines.push('✓ La resposta incorpora els elements clau demanats.');
-  else if (pct >= 33) lines.push('~ Has inclòs alguns elements, però en falten altres.');
-  else lines.push('✗ La resposta no sembla incloure els elements clau demanats.');
-  const informal = ['coses','molt bo','molt gran','o sigui','vaja','home,','ei,','doncs,'];
-  const infFound = informal.filter(w => t.includes(normalize(w)));
-  if (infFound.length > 0) lines.push(`Atenció: algunes paraules poden ser massa informals («${infFound[0]}»).`);
+  lines.push('✍️ Resposta enregistrada! Compara-la amb la resposta model i fixa\'t en el vocabulari, els connectors i el registre.');
+  if (q.keywords && q.keywords.length) {
+    lines.push(`Pistes a tenir en compte: ${q.keywords.map(k => k.replace(/[«»]/g,'').trim()).join(' · ')}.`);
+  }
   lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
   return lines.join('<br>');
 }
 
 function localFeedbackTransform(q, text) {
-  const t = normalize(text);
-  const lines = [];
   if (text.trim().split(/\s+/).filter(Boolean).length < 4) return '✏️ La reformulació és massa curta. Escriu una frase completa en registre formal.';
-  const origWords = normalize(q.original.replace(/[«»]/g,'')).split(/\s+/);
-  const textWords = t.split(/\s+/);
-  const shared = origWords.filter(w => w.length > 4 && textWords.includes(w));
-  const overlapRatio = shared.length / origWords.length;
-  if (overlapRatio > 0.6) lines.push("✗ La reformulació és molt similar a l'original. Intenta substituir els verbs i substantius genèrics.");
-  else lines.push("✓ Has reformulat l'estructura. Comprova que el registre sigui prou formal.");
-  const hintWords = q.hints.flatMap(h => {
-    const after = h.split('→')[1] || '';
-    return after.split('/').map(w => normalize(w.trim()).split(' ')[0]).filter(w => w.length > 3);
-  });
-  const hitsHint = hintWords.filter(w => t.includes(w));
-  if (hitsHint.length > 0) lines.push(`✓ Has usat vocabulari del registre formal (${hitsHint.slice(0,2).join(', ')}).`);
-  else lines.push("Prova d'incorporar algun dels verbs o substantius formals suggerits a les pistes.");
+  const lines = [];
+  lines.push('✍️ Reformulació enregistrada! Compara-la amb la resposta model i comprova que el registre sigui prou formal.');
+  if (q.hints && q.hints.length) {
+    lines.push(`Pistes a tenir en compte: ${q.hints.map(h => h.replace(/[«»]/g,'').trim()).join(' · ')}.`);
+  }
   lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
   return lines.join('<br>');
 }
