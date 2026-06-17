@@ -2775,7 +2775,7 @@ const DATA = {
       question:'Quin superlatiu absolut és correcte en registre formal?',
       text:'El superlatiu absolut indica el grau màxim d\'una qualitat. En registre formal, tria la frase que el construeix correctament, sense recórrer a «molt» ni a calcs del castellà.',
       options:['És importantíssim.','És la cosa más important.','És molt millor.'],
-      correct:0, theory:'Superlatiu absolut sintètic: adj. + -íssim (registre elevat). «Más» és castellà. «Molt millor» és un doble comparatiu (ja que «millor» ja és comparatiu); millor dir «molt bo» o simplement «millor».', example:'Un resultat excel·lentíssim. / Un text claríssim.' },
+      correct:0, theory:'Superlatiu absolut sintètic: adj. + -íssim (registre elevat). «Más» és castellà. «Molt millor» és un comparatiu de superioritat reforçat («millor» ja vol dir «més bo»), no un superlatiu absolut; per al grau màxim de «bo» cal «boníssim» o «molt bo».', example:'Un resultat excel·lentíssim. / Un text claríssim.' },
     { id:'b2-cmp6', type:'reading', level:'b2', category:'Construccions comparatives',
       text:'El nou sistema és menys complex que l\'anterior, però no tan intuïtiu com esperàvem. Tot i que el rendiment és millor, la interfície resulta pitjor pel que fa a l\'ergonomia. En definitiva, cap dels dos és perfecte.',
       question:'Quants tipus de comparació s\'usen al text?',
