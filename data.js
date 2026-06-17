@@ -2826,7 +2826,7 @@ const DATA = {
       question:'Quina paraula de la frase conté un error ortogràfic?',
       text:'La baca beu aigua fresca a la font del bosc cada matí.',
       options:['baca','beu','bosc','fresca'],
-      correct:0, theory:'«Vaca» s\'escriu amb v (del llatí vacca). Les lletres b i v sonen igual en català, però l\'ortografia correcta depèn de l\'etimologia. Paraules d\'inici v-: vaca, vi, vell, veure, venir, verd, voler, vuit.', example:'vaca, vi, vell, veure ↔ beure, blanc, bosc, botiga, brot.' },
+      correct:0, theory:'«Vaca» s\'escriu amb v. Grups freqüents amb v per records: animals (vaca, vedell, voltor, vipera); colors (verd, vermell, violeta); verbs habituals (veure, venir, viure, voler, valer, vèncer). En cas de dubte, consulta el DIEC o l\'Optimot.', example:'vaca, vedell, voltor, verd, vermell, veure, venir, viure ↔ beure, blanc, bosc, botiga, brot.' },
 
     { id:'b2-ort3', type:'choice', level:'b2', category:'Ortografia B2',
       question:'Quin grup de paraules té totes les grafies correctes?',
