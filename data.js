@@ -2414,7 +2414,7 @@ const DATA = {
       theory:'En registre formal, «a més (a més)» o «així mateix» substitueixen el col·loquial «també».', example:'La proposta és viable; a més, compta amb el suport tècnic necessari.' },
     { id:'b2-con4', type:'reorder', level:'b2', category:'Connectors',
       question:'Ordena les frases perquè el text sigui lògicament coherent:',
-      text:'Els connectors textuals (en primer lloc, d\'altra banda, per consegüent, finalment) organitzen el discurs i indiquen la relació lògica entre les idees.',
+      text:'Els connectors textuals marquen la relació lògica entre les idees: causalitat, addició, contrast o conclusió. Ordena els fragments d\'un informe sobre qualitat de vida urbana.',
       parts:['Per consegüent, la qualitat de vida dels veïns s\'ha deteriorat.','En primer lloc, s\'ha detectat un augment del soroll urbà.','D\'altra banda, la qualitat de l\'aire ha empitjorat notablement.','Finalment, recomanem adoptar mesures immediates.'],
       correct:[1,2,0,3], theory:'Estructura: problema → dades → conseqüència → recomanació.', example:'En primer lloc... D\'altra banda... Per consegüent... Finalment...' },
     { id:'b2-con5', type:'reading', level:'b2', category:'Connectors',
