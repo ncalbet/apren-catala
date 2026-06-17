@@ -2837,7 +2837,7 @@ const DATA = {
     { id:'b2-ort4', type:'choice', level:'b2', category:'Ortografia B2',
       question:'Quina opció mostra un ús correcte de la dièresi en totes les paraules?',
       text:'La dièresi (ï, ü) indica que la vocal forma síl·laba per separat: veïna (ve-ï-na), raïm (ra-ïm). Excepcions: els infinitius en -uir (conduir, fluir) i les paraules en -oïna (heroïna) no porten dièresi.',
-      options:['veïna, raïm, altruïsme','conduïr, veïna, heroïna','veïna, raïm, heroïna','pingüí, fluïr, beneïdes'],
+      options:['veïna, raïm, altruïsme','conduïr, veïna, heroïna','veïna, raïm, heroïna','construïr, distribuïr, fluïr'],
       correct:2, theory:'La dièresi marca que la i o la u sona independent de la vocal anterior. EXCEPCIONS (mai dièresi): infinitius -uir/-air (conduir, construir, fluir); sufixos -isme/-ista (altruisme); prefixos anti-, co-, semi-.', example:'veïna, raïm, heroïna, Raül ✓ / conduir, altruisme, antiinflamatori (sense dièresi) ✓.' },
 
     { id:'b2-ort5', type:'fill', level:'b2', category:'Ortografia B2',
