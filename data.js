@@ -2483,7 +2483,7 @@ const DATA = {
       theory:'En català el pronom subjecte s\'omet quan el context queda clar (el·lipsi). El connector temporal afegeix ordre.', example:'El director va parlar, va respondre preguntes i tot seguit va marxar.' },
     { id:'b2-coh4', type:'reorder', level:'b2', category:'Cohesió textual',
       question:'Ordena el paràgraf perquè sigui coherent:',
-      text:'En un text informatiu, les idees s\'organitzen de general a específic, i els connectors de contrast (tanmateix) i de síntesi (en definitiva) ajuden a estructurar-lo.',
+      text:'Els textos informatius articulen les idees seguint una lògica interna. Llegeix els fragments sobre el mercat laboral i reconstrueix l\'ordre coherent.',
       parts:['Concretament, al sector tecnològic s\'han creat 10.000 llocs de treball nous.','En definitiva, les dades confirmen una tendència positiva per a l\'economia.','L\'any passat, el mercat laboral català va mostrar signes clars de recuperació.','Tanmateix, alguns sectors com el comerç minorista encara presenten dificultats.'],
       correct:[2,0,3,1], theory:'Estructura: idea general → especificació → matís → conclusió.', example:'Idea general → Detall → Objecció → Conclusió.' },
     { id:'b2-coh5', type:'reading', level:'b2', category:'Cohesió textual',
