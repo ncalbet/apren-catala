@@ -2478,7 +2478,7 @@ const DATA = {
       text:'Un text ben cohesionat evita repetir el subjecte a cada oració: es pot ometre o enllaçar les accions amb connectors.',
       question:'Substitueix la repetició innecessària del subjecte per un mecanisme de cohesió:',
       sentence:'El director va presentar l\'informe, va respondre preguntes i ___ va marxar sense fer declaracions.',
-      display:'connector temporal o el·lipsi',
+      display:'connector temporal',
       answers:['tot seguit','a continuació','posteriorment','finalment','seguidament','després','acte seguit'],
       theory:'En català el pronom subjecte s\'omet quan el context queda clar (el·lipsi). El connector temporal afegeix ordre.', example:'El director va parlar, va respondre preguntes i tot seguit va marxar.' },
     { id:'b2-coh4', type:'reorder', level:'b2', category:'Cohesió textual',
