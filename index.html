@@ -106,8 +106,11 @@
     .ct-kofi .kofi-text { display: none; }
     @media (min-width: 400px) { .ct-kofi .kofi-text { display: inline; } }
     .ct-kofi:hover { background: rgba(255,255,255,0.1); border-color: #fbbf24; color: #fbbf24; }
-    .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; font-weight: 500; flex-shrink: 0; white-space: nowrap; }
+    .ct-xp { background: rgba(245,158,11,0.2); color: #fbbf24; padding: 4px 10px; border-radius: 20px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.2; }
+    .ct-xp .xp-num { font-size: 13px; font-weight: 700; }
+    .ct-xp .xp-label { font-size: 8px; font-weight: 600; opacity: 0.75; }
     .ct-streak { color: #fbbf24; font-weight: 500; flex-shrink: 0; }
+    @media (max-width: 460px) { .ct-level-badge .lv-name { display: none; } }
 
     /* NAV */
     .ct-nav-wrap { position: sticky; top: 52px; z-index: 99; }
@@ -335,7 +338,7 @@
     <button class="ct-theme-toggle" id="ct-theme-toggle" onclick="toggleTheme()" aria-label="Canviar tema" title="Mode clar / fosc">🌙</button>
     <a class="ct-kofi" href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener">☕ <span class="kofi-text">Convida'm a un cafè</span></a>
     <span class="ct-streak" id="ct-streak">🔥 0</span>
-    <span class="ct-xp" id="ct-xp">0 XP</span>
+    <span class="ct-xp" id="ct-xp"><span class="xp-num">0</span><span class="xp-label">XP</span></span>
     <span class="ct-level-badge" id="ct-level-badge"><span class="lv-emoji">🌱</span><span class="lv-name">Aprenent</span></span>
   </div>
 </div>
@@ -368,7 +371,7 @@ const LEVELS = [
   { min:250,  max:499,  name:'Parlant',      emoji:'💬', title:'Ja et defenses en català!' },
   { min:500,  max:999,  name:'Avançat',      emoji:'🎓', title:'Domini sòlid de la llengua.' },
   { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Has arribat al nivell expert!' },
-  { min:2000, max:Infinity, name:'Mestre del Català', emoji:'🏆', title:'Has assolit el màxim nivell!' },
+  { min:2000, max:Infinity, name:'Mestre del Català', badge:'Mestre', emoji:'🏆', title:'Has assolit el màxim nivell!' },
 ];
 function getLevel(xp) { return LEVELS.find(l => xp >= l.min && xp <= l.max) || LEVELS[0]; }
 function getNextLevel(xp) { const i = LEVELS.findIndex(l => xp >= l.min && xp <= l.max); return LEVELS[i+1] || null; }
@@ -513,11 +516,11 @@ function groupState(masteries) {
 
 // ══ UI ══
 function updateHeader() {
-  document.getElementById('ct-xp').textContent = progress.xp + ' XP';
+  document.getElementById('ct-xp').innerHTML = `<span class="xp-num">${progress.xp}</span><span class="xp-label">XP</span>`;
   document.getElementById('ct-streak').textContent = '🔥 ' + progress.streak;
   const lv = getLevel(progress.xp);
   const badge = document.getElementById('ct-level-badge');
-  if (badge) badge.innerHTML = `<span class="lv-emoji">${lv.emoji}</span><span class="lv-name">${lv.name}</span>`;
+  if (badge) badge.innerHTML = `<span class="lv-emoji">${lv.emoji}</span><span class="lv-name">${lv.badge||lv.name}</span>`;
 }
 function showXPPop(n) {
   const el = document.createElement('div');
