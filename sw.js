@@ -1,6 +1,6 @@
 // Català Trainer — Service Worker
 // Versió de la caché — canvia aquest número per forçar actualització
-const CACHE_VERSION = 'catala-trainer-v75';
+const CACHE_VERSION = 'catala-trainer-v76';
 
 // Fitxers a guardar en caché per funcionar offline
 const ASSETS_TO_CACHE = [
@@ -9,7 +9,8 @@ const ASSETS_TO_CACHE = [
   './manifest.json',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png',
-  './data.js'
+  './data.js',
+  './firebase.js'
 ];
 
 // ── INSTAL·LACIÓ: guardem els assets en caché ──
