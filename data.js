@@ -3115,7 +3115,7 @@ const DATA = {
       text:'En un context laboral formal, les oracions temporals que es projecten cap al futur tenen un comportament verbal particular en català.',
       question:'Completa la frase temporal de futur amb la forma verbal correcta:',
       sentence:'Enviarem la proposta definitiva quan ___ totes les esmenes incorporades.',
-      display:'tenir (1a pers. pl. present subj.)', answers:['tinguem'],
+      display:'tenir (present de subjuntiu)', answers:['tinguem','tingui'],
       variants:[
         { text:'En un context formal, les oracions temporals que es projecten cap al futur tenen un comportament verbal particular en català.', sentence:'Us comunicarem la resolució tan bon punt el comitè ___ una decisió.', display:'prendre (3a pers. sing. present subj.)', answers:['prengui'] },
         { text:'En un context formal, les oracions temporals que es projecten cap al futur tenen un comportament verbal particular en català.', sentence:'Procedirem a la signatura del contracte una vegada ___ revisades totes les clàusules.', display:'estar (3a pers. pl. present subj.)', answers:['estiguin'] },
