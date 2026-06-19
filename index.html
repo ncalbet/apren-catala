@@ -1048,11 +1048,22 @@ function renderChoice(q) {
     ${shuffledOptionsHTML(q)}`;
 }
 function renderFill(q) {
-  const inputHTML = '<input id="fill-in" placeholder="..." autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;color:var(--text);caret-color:var(--text);">';
+  const maxAnsLen = Math.max(2, ...(q.answers || ['']).map(a => String(a).length));
+  const wide = maxAnsLen > 14; // respostes llargues (locucions, frases) → input a línia pròpia
+  const inputStyle = wide
+    ? 'border:none;border-bottom:2px solid var(--c1);background:transparent;padding:6px 8px;width:100%;box-sizing:border-box;font-size:16px;font-family:Fraunces,serif;outline:none;display:block;margin:12px 0 0;color:var(--text);caret-color:var(--text);'
+    : 'border:none;border-bottom:2px solid var(--c1);background:transparent;padding:2px 6px;width:160px;font-size:16px;font-family:Fraunces,serif;outline:none;display:inline;margin:0 4px;color:var(--text);caret-color:var(--text);';
+  const inputHTML = `<input id="fill-in" placeholder="..." autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="${inputStyle}">`;
   const hasBlank = q.sentence.includes('___');
-  const sentenceHTML = hasBlank
-    ? q.sentence.replace('___', inputHTML)
-    : `${q.sentence}<div style="margin-top:10px;">${inputHTML}</div>`;
+  let sentenceHTML;
+  if (wide) {
+    const sentenceText = hasBlank ? q.sentence.replace('___', '<span style="opacity:0.45;letter-spacing:1px;">______</span>') : q.sentence;
+    sentenceHTML = `${sentenceText}${inputHTML}`;
+  } else {
+    sentenceHTML = hasBlank
+      ? q.sentence.replace('___', inputHTML)
+      : `${q.sentence}<div style="margin-top:10px;">${inputHTML}</div>`;
+  }
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
     <div class="ct-sentence">${sentenceHTML}</div>
     ${q.display ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>` : ''}
@@ -1823,7 +1834,9 @@ function renderAchievements() {
       </div>`;
   }).join('');
 
-  // ── Medalles de gramàtica B2 ──
+  // ── Medalles de gramàtica ──
+  const a2medals  = medals.filter(m => m.level === 'a2');
+  const a2done    = a2medals.filter(m => unlockedM.has(m.id)).length;
   const b1medals  = medals.filter(m => m.level === 'b1');
   const b1done    = b1medals.filter(m => unlockedM.has(m.id)).length;
   const b2medals  = medals.filter(m => m.level === 'b2');
@@ -1852,7 +1865,13 @@ function renderAchievements() {
       </div>
       ${groupsHTML}
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:#059669;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #d1fae5;">
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#166534;margin:8px 0 16px;padding-bottom:8px;border-bottom:2px solid #dcfce7;">
+        🌱 Medalles A2 <span style="font-size:13px;font-weight:400;color:var(--muted);">${a2done}/${a2medals.length}</span>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell A2.</p>
+      ${renderMedalGrid(a2medals, unlockedM)}
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:#059669;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #d1fae5;">
         🟢 Medalles B1 <span style="font-size:13px;font-weight:400;color:var(--muted);">${b1done}/${b1medals.length}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Domina el 100% dels exercicis de cada categoria del nivell B1.</p>
