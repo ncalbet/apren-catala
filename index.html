@@ -456,11 +456,27 @@ const SESSION_KEY = 'cat_session_v1';
 function findExerciseById(id) {
   return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].find(q => q.id === id) || null;
 }
+
+// ══ VARIANTS ══
+// Un exercici pot dur variants:[{...overrides}] amb la mateixa estructura però
+// text/answers diferents. Es trien al repàs i al repte diari perquè l'usuari no
+// memoritzi la resposta concreta. La variant 0 és l'exercici base. El markDone i
+// el domini sempre usen l'id base, així que l'SRS no es veu afectat.
+function variantCount(q) { return 1 + (q && q.variants ? q.variants.length : 0); }
+function withVariant(q, vIdx) {
+  if (!vIdx || !q.variants || !q.variants[vIdx-1]) return q;
+  return { ...q, ...q.variants[vIdx-1], id: q.id, type: q.type, variants: q.variants, _variant: vIdx };
+}
+function pickRandomVariant(q) {
+  const n = variantCount(q);
+  return n <= 1 ? q : withVariant(q, Math.floor(Math.random() * n));
+}
 function saveActiveSession() {
   const s = currentSession;
   if (!s || !s.items || !s.items.length || s.idx >= s.items.length) { clearActiveSession(); return; }
   localStorage.setItem(SESSION_KEY, JSON.stringify({
-    ids: s.items.map(q => q.id), idx: s.idx, correct: s.correct,
+    ids: s.items.map(q => q.id), vIdx: s.items.map(q => q._variant || 0),
+    idx: s.idx, correct: s.correct,
     level: s.level, returnTo: s.returnTo, cat: s.cat || null
   }));
 }
@@ -473,7 +489,10 @@ function getSavedSession() {
 function resumeSavedSession() {
   const d = getSavedSession();
   if (!d) { renderMenu(); return; }
-  const items = d.ids.map(findExerciseById).filter(Boolean);
+  const items = d.ids.map((id, k) => {
+    const base = findExerciseById(id);
+    return base ? withVariant(base, (d.vIdx && d.vIdx[k]) || 0) : null;
+  }).filter(Boolean);
   if (!items.length) { clearActiveSession(); renderMenu(); return; }
   currentSession = {
     items, idx: Math.min(d.idx, items.length - 1), correct: d.correct || 0,
@@ -961,7 +980,7 @@ function renderReview() {
 }
 
 function startReviewSession() {
-  const items = getReviewItems();
+  const items = getReviewItems().map(pickRandomVariant);
   if (!items.length) return;
   currentSession = { items, idx:0, correct:0, level:'mixed', returnTo:'review' };
   renderExercise();
@@ -1670,7 +1689,12 @@ function getDailyChallenge() {
 function startDailySession() {
   const dc = getDailyChallenge();
   const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
-  const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
+  const seed = dc.date.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  const items = dc.ids.map((id, k) => {
+    const base = all.find(q => q.id === id);
+    if (!base) return null;
+    return withVariant(base, Math.floor(seededRand(seed, 500 + k) * variantCount(base)));
+  }).filter(Boolean);
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review', isDailyChallenge: true };
   _setNav({screen:'review'});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
