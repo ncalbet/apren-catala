@@ -23,7 +23,7 @@ const provider = new GoogleAuthProvider();
 
 // ── FCM ──
 // VAPID_KEY: Firebase Console → Project settings → Cloud Messaging → Web Push certificates
-const VAPID_KEY = '';
+const VAPID_KEY = 'BCsaPMagXIyD9H1z1cId0PgwDld_JUsMpJkrxXPUdX65OUF2dmYJluKU5fLxit4FZaRbi_yi-Voxy-L84BOMPyg';
 
 let messaging = null;
 try {
