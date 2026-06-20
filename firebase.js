@@ -4,6 +4,8 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
+import { getMessaging, getToken, onMessage }
+  from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUtluPk2OYS80QMisbYkLCMe-k3jIHUgc",
@@ -18,6 +20,51 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+
+// ── FCM ──
+// VAPID_KEY: Firebase Console → Project settings → Cloud Messaging → Web Push certificates
+const VAPID_KEY = '';
+
+let messaging = null;
+try {
+  messaging = getMessaging(app);
+  onMessage(messaging, payload => {
+    document.dispatchEvent(new CustomEvent('fcm-foreground-message', { detail: payload }));
+  });
+} catch (e) { console.warn('[FCM] No disponible en aquest navegador:', e.message); }
+
+window.fbRequestNotifications = async () => {
+  if (!messaging || !VAPID_KEY) return { ok: false, reason: 'no-vapid' };
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') return { ok: false, reason: 'denied' };
+    const swReg = await navigator.serviceWorker.ready;
+    const token = await getToken(messaging, { vapidKey: VAPID_KEY, serviceWorkerRegistration: swReg });
+    if (!token) return { ok: false, reason: 'no-token' };
+    const user = auth.currentUser;
+    if (user) {
+      await setDoc(doc(db, 'users', user.uid),
+        { fcmToken: token, notificacionsActives: true },
+        { merge: true }
+      );
+    }
+    return { ok: true };
+  } catch (e) {
+    console.warn('[FCM] Error:', e.code || e.message);
+    return { ok: false, reason: e.code || e.message };
+  }
+};
+
+window.fbDisableNotifications = async () => {
+  const user = auth.currentUser;
+  if (!user) return;
+  try {
+    await setDoc(doc(db, 'users', user.uid),
+      { notificacionsActives: false },
+      { merge: true }
+    );
+  } catch (e) { console.warn('[FCM] Error desactivant:', e.code); }
+};
 
 // ── Auth ──
 window.fbSignIn        = () => signInWithPopup(auth, provider);
