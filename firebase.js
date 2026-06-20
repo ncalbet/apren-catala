@@ -66,6 +66,14 @@ window.fbDisableNotifications = async () => {
   } catch (e) { console.warn('[FCM] Error desactivant:', e.code); }
 };
 
+window.fbSaveNotifPrefs = async (prefs) => {
+  const user = auth.currentUser;
+  if (!user) return;
+  try {
+    await setDoc(doc(db, 'users', user.uid), prefs, { merge: true });
+  } catch (e) { console.warn('[FCM] Error desant preferències:', e.code); }
+};
+
 // ── Auth ──
 window.fbSignIn        = () => signInWithPopup(auth, provider);
 window.fbSignOut       = () => signOut(auth);

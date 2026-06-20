@@ -650,8 +650,19 @@ function renderMenu() {
         <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="clearActiveSession();renderMenu()">Descartar</button>
       </div>
     </div>` : '';
+  const notifBanner = shouldShowNotifBanner() ? `
+    <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:center;gap:12px;">
+      <span style="font-size:20px;flex-shrink:0;">🔔</span>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">Activa els recordatoris diaris</div>
+        <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">Rep una push quan no hagis practicat el català</div>
+      </div>
+      <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="showTab('profile')">Activar</button>
+      <button onclick="dismissNotifBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+    </div>` : '';
   document.getElementById('ct-body').innerHTML = `
     ${resumeBanner}
+    ${notifBanner}
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">Benvingut/da!</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
@@ -2524,20 +2535,35 @@ function renderNotificationsSection() {
     return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Has denegat els permisos de notificació. Per activar-los, obre la <strong>configuració del navegador</strong> i permet les notificacions per a <em>app.aprencatala.cat</em>.</p>';
   }
   const active = localStorage.getItem('notif_active') === 'true';
+  const selHour = parseInt(localStorage.getItem('notif_hour') || '19');
+  const selFreq = parseInt(localStorage.getItem('notif_freq') || '1');
+  const hours = [{h:9,label:'🌅 Matí'},{h:13,label:'🌞 Migdia'},{h:19,label:'🌆 Tarda'},{h:21,label:'🌙 Nit'}];
+  const freqs = [{f:1,label:'Cada dia'},{f:2,label:'Cada 2 dies'},{f:3,label:'Cada 3 dies'}];
+  const prefsUI = active ? `
+    <div style="margin-top:16px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px;">HORA (hora peninsular)</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${hours.map(({h,label}) => `<button class="ct-btn ${selHour===h?'primary':'secondary'}" style="font-size:13px;padding:6px 12px;" onclick="saveNotifPref('hour',${h})">${label} (${h}h)</button>`).join('')}
+      </div>
+    </div>
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px;">FREQÜÈNCIA</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${freqs.map(({f,label}) => `<button class="ct-btn ${selFreq===f?'primary':'secondary'}" style="font-size:13px;padding:6px 12px;" onclick="saveNotifPref('freq',${f})">${label}</button>`).join('')}
+      </div>
+    </div>` : '';
   return `
     <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">
-      Rep cada vespre un recordatori personalitzat: ratxa en perill, XP per pujar de nivell o exercicis de repàs pendents.
+      Rep un recordatori personalitzat quan no hagis practicat: ratxa en perill, XP per pujar de nivell o repte diari pendent.
     </p>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;">
-      <div>
-        <div style="font-size:14px;font-weight:600;color:var(--text);">Recordatori diari</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Cap a les 20h (hora de la península)</div>
-      </div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);">Recordatori diari</div>
       <button class="ct-btn ${active ? 'primary' : 'secondary'}" style="min-width:110px;flex-shrink:0;"
         onclick="toggleNotifications()" id="notif-toggle-btn">
         ${active ? '🔔 Activat' : '🔕 Desactivat'}
       </button>
-    </div>`;
+    </div>
+    ${prefsUI}`;
 }
 
 async function toggleNotifications() {
@@ -2553,6 +2579,10 @@ async function toggleNotifications() {
   const result = await window.fbRequestNotifications?.() || { ok: false, reason: 'no-firebase' };
   if (result.ok) {
     localStorage.setItem('notif_active', 'true');
+    await window.fbSaveNotifPrefs?.({
+      notifHour: parseInt(localStorage.getItem('notif_hour') || '19'),
+      notifFrequency: parseInt(localStorage.getItem('notif_freq') || '1')
+    });
     refreshNotifSection();
   } else if (result.reason === 'denied') {
     refreshNotifSection();
@@ -2568,6 +2598,29 @@ async function toggleNotifications() {
 function refreshNotifSection() {
   const el = document.getElementById('notif-section');
   if (el) el.innerHTML = renderNotificationsSection();
+}
+
+async function saveNotifPref(type, value) {
+  if (type === 'hour') localStorage.setItem('notif_hour', value);
+  else if (type === 'freq') localStorage.setItem('notif_freq', value);
+  await window.fbSaveNotifPrefs?.({
+    notifHour: parseInt(localStorage.getItem('notif_hour') || '19'),
+    notifFrequency: parseInt(localStorage.getItem('notif_freq') || '1')
+  });
+  refreshNotifSection();
+}
+
+function shouldShowNotifBanner() {
+  return !!(window.fbUser
+    && localStorage.getItem('notif_active') !== 'true'
+    && localStorage.getItem('notif_banner_dismissed') !== 'true'
+    && ('Notification' in window)
+    && Notification.permission !== 'denied');
+}
+
+function dismissNotifBanner() {
+  localStorage.setItem('notif_banner_dismissed', 'true');
+  renderMenu();
 }
 
 function renderProfile() {

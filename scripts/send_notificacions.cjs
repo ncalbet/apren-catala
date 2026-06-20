@@ -21,18 +21,27 @@ function getNextLevel(xp) {
   return (idx >= 0 && idx < LEVELS.length - 1) ? LEVELS[idx + 1] : null;
 }
 
-function practicedToday(lastDay) {
-  // L'app desa lastDay amb toDateString() → "Sat Jun 20 2026"
-  return lastDay === new Date().toDateString();
+function getCurrentHourMadrid() {
+  return parseInt(new Intl.DateTimeFormat('ca-ES', {
+    timeZone: 'Europe/Madrid',
+    hour: 'numeric',
+    hour12: false
+  }).format(new Date()), 10);
 }
 
-function buildNotification(progress) {
-  if (practicedToday(progress?.lastDay)) return null;
+function daysSinceLastPractice(lastDay) {
+  if (!lastDay) return 999;
+  // lastDay és toDateString() → "Sat Jun 20 2026"
+  const last = new Date(lastDay);
+  const now = new Date();
+  return Math.floor((now - last) / (24 * 60 * 60 * 1000));
+}
 
+function buildNotification(progress, daysSince) {
   const xp = progress?.xp || 0;
   const streak = progress?.streak || 0;
 
-  if (streak >= 2) {
+  if (streak >= 2 && daysSince === 1) {
     return {
       title: `🔥 ${streak} dies de ratxa!`,
       body: `No deixis escapar el dia ${streak + 1}. Un exercici és suficient per mantenir-la.`
@@ -54,6 +63,9 @@ function buildNotification(progress) {
 }
 
 async function run() {
+  const currentHour = getCurrentHourMadrid();
+  console.log(`Hora actual a Madrid: ${currentHour}h`);
+
   const snapshot = await db.collection('users')
     .where('notificacionsActives', '==', true)
     .get();
@@ -71,8 +83,16 @@ async function run() {
     const token = data.fcmToken;
     if (!token) { skipped++; continue; }
 
-    const notification = buildNotification(data.progress);
-    if (!notification) { skipped++; continue; }
+    // Filtre per hora (per defecte: 19h)
+    const userHour = data.notifHour ?? 19;
+    if (userHour !== currentHour) { skipped++; continue; }
+
+    // Filtre per freqüència (per defecte: cada dia)
+    const freq = data.notifFrequency ?? 1;
+    const daysSince = daysSinceLastPractice(data.progress?.lastDay);
+    if (daysSince < freq) { skipped++; continue; }
+
+    const notification = buildNotification(data.progress, daysSince);
 
     try {
       await messaging.send({
