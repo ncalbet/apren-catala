@@ -3488,12 +3488,20 @@ const DATA = {
       question:'Tria la forma correcta per a una condició hipotètica irreal en el present:',
       text:'Si jo ___ president, canviaria moltes coses urgentment.',
       options:['sóc','fos','sigui','havia estat'],
-      correct:1, theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
+      correct:1, variants:[
+        { options:['fos','sóc','havia estat','sigui'], correct:0 },
+        { question:'Tria la forma correcta per a: «Si jo ___ rica, viatjaria arreu del món»:', options:['sóc','sigui','havia estat','fos'], correct:3 },
+      ],
+      theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
     { id:'c1-sa2', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Tria la forma correcta per a una condicional irreal en el passat:',
       text:'Si ___ estudiat més, hauria aprovat l\'examen sense problemes.',
       options:['havia','hagués','hauria','hagi'],
-      correct:1, theory:'Condicionals irreals en el passat: si + plusquamperfet de subjuntiu (hagués + participi) + condicional compost.', example:'Si hagués vingut a temps, hauria pogut saludar-te.' },
+      correct:1, variants:[
+        { options:['hagués','havia','hagi','hauria'], correct:0 },
+        { options:['hauria','hagi','havia','hagués'], correct:3 },
+      ],
+      theory:'Condicionals irreals en el passat: si + plusquamperfet de subjuntiu (hagués + participi) + condicional compost.', example:'Si hagués vingut a temps, hauria pogut saludar-te.' },
     { id:'c1-sa3', type:'fill', level:'c1', category:'Subjuntiu avançat',
       text:'En un context laboral formal, les oracions temporals que es projecten cap al futur tenen un comportament verbal particular en català.',
       question:'Completa la frase temporal de futur amb la forma verbal correcta:',
@@ -3508,7 +3516,11 @@ const DATA = {
       question:'Quina frase usa el subjuntiu correctament en una oració relativa?',
       text:'En les oracions de relatiu, el subjuntiu indica que l\'antecedent és indefinit o inexistent (no se sap si existeix): «Busco algú que sàpiga...». L\'indicatiu indica que l\'antecedent és conegut: «Conec algú que sap...».',
       options:['Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'],
-      correct:1, theory:'Quan l\'antecedent del relatiu és indefinit (no se sap si existeix), el verb de la subordinada va en subjuntiu.', example:'Busco algú que parli japonès. (subj.) / Conec algú que parla japonès. (ind.)' },
+      correct:1, variants:[
+        { options:['Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'], correct:0 },
+        { question:'Quina frase usa el subjuntiu correctament en una oració de relatiu?', options:['Conec una persona que parla xinès.','Busco algú que sàpiga programar.','Tinc un amic que sap cuinar molt bé.'], correct:1 },
+      ],
+      theory:'Quan l\'antecedent del relatiu és indefinit (no se sap si existeix), el verb de la subordinada va en subjuntiu.', example:'Busco algú que parli japonès. (subj.) / Conec algú que parla japonès. (ind.)' },
     { id:'c1-sa5', type:'fill', level:'c1', category:'Subjuntiu avançat',
       question:'Completa amb la forma de subjuntiu correcta per a un desig hipotètic:',
       text:'«Tant de bo» expressa un desig difícil o impossible de realitzar i exigeix imperfet de subjuntiu. Indica que la situació és hipotètica o molt improbable: «Tant de bo pogués volar!»',
@@ -3523,7 +3535,11 @@ const DATA = {
       question:'Quin connector concessiu completa correctament aquesta frase formal?',
       text:'___ els resultats siguin positius, cal continuar vigilant l\'evolució.',
       options:['Atès que','Per bé que','Ja que','Per tant'],
-      correct:1, theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
+      correct:1, variants:[
+        { options:['Per bé que','Atès que','Per tant','Ja que'], correct:0 },
+        { question:'Quin connector concessiu formal completa correctament: «___ el pressupost sigui limitat, el projecte és viable»?', options:['Ja que','Atès que','Per tant','Per bé que'], correct:3 },
+      ],
+      theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
 
     // CONNECTORS CONCESSIUS
     { id:'c1-cc1', type:'fill', level:'c1', category:'Connectors concessius',
@@ -3541,7 +3557,11 @@ const DATA = {
       question:'Quin connector concessiu va obligatòriament amb subjuntiu?',
       text:'Els connectors concessius expressen un obstacle que no impedeix la conclusió principal. Alguns van sempre amb indicatiu (si bé), d\'altres sempre amb subjuntiu, i alguns admeten els dos modes.',
       options:['si bé','per bé que','tot i que','malgrat que'],
-      correct:1, theory:'«Per bé que» és el connector concessiu formal que exigeix sempre subjuntiu. «Si bé» porta indicatiu.', example:'Per bé que els resultats siguin positius, cal prudència.' },
+      correct:1, variants:[
+        { options:['per bé que','si bé','malgrat que','tot i que'], correct:0 },
+        { options:['tot i que','malgrat que','si bé','per bé que'], correct:3 },
+      ],
+      theory:'«Per bé que» és el connector concessiu formal que exigeix sempre subjuntiu. «Si bé» porta indicatiu.', example:'Per bé que els resultats siguin positius, cal prudència.' },
     { id:'c1-cc3', type:'fill', level:'c1', category:'Connectors concessius',
       question:'Omple amb el connector concessiu més formal per a registre acadèmic + indicatiu:',
       text:'En registre acadèmic, el connector concessiu de major formalitat que va amb indicatiu és «si bé». «Malgrat que» i «tot i que» són neutres; «però» és massa col·loquial.',
@@ -3567,7 +3587,11 @@ const DATA = {
       question:'En quina frase s\'usa incorrectament un connector concessiu?',
       text:'«Per bé que» exigeix sempre subjuntiu. Quan va seguit d\'indicatiu, l\'oració és incorrecta. «Malgrat» i «tot i» poden anar amb nom, infinitiu o verb conjugat.',
       options:['Malgrat la crisi, l\'empresa va créixer.','Tot i ploure molt, van sortir a caminar.','Per bé que és un bon professional, treballarà amb nosaltres.'],
-      correct:2, theory:'«Per bé que» exigeix subjuntiu. «És» (indicatiu) és incorrecte. La forma correcta: «per bé que sigui un bon professional».', example:'Per bé que sigui difícil, cal intentar-ho.' },
+      correct:2, variants:[
+        { options:['Per bé que és un bon professional, treballarà amb nosaltres.','Malgrat la crisi, l\'empresa va créixer.','Tot i ploure molt, van sortir a caminar.'], correct:0 },
+        { question:'Quina frase usa «per bé que» incorrectament?', options:['Per bé que sigui difícil, cal intentar-ho.','Per bé que plou, sortirem igualment.','Per bé que els resultats siguin positius, cal continuar vigilant.'], correct:1 },
+      ],
+      theory:'«Per bé que» exigeix subjuntiu. «És» (indicatiu) és incorrecte. La forma correcta: «per bé que sigui un bon professional».', example:'Per bé que sigui difícil, cal intentar-ho.' },
 
     // LÈXIC FORMAL C1
     { id:'c1-lf1', type:'transform', level:'c1', category:'Lèxic formal',
@@ -3599,7 +3623,11 @@ const DATA = {
       question:'Quina paraula encaixa millor en el context acadèmic?',
       text:'L\'estudi ___ l\'existència d\'una correlació directa entre les dues variables.',
       options:['diu','constata','explica','comenta'],
-      correct:1, theory:'«Constatar» és un verb epistèmic que expressa que quelcom ha quedat verificat empíricament. Molt freqüent en textos científics.', example:'L\'estudi constata / evidencia / posa de manifest / demostra...' },
+      correct:1, variants:[
+        { options:['constata','diu','comenta','explica'], correct:0 },
+        { question:'Quin verb acadèmic encaixa millor: «La investigació ___ l\'existència d\'un patró sistemàtic»?', options:['comenta','diu','evidencia','explica'], correct:2 },
+      ],
+      theory:'«Constatar» és un verb epistèmic que expressa que quelcom ha quedat verificat empíricament. Molt freqüent en textos científics.', example:'L\'estudi constata / evidencia / posa de manifest / demostra...' },
     { id:'c1-lf5', type:'writing', level:'c1', category:'Lèxic formal',
       text:'Un informe d\'investigació social demana densitat nominal i veus impersonals en lloc del subjecte genèric «la gent».',
       question:'Reescriu la frase per incloure-la en un informe d\'investigació social. Usa nominalitzacions i verbs epistèmics precisos. Frase original: «La gent participa més en les decisions».',
@@ -3635,7 +3663,11 @@ const DATA = {
       question:'Quina expressió serveix per introduir una tesi en un text acadèmic?',
       text:'En un text acadèmic, la tesi s\'introdueix amb expressions impersonals i objectives que eviten el «jo»: «es fa palès que», «cal tenir present que», «tot sembla indicar que».',
       options:['Crec que és important dir que...','Es fa palès que les mesures adoptades han estat insuficients.','Bueno, bàsicament el que vull dir és que...'],
-      correct:1, theory:'En registre acadèmic, la tesi s\'introdueix amb expressions impersonals i objectives: «Es fa palès que», «Cal tenir present que», «Les evidències indiquen que».', example:'Es fa palès que les polítiques actuals no han assolit els objectius previstos.' },
+      correct:1, variants:[
+        { options:['Es fa palès que les mesures adoptades han estat insuficients.','Crec que és important dir que...','Bueno, bàsicament el que vull dir és que...'], correct:0 },
+        { question:'Quina expressió introdueix una tesi en registre acadèmic?', options:['Bueno, el tema és que...','Les evidències indiquen que cal un enfocament diferent.','Jo pens que la situació és greu.'], correct:1 },
+      ],
+      theory:'En registre acadèmic, la tesi s\'introdueix amb expressions impersonals i objectives: «Es fa palès que», «Cal tenir present que», «Les evidències indiquen que».', example:'Es fa palès que les polítiques actuals no han assolit els objectius previstos.' },
     { id:'c1-arg5', type:'fill', level:'c1', category:'Argumentació',
       question:'Omple amb el connector argumentatiu que introdueix un matís a la posició anterior:',
       text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.',
@@ -3663,7 +3695,11 @@ const DATA = {
       question:'Quin recurs argumentatiu usa l\'autor en: «Separar-los no és tan sols una simplificació: és un error estratègic»?',
       text:'Analitza l\'estructura de la frase: «no és tan sols X: és Y». Pensa en la relació entre les dues afirmacions i quin efecte retòric produeix la progressió de X cap a Y.',
       options:['Una contradicció interna entre les dues afirmacions','Una gradació ascendent: l\'error va més enllà d\'una mera simplificació','Una concessió que reconeix la validesa de la posició contrària'],
-      correct:1, theory:'L\'estructura «no és tan sols X: és Y» on Y > X expressa una gradació ascendent que reforça la gravetat.', example:'«No és tan sols un error: és una irresponsabilitat.» → Y és pitjor que X.' },
+      correct:1, variants:[
+        { options:['Una gradació ascendent: l\'error va més enllà d\'una mera simplificació','Una contradicció interna entre les dues afirmacions','Una concessió que reconeix la validesa de la posició contrària'], correct:0 },
+        { options:['Una concessió que reconeix la validesa de la posició contrària','Una contradicció interna entre les dues afirmacions','Una gradació ascendent: l\'error va més enllà d\'una mera simplificació'], correct:2 },
+      ],
+      theory:'L\'estructura «no és tan sols X: és Y» on Y > X expressa una gradació ascendent que reforça la gravetat.', example:'«No és tan sols un error: és una irresponsabilitat.» → Y és pitjor que X.' },
     { id:'c1-crit4', type:'reading', level:'c1', category:'Comprensió crítica',
       text:'L\'anomenada «fatiga de compassió» afecta les professions d\'ajuda. Paradoxalment, les persones més empàtiques en són les primeres víctimes. Alguns experts proposen establir límits emocionals estrictes; d\'altres, en canvi, consideren que la solució no passa per la distància afectiva, sinó per una gestió emocional activa.',
       question:'Quina és la tensió central que planteja el text?',
@@ -3673,7 +3709,11 @@ const DATA = {
       question:'Quin to predomina en: «Podria semblar que les dades parlen per si soles. Res més lluny de la realitat»?',
       text:'Per identificar el to, fixa\'t en l\'estructura: una primera frase que presenta una visió ingènua («podria semblar») seguida d\'una refutació contundent. Quin efecte produeix en el lector?',
       options:['Optimista i confirmatiu','Crític i correctiu: refuta una visió ingènua sobre les dades','Dubitatiu: no sap si les dades són fiables'],
-      correct:1, theory:'«Res més lluny de la realitat» és una expressió correctiva molt forta. L\'autor primer presenta una posició i tot seguit la derriba completament.', example:'«Podria semblar X / Res més lluny» → refutació directa d\'una creença prèvia.' },
+      correct:1, variants:[
+        { options:['Crític i correctiu: refuta una visió ingènua sobre les dades','Optimista i confirmatiu','Dubitatiu: no sap si les dades són fiables'], correct:0 },
+        { options:['Dubitatiu: no sap si les dades són fiables','Optimista i confirmatiu','Crític i correctiu: refuta una visió ingènua sobre les dades'], correct:2 },
+      ],
+      theory:'«Res més lluny de la realitat» és una expressió correctiva molt forta. L\'autor primer presenta una posició i tot seguit la derriba completament.', example:'«Podria semblar X / Res més lluny» → refutació directa d\'una creença prèvia.' },
 
     // PRODUCCIÓ FORMAL
     { id:'c1-pro1', type:'writing', level:'c1', category:'Producció formal',
@@ -3692,7 +3732,11 @@ const DATA = {
       question:'Quina expressió és la més adequada per referir-se a dades en un text acadèmic?',
       text:'En un text acadèmic, les referències a dades han de ser objectives i impersonals. S\'eviten les pressuposicions («com és obvi») i les valoracions en primera persona («jo crec»).',
       options:['Com és obvi per a tothom...','D\'acord amb les evidències disponibles, cal concloure que...','Jo crec que les dades demostren que...'],
-      correct:1, theory:'Les dades s\'introdueixen amb expressions epistèmiques objectives: «D\'acord amb», «Segons», «Les evidències indiquen», «Les dades posen de manifest».', example:'D\'acord amb les evidències disponibles, es constata una millora significativa dels indicadors.' },
+      correct:1, variants:[
+        { options:['D\'acord amb les evidències disponibles, cal concloure que...','Com és obvi per a tothom...','Jo crec que les dades demostren que...'], correct:0 },
+        { question:'Quina expressió és la més adequada per citar dades en un informe acadèmic?', options:['Tothom sap que les dades confirmen...','Sembla que les dades diuen que...','D\'acord amb les evidències disponibles, es constata que...'], correct:2 },
+      ],
+      theory:'Les dades s\'introdueixen amb expressions epistèmiques objectives: «D\'acord amb», «Segons», «Les evidències indiquen», «Les dades posen de manifest».', example:'D\'acord amb les evidències disponibles, es constata una millora significativa dels indicadors.' },
     { id:'c1-pro4', type:'writing', level:'c1', category:'Producció formal',
       text:'Passar al registre acadèmic vol dir substituir el lèxic vague i col·loquial per termes precisos i impersonals.',
       question:'Transforma al registre acadèmic: «El problema és que la gent no fa cas de les normes i les coses van malament».',
@@ -3716,7 +3760,11 @@ const DATA = {
       question:'Tria la construcció de relatiu correcta en registre culte:',
       text:'La proposta ___ es va presentar ahir no compleix els requisits legals.',
       options:['que la qual','la qual','en la qual que','qui'],
-      correct:1, theory:'En registre formal, «el qual / la qual» substitueix «que» quan pot crear ambigüitat o en prosa elaborada.', example:'El document al qual fas referència no és vàlid.' },
+      correct:1, variants:[
+        { options:['la qual','que la qual','qui','en la qual que'], correct:0 },
+        { options:['qui','en la qual que','que la qual','la qual'], correct:3 },
+      ],
+      theory:'En registre formal, «el qual / la qual» substitueix «que» quan pot crear ambigüitat o en prosa elaborada.', example:'El document al qual fas referència no és vàlid.' },
     { id:'c1-rel2', type:'fill', level:'c1', category:'Oracions de relatiu',
       text:'Quan el relatiu va precedit d\'una preposició, el registre formal demana una forma composta en lloc del simple «que».',
       question:'Completa amb el pronom relatiu formal correcte (amb preposició «en»):',
@@ -3731,7 +3779,11 @@ const DATA = {
       question:'Quina frase usa correctament les oracions de relatiu?',
       text:'Una oració de relatiu especificativa (sense comes) restringeix el significat de l\'antecedent: «Els participants que havien superat la prova» (no tots, només els que la van superar). En relatives especificatives amb antecedent explícit s\'usa «que» per a persones, no «qui» (sí que és correcte «qui» sense antecedent: «Qui ho vulgui, que s\'apunti»).',
       options:['Els participants que, tots ells, havien superat la prova van ser admesos.','Els participants que havien superat la prova van ser admesos.','Els participants, qui havien superat la prova, van ser admesos.'],
-      correct:1, theory:'«Qui» s\'usa per a persones en funció de subjecte, preferentment en relativa sense antecedent. En relativa especificativa amb antecedent, s\'usa «que».', example:'Els qui vulguin participar que s\'apuntin. / Els estudiants que han aprovat...' },
+      correct:1, variants:[
+        { options:['Els participants que havien superat la prova van ser admesos.','Els participants que, tots ells, havien superat la prova van ser admesos.','Els participants, qui havien superat la prova, van ser admesos.'], correct:0 },
+        { question:'Quina frase usa correctament les oracions de relatiu?', options:['Els alumnes, qui havien aprovat, van rebre el diploma.','Els alumnes que havien aprovat van rebre el diploma.','Els alumnes que tots ells havien aprovat van rebre el diploma.'], correct:1 },
+      ],
+      theory:'«Qui» s\'usa per a persones en funció de subjecte, preferentment en relativa sense antecedent. En relativa especificativa amb antecedent, s\'usa «que».', example:'Els qui vulguin participar que s\'apuntin. / Els estudiants que han aprovat...' },
     { id:'c1-rel4', type:'fill', level:'c1', category:'Oracions de relatiu',
       text:'Una relativa explicativa aporta informació addicional no essencial, i la puntuació la separa de la resta de la frase.',
       question:'Converteix la frase en relativa explicativa afegint comes:',
@@ -3747,7 +3799,11 @@ const DATA = {
       question:'Quina construcció de relatiu és la més formal i precisa per a un subjecte?',
       text:'La comissió ___ va elaborar l\'informe presentarà les seves conclusions dimecres.',
       options:['que','la qual','qui','on'],
-      correct:1, theory:'En registre formal, «la qual» s\'usa per a subjectes de relativa quan l\'antecedent és un nom, especialment en prosa elaborada.', example:'La comissió la qual va elaborar l\'informe... (formal).' },
+      correct:1, variants:[
+        { options:['la qual','que','on','qui'], correct:0 },
+        { options:['qui','on','la qual','que'], correct:2 },
+      ],
+      theory:'En registre formal, «la qual» s\'usa per a subjectes de relativa quan l\'antecedent és un nom, especialment en prosa elaborada.', example:'La comissió la qual va elaborar l\'informe... (formal).' },
 
     // SUBJUNTIU IMPERFET
     { id:'c1-si1', type:'fill', level:'c1', category:'Subjuntiu imperfet',
@@ -3764,7 +3820,11 @@ const DATA = {
       question:'Quina frase usa correctament la concordança temporal?',
       text:'La concordança temporal exigeix que el verb subordinat estigui en imperfet de subjuntiu quan el verb principal és en condicional o en passat: «voldria que vingués», «va demanar que vingués».',
       options:['Voldria que vingui aviat.','Voldria que vingués aviat.','Volia que vindrà aviat.'],
-      correct:1, theory:'Condicional (voldria) → subjuntiu imperfet (vingués). El condicional actua com un «passat» per a la concordança temporal.', example:'Voldria que m\'expliqués la situació.' },
+      correct:1, variants:[
+        { options:['Voldria que vingués aviat.','Voldria que vingui aviat.','Volia que vindrà aviat.'], correct:0 },
+        { question:'Quina frase usa correctament la concordança temporal?', options:['Voldria que ___ (venir) aviat: «vingui».','Voldria que ___ (venir) aviat: «vindrà».','Voldria que ___ (venir) aviat: «vingués».'], correct:2 },
+      ],
+      theory:'Condicional (voldria) → subjuntiu imperfet (vingués). El condicional actua com un «passat» per a la concordança temporal.', example:'Voldria que m\'expliqués la situació.' },
     { id:'c1-si3', type:'fill', level:'c1', category:'Subjuntiu imperfet',
       text:'En passar a estil indirecte en passat, els temps verbals de la frase original es desplacen cap enrere.',
       question:'Completa en estil indirecte al passat:',
@@ -3779,7 +3839,11 @@ const DATA = {
       question:'Quina forma verbal d\'imperfet de subjuntiu és incorrecta?',
       text:'Les formes de l\'imperfet de subjuntiu es construeixen sobre el radical del passat: vaig ser → fos, vaig tenir → tingués, vaig poder → pogués. Una d\'aquestes formes és incorrecta.',
       options:['fos (ser)','tingués (tenir)','pugués (poder)'],
-      correct:2, theory:'La forma correcta de «poder» en imperfet de subjuntiu és «pogués». «Pugués» és una confusió amb el present de subj. «pugui».', example:'Si pogués venir, ho faria. (subj. imperfet)' },
+      correct:2, variants:[
+        { options:['pugués (poder)','fos (ser)','tingués (tenir)'], correct:0 },
+        { question:'Quina forma verbal d\'imperfet de subjuntiu és incorrecta?', options:['pogués','pugués','podia'], correct:1 },
+      ],
+      theory:'La forma correcta de «poder» en imperfet de subjuntiu és «pogués». «Pugués» és una confusió amb el present de subj. «pugui».', example:'Si pogués venir, ho faria. (subj. imperfet)' },
     { id:'c1-si5', type:'fill', level:'c1', category:'Subjuntiu imperfet',
       text:'«Tant de bo» expressa un desig; quan el desig és poc probable o irreal, el verb adopta un temps de subjuntiu particular.',
       question:'Usa «tant de bo» + imperfet de subjuntiu per a un desig difícil:',
@@ -3794,14 +3858,22 @@ const DATA = {
       question:'Quina opció completa correctament la condicional irreal en el passat?',
       text:'Si hagués sabut la veritat, ___ d\'una altra manera.',
       options:['actuaria','hauria actuat','hagués actuat'],
-      correct:1, theory:'Condicional irreal en el passat: si + plusquamperfet de subj. + condicional compost (hauria + participi).', example:'Si hagués estudiat més, hauria aprovat.' },
+      correct:1, variants:[
+        { options:['hauria actuat','actuaria','hagués actuat'], correct:0 },
+        { options:['hagués actuat','actuaria','hauria actuat'], correct:2 },
+      ],
+      theory:'Condicional irreal en el passat: si + plusquamperfet de subj. + condicional compost (hauria + participi).', example:'Si hagués estudiat més, hauria aprovat.' },
 
     // PRONOMS FEBLES
     { id:'c1-pf1', type:'choice', level:'c1', category:'Pronoms febles',
       question:'Quin pronom feble substitueix correctament «de política» en la resposta?',
       text:'«Parleu de política?» «Sí, ___ parleu sovint.»',
       options:['la','hi','en','ho'],
-      correct:2, theory:'El pronom «en» substitueix complements introduïts per «de» (temes, matèries). «Parlar de X» → «en parlar».', example:'«Parles de la reunió?» «Sí, en parlo.»' },
+      correct:2, variants:[
+        { options:['en','la','ho','hi'], correct:0 },
+        { question:'Quin pronom feble substitueix correctament «de política» en: «Parleu de política?» «Sí, ___ parleu sovint.»?', options:['hi','ho','en','li'], correct:2 },
+      ],
+      theory:'El pronom «en» substitueix complements introduïts per «de» (temes, matèries). «Parlar de X» → «en parlar».', example:'«Parles de la reunió?» «Sí, en parlo.»' },
     { id:'c1-pf2', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Els complements de lloc tenen pronoms febles propis que els substitueixen sense repetir el sintagma.',
       question:'Substitueix el sintagma subratllat pel pronom feble adequat:',
@@ -3816,7 +3888,11 @@ const DATA = {
       question:'Quina combinació de pronoms febles és correcta per a «Li explico el problema»?',
       text:'Quan el complement directe és un concepte abstracte o una frase (no un nom concret), s\'usa «ho» (neutre). L\'ordre és sempre CI + CD: «li ho». «Lo» no existeix en català normatiu.',
       options:['Lo li explico.','Li ho explico.','El li explico.'],
-      correct:1, theory:'Quan el CD és una frase o concepte abstracte, s\'usa «ho» (neutre). Ordre: CI (li) + CD (ho) → li ho.', example:'«Li explico el que ha passat.» → «Li ho explico.»' },
+      correct:1, variants:[
+        { options:['Li ho explico.','Lo li explico.','El li explico.'], correct:0 },
+        { question:'Quina combinació de pronoms febles és correcta per a «Explica la situació a la Maria»?', options:['Lo li explica.','Li ho explica.','El li explica.'], correct:1 },
+      ],
+      theory:'Quan el CD és una frase o concepte abstracte, s\'usa «ho» (neutre). Ordre: CI (li) + CD (ho) → li ho.', example:'«Li explico el que ha passat.» → «Li ho explico.»' },
     { id:'c1-pf4', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Quan parlem d\'una quantitat indeterminada d\'alguna cosa, el català fa servir un pronom feble específic per no repetir el nom.',
       question:'Omple amb el pronom feble partitiu correcte:',
@@ -3831,7 +3907,11 @@ const DATA = {
       question:'Quina frase conté un ús incorrecte d\'un pronom feble?',
       text:'«Haver-hi» és un verb impersonal d\'existència: no té subjecte real, de manera que «haver» no concorda mai en nombre amb el sintagma que el segueix. Tria la frase que no ho respecta.',
       options:['Hi ha molts participants a la sala.','Hi han molts participants a la sala.','A la sala hi ha molts participants.'],
-      correct:1, theory:'«Hi ha» és invariable en nombre: mai «hi han». El verb «haver-hi» d\'existència no concorda amb el sintagma que el segueix.', example:'✓ Hi ha moltes persones. ✗ Hi han moltes persones.' },
+      correct:1, variants:[
+        { options:['Hi han molts participants a la sala.','A la sala hi ha molts participants.','Hi ha molts participants a la sala.'], correct:0 },
+        { question:'Quina frase conté un ús incorrecte d\'«haver-hi»?', options:['Hi ha moltes opcions disponibles.','Hi han moltes opcions disponibles.','A la sala hi ha dues portes.'], correct:1 },
+      ],
+      theory:'«Hi ha» és invariable en nombre: mai «hi han». El verb «haver-hi» d\'existència no concorda amb el sintagma que el segueix.', example:'✓ Hi ha moltes persones. ✗ Hi han moltes persones.' },
     { id:'c1-pf6', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Quan combinem dos pronoms febles (complement indirecte i directe), l\'ordre i la forma canvien segons el verb.',
       question:'Pronominalitza CD i CI: «Dóna el llibre a la Maria» → «Dóna-___»:',
@@ -3848,7 +3928,11 @@ const DATA = {
       question:'Quina frase feta catalana significa «estar molt enfeinat, sense un moment lliure»?',
       text:'Les frases fetes no es tradueixen literalment. Cal aprendre-les en context, associant-les al seu significat global i no a les paraules que les componen.',
       options:['Estar a les vores','Anar de bòlit','Tenir moltes mans'],
-      correct:1, theory:'«Anar de bòlit» és la locució per expressar que s\'està molt ocupat. Pertany al registre col·loquial.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
+      correct:1, variants:[
+        { options:['Anar de bòlit','Estar a les vores','Tenir moltes mans'], correct:0 },
+        { question:'Quina frase feta catalana significa «estar molt enfeinat, sense un moment lliure»?', options:['Tirar la tovallola','Fer la viu-viu','Anar de bòlit'], correct:2 },
+      ],
+      theory:'«Anar de bòlit» és la locució per expressar que s\'està molt ocupat. Pertany al registre col·loquial.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
     { id:'c1-ff2', type:'fill', level:'c1', category:'Frases fetes',
       text:'Les frases fetes tenen un verb fix que no es pot canviar per un sinònim qualsevol: forma part de la locució.',
       question:'Omple la frase feta: «No és moment de ___ la tovallola; cal continuar lluitant».',
@@ -3863,12 +3947,20 @@ const DATA = {
       question:'Quina col·locació lèxica és correcta en català?',
       text:'Les col·locacions lèxiques (verb + nom) sovint difereixen entre el català i el castellà. Molts errors provenen de traduir literalment la combinació castellana.',
       options:['agafar una decisió','prendre una decisió','fer una decisió'],
-      correct:1, theory:'«Prendre una decisió» és la col·locació correcta en català. «Agafar» seria un calc incorrecte en aquest context.', example:'El consell va prendre la decisió d\'ajornar la reunió.' },
+      correct:1, variants:[
+        { options:['prendre una decisió','agafar una decisió','fer una decisió'], correct:0 },
+        { question:'Quina col·locació lèxica és correcta en català?', options:['agafar una mesura','fer una mesura','prendre una mesura'], correct:2 },
+      ],
+      theory:'«Prendre una decisió» és la col·locació correcta en català. «Agafar» seria un calc incorrecte en aquest context.', example:'El consell va prendre la decisió d\'ajornar la reunió.' },
     { id:'c1-ff4', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quina frase feta catalana significa «trobar-se en una situació difícil, sense cap sortida bona entre dues opcions»?',
       text:'Les frases fetes recorren a imatges metafòriques per descriure situacions. Algunes evoquen l\'ofici del ferrer per il·lustrar el fet de quedar atrapat entre dues forces.',
       options:['Estar entre martell i enclusa','Estar en la corda fluixa','Anar a poc a poc'],
-      correct:0, theory:'«Estar entre el martell i l\'enclusa» expressa una situació difícil sense bona sortida. Ambdues variants s\'usen en català.', example:'Es trobava entre el martell i l\'enclusa: tant si acceptava com si refusava, sortia perdent.' },
+      correct:0, variants:[
+        { options:['Estar en la corda fluixa','Anar a poc a poc','Estar entre martell i enclusa'], correct:2 },
+        { options:['Anar a poc a poc','Estar entre martell i enclusa','Estar en la corda fluixa'], correct:1 },
+      ],
+      theory:'«Estar entre el martell i l\'enclusa» expressa una situació difícil sense bona sortida. Ambdues variants s\'usen en català.', example:'Es trobava entre el martell i l\'enclusa: tant si acceptava com si refusava, sortia perdent.' },
     { id:'c1-ff5', type:'writing', level:'c1', category:'Frases fetes',
       text:'En un text professional, les locucions col·loquials se substitueixen pel seu significat expressat amb lèxic precís.',
       question:'Reformula les frases fetes col·loquials en registre formal per a un text professional.',
@@ -3879,7 +3971,11 @@ const DATA = {
       question:'Quina frase feta s\'usa per expressar que algú viu còmodament sense fer-hi gaire res?',
       text:'Algunes frases fetes fan referència a actituds vitals: viure sense esforç, estar a l\'aguait, o rendir-se. Associa cadascuna a la situació que descriu.',
       options:['Fer la viu-viu','Estar a l\'aguait','Tirar la tovallola'],
-      correct:0, theory:'«Fer la viu-viu» significa viure sense gaire esforç, aprofitant-se de la situació.', example:'Mentre els companys treballaven, ell feia la viu-viu sense aportar res al grup.' },
+      correct:0, variants:[
+        { options:['Tirar la tovallola','Fer la viu-viu','Estar a l\'aguait'], correct:1 },
+        { options:['Estar a l\'aguait','Tirar la tovallola','Fer la viu-viu'], correct:2 },
+      ],
+      theory:'«Fer la viu-viu» significa viure sense gaire esforç, aprofitant-se de la situació.', example:'Mentre els companys treballaven, ell feia la viu-viu sense aportar res al grup.' },
 
     // DERIVACIÓ I FLEXIÓ
     { id:'c1-df1', type:'fill', level:'c1', category:'Derivació i flexió',
@@ -3896,7 +3992,11 @@ const DATA = {
       question:'Quina paraula derivada amb el prefix «des-» és correcta?',
       text:'El prefix «des-» indica negació o inversió de l\'acció i s\'afegeix directament al radical sense canviar l\'ortografia: des + conèixer = desconèixer. Les formes castellanitzades no existeixen en català.',
       options:['desconèixer (ignorar completament)','desconexar (mala formació)','desconexió (forma castellana)'],
-      correct:0, theory:'El prefix «des-» expressa negació o reversió: «desconèixer» (no conèixer), «desfer» (revertir «fer»). Cal usar les arrels catalanes.', example:'desfer / desconèixer / desaparèixer / desmuntar / desacord.' },
+      correct:0, variants:[
+        { options:['desconexar (mala formació)','desconexió (forma castellana)','desconèixer (ignorar completament)'], correct:2 },
+        { options:['desconexió (forma castellana)','desconèixer (ignorar completament)','desconexar (mala formació)'], correct:1 },
+      ],
+      theory:'El prefix «des-» expressa negació o reversió: «desconèixer» (no conèixer), «desfer» (revertir «fer»). Cal usar les arrels catalanes.', example:'desfer / desconèixer / desaparèixer / desmuntar / desacord.' },
     { id:'c1-df3', type:'fill', level:'c1', category:'Derivació i flexió',
       text:'Alguns mots acabats en consonant formen el plural de manera que cal vigilar l\'accentuació i les regles ortogràfiques.',
       question:'Forma el plural correcte del mot indicat:',
@@ -3911,7 +4011,10 @@ const DATA = {
       question:'Quin és el nom d\'agent correcte derivat del verb «traduir»?',
       text:'Els verbs en -uir formen el nom d\'agent en -uctor en català: traduir → traductor, conduir → conductor, produir → productor. La forma amb dièresi no s\'aplica al nom d\'agent.',
       options:['traduïdor','traductor','traduhidor'],
-      correct:1,
+      correct:1, variants:[
+        { options:['traductor','traduïdor','traduhidor'], correct:0 },
+        { question:'Quin és el nom d\'agent correcte derivat del verb «conduir»?', options:['conduïdor','conduhidor','conductor'], correct:2 },
+      ],
       theory:'El nom d\'agent de «traduir» és «traductor» (forma culta d\'origen llatí), no «traduïdor». Molts verbs en -ir presenten noms d\'agent irregulars: «conduir» → «conductor», «produir» → «productor», «seduir» → «seductor». Cal evitar les formes analògiques en -ïdor.',
       example:'traduir → traductor / conduir → conductor / produir → productor / seduir → seductor.' },
     { id:'c1-df5', type:'fill', level:'c1', category:'Derivació i flexió',
@@ -3953,7 +4056,11 @@ const DATA = {
       question:'Quina transformació a estil indirecte és correcta?',
       text:'En l\'estil indirecte, les preguntes parcials (on, qui, com, quan...) es transformen en subordinades amb el mateix mot interrogatiu però sense «que» introductori. El temps verbal retrocedeix un pas al passat.',
       options:['Va preguntar: «On vius?» → Va preguntar on vivies.','Va preguntar: «On vius?» → Va preguntar que on vius.','Va preguntar: «On vius?» → Va preguntar on viuràs.'],
-      correct:0, theory:'Interrogatives indirectes: «preguntar si/on/quan/com...» (sense «que»). El verb passa a imperfet si el verb introductor és en passat.', example:'«Quan arribes?» → Va preguntar quan arribava.' },
+      correct:0, variants:[
+        { options:['Va preguntar: «On vius?» → Va preguntar que on vius.','Va preguntar: «On vius?» → Va preguntar on viuràs.','Va preguntar: «On vius?» → Va preguntar on vivies.'], correct:2 },
+        { question:'Quina transformació a estil indirecte és correcta?', options:['Va preguntar: «Quan arribes?» → Va preguntar que quan arrivava.','Va preguntar: «Quan arribes?» → Va preguntar on viuràs.','Va preguntar: «Quan arribes?» → Va preguntar quan arribava.'], correct:2 },
+      ],
+      theory:'Interrogatives indirectes: «preguntar si/on/quan/com...» (sense «que»). El verb passa a imperfet si el verb introductor és en passat.', example:'«Quan arribes?» → Va preguntar quan arribava.' },
     { id:'c1-ei4', type:'transform', level:'c1', category:'Estil indirecte',
       text:'Un imperatiu en estil directe es transforma en una subordinada amb un verb de petició i un canvi de mode.',
       question:'Transforma l\'imperatiu en estil indirecte:',
@@ -3965,7 +4072,11 @@ const DATA = {
       question:'Quina transformació de l\'adverbi de temps és correcta?',
       text:'En l\'estil indirecte, els adverbis de temps canvien per adaptar-se al nou context enunciatiu: «avui» → «aquell dia», «ara» → «aleshores», «demà» → «l\'endemà». Mantenir l\'adverbi original és incorrecte quan el verb introductor és en passat.',
       options:['Va dir que vindria avui.','Va dir que vindria aquell dia.','Va dir que venia avui.'],
-      correct:1, theory:'«Avui» en estil indirecte (passat) → «aquell dia». «Demà» → «l\'endemà». «Ahir» → «el dia anterior». «Aquí» → «allà».', example:'«Avui» → aquell dia. / «Demà» → l\'endemà. / «Aquí» → allà.' },
+      correct:1, variants:[
+        { options:['Va dir que vindria aquell dia.','Va dir que venia avui.','Va dir que vindria avui.'], correct:0 },
+        { question:'Quina transformació de l\'adverbi de temps és correcta en estil indirecte?', options:['Va dir que vindria avui.','Va dir que venia aquell dia.','Va dir que vindria l\'endemà.'], correct:2 },
+      ],
+      theory:'«Avui» en estil indirecte (passat) → «aquell dia». «Demà» → «l\'endemà». «Ahir» → «el dia anterior». «Aquí» → «allà».', example:'«Avui» → aquell dia. / «Demà» → l\'endemà. / «Aquí» → allà.' },
     { id:'c1-ei6', type:'fill', level:'c1', category:'Estil indirecte',
       text:'Quan reportem una pregunta de sí o no, cal un verb introductor adequat seguit del nexe corresponent.',
       question:'Tria el marcador introductori correcte:',
@@ -3987,7 +4098,11 @@ const DATA = {
       question:'Quina és la construcció preferida en català per expressar passiva sense agent?',
       text:'En català, hi ha dues maneres d\'expressar la passiva. Una és més genuïna i preferida; l\'altra sona a traducció. Tria com traduiries al català formal: «El projecte fue aprobado».',
       options:['El projecte va ser aprovat.','Es va aprovar el projecte.','El projecte ha sigut aprovat.'],
-      correct:1, theory:'El català prefereix la passiva reflexa (es + verb) quan l\'agent és irrellevant. «Va ser aprovat» és correcte però menys habitual; «ha sigut» és híbrid incorrecte.', example:'Es van prendre mesures. / Es va signar l\'acord. / Es va decidir ajornar.' },
+      correct:1, variants:[
+        { options:['Es va aprovar el projecte.','El projecte ha sigut aprovat.','El projecte va ser aprovat.'], correct:0 },
+        { question:'Quina és la construcció preferida en català per expressar passiva sense agent? Tria com traduiries «La decisión fue aprobada»:', options:['La decisió ha sigut aprovada.','La decisió va ser aprovada.','Es va aprovar la decisió.'], correct:2 },
+      ],
+      theory:'El català prefereix la passiva reflexa (es + verb) quan l\'agent és irrellevant. «Va ser aprovat» és correcte però menys habitual; «ha sigut» és híbrid incorrecte.', example:'Es van prendre mesures. / Es va signar l\'acord. / Es va decidir ajornar.' },
     { id:'c1-pi2', type:'fill', level:'c1', category:'Passiva i impersonal',
       text:'La passiva reflexa amb «es» fa concordar el verb amb allò que rep l\'acció, sense esmentar qui la fa.',
       question:'Completa amb la forma de passiva reflexa correcta:',
@@ -4002,7 +4117,11 @@ const DATA = {
       question:'Quina construcció és la més adequada per a una norma general en text institucional?',
       text:'En textos institucionals i normatius, la construcció impersonal amb «es» aporta objectivitat evitant designar un subjecte específic: és la marca d\'un text oficial i formal.',
       options:['Els estudiants han d\'entregar els treballs abans del dia 15.','S\'han d\'entregar els treballs abans del dia 15.','Tu has d\'entregar els treballs el dia 15.'],
-      correct:1, theory:'Per a normes generals, la impersonal amb «es/se» evita mencionar l\'agent i dóna un to objectiu i institucional.', example:'S\'ha de presentar la documentació. / Es recomana llegir les instruccions.' },
+      correct:1, variants:[
+        { options:['S\'han d\'entregar els treballs abans del dia 15.','Tu has d\'entregar els treballs el dia 15.','Els estudiants han d\'entregar els treballs abans del dia 15.'], correct:0 },
+        { question:'Quina construcció és la més adequada per a una norma general en text institucional?', options:['Tots heu de lliurar el mòbil en arribar.','Es lliurarà el mòbil en arribar.','S\'ha de lliurar el mòbil en arribar.'], correct:2 },
+      ],
+      theory:'Per a normes generals, la impersonal amb «es/se» evita mencionar l\'agent i dóna un to objectiu i institucional.', example:'S\'ha de presentar la documentació. / Es recomana llegir les instruccions.' },
     { id:'c1-pi4', type:'transform', level:'c1', category:'Passiva i impersonal',
       text:'La passiva perifràstica (ser + participi) permet posar el focus en l\'objecte tot mantenint l\'agent explícit.',
       question:'Reformula en passiva perifràstica formal amb l\'agent explícit:',
@@ -4014,7 +4133,11 @@ const DATA = {
       question:'Quina frase usa incorrectament la passiva?',
       text:'La passiva pronominal («es van publicar») no admet la combinació de dos auxiliars alhora. Identifica quina de les opcions barreja incorrectament dos elements passius.',
       options:['Es van publicar els resultats ahir.','Va ser decidit no fer canvis.','Es van ser aprovades les mesures.'],
-      correct:2, theory:'«Es van ser aprovades» combina impropriament passiva reflexa i perifràstica. Cal usar-ne una sola: «Es van aprovar» O «Van ser aprovades».', example:'Correcte: Es van aprovar / Van ser aprovades. Incorrecte: *Es van ser aprovades.' },
+      correct:2, variants:[
+        { options:['Es van ser aprovades les mesures.','Es van publicar els resultats ahir.','Va ser decidit no fer canvis.'], correct:0 },
+        { question:'Quina frase usa incorrectament la passiva?', options:['Es van publicar els resultats.','Van ser aprovades les mesures.','Es van ser presentades les conclusions.'], correct:2 },
+      ],
+      theory:'«Es van ser aprovades» combina impropriament passiva reflexa i perifràstica. Cal usar-ne una sola: «Es van aprovar» O «Van ser aprovades».', example:'Correcte: Es van aprovar / Van ser aprovades. Incorrecte: *Es van ser aprovades.' },
     { id:'c1-pi6', type:'fill', level:'c1', category:'Passiva i impersonal',
       text:'Les construccions impersonals amb «es» expressen normes o prohibicions sense identificar un subjecte concret.',
       question:'Omple amb la forma impersonal correcta:',
@@ -4036,17 +4159,29 @@ const DATA = {
       question:'Quina estratègia argumentativa s\'usa en: «Certament, hi ha arguments a favor. Tanmateix, les evidències apunten en la direcció contrària»?',
       text:'La concessió retòrica és una estratègia argumentativa que reconeix la validesa parcial de la posició contrària per reforçar la pròpia. Estructura habitual: «Certament/És cert que X. Tanmateix/Tot i això, Y».',
       options:['Refutació directa sense concessions','Concessió retòrica seguida de contraargument','Simple enumeració de dues posicions'],
-      correct:1, theory:'La concessió retòrica («certament») reconeix la posició contrària sense abandonar la pròpia, i el contraargument («tanmateix») reorienta el discurs. És una marca de maduresa argumentativa.', example:'«És cert que X. No obstant, cal tenir present que Y.»' },
+      correct:1, variants:[
+        { options:['Concessió retòrica seguida de contraargument','Refutació directa sense concessions','Simple enumeració de dues posicions'], correct:0 },
+        { options:['Simple enumeració de dues posicions','Refutació directa sense concessions','Concessió retòrica seguida de contraargument'], correct:2 },
+      ],
+      theory:'La concessió retòrica («certament») reconeix la posició contrària sense abandonar la pròpia, i el contraargument («tanmateix») reorienta el discurs. És una marca de maduresa argumentativa.', example:'«És cert que X. No obstant, cal tenir present que Y.»' },
     { id:'c1-crit6', type:'choice', level:'c1', category:'Comprensió crítica',
       question:'Quin recurs usa l\'autor en: «Paradoxalment, com menys s\'hi pensa, millor es resol»?',
       text:'Una paradoxa aparent presenta dues afirmacions que semblen contradir-se però que, analitzades en profunditat, revelen una veritat no òbvia. L\'adverbi «paradoxalment» és un senyal que en avisa.',
       options:['Una contradicció lògica sense fonament','Una paradoxa aparent que suggereix que la reflexió excessiva és contraproduent','Una conclusió basada en dades empíriques'],
-      correct:1, theory:'La paradoxa aparent («paradoxalment + afirmació contraintuïtiva») és un recurs que capta l\'atenció i suggereix una veritat no òbvia. Al C1 cal identificar la intenció darrere del recurs retòric.', example:'«Paradoxalment, la simplicitat és el concepte més complex d\'assolir.»' },
+      correct:1, variants:[
+        { options:['Una paradoxa aparent que suggereix que la reflexió excessiva és contraproduent','Una contradicció lògica sense fonament','Una conclusió basada en dades empíriques'], correct:0 },
+        { options:['Una conclusió basada en dades empíriques','Una contradicció lògica sense fonament','Una paradoxa aparent que suggereix que la reflexió excessiva és contraproduent'], correct:2 },
+      ],
+      theory:'La paradoxa aparent («paradoxalment + afirmació contraintuïtiva») és un recurs que capta l\'atenció i suggereix una veritat no òbvia. Al C1 cal identificar la intenció darrere del recurs retòric.', example:'«Paradoxalment, la simplicitat és el concepte més complex d\'assolir.»' },
     { id:'c1-pro6', type:'choice', level:'c1', category:'Producció formal',
       question:'Quina fórmula de tancament és la més adequada per a un informe acadèmic?',
       text:'El tancament d\'un informe acadèmic recull la tesi principal sense afegir idees noves, usa un verb epistèmic impersonal i evita completament el registre col·loquial i les referències personals.',
       options:['Espero que us hagi agradat el que he explicat.','Les consideracions anteriors permeten concloure que cal adoptar un enfocament integral.','Bé, ja ho teniu. Espero que serveixi.'],
-      correct:1, theory:'El tancament d\'un informe formal recull la tesi amb un verb epistèmic impersonal, sense referències personals ni registre col·loquial.', example:'«Les dades permeten afirmar que...» / «Es conclou, per tant, que...»' },
+      correct:1, variants:[
+        { options:['Les consideracions anteriors permeten concloure que cal adoptar un enfocament integral.','Espero que us hagi agradat el que he explicat.','Bé, ja ho teniu. Espero que serveixi.'], correct:0 },
+        { question:'Quina fórmula de tancament és la més adequada per a un informe acadèmic?', options:['Bé, ja ho teniu. Espero que serveixi.','Espero que us hagi agradat el que he explicat.','Es conclou, per tant, que cal adoptar un enfocament integral.'], correct:2 },
+      ],
+      theory:'El tancament d\'un informe formal recull la tesi amb un verb epistèmic impersonal, sense referències personals ni registre col·loquial.', example:'«Les dades permeten afirmar que...» / «Es conclou, per tant, que...»' },
     { id:'c1-rel6', type:'fill', level:'c1', category:'Oracions de relatiu',
       question:'Completa amb el pronom relatiu adequat per a lloc en registre formal:',
       text:'Per a complements de lloc en registre formal s\'usa «en la qual» (o «al qual» si porta a + masculí), que és més precís que «on», tot i que «on» també és correcte.',
@@ -4075,7 +4210,11 @@ const DATA = {
       text:'No tots els connectors concessius expressen el mateix grau de realitat: alguns plantegen un fet constatat i d\'altres una hipòtesi.',
       question:'Quin connector introdueix una concessió real (no hipotètica)?',
       options:['Encara que + subjuntiu','Tot i que + indicatiu','Per molt que + subjuntiu'],
-      correct:1, theory:'«Tot i que» + indicatiu expressa una concessió de fet real. «Encara que» i «per molt que» + subjuntiu expressen concessions hipotètiques o subjectives.', example:'Tot i que plou, sortim. (fet real) / Encara que plogués, sortiríem. (hipotètic)' },
+      correct:1, variants:[
+        { options:['Tot i que + indicatiu','Encara que + subjuntiu','Per molt que + subjuntiu'], correct:0 },
+        { options:['Per molt que + subjuntiu','Encara que + subjuntiu','Tot i que + indicatiu'], correct:2 },
+      ],
+      theory:'«Tot i que» + indicatiu expressa una concessió de fet real. «Encara que» i «per molt que» + subjuntiu expressen concessions hipotètiques o subjectives.', example:'Tot i que plou, sortim. (fet real) / Encara que plogués, sortiríem. (hipotètic)' },
     { id:'c1-lf7', type:'transform', level:'c1', category:'Lèxic formal',
       text:'Les mostres col·loquials com «la cosa és que» no tenen cabuda en un text acadèmic.',
       question:'Reformula en registre acadèmic formal:',
@@ -4087,7 +4226,11 @@ const DATA = {
       text:'Les frases fetes tenen un significat figurat que no es dedueix del sentit literal de les paraules.',
       question:'Quina és la interpretació correcta de «posar-se les piles»?',
       options:['Comprar piles per a un dispositiu electrònic','Espavilar-se i posar-se a treballar amb energia','Preparar-se físicament per a una activitat esportiva'],
-      correct:1, theory:'«Posar-se les piles» és una locució verbal que significa activar-se, espabilar-se, posar esforç en una tasca. El seu ús és col·loquial.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
+      correct:1, variants:[
+        { options:['Espavilar-se i posar-se a treballar amb energia','Comprar piles per a un dispositiu electrònic','Preparar-se físicament per a una activitat esportiva'], correct:0 },
+        { question:'Quina és la interpretació correcta de «perdre el fil»?', options:['Rendir-se i abandonar la tasca','Perdre el seguiment d\'un raonament o d\'una conversa','Treballar molt dur fins a l\'extenuació'], correct:1 },
+      ],
+      theory:'«Posar-se les piles» és una locució verbal que significa activar-se, espabilar-se, posar esforç en una tasca. El seu ús és col·loquial.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
     { id:'c1-df7', type:'fill', level:'c1', category:'Derivació i flexió',
       text:'Molts verbs generen un substantiu abstracte que designa el procés o la facultat associada a l\'acció.',
       question:'Forma el substantiu abstracte a partir del verb indicat:',
@@ -4111,7 +4254,10 @@ const DATA = {
       question:'Quina frase feta expressa millor la idea que algú va ignorar deliberadament tots els advertiments?',
       text:'El responsable ___ a totes les advertències del comitè de seguretat. Les tres frases fetes de les opcions descriuen actituds diferents: ignorar activament, perdre el seguiment, o tolerar una falta.',
       options:['va fer el sord','va perdre el fil','va fer els ulls grossos'],
-      correct:0,
+      correct:0, variants:[
+        { options:['va perdre el fil','va fer els ulls grossos','va fer el sord'], correct:2 },
+        { options:['va fer els ulls grossos','va fer el sord','va perdre el fil'], correct:1 },
+      ],
       theory:'«Fer el sord» significa ignorar deliberadament una petició o avís (negar-se a «escoltar»). «Fer els ulls grossos» és diferent: implica haver vist una falta però decidir no sancionar-la. «Perdre el fil» és perdre el seguiment d\'un raonament.',
       example:'Va fer el sord a totes les crítiques i va continuar endavant amb el seu pla original.' },
 
@@ -4123,7 +4269,10 @@ const DATA = {
         '«Fer el sord» és ignorar un avís o petició; «fer els ulls grossos» és haver vist una falta però decidir no sancionar-la.',
         '«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.'
       ],
-      correct:1,
+      correct:1, variants:[
+        { options:['«Fer el sord» és ignorar un avís o petició; «fer els ulls grossos» és haver vist una falta però decidir no sancionar-la.','Són sinònims perfectes: les dues expressen ignorar alguna cosa deliberadament.','«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.'], correct:0 },
+        { options:['«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.','Són sinònims perfectes: les dues expressen ignorar alguna cosa deliberadament.','«Fer el sord» és ignorar un avís o petició; «fer els ulls grossos» és haver vist una falta però decidir no sancionar-la.'], correct:2 },
+      ],
       theory:'La distinció és semànticament rellevant: «fer el sord» → no vull rebre el missatge (negar-se a percebre). «Fer els ulls grossos» → he vist la irregularitat però la perdono o la deixo passar conscientment.',
       example:'«Va fer el sord a les meves crides d\'ajuda.» / «El supervisor va fer els ulls grossos davant l\'error del becari.»' },
 
@@ -4131,7 +4280,10 @@ const DATA = {
       question:'Quina expressió indica que el model de gestió té greus problemes estructurals i és a punt de col·lapsar?',
       text:'Diverses locucions catalanes amb «fer» descriuen actituds o estats. Tria la que indica que un sistema pateix fallades greus i és a punt de col·lapsar.',
       options:['fa mans i mànigues','fa aigua','fa el sord'],
-      correct:1,
+      correct:1, variants:[
+        { options:['fa aigua','fa mans i mànigues','fa el sord'], correct:0 },
+        { options:['fa el sord','fa mans i mànigues','fa aigua'], correct:2 },
+      ],
       theory:'«Fer aigua» significa tenir fallades greus, estar a punt de fracassar o col·lapsar. «Fer mans i mànigues» és l\'esforç màxim per aconseguir alguna cosa (sentit positiu). «Fer el sord» és ignorar.',
       example:'El sistema de finançament fa aigua des de fa anys i cal una reforma urgent.' },
 
@@ -4156,7 +4308,10 @@ const DATA = {
         'Qui molt abraça, poc estreny.',
         'Qui dia passa, any empeny.'
       ],
-      correct:1,
+      correct:1, variants:[
+        { options:['Qui molt abraça, poc estreny.','Qui dia passa, any empeny.','De mica en mica s\'omple la pica.'], correct:0 },
+        { options:['Qui dia passa, any empeny.','De mica en mica s\'omple la pica.','Qui molt abraça, poc estreny.'], correct:2 },
+      ],
       theory:'«Qui molt abraça, poc estreny» critica la dispersió d\'esforços: voler fer massa coses alhora porta a no fer-ne cap bé. «De mica en mica» elogia la constància progressiva. «Qui dia passa, any empeny» parla de la rapidesa amb què passa el temps.',
       example:'Ha obert tres negocis alhora i tots van malament. Qui molt abraça, poc estreny.' },
 
@@ -4168,7 +4323,10 @@ const DATA = {
         'Més val un ocell a la mà que cent volant.',
         'El qui avisa no és traïdor.'
       ],
-      correct:1,
+      correct:1, variants:[
+        { options:['Més val un ocell a la mà que cent volant.','Qui dia passa, any empeny.','El qui avisa no és traïdor.'], correct:0 },
+        { options:['El qui avisa no és traïdor.','Qui dia passa, any empeny.','Més val un ocell a la mà que cent volant.'], correct:2 },
+      ],
       theory:'«Més val un ocell a la mà que cent volant» defensa la prudència: allò que tens assegurat val més que una promesa incerta, per gran que sigui. S\'usa per defensar opcions conservadores en negociació o presa de decisions.',
       example:'Podien arriscar-se per un contracte milionari incert, però van preferir renovar el client actual: més val un ocell a la mà que cent volant.' },
 
@@ -4205,7 +4363,10 @@ const DATA = {
         'Involucrar-se innecessàriament en una situació complicada que portarà problemes.',
         'Tenir molta experiència en un àmbit complex i especialitzat.'
       ],
-      correct:1,
+      correct:1, variants:[
+        { options:['Involucrar-se innecessàriament en una situació complicada que portarà problemes.','Fer un gran esforç per superar un obstacle molt difícil.','Tenir molta experiència en un àmbit complex i especialitzat.'], correct:0 },
+        { options:['Tenir molta experiència en un àmbit complex i especialitzat.','Fer un gran esforç per superar un obstacle molt difícil.','Involucrar-se innecessàriament en una situació complicada que portarà problemes.'], correct:2 },
+      ],
       theory:'«Ficar-se en camisa d\'onze vares» significa posar-se en dificultats per haver-se involucrat en alguna cosa que no calia. La imatge és d\'una camisa desproporcionadament gran i embolicada de dur. L\'accent és en la imprudència d\'involucrar-s\'hi.',
       example:'En publicar aquell comentari polèmic, es va ficar en camisa d\'onze vares i va haver de fer declaracions durant setmanes.' },
 
@@ -4266,7 +4427,10 @@ const DATA = {
       question:'Tria la forma verbal correcta. «Per molt que ___ l\'informe, no convencerà el consell sense dades sòlides.»',
       text:'«Per molt que» és una conjunció concessiva que sempre va seguida de subjuntiu, independentment del temps verbal del verb principal.',
       options:['presenti','presenta','presentarà'],
-      correct:0,
+      correct:0, variants:[
+        { options:['presenta','presenti','presentarà'], correct:1 },
+        { options:['presentarà','presenta','presenti'], correct:2 },
+      ],
       theory:'«Per molt que» expressa una concessió hipotètica graduada i exigeix sempre subjuntiu, a diferència de «tot i que» (que pot portar indicatiu si és un fet real). «Per molt que» + subjuntiu = malgrat qualsevol grau de l\'acció, el resultat no canvia.',
       example:'Per molt que ho expliqui, no l\'entendrà. / Per molt que treballin, no acabaran a temps.' },
 
@@ -4291,7 +4455,10 @@ const DATA = {
         '«Si bé» porta indicatiu i és més marcat acadèmicament; «tot i que» és neutre i admet indicatiu o subjuntiu.',
         '«Si bé» porta sempre subjuntiu i «tot i que» porta sempre indicatiu.'
       ],
-      correct:1,
+      correct:1, variants:[
+        { options:['«Si bé» porta indicatiu i és més marcat acadèmicament; «tot i que» és neutre i admet indicatiu o subjuntiu.','No hi ha diferència: s\'usen indistintament en tots els registres.','«Si bé» porta sempre subjuntiu i «tot i que» porta sempre indicatiu.'], correct:0 },
+        { options:['«Si bé» porta sempre subjuntiu i «tot i que» porta sempre indicatiu.','No hi ha diferència: s\'usen indistintament en tots els registres.','«Si bé» porta indicatiu i és més marcat acadèmicament; «tot i que» és neutre i admet indicatiu o subjuntiu.'], correct:2 },
+      ],
       theory:'«Si bé» és el connector concessiu de registre més formal i analític; porta indicatiu i aporta un to distanciat i objectiu. «Tot i que» és neutre i vàlid en tots els registres; admet indicatiu (fet real) o subjuntiu (hipòtesi).',
       example:'«Si bé els resultats milloren, persisteix la incertesa.» (acadèmic) / «Tot i que els resultats milloren, cal prudència.» (neutre)' },
 
@@ -4328,7 +4495,10 @@ const DATA = {
         'Es van prendre mesures dràstiques per resoldre la situació.',
         'Se van prendre mesures dràstiques per resoldre la situació.'
       ],
-      correct:1,
+      correct:1, variants:[
+        { options:['Es van prendre mesures dràstiques per resoldre la situació.','Es va prendre mesures dràstiques per resoldre la situació.','Se van prendre mesures dràstiques per resoldre la situació.'], correct:0 },
+        { question:'Quina frase usa correctament la passiva reflexa amb concordança de nombre?', options:['Se van publicar els resultats ahir.','Es va publicar els resultats ahir.','Es van publicar els resultats ahir.'], correct:2 },
+      ],
       theory:'En la passiva reflexa (es + verb), el verb concorda en nombre amb el CD: «mesures» és plural → «es van prendre». La forma «es va prendre» seria correcta si el CD fos singular: «es va prendre una mesura». «Se» en lloc de «es» davant de verb conjugat és un castellanisme a evitar.',
       example:'Es va aprovar la mesura (CD sing.) / Es van aprovar les mesures (CD pl.) / *Se van prendre → forma incorrecta.' },
 
