@@ -2513,6 +2513,63 @@ function saveProfileData() {
   setTimeout(() => { btn.textContent = 'Desar canvis'; btn.style.background = ''; }, 2000);
 }
 
+function renderNotificationsSection() {
+  if (!('Notification' in window)) {
+    return '<p style="font-size:14px;color:var(--muted);">El teu dispositiu no suporta notificacions push.</p>';
+  }
+  if (!window.fbUser) {
+    return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Cal <strong>iniciar sessió</strong> (secció anterior) per activar els recordatoris personalitzats.</p>';
+  }
+  if (Notification.permission === 'denied') {
+    return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Has denegat els permisos de notificació. Per activar-los, obre la <strong>configuració del navegador</strong> i permet les notificacions per a <em>app.aprencatala.cat</em>.</p>';
+  }
+  const active = localStorage.getItem('notif_active') === 'true';
+  return `
+    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">
+      Rep cada vespre un recordatori personalitzat: ratxa en perill, XP per pujar de nivell o exercicis de repàs pendents.
+    </p>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);">Recordatori diari</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Cap a les 20h (hora de la península)</div>
+      </div>
+      <button class="ct-btn ${active ? 'primary' : 'secondary'}" style="min-width:110px;flex-shrink:0;"
+        onclick="toggleNotifications()" id="notif-toggle-btn">
+        ${active ? '🔔 Activat' : '🔕 Desactivat'}
+      </button>
+    </div>`;
+}
+
+async function toggleNotifications() {
+  const btn = document.getElementById('notif-toggle-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  const active = localStorage.getItem('notif_active') === 'true';
+  if (active) {
+    await window.fbDisableNotifications?.();
+    localStorage.setItem('notif_active', 'false');
+    refreshNotifSection();
+    return;
+  }
+  const result = await window.fbRequestNotifications?.() || { ok: false, reason: 'no-firebase' };
+  if (result.ok) {
+    localStorage.setItem('notif_active', 'true');
+    refreshNotifSection();
+  } else if (result.reason === 'denied') {
+    refreshNotifSection();
+  } else if (result.reason === 'no-vapid') {
+    if (btn) { btn.disabled = false; btn.textContent = '🔕 Desactivat'; }
+    showAlert('Les notificacions encara no estan configurades. Torna-ho a provar aviat.');
+  } else {
+    if (btn) { btn.disabled = false; btn.textContent = '🔕 Desactivat'; }
+    showAlert('No s\'han pogut activar les notificacions. Torna-ho a provar en uns moments.');
+  }
+}
+
+function refreshNotifSection() {
+  const el = document.getElementById('notif-section');
+  if (el) el.innerHTML = renderNotificationsSection();
+}
+
 function renderProfile() {
   const p = safeParse('cat_profile_v1') || {};
   const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
@@ -2535,6 +2592,11 @@ function renderProfile() {
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☁️ Compte i sincronització</div>
       <div id="fb-account-section">${renderAccountSection()}</div>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">🔔 Recordatoris</div>
+      <div id="notif-section">${renderNotificationsSection()}</div>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
@@ -2644,10 +2706,22 @@ function fbRefreshAccountUI() {
   if (el) el.innerHTML = renderAccountSection();
 }
 
+// Missatge FCM en primer pla → toast
+document.addEventListener('fcm-foreground-message', (e) => {
+  const notif = e.detail?.notification || {};
+  if (!notif.body && !notif.title) return;
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--accent-blue-bg);color:var(--accent-blue-text);padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:9999;max-width:320px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+  toast.textContent = notif.body || notif.title;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+});
+
 // Quan canvia l'estat d'auth: carreguem progrés del núvol si és millor
 document.addEventListener('fb-auth-change', async (e) => {
   const user = e.detail;
   fbRefreshAccountUI();
+  refreshNotifSection();
   if (!shouldShowOnboarding()) showWhatsNew();
   if (!user) return;
 
