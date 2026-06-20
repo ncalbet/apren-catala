@@ -1,1 +1,5 @@
 scripts/node_modules/
+
+# Credencials Firebase — MAI pujar al repo
+*firebase-adminsdk*.json
+*serviceAccount*.json
