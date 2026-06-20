@@ -2126,7 +2126,7 @@ function finishOnboarding() {
 
 /* ══ AUTH SPLASH (nous usuaris) + NOVETATS (usuaris existents) ══ */
 const AUTH_SPLASH_KEY = 'cat_auth_prompted_v1';
-const WHATS_NEW_KEY   = 'cat_news_v76';
+const WHATS_NEW_KEY   = 'cat_news_v87';
 let _authMode = 'register';
 let _modalAuthMode = 'register';
 
@@ -2305,14 +2305,17 @@ function showWhatsNew() {
   overlay.id = 'whats-new-overlay';
   overlay.className = 'ct-modal-overlay';
   overlay.innerHTML = `<div class="ct-modal" style="max-width:360px;text-align:left;">
-    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:12px;">☁️ Novetat: progrés desat al núvol</div>
-    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">
-      A partir d'ara pots registrar-te a l'app i desar el progrés al núvol, o entrar connectant el teu compte de Google a AprènCatalà.<br><br>
-      Si ho fas, el teu progrés aconseguit fins ara (XP, domini, ratxa) es puja automàticament al núvol. D'aquesta manera el pots recuperar si obres l'app des d'un altre mòbil.
+    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:12px;">🔔 Novetats de l'app</div>
+    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:12px;">
+      <strong>Notificacions</strong><br>
+      Ara pots activar notificacions. Configura-les a 👤 <strong>Perfil → Recordatoris</strong>.
     </p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Trobaràs l'opció a 👤 <strong>Perfil → Compte i sincronització</strong>.</p>
-    <button class="ct-btn primary" style="width:100%;margin-bottom:10px;" onclick="whatsNewGoToProfile()">Connecta el compte ara</button>
-    <button class="ct-btn secondary" style="width:100%;" onclick="whatsNewDismiss()">Ho faré més tard</button>
+    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:20px;">
+      <strong>Actualitzacions d'exercicis</strong><br>
+      Hem modificat alguns exercicis. Si ja n'havies fet algun, és possible que el progrés et variï lleugerament.
+    </p>
+    <button class="ct-btn primary" style="width:100%;margin-bottom:10px;" onclick="whatsNewGoToProfile()">Configurar notificacions</button>
+    <button class="ct-btn secondary" style="width:100%;" onclick="whatsNewDismiss()">Entesos</button>
   </div>`;
   document.body.appendChild(overlay);
 }
