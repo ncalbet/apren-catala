@@ -1801,13 +1801,23 @@ const DATA = {
       question:'Tria el temps verbal correcte:',
       text:'De petit, ___ al parc cada diumenge amb els meus pares.',
       options:['vaig anar','anava','vaig anar-hi'],
-      correct:1, theory:"«Cada diumenge» indica hàbit del passat → imperfet. El passat perifràstic s'usa per a accions puntuals i acabades.", example:'De petit, jugava al carrer cada tarda.' },
+      correct:1,
+      variants:[
+        { text:'Quan era jove, ___ a la biblioteca cada divendres.', options:['anava','vaig anar','vaig anar-hi'], correct:0 },
+        { text:'De petit, ___ al col·legi caminant cada dia.', options:['vaig anar','vaig anar-hi','anava'], correct:2 },
+      ],
+      theory:"«Cada diumenge» indica hàbit del passat → imperfet. El passat perifràstic s'usa per a accions puntuals i acabades.", example:'De petit, jugava al carrer cada tarda.' },
 
     { id:'b1-ip2', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Tria el temps verbal correcte:',
       text:'Ahir a les vuit ___ el llum abans d\'anar a dormir.',
       options:['apagava','vaig apagar','apago'],
-      correct:1, theory:"«Ahir a les vuit» situa l'acció en un moment puntual i acabat → passat perifràstic. L'imperfet «apagava» indicaria un hàbit o una acció de fons, no una acció concreta d'ahir.", example:'Quan vaig arribar, ell ja dormia.' },
+      correct:1,
+      variants:[
+        { text:'Dijous passat a les deu ___ el cotxe i vaig entrar a treballar.', options:['vaig aparcar','aparcava','aparco'], correct:0 },
+        { text:'La setmana passada ___ la llum del passadís per estalviar.', options:['apago','apagava','vaig apagar'], correct:2 },
+      ],
+      theory:"«Ahir a les vuit» situa l'acció en un moment puntual i acabat → passat perifràstic. L'imperfet «apagava» indicaria un hàbit o una acció de fons, no una acció concreta d'ahir.", example:'Quan vaig arribar, ell ja dormia.' },
 
     { id:'b1-ip3', type:'fill', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Omple amb la forma correcta (imperfet o perifràstic):',
@@ -1835,20 +1845,35 @@ const DATA = {
       question:'Quin parell de frases utilitza correctament els dos temps?',
       text:'En una narració podem combinar l\'imperfet (per a l\'estat de fons) i el perifràstic (per a l\'acció puntual i delimitada). Cada temps té el seu rol en la frase.',
       options:["Ahir estava molt cansada, per tant vaig dormir onze hores.","Ahir era molt cansada, per tant dormia onze hores.","Ahir vaig estar molt cansada, per tant dormia onze hores."],
-      correct:0, theory:"«Estava cansada» = estat de fons (imperfet). «Vaig dormir onze hores» = resultat puntual i delimitat (perifràstic).", example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
+      correct:0,
+      variants:[
+        { options:["L'Eduard tenia gana, per tant va menjar tres entrepans.","L'Eduard va tenir gana, per tant menjava tres entrepans.","L'Eduard tenia gana, per tant menjava tres entrepans."], correct:0 },
+        { options:["Era nerviosa, per tant no vaig dormir bé.","Estava nerviosa, per tant no vaig dormir bé.","Estava nerviosa, per tant no dormia bé."], correct:1 },
+      ],
+      theory:"«Estava cansada» = estat de fons (imperfet). «Vaig dormir onze hores» = resultat puntual i delimitat (perifràstic).", example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
 
     // ── PRONOMS FEBLES B1 ──
     { id:'b1-pf1', type:'choice', level:'b1', category:'Pronoms febles B1',
       question:'Quin pronom substitueix correctament el complement subratllat?',
       text:'«Vas al gimnàs?» → «Sí, ___ vaig cada dia.»',
       options:['el','hi','en'],
-      correct:1, theory:"«Hi» substitueix un lloc al qual es va («anar a»). «El gimnàs» és el destí → «hi vaig».", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
+      correct:1,
+      variants:[
+        { text:'«Vas a la piscina?» → «Sí, ___ vaig cada dimecres.»', options:['hi','en','el'], correct:0 },
+        { text:'«Has anat a la reunió?» → «Sí, ___ he anat a les deu.»', options:['en','el','hi'], correct:2 },
+      ],
+      theory:"«Hi» substitueix un lloc al qual es va («anar a»). «El gimnàs» és el destí → «hi vaig».", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
 
     { id:'b1-pf2', type:'choice', level:'b1', category:'Pronoms febles B1',
       question:'Completa amb el pronom correcte:',
       text:'«Vols més arròs?» → «Sí, ___ vull una mica.»',
       options:['el','hi','en'],
-      correct:2, theory:"«En» substitueix un CD partitiu (sense article, quantitat indeterminada). «Arròs» sense article → «en vull».", example:"«Tens pa?» «Sí, en tinc.»" },
+      correct:2,
+      variants:[
+        { text:'«Vols més pa?» → «No, no ___ vull.»', options:['en','hi','el'], correct:0 },
+        { text:'«Tens germans?» → «Sí, ___ tinc dos.»', options:['hi','el','en'], correct:2 },
+      ],
+      theory:"«En» substitueix un CD partitiu (sense article, quantitat indeterminada). «Arròs» sense article → «en vull».", example:"«Tens pa?» «Sí, en tinc.»" },
 
     { id:'b1-pf3', type:'fill', level:'b1', category:'Pronoms febles B1',
       question:"Substitueix el complement subratllat pel pronom adequat: «Parlo molt de la meva feina.»",
@@ -1865,7 +1890,12 @@ const DATA = {
       question:'Tria l\'opció que usa correctament el pronom feble:',
       text:'Vull comprar-___ tres, de pomes.',
       options:['en (davant del verb)','hi','ne (enclític, darrere de l\'infinitiu amb guionet)'],
-      correct:2, theory:"Davant del verb: «En vull tres». Darrere de l'infinitiu (enclític), «en» pren la forma «ne» unida amb guionet: «Vull comprar-ne tres». Fora de posició enclítica, la forma és «en».", example:"Vull menjar-ne. / Puc comprar-ne dos. / En tinc molts (davant del verb)." },
+      correct:2,
+      variants:[
+        { question:'Tria la forma enclítica correcta per a «en» darrere d\'infinitiu:', text:'He de menjar-___ cinc, de nous.', options:['hi','ne','en'], correct:1 },
+        { question:'Quina frase és correcta en català?', options:["Puc comprar-ne tres, de taronges.","Puc comprar-en tres, de taronges.","Ne puc comprar tres, de taronges."], correct:0 },
+      ],
+      theory:"Davant del verb: «En vull tres». Darrere de l'infinitiu (enclític), «en» pren la forma «ne» unida amb guionet: «Vull comprar-ne tres». Fora de posició enclítica, la forma és «en».", example:"Vull menjar-ne. / Puc comprar-ne dos. / En tinc molts (davant del verb)." },
 
     { id:'b1-pf5', type:'reading', level:'b1', category:'Pronoms febles B1',
       text:'—Has estat mai a Menorca?\n—Sí, hi vaig anar fa dos estius. Em va agradar molt. M\'hi podria quedar per sempre!\n—I en tornaràs?\n—Segur que sí!',
@@ -1902,7 +1932,12 @@ const DATA = {
       question:'Quina és la forma correcta de «venir» en primera persona del plural?',
       text:'El verb «venir» en català és irregular. Atenció a les interferències del castellà: les formes catalanes no coincideixen amb les castellanes i cal conèixer-les bé.',
       options:['venimos','venim','vins','venín'],
-      correct:1, theory:"«Venim» és la 1a persona del plural de «venir» en present. No és «venimos» (castellà).", example:"Venim d'Alemanya. / Nosaltres venim a peu." },
+      correct:1,
+      variants:[
+        { question:'Quina és la forma correcta de «venir» en tercera persona del plural?', options:['vinen','venen','vénen','vienes'], correct:2 },
+        { question:'Quina és la forma correcta de «tenir» en primera persona del plural?', text:'El verb «tenir» és irregular. Atenció a les interferències del castellà.', options:['tenemos','tenim','tenin','tenis'], correct:1 },
+      ],
+      theory:"«Venim» és la 1a persona del plural de «venir» en present. No és «venimos» (castellà).", example:"Venim d'Alemanya. / Nosaltres venim a peu." },
 
     { id:'b1-vi3', type:'fill', level:'b1', category:'Verbs irregulars B1',
       question:'Escriu la forma correcta:',
@@ -1920,7 +1955,12 @@ const DATA = {
       question:'Quina forma de «poder» és correcta per a «ells»?',
       text:'El verb «poder» és irregular en present d\'indicatiu. Les formes del subjuntiu (amb «pugu-») són correctes en subjuntiu, però la 3a persona del plural del present d\'indicatiu segueix un altre patró.',
       options:['puguen','poden','pugan','podin'],
-      correct:1, theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguen» i «pugan» no existeixen en català normatiu; «podin» seria una forma incorrecta del subjuntiu (la forma correcta seria «puguin»).", example:"Ells poden venir demà si volen." },
+      correct:1,
+      variants:[
+        { question:'Quina forma de «poder» és correcta per a «vosaltres»?', options:['puguen','podin','podeu','podem'], correct:2 },
+        { question:'Quina forma de «saber» és correcta per a «ells»?', text:'El verb «saber» és irregular en present d\'indicatiu. La 3a persona del plural no segueix el patró del subjuntiu.', options:['sapen','saben','sapien','sàpiguen'], correct:1 },
+      ],
+      theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguen» i «pugan» no existeixen en català normatiu; «podin» seria una forma incorrecta del subjuntiu (la forma correcta seria «puguin»).", example:"Ells poden venir demà si volen." },
 
     { id:'b1-vi5', type:'reorder', level:'b1', category:'Verbs irregulars B1',
       question:'Ordena per formar una frase correcta:',
@@ -1935,6 +1975,10 @@ const DATA = {
         'tenc, tens, te, tenim, teniu, tene'
       ],
       correct:1,
+      variants:[
+        { question:'Quin és el paradigma complet correcte del present de «venir»?', options:['vinc, vens, ve, venim, veneu, venen','vinc, véns, ve, venim, veniu, vénen','vinc, vens, vé, venim, veneu, vénen'], correct:1 },
+        { question:'Quin és el paradigma complet correcte del present de «poder»?', options:['puc, pots, pot, podem, podeu, poden','puc, pucs, pot, podim, podeu, puden','puig, puts, pot, podem, podeu, puguen'], correct:0 },
+      ],
       theory:"«Tenir» és irregular: tinc (1a sg.), tens (2a), té (3a), tenim (1a pl.), teniu (2a pl.), tenen (3a pl.). Atenció: 2a pl. és «teniu» (no «teneu») i 3a pl. és «tenen» (no «tinen»).",
       example:"Jo tinc fred. Ell té raó. Vosaltres teniu sort. Ells tenen pressa." },
 
@@ -1943,7 +1987,12 @@ const DATA = {
       question:'Quin connector indica causa?',
       text:'No vull sortir ___ fa molt de fred.',
       options:['per tant','ja que','en canvi'],
-      correct:1, theory:"«Ja que» introdueix la causa. «Per tant» indica conseqüència. «En canvi» indica contrast.", example:"No vaig poder venir ja que estava malalt." },
+      correct:1,
+      variants:[
+        { text:'No et sento ___ parles molt baix.', options:['per tant','en canvi','ja que'], correct:2 },
+        { text:'Porta un paraigua ___ sembla que plourà.', options:['ja que','per tant','en canvi'], correct:0 },
+      ],
+      theory:"«Ja que» introdueix la causa. «Per tant» indica conseqüència. «En canvi» indica contrast.", example:"No vaig poder venir ja que estava malalt." },
 
     { id:'b1-con2', type:'fill', level:'b1', category:'Connectors B1',
       question:'Omple amb el connector adequat (contrast):',
@@ -1964,7 +2013,12 @@ const DATA = {
     { id:'b1-con4', type:'choice', level:'b1', category:'Connectors B1',
       question:'Quina frase usa incorrectament el connector?',
       options:["Va estudiar molt; per tant, va aprovar.","No va venir perquè tenia febre.","Va fer fred; perquè no van sortir."],
-      correct:2, theory:"«Perquè» introdueix la causa en una frase subordinada, no una frase principal. Cal dir: «Va fer fred; per tant, no van sortir.»", example:"Correcte: «No van sortir perquè feia fred.» / «Feia fred; per tant, no van sortir.»" },
+      correct:2,
+      variants:[
+        { options:["Com que plovia molt, no vam sortir.","No van venir per tant tenien molt de treball.","No va poder dormir perquè feia molt de calor."], correct:1 },
+        { options:["Va ploure molt; per consegüent, el concert es va cancel·lar.","Va ploure molt; ja que, el concert es va cancel·lar.","Va ploure molt, però el concert no es va cancel·lar."], correct:1 },
+      ],
+      theory:"«Perquè» introdueix la causa en una frase subordinada, no una frase principal. Cal dir: «Va fer fred; per tant, no van sortir.»", example:"Correcte: «No van sortir perquè feia fred.» / «Feia fred; per tant, no van sortir.»" },
 
     { id:'b1-con5', type:'reading', level:'b1', category:'Connectors B1',
       text:"La contaminació de l'aire és un problema greu a les grans ciutats. A causa dels cotxes i de la indústria, la qualitat de l'aire ha empitjorat molt. Tanmateix, alguns municipis han pres mesures importants. Per exemple, han creat zones de baixes emissions. A més, han ampliat el transport públic. Per tant, la situació podria millorar en els propers anys.",
@@ -2001,7 +2055,12 @@ const DATA = {
       question:'Quina frase expressa un desig educat?',
       text:'En català, el condicional s\'usa per fer peticions de manera cortesa i suavitzada. És l\'equivalent del «would like» en anglès o del «quisiera» en castellà formal.',
       options:["Vull un cafè!","Voldria un cafè, si us plau.","Dóna'm un cafè."],
-      correct:1, theory:"El condicional «voldria» suavitza la petició i la fa educada. És equivalent a «would like» en anglès.", example:"Voldria reservar una taula per a dos, si us plau." },
+      correct:1,
+      variants:[
+        { options:["Voldria reservar una taula per a quatre.","Reserva'm una taula per a quatre.","Vull que em reservis una taula."], correct:0 },
+        { options:["Parla'm amb el director.","Vull parlar amb el director.","Voldria parlar amb el director, si és possible."], correct:2 },
+      ],
+      theory:"El condicional «voldria» suavitza la petició i la fa educada. És equivalent a «would like» en anglès.", example:"Voldria reservar una taula per a dos, si us plau." },
 
     { id:'b1-fc3', type:'fill', level:'b1', category:'Futur i condicional B1',
       question:'Completa amb el condicional:',
@@ -2019,7 +2078,12 @@ const DATA = {
       question:'Quin temps verbal és el correcte?',
       text:"Si tens fred, ___ la finestra.",
       options:['tancaries','tanquis','tanca'],
-      correct:2, theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dóna una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
+      correct:2,
+      variants:[
+        { text:'Si et sents malament, ___.', options:['descansares','descansis','descansa'], correct:2 },
+        { text:'Si tens set, ___ una mica d\'aigua.', options:['beuràs','beu','beguessis'], correct:1 },
+      ],
+      theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dóna una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
 
     { id:'b1-fc5', type:'reading', level:'b1', category:'Futur i condicional B1',
       text:"—Quin seria el teu treball ideal?\n—M'agradaria ser periodista. Viatjaria molt i escriuria sobre cultures diferents. A més, podria conèixer persones molt interessants. I tu?\n—Jo voldria treballar en una editorial. Corregiria texts i descobriria nous autors.",
@@ -2043,7 +2107,12 @@ const DATA = {
       question:'Quina perífrasi expressa obligació?',
       text:'___ presentar el passaport a la frontera.',
       options:['Vull','He de','Acabo de'],
-      correct:1, theory:"«Haver de + infinitiu» expressa obligació. «Voler» és voluntat. «Acabar de» indica acció recentment acabada.", example:"He de pagar la factura avui." },
+      correct:1,
+      variants:[
+        { text:'___ presentar la documentació a secretaria.', options:['He de','Vull','Acabo de'], correct:0 },
+        { text:'Per aprovar l\'examen, ___ estudiar molt.', options:['acabes de','vols','has de'], correct:2 },
+      ],
+      theory:"«Haver de + infinitiu» expressa obligació. «Voler» és voluntat. «Acabar de» indica acció recentment acabada.", example:"He de pagar la factura avui." },
 
     { id:'b1-per2', type:'fill', level:'b1', category:'Perífrasis B1',
       question:'Omple amb la perífrasi correcta per indicar una acció recent:',
@@ -2059,7 +2128,12 @@ const DATA = {
     { id:'b1-per3', type:'choice', level:'b1', category:'Perífrasis B1',
       question:'Quina frase és incorrecta en català?',
       options:["He de fer la compra.","Tinc que fer la compra.","Cal que faci la compra."],
-      correct:1, theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «He de fer la compra» és la forma correcta per a l'obligació personal. ✓ «Cal que faci la compra» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «Tinc de...» (sense «que») tampoc és normatiu en la majoria de contextos.", example:"He de trucar la meva mare. / Ha de venir demà. / Cal que faci els deures." },
+      correct:1,
+      variants:[
+        { options:["He d'estudiar per a l'examen.","Tinc que estudiar per a l'examen.","Cal que estudiï per a l'examen."], correct:1 },
+        { options:["Tenim que parlar de les vacances.","Hem de parlar de les vacances.","Cal que parlem de les vacances."], correct:0 },
+      ],
+      theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «He de fer la compra» és la forma correcta per a l'obligació personal. ✓ «Cal que faci la compra» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «Tinc de...» (sense «que») tampoc és normatiu en la majoria de contextos.", example:"He de trucar la meva mare. / Ha de venir demà. / Cal que faci els deures." },
 
     { id:'b1-per4', type:'fill', level:'b1', category:'Perífrasis B1',
       question:'Completa amb la perífrasi d\'acció en curs:',
@@ -2082,14 +2156,24 @@ const DATA = {
       question:'Quina perífrasi indica intenció de fer una cosa?',
       text:'Avui a la nit ___ estudiar per a l\'examen.',
       options:["penso","acabo de","deixo de"],
-      correct:0, theory:"«Pensar + infinitiu» expressa intenció o pla. Atenció: «anar a + infinitiu» amb valor de futur («vaig a estudiar») és un calc del castellà; en català només és correcte en passat («anava a estudiar quan...»).", example:"Penso trucar-li aquesta tarda. / Pensem anar-hi aviat." },
+      correct:0,
+      variants:[
+        { text:'Demà ___ trucar el meu amic per felicitar-lo.', options:['deixo de','penso','acabo de'], correct:1 },
+        { text:'L\'any que ve ___ canviar de feina.', options:['acabo de','deixo de','penso'], correct:2 },
+      ],
+      theory:"«Pensar + infinitiu» expressa intenció o pla. Atenció: «anar a + infinitiu» amb valor de futur («vaig a estudiar») és un calc del castellà; en català només és correcte en passat («anava a estudiar quan...»).", example:"Penso trucar-li aquesta tarda. / Pensem anar-hi aviat." },
 
     // ── SUBORDINADES B1 ──
     { id:'b1-sub1', type:'choice', level:'b1', category:'Subordinades B1',
       question:'Quin mode verbal exigeix la subordinada temporal «quan» referida al futur?',
       text:'Quan ___ de la feina, et trucaré.',
       options:['sortiré','surts','surti'],
-      correct:2, theory:"Les oracions temporals de futur amb «quan» porten el verb subordinat en present de subjuntiu. ✗ «Sortiré» (futur d'indicatiu) és el calc del castellà «cuando salga» que els catalanoparlants amb interferència del castellà fan equivalent a «cuando saldré», però en català el futur d'indicatiu en temporals de futur és incorrecte. ✗ «Surts» (present d'indicatiu) expressa un fet habitual real, no una acció futura hipotètica.", example:"Quan arribi, avisa'm. / Quan tingui temps, vindré." },
+      correct:2,
+      variants:[
+        { text:'Quan ___ la paella, posa-la a la taula.', options:['estarà','estigui','està'], correct:1 },
+        { text:'Avisa\'m quan ___ els resultats.', options:['sàpigues','sabràs','saps'], correct:0 },
+      ],
+      theory:"Les oracions temporals de futur amb «quan» porten el verb subordinat en present de subjuntiu. ✗ «Sortiré» (futur d'indicatiu) és el calc del castellà «cuando salga» que els catalanoparlants amb interferència del castellà fan equivalent a «cuando saldré», però en català el futur d'indicatiu en temporals de futur és incorrecte. ✗ «Surts» (present d'indicatiu) expressa un fet habitual real, no una acció futura hipotètica.", example:"Quan arribi, avisa'm. / Quan tingui temps, vindré." },
 
     { id:'b1-sub2', type:'fill', level:'b1', category:'Subordinades B1',
       question:'Omple amb el mode verbal correcte (indicatiu o subjuntiu):',
@@ -2106,7 +2190,12 @@ const DATA = {
     { id:'b1-sub3', type:'choice', level:'b1', category:'Subordinades B1',
       question:'Quina frase és una condicional real?',
       options:["Si tingués diners, viatjaria més.","Si tens diners, pots viatjar molt.","Si hagués tingut diners, hauria viatjat."],
-      correct:1, theory:"Condicional real: si + present d'indicatiu + present/futur/imperatiu. Les altres dues expressen hipòtesis irreals.", example:"Si fa sol, anirem a la platja." },
+      correct:1,
+      variants:[
+        { options:["Si fes sol, aniríem a la platja.","Si fa sol, anirem a la platja.","Si hagués fet sol, hauríem anat a la platja."], correct:1 },
+        { options:["Si pots venir, vine.","Si poguessis venir, vindries.","Si haguessis pogut venir, hauries vingut."], correct:0 },
+      ],
+      theory:"Condicional real: si + present d'indicatiu + present/futur/imperatiu. Les altres dues expressen hipòtesis irreals.", example:"Si fa sol, anirem a la platja." },
 
     { id:'b1-sub4', type:'choice', level:'b1', category:'Subordinades B1',
       question:"Quin mode verbal s'usa amb «perquè» causal? Tria la frase correcta:",
@@ -2116,6 +2205,10 @@ const DATA = {
         "Ho faig per tal que em sento millor. (final → indicatiu)"
       ],
       correct:0,
+      variants:[
+        { question:'Quina frase usa «perquè» com a connector causal (amb indicatiu)?', options:["No va venir perquè estigués cansada.","No va venir perquè estava cansada.","No va venir per tal que estigués cansada."], correct:1 },
+        { question:'Quina frase usa «perquè» com a connector final (amb subjuntiu)?', options:["Li explica la recepta perquè l'aprendrà.","Li explica la recepta perquè l'aprèn.","Li explica la recepta perquè l'aprengui."], correct:2 },
+      ],
       theory:"La clau és el valor de «perquè»: causal (expressa el motiu d'una acció passada o present) → indicatiu; final (expressa l'objectiu de l'acció) → subjuntiu. «Per tal que» sempre porta subjuntiu. El canvi de subjecte és freqüent en les finals però no n'és la causa.",
       example:"Ho faig perquè em sento malament [causal, ind.]. / Ho faig perquè et sentis millor [final, subj., canvi de subjecte]." },
 
@@ -2128,14 +2221,24 @@ const DATA = {
     { id:'b1-sub6', type:'choice', level:'b1', category:'Subordinades B1',
       question:'Quina frase té la subordinada temporal correctament construïda?',
       options:["Truqueu-me quan haureu arribat.","Truqueu-me quan arribareu.","Truqueu-me quan arribeu.","Truqueu-me quan arribaràs."],
-      correct:2, theory:"En temporals de futur, «quan» + futur d'indicatiu (arribareu, arribaràs, haureu llegit) és incorrecte en català. Cal usar el present de subjuntiu: «quan arribeu». Per marcar que l'acció ha de quedar acabada, s'usa el perfet de subjuntiu: «quan hàgiu llegit tota la documentació, passeu a signar.»", example:"Quan tingui temps, vindré. / Avisa'm quan surtin." },
+      correct:2,
+      variants:[
+        { question:'Quina frase té la subordinada temporal correctament construïda?', options:['Digues-m\'ho quan te n\'hauries assabentat.','Digues-m\'ho quan te n\'assabentaràs.','Digues-m\'ho quan te n\'assabentis.','Digues-m\'ho quan te n\'assabentes.'], correct:2 },
+        { question:'Quina frase té la subordinada temporal correctament construïda?', options:['Vine quan podràs.','Vine quan puguis.','Vine quan hauries pogut.','Vine quan pots.'], correct:1 },
+      ],
+      theory:"En temporals de futur, «quan» + futur d'indicatiu (arribareu, arribaràs, haureu llegit) és incorrecte en català. Cal usar el present de subjuntiu: «quan arribeu». Per marcar que l'acció ha de quedar acabada, s'usa el perfet de subjuntiu: «quan hàgiu llegit tota la documentació, passeu a signar.»", example:"Quan tingui temps, vindré. / Avisa'm quan surtin." },
 
     // ── LÈXIC QUOTIDIÀ B1 ──
     { id:'b1-lq1', type:'choice', level:'b1', category:'Lèxic quotidià B1',
       question:'Quina és la paraula catalana correcta?',
       text:"He de trucar al ___ per demanar una cita mèdica.",
       options:['médico','metge','doctor'],
-      correct:1, theory:"«Metge/metgessa» és el terme català estàndard per al professional sanitari. ✗ «Médico» és castellà. ✗ «Doctor» en català designa qui té un doctorat; per a qui exerceix la medicina, la forma estàndard és «metge/metgessa».", example:"La meva metgessa diu que haig de descansar més." },
+      correct:1,
+      variants:[
+        { text:'La ___ em va dir que havia de descansar més.', options:['doctora','médica','metgessa'], correct:2 },
+        { text:'En Joan treballa de ___ en un hospital de Barcelona.', options:['metge','médico','doctor'], correct:0 },
+      ],
+      theory:"«Metge/metgessa» és el terme català estàndard per al professional sanitari. ✗ «Médico» és castellà. ✗ «Doctor» en català designa qui té un doctorat; per a qui exerceix la medicina, la forma estàndard és «metge/metgessa».", example:"La meva metgessa diu que haig de descansar més." },
 
     { id:'b1-lq2', type:'fill', level:'b1', category:'Lèxic quotidià B1',
       question:'Omple amb la paraula catalana adequada (evita el calc):',
@@ -2151,7 +2254,12 @@ const DATA = {
     { id:'b1-lq3', type:'choice', level:'b1', category:'Lèxic quotidià B1',
       question:'Quin terme és incorrecte en català?',
       options:['el cotxe','el carro (de tracció animal)','el car (vehicle)'],
-      correct:2, theory:"Per al vehicle de motor, el català usa «cotxe». ✗ «Car» (anglès) i el seu calc no són catalans. «Carro» sí que existeix en català, però designa un vehicle de tracció animal (carruatge), no un cotxe.", example:"Vine en cotxe o en transport públic?" },
+      correct:2,
+      variants:[
+        { question:'Quin terme és incorrecte en català?', options:['l\'ordinador','el computador','el computer'], correct:2 },
+        { question:'Quin terme és incorrecte en català?', options:['el mòbil','el móvil','el telèfon mòbil'], correct:1 },
+      ],
+      theory:"Per al vehicle de motor, el català usa «cotxe». ✗ «Car» (anglès) i el seu calc no són catalans. «Carro» sí que existeix en català, però designa un vehicle de tracció animal (carruatge), no un cotxe.", example:"Vine en cotxe o en transport públic?" },
 
     { id:'b1-lq4', type:'reorder', level:'b1', category:'Lèxic quotidià B1',
       question:'Ordena per formar una frase correcta:',
