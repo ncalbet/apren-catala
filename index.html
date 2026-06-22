@@ -2667,6 +2667,8 @@ function renderProfile() {
       </a>
       <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;">Ko-fi processa el pagament de forma segura. No cal registrar-se.</p>
 
+      <div id="fb-delete-section">${renderDeleteAccountSection()}</div>
+
     </div>`;
 }
 
@@ -2760,6 +2762,60 @@ async function fbHandleSignOut() {
 function fbRefreshAccountUI() {
   const el = document.getElementById('fb-account-section');
   if (el) el.innerHTML = renderAccountSection();
+  const del = document.getElementById('fb-delete-section');
+  if (del) del.innerHTML = renderDeleteAccountSection();
+}
+
+// Botó discret d'esborrar compte (només si hi ha sessió iniciada)
+function renderDeleteAccountSection() {
+  if (!window.fbUser) return '';
+  return `
+    <div style="margin-top:32px;text-align:center;">
+      <button onclick="fbHandleDeleteAccount()"
+        style="background:none;border:none;color:var(--muted);font-size:12px;text-decoration:underline;cursor:pointer;padding:6px;">
+        Esborrar el compte
+      </button>
+    </div>`;
+}
+
+async function fbDeleteAccountFlow(password) {
+  const res = await window.fbDeleteAccount?.(password);
+  if (res?.ok) {
+    showAlert("El teu compte i les dades sincronitzades al núvol s'han eliminat. El progrés d'aquest dispositiu es manté; el pots reiniciar des de Progrés si vols.");
+  } else if (res?.reason === 'need-password') {
+    showPasswordPrompt(pw => { if (pw) fbDeleteAccountFlow(pw); });
+  } else if (res?.reason === 'requires-recent-login') {
+    showAlert("Per seguretat, has de tornar a iniciar sessió abans d'esborrar el compte. Tanca la sessió, torna a entrar i prova-ho de nou.");
+  } else {
+    showAlert("No s'ha pogut esborrar el compte. Torna-ho a intentar més tard.");
+  }
+}
+
+function fbHandleDeleteAccount() {
+  showConfirm(
+    "Segur que vols esborrar el compte? S'eliminaran de manera permanent el teu compte i les dades sincronitzades al núvol. Aquesta acció no es pot desfer. El progrés d'aquest dispositiu es mantindrà.",
+    () => fbDeleteAccountFlow()
+  );
+}
+
+// Demana la contrasenya per reautenticar (comptes d'email amb sessió antiga)
+function showPasswordPrompt(onSubmit) {
+  const el = document.createElement('div');
+  el.className = 'ct-modal-overlay';
+  el.innerHTML = `<div class="ct-modal">
+    <p>Per confirmar, torna a escriure la teva contrasenya.</p>
+    <input id="ct-pw-input" type="password" class="ct-input" style="margin-top:0;" placeholder="Contrasenya" autocomplete="current-password">
+    <div class="ct-modal-btns">
+      <button class="ct-btn secondary" onclick="this.closest('.ct-modal-overlay').remove()">Cancel·lar</button>
+      <button class="ct-btn primary" id="ct-pw-ok">Confirmar</button>
+    </div>
+  </div>`;
+  document.body.appendChild(el);
+  el.querySelector('#ct-pw-ok').onclick = () => {
+    const pw = el.querySelector('#ct-pw-input').value;
+    el.remove();
+    onSubmit(pw);
+  };
 }
 
 // Missatge FCM en primer pla → toast

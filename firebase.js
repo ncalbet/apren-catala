@@ -1,8 +1,9 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js';
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
-         createUserWithEmailAndPassword, signInWithEmailAndPassword }
+         createUserWithEmailAndPassword, signInWithEmailAndPassword,
+         deleteUser, reauthenticateWithPopup, reauthenticateWithCredential, EmailAuthProvider }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
-import { getFirestore, doc, setDoc, getDoc }
+import { getFirestore, doc, setDoc, getDoc, deleteDoc }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
 import { getMessaging, getToken, onMessage }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js';
@@ -99,6 +100,49 @@ window.fbLoadProgress = async () => {
     const snap = await getDoc(doc(db, 'users', user.uid));
     return (snap.exists() && snap.data().progress) ? snap.data().progress : null;
   } catch (e) { console.warn('[FB] Error carregant progrés:', e.code); return null; }
+};
+
+// ── Esborrar compte (requisit Google Play: eliminació de compte i dades) ──
+// Esborra el document de Firestore de l'usuari i, després, el compte d'Auth.
+// Si Auth demana login recent: reautentica amb Google (popup) o demana password (email).
+window.fbDeleteAccount = async (password) => {
+  const user = auth.currentUser;
+  if (!user) return { ok: false, reason: 'no-user' };
+  const ref = doc(db, 'users', user.uid);
+  const providerId = user.providerData[0]?.providerId;
+
+  const wipe = async () => {
+    await deleteDoc(ref).catch(() => {}); // potser ja esborrat en un intent previ
+    await deleteUser(user);
+  };
+
+  try {
+    await deleteDoc(ref);
+    await deleteUser(user);
+    return { ok: true };
+  } catch (e) {
+    if (e.code !== 'auth/requires-recent-login') {
+      return { ok: false, reason: e.code || e.message };
+    }
+    // Cal reautenticar abans d'esborrar el compte
+    try {
+      if (providerId === 'google.com') {
+        await reauthenticateWithPopup(user, provider);
+        await wipe();
+        return { ok: true };
+      }
+      if (providerId === 'password') {
+        if (!password) return { ok: false, reason: 'need-password' };
+        const cred = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, cred);
+        await wipe();
+        return { ok: true };
+      }
+      return { ok: false, reason: 'requires-recent-login' };
+    } catch (e2) {
+      return { ok: false, reason: e2.code || e2.message };
+    }
+  }
 };
 
 // ── Perfil ──

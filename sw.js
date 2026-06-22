@@ -1,5 +1,5 @@
 // Català Trainer — Service Worker
-const CACHE_VERSION = 'catala-trainer-v87';
+const CACHE_VERSION = 'catala-trainer-v88';
 
 const ASSETS_TO_CACHE = [
   './',
