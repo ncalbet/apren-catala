@@ -5,6 +5,12 @@ on:
     - cron: '0 7,8,11,12,17,18,19,20 * * *'
   workflow_dispatch:
 
+# Serialitza execucions: si un cron i un dispatch manual coincideixen, la segona
+# espera la primera (no es cancel·la) → evita enviaments dobles per concurrència.
+concurrency:
+  group: recordatoris-diaris
+  cancel-in-progress: false
+
 jobs:
   send:
     runs-on: ubuntu-latest
