@@ -4668,7 +4668,7 @@ const DATA = {
     { id:'c1-df7', type:'fill', level:'c1', category:'Derivació i flexió',
       text:'Molts verbs generen un substantiu abstracte que designa el procés o la facultat associada a l\'acció.',
       question:'Forma el substantiu abstracte a partir del verb indicat:',
-      sentence:'La ___ del text és imprescindible per comprendre\'l bé.',
+      sentence:'La ___ del text és imprescindible per entendre\'l bé.',
       display:'comprendre → substantiu abstracte de procés', answers:['comprensió'],
       variants:[
         { sentence:'La ___ del color depèn molt de la llum de l\'entorn.', display:'percebre → substantiu abstracte de procés', answers:['percepció'] },
