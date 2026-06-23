@@ -708,7 +708,7 @@ function renderLevelMenu(level) {
     document.getElementById('ct-body').innerHTML = '<div class="ct-card" style="text-align:center;padding:32px;"><p style="color:var(--muted);">Nivell no disponible. Comprova que data.js s\'ha carregat correctament.</p></div>';
     return;
   }
-  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
+  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
   const desc = level === 'a2'
     ? 'Contingut bàsic: verbs essencials, adjectius i estructures fonamentals del català. Ideal per començar.'
     : level === 'b1'
@@ -790,9 +790,9 @@ function openCategory(level, cat) {
       </div>`;
   }
 
-  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
-  const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',writing:'Producció',transform:'Transformació'};
-  const typeOrder = ['choice','fill','reorder','reading','writing','transform'];
+  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
+  const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió'};
+  const typeOrder = ['choice','fill','reorder','reading'];
 
   const byType = {};
   exercises.forEach(q => { (byType[q.type] = byType[q.type] || []).push(q); });
@@ -1012,8 +1012,6 @@ function renderExercise() {
   else if (q.type==='fill') body = renderFill(q);
   else if (q.type==='reorder') body = renderReorder(q);
   else if (q.type==='reading') body = renderReading(q);
-  else if (q.type==='writing') body = renderWriting(q);
-  else if (q.type==='transform') body = renderTransform(q);
 
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
@@ -1126,27 +1124,6 @@ function renderReading(q) {
   return `<div style="background:var(--surface);border-radius:10px;padding:16px;font-size:14px;line-height:1.7;color:var(--text-soft);margin-bottom:16px;border-left:3px solid var(--c1);">${q.text}</div>
     ${shuffledOptionsHTML(q)}`;
 }
-function renderWriting(q) {
-  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${q.keywords.map(k=>`<span style="background:var(--accent-blue-bg);color:var(--accent-blue-text);font-size:12px;padding:3px 10px;border-radius:20px;">${k}</span>`).join('')}</div>
-    <textarea id="write-area" class="ct-input" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="min-height:90px;resize:vertical;" placeholder="Escriu la teva resposta aquí..."></textarea>
-    <div id="write-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-      <button class="ct-btn primary" onclick="checkWriting()">Comprovar resposta</button>
-      <button class="ct-btn secondary" onclick="showSample()">Veure exemple</button>
-    </div>`;
-}
-function renderTransform(q) {
-  return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <div style="background:var(--accent-amber-bg);border-radius:10px;padding:14px;margin-bottom:14px;font-size:14px;color:var(--accent-amber-text);line-height:1.55;">
-      Original: <strong>${q.original}</strong></div>
-    <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7;"><strong>Pistes:</strong><br>${q.hints.map(h=>`• ${h}`).join('<br>')}</div>
-    <textarea id="transform-area" class="ct-input" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" style="min-height:80px;resize:vertical;" placeholder="Escriu la teva reformulació en registre formal..."></textarea>
-    <div id="transform-actions" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-      <button class="ct-btn primary" onclick="checkTransform()">Comprovar reformulació</button>
-      <button class="ct-btn secondary" onclick="showTransformSample()">Veure model</button>
-    </div>`;
-}
-
 /* COMPROVACIÓ */
 function checkChoice(selected) {
   if (currentSession.answered) return;
@@ -1223,72 +1200,6 @@ function checkReorder() {
   showTheory(q); markDone(ok, 15);
 }
 
-function localFeedbackWriting(q, text) {
-  const words = text.trim().split(/\s+/).filter(Boolean);
-  if (words.length < 5) return '✏️ La resposta és massa curta. Intenta desenvolupar-la amb una frase completa.';
-  const lines = [];
-  lines.push('✍️ Resposta enregistrada! Compara-la amb la resposta model i fixa\'t en el vocabulari, els connectors i el registre.');
-  if (q.keywords && q.keywords.length) {
-    lines.push(`Pistes a tenir en compte: ${q.keywords.map(k => k.replace(/[«»]/g,'').trim()).join(' · ')}.`);
-  }
-  lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
-  return lines.join('<br>');
-}
-
-function localFeedbackTransform(q, text) {
-  if (text.trim().split(/\s+/).filter(Boolean).length < 4) return '✏️ La reformulació és massa curta. Escriu una frase completa en registre formal.';
-  const lines = [];
-  lines.push('✍️ Reformulació enregistrada! Compara-la amb la resposta model i comprova que el registre sigui prou formal.');
-  if (q.hints && q.hints.length) {
-    lines.push(`Pistes a tenir en compte: ${q.hints.map(h => h.replace(/[«»]/g,'').trim()).join(' · ')}.`);
-  }
-  lines.push(`📝 Resposta model: <em>${q.sample}</em>`);
-  return lines.join('<br>');
-}
-
-function disableActionButtons(containerId) {
-  document.querySelectorAll(`#${containerId} button`).forEach(b => {
-    b.disabled = true;
-    b.style.opacity = '0.45';
-    b.style.cursor = 'default';
-  });
-}
-function checkWriting() {
-  if (currentSession.answered) return;
-  const q = currentSession.items[currentSession.idx];
-  const text = document.getElementById('write-area').value.trim();
-  if (!text) { showAlert('Escriu una resposta primer.'); return; }
-  currentSession.answered = true;
-  disableActionButtons('write-actions');
-  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackWriting(q, text)}</div>`;
-  showTheory(q); markDone(true, 20);
-}
-function checkTransform() {
-  if (currentSession.answered) return;
-  const q = currentSession.items[currentSession.idx];
-  const text = document.getElementById('transform-area').value.trim();
-  if (!text) { showAlert('Escriu una reformulació primer.'); return; }
-  currentSession.answered = true;
-  disableActionButtons('transform-actions');
-  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">${localFeedbackTransform(q, text)}</div>`;
-  showTheory(q); markDone(true, 20);
-}
-function showSample() {
-  if (currentSession.answered) return;
-  currentSession.answered = true;
-  disableActionButtons('write-actions');
-  const q = currentSession.items[currentSession.idx];
-  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Exemple: <em>${q.sample}</em></div>`;
-  showTheory(q); markDone(false, 5);
-}
-function showTransformSample() {
-  if (currentSession.answered) return;
-  currentSession.answered = true;
-  disableActionButtons('transform-actions');
-  const q = currentSession.items[currentSession.idx];
-  document.getElementById('feedback-area').innerHTML = `<div class="ct-feedback ai">📝 Model: <em>${q.sample}</em></div>`;
-  showTheory(q); markDone(false, 5);
-}
 function showTheory(q) {
   document.getElementById('theory-area').innerHTML = `
     <div class="ct-theory">
@@ -1768,8 +1679,8 @@ function renderDailyChallengeSection() {
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   const nDone = dc.completed.length;
   const allDone = nDone === items.length;
-  const typeNames = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',writing:'Producció',transform:'Transformació'};
-  const typeIcons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',writing:'🖊️',transform:'🔄'};
+  const typeNames = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió'};
+  const typeIcons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
 
   return `
     <div style="background:${allDone ? 'linear-gradient(135deg,#065f46,#059669)' : 'linear-gradient(135deg,#1a2f4e,#2d4a7a)'};
