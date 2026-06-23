@@ -4431,10 +4431,10 @@ const DATA = {
     { id:'c1-df2', type:'choice', level:'c1', category:'Derivació i flexió',
       question:'Quina paraula derivada amb el prefix «des-» és correcta?',
       text:'El prefix «des-» indica negació o inversió de l\'acció i s\'afegeix directament al radical sense canviar l\'ortografia: des + conèixer = desconèixer. Les formes castellanitzades no existeixen en català.',
-      options:['desconèixer (ignorar completament)','desconexar (mala formació)','desconexió (forma castellana)'],
+      options:['desconèixer','desconexar','desconexió'],
       correct:0, variants:[
-        { options:['desconexar (mala formació)','desconexió (forma castellana)','desconèixer (ignorar completament)'], correct:2 },
-        { options:['desconexió (forma castellana)','desconèixer (ignorar completament)','desconexar (mala formació)'], correct:1 },
+        { options:['desconexar','desconexió','desconèixer'], correct:2 },
+        { options:['desconexió','desconèixer','desconexar'], correct:1 },
       ],
       theory:'El prefix «des-» expressa negació o reversió: «desconèixer» (no conèixer), «desfer» (revertir «fer»). Cal usar les arrels catalanes.', example:'desfer / desconèixer / desaparèixer / desmuntar / desacord.' },
     { id:'c1-df3', type:'fill', level:'c1', category:'Derivació i flexió',
