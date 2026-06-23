@@ -734,7 +734,7 @@ function renderLevelMenu(level) {
     const masteryColor = avgMastery === 0 ? 'var(--track)' : avgMastery < 2 ? '#f59e0b' : avgMastery < 4 ? '#3b82f6' : '#d4a72c';
     const statusBadge =
         state === 'mastered'  ? '<span style="display:inline-block;background:#fdf0d5;color:#9a6700;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🥇 Dominat</span>'
-      : state === 'completed' ? '<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ Completat</span>'
+      : state === 'completed' ? '<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ Exercicis fets</span>'
       : state === 'started'   ? `<span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🔵 En curs (${nDone}/${qs.length})</span>`
       :                         '<span style="display:inline-block;background:#f1f5f9;color:#64748b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⚪ Per començar</span>';
     const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
@@ -804,7 +804,7 @@ function openCategory(level, cat) {
     const nDone = masteries.filter(m => m >= 2).length;
     const stateBadge =
         state === 'mastered'  ? '<div class="ct-state" style="color:#9a6700;">⭐ Dominat</div>'
-      : state === 'completed' ? '<div class="ct-state" style="color:#166534;">✓ Completat</div>'
+      : state === 'completed' ? '<div class="ct-state" style="color:#166534;">✓ Exercicis fets</div>'
       : state === 'started'   ? `<div class="ct-state" style="color:#1d4ed8;">● En curs (${nDone}/${n})</div>`
       :                         '<div class="ct-state" style="color:var(--muted);">○ Per començar</div>';
     const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
@@ -1376,7 +1376,7 @@ function renderSummary() {
       <p style="color:var(--muted);font-size:15px;margin:8px 0 6px;">${correct} de ${items.length} correctes</p>
       <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">${msg}</p>
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
-        💡 <strong>Completat</strong> ✅ vol dir que ja l'has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaiada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
+        💡 <strong>Exercicis fets</strong> ✅ vol dir que ja els has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaiada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
@@ -2350,11 +2350,11 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>✅ Completat vs 🥇 Dominat</summary>
+        <summary>✅ Exercicis fets vs 🥇 Dominat</summary>
         <div class="ct-acc-body">
-          Una categoria es marca com a <strong>✅ Completat</strong> quan has encertat tots els exercicis almenys una vegada (domini ≥ 2 a tots).<br><br>
+          Una categoria es marca com a <strong>✅ Exercicis fets</strong> quan has encertat tots els exercicis almenys una vegada (domini ≥ 2 a tots).<br><br>
           Es marca com a <strong>🥇 Dominat</strong> (vora daurada) quan tots els exercicis de la categoria han arribat a domini ≥ 4.<br><br>
-          Completat vol dir «he practicat tot». Dominat vol dir «ho tinc ben après».
+          «Exercicis fets» vol dir «he practicat tot». «Dominat» vol dir «ho tinc ben après».
         </div>
       </details>
 
@@ -2611,9 +2611,9 @@ function showMasteryInfo() {
   el.innerHTML = `<div class="ct-modal" style="max-width:360px;max-height:80vh;overflow-y:auto;text-align:left;">
     <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:12px;">Què vol dir el «domini»?</div>
     <div style="font-size:13.5px;color:var(--text-soft);line-height:1.6;">
-      <div style="margin-bottom:10px;"><strong>✅ Completat</strong> vol dir que has fet tots els exercicis del tema correctament almenys un cop. Molt bé!</div>
+      <div style="margin-bottom:10px;"><strong>✅ Exercicis fets</strong> vol dir que has fet tots els exercicis del tema correctament almenys un cop. Molt bé!</div>
       <div style="margin-bottom:10px;">El <strong>% de domini</strong> mesura com de consolidat tens el tema. Puja a poc a poc: cada exercici només suma domini <strong>un cop al dia</strong>, encara que l'encertis moltes vegades seguides.</div>
-      <div>Per això un tema pot estar <strong>Completat</strong> i tenir el domini per sota del 100%. No és cap error: el secret per dominar-lo de debò és <strong>tornar-hi dies diferents</strong> (repetició espaiada).</div>
+      <div>Per això un tema pot tenir tots els <strong>exercicis fets</strong> i el domini per sota del 100%. No és cap error: el secret per dominar-lo de debò és <strong>tornar-hi dies diferents</strong> (repetició espaiada).</div>
     </div>
     <button class="ct-btn primary" style="width:100%;margin-top:18px;" onclick="this.closest('.ct-modal-overlay').remove()">Ho he entès</button>
   </div>`;
