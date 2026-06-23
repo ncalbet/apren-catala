@@ -1752,6 +1752,177 @@
     ]
   },
 
+  'Oracions de relatiu B1': {
+    level: 'b1',
+    icon: '🪢',
+    subtitle: 'Connectar oracions amb que, qui, on i el qual',
+    sections: [
+      {
+        title: 'Què és una oració de relatiu',
+        icon: '📌',
+        body: `<p>Les oracions de relatiu serveixen per afegir informació sobre un nom (l'antecedent) sense haver de començar una frase nova. El pronom relatiu enllaça les dues idees: «El llibre. El llibre és teu.» → «El llibre <strong>que</strong> és teu.»</p>`
+      },
+      {
+        title: 'Els relatius més freqüents al B1',
+        icon: '📊',
+        table: {
+          headers: ['Relatiu', 'Funció', 'Exemple'],
+          rows: [
+            ['que', 'Subjecte o CD, sense preposició', 'El noi que viu aquí.'],
+            ['qui', 'Persona darrere de preposició', "L'amic amb qui parlo."],
+            ['el qual / la qual', 'Cosa o persona darrere de preposició', "L'empresa per a la qual treballo."],
+            ['on', 'Lloc', 'La ciutat on visc.'],
+            ['quan', 'Temps', 'El dia quan ens vam conèixer.'],
+          ]
+        }
+      },
+      {
+        title: 'Error freqüent: «qui» només per a persones',
+        icon: '⚠️',
+        rules: [
+          { label: 'Persona darrere de preposició → qui o el qual', example: "«La companya amb qui treballo.» / «La companya amb la qual treballo.»" },
+          { label: 'Cosa darrere de preposició → el qual / la qual (mai qui)', example: "«El projecte en el qual participo.» (no «en qui»)" },
+        ]
+      }
+    ]
+  },
+
+  'Preposicions B1': {
+    level: 'b1',
+    icon: '🧭',
+    subtitle: 'Triar bé per/per a, a/en i evitar interferències del castellà',
+    sections: [
+      {
+        title: 'Per què costen les preposicions',
+        icon: '📌',
+        body: `<p>Les preposicions catalanes no sempre coincideixen amb les castellanes. El repte principal no és construir una estructura, sinó <strong>seleccionar</strong> la preposició correcta i <strong>discriminar</strong> entre formes properes (per/per a, a/en) o evitar la «a» del complement directe que el castellà sí que posa.</p>`
+      },
+      {
+        title: 'Valors bàsics i contrastos',
+        icon: '📊',
+        table: {
+          headers: ['Preposició', 'Valor', 'Exemple'],
+          rows: [
+            ['per', 'Causa, motiu, mitjà', 'Ho faig per tu. / per correu.'],
+            ['per a', 'Destinació, finalitat, beneficiari', 'Un regal per a tu.'],
+            ['a', 'Topònim, destinació de lloc', 'Visc a Girona.'],
+            ['en', 'Lloc (nom comú), transport', 'Treballo en una empresa. / en tren.'],
+            ['de', 'Material, origen', 'Taula de fusta. / venir de.'],
+            ['amb', 'Instrument, companyia', 'Tallar amb un ganivet. / amb tu.'],
+          ]
+        }
+      },
+      {
+        title: 'Error freqüent: la «a» del complement directe',
+        icon: '⚠️',
+        rules: [
+          { label: 'El CD no porta «a» de manera general', example: "«He saludat la veïna.» (no «*a la veïna»)" },
+          { label: 'Interferència del castellà', example: "Cast. «Vi a Joan» → Cat. «Vaig veure en Joan» (sense «a»)" },
+        ]
+      }
+    ]
+  },
+
+  'Ortografia B1': {
+    level: 'b1',
+    icon: '✏️',
+    subtitle: 'Accents, dièresi, apòstrof i guionet sense errades',
+    sections: [
+      {
+        title: 'Accentuació: la regla i el diacrític',
+        icon: '📌',
+        body: `<p>L'accent <strong>greu</strong> (à, è, ò) o <strong>agut</strong> (é, í, ó, ú) es posa segons si la paraula és aguda, plana o esdrúixola. A més, l'<strong>accent diacrític</strong> distingeix parelles de mots que només es diferencien per l'accent: <strong>sòl</strong> (terra) / <strong>sol</strong> (astre), <strong>més</strong> (quantitat) / <strong>mes</strong> (de l'any), <strong>sé</strong> (saber) / <strong>se</strong> (pronom).</p>`
+      },
+      {
+        title: 'Dièresi, apòstrof i guionet',
+        icon: '📊',
+        table: {
+          headers: ['Recurs', "Quan s'usa", 'Exemple'],
+          rows: [
+            ['Dièresi (ï, ü)', 'Trencar un hiat o fer sonar la u en gü/qü', 'raïm, països, pingüí'],
+            ["Apòstrof (l', d')", 'el/la/de davant de vocal o h muda', "l'home, l'hora, d'aigua"],
+            ['Guionet (-)', 'Numerals compostos i pronoms enclítics', 'vint-i-tres, saluda-la'],
+          ]
+        }
+      },
+      {
+        title: 'Errors freqüents',
+        icon: '⚠️',
+        rules: [
+          { label: 'No apostrofar davant de consonant', example: "«la clau», «de fusta» (mai «l'clau»)" },
+          { label: 'Els vint porten «i», la resta de desenes no', example: 'vint-i-dos, però trenta-dos i quaranta-dos' },
+        ]
+      }
+    ]
+  },
+
+  'Règim verbal B1': {
+    level: 'b1',
+    icon: '🔗',
+    subtitle: 'Verbs que regeixen una preposició fixa',
+    sections: [
+      {
+        title: 'Què és el règim verbal',
+        icon: '📌',
+        body: `<p>Molts verbs exigeixen una <strong>preposició concreta</strong> quan van seguits d'un complement. Aquesta preposició és fixa i sovint no coincideix amb la del castellà: dir «pensar amb tu» en lloc de «pensar <strong>en</strong> tu» és un dels errors més freqüents.</p>`
+      },
+      {
+        title: 'Verbs freqüents i la seva preposició',
+        icon: '📊',
+        table: {
+          headers: ['Verb', 'Preposició', 'Exemple'],
+          rows: [
+            ['pensar, confiar, fixar-se', 'en', 'Penso en tu. / Confio en tu.'],
+            ['adonar-se', 'de', "M'adono de l'error."],
+            ['acostumar-se', 'a', "M'acostumo a la rutina."],
+            ['interessar-se', 'per', "S'interessa per l'art."],
+          ]
+        }
+      },
+      {
+        title: 'Error freqüent: la interferència del castellà',
+        icon: '⚠️',
+        rules: [
+          { label: 'pensar / confiar / fixar-se → EN, no «amb»', example: 'Penso en tu (no «*penso amb tu»).' },
+          { label: 'La preposició depèn del verb, no de la traducció', example: 'Adonar-se DE, interessar-se PER, acostumar-se A.' },
+        ]
+      }
+    ]
+  },
+
+  'Veu passiva B1': {
+    level: 'b1',
+    icon: '🔄',
+    subtitle: 'La passiva amb ser i la passiva reflexa',
+    sections: [
+      {
+        title: 'Dues maneres de fer la passiva',
+        icon: '📌',
+        body: `<p>En català la veu passiva es pot expressar de dues maneres: la <strong>passiva perifràstica</strong> (ser + participi), amb l'agent introduït per <strong>per</strong> («La casa va ser construïda per l'arquitecte»), i la <strong>passiva reflexa</strong> amb <strong>es</strong> («Es construeixen cases»), molt habitual quan l'agent no s'esmenta.</p>`
+      },
+      {
+        title: 'Concordança',
+        icon: '📊',
+        table: {
+          headers: ['Tipus', 'Concordança', 'Exemple'],
+          rows: [
+            ['Perifràstica', 'El participi concorda amb el subjecte', 'Les cartes van ser enviades.'],
+            ['Reflexa', 'El verb concorda amb el pacient', 'Es venen pisos. / Es ven pa.'],
+            ['Agent', "S'introdueix amb «per»", 'Pintat per un artista.'],
+          ]
+        }
+      },
+      {
+        title: 'Quan fer servir cada una',
+        icon: '⚠️',
+        rules: [
+          { label: 'Sense agent → millor la reflexa', example: 'Es parla català (millor que «és parlat»).' },
+          { label: 'El participi sempre concorda', example: 'La novel·la va ser escrita / Els llibres van ser escrits.' },
+        ]
+      }
+    ]
+  },
+
   'Lèxic quotidià B1': {
     level: 'b1',
     icon: '🗣️',
@@ -2282,6 +2453,319 @@ const DATA = {
         { sentence:"Cada matí passa el camió de la *basura pel nostre carrer.", display:'terme català per a les escombraries', answers:['brossa','escombraries','residus','deixalles'] },
       ],
       theory:"«Brossa» (llenguatge col·loquial) i «residus» (formal) equivalen a «basura». «Deixalles» s'usa en contextos de reciclatge.", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
+
+    // ── ORACIONS DE RELATIU B1 ──
+    { id:'b1-rel1', type:'fill', level:'b1', category:'Oracions de relatiu B1',
+      question:'Omple amb el pronom relatiu correcte:',
+      sentence:"La pel·lícula ___ m'has recomanat no la trobo a cap plataforma.",
+      display:'relatiu de complement directe (cosa), sense preposició',
+      answers:['que'],
+      variants:[
+        { sentence:"El mecànic ___ ha arreglat el cotxe és molt de fiar.", display:'relatiu de subjecte (persona), sense preposició', answers:['que'] },
+        { sentence:"El formulari ___ has d'emplenar és a la carpeta de l'escriptori.", display:'relatiu de complement directe (cosa), sense preposició', answers:['que'] },
+      ],
+      theory:"El relatiu «que» és el més freqüent: funciona com a subjecte o complement directe, tant per a persones com per a coses, i no porta mai preposició al davant.", example:"El noi que viu al costat és metge. / El llibre que vaig comprar és apassionant." },
+
+    { id:'b1-rel2', type:'fill', level:'b1', category:'Oracions de relatiu B1',
+      question:'Omple amb el pronom relatiu correcte:',
+      sentence:'El company amb ___ comparteixo despatx ha marxat de vacances.',
+      display:'relatiu de persona darrere de preposició',
+      answers:['qui'],
+      variants:[
+        { sentence:"La directora a ___ has d'enviar el correu és la Sra. Puig.", display:'relatiu de persona darrere de preposició', answers:['qui'] },
+        { sentence:"El metge de ___ em parlaves fa anys que s'ha jubilat.", display:'relatiu de persona darrere de preposició', answers:['qui'] },
+      ],
+      theory:"Darrere d'una preposició i referit a persones, s'usa «qui» (o «el qual/la qual»). Mai «que» tot sol darrere de preposició.", example:"L'amic amb qui viatjo és puntual. / La persona de qui parlo és l'alcaldessa." },
+
+    { id:'b1-rel3', type:'fill', level:'b1', category:'Oracions de relatiu B1',
+      question:'Omple amb el pronom relatiu correcte:',
+      sentence:"L'hotel ___ ens allotjarem té piscina i vistes al mar.",
+      display:'relatiu de lloc',
+      answers:['on'],
+      variants:[
+        { sentence:'La sala ___ fan les reunions té aforament per a cinquanta persones.', display:'relatiu de lloc', answers:['on'] },
+        { sentence:'El parc ___ jugàvem de petits ara és un aparcament.', display:'relatiu de lloc', answers:['on'] },
+      ],
+      theory:"«On» és el relatiu de lloc i equival a «en què» o «al qual». Substitueix un complement de lloc.", example:"La ciutat on vaig néixer és petita. / El restaurant on vam sopar era excel·lent." },
+
+    { id:'b1-rel4', type:'choice', level:'b1', category:'Oracions de relatiu B1',
+      question:'Tria el pronom relatiu correcte:',
+      text:'El museu ___ vol visitar la Laia tanca els dimarts.',
+      options:['que','qui','on','quan'],
+      correct:0,
+      variants:[
+        { text:'La botiga ___ compren els ingredients obre molt aviat.', options:['que','qui','on','quan'], correct:2 },
+        { text:'La persona de ___ et parlaves és la meva tutora.', options:['que','qui','on','quan'], correct:1 },
+      ],
+      theory:"«Que» per a subjecte/CD sense preposició; «qui» per a persones darrere de preposició; «on» per a lloc; «quan» per a temps.", example:"El llibre que llegeixo / L'amic amb qui parlo / El poble on visc." },
+
+    { id:'b1-rel5', type:'choice', level:'b1', category:'Oracions de relatiu B1',
+      question:'Tria el pronom relatiu correcte:',
+      text:'L\'empresa per a ___ treballa la Sara és multinacional.',
+      options:['la qual','qui','que','on'],
+      correct:0,
+      variants:[
+        { text:'El projecte per al ___ treballem s\'acaba el mes que ve.', options:['el qual','qui','que','on'], correct:0 },
+        { text:"La persona a ___ m'he adreçat ha estat molt amable.", options:['la qual','qui','que','on'], correct:1 },
+      ],
+      theory:"Darrere de preposició i referit a coses, s'usa «el qual/la qual» (mai «qui», que és només per a persones). Per a persones, tant «qui» com «el qual/la qual» són correctes.", example:"L'empresa per a la qual treballo / La companya amb qui (amb la qual) col·laboro." },
+
+    { id:'b1-rel6', type:'reorder', level:'b1', category:'Oracions de relatiu B1',
+      question:'Ordena per formar una oració de relatiu correcta:',
+      parts:['és molt conegut','que treballa aquí','L\'arquitecte'],
+      correct:[2,1,0],
+      theory:"L'oració de relatiu («que treballa aquí») s'insereix just després de l'antecedent que modifica («L'arquitecte») i abans del predicat principal («és molt conegut»).", example:"L'arquitecte que treballa aquí és molt conegut." },
+
+    // ── PREPOSICIONS B1 ──
+    { id:'b1-prep1', type:'choice', level:'b1', category:'Preposicions B1',
+      question:'Tria la preposició correcta:',
+      text:'He comprat aquestes flors ___ la teva mare, que avui fa anys.',
+      options:['per a','per','amb','de'],
+      correct:0,
+      variants:[
+        { text:'No vam arribar a temps ___ un embús a l\'autopista.', options:['per','per a','amb','de'], correct:0 },
+        { text:'Han preparat una sorpresa ___ els convidats.', options:['per a','per','amb','de'], correct:0 },
+      ],
+      theory:"«Per a» indica destinació o beneficiari (les flors van destinades a la mare). «Per» indica causa o motiu (no arribar a temps a causa d'un embús). Distingir-les és el nucli de l'ús d'aquesta parella.", example:"Ho faig per tu (per la teva causa) / Ho compro per a tu (perquè ho rebis)." },
+
+    { id:'b1-prep2', type:'choice', level:'b1', category:'Preposicions B1',
+      question:'Tria la preposició correcta:',
+      text:'La meva germana treballa ___ una empresa de disseny gràfic.',
+      options:['en','a','de','amb'],
+      correct:0,
+      variants:[
+        { text:'Aquest estiu passarem les vacances ___ Menorca.', options:['a','en','de','amb'], correct:0 },
+        { text:'M\'agrada molt viatjar ___ tren per la comoditat.', options:['en','a','de','amb'], correct:0 },
+      ],
+      theory:"Davant d'un nom comú que designa un lloc s'usa «en» («en una empresa»). Davant de topònims (noms propis de lloc) s'usa «a» («a Menorca»). Amb mitjans de transport s'usa «en» («en tren»). És una distinció que el castellà no marca igual.", example:"Visc a Girona, en un pis del centre." },
+
+    { id:'b1-prep3', type:'choice', level:'b1', category:'Preposicions B1',
+      question:'Tria l\'opció correcta:',
+      text:'Aquest matí he saludat ___ veïna del tercer a l\'ascensor.',
+      options:['la','a la','amb la','per la'],
+      correct:0,
+      variants:[
+        { text:'Ahir vaig veure ___ teva cosina pel carrer.', options:['la','a la','amb la','per la'], correct:0 },
+        { text:'Cada dia acompanyo ___ filla petita a l\'escola.', options:['la','a la','amb la','per la'], correct:0 },
+      ],
+      theory:"En català el complement directe NO porta «a» de manera general («he saludat la veïna», no «*a la veïna»). Aquesta és una interferència molt freqüent del castellà («saludé a la vecina»). La «a» davant del CD només s'admet en casos molt concrets (pronoms, ambigüitat).", example:"Estimo la meva família (no «*a la meva família»)." },
+
+    { id:'b1-prep4', type:'fill', level:'b1', category:'Preposicions B1',
+      question:'Completa amb la preposició adequada:',
+      sentence:'Aquesta taula és ___ fusta massissa i pesa molt.',
+      answers:['de'],
+      variants:[
+        { sentence:'Els meus avis vénen ___ un poble petit de la Cerdanya.', answers:['de'] },
+        { sentence:'Aquesta camisa és ___ cotó i és molt fresca.', answers:['de'] },
+      ],
+      theory:"La preposició «de» expressa el material de què està fet un objecte («de fusta», «de cotó») i també l'origen o procedència («venir de»). És una de les preposicions amb més valors en català.", example:"Una figura de fusta vinguda de l'Empordà." },
+
+    { id:'b1-prep5', type:'fill', level:'b1', category:'Preposicions B1',
+      question:'Completa amb la preposició adequada:',
+      sentence:'He tallat el pa ___ un ganivet ben esmolat.',
+      answers:['amb'],
+      variants:[
+        { sentence:'Cada tarda surt a passejar ___ el seu gos pel parc.', answers:['amb'] },
+        { sentence:'La besàvia va escriure la carta ___ una ploma antiga.', answers:['amb'] },
+      ],
+      theory:"La preposició «amb» expressa l'instrument amb què es fa una acció («tallar amb un ganivet») i també la companyia («passejar amb el gos»). El castellà fa servir «con» per als dos valors.", example:"Hi vaig anar amb el cotxe, amb la meva germana." },
+
+    { id:'b1-prep6', type:'fill', level:'b1', category:'Preposicions B1',
+      question:'Completa amb la preposició adequada:',
+      sentence:'No vam poder sortir ___ culpa de la pluja.',
+      answers:['per'],
+      variants:[
+        { sentence:'Et felicito ___ la teva valentia d\'ahir.', answers:['per'] },
+        { sentence:'Normalment ens comuniquem ___ correu electrònic.', answers:['per'] },
+      ],
+      theory:"«Per» expressa la causa o el motiu («per culpa de», «felicitar per») i també el mitjà a través del qual es fa alguna cosa («per correu electrònic»). No s'ha de confondre amb «per a», que indica destinació o finalitat.", example:"T'ho dic per correu, per la teva tranquil·litat." },
+
+    // ── ORTOGRAFIA B1 ──
+    { id:'b1-ort1', type:'choice', level:'b1', category:'Ortografia B1',
+      question:'Tria la forma correcta segons el sentit:',
+      text:'Aquesta vall té un ___ molt fèrtil, ideal per al conreu.',
+      options:['sòl','sol'],
+      correct:0,
+      variants:[
+        { text:"No vull ___ pa, gràcies, ja n'he menjat prou.", options:['mes','més'], correct:1 },
+        { text:'Encara no ___ si podré venir dissabte.', options:['sé','se'], correct:0 },
+      ],
+      theory:"L'accent diacrític distingeix mots que només es diferencien per l'accent: sòl (terra) ≠ sol (astre); més (quantitat) ≠ mes (de l'any); sé (verb saber) ≠ se (pronom).", example:"El sòl és fèrtil. / Avui fa sol. / No en vull més. / Sé la resposta." },
+
+    { id:'b1-ort2', type:'choice', level:'b1', category:'Ortografia B1',
+      question:"Tria l'única forma escrita correctament:",
+      text:"La ___ d'aquest aparell és molt senzilla.",
+      options:['pràctica','practica','práctica'],
+      correct:0,
+      variants:[
+        { text:'Demà tinc un ___ de matemàtiques molt important.', options:['examen','exàmen','éxamen'], correct:0 },
+        { text:'Aquesta màquina funciona amb energia ___.', options:['elèctrica','electrica','eléctrica'], correct:0 },
+      ],
+      theory:"L'accent és greu (à, è, ò) o agut (é, í, ó, ú) segons la paraula. Les esdrúixoles sempre s'accentuen (pràctica, elèctrica); les planes acabades en -en NO (examen). Un accent de més o mal posat també és una errada.", example:"pràctica, elèctrica (esdrúixoles) / examen (plana en -en, sense accent)." },
+
+    { id:'b1-ort3', type:'choice', level:'b1', category:'Ortografia B1',
+      question:'Tria la forma correcta:',
+      text:'A la tardor anem a la vinya a collir el ___.',
+      options:['raïm','raim','raím'],
+      correct:0,
+      variants:[
+        { text:"Aquest estiu visitarem diversos ___ d'Europa.", options:['països','paisos','paísos'], correct:0 },
+        { text:'Al zoo hem vist un ___ molt graciós.', options:['pingüí','pingui','pinguí'], correct:0 },
+      ],
+      theory:"La dièresi (ï, ü) trenca el hiat perquè la i o la u no formin diftong (raïm, països) i indica que la u sona darrere de g o q (pingüí, qüestió).", example:"raïm (ra-ïm), països (pa-ï-sos), pingüí (pin-gü-í)." },
+
+    { id:'b1-ort4', type:'fill', level:'b1', category:'Ortografia B1',
+      question:"Completa amb l'article (el, la o l') i el nom de la pista:",
+      sentence:'Hem llogat ___ a primera línia de mar. (apartament)',
+      answers:["l'apartament"],
+      variants:[
+        { sentence:"No trobo ___ de l'armari. (clau)", answers:['la clau'] },
+        { sentence:'Tota ___ es va quedar sorpresa. (assemblea)', answers:["l'assemblea"] },
+      ],
+      theory:"L'article el/la s'apostrofa en l' davant de vocal o h muda (l'apartament, l'assemblea, l'home), però es manté davant de consonant (la clau) i davant de i/u àtones (la idea, la universitat).", example:"l'home, l'hora, l'assemblea / la clau, la universitat." },
+
+    { id:'b1-ort5', type:'fill', level:'b1', category:'Ortografia B1',
+      question:"Completa amb la preposició «de» (apostrofada, d', si cal) i el nom de la pista:",
+      sentence:'He omplert una ampolla ___ ben fresca. (aigua)',
+      answers:["d'aigua"],
+      variants:[
+        { sentence:"M'he comprat una funda ___ nova. (ordinador)", answers:["d'ordinador"] },
+        { sentence:'Aquesta joguina és ___ pintada a mà. (fusta)', answers:['de fusta'] },
+      ],
+      theory:"La preposició de s'apostrofa en d' davant de vocal o h muda (d'aigua, d'ordinador, d'hora), però es manté «de» davant de consonant (de fusta).", example:"un got d'aigua, una hora d'espera / una taula de fusta." },
+
+    { id:'b1-ort6', type:'fill', level:'b1', category:'Ortografia B1',
+      question:'Escriu el número en lletres (amb guionets):',
+      sentence:'El meu avi té ___ anys. (23)',
+      answers:['vint-i-tres'],
+      variants:[
+        { sentence:'He comptat ___ ous a la caixa. (31)', answers:['trenta-un'] },
+        { sentence:'La cursa popular fa ___ quilòmetres. (42)', answers:['quaranta-dos'] },
+      ],
+      theory:"Els numerals compostos porten guionet entre la desena i la unitat i entre la unitat i la centena (regla D-U-C). Els vint porten «i» (vint-i-tres), però la resta de desenes no (trenta-un, quaranta-dos).", example:"vint-i-tres, trenta-un, quaranta-dos, dos-cents." },
+
+    // ── RÈGIM VERBAL B1 ──
+    { id:'b1-rv1', type:'choice', level:'b1', category:'Règim verbal B1',
+      question:'Tria la preposició que regeix el verb:',
+      text:"Fixa't ___ aquell quadre de la paret, és preciós.",
+      options:['en','amb','a','de'],
+      correct:0,
+      variants:[
+        { text:"No es va fixar ___ cap detall de l'habitació.", options:['amb','en','a','de'], correct:1 },
+        { text:'Fixeu-vos ___ les diferències entre els dos textos.', options:['a','amb','en','de'], correct:2 },
+      ],
+      theory:"El verb «fixar-se» regeix la preposició «en» (fixar-se en alguna cosa). Dir «fixar-se amb» és un castellanisme molt estès que cal evitar.", example:"Fixa't en això. / No m'havia fixat en aquest detall." },
+
+    { id:'b1-rv2', type:'choice', level:'b1', category:'Règim verbal B1',
+      question:'Tria la preposició que regeix el verb:',
+      text:'Quan estic de viatge sempre penso ___ vosaltres.',
+      options:['en','amb','a','de'],
+      correct:0,
+      variants:[
+        { text:"No para de pensar ___ les vacances d'estiu.", options:['amb','en','a','de'], correct:1 },
+        { text:'Pensa ___ la sort que tens i valora-ho.', options:['de','a','en','amb'], correct:2 },
+      ],
+      theory:"«Pensar en» (pensar en algú o alguna cosa) és la forma correcta; «pensar amb» és un error d'interferència. Amb infinitiu s'usa «pensar a» (pensa a tancar la porta).", example:"Penso en tu. / Pensa a comprar pa." },
+
+    { id:'b1-rv3', type:'choice', level:'b1', category:'Règim verbal B1',
+      question:'Tria la preposició que regeix el verb:',
+      text:'Em vaig adonar ___ la gravetat de la situació.',
+      options:['de','en','a','amb'],
+      correct:0,
+      variants:[
+        { text:"Encara no s'ha adonat ___ la sort que té.", options:['en','de','a','amb'], correct:1 },
+        { text:'Et vas adonar ___ res del que passava?', options:['a','en','de','amb'], correct:2 },
+      ],
+      theory:"El verb «adonar-se» regeix la preposició «de» (adonar-se d'alguna cosa). Quan segueix una oració, es manté: «adonar-se que».", example:"M'adono de l'error. / M'adono que m'he equivocat." },
+
+    { id:'b1-rv4', type:'fill', level:'b1', category:'Règim verbal B1',
+      question:'Completa amb la preposició que regeix el verb:',
+      sentence:"De mica en mica m'he acostumat ___ la rutina nova.",
+      answers:['a'],
+      variants:[
+        { sentence:'Costa molt acostumar-se ___ un horari nocturn.', answers:['a'] },
+        { sentence:"Els nens s'acostumen ___ les normes de seguida.", answers:['a'] },
+      ],
+      theory:"El verb «acostumar-se» regeix la preposició «a» (acostumar-se a alguna cosa o a fer alguna cosa).", example:"M'acostumo al fred. / S'ha d'acostumar a matinar." },
+
+    { id:'b1-rv5', type:'fill', level:'b1', category:'Règim verbal B1',
+      question:'Completa amb la preposició que regeix el verb:',
+      sentence:"Pots explicar-m'ho tot: confio ___ tu plenament.",
+      answers:['en'],
+      variants:[
+        { sentence:'No confiïs ___ les promeses que no es compleixen.', answers:['en'] },
+        { sentence:'Confiem ___ la seva experiència per resoldre-ho.', answers:['en'] },
+      ],
+      theory:"El verb «confiar» regeix «en» (confiar en algú o en alguna cosa). Dir «confiar amb» és un castellanisme. Amb un altre sentit, «confiar alguna cosa a algú» vol dir encarregar-la-hi.", example:"Confio en tu. / Li va confiar un secret." },
+
+    { id:'b1-rv6', type:'fill', level:'b1', category:'Règim verbal B1',
+      question:'Completa amb la preposició que regeix el verb:',
+      sentence:"Des de petita s'interessa ___ la natura i els animals.",
+      answers:['per'],
+      variants:[
+        { sentence:"No s'ha interessat mai ___ la política.", answers:['per'] },
+        { sentence:"Cada cop hi ha més gent que s'interessa ___ les llengües.", answers:['per'] },
+      ],
+      theory:"El verb «interessar-se» regeix la preposició «per» (interessar-se per algú o per alguna cosa). És la forma normativa; «interessar-se en» en aquest sentit és una interferència del castellà.", example:"S'interessa per l'art. / Em vaig interessar pel tema." },
+
+    // ── VEU PASSIVA B1 ──
+    { id:'b1-pas1', type:'choice', level:'b1', category:'Veu passiva B1',
+      question:'Tria el participi amb la concordança correcta:',
+      text:'La novel·la va ser ___ per una autora catalana.',
+      options:['escrita','escrit','escrites'],
+      correct:0,
+      variants:[
+        { text:'Els documents van ser ___ pel director.', options:['signat','signats','signades'], correct:1 },
+        { text:'La proposta va ser ___ per tothom.', options:['acceptat','acceptades','acceptada'], correct:2 },
+      ],
+      theory:"En la passiva perifràstica (ser + participi), el participi concorda en gènere i nombre amb el subjecte: «la novel·la va ser escrita», «els documents van ser signats».", example:"La carta va ser escrita. / Els premis van ser lliurats." },
+
+    { id:'b1-pas2', type:'choice', level:'b1', category:'Veu passiva B1',
+      question:'Tria la forma correcta de la passiva reflexa:',
+      text:'En aquesta fàbrica ___ cotxes elèctrics.',
+      options:['es fabriquen','es fabrica','fabriquen'],
+      correct:0,
+      variants:[
+        { text:'Al mercat ___ verdura fresca cada dia.', options:['es venen','es ven','venen'], correct:1 },
+        { text:'En aquella botiga ___ records per als turistes.', options:['es ven','venen','es venen'], correct:2 },
+      ],
+      theory:"En la passiva reflexa (es + verb) el verb concorda amb el pacient: «es fabriquen cotxes» (plural), «es ven verdura» (singular). El pronom «es» és imprescindible.", example:"Es venen pisos. / Es necessita personal." },
+
+    { id:'b1-pas3', type:'fill', level:'b1', category:'Veu passiva B1',
+      question:"Completa amb la preposició que introdueix l'agent:",
+      sentence:'El quadre va ser pintat ___ un artista famós.',
+      answers:['per'],
+      variants:[
+        { sentence:'El jaciment va ser descobert ___ uns excursionistes.', answers:['per'] },
+        { sentence:'El nou pavelló va ser dissenyat ___ una arquitecta local.', answers:['per'] },
+      ],
+      theory:"En la passiva perifràstica, l'agent (qui fa l'acció) s'introdueix amb la preposició «per»: «pintat per un artista».", example:"La ciutat va ser fundada pels romans." },
+
+    { id:'b1-pas4', type:'fill', level:'b1', category:'Veu passiva B1',
+      question:'Escriu el participi concordat amb el subjecte:',
+      sentence:'Les cartes van ser ___ ahir al matí. (enviar)',
+      answers:['enviades'],
+      variants:[
+        { sentence:'Les obres van ser ___ amb un any de retard. (acabar)', answers:['acabades'] },
+        { sentence:"Els premis van ser ___ per l'alcalde. (lliurar)", answers:['lliurats'] },
+      ],
+      theory:"El participi de la passiva concorda amb el subjecte: «les cartes van ser enviades» (femení plural), «els premis van ser lliurats» (masculí plural).", example:"La casa va ser venuda. / Els acords van ser signats." },
+
+    { id:'b1-pas5', type:'reorder', level:'b1', category:'Veu passiva B1',
+      question:'Ordena per formar una oració passiva correcta:',
+      parts:['va ser inaugurada',"per l'alcaldessa",'La nova biblioteca'],
+      correct:[2,0,1],
+      theory:"L'oració passiva perifràstica segueix l'ordre: subjecte + ser + participi + «per» + agent.", example:"La nova biblioteca va ser inaugurada per l'alcaldessa." },
+
+    { id:'b1-pas6', type:'fill', level:'b1', category:'Veu passiva B1',
+      question:'Completa amb la passiva reflexa (es + verb concordat):',
+      sentence:'En aquesta pastisseria ___ uns croissants boníssims cada matí. (fer)',
+      answers:['es fan'],
+      variants:[
+        { sentence:'En aquest restaurant ___ un arròs excel·lent. (cuinar)', answers:['es cuina'] },
+        { sentence:'A la fàbrica ___ joguines de fusta artesanals. (pintar)', answers:['es pinten'] },
+      ],
+      theory:"La passiva reflexa es forma amb «es» + el verb concordat amb el pacient: «es fan croissants» (plural), «es cuina un arròs» (singular).", example:"Es construeixen cases. / Es parla català." },
   ],
   a2: [
     // ── SER, ESTAR I SEMBLAR ──
