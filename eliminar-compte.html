@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esborrar el compte — AprènCatalà</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f8f7f4;
+      color: #1a2f4e;
+      line-height: 1.75;
+      padding: 40px 20px 80px;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+    header {
+      background: #1a2f4e;
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 40px;
+    }
+    header .logo { font-family: 'Fraunces', serif; font-size: 22px; margin-bottom: 8px; }
+    header .logo span { color: #fbbf24; font-style: italic; }
+    header h1 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; margin-bottom: 6px; }
+    header p { font-size: 13px; opacity: 0.7; }
+    section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      border: 1px solid #e8e4dc;
+    }
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      color: #1a2f4e;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e8e4dc;
+    }
+    h3 { font-size: 15px; color: #1a2f4e; margin: 14px 0 6px; }
+    p { font-size: 15px; color: #374151; margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { font-size: 15px; color: #374151; padding-left: 20px; margin-bottom: 12px; }
+    ul li, ol li { margin-bottom: 6px; }
+    .highlight {
+      background: #f0fdf4;
+      border-left: 3px solid #059669;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: #065f46;
+      margin-top: 12px;
+    }
+    .btn {
+      display: inline-block;
+      background: #1a2f4e;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #9ca3af;
+      margin-top: 40px;
+    }
+    a { color: #1a2f4e; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">Aprèn<span>Català</span></div>
+    <h1>Esborrar el compte i les dades</h1>
+    <p>Última actualització: 23 de juny de 2026</p>
+  </header>
+
+  <section>
+    <h2>Resum</h2>
+    <p>Si has creat un compte a <strong>AprènCatalà</strong> (<code>cat.aprencatala.app</code>), pots demanar-ne l'eliminació permanent, juntament amb totes les dades associades que tenim al núvol. Pots fer-ho de dues maneres: <strong>des de dins de l'app</strong> o, si ja no la tens instal·lada, <strong>per correu electrònic</strong>.</p>
+    <div class="highlight">
+      ✓ L'app es pot fer servir sense compte. Si mai no has iniciat sessió, no tenim cap dada teva al núvol i no cal que facis res.
+    </div>
+  </section>
+
+  <section>
+    <h2>Quines dades s'eliminen</h2>
+    <p>En esborrar el compte, suprimim de manera permanent:</p>
+    <ul>
+      <li>El <strong>compte d'usuari</strong> (adreça electrònica, identificador i dades bàsiques del compte de Google, si vas entrar amb Google), gestionat per Firebase Authentication.</li>
+      <li>El teu <strong>progrés d'aprenentatge sincronitzat</strong> (exercicis fets, puntuació, ratxa, assoliments) desat a Cloud Firestore.</li>
+      <li>El <strong>token de notificacions</strong> i les <strong>preferències de recordatoris</strong>, si els tenies activats.</li>
+    </ul>
+    <p>L'eliminació és definitiva i no es pot desfer. No es tracta d'una desactivació temporal del compte.</p>
+    <div class="highlight">
+      ℹ️ El progrés guardat <strong>localment en aquest dispositiu</strong> no es veu afectat: es manté al teu navegador i pots continuar fent servir l'app sense compte.
+    </div>
+  </section>
+
+  <section>
+    <h2>Opció A — Des de l'app (immediat)</h2>
+    <p>És la via més ràpida i la pots fer tu mateix/a:</p>
+    <ol>
+      <li>Obre AprènCatalà i inicia sessió, si no ho estàs.</li>
+      <li>Ves a <strong>Perfil</strong>.</li>
+      <li>Prem <strong>«Esborrar el compte»</strong> i confirma.</li>
+    </ol>
+    <p>El compte i les dades del núvol s'eliminen a l'instant. Per seguretat, l'app et pot demanar que tornis a iniciar sessió abans de completar l'eliminació.</p>
+  </section>
+
+  <section>
+    <h2>Opció B — Per correu (sense l'app)</h2>
+    <p>Si ja has desinstal·lat l'app o no hi pots accedir, escriu-nos i ho farem nosaltres:</p>
+    <p><a class="btn" href="mailto:privacitat@aprencatala.cat?subject=Eliminaci%C3%B3%20de%20compte%20Apr%C3%A8nCatal%C3%A0">Demanar l'eliminació per correu</a></p>
+    <p style="margin-top:14px;">Indica'ns l'<strong>adreça electrònica del compte</strong> que vols esborrar. Verificarem que ets el titular i processarem la sol·licitud en un termini màxim de <strong>30 dies</strong> (normalment, molt abans). Quan estigui fet, t'ho confirmarem.</p>
+  </section>
+
+  <section>
+    <h2>Conservació</h2>
+    <p>Un cop processada la sol·licitud, eliminem el teu compte i el progrés associat. Les dades tècniques habituals (registres de servidor) es conserven un màxim de 30 dies per seguretat i bon funcionament, tal com s'explica a la <a href="https://app.aprencatala.cat/privacy-policy.html">Política de Privacitat</a>.</p>
+  </section>
+
+  <footer>
+    <p>AprènCatalà · Aplicació educativa sense ànim de lucre · <a href="https://aprencatala.cat">aprencatala.cat</a></p>
+    <p style="margin-top:6px;">Per a qualsevol dubte sobre les teves dades: <a href="mailto:privacitat@aprencatala.cat">privacitat@aprencatala.cat</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
