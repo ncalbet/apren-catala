@@ -4082,7 +4082,7 @@ const DATA = {
       question:'Omple amb la font epistèmica formal adequada:',
       sentence:'___ constaten que el canvi climàtic constitueix una problemàtica d\'escala global.',
       display:'font epistèmica formal (en lloc de «la gent»)',
-      answers:['Diverses evidències científiques','Els estudis disponibles','Les recerques recents','Nombrosos estudis'],
+      answers:['Diverses evidències científiques','Els estudis disponibles','Les recerques recents','Nombrosos estudis','Els estudis','Les evidències científiques','Les investigacions','Les recerques'],
       theory:'En registre acadèmic: «la gent» → font específica (estudis, evidències, investigacions). El verb també canvia: «dir» → constatar / evidenciar / demostrar.', example:'Les evidències científiques constaten... / Els estudis disponibles indiquen... / La recerca recent demostra...' },
     { id:'c1-lf3', type:'fill', level:'c1', category:'Lèxic formal',
       text:'El llenguatge formal sovint condensa accions verbals en substantius (nominalització).',
