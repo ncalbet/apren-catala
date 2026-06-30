@@ -599,7 +599,7 @@ function showEncouragement(category) {
   const fa = document.getElementById('feedback-area');
   if (fa) fa.appendChild(el);
 }
-function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim(); }
+function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim().replace(/\s*[.;]+\s*$/,''); }
 
 // ══ NAV ══
 function showTab(tab) {
