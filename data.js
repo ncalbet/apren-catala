@@ -1138,10 +1138,10 @@
         title: 'Errors freqüents per interferència del castellà',
         icon: '⚠️',
         rules: [
-          { bad: '«Se lo digo» → *Li ho dic (correcte, però no «se lo»)', good: 'Li ho dic. / Li ho explico.' },
+          { bad: '«Se lo digo»', good: 'Li ho dic. / Li ho explico.' },
           { bad: '«Hay muchos» → *Hi han molts', good: 'Hi ha molts participants. («hi ha» és invariable!)' },
           { bad: 'Omissió del «hi»: «Vaig demà» (per dir «hi vaig»)', good: 'Hi vaig demà. / Demà hi vaig.' },
-          { bad: '«Se me olvidó» → *Se m\'ha oblidat', good: 'Se m\'ha oblidat. / Me n\'he oblidat.' },
+          { bad: '«Se me olvidó»', good: 'Se m\'ha oblidat. / Me n\'he oblidat.' },
         ]
       }
     ]
