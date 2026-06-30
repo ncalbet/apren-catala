@@ -2463,7 +2463,21 @@ function renderNotificationsSection() {
     return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Cal <strong>iniciar sessió</strong> (secció anterior) per activar els recordatoris personalitzats.</p>';
   }
   if (Notification.permission === 'denied') {
-    return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Has denegat els permisos de notificació. Per activar-los, obre la <strong>configuració del navegador</strong> i permet les notificacions per a <em>app.aprencatala.cat</em>.</p>';
+    return `
+      <div style="background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:22px;line-height:1.2;flex-shrink:0;">⚠️</div>
+        <div style="color:var(--accent-amber-text);">
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;">No rebràs recordatoris</div>
+          <p style="font-size:14px;line-height:1.6;margin:0 0 8px;">
+            Les notificacions estan <strong>bloquejades</strong> per a <em>app.aprencatala.cat</em> al teu navegador. Per activar-les:
+          </p>
+          <ol style="font-size:14px;line-height:1.7;margin:0;padding-left:18px;">
+            <li>Toca la <strong>icona</strong> a l'esquerra de l'adreça web (un cadenat o uns controls).</li>
+            <li>Obre <strong>Configuració del lloc</strong> (o <strong>Permisos</strong>) → <strong>Notificacions</strong>.</li>
+            <li>Tria <strong>Permet</strong> i torna a obrir aquesta pàgina.</li>
+          </ol>
+        </div>
+      </div>`;
   }
   const active = localStorage.getItem('notif_active') === 'true';
   const selHour = parseInt(localStorage.getItem('notif_hour') || '19');
