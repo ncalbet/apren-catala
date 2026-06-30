@@ -1585,10 +1585,12 @@
           headers: ['Verb', 'jo', 'tu', 'ell/ella', 'nosaltres', 'vosaltres', 'ells/elles'],
           rows: [
             ['ser', 'soc', 'ets', 'és', 'som', 'sou', 'són'],
+            ['estar', 'estic', 'estàs', 'està', 'estem', 'esteu', 'estan'],
             ['anar', 'vaig', 'vas', 'va', 'anem', 'aneu', 'van'],
             ['fer', 'faig', 'fas', 'fa', 'fem', 'feu', 'fan'],
             ['poder', 'puc', 'pots', 'pot', 'podem', 'podeu', 'poden'],
             ['voler', 'vull', 'vols', 'vol', 'volem', 'voleu', 'volen'],
+            ['saber', 'sé', 'saps', 'sap', 'sabem', 'sabeu', 'saben'],
             ['tenir', 'tinc', 'tens', 'té', 'tenim', 'teniu', 'tenen'],
             ['venir', 'vinc', 'vens', 've', 'venim', 'veniu', 'venen'],
             ['dir', 'dic', 'dius', 'diu', 'diem', 'dieu', 'diuen'],
