@@ -4687,7 +4687,7 @@ const DATA = {
       question:'Omple amb el participi de transició acadèmica adequat:',
       sentence:'___ els factors externs, cal examinar ara les causes internes del fenomen.',
       display:'participi en construcció absoluta (transició entre apartats)',
-      answers:['Analitzats','Examinats','Vistos'],
+      answers:['Analitzats','Examinats','Vistos','Revisats','Tractats'],
       theory:'El participi absolut («Analitzats els factors...») és una marca de registre acadèmic formal. Equivalent a «Després d\'haver analitzat els factors...» però molt més concís i precís.', example:'Examinats els antecedents, cal centrar-se en les conseqüències. / Revisats els resultats, es conclou que...' },
 
     // ── FRASES FETES C1 — Dificultat augmentada ──────────────────────
