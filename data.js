@@ -2638,10 +2638,10 @@ const DATA = {
 
     { id:'b1-ort6', type:'fill', level:'b1', category:'Ortografia B1',
       question:'Escriu el número en lletres (amb guionets):',
-      sentence:'El meu avi té ___ anys. (23)',
-      answers:['vint-i-tres'],
+      sentence:'El meu avi té ___ anys. (67)',
+      answers:['seixanta-set'],
       variants:[
-        { sentence:'He comptat ___ ous a la caixa. (31)', answers:['trenta-un'] },
+        { sentence:'He comptat ___ ous a la caixa. (28)', answers:['vint-i-vuit'] },
         { sentence:'La cursa popular fa ___ quilòmetres. (42)', answers:['quaranta-dos'] },
       ],
       theory:"Els numerals compostos porten guionet entre la desena i la unitat i entre la unitat i la centena (regla D-U-C). Els vint porten «i» (vint-i-tres), però la resta de desenes no (trenta-un, quaranta-dos).", example:"vint-i-tres, trenta-un, quaranta-dos, dos-cents." },
