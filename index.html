@@ -2098,7 +2098,12 @@ async function authSplashGoogle() {
     authSplashDismiss();
   } catch (e) {
     if (btn) btn.disabled = false;
-    if (e.code !== 'auth/popup-closed-by-user') showAuthError('Error en iniciar sessió amb Google.');
+    if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
+    if (e.code === 'auth/account-exists-with-different-credential') {
+      showAuthError('Ja tens un compte amb aquest correu. Entra amb la teva contrasenya (a sota) i després enllaça Google des del Perfil.');
+    } else {
+      showAuthError('Error en iniciar sessió amb Google.');
+    }
   }
 }
 
@@ -2143,13 +2148,16 @@ function showAuthError(msg) {
 
 function fbErrorMessage(code) {
   const m = {
-    'auth/email-already-in-use': 'Aquest correu ja té un compte. Intenta iniciar sessió.',
+    'auth/email-already-in-use': 'Aquest correu ja té un compte. Intenta iniciar sessió amb Google o amb la teva contrasenya.',
     'auth/invalid-email':        'El format del correu no és vàlid.',
     'auth/weak-password':        'La contrasenya ha de tenir almenys 6 caràcters.',
     'auth/user-not-found':       'No hi ha cap compte amb aquest correu.',
     'auth/wrong-password':       'Contrasenya incorrecta.',
     'auth/invalid-credential':   'Correu o contrasenya incorrectes.',
     'auth/too-many-requests':    'Massa intents. Espera uns minuts i torna-ho a intentar.',
+    'auth/credential-already-in-use': 'Aquest compte de Google ja està enllaçat a un altre usuari.',
+    'auth/provider-already-linked':   'Ja tens aquest mètode enllaçat.',
+    'auth/requires-recent-login':     'Per seguretat, tanca la sessió, torna a entrar i prova-ho de nou.',
   };
   return m[code] || 'Error inesperat. Torna-ho a intentar.';
 }
@@ -2692,6 +2700,12 @@ function renderAccountSection() {
         Entra amb correu i contrasenya
       </button>`;
   }
+  const providers   = (user.providerData || []).map(p => p.providerId);
+  const hasGoogle   = providers.includes('google.com');
+  const hasPassword = providers.includes('password');
+  const linkBtns = `
+    ${!hasGoogle ? `<button class="ct-btn secondary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;" onclick="fbHandleLinkGoogle()">${_googleSVG} Enllaça amb Google</button>` : ''}
+    ${!hasPassword ? `<button class="ct-btn secondary" style="width:100%;margin-bottom:10px;" onclick="fbHandleAddPassword()">Afegeix una contrasenya</button>` : ''}`;
   return `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
       ${user.photoURL ? `<img src="${user.photoURL}" style="width:40px;height:40px;border-radius:50%;" alt="">` : ''}
@@ -2701,6 +2715,7 @@ function renderAccountSection() {
       </div>
     </div>
     <p style="font-size:13px;color:var(--text-soft);margin-bottom:16px;">✅ Progrés sincronitzat al núvol</p>
+    ${(!hasGoogle || !hasPassword) ? `<p style="font-size:13px;color:var(--text-soft);margin-bottom:10px;">Pots afegir una altra manera d'entrar (opcional), per no dependre d'un sol mètode:</p>${linkBtns}` : ''}
     <button class="ct-btn secondary" style="width:100%;" onclick="fbHandleSignOut()">Tancar sessió</button>`;
 }
 
@@ -2709,7 +2724,10 @@ async function fbHandleSignIn() {
     await window.fbSignIn();
     // onAuthStateChanged ja gestionarà la càrrega del progrés
   } catch (e) {
-    if (e.code !== 'auth/popup-closed-by-user') {
+    if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
+    if (e.code === 'auth/account-exists-with-different-credential') {
+      showAlert('Ja tens un compte amb aquest correu. Entra amb la teva contrasenya i, si vols, enllaça Google des de Perfil → Compte.');
+    } else {
       showAlert('Error en iniciar sessió. Torna-ho a intentar.');
     }
   }
@@ -2718,6 +2736,32 @@ async function fbHandleSignIn() {
 async function fbHandleSignOut() {
   await window.fbSignOut();
   showAlert('Sessió tancada. El teu progrés segueix desat al dispositiu.');
+}
+
+async function fbHandleLinkGoogle() {
+  if (!window.fbLinkGoogle) { showAlert('Carregant Firebase, espera un moment...'); return; }
+  try {
+    await window.fbLinkGoogle();
+    fbRefreshAccountUI();
+    showAlert('Compte de Google enllaçat. Ara pots entrar amb Google o amb la teva contrasenya.');
+  } catch (e) {
+    if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
+    showAlert(fbErrorMessage(e.code));
+  }
+}
+
+function fbHandleAddPassword() {
+  if (!window.fbLinkPassword) { showAlert('Carregant Firebase, espera un moment...'); return; }
+  showPasswordPrompt(async (pw) => {
+    if (!pw) return;
+    try {
+      await window.fbLinkPassword(pw);
+      fbRefreshAccountUI();
+      showAlert('Contrasenya afegida. Ara pots entrar amb el teu correu i aquesta contrasenya, o amb Google.');
+    } catch (e) {
+      showAlert(fbErrorMessage(e.code));
+    }
+  }, { message: 'Tria una contrasenya per poder entrar també amb el teu correu (mínim 6 caràcters).', placeholder: 'Nova contrasenya (mín. 6)', autocomplete: 'new-password', okLabel: 'Desar' });
 }
 
 function fbRefreshAccountUI() {
@@ -2760,15 +2804,19 @@ function fbHandleDeleteAccount() {
 }
 
 // Demana la contrasenya per reautenticar (comptes d'email amb sessió antiga)
-function showPasswordPrompt(onSubmit) {
+function showPasswordPrompt(onSubmit, opts = {}) {
+  const message      = opts.message      || 'Per confirmar, torna a escriure la teva contrasenya.';
+  const placeholder  = opts.placeholder  || 'Contrasenya';
+  const autocomplete = opts.autocomplete || 'current-password';
+  const okLabel      = opts.okLabel      || 'Confirmar';
   const el = document.createElement('div');
   el.className = 'ct-modal-overlay';
   el.innerHTML = `<div class="ct-modal">
-    <p>Per confirmar, torna a escriure la teva contrasenya.</p>
-    <input id="ct-pw-input" type="password" class="ct-input" style="margin-top:0;" placeholder="Contrasenya" autocomplete="current-password">
+    <p>${message}</p>
+    <input id="ct-pw-input" type="password" class="ct-input" style="margin-top:0;" placeholder="${placeholder}" autocomplete="${autocomplete}">
     <div class="ct-modal-btns">
       <button class="ct-btn secondary" onclick="this.closest('.ct-modal-overlay').remove()">Cancel·lar</button>
-      <button class="ct-btn primary" id="ct-pw-ok">Confirmar</button>
+      <button class="ct-btn primary" id="ct-pw-ok">${okLabel}</button>
     </div>
   </div>`;
   document.body.appendChild(el);

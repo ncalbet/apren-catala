@@ -2,7 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebas
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
          createUserWithEmailAndPassword, signInWithEmailAndPassword,
          deleteUser, reauthenticateWithPopup, reauthenticateWithCredential, EmailAuthProvider,
-         sendPasswordResetEmail }
+         sendPasswordResetEmail, linkWithPopup, linkWithCredential }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc, deleteDoc }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
@@ -82,6 +82,8 @@ window.fbSignOut       = () => signOut(auth);
 window.fbSignInEmail   = (email, pw) => signInWithEmailAndPassword(auth, email, pw);
 window.fbRegisterEmail = (email, pw) => createUserWithEmailAndPassword(auth, email, pw);
 window.fbResetPassword = (email) => sendPasswordResetEmail(auth, email);
+window.fbLinkGoogle    = () => linkWithPopup(auth.currentUser, provider);
+window.fbLinkPassword  = (pw) => linkWithCredential(auth.currentUser, EmailAuthProvider.credential(auth.currentUser.email, pw));
 
 // ── Progrés ──
 window.fbSaveProgress = async (data) => {
