@@ -2073,6 +2073,7 @@ function showAuthSplash() {
       </div>
       <div id="auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
       <button id="auth-email-btn" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="authSplashEmail()">Registra't</button>
+      <button id="auth-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('auth-email', showAuthError)">Has oblidat la contrasenya?</button>
       <button id="auth-toggle-btn" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:28px;" onclick="toggleAuthMode()">Ja tinc compte? <strong>Inicia sessió</strong></button>
 
       <button style="background:none;border:none;font-size:13px;color:var(--muted);cursor:pointer;padding:8px;text-decoration:underline;" onclick="authSplashSkip()">Continua sense compte →</button>
@@ -2127,6 +2128,8 @@ function toggleAuthMode() {
   if (submitBtn) submitBtn.textContent = isLogin ? 'Inicia sessió' : "Registra't";
   if (toggleBtn) toggleBtn.innerHTML   = isLogin ? "Encara no tens compte? <strong>Registra't</strong>" : "Ja tinc compte? <strong>Inicia sessió</strong>";
   if (pwInput)   pwInput.autocomplete  = isLogin ? 'current-password' : 'new-password';
+  const forgotBtn = document.getElementById('auth-forgot-btn');
+  if (forgotBtn) forgotBtn.style.display = isLogin ? 'block' : 'none';
   const err = document.getElementById('auth-error');
   if (err) err.textContent = '';
 }
@@ -2151,6 +2154,19 @@ function fbErrorMessage(code) {
   return m[code] || 'Error inesperat. Torna-ho a intentar.';
 }
 
+async function fbForgotPassword(emailId, showErr) {
+  const email = (document.getElementById(emailId)?.value || '').trim();
+  if (!email) { showErr('Escriu el teu correu a dalt i torna a prémer «Has oblidat la contrasenya?».'); return; }
+  if (!window.fbResetPassword) { showErr('Carregant Firebase, espera un moment...'); return; }
+  try {
+    await window.fbResetPassword(email);
+    showErr('');
+    showAlert('Si hi ha un compte amb aquest correu, t\'hi hem enviat un enllaç per restablir la contrasenya. Revisa també el correu brossa.');
+  } catch (e) {
+    showErr(fbErrorMessage(e.code));
+  }
+}
+
 function showEmailAuthModal() {
   _modalAuthMode = 'register';
   const overlay = document.createElement('div');
@@ -2168,6 +2184,7 @@ function showEmailAuthModal() {
     </div>
     <div id="modal-auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
     <button id="modal-auth-submit" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="modalAuthSubmit()">Registra't</button>
+    <button id="modal-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('modal-auth-email', modalAuthError)">Has oblidat la contrasenya?</button>
     <button id="modal-auth-toggle" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:10px;" onclick="modalToggleAuthMode()">Ja tinc compte? <strong>Inicia sessió</strong></button>
     <button class="ct-btn secondary" style="width:100%;font-size:13px;" onclick="document.getElementById('email-auth-modal').remove()">Cancel·lar</button>
   </div>`;
@@ -2201,6 +2218,8 @@ function modalToggleAuthMode() {
   if (submit) submit.textContent = isLogin ? 'Inicia sessió' : "Registra't";
   if (toggle) toggle.innerHTML   = isLogin ? "Encara no tens compte? <strong>Registra't</strong>" : "Ja tinc compte? <strong>Inicia sessió</strong>";
   if (pw)     pw.autocomplete    = isLogin ? 'current-password' : 'new-password';
+  const forgotBtn = document.getElementById('modal-forgot-btn');
+  if (forgotBtn) forgotBtn.style.display = isLogin ? 'block' : 'none';
   const err = document.getElementById('modal-auth-error');
   if (err) err.textContent = '';
 }
