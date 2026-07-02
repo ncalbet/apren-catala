@@ -2098,7 +2098,6 @@ async function authSplashGoogle() {
     authSplashDismiss();
   } catch (e) {
     if (btn) btn.disabled = false;
-    if (new URLSearchParams(location.search).has('diag')) { showAlert('DIAG Google → code: ' + (e.code || '(cap)') + ' | ' + (e.message || '')); return; }
     if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
     if (e.code === 'auth/account-exists-with-different-credential') {
       showAuthError('Ja tens un compte amb aquest correu. Entra amb la teva contrasenya (a sota) i després enllaça Google des del Perfil.');
@@ -2725,7 +2724,6 @@ async function fbHandleSignIn() {
     await window.fbSignIn();
     // onAuthStateChanged ja gestionarà la càrrega del progrés
   } catch (e) {
-    if (new URLSearchParams(location.search).has('diag')) { showAlert('DIAG Google → code: ' + (e.code || '(cap)') + ' | ' + (e.message || '')); return; }
     if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
     if (e.code === 'auth/account-exists-with-different-credential') {
       showAlert('Ja tens un compte amb aquest correu. Entra amb la teva contrasenya i, si vols, enllaça Google des de Perfil → Compte.');
