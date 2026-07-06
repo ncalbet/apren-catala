@@ -1,0 +1,11 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "cat.aprencatala.app",
+    "sha256_cert_fingerprints": [
+      "8E:0C:2C:F0:23:99:8C:1A:ED:75:04:50:BE:C3:C9:C9:C6:49:B1:54:54:94:F0:E7:83:CF:25:C1:BA:E6:29:FD",
+      "95:B4:8D:93:0C:0A:BE:7D:CC:92:0F:82:C7:47:BF:14:79:68:D3:92:34:CD:88:EE:AA:2E:B0:B1:0C:F1:B1:D8"
+    ]
+  }
+}]
