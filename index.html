@@ -2434,7 +2434,7 @@ function renderHelp() {
         <summary>🔔 Recordatoris</summary>
         <div class="ct-acc-body">
           Amb un compte iniciat, pots activar <strong>recordatoris</strong> des de <strong>Perfil → Recordatoris</strong> perquè l'app t'avisi de practicar quan fa dies que no véns.<br><br>
-          Pots triar l'<strong>hora</strong> (matí, migdia, tarda o nit) i la <strong>freqüència</strong> (cada dia, cada 2 dies o cada 3 dies). Pots desactivar-los en qualsevol moment.
+          Pots triar l'<strong>hora</strong> (matí, migdia, tarda o nit) i el <strong>ritme</strong>: <strong>diari</strong> (t'avisa cada dia que no hagis practicat) o <strong>espaiat</strong> (t'avisa al cap d'un parell de dies, i cada cop més de tant en tant). Si tornes a practicar, els avisos es reinicien; si ho deixes del tot, al cap d'unes setmanes deixen d'arribar. Pots desactivar-los en qualsevol moment.
         </div>
       </details>
 
@@ -2511,9 +2511,15 @@ function renderNotificationsSection() {
   }
   const active = localStorage.getItem('notif_active') === 'true';
   const selHour = parseInt(localStorage.getItem('notif_hour') || '19');
-  const selFreq = parseInt(localStorage.getItem('notif_freq') || '1');
+  // Ritme: 1 = diari, 2 = espaiat. El valor antic 3 («cada 3 dies», opció
+  // retirada) es mostra com a espaiat; el backend li conserva la corba antiga
+  // fins que l'usuari toqui el selector.
+  const selFreq = Math.min(parseInt(localStorage.getItem('notif_freq') || '1'), 2);
   const hours = [{h:9,label:'🌅 Matí'},{h:13,label:'🌞 Migdia'},{h:19,label:'🌆 Tarda'},{h:21,label:'🌙 Nit'}];
-  const freqs = [{f:1,label:'Cada dia'},{f:2,label:'Cada 2 dies'},{f:3,label:'Cada 3 dies'}];
+  const freqs = [
+    {f:1,label:'🔔 Diari',desc:"T'avisem cada dia que no hagis practicat."},
+    {f:2,label:'🌿 Espaiat',desc:"T'avisem al cap d'un parell de dies sense practicar, i anem espaiant els avisos."}
+  ];
   const prefsUI = active ? `
     <div style="margin-top:16px;">
       <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px;">HORA (hora peninsular)</div>
@@ -2522,9 +2528,12 @@ function renderNotificationsSection() {
       </div>
     </div>
     <div style="margin-top:14px;">
-      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px;">FREQÜÈNCIA</div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px;">RITME</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
         ${freqs.map(({f,label}) => `<button class="ct-btn ${selFreq===f?'primary':'secondary'}" style="font-size:13px;padding:6px 12px;" onclick="saveNotifPref('freq',${f})">${label}</button>`).join('')}
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px;">
+        ${freqs.find(x => x.f === selFreq).desc}
       </div>
     </div>` : '';
   return `
@@ -2532,7 +2541,7 @@ function renderNotificationsSection() {
       Rep un recordatori personalitzat quan no hagis practicat: ratxa en perill, XP per pujar de nivell o repte diari pendent.
     </p>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;">
-      <div style="font-size:14px;font-weight:600;color:var(--text);">Recordatori diari</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);">Recordatoris de pràctica</div>
       <button class="ct-btn ${active ? 'primary' : 'secondary'}" style="min-width:110px;flex-shrink:0;"
         onclick="toggleNotifications()" id="notif-toggle-btn">
         ${active ? '🔔 Activat' : '🔕 Desactivat'}
