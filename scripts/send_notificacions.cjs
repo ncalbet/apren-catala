@@ -146,9 +146,12 @@ async function run() {
     const token = data.fcmToken;
     if (!token) { skipped++; continue; }
 
-    // Filtre per hora (per defecte: 19h)
+    // Filtre per hora (per defecte: 19h): enviem A PARTIR de l'hora triada, no
+    // només a l'hora exacta — els crons de GitHub arrenquen amb retard (sovint
+    // >1 h) o es descarten, i amb igualtat estricta el toc del dia es perdia.
+    // La guarda notifLastSent d'aquí sota evita dobles a les hores següents.
     const userHour = data.notifHour ?? 19;
-    if (userHour !== currentHour) { skipped++; continue; }
+    if (currentHour < userHour) { skipped++; continue; }
 
     // Seguretat: si ja li hem enviat avui, no repetim (p. ex. Run workflow manual)
     if (data.notifLastSent === todayStr) { skipped++; continue; }
