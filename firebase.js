@@ -49,6 +49,7 @@ window.fbRequestNotifications = async () => {
         { fcmToken: token, notificacionsActives: true },
         { merge: true }
       );
+      localStorage.setItem('notif_last_token', token);
     }
     return { ok: true };
   } catch (e) {
@@ -56,6 +57,30 @@ window.fbRequestNotifications = async () => {
     return { ok: false, reason: e.code || e.message };
   }
 };
+
+// Refresc silenciós del token FCM en obrir l'app. Els tokens roten (actualització
+// del navegador, neteja de dades...) i un token mort fa que el backend desactivi
+// l'usuari en silenci sense que ell ho sàpiga. Si té els recordatoris actius,
+// re-obtenim el token i, si ha canviat, el desem (re-activant notificacionsActives,
+// que el backend pot haver posat a false en netejar el token invàlid).
+let fcmRefreshed = false;
+async function refreshFcmToken(user) {
+  if (fcmRefreshed || !messaging || !VAPID_KEY) return;
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+  if (localStorage.getItem('notif_active') !== 'true') return;
+  fcmRefreshed = true;
+  try {
+    const swReg = await navigator.serviceWorker.ready;
+    const token = await getToken(messaging, { vapidKey: VAPID_KEY, serviceWorkerRegistration: swReg });
+    if (!token || token === localStorage.getItem('notif_last_token')) return;
+    await setDoc(doc(db, 'users', user.uid),
+      { fcmToken: token, notificacionsActives: true },
+      { merge: true }
+    );
+    localStorage.setItem('notif_last_token', token);
+    console.info('[FCM] Token actualitzat');
+  } catch (e) { console.warn('[FCM] Refresc de token fallit:', e.code || e.message); }
+}
 
 window.fbDisableNotifications = async () => {
   const user = auth.currentUser;
@@ -162,4 +187,5 @@ window.fbSaveProfile = async (data) => {
 onAuthStateChanged(auth, user => {
   window.fbUser = user || null;
   document.dispatchEvent(new CustomEvent('fb-auth-change', { detail: user }));
+  if (user) refreshFcmToken(user);
 });
