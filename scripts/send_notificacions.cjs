@@ -54,9 +54,28 @@ function daysSinceLastPractice(lastDay) {
 // seqüència fixa per posició dins la corba (vegeu GENERIC_SEQUENCE).
 function pickBy(arr, n) { return arr[n % arr.length]; }
 
+// ── Variants del PRIMER toc (pas 0 de la corba) ──
+// És el missatge més repetit de tots: el despistat que practica arran del toc
+// diari reinicia la corba cada dia i torna a caure al pas 0. Sense variants,
+// rebria exactament el mateix text cada dia. Roten amb notifSendCount (com les
+// excepcions): dos tocs consecutius mai cauen a la mateixa variant.
+const STEP0_VARIANTS = [
+  { title: "📚 El teu repte d'avui t'espera",
+    body: "Tens el teu nou repte diari a punt." },
+  { title: "✨ Tens cinc minuts per al català?",
+    body: "El repte d'avui és curt: comença'l i llestos." },
+  { title: "🎯 El repte diari ja és a punt",
+    body: "Un parell d'exercicis i dia guanyat." },
+  { title: "☕ Una pausa i una mica de català?",
+    body: "Aprofita un moment tranquil: el repte t'espera." },
+  { title: "🧩 Avui encara no has practicat",
+    body: "Fes el repte diari i mantén el ritme." },
+];
+
 // ── Seqüència genèrica: un missatge per cada toc de la corba (crescendo) ──
 // El toc a la posició `step` agafa el missatge `step`. Els missatges 5 i 6
-// mostren els dies reals sense practicar via {N}.
+// mostren els dies reals sense practicar via {N}. La posició 0 NO s'usa
+// (el pas 0 va per STEP0_VARIANTS); es manté per no desalinear els índexs.
 const GENERIC_SEQUENCE = [
   { title: "📚 El teu repte d'avui t'espera",
     body: "Tens el teu nou repte diari a punt." },
@@ -116,7 +135,9 @@ function buildNotification(progress, daysSince, step, sendCount) {
     ], sendCount);
   }
 
-  // ③ Genèric: seqüència fixa per posició dins la corba (crescendo, sense repetir)
+  // ③ Genèric: el pas 0 rota entre variants (és el toc del dia a dia);
+  // la resta segueix la seqüència fixa en crescendo (sense repetir)
+  if (step === 0) return pickBy(STEP0_VARIANTS, sendCount);
   const msg = GENERIC_SEQUENCE[Math.min(step, GENERIC_SEQUENCE.length - 1)];
   return {
     title: msg.title.replace('{N}', daysSince),
