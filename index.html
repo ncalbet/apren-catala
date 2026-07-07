@@ -2080,6 +2080,8 @@ function showAuthSplash() {
       <button id="auth-toggle-btn" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:28px;" onclick="toggleAuthMode()">Ja tinc compte? <strong>Inicia sessió</strong></button>
 
       <button style="background:none;border:none;font-size:13px;color:var(--muted);cursor:pointer;padding:8px;text-decoration:underline;" onclick="authSplashSkip()">Continua sense compte →</button>
+
+      <p style="font-size:11.5px;color:var(--muted);margin-top:18px;line-height:1.5;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">política de privacitat</a>.</p>
     </div>`;
   document.body.appendChild(overlay);
 }
@@ -2198,6 +2200,7 @@ function showEmailAuthModal() {
     <button id="modal-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('modal-auth-email', modalAuthError)">Has oblidat la contrasenya?</button>
     <button id="modal-auth-toggle" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:10px;" onclick="modalToggleAuthMode()">Ja tinc compte? <strong>Inicia sessió</strong></button>
     <button class="ct-btn secondary" style="width:100%;font-size:13px;" onclick="document.getElementById('email-auth-modal').remove()">Cancel·lar</button>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:12px;margin-bottom:0;line-height:1.5;text-align:center;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">política de privacitat</a>.</p>
   </div>`;
   document.body.appendChild(overlay);
 }
@@ -2649,6 +2652,8 @@ function renderProfile() {
       <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;">Ko-fi processa el pagament de forma segura. No cal registrar-se.</p>
 
       <div id="fb-delete-section">${renderDeleteAccountSection()}</div>
+
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:28px;"><a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">Política de privacitat</a></p>
 
     </div>`;
 }
