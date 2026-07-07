@@ -2514,7 +2514,7 @@ const DATA = {
 
     { id:'b1-rel6', type:'reorder', level:'b1', category:'Oracions de relatiu B1',
       question:'Ordena per formar una oració de relatiu correcta:',
-      parts:['és molt conegut','que treballa aquí','L\'arquitecte'],
+      parts:['és molt conegut','que treballa aquí','l\'arquitecte'],
       correct:[2,1,0],
       theory:"L'oració de relatiu («que treballa aquí») s'insereix just després de l'antecedent que modifica («L'arquitecte») i abans del predicat principal («és molt conegut»).", example:"L'arquitecte que treballa aquí és molt conegut." },
 
@@ -2755,7 +2755,7 @@ const DATA = {
 
     { id:'b1-pas5', type:'reorder', level:'b1', category:'Veu passiva B1',
       question:'Ordena per formar una oració passiva correcta:',
-      parts:['va ser inaugurada',"per l'alcaldessa",'La nova biblioteca'],
+      parts:['va ser inaugurada',"per l'alcaldessa",'la nova biblioteca'],
       correct:[2,0,1],
       theory:"L'oració passiva perifràstica segueix l'ordre: subjecte + ser + participi + «per» + agent.", example:"La nova biblioteca va ser inaugurada per l'alcaldessa." },
 
@@ -2923,7 +2923,7 @@ const DATA = {
 
     { id:'a2-pas3', type:'reorder', level:'a2', category:'Passat perifràstic',
       question:'Ordena les parts per formar una frase de passat correcta:',
-      parts:['Quan vaig arribar del Pakistan,','el primer dia','em vaig matricular','a classes de català.'],
+      parts:['quan vaig arribar del Pakistan,','el primer dia','em vaig matricular','a classes de català'],
       correct:[0,1,2,3],
       theory:"Resultat: «Quan vaig arribar del Pakistan, el primer dia em vaig matricular a classes de català.» En català és molt natural avançar la circumstància temporal específica («el primer dia») just darrere la principal.", example:"Quan vaig arribar, em vaig posar a estudiar de seguida." },
 
@@ -3193,7 +3193,7 @@ const DATA = {
     { id:'a2-pi6', type:'reorder', level:'a2', category:'Preguntes i interrogació',
       question:'Ordena les paraules per formar una pregunta correcta:',
       text:'En les preguntes en català, la paraula interrogativa va al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.',
-      parts:['vens','D\'on','tu','?'],
+      parts:['vens','d\'on','tu','?'],
       correct:[1,0,2,3],
       theory:'Les paraules interrogatives van al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.', example:'D\'on vens? / On vas? / Quan arribes?' },
   ],
