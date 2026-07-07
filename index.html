@@ -1591,11 +1591,11 @@ function renderMedalGrid(medals, unlocked) {
       <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
         <div style="font-size:28px;min-width:38px;text-align:center;${done ? '' : 'filter:grayscale(1);opacity:0.3;'}">${m.icon}</div>
         <div style="flex:1;">
-          <div style="font-size:14px;font-weight:600;color:${done ? 'var(--text)' : 'var(--muted)'};">${done ? m.name : '???'}</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:1px;">${done ? m.desc : 'Medalla blocada 🔒'}</div>
+          <div style="font-size:14px;font-weight:600;color:${done ? 'var(--text)' : 'var(--muted)'};">${m.name}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:1px;">${m.desc}</div>
           ${!done && dominated !== null ? `<div style="margin-top:5px;background:var(--track);border-radius:4px;height:4px;overflow:hidden;width:100px;"><div style="background:var(--c1);height:100%;width:${Math.round(dominated/exs.length*100)}%;"></div></div><div style="font-size:10px;color:var(--muted);margin-top:2px;">${dominated}/${exs.length} exercicis dominats</div>` : ''}
         </div>
-        ${done ? '<span style="font-size:20px;">🏅</span>' : ''}
+        ${done ? '<span style="font-size:20px;">🏅</span>' : '<span style="font-size:15px;opacity:0.45;">🔒</span>'}
       </div>`;
   }).join('');
 }
@@ -1756,10 +1756,10 @@ function renderAchievements() {
         <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
           <div style="font-size:28px;min-width:38px;text-align:center;${done ? '' : 'filter:grayscale(1);opacity:0.35;'}">${a.icon}</div>
           <div style="flex:1;">
-            <div style="font-size:14px;font-weight:600;color:${done ? 'var(--text)' : 'var(--muted)'};">${done ? a.name : '???'}</div>
-            <div style="font-size:12px;color:var(--muted);margin-top:2px;">${done ? a.desc : 'Assoliment blocat 🔒'}</div>
+            <div style="font-size:14px;font-weight:600;color:${done ? 'var(--text)' : 'var(--muted)'};">${a.name}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px;">${a.desc}</div>
           </div>
-          ${done ? '<span style="font-size:18px;">✅</span>' : ''}
+          ${done ? '<span style="font-size:18px;">✅</span>' : '<span style="font-size:15px;opacity:0.45;">🔒</span>'}
         </div>`;
     }).join('');
     const groupDone = items.filter(a => unlocked.has(a.id)).length;
