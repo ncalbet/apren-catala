@@ -1306,9 +1306,9 @@ function markDone(ok, xp) {
     }
   }
 
-  // Comprova si l'exercici forma part del repte diari
+  // Comprova si l'exercici forma part del repte diari (només compta si s'ha encertat)
   const dc = progress.dailyChallenge;
-  if (dc && dc.date === today && dc.ids.includes(q.id) && !dc.completed.includes(q.id)) {
+  if (ok && dc && dc.date === today && dc.ids.includes(q.id) && !dc.completed.includes(q.id)) {
     dc.completed.push(q.id);
     if (dc.completed.length === dc.ids.length) {
       // Tots completats! Bonus XP
