@@ -474,6 +474,12 @@ function pickRandomVariant(q) {
   const n = variantCount(q);
   return n <= 1 ? q : withVariant(q, Math.floor(Math.random() * n));
 }
+// Sessions de mòdul: base al primer contacte (domini 0), variant aleatòria a les
+// repeticions (domini ≥1) perquè pujar domini des de la pestanya de nivell no
+// permeti memoritzar la resposta concreta.
+function withVariantsIfPracticed(items) {
+  return items.map(q => getMastery(q.id) > 0 ? pickRandomVariant(q) : q);
+}
 function saveActiveSession() {
   const s = currentSession;
   if (!s || !s.items || !s.items.length || s.idx >= s.items.length) { clearActiveSession(); return; }
@@ -899,18 +905,18 @@ function showMandatoryTheory(level, cat, onContinue) {
 
 // ══ SESSIONS ══
 function startAllSession(level) {
-  currentSession = { items: sortBySRS(DATA[level]), idx:0, correct:0, level, returnTo: level };
+  currentSession = { items: withVariantsIfPracticed(sortBySRS(DATA[level])), idx:0, correct:0, level, returnTo: level };
   renderExercise();
 }
 function startCategorySession(level, cat) {
-  const items = sortBySRS(DATA[level].filter(q => q.category === cat));
+  const items = withVariantsIfPracticed(sortBySRS(DATA[level].filter(q => q.category === cat)));
   const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
   if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
     showMandatoryTheory(level, cat, doStart);
   } else { doStart(); }
 }
 function startCategoryType(level, cat, type) {
-  const items = DATA[level].filter(q => q.category === cat && q.type === type);
+  const items = withVariantsIfPracticed(DATA[level].filter(q => q.category === cat && q.type === type));
   const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
   if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
     showMandatoryTheory(level, cat, doStart);
