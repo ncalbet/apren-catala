@@ -375,7 +375,9 @@ const LEVELS = [
   { min:250,  max:499,  name:'Parlant',      emoji:'💬', title:'Ja et defenses en català!' },
   { min:500,  max:999,  name:'Avançat',      emoji:'🎓', title:'Domini sòlid de la llengua.' },
   { min:1000, max:1999, name:'Expert',       emoji:'⭐', title:'Has arribat al nivell expert!' },
-  { min:2000, max:Infinity, name:'Mestre del Català', badge:'Mestre', emoji:'🏆', title:'Has assolit el màxim nivell!' },
+  { min:2000, max:4999, name:'Mestre',       emoji:'🏆', title:'Has assolit el rang de Mestre!' },
+  { min:5000, max:9999, name:'Gran Mestre',  badge:'G. Mestre', emoji:'🌟', title:'Has assolit el rang de Gran Mestre!' },
+  { min:10000, max:Infinity, name:'Mestre del Català', badge:'M. Català', emoji:'💎', title:'Has assolit el màxim nivell!' },
 ];
 function getLevel(xp) { return LEVELS.find(l => xp >= l.min && xp <= l.max) || LEVELS[0]; }
 function getNextLevel(xp) { const i = LEVELS.findIndex(l => xp >= l.min && xp <= l.max); return LEVELS[i+1] || null; }
@@ -1472,8 +1474,14 @@ const ACHIEVEMENTS = [
     desc:"Acumula 1000 punts d'experiència.",
     check: p => p.xp >= 1000 },
   { id:'xp2000', group:'xp', icon:'💜', name:'2000 XP — Mestre',
-    desc:"Acumula 2000 punts. Has assolit el nivell de Mestre del Català!",
+    desc:"Acumula 2000 punts. Has assolit el rang de Mestre!",
     check: p => p.xp >= 2000 },
+  { id:'xp5000', group:'xp', icon:'🌟', name:'5000 XP — Gran Mestre',
+    desc:"Acumula 5000 punts. Has assolit el rang de Gran Mestre!",
+    check: p => p.xp >= 5000 },
+  { id:'xp10000', group:'xp', icon:'💎', name:'10000 XP — Mestre del Català',
+    desc:"Acumula 10000 punts. El cim absolut de l'aprenentatge!",
+    check: p => p.xp >= 10000 },
 ];
 
 const ACHIEVEMENT_GROUPS = [
