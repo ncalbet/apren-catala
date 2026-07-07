@@ -76,8 +76,8 @@
         icon: '📋',
         examples: [
           { text: 'Positius: simpàtic/a, amable, alegre, sociable, obert/a, generós/osa, tranquil/·la, sincer/a, divertit/ida, valent/a' },
-          { text: 'Negatius: antipàtic/a, tímid/a, reservat/ada, impacient, egocèntric/a, distant' },
-          { text: 'Neutres: introvertit/ida, extravertit/ida, seriós/osa, formal, espontani/ània' },
+          { text: 'Negatius: antipàtic/a, impacient, egocèntric/a, distant' },
+          { text: 'Neutres: tímid/a, reservat/ada, introvertit/ida, extravertit/ida, seriós/osa, formal, espontani/ània' },
         ]
       }
     ]
