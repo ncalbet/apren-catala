@@ -2962,8 +2962,8 @@ const DATA = {
       options:['la','el','en'],
       correct:1,
       variants:[
-        { text:'«On és el paraigua?» «___ tinc jo.»', options:['en','la','el'], correct:2 },
-        { text:'«Has portat el carnet?» «Sí, ___ porto sempre.»', options:['el','la','en'], correct:0 },
+        { question:'Quin pronom substitueix «el paraigua» (masculí singular)?', text:'«On és el paraigua?» «___ tinc jo.»', options:['en','la','el'], correct:2 },
+        { question:'Quin pronom substitueix «el carnet» (masculí singular)?', text:'«Has portat el carnet?» «Sí, ___ porto sempre.»', options:['el','la','en'], correct:0 },
       ],
       theory:"El pronom «el» substitueix un CD masculí singular determinat. «La» és per al femení, «en» per a partitius.", example:"«On és el gat?» «El tinc a casa.»" },
 
@@ -3530,8 +3530,8 @@ const DATA = {
       display:'construcció sense «lo» (inexistent en català)',
       answers:['allò important','el que és important','la cosa important','el més important','allò més important'],
       variants:[
-        { text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ del cas és que ningú no va denunciar la situació.', display:'construcció sense «lo» (inexistent en català)', answers:['allò greu','el que és greu','la cosa greu','el més greu','allò més greu'] },
-        { text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ va ser que ho van solucionar entre tots.', display:'construcció sense «lo» (inexistent en català)', answers:['allò bo','el que és bo','la cosa bona','el més bo','allò millor','el millor'] },
+        { question:'Substitueix «lo greu» per la construcció catalana correcta:', text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ del cas és que ningú no va denunciar la situació.', display:'construcció sense «lo» (inexistent en català)', answers:['allò greu','el que és greu','la cosa greu','el més greu','allò més greu'] },
+        { question:'Substitueix «lo bo» per la construcció catalana correcta:', text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ va ser que ho van solucionar entre tots.', display:'construcció sense «lo» (inexistent en català)', answers:['allò bo','el que és bo','la cosa bona','el més bo','allò millor','el millor'] },
       ],
       theory:'El català no té article neutre «lo». S\'usa «allò» (davant adj.) o «el que» (davant verb). «Lo» és sempre un calc del castellà.', example:'✗ Lo millor és descansar. ✓ Allò millor és descansar.' },
     { id:'b2-int6', type:'choice', level:'b2', category:'Interferències',
@@ -4383,7 +4383,7 @@ const DATA = {
       theory:'«Anar de bòlit» és la locució per expressar que s\'està molt ocupat. Pertany al registre col·loquial.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
     { id:'c1-ff2', type:'fill', level:'c1', category:'Frases fetes',
       text:'Les frases fetes tenen un verb fix que no es pot canviar per un sinònim qualsevol: forma part de la locució.',
-      question:'Omple la frase feta: «No és moment de ___ la tovallola; cal continuar lluitant».',
+      question:'Omple la frase feta amb el verb adequat:',
       sentence:'No és moment de ___ la tovallola; cal continuar lluitant.',
       display:'verb de la locució (abandonar la lluita)', answers:['tirar','llançar'],
       variants:[
