@@ -1414,46 +1414,46 @@ const ACHIEVEMENTS = [
     check: p => p.xp > 0 },
   { id:'level2', group:'inici', icon:'📖', name:'Estudiant',
     desc:'Arriba al nivell Estudiant (100 XP).',
-    check: p => p.xp >= 100 },
+    check: p => p.xp >= 100, prog: p => [p.xp, 100] },
 
   // ── RATXA ───────────────────────────────────────────
   { id:'streak3', group:'ratxa', icon:'🔥', name:'Ratxa de 3 dies',
     desc:'Practica 3 dies seguits.',
-    check: p => (p.streak||0) >= 3 },
+    check: p => (p.streak||0) >= 3, prog: p => [p.streak||0, 3] },
   { id:'streak7', group:'ratxa', icon:'🔥🔥', name:'Ratxa de 7 dies',
     desc:'Practica 7 dies seguits.',
-    check: p => (p.streak||0) >= 7 },
+    check: p => (p.streak||0) >= 7, prog: p => [p.streak||0, 7] },
   { id:'streak14', group:'ratxa', icon:'🔥🔥🔥', name:'Ratxa de 2 setmanes',
     desc:'Practica 14 dies seguits.',
-    check: p => (p.streak||0) >= 14 },
+    check: p => (p.streak||0) >= 14, prog: p => [p.streak||0, 14] },
   { id:'streak30', group:'ratxa', icon:'⚡', name:'Ratxa de 30 dies',
     desc:'Practica 30 dies seguits. Increïble!',
-    check: p => (p.streak||0) >= 30 },
+    check: p => (p.streak||0) >= 30, prog: p => [p.streak||0, 30] },
 
   // ── ENCERTS CONSECUTIUS ─────────────────────────────
   { id:'consec5', group:'encerts', icon:'🎯', name:'Cinc seguides',
     desc:'Encerta 5 exercicis seguits sense errors.',
-    check: p => (p.consec||0) >= 5 },
+    check: p => (p.consec||0) >= 5, prog: p => [p.consec||0, 5] },
   { id:'consec10', group:'encerts', icon:'🎯🎯', name:'Deu seguides',
     desc:'Encerta 10 exercicis seguits sense errors.',
-    check: p => (p.consec||0) >= 10 },
+    check: p => (p.consec||0) >= 10, prog: p => [p.consec||0, 10] },
   { id:'consec20', group:'encerts', icon:'💫', name:'Vint seguides',
     desc:'Encerta 20 exercicis seguits. Ets increïble!',
-    check: p => (p.consec||0) >= 20 },
+    check: p => (p.consec||0) >= 20, prog: p => [p.consec||0, 20] },
 
   // ── VOLUM ───────────────────────────────────────────
   { id:'tried10', group:'volum', icon:'📝', name:'En marxa',
     desc:'Intenta 10 exercicis.',
-    check: p => Object.keys(p.mastery).length >= 10 },
+    check: p => Object.keys(p.mastery).length >= 10, prog: p => [Object.keys(p.mastery).length, 10] },
   { id:'tried25', group:'volum', icon:'📝📝', name:'Persistent',
     desc:'Intenta 25 exercicis.',
-    check: p => Object.keys(p.mastery).length >= 25 },
+    check: p => Object.keys(p.mastery).length >= 25, prog: p => [Object.keys(p.mastery).length, 25] },
   { id:'tried50', group:'volum', icon:'🏅', name:'Mig camí',
     desc:'Intenta 50 exercicis.',
-    check: p => Object.keys(p.mastery).length >= 50 },
+    check: p => Object.keys(p.mastery).length >= 50, prog: p => [Object.keys(p.mastery).length, 50] },
   { id:'tried100', group:'volum', icon:'🏆', name:'Centenari',
     desc:'Intenta 100 exercicis. Tot un repte!',
-    check: p => Object.keys(p.mastery).length >= 100 },
+    check: p => Object.keys(p.mastery).length >= 100, prog: p => [Object.keys(p.mastery).length, 100] },
 
   // ── PERFECCIÓ ───────────────────────────────────────
   { id:'perfect1', group:'perfeccio', icon:'⭐', name:'Sessió perfecta',
@@ -1461,27 +1461,27 @@ const ACHIEVEMENTS = [
     check: p => (p.perfectSessions||0) >= 1 },
   { id:'perfect5', group:'perfeccio', icon:'⭐⭐', name:'Perfeccionista',
     desc:"Aconsegueix 5 sessions perfectes.",
-    check: p => (p.perfectSessions||0) >= 5 },
+    check: p => (p.perfectSessions||0) >= 5, prog: p => [p.perfectSessions||0, 5] },
 
   // ── XP ──────────────────────────────────────────────
   { id:'xp100', group:'xp', icon:'💛', name:'100 XP',
     desc:"Acumula 100 punts d'experiència.",
-    check: p => p.xp >= 100 },
+    check: p => p.xp >= 100, prog: p => [p.xp, 100] },
   { id:'xp500', group:'xp', icon:'🧡', name:'500 XP',
     desc:"Acumula 500 punts d'experiència.",
-    check: p => p.xp >= 500 },
+    check: p => p.xp >= 500, prog: p => [p.xp, 500] },
   { id:'xp1000', group:'xp', icon:'❤️', name:'1000 XP',
     desc:"Acumula 1000 punts d'experiència.",
-    check: p => p.xp >= 1000 },
+    check: p => p.xp >= 1000, prog: p => [p.xp, 1000] },
   { id:'xp2000', group:'xp', icon:'💜', name:'2000 XP — Mestre',
     desc:"Acumula 2000 punts. Has assolit el rang de Mestre!",
-    check: p => p.xp >= 2000 },
+    check: p => p.xp >= 2000, prog: p => [p.xp, 2000] },
   { id:'xp5000', group:'xp', icon:'🌟', name:'5000 XP — Gran Mestre',
     desc:"Acumula 5000 punts. Has assolit el rang de Gran Mestre!",
-    check: p => p.xp >= 5000 },
+    check: p => p.xp >= 5000, prog: p => [p.xp, 5000] },
   { id:'xp10000', group:'xp', icon:'💎', name:'10000 XP — Mestre del Català',
     desc:"Acumula 10000 punts. El cim absolut de l'aprenentatge!",
-    check: p => p.xp >= 10000 },
+    check: p => p.xp >= 10000, prog: p => [p.xp, 10000] },
 ];
 
 const ACHIEVEMENT_GROUPS = [
@@ -1739,10 +1739,39 @@ function renderDailyChallengeSection() {
     </div>`;
 }
 
+function medalExercisePool(m) {
+  if (m.level !== 'super') return (DATA[m.level]||[]).filter(q => q.category === m.category);
+  if (m.id === 'master_all') return [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  return DATA[m.id.replace('master_','')] || [];
+}
+
+// Els 3 objectius blocats amb progrés començat més a prop de completar-se
+function getNextGoals(unlocked, unlockedM, medals) {
+  const goals = [];
+  ACHIEVEMENTS.forEach(a => {
+    if (unlocked.has(a.id) || !a.prog) return;
+    const [cur, target] = a.prog(progress);
+    if (cur > 0) goals.push({ icon:a.icon, name:a.name, cur:Math.min(cur,target), target, ratio:cur/target });
+  });
+  const tag = { a2:'A2', b1:'B1', b2:'B2', c1:'C1' };
+  medals.forEach(m => {
+    if (unlockedM.has(m.id)) return;
+    const pool = medalExercisePool(m);
+    if (!pool.length) return;
+    const cur = pool.filter(q => (progress.mastery[q.id]||0) >= 4).length;
+    if (cur > 0) goals.push({
+      icon: m.icon, name: m.level === 'super' ? m.name : `${m.name} (${tag[m.level]})`,
+      cur, target: pool.length, ratio: cur/pool.length
+    });
+  });
+  return goals.sort((a, b) => b.ratio - a.ratio).slice(0, 3);
+}
+
 function renderAchievements() {
   const unlocked = new Set(getUnlockedAchievements());
   const medals    = getAllMedals();
   const unlockedM = new Set(getUnlockedMedals());
+  const nextGoals = getNextGoals(unlocked, unlockedM, medals);
 
   const totalAll   = ACHIEVEMENTS.length + medals.length;
   const nAll       = unlocked.size + unlockedM.size;
@@ -1798,6 +1827,24 @@ function renderAchievements() {
       <div style="background:var(--accent-green-bg);border-radius:10px;height:8px;margin-bottom:28px;overflow:hidden;">
         <div style="background:#059669;height:100%;width:${Math.round(nAll/totalAll*100)}%;border-radius:10px;transition:width 0.5s;"></div>
       </div>
+
+      ${nextGoals.length ? `
+      <div style="background:var(--accent-amber-bg);border-radius:12px;padding:14px 16px;margin-bottom:24px;">
+        <div style="font-weight:700;font-size:15px;color:var(--accent-amber-text);margin-bottom:6px;">🎯 A punt d'assolir</div>
+        ${nextGoals.map(g => `
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;">
+          <div style="font-size:22px;min-width:32px;text-align:center;">${g.icon}</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <span style="font-size:13px;font-weight:600;">${g.name}</span>
+              <span style="font-size:11px;color:var(--muted);">${g.cur}/${g.target}</span>
+            </div>
+            <div style="margin-top:4px;background:var(--track);border-radius:4px;height:5px;overflow:hidden;">
+              <div style="background:var(--accent-amber-text);height:100%;width:${Math.round(g.ratio*100)}%;"></div>
+            </div>
+          </div>
+        </div>`).join('')}
+      </div>` : ''}
 
       <details class="ct-acc">
         <summary><span>⭐ Assoliments generals <span style="font-size:13px;font-weight:400;color:var(--muted);">${unlocked.size}/${ACHIEVEMENTS.length}</span></span></summary>
