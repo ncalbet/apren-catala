@@ -1,12 +1,13 @@
 name: Recordatoris diaris
 
-# Cron horari (7–21 UTC) amb minut esbiaixat: el minut 0 és l'hora punta de
-# GitHub Actions i els crons hi arrenquen amb 1–2,5 h de retard o es descarten.
-# El script envia amb recuperació (>= hora de l'usuari), així una execució
-# perduda es recupera a la següent en lloc de perdre's el toc del dia.
+# Cron dens (cada 20 min, 7–21 UTC, minuts fora de l'hora punta): GitHub
+# descarta la majoria d'execucions programades per prioritat baixa (el 6 jul
+# només van córrer 5 de 15 crons horaris, amb forats de ~3 h). Amb 45
+# oportunitats/dia el decalatge típic queda en ~20-60 min. El script envia amb
+# recuperació (>= hora de l'usuari) i guarda diària, així no hi ha duplicats.
 on:
   schedule:
-    - cron: '17 7-21 * * *'
+    - cron: '17,37,57 7-21 * * *'
   workflow_dispatch:
 
 # Serialitza execucions: si un cron i un dispatch manual coincideixen, la segona
