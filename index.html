@@ -440,7 +440,7 @@ let progress = (function() {
     (v5.done || []).forEach(id => { mastery[id] = 3; });
     return { xp: v5.xp || 0, streak: v5.streak || 0, mastery, lastDay: v5.lastDay || null };
   }
-  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, practiceHistory: [], freezes: 1 };
+  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, dcHistory: [], practiceHistory: [], freezes: 1 };
 })();
 if (progress.freezes === undefined) progress.freezes = 1; // gel de ratxa (sembra 1 als testers existents)
 
@@ -1622,16 +1622,21 @@ function getDailyChallenge() {
   const active = ['a2', 'b1', 'b2', 'c1'].filter(lv => counts[lv] > 0);
   const levels = active.length ? active.slice(-2) : ['a2', 'b1'];
   const all = levels.flatMap(lv => DATA[lv] || []);
+  // Exclou els exercicis dels últims 7 reptes perquè no es repeteixin en pocs dies
+  const recent = progress.dcHistory || [];
+  let pool = all.filter(q => !recent.includes(q.id));
+  if (pool.length < 3) pool = all;
   const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const indices = [];
   let attempts = 0;
   while (indices.length < 3 && attempts < 200) {
-    const i = Math.floor(seededRand(seed, attempts++) * all.length);
+    const i = Math.floor(seededRand(seed, attempts++) * pool.length);
     if (!indices.includes(i)) indices.push(i);
   }
-  const ids = indices.map(i => all[i].id);
+  const ids = indices.map(i => pool[i].id);
   const challenge = { date: today, ids, completed: [] };
   progress.dailyChallenge = challenge;
+  progress.dcHistory = recent.concat(ids).slice(-21);
   saveProgress();
   return challenge;
 }
@@ -2767,7 +2772,7 @@ function showMasteryInfo() {
 }
 function resetProgress() {
   showConfirm('Segur que vols reiniciar tot el progrés? Aquesta acció no es pot desfer.', () => {
-    progress = { xp:0, streak:0, mastery:{}, maxMastery:{}, lastDay:null, consec:0, perfectSessions:0, dailyChallenge:null, practiceHistory:[], freezes:1 };
+    progress = { xp:0, streak:0, mastery:{}, maxMastery:{}, lastDay:null, consec:0, perfectSessions:0, dailyChallenge:null, dcHistory:[], practiceHistory:[], freezes:1 };
     saveProgress(); updateHeader(); renderProgress();
   });
 }
