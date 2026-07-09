@@ -4315,11 +4315,11 @@ const DATA = {
     // PRONOMS FEBLES
     { id:'c1-pf1', type:'choice', level:'c1', category:'Pronoms febles',
       question:'Quin pronom feble substitueix correctament «de política» en la resposta?',
-      text:'«Parleu de política?» «Sí, ___ parleu sovint.»',
+      text:'«Parleu de política?» «Sí, ___ parlem sovint.»',
       options:['la','hi','en','ho'],
       correct:2, variants:[
         { options:['en','la','ho','hi'], correct:0 },
-        { question:'Quin pronom feble substitueix correctament «de política» en: «Parleu de política?» «Sí, ___ parleu sovint.»?', options:['hi','ho','en','li'], correct:2 },
+        { question:'Quin pronom feble substitueix correctament «de política» en: «Parleu de política?» «Sí, ___ parlem sovint.»?', options:['hi','ho','en','li'], correct:2 },
       ],
       theory:'El pronom «en» substitueix complements introduïts per «de» (temes, matèries). «Parlar de X» → «en parlar».', example:'«Parles de la reunió?» «Sí, en parlo.»' },
     { id:'c1-pf2', type:'fill', level:'c1', category:'Pronoms febles',
