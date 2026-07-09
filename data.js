@@ -2188,7 +2188,7 @@ const DATA = {
       options:["Va estudiar molt; per tant, va aprovar.","No va venir perquè tenia febre.","Va fer fred; perquè no van sortir."],
       correct:2,
       variants:[
-        { options:["Com que plovia molt, no vam sortir.","No van venir per tant tenien molt de treball.","No va poder dormir perquè feia molt de calor."], correct:1 },
+        { options:["Com que plovia molt, no vam sortir.","No van venir per tant tenien molt de treball.","No va poder dormir perquè feia molta calor."], correct:1 },
         { options:["Va ploure molt; per consegüent, el concert es va cancel·lar.","Va ploure molt; ja que, el concert es va cancel·lar.","Va ploure molt, però el concert no es va cancel·lar."], correct:1 },
       ],
       theory:"«Perquè» introdueix la causa en una frase subordinada, no una frase principal. Cal dir: «Va fer fred; per tant, no van sortir.»", example:"Correcte: «No van sortir perquè feia fred.» / «Feia fred; per tant, no van sortir.»" },
