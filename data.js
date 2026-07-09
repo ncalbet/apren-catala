@@ -2826,7 +2826,7 @@ const DATA = {
         { text:'La preocupació és un estat d\'ànim temporal que canvia segons les circumstàncies. En català, els estats temporals es construeixen amb un verb diferent que els trets permanents.', sentence:'La Núria ___ preocupada perquè demà té un examen important.', answers:['està'] },
         { text:'La nacionalitat és un tret permanent, no un estat temporal. En català, els trets permanents es construeixen amb un verb diferent que els estats passatgers.', sentence:'El meu veí ___ de Girona, però viu a Lleida des de fa anys.', answers:['és'] },
       ],
-      theory:"El cansament és un estat temporal → «estar». «Ser cansat» implicaria que és una característica permanent del caràcter.", example:"Avui estic cansat. / Normalment soc molt actiu." },
+      theory:"El cansament és un estat físic temporal → «estar». Atenció: «ser cansat» té un significat diferent i vol dir ser esgotador o pesat («Aquesta feina és molt cansada»).", example:"Avui estic cansat. / Normalment soc molt actiu." },
 
     { id:'a2-ses6', type:'reading', level:'a2', category:'Ser, estar i semblar',
       text:"L'Emma és una persona molt sociable i alegre. Avui, però, està una mica trista perquè la seva amiga no ha pogut venir. Tot i així, sembla contenta quan parla amb nosaltres.",
