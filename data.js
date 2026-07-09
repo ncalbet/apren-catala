@@ -4921,8 +4921,8 @@ const DATA = {
         { options:['Es van prendre mesures dràstiques per resoldre la situació.','Es va prendre mesures dràstiques per resoldre la situació.','Se van prendre mesures dràstiques per resoldre la situació.'], correct:0 },
         { question:'Quina frase usa correctament la passiva reflexa amb concordança de nombre?', options:['Se van publicar els resultats ahir.','Es va publicar els resultats ahir.','Es van publicar els resultats ahir.'], correct:2 },
       ],
-      theory:'En la passiva reflexa (es + verb), el verb concorda en nombre amb el CD: «mesures» és plural → «es van prendre». La forma «es va prendre» seria correcta si el CD fos singular: «es va prendre una mesura». «Se» en lloc de «es» davant de verb conjugat és un castellanisme a evitar.',
-      example:'Es va aprovar la mesura (CD sing.) / Es van aprovar les mesures (CD pl.) / *Se van prendre → forma incorrecta.' },
+      theory:'En la passiva reflexa (es + verb), el verb concorda en nombre amb el subjecte pacient: «mesures» és plural → «es van prendre». La forma «es va prendre» seria correcta si el subjecte pacient fos singular: «es va prendre una mesura». «Se» en lloc de «es» davant de verb conjugat és un castellanisme a evitar.',
+      example:'Es va aprovar la mesura (subjecte sing.) / Es van aprovar les mesures (subjecte pl.) / *Se van prendre → forma incorrecta.' },
 
   ]
 };
