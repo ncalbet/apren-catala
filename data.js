@@ -2448,13 +2448,13 @@ const DATA = {
     { id:'b1-lq6', type:'fill', level:'b1', category:'Lèxic quotidià B1',
       question:'Substitueix el mot incorrecte pel terme català:',
       sentence:"He de reciclar la *basura abans de sortir de casa.",
-      display:'terme català per a les escombraries',
-      answers:['residus','brossa','deixalles','escombraries'],
+      display:'terme català per a «basura» (femení singular, concorda amb «la»)',
+      answers:['brossa'],
       variants:[
-        { sentence:"Hauríem de comprar un *cubo nou per a la brossa.", display:'terme català per a «cubo»', answers:['cubell','poal','galleda'] },
-        { sentence:"Cada matí passa el camió de la *basura pel nostre carrer.", display:'terme català per a les escombraries', answers:['brossa','escombraries','residus','deixalles'] },
+        { sentence:"Hauríem de comprar un *cubo nou per a la brossa.", display:'terme català per a «cubo» (masculí, concorda amb «un»)', answers:['cubell','poal'] },
+        { sentence:"Cada matí passa el camió de la *basura pel nostre carrer.", display:'terme català per a «basura» (femení singular, concorda amb «la»)', answers:['brossa'] },
       ],
-      theory:"«Brossa» (llenguatge col·loquial) i «residus» (formal) equivalen a «basura». «Deixalles» s'usa en contextos de reciclatge.", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
+      theory:"«Brossa» (col·loquial) i «residus» (formal) equivalen a «basura»; «deixalles» i «escombraries» s'usen en plural («les deixalles»). Aquí cal un femení singular que concordi amb «la»: «brossa».", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
 
     // ── ORACIONS DE RELATIU B1 ──
     { id:'b1-rel1', type:'fill', level:'b1', category:'Oracions de relatiu B1',
