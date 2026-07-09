@@ -2293,7 +2293,7 @@ const DATA = {
       display:"acabar de + infinitiu (1a pers. sing.)",
       answers:['Acabo de dinar'],
       variants:[
-        { sentence:'___ (arribar). Encara no m\'he tret l\'abric.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo d\'arribar','Acabo de arribar'] },
+        { sentence:'___ (arribar). Encara no m\'he tret l\'abric.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo d\'arribar'] },
         { sentence:'___ (parlar) amb ella. M\'ha dit que ve de seguida.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo de parlar'] },
       ],
       theory:"«Acabar de + infinitiu» expressa una acció que s'ha realitzat fa molt poc temps.", example:"Acabo d'arribar. / Acabes de telefonar?" },
