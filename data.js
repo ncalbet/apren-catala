@@ -3799,13 +3799,13 @@ const DATA = {
     { id:'b2-con7', type:'fill', level:'b2', category:'Connectors',
       text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.',
       question:'Omple amb el connector adequat:',
-      sentence:'El projecte era ambiciós; ___, els resultats van superar les expectatives.',
+      sentence:'Els pronòstics eren pessimistes; ___, els resultats van superar les expectatives.',
       display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','amb tot','així i tot'],
       variants:[
         { text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.', sentence:'Feia molt mal temps; ___, la cursa es va celebrar igualment.', display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','amb tot','així i tot'] },
         { text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.', sentence:'Tenia molt poca experiència; ___, va aconseguir la feina.', display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','amb tot','així i tot'] },
       ],
-      theory:'«Tot i així» i «tanmateix» introdueixen una conclusió inesperada respecte a la premissa anterior. Equivalen a «sin embargo» però amb matis de sorpresa positiva.', example:'Era difícil; tot i així, ho van aconseguir.' },
+      theory:'«Tot i així» i «tanmateix» introdueixen una conclusió inesperada que contradiu allò que la premissa feia esperar.', example:'Era difícil; tot i així, ho van aconseguir.' },
     // +1 SUBJUNTIU
     { id:'b2-sub7', type:'choice', level:'b2', category:'Subjuntiu',
       question:'Quina oració requereix subjuntiu?',
