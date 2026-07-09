@@ -2497,7 +2497,7 @@ const DATA = {
       correct:0,
       variants:[
         { text:'La botiga ___ compren els ingredients obre molt aviat.', options:['que','qui','on','quan'], correct:2 },
-        { text:'La persona de ___ et parlaves és la meva tutora.', options:['que','qui','on','quan'], correct:1 },
+        { text:'La persona de ___ em parlaves és la meva tutora.', options:['que','qui','on','quan'], correct:1 },
       ],
       theory:"«Que» per a subjecte/CD sense preposició; «qui» per a persones darrere de preposició; «on» per a lloc; «quan» per a temps.", example:"El llibre que llegeixo / L'amic amb qui parlo / El poble on visc." },
 
