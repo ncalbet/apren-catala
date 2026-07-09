@@ -2416,8 +2416,8 @@ const DATA = {
     { id:'b1-lq2', type:'fill', level:'b1', category:'Lèxic quotidià B1',
       question:'Omple amb la paraula catalana adequada (evita el calc):',
       sentence:"Treballo en un ___ molt gran, al centre de la ciutat. (no *despacho)",
-      display:'lloc de treball (terme català, no «despacho»)',
-      answers:['despatx','oficina'],
+      display:'lloc de treball (terme català masculí, no «despacho»)',
+      answers:['despatx'],
       variants:[
         { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"He d'anar a la ___ a treure diners. (no *ventanilla)", display:'finestra petita d\'atenció al públic (terme català, no «ventanilla»)', answers:['finestreta'] },
         { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina. (no *grifo)", display:'aixeta de l\'aigua (terme català, no «grifo»)', answers:['aixeta'] },
