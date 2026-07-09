@@ -2974,7 +2974,7 @@ const DATA = {
       answers:['les'],
       variants:[
         { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Compro els bitllets. → ___ compro.", display:'pronom CD masculí plural', answers:['els'] },
-        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Truco la meva germana. → ___ truco.", display:'pronom CD femení singular', answers:['la'] },
+        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Saludo la meva germana. → ___ saludo.", display:'pronom CD femení singular', answers:['la'] },
       ],
       theory:"«Les» substitueix un CD femení plural determinat. El pronom va davant del verb conjugat.", example:"«Has vist les claus?» «Sí, les he vistes a la taula.»" },
 
