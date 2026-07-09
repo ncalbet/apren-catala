@@ -2472,10 +2472,10 @@ const DATA = {
       question:'Omple amb el pronom relatiu correcte:',
       sentence:'El company amb ___ comparteixo despatx ha marxat de vacances.',
       display:'relatiu de persona darrere de preposició',
-      answers:['qui'],
+      answers:['qui','el qual'],
       variants:[
-        { sentence:"La directora a ___ has d'enviar el correu és la Sra. Puig.", display:'relatiu de persona darrere de preposició', answers:['qui'] },
-        { sentence:"El metge de ___ em parlaves fa anys que s'ha jubilat.", display:'relatiu de persona darrere de preposició', answers:['qui'] },
+        { sentence:"La directora a ___ has d'enviar el correu és la Sra. Puig.", display:'relatiu de persona darrere de preposició', answers:['qui','la qual'] },
+        { sentence:"El metge de ___ em parlaves fa anys que s'ha jubilat.", display:'relatiu de persona darrere de preposició', answers:['qui','el qual'] },
       ],
       theory:"Darrere d'una preposició i referit a persones, s'usa «qui» (o «el qual/la qual»). Mai «que» tot sol darrere de preposició.", example:"L'amic amb qui viatjo és puntual. / La persona de qui parlo és l'alcaldessa." },
 
