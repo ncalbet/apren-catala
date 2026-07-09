@@ -1125,7 +1125,7 @@
         table: {
           headers: ['Combinació', 'Exemple', 'Nota'],
           rows: [
-            ['me\'l, me la, me\'ls, me les', '«Me\'l dóna»', 'em + el → me\'l'],
+            ['me\'l, me la, me\'ls, me les', '«Me\'l dona»', 'em + el → me\'l'],
             ['te\'l, te la, te\'ls, te les', '«Te la porto»', 'et + la → te la'],
             ['li\'l, li la, li\'ls, li les', '«Li\'ls envia»', 'li + els → li\'ls'],
             ['me\'n, te\'n, se\'n, ens-en, us-en', '«Me\'n vaig»', 'em + en → me\'n (fui de allí!)'],
@@ -2097,7 +2097,7 @@ const DATA = {
       answers:['faig'],
       variants:[
         { text:'El verb «anar» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial que no coincideix amb la castellana.', sentence:'Jo ___ (anar) a la feina amb bicicleta.', display:'anar → 1a persona singular', answers:['vaig'], theory:"«Anar» és irregular: jo vaig, tu vas, ell va, nosaltres anem, vosaltres aneu, ells van." },
-        { text:'El verb «venir» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial.', sentence:'Jo ___ (venir) de la feina molt cansat.', display:'venir → 1a persona singular', answers:['vinc'], theory:"«Venir» és irregular: jo vinc, tu véns, ell ve, nosaltres venim, vosaltres veniu, ells vénen." },
+        { text:'El verb «venir» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial.', sentence:'Jo ___ (venir) de la feina molt cansat.', display:'venir → 1a persona singular', answers:['vinc'], theory:"«Venir» és irregular: jo vinc, tu vens, ell ve, nosaltres venim, vosaltres veniu, ells venen." },
       ],
       theory:"«Fer» és irregular: jo faig, tu fas, ell fa, nosaltres fem, vosaltres feu, ells fan.", example:"Jo faig el sopar. / Ell fa molt de soroll." },
 
@@ -2107,7 +2107,7 @@ const DATA = {
       options:['venimos','venim','vins','venín'],
       correct:1,
       variants:[
-        { question:'Quina és la forma correcta de «venir» en tercera persona del plural?', options:['vinen','venen','vénen','vienes'], correct:2 },
+        { question:'Quina és la forma correcta de «venir» en tercera persona del plural?', options:['vinen','venen','vénen','vienes'], correct:1 },
         { question:'Quina és la forma correcta de «tenir» en primera persona del plural?', text:'El verb «tenir» és irregular. Atenció a les interferències del castellà.', options:['tenemos','tenim','tenin','tenis'], correct:1 },
       ],
       theory:"«Venim» és la 1a persona del plural de «venir» en present. No és «venimos» (castellà).", example:"Venim d'Alemanya. / Nosaltres venim a peu." },
@@ -2149,7 +2149,7 @@ const DATA = {
       ],
       correct:1,
       variants:[
-        { question:'Quin és el paradigma complet correcte del present de «venir»?', options:['vinc, vens, ve, venim, veneu, venen','vinc, véns, ve, venim, veniu, vénen','vinc, vens, vé, venim, veneu, vénen'], correct:1 },
+        { question:'Quin és el paradigma complet correcte del present de «venir»?', options:['vinc, vens, ve, venim, veniu, venen','vinc, véns, ve, venim, veniu, vénen','vinc, vens, vé, venim, veneu, venen'], correct:0 },
         { question:'Quin és el paradigma complet correcte del present de «poder»?', options:['puc, pots, pot, podem, podeu, poden','puc, pucs, pot, podim, podeu, puden','puig, puts, pot, podem, podeu, puguen'], correct:0 },
       ],
       theory:"«Tenir» és irregular: tinc (1a sg.), tens (2a), té (3a), tenim (1a pl.), teniu (2a pl.), tenen (3a pl.). Atenció: 2a pl. és «teniu» (no «teneu») i 3a pl. és «tenen» (no «tinen»).",
@@ -2227,7 +2227,7 @@ const DATA = {
     { id:'b1-fc2', type:'choice', level:'b1', category:'Futur i condicional B1',
       question:'Quina frase expressa un desig educat?',
       text:'En català, el condicional s\'usa per fer peticions de manera cortesa i suavitzada. És l\'equivalent del «would like» en anglès o del «quisiera» en castellà formal.',
-      options:["Vull un cafè!","Voldria un cafè, si us plau.","Dóna'm un cafè."],
+      options:["Vull un cafè!","Voldria un cafè, si us plau.","Dona'm un cafè."],
       correct:1,
       variants:[
         { options:["Voldria reservar una taula per a quatre.","Reserva'm una taula per a quatre.","Vull que em reservis una taula."], correct:0 },
@@ -2256,7 +2256,7 @@ const DATA = {
         { text:'Si et sents malament, ___.', options:['descansares','descansis','descansa'], correct:2 },
         { text:'Si tens set, ___ una mica d\'aigua.', options:['beuràs','beu','beguessis'], correct:1 },
       ],
-      theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dóna una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
+      theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dona una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
 
     { id:'b1-fc5', type:'reading', level:'b1', category:'Futur i condicional B1',
       text:"—Quin seria el teu treball ideal?\n—M'agradaria ser periodista. Viatjaria molt i escriuria sobre cultures diferents. A més, podria conèixer persones molt interessants. I tu?\n—Jo voldria treballar en una editorial. Corregiria texts i descobriria nous autors.",
@@ -2557,7 +2557,7 @@ const DATA = {
       sentence:'Aquesta taula és ___ fusta massissa i pesa molt.',
       answers:['de'],
       variants:[
-        { sentence:'Els meus avis vénen ___ un poble petit de la Cerdanya.', answers:['de'] },
+        { sentence:'Els meus avis venen ___ un poble petit de la Cerdanya.', answers:['de'] },
         { sentence:'Aquesta camisa és ___ cotó i és molt fresca.', answers:['de'] },
       ],
       theory:"La preposició «de» expressa el material de què està fet un objecte («de fusta», «de cotó») i també l'origen o procedència («venir de»). És una de les preposicions amb més valors en català.", example:"Una figura de fusta vinguda de l'Empordà." },
@@ -3276,7 +3276,7 @@ const DATA = {
       display:'parlar (3a pers. sing.) — indicatiu o subjuntiu?', answers:['parla'],
       variants:[
         { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'] },
-        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Estic segur que ells ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['vénen','venen'] },
+        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Estic segur que ells ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen'] },
       ],
       theory:'«Sé que» introdueix un fet cert → indicatiu. «Vull que parli» (desig) → subjuntiu.', example:'Sé que parla tres idiomes. / Vull que parli més a poc a poc.' },
     { id:'b2-sub4', type:'choice', level:'b2', category:'Subjuntiu',
@@ -4362,14 +4362,14 @@ const DATA = {
       theory:'«Hi ha» és invariable en nombre: mai «hi han». El verb «haver-hi» d\'existència no concorda amb el sintagma que el segueix.', example:'✓ Hi ha moltes persones. ✗ Hi han moltes persones.' },
     { id:'c1-pf6', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Quan combinem dos pronoms febles (complement indirecte i directe), l\'ordre i la forma canvien segons el verb.',
-      question:'Pronominalitza CD i CI: «Dóna el llibre a la Maria» → «Dóna-___»:',
+      question:'Pronominalitza CD i CI: «Dona el llibre a la Maria» → «Dona-___»:',
       sentence:'Escriu la combinació completa de pronoms amb guionet darrere el verb.',
-      display:'CI (li) + CD masculí sing. (el → \'l)', answers:['li\'l','dóna-li\'l','l\'hi','dóna-l\'hi'],
+      display:'CI (li) + CD masculí sing. (el → \'l)', answers:['li\'l','dona-li\'l','l\'hi','dona-l\'hi'],
       variants:[
         { question:'Pronominalitza CD i CI: «Compra el bitllet al teu germà» → «Compra-___»:', answers:['li\'l','compra-li\'l','l\'hi','compra-l\'hi'] },
         { question:'Pronominalitza CD i CI: «Porta el cafè a la senyora» → «Porta-___»:', answers:['li\'l','porta-li\'l','l\'hi','porta-l\'hi'] },
       ],
-      theory:'Ordre en imperatius: verb + CI + CD. «li» + «el» → «li\'l» (contracció), unit amb guionet al verb. En català central també s\'accepta «l\'hi» (dóna-l\'hi), molt habitual en la parla.', example:'Dóna-li\'l. / Dóna-l\'hi. / Porta-me\'l.' },
+      theory:'Ordre en imperatius: verb + CI + CD. «li» + «el» → «li\'l» (contracció), unit amb guionet al verb. En català central també s\'accepta «l\'hi» (dona-l\'hi), molt habitual en la parla.', example:'Dona-li\'l. / Dona-l\'hi. / Porta-me\'l.' },
 
     // FRASES FETES
     { id:'c1-ff1', type:'choice', level:'c1', category:'Frases fetes',
@@ -4557,7 +4557,7 @@ const DATA = {
         { options:['S\'han d\'entregar els treballs abans del dia 15.','Tu has d\'entregar els treballs el dia 15.','Els estudiants han d\'entregar els treballs abans del dia 15.'], correct:0 },
         { question:'Quina construcció és la més adequada per a una norma general en text institucional?', options:['Tots heu de lliurar el mòbil en arribar.','Es lliurarà el mòbil en arribar.','S\'ha de lliurar el mòbil en arribar.'], correct:2 },
       ],
-      theory:'Per a normes generals, la impersonal amb «es/se» evita mencionar l\'agent i dóna un to objectiu i institucional.', example:'S\'ha de presentar la documentació. / Es recomana llegir les instruccions.' },
+      theory:'Per a normes generals, la impersonal amb «es/se» evita mencionar l\'agent i dona un to objectiu i institucional.', example:'S\'ha de presentar la documentació. / Es recomana llegir les instruccions.' },
     { id:'c1-pi4', type:'fill', level:'c1', category:'Passiva i impersonal',
       text:'La passiva perifràstica posa el focus sobre l\'objecte i manté l\'agent explícit introduït per «per».',
       question:'Completa amb l\'auxiliar de passiva perifràstica correcte:',
