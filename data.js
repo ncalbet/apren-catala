@@ -2987,7 +2987,7 @@ const DATA = {
         { text:'Vols dir «Hem sortit per recollir la Nina a l\'escola.» Quina és la construcció correcta amb el pronom feble?', options:["Hem sortit per recollir-la.","Les hem sortit per recollir.","Hem sortit per-la recollir."], correct:0 },
         { text:'Vols dir «Va tornar per buscar les claus.» Quina és la construcció correcta amb el pronom feble?', options:["Va tornar les per buscar.","Va tornar per-les buscar.","Va tornar per buscar-les."], correct:2 },
       ],
-      theory:"Quan l'infinitiu va darrere una preposició (per, de, a, sense...), el pronom feble SEMPRE va enclític (darrere i unit) a l'infinitiu amb guionet: per veure-la. No pot saltar davant del verb conjugat.", example:"He vingut per veure-la. / Estic content de conèixer-lo. / Va marxar sense dir-ho." },
+      theory:"Quan l'infinitiu expressa finalitat darrere de «per» (o va darrere de «sense», «de»...), el pronom feble va enclític: darrere i unit a l'infinitiu amb guionet («per veure-la»). Atenció: en les perífrasis verbals («haver de», «tornar a»...) el pronom sí que pot anar davant del verb conjugat: «Ho he de fer» / «He de fer-ho».", example:"He vingut per veure-la. / Estic content de conèixer-lo. / Va marxar sense dir-ho." },
 
     { id:'a2-pfa4', type:'choice', level:'a2', category:'Pronoms febles A2',
       question:"Quin pronom s'usa per substituir una quantitat indeterminada?",
