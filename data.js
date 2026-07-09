@@ -148,7 +148,7 @@
             ['el', 'nom masculí singular determinat', "«On és el llibre?» «El tinc jo.»"],
             ['la', 'nom femení singular determinat', "«Has vist la Maria?» «Sí, la he vista.»"],
             ['els', 'nom masculí plural determinat', "«On has posat els documents?» «Els he deixat a la taula.»"],
-            ['les', 'nom femení plural determinat', "«Has trucat les amigues?» «Sí, les he trucat.»"],
+            ['les', 'nom femení plural determinat', "«Has vist les amigues?» «Sí, les he vistes.»"],
             ['ho', 'atribut o idea abstracta/neutra', "«És simpàtic?» «Sí, ho és.»"],
             ['en', 'CD sense article / quantitat indeterminada', "«Vols pa?» «Sí, en vull.»"],
           ]
@@ -158,7 +158,7 @@
         title: 'Posició: davant o darrere del verb',
         icon: '📋',
         rules: [
-          { label: 'Davant del verb conjugat', example: "«El veig cada dia.» / «La truco ara.» / «No els entenc.»" },
+          { label: 'Davant del verb conjugat', example: "«El veig cada dia.» / «Li truco ara.» / «No els entenc.»" },
           { label: "Darrere d'un infinitiu (unit amb guionet)", example: "«Vull veure-la.» / «Cal fer-ho avui.» / «He de trucar-los.»" },
           { label: "Darrere d'un imperatiu (unit amb guionet)", example: "«Porta'l aquí!» / «Fes-ho ara!» / «Menja'n més!»" },
         ]
@@ -1090,7 +1090,7 @@
         table: {
           headers: ['Pronom', 'Funció', 'Exemple clàssic'],
           rows: [
-            ['el, la, els, les', 'CD (cosa o persona determinada)', 'El veig. / La truco. / Els crido.'],
+            ['el, la, els, les', 'CD (cosa o persona determinada)', 'El veig. / La conec. / Els crido.'],
             ['em, et, es, ens, us', 'CD persona / reflexiu / recíproc', 'Em veuen. / Es pentina. / Ens estimem.'],
             ['li, els (li)', 'CI (persona)', 'Li explico el problema. / Els ho dono.'],
             ['en', 'CD partitiu / complement de «de» / quantitat', 'En vull tres. / En parlem. / En vinc, de París.'],
@@ -2306,7 +2306,7 @@ const DATA = {
         { options:["He d'estudiar per a l'examen.","Tinc que estudiar per a l'examen.","Cal que estudiï per a l'examen."], correct:1 },
         { options:["Tenim que parlar de les vacances.","Hem de parlar de les vacances.","Cal que parlem de les vacances."], correct:0 },
       ],
-      theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «He de fer la compra» és la forma correcta per a l'obligació personal. ✓ «Cal que faci la compra» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «Tinc de...» (sense «que») tampoc és normatiu en la majoria de contextos.", example:"He de trucar la meva mare. / Ha de venir demà. / Cal que faci els deures." },
+      theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «He de fer la compra» és la forma correcta per a l'obligació personal. ✓ «Cal que faci la compra» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «Tinc de...» (sense «que») tampoc és normatiu en la majoria de contextos.", example:"He de trucar a la meva mare. / Ha de venir demà. / Cal que faci els deures." },
 
     { id:'b1-per4', type:'fill', level:'b1', category:'Perífrasis B1',
       question:'Completa amb la perífrasi d\'acció en curs:',
