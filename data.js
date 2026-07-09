@@ -2062,7 +2062,7 @@ const DATA = {
     { id:'b1-pf4', type:'choice', level:'b1', category:'Pronoms febles B1',
       question:'Tria l\'opció que usa correctament el pronom feble:',
       text:'Vull comprar-___ tres, de pomes.',
-      options:['en (davant del verb)','hi','ne (enclític, darrere de l\'infinitiu amb guionet)'],
+      options:['en','hi','ne'],
       correct:2,
       variants:[
         { question:'Tria la forma enclítica correcta per a «en» darrere d\'infinitiu:', text:'He de menjar-___ cinc, de nous.', options:['hi','ne','en'], correct:1 },
