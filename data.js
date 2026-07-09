@@ -2171,12 +2171,12 @@ const DATA = {
       question:'Omple amb el connector adequat (contrast):',
       sentence:"M'agrada la muntanya; ___, el mar és més relaxant per a mi.",
       display:'connector de contrast',
-      answers:['tanmateix','però','en canvi','no obstant això'],
+      answers:['tanmateix','en canvi','no obstant això'],
       variants:[
-        { sentence:"El meu germà prefereix la ciutat; ___, jo m'estimo més viure al poble.", display:'connector de contrast', answers:['en canvi','tanmateix','però','no obstant això'] },
-        { sentence:"L'examen semblava fàcil; ___, molts alumnes el van suspendre.", display:'connector de contrast', answers:['tanmateix','però','no obstant això','amb tot'] },
+        { sentence:"El meu germà prefereix la ciutat; ___, jo m'estimo més viure al poble.", display:'connector de contrast', answers:['en canvi','tanmateix','no obstant això'] },
+        { sentence:"L'examen semblava fàcil; ___, molts alumnes el van suspendre.", display:'connector de contrast', answers:['tanmateix','no obstant això','amb tot'] },
       ],
-      theory:"Els tres connectors expressen contrast. «Tanmateix» i «en canvi» és més formal; «però» és més habitual.", example:"El pla era bo; tanmateix, va fracassar." },
+      theory:"«Tanmateix», «en canvi» i «no obstant això» expressen contrast i van entre pauses: «; tanmateix,». «Però» també indica contrast, però no s'escriu seguit de coma i per això no encaixa en aquest patró.", example:"El pla era bo; tanmateix, va fracassar." },
 
     { id:'b1-con3', type:'reorder', level:'b1', category:'Connectors B1',
       question:'Ordena per formar una seqüència lògica:',
