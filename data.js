@@ -4494,7 +4494,7 @@ const DATA = {
       options:['Va preguntar: «On vius?» → Va preguntar on vivies.','Va preguntar: «On vius?» → Va preguntar que on vius.','Va preguntar: «On vius?» → Va preguntar on viuràs.'],
       correct:0, variants:[
         { options:['Va preguntar: «On vius?» → Va preguntar que on vius.','Va preguntar: «On vius?» → Va preguntar on viuràs.','Va preguntar: «On vius?» → Va preguntar on vivies.'], correct:2 },
-        { question:'Quina transformació a estil indirecte és correcta?', options:['Va preguntar: «Quan arribes?» → Va preguntar que quan arrivava.','Va preguntar: «Quan arribes?» → Va preguntar on viuràs.','Va preguntar: «Quan arribes?» → Va preguntar quan arribava.'], correct:2 },
+        { question:'Quina transformació a estil indirecte és correcta?', options:['Va preguntar: «Quan arribes?» → Va preguntar que quan arribava.','Va preguntar: «Quan arribes?» → Va preguntar quan arribaràs.','Va preguntar: «Quan arribes?» → Va preguntar quan arribava.'], correct:2 },
       ],
       theory:'Interrogatives indirectes: «preguntar si/on/quan/com...» (sense «que»). El verb passa a imperfet si el verb introductor és en passat.', example:'«Quan arribes?» → Va preguntar quan arribava.' },
     { id:'c1-ei4', type:'fill', level:'c1', category:'Estil indirecte',
