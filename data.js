@@ -4775,15 +4775,15 @@ const DATA = {
       example:'Podien arriscar-se per un contracte milionari incert, però van preferir renovar el client actual: més val un ocell a la mà que cent volant.' },
 
     { id:'c1-ff14', type:'reading', level:'c1', category:'Frases fetes',
-      text:'La directora no té pèls a la llengua quan es tracta de dir el que pensa. Ahir, en plena reunió del consell, va declarar que el pla pressupostari feia aigua i que calia donar la volta a la truita abans no fos massa tard. Alguns membres no es van donar per al·ludits, però la majoria va entendre que el missatge anava directament per a ells.',
+      text:'La directora no té pèls a la llengua quan es tracta de dir el que pensa. Ahir, en plena reunió del consell, va declarar que el pla pressupostari feia aigua i que calia girar la truita abans no fos massa tard. Alguns membres no es van donar per al·ludits, però la majoria va entendre que el missatge anava directament per a ells.',
       question:'Quantes locucions idiomàtiques apareixen al text i quines són?',
       options:[
         'Dues: «no tenir pèls a la llengua» i «fer aigua».',
-        'Quatre: «no tenir pèls a la llengua», «fer aigua», «donar la volta a la truita» i «no donar-se per al·ludit».',
-        'Tres: «no tenir pèls a la llengua», «donar la volta a la truita» i «fer el sord».'
+        'Quatre: «no tenir pèls a la llengua», «fer aigua», «girar la truita» i «no donar-se per al·ludit».',
+        'Tres: «no tenir pèls a la llengua», «girar la truita» i «fer el sord».'
       ],
       correct:1,
-      theory:'Les quatre locucions presents: 1) «no tenir pèls a la llengua» (parlar sense embuts); 2) «fer aigua» (tenir greus problemes); 3) «donar la volta a la truita» (capgirar la situació); 4) «no donar-se per al·ludit» (fer com si no anés amb tu). «Fer el sord» no apareix al text.',
+      theory:'Les quatre locucions presents: 1) «no tenir pèls a la llengua» (parlar sense embuts); 2) «fer aigua» (tenir greus problemes); 3) «girar la truita» (capgirar la situació); 4) «no donar-se per al·ludit» (fer com si no anés amb tu). «Fer el sord» no apareix al text.',
       example:'Per identificar locucions: cerca grups de paraules amb significat figurat (no literal) que funcionen com una unitat.' },
 
     { id:'c1-ff15', type:'fill', level:'c1', category:'Frases fetes',
