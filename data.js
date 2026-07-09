@@ -2925,7 +2925,7 @@ const DATA = {
       question:'Ordena les parts per formar una frase de passat correcta:',
       parts:['quan vaig arribar del Pakistan,','el primer dia','em vaig matricular','a classes de català'],
       correct:[0,1,2,3],
-      theory:"Resultat: «Quan vaig arribar del Pakistan, el primer dia em vaig matricular a classes de català.» En català és molt natural avançar la circumstància temporal específica («el primer dia») just darrere la principal.", example:"Quan vaig arribar, em vaig posar a estudiar de seguida." },
+      theory:"Resultat: «Quan vaig arribar del Pakistan, el primer dia em vaig matricular a classes de català.» En català és molt natural col·locar la circumstància temporal específica («el primer dia») a l'inici de l'oració principal, just darrere de la subordinada temporal.", example:"Quan vaig arribar, em vaig posar a estudiar de seguida." },
 
     { id:'a2-pas4', type:'choice', level:'a2', category:'Passat perifràstic',
       question:"Quin connector s'usa per indicar una acció posterior en una narració?",
