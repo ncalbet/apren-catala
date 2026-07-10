@@ -3683,7 +3683,7 @@ const DATA = {
       sentence:'Haurem d\'entregar el projecte ___ la setmana que ve.',
       display:'«per» o «per a» (termini de temps)', answers:['per a'],
       variants:[
-        { text:'Una de les distincions clàssiques del català és quan correspon «per» i quan «per a».', sentence:'La conferència està prevista ___ al mes de novembre.', display:'«per» o «per a» (termini de temps)', answers:['per a'] },
+        { text:'Una de les distincions clàssiques del català és quan correspon «per» i quan «per a».', sentence:'Necessito l\'informe acabat ___ divendres.', display:'«per» o «per a» (termini de temps)', answers:['per a'] },
         { text:'Una de les distincions clàssiques del català és quan correspon «per» i quan «per a».', sentence:'Estaré de viatge ___ tres setmanes.', display:'«per» o «per a» (durada)', answers:['per'] },
       ],
       theory:'Termini (data límit) → «per a»: «per a divendres», «per a la setmana que ve». Durada → «per»: «estaré fora per dues setmanes».', example:'Ho necessito per a demà. / Estaré fora per dues setmanes.' },
