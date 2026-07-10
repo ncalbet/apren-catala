@@ -3537,12 +3537,12 @@ const DATA = {
     { id:'b2-int6', type:'choice', level:'b2', category:'Interferències',
       question:'Quina expressió és un calc del castellà que cal evitar?',
       text:'Per expressar concessió (l\'equivalent de «aunque»), el català disposa de diverses locucions pròpies, però una de les opcions és un calc del castellà. Tria la que cal evitar.',
-      options:['malgrat que','tot i que','a pesar que','per bé que'],
+      options:['malgrat que','tot i que','a pesar de que','per bé que'],
       correct:2, variants:[
-        { options:['a pesar que','malgrat que','tot i que','per bé que'], correct:0 },
-        { question:'Quina forma és genuïnament catalana per expressar concessió?', options:['a pesar que','incluso si','malgrat que','a pesar de que'], correct:2 },
+        { options:['a pesar de que','malgrat que','tot i que','per bé que'], correct:0 },
+        { question:'Quina forma és genuïnament catalana per expressar concessió?', options:['aunque','incluso si','malgrat que','a pesar de que'], correct:2 },
       ],
-      theory:'«A pesar que» és un calc del castellà «a pesar de que». Les formes catalanes per expressar concessió són: «malgrat que», «tot i que» i «per bé que» (formal). Cap d\'elles s\'assembla a «a pesar».',  example:'✗ A pesar que plovia, van sortir. ✓ Malgrat que plovia, van sortir. / ✓ Tot i que plovia, van sortir.' },
+      theory:'«A pesar de» és una locució genuïna recollida al DIEC, però davant la conjunció «que» la preposició «de» cau: «a pesar que». Per això «a pesar de que» és incorrecte (coincideix amb la forma castellana). En registre formal es prefereixen «malgrat que», «tot i que» i «per bé que».',  example:'✗ A pesar de que plovia, van sortir. ✓ A pesar que plovia, van sortir. / ✓ Malgrat que plovia, van sortir.' },
 
     // PERÍFRASIS VERBALS
     { id:'b2-per1', type:'choice', level:'b2', category:'Perífrasis verbals',
