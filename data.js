@@ -3856,7 +3856,7 @@ const DATA = {
         { options:['beu','baca','bosc','fresca'], correct:1 },
         { options:['beu','fresca','bosc','baca'], correct:3 },
       ],
-      theory:'«Vaca» s\'escriu amb v. Grups freqüents amb v per records: animals (vaca, vedell, voltor, vipera); colors (verd, vermell, violeta); verbs habituals (veure, venir, viure, voler, valer, vèncer). En cas de dubte, consulta el DIEC o l\'Optimot.', example:'vaca, vedell, voltor, verd, vermell, veure, venir, viure ↔ beure, blanc, bosc, botiga, brot.' },
+      theory:'«Vaca» s\'escriu amb v. Grups freqüents amb v per records: animals (vaca, vedell, voltor, vespa); colors (verd, vermell, violeta); verbs habituals (veure, venir, viure, voler, valer, vèncer). En cas de dubte, consulta el DIEC o l\'Optimot.', example:'vaca, vedell, voltor, verd, vermell, veure, venir, viure ↔ beure, blanc, bosc, botiga, brot.' },
 
     { id:'b2-ort3', type:'choice', level:'b2', category:'Ortografia B2',
       question:'Quin grup de paraules té totes les grafies correctes?',
