@@ -3733,7 +3733,7 @@ const DATA = {
         { options:['Indicar la causa d\'una acció','Indicar el destinatari d\'un regal','Indicar un termini de lliurament'], correct:0 },
         { options:['Indicar un termini de lliurament','Indicar el destinatari d\'un regal','Indicar la causa d\'una acció'], correct:2 },
       ],
-      theory:'«Per» indica causa («ho dic per amor»), mitjà («per correu»), durada («per un mes») i «a través de» («per la finestra»). «Per a» indica destinació, finalitat i termini.', example:'Ho faig per tu (causa: amor). / Ho faig per a tu (destinació: t\'ho done).' },
+      theory:'«Per» indica causa («ho dic per amor»), mitjà («per correu»), durada («per un mes») i «a través de» («per la finestra»). «Per a» indica destinació, finalitat i termini.', example:'Ho faig per tu (causa: amor). / Ho faig per a tu (destinació: t\'ho dono).' },
 
     // CONSTRUCCIONS COMPARATIVES
     { id:'b2-cmp1', type:'choice', level:'b2', category:'Construccions comparatives',
