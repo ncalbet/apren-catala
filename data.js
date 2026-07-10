@@ -3588,10 +3588,10 @@ const DATA = {
       question:'Usa la perífrasi correcta per expressar la cessació d\'un hàbit:',
       sentence:'Fa tres anys que ___ fumar gràcies al programa de deshabituació.',
       display:'perífrasi de cessament (+ infinitiu)',
-      answers:['va deixar de','ha deixat de','deixar de','vaig deixar de'],
+      answers:['va deixar de','ha deixat de','vaig deixar de'],
       variants:[
-        { text:'Algunes perífrasis verbals expressen que una acció o un hàbit s\'atura de manera definitiva.', sentence:'Des que es va jubilar, ___ matinar cada dia.', display:'perífrasi de cessament (+ infinitiu)', answers:['ha deixat de','va deixar de','deixar de'] },
-        { text:'Algunes perífrasis verbals expressen que una acció o un hàbit s\'atura de manera definitiva.', sentence:'Per qüestions de salut, fa mesos que ___ prendre cafeïna.', display:'perífrasi de cessament (+ infinitiu)', answers:['he deixat de','vaig deixar de','ha deixat de','va deixar de','deixar de'] },
+        { text:'Algunes perífrasis verbals expressen que una acció o un hàbit s\'atura de manera definitiva.', sentence:'Des que es va jubilar, ___ matinar cada dia.', display:'perífrasi de cessament (+ infinitiu)', answers:['ha deixat de','va deixar de'] },
+        { text:'Algunes perífrasis verbals expressen que una acció o un hàbit s\'atura de manera definitiva.', sentence:'Per qüestions de salut, fa mesos que ___ prendre cafeïna.', display:'perífrasi de cessament (+ infinitiu)', answers:['he deixat de','vaig deixar de','ha deixat de','va deixar de'] },
       ],
       theory:'«Deixar de + infinitiu» expressa la interrupció d\'un hàbit. Diferent de «parar de» (interrupció temporal).', example:'Ha deixat de menjar carn des de fa uns mesos.' },
     { id:'b2-per6', type:'choice', level:'b2', category:'Perífrasis verbals',
