@@ -3540,7 +3540,7 @@ const DATA = {
       options:['malgrat que','tot i que','a pesar de que','per bé que'],
       correct:2, variants:[
         { options:['a pesar de que','malgrat que','tot i que','per bé que'], correct:0 },
-        { question:'Quina forma és genuïnament catalana per expressar concessió?', options:['aunque','incluso si','malgrat que','a pesar de que'], correct:2 },
+        { question:'Quina forma és genuïnament catalana per expressar concessió?', options:['malgrat de que','incluso si','malgrat que','a pesar de que'], correct:2 },
       ],
       theory:'«A pesar de» és una locució genuïna recollida al DIEC, però davant la conjunció «que» la preposició «de» cau: «a pesar que». Per això «a pesar de que» és incorrecte (coincideix amb la forma castellana). En registre formal es prefereixen «malgrat que», «tot i que» i «per bé que».',  example:'✗ A pesar de que plovia, van sortir. ✓ A pesar que plovia, van sortir. / ✓ Malgrat que plovia, van sortir.' },
 
