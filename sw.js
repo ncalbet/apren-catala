@@ -91,12 +91,16 @@ self.addEventListener('push', event => {
   try { payload = event.data.json(); } catch { return; }
   const notif = payload.notification || {};
   event.waitUntil(
-    self.registration.showNotification(notif.title || 'AprènCatalà', {
-      body: notif.body || '',
-      icon: '/icons/icon-192x192.png',
-      badge: '/icons/icon-192x192.png',
-      tag: 'aprencatala-reminder',
-      data: { url: '/' }
+    // Si l'app és oberta i visible, no mostrem el recordatori: l'usuari ja hi és
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      if (list.some(c => c.visibilityState === 'visible')) return;
+      return self.registration.showNotification(notif.title || 'AprènCatalà', {
+        body: notif.body || '',
+        icon: '/icons/icon-192x192.png',
+        badge: '/icons/icon-192x192.png',
+        tag: 'aprencatala-reminder',
+        data: { url: '/' }
+      });
     })
   );
 });
