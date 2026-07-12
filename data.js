@@ -4064,9 +4064,9 @@ const DATA = {
     { id:'c1-cc6', type:'choice', level:'c1', category:'Connectors concessius',
       question:'En quina frase s\'usa incorrectament un connector concessiu?',
       text:'«Per bé que» exigeix sempre subjuntiu. Quan va seguit d\'indicatiu, l\'oració és incorrecta. «Malgrat» i «tot i» poden anar amb nom, infinitiu o verb conjugat.',
-      options:['Malgrat la crisi, l\'empresa va créixer.','Tot i ploure molt, van sortir a caminar.','Per bé que és un bon professional, treballarà amb nosaltres.'],
+      options:['Malgrat la crisi econòmica, l\'empresa va créixer força.','Tot i ploure molt tota la tarda, van sortir a caminar.','Per bé que és un bon professional, treballarà amb nosaltres.'],
       correct:2, variants:[
-        { options:['Per bé que és un bon professional, treballarà amb nosaltres.','Malgrat la crisi, l\'empresa va créixer.','Tot i ploure molt, van sortir a caminar.'], correct:0 },
+        { options:['Per bé que és un bon professional, treballarà amb nosaltres.','Malgrat la crisi econòmica, l\'empresa va créixer força.','Tot i ploure molt tota la tarda, van sortir a caminar.'], correct:0 },
         { question:'Quina frase usa «per bé que» incorrectament?', options:['Per bé que sigui difícil, cal intentar-ho.','Per bé que plou, sortirem igualment.','Per bé que els resultats siguin positius, cal continuar vigilant.'], correct:1 },
       ],
       theory:'«Per bé que» exigeix subjuntiu. «És» (indicatiu) és incorrecte. La forma correcta: «per bé que sigui un bon professional».', example:'Per bé que sigui difícil, cal intentar-ho.' },
