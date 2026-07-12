@@ -661,7 +661,23 @@ function renderMenu() {
         <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="clearActiveSession();renderMenu()">Descartar</button>
       </div>
     </div>` : '';
-  const notifBanner = shouldShowNotifBanner() ? `
+  const novetatsBanner = shouldShowNovetatsBanner() ? `
+    <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-green-text);background:var(--accent-green-bg);">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:20px;flex-shrink:0;">✨</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:600;color:var(--accent-green-text);">Contingut actualitzat</div>
+          <div style="font-size:12px;color:var(--accent-green-val);margin-top:2px;line-height:1.5;">Hem revisat a fons els exercicis amb les vostres aportacions: correccions, rigorositat i enunciats més clars. Gràcies per fer-ho possible!</div>
+        </div>
+        <button onclick="dismissNovetatsBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+      </div>
+      ${shouldShowNotifBanner() ? `
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--accent-green-val);">
+        <div style="flex:1;min-width:0;font-size:12px;color:var(--accent-green-val);">🔔 Recorda activar els recordatoris per no perdre't cap novetat</div>
+        <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="showTab('profile')">Activar</button>
+      </div>` : ''}
+    </div>` : '';
+  const notifBanner = (!novetatsBanner && shouldShowNotifBanner()) ? `
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:center;gap:12px;">
       <span style="font-size:20px;flex-shrink:0;">🔔</span>
       <div style="flex:1;min-width:0;">
@@ -673,6 +689,7 @@ function renderMenu() {
     </div>` : '';
   document.getElementById('ct-body').innerHTML = `
     ${resumeBanner}
+    ${novetatsBanner}
     ${notifBanner}
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">Benvingut/da!</div>
@@ -2683,6 +2700,15 @@ function shouldShowNotifBanner() {
 
 function dismissNotifBanner() {
   localStorage.setItem('notif_banner_dismissed', 'true');
+  renderMenu();
+}
+
+function shouldShowNovetatsBanner() {
+  return localStorage.getItem('novetats_v103_dismissed') !== 'true';
+}
+
+function dismissNovetatsBanner() {
+  localStorage.setItem('novetats_v103_dismissed', 'true');
   renderMenu();
 }
 
