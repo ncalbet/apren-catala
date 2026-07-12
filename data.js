@@ -2557,7 +2557,7 @@ const DATA = {
       sentence:'Aquesta taula és ___ fusta massissa i pesa molt.',
       answers:['de'],
       variants:[
-        { sentence:'Els meus avis venen ___ un poble petit de la Cerdanya.', answers:['de'] },
+        { sentence:'Els meus avis venen ___ un poble petit de la Cerdanya.', answers:["d'"] },
         { sentence:'Aquesta camisa és ___ cotó i és molt fresca.', answers:['de'] },
       ],
       theory:"La preposició «de» expressa el material de què està fet un objecte («de fusta», «de cotó») i també l'origen o procedència («venir de»). És una de les preposicions amb més valors en català.", example:"Una figura de fusta vinguda de l'Empordà." },
