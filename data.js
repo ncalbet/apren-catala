@@ -4837,7 +4837,7 @@ const DATA = {
     { id:'c1-ff19', type:'fill', level:'c1', category:'Frases fetes',
       text:'Cada locució col·loquial té un equivalent formal que en conserva el sentit però encaixa en un text acadèmic.',
       question:'La locució «no tenir pèls a la llengua» és col·loquial. Reformula-la per incloure-la en un informe acadèmic sobre comunicació corporativa.',
-      sentence:'La cultura de la transparència requereix professionals que s\'expressin amb ___ i que no evadin les qüestions difícils.',
+      sentence:'La cultura de la transparència requereix professionals que s\'expressin amb ___ i que no defugin les qüestions difícils.',
       display:'expressió formal equivalent a «no tenir pèls a la llengua»',
       answers:['total franquesa','plena franquesa','franquesa i claredat','claredat i franquesa','franquesa','sinceritat'],
       variants:[
