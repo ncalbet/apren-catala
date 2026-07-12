@@ -2196,7 +2196,7 @@ const DATA = {
     { id:'b1-con5', type:'reading', level:'b1', category:'Connectors B1',
       text:"La contaminació de l'aire és un problema greu a les grans ciutats. A causa dels cotxes i de la indústria, la qualitat de l'aire ha empitjorat molt. Tanmateix, alguns municipis han pres mesures importants. Per exemple, han creat zones de baixes emissions. A més, han ampliat el transport públic. Per tant, la situació podria millorar en els propers anys.",
       question:'Quantes relacions lògiques diferents s\'estableixen al text?',
-      options:['Només causa i conseqüència','Causa, contrast, addició i conseqüència','Causa, ordre i contrast'],
+      options:['Causa, conseqüència, condició i finalitat','Causa, contrast, addició i conseqüència','Causa, contrast, ordre i comparació'],
       correct:1, theory:"«A causa de» (causa) / «Tanmateix» (contrast) / «A més» (addició) / «Per tant» (conseqüència).", example:"Identifica el connector → identifica la relació lògica." },
 
     { id:'b1-con6', type:'fill', level:'b1', category:'Connectors B1',
