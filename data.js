@@ -3237,7 +3237,7 @@ const DATA = {
     { id:'b2-con5', type:'reading', level:'b2', category:'Connectors',
       text:'L\'ús adequat dels connectors és fonamental en qualsevol text formal. Tanmateix, molts escriptors tendeixen a abusar dels connectors simples, com ara «però» o «i». Per consegüent, el resultat és un discurs que sembla poc elaborat, malgrat que el contingut pugui ser valuós.',
       question:'Quin problema principal identifica el text?',
-      options:['Que els connectors no serveixen en textos formals','Que l\'ús repetitiu de connectors simples empobreix el discurs','Que cal evitar tots els connectors en registre formal'],
+      options:['Que els connectors no tenen cap funció en els textos formals','Que l\'ús repetitiu de connectors simples empobreix el discurs','Que cal evitar del tot els connectors en el registre formal'],
       correct:1, theory:'«Abusar dels connectors simples» i «poc elaborat» apunten a la resposta. Fixa\'t en el contrast entre «contingut valuós» i «discurs poc elaborat».', example:'Paraules clau: «tendeixen a abusar», «poc elaborat».' },
     { id:'b2-con6', type:'choice', level:'b2', category:'Connectors',
       question:'Quin connector introdueix una informació que contrasta amb l\'anterior?',
