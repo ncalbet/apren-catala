@@ -4526,7 +4526,7 @@ const DATA = {
     { id:'c1-ei7', type:'reading', level:'c1', category:'Estil indirecte',
       text:'En la roda de premsa, la ministra va afirmar que les mesures entrarien en vigor el mes següent. Va explicar que el govern havia treballat durant mesos en la proposta i que confiava que els resultats serien positius. Quan un periodista li va preguntar si hi hauria exempcions, va respondre que aquella decisió s\'estudiava encara.',
       question:'Quins canvis s\'han produït en passar de discurs directe a indirecte?',
-      options:['Cap canvi: el text ja era en estil indirecte original','Futur → condicional, present/passat → imperfet/plusquamperfet, adverbis adaptats («el mes següent»)','Només han canviat els pronoms personals'],
+      options:['Cap canvi: el text original ja estava redactat en estil indirecte','Els temps verbals s\'han desplaçat i els adverbis s\'han adaptat','Només han canviat els pronoms personals i els noms propis'],
       correct:1, theory:'«Entraran» → «entrarien» (cond.); «hem treballat» → «havia treballat» (plusq.); «el proper mes» → «el mes següent» (adverbi adaptat).', example:'Identifica cada canvi de temps verbal al text.' },
 
     // PASSIVA I IMPERSONAL
