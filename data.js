@@ -2388,7 +2388,7 @@ const DATA = {
     { id:'b1-sub5', type:'reading', level:'b1', category:'Subordinades B1',
       text:"Mentre estudiava per a l'examen, va sonar el telèfon. Era la seva amiga, que li deia que no podria venir a la festa perquè tenia molta feina. Li va proposar que quedessin un altre dia perquè poguessin parlar amb tranquil·litat.",
       question:'Quines oracions subordinades apareixen al text?',
-      options:['Només temporals i causals','Temporal, causal, final i substantiva (dir que...)','Causal i condicional'],
+      options:['Temporal, causal, condicional i comparativa','Temporal, causal, final i substantiva','Causal, final, concessiva i condicional'],
       correct:1, theory:"«Mentre estudiava» (temporal) / «perquè tenia» (causal, indicatiu) / «perquè poguessin» (final, subjuntiu) / «que li deia que» (substantiva).", example:"Identificar el nexe → identificar el tipus de subordinada." },
 
     { id:'b1-sub6', type:'choice', level:'b1', category:'Subordinades B1',
