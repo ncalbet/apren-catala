@@ -1,0 +1,23 @@
+name: Activitat usuaris
+
+# Diagnòstic sota demanda: llista als logs l'última activitat de cada usuari
+# (sessió de l'app i últim exercici). Només lectura, no envia ni modifica res.
+on:
+  workflow_dispatch:
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Instal·la dependències
+        run: npm ci
+        working-directory: scripts
+      - name: Llista activitat
+        run: node list_activitat.cjs
+        working-directory: scripts
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
