@@ -4746,7 +4746,7 @@ const DATA = {
 
     { id:'c1-ff12', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quin refrany s\'aplica a una persona que vol gestionar deu projectes a la vegada i cap no li surt bé?',
-      text:'Els refranys expressen saviesa popular de manera concisa. «De mica en mica» parla de la constància, «qui molt abraça» parla de la dispersió d\'esforços, i «qui dia passa» parla del pas del temps.',
+      text:'Els refranys expressen saviesa popular de manera concisa. Cadascun d\'aquests tres es basa en una imatge física ben diferent: pensa quina situació descriu cadascuna.',
       options:[
         'De mica en mica s\'omple la pica.',
         'Qui molt abraça, poc estreny.',
