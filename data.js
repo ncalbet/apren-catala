@@ -2415,12 +2415,12 @@ const DATA = {
 
     { id:'b1-lq2', type:'fill', level:'b1', category:'Lèxic quotidià B1',
       question:'Omple amb la paraula catalana adequada (evita el calc):',
-      sentence:"Treballo en un ___ molt gran, al centre de la ciutat. (no *despacho)",
+      sentence:"Treballo en un ___ molt gran, al centre de la ciutat.",
       display:'lloc de treball (terme català masculí, no «despacho»)',
       answers:['despatx'],
       variants:[
-        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"He d'anar a la ___ a treure diners. (no *ventanilla)", display:'finestra petita d\'atenció al públic (terme català, no «ventanilla»)', answers:['finestreta'] },
-        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina. (no *grifo)", display:'aixeta de l\'aigua (terme català, no «grifo»)', answers:['aixeta'] },
+        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"He d'anar a la ___ a treure diners.", display:'finestra petita d\'atenció al públic (terme català, no «ventanilla»)', answers:['finestreta'] },
+        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina.", display:'aixeta de l\'aigua (terme català, no «grifo»)', answers:['aixeta'] },
       ],
       theory:"«Despatx» = oficina pròpia o habitació de treball. «Oficina» = espai laboral general. Cap dels dos és «despacho».", example:"El director té un despatx molt gran. / Treballo en una oficina compartida." },
 
