@@ -2227,11 +2227,11 @@ const DATA = {
     { id:'b1-fc2', type:'choice', level:'b1', category:'Futur i condicional B1',
       question:'Quina frase expressa un desig educat?',
       text:'En català, el condicional s\'usa per fer peticions de manera cortesa i suavitzada. És l\'equivalent del «would like» en anglès o del «quisiera» en castellà formal.',
-      options:["Vull un cafè!","Voldria un cafè, si us plau.","Dona'm un cafè."],
+      options:["Vull un cafè!","Voldria un cafè.","Dona'm un cafè."],
       correct:1,
       variants:[
         { options:["Voldria reservar una taula per a quatre.","Reserva'm una taula per a quatre.","Vull que em reservis una taula."], correct:0 },
-        { options:["Parla'm amb el director.","Vull parlar amb el director.","Voldria parlar amb el director, si és possible."], correct:2 },
+        { options:["Parla'm amb el director.","Vull parlar amb el director.","Voldria parlar amb el director."], correct:2 },
       ],
       theory:"El condicional «voldria» suavitza la petició i la fa educada. És equivalent a «would like» en anglès.", example:"Voldria reservar una taula per a dos, si us plau." },
 
