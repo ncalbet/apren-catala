@@ -4059,7 +4059,7 @@ const DATA = {
     { id:'c1-cc5', type:'reading', level:'c1', category:'Connectors concessius',
       text:'Tot i que el cost inicial de les energies renovables era elevat, la seva implantació s\'ha accelerat. Per bé que alguns sectors continuïn resistint-se a la transició, les dades indiquen que el punt de no retorn ja s\'ha superat. Malgrat tot, la velocitat del canvi continua sent insuficient.',
       question:'Quina funció comparteixen «tot i que», «per bé que» i «malgrat tot» en el text?',
-      options:['Introduir causes de la situació','Expressar obstacles que no impedeixen el resultat principal','Donar ordre cronològic als esdeveniments'],
+      options:['Introduir les causes que expliquen la situació que es descriu','Expressar obstacles que no impedeixen el resultat principal','Marcar l\'ordre cronològic dels fets que s\'hi descriuen'],
       correct:1, theory:'Els tres connectors són concessius: introdueixen un obstacle que no impedeix la conclusió principal.', example:'Tot i que [obstacle]... [la situació continua].' },
     { id:'c1-cc6', type:'choice', level:'c1', category:'Connectors concessius',
       question:'En quina frase s\'usa incorrectament un connector concessiu?',
