@@ -4656,7 +4656,7 @@ const DATA = {
       question:'Omple amb el substantiu formal precís:',
       sentence:'La ___ de dades disponibles impedeix extreure conclusions definitives sobre el fenomen.',
       display:'substantiu precís (en lloc de «la cosa és que no tenim prous dades»)',
-      answers:['insuficiència','manca','escassetat'],
+      answers:['insuficiència','manca','mancança','falta','absència','escassetat'],
       theory:'En registre acadèmic s\'eviten paraules buit (cosa, tema) i s\'usen substantius precisos. «La cosa és que no tenim dades» → «La insuficiència/manca de dades».', example:'La manca de dades... / La insuficiència d\'evidències... / L\'escassetat d\'informació...' },
     { id:'c1-ff7', type:'choice', level:'c1', category:'Frases fetes',
       text:'Les frases fetes tenen un significat figurat que no es dedueix del sentit literal de les paraules.',
