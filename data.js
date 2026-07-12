@@ -4801,7 +4801,7 @@ const DATA = {
 
     { id:'c1-ff16', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quin és el significat precís de «ficar-se en camisa d\'onze vares»?',
-      text:'«Ficar-se en camisa d\'onze vares» prové de la imatge d\'algú que intenta entrar en una camisa massa gran per a ell, generant-se dificultats innecessàries. Quin comportament descriu?',
+      text:'Les locucions amb peces de roba són freqüents en català, i aquesta és de les més antigues: la documentació en relaciona l\'origen amb la cerimònia medieval d\'adopció, en què es passava l\'infant per la màniga d\'una camisa enorme. Quin comportament descriu?',
       options:[
         'Fer un gran esforç per superar un obstacle molt difícil.',
         'Involucrar-se innecessàriament en una situació complicada que portarà problemes.',
@@ -4811,7 +4811,7 @@ const DATA = {
         { options:['Involucrar-se innecessàriament en una situació complicada que portarà problemes.','Fer un gran esforç per superar un obstacle molt difícil.','Tenir molta experiència en un àmbit complex i especialitzat.'], correct:0 },
         { options:['Tenir molta experiència en un àmbit complex i especialitzat.','Fer un gran esforç per superar un obstacle molt difícil.','Involucrar-se innecessàriament en una situació complicada que portarà problemes.'], correct:2 },
       ],
-      theory:'«Ficar-se en camisa d\'onze vares» significa posar-se en dificultats per haver-se involucrat en alguna cosa que no calia. La imatge és d\'una camisa desproporcionadament gran i embolicada de dur. L\'accent és en la imprudència d\'involucrar-s\'hi.',
+      theory:'«Ficar-se en camisa d\'onze vares» significa posar-se en dificultats per haver-se involucrat en alguna cosa que no calia. Com que les adopcions medievals (passar l\'infant per la màniga d\'una camisa molt ampla) no sempre acabaven bé, el refranyer va convertir la camisa desmesurada en un advertiment. L\'accent és en la imprudència d\'involucrar-s\'hi.',
       example:'En publicar aquell comentari polèmic, es va ficar en camisa d\'onze vares i va haver de fer declaracions durant setmanes.' },
 
     { id:'c1-ff17', type:'fill', level:'c1', category:'Frases fetes',
