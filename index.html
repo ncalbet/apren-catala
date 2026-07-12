@@ -2691,15 +2691,22 @@ async function saveNotifPref(type, value) {
 }
 
 function shouldShowNotifBanner() {
-  return !!(window.fbUser
-    && localStorage.getItem('notif_active') !== 'true'
-    && localStorage.getItem('notif_banner_dismissed') !== 'true'
-    && ('Notification' in window)
-    && Notification.permission !== 'denied');
+  if (!window.fbUser
+    || localStorage.getItem('notif_active') === 'true'
+    || !('Notification' in window)
+    || Notification.permission === 'denied') return false;
+  // Migració del valor antic (booleà permanent → data de tancament)
+  if (localStorage.getItem('notif_banner_dismissed') === 'true') {
+    localStorage.setItem('notif_banner_dismissed_at', String(Date.now()));
+    localStorage.removeItem('notif_banner_dismissed');
+  }
+  // Tancat fa menys de 30 dies → no molestem; després torna a sortir
+  const at = parseInt(localStorage.getItem('notif_banner_dismissed_at') || '0', 10);
+  return !at || (Date.now() - at) > 30 * 24 * 60 * 60 * 1000;
 }
 
 function dismissNotifBanner() {
-  localStorage.setItem('notif_banner_dismissed', 'true');
+  localStorage.setItem('notif_banner_dismissed_at', String(Date.now()));
   renderMenu();
 }
 
