@@ -2429,8 +2429,8 @@ const DATA = {
       options:['el cotxe','el carro (de tracció animal)','el car (vehicle)'],
       correct:2,
       variants:[
-        { question:'Quin terme és incorrecte en català?', options:['l\'ordinador','el computador','el computer'], correct:2 },
-        { question:'Quin terme és incorrecte en català?', options:['el mòbil','el móvil','el telèfon mòbil'], correct:1 },
+        { question:'Quin terme és incorrecte en català?', options:['l\'ordinador','el computador','el computer'], correct:2, theory:"«Ordinador» és el terme català habitual per a aquesta màquina, i «computador» també és al DIEC, tot i que s'usa menys. ✗ «Computer» és anglès i no és català.", example:"L'ordinador de la feina va molt lent." },
+        { question:'Quin terme és incorrecte en català?', options:['el mòbil','el móvil','el telèfon mòbil'], correct:1, theory:"«Mòbil» s'escriu amb accent greu en català; ✗ «móvil», amb accent agut, és la forma castellana. «Telèfon mòbil» és la forma completa.", example:"M'he deixat el mòbil a casa." },
       ],
       theory:"Per al vehicle de motor, el català usa «cotxe». ✗ «Car» (anglès) i el seu calc no són catalans. «Carro» sí que existeix en català, però designa un vehicle de tracció animal (carruatge), no un cotxe.", example:"Vine en cotxe o en transport públic?" },
 
