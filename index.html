@@ -2537,7 +2537,7 @@ function renderHelp() {
       <details class="ct-acc">
         <summary>Contingut actualitzat i rigorós</summary>
         <div class="ct-acc-body">
-          Els exercicis cobreixen els quatre nivells del Marc Europeu Comú de Referència (MECR): <strong>A2, B1, B2 i C1</strong>. El contingut segueix la normativa de l'<strong>Institut d'Estudis Catalans (IEC)</strong> i el <em>Diccionari de la llengua catalana</em> (DIEC2), i és apte per a la preparació dels exàmens oficials de català de la <strong>Generalitat de Catalunya</strong> (CIELE, DILE i equivalents).
+          Els exercicis cobreixen els quatre nivells del Marc Europeu Comú de Referència (MECR): <strong>A2, B1, B2 i C1</strong>, més un mòdul transversal de <strong>Novetats IEC</strong> sobre la normativa del 2016. El contingut segueix la normativa de l'<strong>Institut d'Estudis Catalans (IEC)</strong> i el <em>Diccionari de la llengua catalana</em> (DIEC2), i és apte per a la preparació dels exàmens oficials de català de la <strong>Generalitat de Catalunya</strong> (CIELE, DILE i equivalents).
         </div>
       </details>
 
@@ -2552,7 +2552,7 @@ function renderHelp() {
       <details class="ct-acc">
         <summary>Pràctica activa</summary>
         <div class="ct-acc-body">
-          A Aprèn Català es promou la <strong>producció de la llengua</strong> en cada sessió: completar frases, ordenar elements, triar entre opcions amb raonament, escriure reformulacions.<br><br>
+          A Aprèn Català es promou la <strong>producció de la llengua</strong> en cada sessió: completar frases, ordenar els elements d'una oració, triar entre opcions amb raonament i respondre preguntes sobre textos.<br><br>
           Aquesta metodologia combinada amb el <strong>repàs intel·ligent</strong> selecciona els exercicis que més necessites en cada moment, assegurant que el temps d'estudi rendeixi al màxim.
         </div>
       </details>
@@ -2570,15 +2570,17 @@ function renderHelp() {
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;">📖 Com funciona l'app</div>
 
       <details class="ct-acc">
-        <summary>🎯 Sistema de domini (1 → 5)</summary>
+        <summary>🎯 Sistema de domini (0 → 5)</summary>
         <div class="ct-acc-body">
-          Cada exercici té un nivell de domini de <strong>1 a 5</strong>. Comença a 1 quan el fas per primera vegada i puja +1 cada vegada que l'encertes en un <strong>dia diferent</strong>.<br><br>
-          <strong>1 — Nou:</strong> encara no l'has fet.<br>
+          Cada exercici té un <strong>nivell de domini</strong> que va de 0 a 5:<br><br>
+          <strong>0 — Nou:</strong> encara no l'has fet mai.<br>
+          <strong>1 — Fallat:</strong> l'has intentat i no l'has encertat.<br>
           <strong>2 — En aprenentatge:</strong> l'has encertat un cop.<br>
           <strong>3 — Consolidant:</strong> dos encerts en dies diferents.<br>
-          <strong>4 — Ben après:</strong> tres o més encerts.<br>
-          <strong>5 — Dominat:</strong> màxim domini, apareixerà menys sovint al repàs.<br><br>
-          Practicar el mateix exercici diverses vegades el mateix dia no puja el domini: cal fer-ho en <strong>dies naturals diferents</strong> perquè l'aprenentatge es consolidi de veritat.
+          <strong>4 — Ben après:</strong> tres o més encerts en dies diferents.<br>
+          <strong>5 — Dominat:</strong> màxim domini; apareixerà menys sovint al repàs.<br><br>
+          <strong>Com puja:</strong> el primer encert et posa directament a <strong>2</strong>. A partir d'aquí, cada encert puja <strong>+1</strong>, però <strong>només un cop al dia</strong>: repetir el mateix exercici la mateixa tarda no el fa pujar més. Cal tornar-hi un <strong>dia natural diferent</strong> perquè l'aprenentatge es consolidi de veritat.<br><br>
+          <strong>Com baixa:</strong> si t'equivoques, el domini <strong>baixa 1 punt</strong> (mai per sota d'1). Ara bé, si després l'encertes, <strong>recuperes el mateix dia</strong> el que havies perdut: una errada no et castiga la jornada sencera.
         </div>
       </details>
 
@@ -2595,7 +2597,7 @@ function renderHelp() {
         <summary>⭐ XP i nivells</summary>
         <div class="ct-acc-body">
           Guanyes <strong>XP</strong> (punts d'experiència) cada vegada que encertes un exercici. L'XP acumulat determina el teu <strong>nivell</strong>, que va d'Aprenent fins a Mestre del Català.<br><br>
-          Els nivells són decoratius i no afecten el contingut disponible: pots practicar qualsevol nivell de l'app (A2, B1, B2, C1) des del primer dia.
+          Els nivells són decoratius i no afecten el contingut disponible: pots practicar qualsevol nivell de l'app (A2, B1, B2, C1 i el mòdul Novetats IEC) des del primer dia.
         </div>
       </details>
 
@@ -2611,7 +2613,8 @@ function renderHelp() {
       <details class="ct-acc">
         <summary>📅 Repte diari</summary>
         <div class="ct-acc-body">
-          Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis seleccionats aleatòriament. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
+          Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
+          No es trien a l'atzar: surten dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1), i s'eviten els exercicis que t'han sortit als reptes de l'última setmana perquè no es repeteixin. El mòdul <strong>Novetats IEC</strong> no hi entra: és transversal i el practiques quan vulguis.<br><br>
           El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
         </div>
       </details>
@@ -2620,7 +2623,16 @@ function renderHelp() {
         <summary>🔁 Repàs intel·ligent</summary>
         <div class="ct-acc-body">
           El <strong>repàs intel·ligent</strong> selecciona els exercicis que més necessites practicar: prioritza els que tens pitjor dominats i assegura varietat entre categories.<br><br>
-          Pots filtrar el repàs per nivell (A2, B1, B2, C1 o Tots) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
+          Pots filtrar el repàs per nivell (A2, B1, B2, C1, 📜 Novetats IEC o Tot) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>📜 Novetats IEC</summary>
+        <div class="ct-acc-body">
+          A més dels quatre nivells, hi ha un <strong>mòdul transversal</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) sobre <strong>què va canviar amb la normativa de l'IEC del 2016</strong>: els quinze accents diacrítics que queden, els que van desaparèixer, els guionets dels compostos, els prefixos i l'ortografia dels pronoms febles.<br><br>
+          Està pensat per a qui va estudiar amb la normativa antiga i vol posar-se al dia. <strong>No és un nivell del MECR</strong>: no cal fer-lo per avançar i no entra al repte diari, però compta per a l'XP i té <strong>medalles pròpies</strong>.<br><br>
+          Compte: en aquest mòdul, els exercicis d'escriure <strong>exigeixen l'accent exacte</strong> (si la resposta és «sòl», «sol» no val). És justament el que s'hi practica.
         </div>
       </details>
 
@@ -2670,7 +2682,23 @@ function renderHelp() {
       <details class="ct-acc">
         <summary>Puc fer exercicis d'un nivell superior al meu?</summary>
         <div class="ct-acc-body">
-          Sí, tots els nivells (A2, B1, B2, C1) estan disponibles des del primer dia. El teu nivell a l'app (Aprenent, Estudiant…) es basa en l'XP acumulat i és independent del nivell de català que tries practicar.
+          Sí, tots els nivells (A2, B1, B2, C1 i el mòdul Novetats IEC) estan disponibles des del primer dia. El teu nivell a l'app (Aprenent, Estudiant…) es basa en l'XP acumulat i és independent del nivell de català que tries practicar.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>Per què m'ha baixat el domini d'un exercici?</summary>
+        <div class="ct-acc-body">
+          Perquè l'has fallat: una errada <strong>baixa el domini 1 punt</strong> (mai per sota d'1). És el que fa que el repàs et torni a portar allò que se t'ha rovellat.<br><br>
+          No pateixis: si tornes a encertar-lo <strong>el mateix dia</strong>, recuperes el punt perdut. Una errada puntual no t'esborra la feina feta.
+        </div>
+      </details>
+
+      <details class="ct-acc">
+        <summary>Com puc reiniciar el progrés?</summary>
+        <div class="ct-acc-body">
+          Des de <strong>Perfil → Compte i sincronització → Gestió de les dades</strong>. Esborra l'XP, la ratxa i el domini de tots els exercicis d'aquest dispositiu, i <strong>no es pot desfer</strong>.<br><br>
+          Si tens compte, allà mateix hi trobaràs també l'opció d'<strong>esborrar el compte</strong> i les dades sincronitzades al núvol.
         </div>
       </details>
 
