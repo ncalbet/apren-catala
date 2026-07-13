@@ -1962,6 +1962,212 @@
     ]
   },
 
+  // ── MÒDUL NOVETATS IEC ─────────────────────────────────────
+  // Fonts: OIEC (2017) § 3.1.3 i § 4.3; Novetats de l'Ortografia catalana
+  // (Servei de Correcció Lingüística IEC, act. 2021); Act_OIEC_1 (2021).
+  // Matèria primera verificada: Recursos\OIEC\parells_abans_ara.md
+
+  'Els diacrítics que queden': {
+    level: 'iec',
+    icon: '🎯',
+    subtitle: "L'ortografia del 2016 va reduir els diacrítics a quinze mots: aquests són els que encara s'accentuen",
+    sections: [
+      {
+        title: 'Què va passar el 2016?',
+        icon: '📌',
+        body: `<p>L'<strong>Ortografia catalana</strong> de l'IEC (ratificada el 2016, publicada el 2017) va reduir la llista de mots amb accent diacrític d'uns 150 a <strong>quinze monosíl·labs d'ús freqüent</strong>. L'accent diacrític serveix per a distingir mots que s'escriuen igual però volen dir coses diferents.</p>
+               <p>Es poden memoritzar en <strong>cinc grups de tres</strong>, ordenats alfabèticament: <em>bé-déu-és · mà-més-món · pèl-què-sé · sí-sòl-són · té-ús-vós</em>.</p>`
+      },
+      {
+        title: 'Els quinze mots (OIEC, quadre 32)',
+        icon: '📊',
+        table: {
+          headers: ['Amb accent', 'Sense accent'],
+          rows: [
+            ['bé (avantatge; adverbi): «Ho fa bé»', 'be (anyell; lletra b): «un ramat de bens»'],
+            ['déu (divinitat): «els déus grecs', 'deu (font; número 10; verb deure)'],
+            ['és (verb ser)', 'es (pronom; article salat)'],
+            ['mà (part del braç)', 'ma (possessiu: «ma mare»)'],
+            ['més (quantitat): «en vull més»', 'mes (part de l\'any; conjunció)'],
+            ['món (la Terra)', 'mon (possessiu: «mon pare»)'],
+            ['pèl (filament de la pell)', 'pel (contracció per + el)'],
+            ['què (amb preposició; interrogatiu)', 'que (relatiu; conjunció): «el llibre que llegeixo»'],
+            ['sé (verb saber)', 'se (pronom): «no se sap res»'],
+            ['sí (afirmació)', 'si (condicional; nota musical)'],
+            ['sòl (terreny): «sòl urbà»', 'sol (astre; adjectiu; verb soler)'],
+            ['són (verb ser)', 'son (ganes de dormir; possessiu)'],
+            ['té (verb tenir)', 'te (pronom; infusió)'],
+            ['ús (acció d\'usar)', 'us (pronom): «us estimo»'],
+            ['vós (pronom fort)', 'vos (pronom feble: «vestiu-vos»)'],
+          ]
+        }
+      },
+      {
+        title: 'La regla dels plurals',
+        icon: '📋',
+        rules: [
+          { label: 'Conserven l\'accent en plural si el plural coincideix amb el del mot sense accent', example: 'béns, déus, pèls, quès, sís, sòls' },
+          { label: 'NO el conserven quan els plurals ja es distingeixen sols', example: 'mans, mons, mesos, usos' },
+        ]
+      }
+    ]
+  },
+
+  'Els diacrítics que han caigut': {
+    level: 'iec',
+    icon: '✂️',
+    subtitle: "Mots que fins al 2016 duien accent diacrític i ara s'escriuen sense: el reflex antic ara és falta",
+    sections: [
+      {
+        title: 'El canvi',
+        icon: '📌',
+        body: `<p>Tot mot que no sigui a la llista dels quinze <strong>ha perdut l'accent diacrític</strong>, tingui el significat que tingui. Escriure «*sóc», «*dóna» o «*vés» és, des del 2017, una falta d'ortografia — encara que durant dècades fos obligatori.</p>
+               <p>El context desfà l'ambigüitat: «Soc de Reus», «Em dona la mà», «Ves a comprar pa».</p>`
+      },
+      {
+        title: 'Parells abans → ara més freqüents',
+        icon: '📊',
+        table: {
+          headers: ['Abans (fins 2016)', 'Ara', 'Convivia amb...'],
+          rows: [
+            ['sóc (verb ser)', 'soc', 'soc (tros de soca; esclop)'],
+            ['dóna, dónes (verb donar)', 'dona, dones', 'dona (persona)'],
+            ['véns, vénen (verb venir)', 'vens, venen', 'vens, venen (verb vendre)'],
+            ['vés (imperatiu d\'anar)', 'ves', 'ves (de veure\'s)'],
+            ['nét, néta (fill del fill)', 'net, neta', 'net (polit)'],
+            ['ós (animal)', 'os', 'os (de l\'esquelet)'],
+            ['móra (fruita)', 'mora', 'mora (magribina)'],
+            ['bóta (recipient de vi)', 'bota', 'bota (calçat)'],
+            ['mòlt (participi de moldre)', 'molt', 'molt (quantitatiu)'],
+            ['fóra (condicional de ser)', 'fora', 'fora (adverbi)'],
+            ['séc (plec)', 'sec', 'sec (eixut; verb seure)'],
+            ['féu (passat de fer)', 'feu', 'feu (domini feudal; present de fer)'],
+          ]
+        }
+      },
+      {
+        title: 'Compostos i derivats: mai amb diacrític',
+        icon: '📋',
+        rules: [
+          { label: 'Els compostos aglutinats i els derivats dels quinze mots s\'escriuen sense accent', example: 'adeu, adeu-siau, marededeu, rodamon, a contrapel, repel, entresol, subsol' },
+          { label: 'PERÒ els compostos amb guionet el mantenen, perquè cada component conserva la seva grafia', example: 'déu-n\'hi-do, cotó-en-pèl, mà-llarg, pèl-roig, més-dient' },
+        ]
+      }
+    ]
+  },
+
+  'Guionets als compostos': {
+    level: 'iec',
+    icon: '🔗',
+    subtitle: 'Quan els mots compostos porten guionet, quan s\'aglutinen i quan van separats',
+    sections: [
+      {
+        title: 'Els casos amb guionet (OIEC § 4.3.2.2)',
+        icon: '📊',
+        table: {
+          headers: ['Cas', 'Exemples'],
+          rows: [
+            ['Numerals: desena-unitat i unitat-cents', 'vint-i-quatre, seixanta-dos, tres-cents'],
+            ['Punts cardinals com a primer element', 'nord-americà, sud-coreà, nord-est'],
+            ['Reduplicatius i onomatopeies', 'ping-pong, zig-zag, xano-xano, poti-poti'],
+            ['Vocal final + r-, s-, x- inicial', 'gira-sol, busca-raons, cul-de-sac, Poble-sec'],
+            ['Primer element amb accent gràfic', 'mà-llarg, ciència-ficció, déu-n\'hi-do'],
+            ['Noms propis compostos', 'Josep-Lluís, Castella-la Manxa'],
+            ['Noms juxtaposats que complementen', 'vol Barcelona-València, diccionari català-castellà'],
+          ]
+        }
+      },
+      {
+        title: 'La trampa dels derivats',
+        icon: '⚠️',
+        body: `<p>Els <strong>derivats</strong> dels compostos amb guionet <strong>perden el guionet</strong>: <em>ping-pong</em> però <em>pingponguista</em>; <em>zig-zag</em> però <em>zigzaguejar</em>; <em>cinc-cents</em> però <em>cinccentista</em>.</p>
+               <p>Excepció: els derivats dels punts cardinals i dels compostos amb r/s/x el <strong>mantenen</strong>: <em>sud-americanització, poca-soltada</em>.</p>`
+      },
+      {
+        title: 'Novetats del 2016 en aquest camp',
+        icon: '🆕',
+        rules: [
+          { label: 'déu-n\'hi-do i cotó-en-pèl: abans s\'escrivien sense guionets', example: 'Ara: «Déu-n\'hi-do, quin sopar!»' },
+          { label: 'Castella-la Manxa: abans s\'escrivia amb espais', example: 'Ara el guionet uneix «Castella» i «la Manxa»' },
+        ]
+      }
+    ]
+  },
+
+  'Prefixos: junt o separat': {
+    level: 'iec',
+    icon: '🧩',
+    subtitle: 'La regla general és aglutinar; el guionet davant majúscules va desaparèixer el 2021',
+    sections: [
+      {
+        title: 'Regla general: tot junt',
+        icon: '📌',
+        body: `<p>Els mots amb prefix s'escriuen <strong>aglutinats</strong>, sense guionet: <em>exalcalde, vicepresidenta, contraespionatge, ultraconservador, arximilionari</em>. També amb dos prefixos: <em>exvicepresident</em>.</p>
+               <p>La erra no es dobla (<em>antiràbic, extraradi, infraroig, vicerector</em>), excepte amb els prefixos <em>a-</em>, <em>cor-</em> i <em>ir-</em> (<em>arrítmia, corresponsable, irreal</em>) i el cas d'<strong>erradicar</strong> — que abans s'escrivia <em>eradicar</em>.</p>`
+      },
+      {
+        title: 'El canvi del 2021: fora guionets davant majúscules',
+        icon: '🆕',
+        table: {
+          headers: ['Fins al 2021 (OIEC impresa)', 'Des del 2021 (vigent)'],
+          rows: [
+            ['ex-URSS, ex-Iugoslàvia', 'ex URSS, ex Iugoslàvia'],
+            ['manifestació anti-OTAN', 'manifestació anti OTAN'],
+            ['selecció sub-21, pel·lícula súper-8', 'selecció sub 21, pel·lícula súper 8'],
+            ['ex-conseller en cap, vice-primer ministre', 'ex conseller en cap (separat, sense guionet)'],
+          ]
+        }
+      },
+      {
+        title: 'Junt o separat? El truc del nucli',
+        icon: '📋',
+        rules: [
+          { label: 'Si el prefix + primer mot ja és una paraula (el prefix afecta el nucli), s\'aglutina', example: 'exministre de l\'Interior, vicepresidenta primera, subdirectora general' },
+          { label: 'Si el prefix afecta tot un sintagma fet (i el prefix + primer mot no és cap paraula), va separat', example: 'ex alt càrrec, ex número dos, vice primera ministra (no existeix *viceprimera)' },
+          { label: '«no-» amb guionet només en conceptes lexicalitzats', example: 'la no-violència, el no-res, art no-figuratiu — però: organització no governamental, els no fumadors' },
+        ]
+      }
+    ]
+  },
+
+  'Mites i confusions': {
+    level: 'iec',
+    icon: '🕵️',
+    subtitle: 'El que la gent creu que va canviar (i no), i el que va canviar de debò sense que ningú se n\'adonés',
+    sections: [
+      {
+        title: 'Mite 1: «Ara puc posar el diacrític si vull»',
+        icon: '❌',
+        body: `<p>Fals en prosa normal. L'<strong>ús discrecional</strong> del diacrític només és admès en casos molt marcats: transcripcions de textos medievals o dialectals, usos metalingüístics, i enunciats aïllats realment ambigus (titulars, etiquetes). En un text corrent, «*Li dóna les claus» és falta.</p>`
+      },
+      {
+        title: 'Mite 2: «Els topònims també l\'han perdut»',
+        icon: '❌',
+        body: `<p>Fals: per les implicacions legals dels noms de lloc, els <strong>topònims conserven el diacrític</strong> encara que el mot no sigui a la llista: <em>Móra d'Ebre, Cóll, Jóc, el Camp de la Bóta, el clot de l'Ós</em>.</p>`
+      },
+      {
+        title: 'Mite 3: «El 2016 va canviar l\'accentuació general»',
+        icon: '❌',
+        body: `<p>Fals: les <strong>regles generals d'accentuació no es van tocar</strong>. Els canvis d'accents van ser la llista de diacrítics i tres casos menors (la u darrere g com a <em>gúa</em>, formes balears i formes valencianes amb accent agut).</p>`
+      },
+      {
+        title: 'Canvis reals que van passar desapercebuts (DIEC2)',
+        icon: '📊',
+        table: {
+          headers: ['Ara', 'Abans'],
+          rows: [
+            ['hàndicap', 'handicap (a l\'anglesa)'],
+            ['viking', 'víking'],
+            ['zigurat', 'ziggurat'],
+            ['alter ego (llatinisme, sense accents)', 'àlter ego'],
+            ['kan, agakan', 'khan, aga khan'],
+            ['maharajà', 'maharaja'],
+          ]
+        }
+      }
+    ]
+  },
+
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -4923,6 +5129,364 @@ const DATA = {
       ],
       theory:'En la passiva reflexa (es + verb), el verb concorda en nombre amb el subjecte pacient: «mesures» és plural → «es van prendre». La forma «es va prendre» seria correcta si el subjecte pacient fos singular: «es va prendre una mesura». «Se» en lloc de «es» davant de verb conjugat és un castellanisme a evitar.',
       example:'Es va aprovar la mesura (subjecte sing.) / Es van aprovar les mesures (subjecte pl.) / *Se van prendre → forma incorrecta.' },
+
+  ],
+
+  // ── MÒDUL NOVETATS IEC ──────────────────────────────────────
+  // Fonts verificades: OIEC § 3.1.3 (quadre 32), § 4.3.1-4.3.2;
+  // Novetats de l'Ortografia catalana (IEC, 2021); Act_OIEC_1 (2021).
+  // Vegeu Recursos\OIEC\parells_abans_ara.md
+  iec: [
+
+    // ── ELS DIACRÍTICS QUE QUEDEN ──
+    { id:'iec-dq1', type:'choice', level:'iec', category:'Els diacrítics que queden',
+      question:'Quin d\'aquests grups conté només mots que conserven l\'accent diacrític?',
+      options:['bé, món i sòl','net, os i soc','dona, molt i ves'],
+      correct:0,
+      variants:[
+        { options:['fora, mora i sec','déu, pèl i vós','venen, vens i feu'], correct:1 },
+        { options:['bota, molt i ves','net, os i soc','més, sé i té'], correct:2 },
+      ],
+      theory:"La llista vigent té quinze mots, memoritzables en grups de tres: bé-déu-és · mà-més-món · pèl-què-sé · sí-sòl-són · té-ús-vós. Tota la resta de diacrítics van desaparèixer amb l'ortografia del 2016.", example:'Ho ha fet bé. / La fi del món. / El preu del sòl.' },
+
+    { id:'iec-dq2', type:'fill', level:'iec', category:'Els diacrítics que queden',
+      question:'Escriu el mot adequat (amb accent o sense):',
+      text:'El context decideix si toca la forma amb diacrític o la forma sense.',
+      sentence:"El ramat de ___ pastura vora el riu.",
+      display:'anyells (en plural)',
+      answers:['bens'],
+      variants:[
+        { sentence:"Va declarar tots els seus ___ immobles a Hisenda.", display:'propietats, riqueses (en plural)', answers:['béns'] },
+        { sentence:"Aquest arròs t'ha quedat molt ___.", display:'adverbi de manera', answers:['bé'] },
+      ],
+      theory:"«Bé» (avantatge, riquesa; adverbi) duu accent i el conserva al plural: béns. «Be» (anyell; la lletra b) no en duu: bens, bes. El plural conserva l'accent quan coincideix gràficament amb el del mot sense accent.", example:'Ho faig pel teu bé. / Béns immobles. / Un ramat de bens.' },
+
+    { id:'iec-dq3', type:'fill', level:'iec', category:'Els diacrítics que queden',
+      question:'Escriu el mot adequat (amb accent o sense):',
+      text:'El context decideix si toca la forma amb diacrític o la forma sense.',
+      sentence:"L'aigua d'aquesta ___ termal surt a seixanta graus.",
+      display:'font natural d\'aigua',
+      answers:['deu'],
+      variants:[
+        { sentence:"Els ___ grecs vivien al mont Olimp.", display:'divinitats (en plural)', answers:['déus'] },
+        { sentence:"Em ___ cent euros des de divendres passat.", display:'verb deure, 2a persona singular', answers:['deus'] },
+      ],
+      theory:"«Déu» només duu accent quan vol dir 'divinitat' (plural déus, amb accent conservat). La font (una deu), el número 10 i les formes del verb deure s'escriuen sense.", example:'Creure en Déu. / Una deu termal. / Em deus diners.' },
+
+    { id:'iec-dq4', type:'fill', level:'iec', category:'Els diacrítics que queden',
+      question:'Escriu el mot adequat (amb accent o sense):',
+      text:'El context decideix si toca la forma amb diacrític o la forma sense.',
+      sentence:"El preu del ___ urbà ha pujat molt en aquesta ciutat.",
+      display:'terreny (singular)',
+      answers:['sòl'],
+      variants:[
+        { sentence:"Aquesta planta només creix en ___ sorrencs.", display:'terrenys (en plural)', answers:['sòls'] },
+        { sentence:"Després de la tempesta ha sortit el ___.", display:'l\'astre que ens il·lumina', answers:['sol'] },
+      ],
+      theory:"«Sòl» ('terreny') duu accent — és l'únic cas de la llista on s'accentua el mot MENYS freqüent — i el conserva al plural: sòls. «Sol» (astre, nota musical, adjectiu, verb soler) no en duu.", example:'Un sòl fèrtil. / La llum del sol. / Es troba molt sol.' },
+
+    { id:'iec-dq5', type:'fill', level:'iec', category:'Els diacrítics que queden',
+      question:'Escriu el mot adequat (amb accent o sense):',
+      text:'El context decideix si toca la forma amb diacrític o la forma sense.',
+      sentence:"No sé de ___ em parles.",
+      display:'darrere preposició',
+      answers:['què'],
+      variants:[
+        { sentence:"El llibre ___ llegeixo és apassionant.", display:'relatiu sense preposició', answers:['que'] },
+        { sentence:"Quan acabi la reunió, ja em diràs el ___.", display:'el quid de la qüestió', answers:['què'] },
+      ],
+      theory:"«Què» duu accent quan és interrogatiu, exclamatiu, relatiu precedit de preposició (amb què, de què) o nom ('el quid': el què). «Que» relatiu sense preposició, conjunció o quantitatiu no en duu.", example:'El martell amb què han picat. / El vestit que portes. / Ja em diràs el què.' },
+
+    { id:'iec-dq6', type:'reading', level:'iec', category:'Els diacrítics que queden',
+      text:"És tard i tinc molta son, però sé que una tassa de te em farà bé. Al món no hi ha res més reconfortant.",
+      question:'Per què s\'accentuen «és», «sé», «bé», «món» i «més» en aquest text?',
+      options:[
+        'Tenen un homògraf que s\'escriu igual però significa una altra cosa',
+        'Són mots aguts acabats en vocal i segueixen la regla general d\'accentuació',
+        'La reforma del 2016 els va afegir de nou a la llista de mots accentuats'
+      ],
+      correct:0,
+      theory:"Els cinc són a la llista dels quinze diacrítics: es distingeixen d'un homògraf (es, se, be, mon, mes). En canvi, «son» (ganes de dormir) i «te» (infusió) s'escriuen sense accent perquè són les formes sense diacrític dels parells són/son i té/te.", example:'Tinc son (ganes de dormir) / Tots són aquí (verb ser). Una tassa de te / Té molta sort.' },
+
+    // ── ELS DIACRÍTICS QUE HAN CAIGUT ──
+    { id:'iec-dc1', type:'choice', level:'iec', category:'Els diacrítics que han caigut',
+      question:'Quina és la grafia vigent?',
+      text:'Jo ___ de Reus, i tu?',
+      options:['soc','sóc','sòc'],
+      correct:0,
+      variants:[
+        { text:'D\'on ___ els teus pares?', options:['vénen','venen','vènen'], correct:1 },
+        { text:'___ a comprar pa abans que tanquin.', options:['Vés','Vès','Ves'], correct:2 },
+      ],
+      theory:"Les formes del verb ser (soc), venir (vens, venen) i l'imperatiu d'anar (ves) van perdre el diacrític el 2016: no són a la llista dels quinze. El context ja distingeix «soc de Reus» d'un soc de fusta, o «venen de França» de «venen fruita».", example:'Soc mestre. / Els meus cosins venen demà. / Ves-hi ara.' },
+
+    { id:'iec-dc2', type:'choice', level:'iec', category:'Els diacrítics que han caigut',
+      question:'Quina frase segueix del tot la normativa vigent?',
+      options:[
+        'La meva neta em dona la mà.',
+        'La meva néta em dona la mà.',
+        'La meva neta em dóna la mà.'
+      ],
+      correct:0,
+      variants:[
+        { options:['L\'ós bru viu als Pirineus.','L\'os bru viu als Pirineus.','L\'òs bru viu als Pirineus.'], correct:1 },
+        { options:['Els nets vénen a dinar cada diumenge.','Els néts venen a dinar cada diumenge.','Els nets venen a dinar cada diumenge.'], correct:2 },
+      ],
+      theory:"«Neta» (filla del fill), «dona» (verb donar) i «os» (animal) han perdut l'accent diacrític. «Mà», en canvi, és a la llista dels quinze i el manté. Vigileu les frases mig actualitzades: una sola grafia antiga ja les fa incorrectes.", example:'El net de la veïna. / Em dona bons consells. / Un os polar.' },
+
+    { id:'iec-dc3', type:'choice', level:'iec', category:'Els diacrítics que han caigut',
+      question:'Els compostos i derivats dels quinze mots amb diacrític no porten accent. Quina és la grafia vigent?',
+      options:['adeu','adéu','adèu'],
+      correct:0,
+      variants:[
+        { options:['rodamón','rodamon','rodamòn'], correct:1 },
+        { options:['subsòl','sub-sol','subsol'], correct:2 },
+      ],
+      theory:"Encara que «déu» conservi l'accent, els seus compostos aglutinats no: adeu, adeu-siau, marededeu, pregadeu. El mateix passa amb rodamon (de món), a contrapel (de pèl) i entresol o subsol (de sòl). Només els compostos AMB guionet mantenen l'accent del component: déu-n'hi-do, cotó-en-pèl.", example:'Va dir adeu i va marxar. / Un rodamon incansable. / El pàrquing és al subsol.' },
+
+    { id:'iec-dc4', type:'fill', level:'iec', category:'Els diacrítics que han caigut',
+      question:'Escriu el mot segons la grafia vigent:',
+      text:'Tots aquests mots duien accent diacrític fins al 2016.',
+      sentence:"Per esmorzar he menjat pa amb mel i una ___ acabada de collir.",
+      display:'fruita del romeguer o de la morera',
+      answers:['mora'],
+      variants:[
+        { sentence:"El vi ha envellit dos anys dins una ___ de roure.", display:'recipient gran de fusta per al vi', answers:['bota'] },
+        { sentence:"La farina no és res més que blat ___.", display:'participi del verb moldre', answers:['molt'] },
+      ],
+      theory:"«Móra» (fruita), «bóta» (recipient) i «mòlt» (participi de moldre) van perdre l'accent: ara s'escriuen com els seus antics homògrafs mora, bota i molt. El context desfà l'ambigüitat.", example:'Un pastís de mores. / Una bota de vi ranci. / Cafè molt fi, acabat de moldre.' },
+
+    { id:'iec-dc5', type:'fill', level:'iec', category:'Els diacrítics que han caigut',
+      question:'Escriu la forma verbal segons la grafia vigent:',
+      text:'Tots aquests verbs duien accent diacrític fins al 2016.',
+      sentence:"Els meus cosins ___ a sopar cada divendres.",
+      display:'verb venir, 3a persona plural del present',
+      answers:['venen'],
+      variants:[
+        { sentence:"Jo ___ l'encarregat de tancar la botiga.", display:'verb ser, 1a persona singular del present', answers:['soc'] },
+        { sentence:"La padrina sempre em ___ bons consells.", display:'verb donar, 3a persona singular del present', answers:['dona'] },
+      ],
+      theory:"Véns/vénen, sóc i dóna/dónes s'escriuen ara sense accent: venen, soc, dona. La confusió possible amb «venen» (vendre), «soc» (de fusta) o «dona» (persona) es resol pel context, com passa amb la majoria d'homògrafs de la llengua.", example:'Venen de Girona (venir) / Venen pisos (vendre). Soc aquí. / Em dona la raó.' },
+
+    { id:'iec-dc6', type:'reading', level:'iec', category:'Els diacrítics que han caigut',
+      text:"El rodamon va dir adeu al seu net i se'n va anar a veure món.",
+      question:'Per què «rodamon», «adeu» i «net» s\'escriuen sense accent, i «món» amb accent?',
+      options:[
+        'Els compostos i derivats no duen diacrític; «món» sí perquè és a la llista dels quinze',
+        'És una errada del text: la grafia correcta és «rodamón», «adéu» i «nét» amb accent',
+        'Perquè són mots plans i no s\'accentuen; «món» és agut i per això s\'accentua'
+      ],
+      correct:0,
+      theory:"«Món» conserva el diacrític (llista dels quinze), però els seus compostos aglutinats (rodamon) el perden, igual que adeu (de déu) i net ('fill del fill', fora de la llista). L'accentuació general no hi té res a veure: tots són monosíl·labs o compostos.", example:'Fer la volta al món. / Un rodamon que ha vist món.' },
+
+    // ── GUIONETS ALS COMPOSTOS ──
+    { id:'iec-gc1', type:'choice', level:'iec', category:'Guionets als compostos',
+      question:'Quina xifra està ben escrita en lletres?',
+      options:['vint-i-quatre','vint i quatre','vintiquatre'],
+      correct:0,
+      variants:[
+        { options:['tres cents deu','tres-cents deu','trescents deu'], correct:1 },
+        { options:['seixanta dos','seixantados','seixanta-dos'], correct:2 },
+      ],
+      theory:"Els numerals duen guionet entre desena i unitat (vint-i-quatre, seixanta-dos) i entre unitat i «cents» (tres-cents). Truc escolar: D-U-C (desena-unitat, unitat-cents). Els derivats, en canvi, s'aglutinen: cinccentista, noucentisme.", example:'Vint-i-un anys. / Dues-centes persones. / El Noucentisme.' },
+
+    { id:'iec-gc2', type:'choice', level:'iec', category:'Guionets als compostos',
+      question:'Quina forma és correcta?',
+      text:'Els turistes ___ han omplert la ciutat aquest estiu.',
+      options:['nord-americans','nordamericans','nord americans'],
+      correct:0,
+      variants:[
+        { text:'El cinema ___ viu una època daurada.', options:['sudcoreà','sud-coreà','sud coreà'], correct:1 },
+        { text:'Bufa un vent del ___ que glaça.', options:['nordest','nord est','nord-est'], correct:2 },
+      ],
+      theory:"Els compostos que comencen amb un punt cardinal duen guionet: nord-americà, sud-coreà, nord-est, Sud-àfrica. I els seus derivats també el conserven: sud-americanització.", example:'La costa nord-americana. / El sud-est asiàtic.' },
+
+    { id:'iec-gc3', type:'choice', level:'iec', category:'Guionets als compostos',
+      question:'Els derivats dels compostos amb guionet solen perdre\'l. Quina parella està ben escrita?',
+      options:['ping-pong i pingponguista','ping-pong i ping-ponguista','pingpong i pingponguista'],
+      correct:0,
+      variants:[
+        { options:['zigzag i zigzaguejar','zig-zag i zigzaguejar','zig-zag i zig-zaguejar'], correct:1 },
+        { options:['cinc-cents i cinc-centista','cinccents i cinccentista','cinc-cents i cinccentista'], correct:2 },
+      ],
+      theory:"Els compostos reduplicatius duen guionet (ping-pong, zig-zag), però els seus derivats s'aglutinen: pingponguista, zigzaguejar. El mateix patró segueixen els numerals: cinc-cents però cinccentista.", example:'Una partida de ping-pong. / El camí zigzagueja muntanya amunt.' },
+
+    { id:'iec-gc4', type:'fill', level:'iec', category:'Guionets als compostos',
+      question:'Escriu el mot compost (pensa si duu guionet):',
+      text:'Quan el primer element acaba en vocal i el segon comença per r-, s- o x-, el compost duu guionet.',
+      sentence:"Al marge del camp hi creix un ___ enorme que segueix la llum.",
+      display:'flor groga que gira cap al sol',
+      answers:['gira-sol'],
+      variants:[
+        { sentence:"No suporto la gent ___ , que sempre vol discutir per tot.", display:'compost de buscar + raons', answers:['busca-raons'] },
+        { sentence:"Aquell carreró és un ___ : no té sortida.", display:'atzucac (compost de tres elements)', answers:['cul-de-sac'] },
+      ],
+      theory:"El guionet evita lectures errònies quan el primer element acaba en vocal i el segon comença per r, s o x: gira-sol (no *girasol), busca-raons, cama-sec, cul-de-sac. També en topònims: Poble-sec, Coma-ruga.", example:'Un camp de gira-sols. / Viu al Poble-sec.' },
+
+    { id:'iec-gc5', type:'fill', level:'iec', category:'Guionets als compostos',
+      question:'Escriu l\'expressió segons la grafia vigent:',
+      text:'Els compostos amb guionet conserven l\'accent diacrític dels seus components.',
+      sentence:"___ , quin dinar que ens han preparat!",
+      display:'exclamació de ponderació (compost de quatre elements)',
+      answers:["Déu-n'hi-do","déu-n'hi-do","Déu n'hi do"],
+      variants:[
+        { sentence:"M'he empassat tota una novel·la de ___ en un cap de setmana.", display:'gènere literari d\'anticipació científica', answers:['ciència-ficció'] },
+        { sentence:"El germà petit és ___ , com el pare: tots dos amb aquella cabellera de foc.", display:'de cabells vermells (compost de pèl)', answers:['pèl-roig'] },
+      ],
+      theory:"Quan un element del compost duu accent gràfic, el compost s'escriu amb guionet i l'accent es conserva: déu-n'hi-do, ciència-ficció, pèl-roig, mà-llarg. «Déu-n'hi-do» s'escrivia sense guionets abans de la reforma; ara és un compost lexicalitzat amb tots els ets i uts.", example:"Déu-n'hi-do, quina calor! / Una sèrie de ciència-ficció." },
+
+    { id:'iec-gc6', type:'choice', level:'iec', category:'Guionets als compostos',
+      question:'Quina forma és la vigent?',
+      options:['Castella-la Manxa','Castella la Manxa','Castella - la Manxa'],
+      correct:0,
+      variants:[
+        { question:'Quina forma és la vigent?', options:['el vol Barcelona València','el vol Barcelona-València','el vol Barcelona/València'], correct:1 },
+        { question:'Quina forma és la vigent?', options:['un diccionari català castellà','un diccionari catalanocastellà','un diccionari català-castellà'], correct:2 },
+      ],
+      theory:"El guionet uneix noms propis compostos (Castella-la Manxa, que abans s'escrivia amb espais; Josep-Lluís) i noms juxtaposats que complementen un altre nom: vol Barcelona-València, relació causa-efecte, míssil terra-aire.", example:'Viatja a Castella-la Manxa. / La relació causa-efecte.' },
+
+    // ── PREFIXOS: JUNT O SEPARAT ──
+    { id:'iec-pj1', type:'choice', level:'iec', category:'Prefixos: junt o separat',
+      question:'Quina forma és correcta?',
+      text:"L'___ del meu poble ara fa de consultor.",
+      options:['exalcalde','ex-alcalde','ex alcalde'],
+      correct:0,
+      variants:[
+        { text:'La ___ del club ha convocat eleccions.', options:['vice-presidenta','vicepresidenta','vice presidenta'], correct:1 },
+        { text:'Es dedicava al ___ durant la guerra freda.', options:['contra-espionatge','contra espionatge','contraespionatge'], correct:2 },
+      ],
+      theory:"Regla general: els prefixos s'escriuen aglutinats, sense guionet ni espai: exalcalde, vicepresidenta, contraespionatge, ultraconservador. Fins i tot amb dos prefixos: exvicepresident.", example:"L'expresident. / La sotsdirectora. / Un pseudoderivat." },
+
+    { id:'iec-pj2', type:'choice', level:'iec', category:'Prefixos: junt o separat',
+      question:'Des de l\'actualització oficial del 2021, com s\'escriu el prefix davant una sigla o una majúscula?',
+      options:["una manifestació anti OTAN","una manifestació anti-OTAN","una manifestació antiOTAN"],
+      correct:0,
+      variants:[
+        { question:'Des de l\'actualització oficial del 2021, com s\'escriu el prefix davant una sigla o una majúscula?', options:["un país de l'ex-URSS","un país de l'ex URSS","un país de l'exURSS"], correct:1 },
+        { question:'Des de l\'actualització oficial del 2021, com s\'escriu el prefix davant una xifra?', options:["la selecció sub21","la selecció sub-21","la selecció sub 21"], correct:2 },
+      ],
+      theory:"L'OIEC impresa (2017) hi posava guionet (anti-OTAN, ex-URSS, sub-21), però l'actualització del juliol del 2021 va canviar la regla: davant majúscules, sigles, xifres, símbols o cursives, el prefix s'escriu SEPARAT: anti OTAN, ex URSS, selecció sub 21, pel·lícula súper 8. Excepció: si el resultat és un nom propi nou, s'aglutina i la majúscula es trasllada: Anticrist, Prealps, Cisjordània.", example:"l'ex Iugoslàvia / l'era pre Gutenberg / un pseudo Dalí" },
+
+    { id:'iec-pj3', type:'choice', level:'iec', category:'Prefixos: junt o separat',
+      question:'Quina frase segueix la normativa vigent?',
+      options:[
+        "L'exministre de l'Interior va dimitir ahir.",
+        "L'ex ministre de l'Interior va dimitir ahir.",
+        "L'ex-ministre de l'Interior va dimitir ahir."
+      ],
+      correct:0,
+      variants:[
+        { options:["Han citat a declarar un exalt càrrec.","Han citat a declarar un ex alt càrrec.","Han citat a declarar un ex-alt càrrec."], correct:1 },
+        { options:["La viceprimera ministra visita Brussel·les.","La vice-primera ministra visita Brussel·les.","La vice primera ministra visita Brussel·les."], correct:2 },
+      ],
+      theory:"El truc és mirar on incideix el prefix. Si prefix + primer mot ja formen una paraula (exministre, i «de l'Interior» és el complement), s'aglutina: exministre de l'Interior, vicepresidenta primera. Si el prefix afecta tot un sintagma fet i el conjunt prefix + primer mot no és cap paraula (*exalt, *viceprimera), s'escriu separat: ex alt càrrec, vice primera ministra, ex número dos.", example:"exministre de l'Interior (exministre existeix) / ex alt càrrec (*exalt no existeix)" },
+
+    { id:'iec-pj4', type:'choice', level:'iec', category:'Prefixos: junt o separat',
+      question:'Darrere de prefix, la erra de vegades es dobla i de vegades no. Quina parella està ben escrita?',
+      options:['erradicar i extraradi','eradicar i extraradi','erradicar i extrarradi'],
+      correct:0,
+      variants:[
+        { options:['antirràbic i arrítmia','antiràbic i arítmia','antiràbic i arrítmia'], correct:2 },
+        { options:['infrarroig i irreal','infraroig i irreal','infraroig i ireal'], correct:1 },
+      ],
+      theory:"Regla general: la erra NO es dobla darrere de prefix (antiràbic, extraradi, infraroig, vicerector, preromà). Sí que es dobla amb els prefixos a- ('no' o verbalitzador), cor- i ir- (arrítmia, corresponsable, irreal) i en el cas d'erradicar — que abans de la reforma s'escrivia «eradicar».", example:'Cal erradicar la pobresa. / Llum infraroja. / Una proposta irrebatible.' },
+
+    { id:'iec-pj5', type:'fill', level:'iec', category:'Prefixos: junt o separat',
+      question:'Escriu l\'expressió amb «no» (pensa si duu guionet):',
+      text:'Quan «no + nom/adjectiu» s\'ha lexicalitzat com a concepte d\'especialitat, s\'escriu amb guionet.',
+      sentence:"Gandhi va fer de la ___ la seva forma de lluita.",
+      display:'concepte sociopolític: absència de violència',
+      answers:['no-violència'],
+      variants:[
+        { sentence:"Amb els anys, la seva pintura va derivar cap a l'art ___.", display:'que no representa la realitat (terme d\'art)', answers:['no-figuratiu'] },
+        { sentence:"El ___ és un dels grans temes de la filosofia existencialista.", display:'el contrari de l\'ésser (terme filosòfic)', answers:['no-res'] },
+      ],
+      theory:"«No-» duu guionet quan el conjunt és un concepte lexicalitzat d'un camp d'especialitat: la no-violència, el no-res, un no-metall, la no-ficció, art no-figuratiu, països no-alineats. Abans del 2016 el guionet només es posava amb noms, mai amb adjectius; ara el criteri és la lexicalització.", example:'Un pacte de no-agressió. / El principi de no-intervenció.' },
+
+    { id:'iec-pj6', type:'fill', level:'iec', category:'Prefixos: junt o separat',
+      question:'Escriu l\'expressió amb «no» (pensa si duu guionet):',
+      text:'Quan «no» conserva el seu valor d\'adverbi i el conjunt no és cap concepte fixat, s\'escriu separat i sense guionet.',
+      sentence:"Treballa en una organització ___ que reparteix aliments.",
+      display:'que no depèn del govern (dues paraules)',
+      answers:['no governamental'],
+      variants:[
+        { sentence:"La comunicació ___ sovint diu més que les paraules.", display:'gestos, mirades, postures (dues paraules)', answers:['no verbal'] },
+        { sentence:"Els ___ poden demanar taula a la terrassa interior.", display:'les persones que no fumen (dues paraules)', answers:['no fumadors'] },
+      ],
+      theory:"Sense lexicalització, «no» és un adverbi i va separat: organització no governamental, comunicació no verbal, els no fumadors, la no obligatorietat. Si la llengua ja té un mot equivalent, encara millor: inexistència (i no «no existència»), disconforme (i no «no conforme»).", example:'Una equació no lineal. / Els no residents. / Manca de resposta (millor que «no resposta»).' },
+
+    // ── MITES I CONFUSIONS ──
+    { id:'iec-mc1', type:'choice', level:'iec', category:'Mites i confusions',
+      question:'En un text normal hi ha la frase «Li dona les claus». És correcte escriure-hi «dóna» amb accent per desfer l\'ambigüitat?',
+      options:[
+        'No: l\'ús discrecional del diacrític es limita a casos molt marcats, com titulars ambigus',
+        'Sí: quan hi ha risc de confusió, l\'accent diacrític sempre és opcional i recomanable',
+        'Sí, però només si el mot ambigu apareix més d\'una vegada dins del mateix paràgraf'
+      ],
+      correct:0,
+      variants:[
+        { question:'Un diari titula «Véns o no véns?» amb accent per marcar que és el verb venir. És admissible?', options:['Només si el titular sencer s\'escriu entre cometes o en lletra cursiva','No: cap mot fora de la llista dels quinze pot dur mai accent diacrític','Sí: en enunciats aïllats realment ambigus, com els titulars, és admès'], correct:2 },
+        { question:'En l\'edició d\'un text medieval, l\'editor manté accents diacrítics antics. És admissible?', options:['Sí: les transcripcions de textos medievals o dialectals admeten l\'ús discrecional','No: tota edició moderna ha d\'aplicar la llista vigent de quinze diacrítics','Només si l\'editorial ho justifica en una nota a peu de pàgina de la primera pàgina'], correct:0 },
+      ],
+      theory:"L'OIEC admet l'ús discrecional del diacrític NOMÉS en usos molt particularitzats: transcripcions medievals o dialectals, usos metalingüístics i enunciats aïllats amb ambigüitat real que el context no resol (titulars, etiquetes). En prosa corrent, «*dóna» és falta: el context ja desambigua.", example:'Titular admès: «Véns demà?» / Text corrent: «Em dona les claus» (sense accent).' },
+
+    { id:'iec-mc2', type:'choice', level:'iec', category:'Mites i confusions',
+      question:'Com s\'escriu el nom d\'aquest municipi de la Ribera d\'Ebre?',
+      options:['Móra la Nova','Mora la Nova','Mòra la Nova'],
+      correct:0,
+      variants:[
+        { question:'Quina és la grafia correcta d\'aquest topònim de la vall de Queralbs?', options:['el clot de l\'Os','el clot de l\'Ós','el clot de l\'Òs'], correct:1 },
+        { question:'Quina és la grafia correcta d\'aquest barri de Barcelona?', options:['el Camp de la Bòta','el Camp de la Bota','el Camp de la Bóta'], correct:2 },
+      ],
+      theory:"Els topònims són l'excepció oficial: per les implicacions legals dels noms de lloc, conserven l'accent diacrític encara que el mot no sigui a la llista dels quinze: Móra d'Ebre, Móra la Nova, Cóll, Jóc, el Camp de la Bóta, el clot de l'Ós. La móra que es menja, en canvi, s'escriu mora.", example:'Viu a Móra la Nova i esmorza pa amb mores.' },
+
+    { id:'iec-mc3', type:'choice', level:'iec', category:'Mites i confusions',
+      question:'Quina d\'aquestes formes recull el diccionari des de la reforma ortogràfica?',
+      options:['hàndicap','handicap','hándicap'],
+      correct:0,
+      variants:[
+        { question:'Quina d\'aquestes formes recull el diccionari des de la reforma ortogràfica?', options:['ziggurat','zigurat','zigurrat'], correct:1 },
+        { question:'Quina d\'aquestes formes recull el diccionari des de la reforma ortogràfica?', options:['víking','wiking','viking'], correct:2 },
+      ],
+      theory:"La reforma va retocar la grafia d'una colla de manlleus del DIEC sense que gairebé ningú se n'adonés: hàndicap (abans handicap), viking (abans víking), zigurat (abans ziggurat), kan (abans khan), maharajà (abans maharaja), ídix (abans jiddisch).", example:'Superar un hàndicap. / Un drakkar viking. / El zigurat d\'Ur.' },
+
+    { id:'iec-mc4', type:'choice', level:'iec', category:'Mites i confusions',
+      question:'Què va canviar realment la reforma del 2016 en matèria d\'accents?',
+      options:[
+        'La llista de diacrítics i tres casos menors; les regles generals van quedar intactes',
+        'Va suprimir tots els accents diacrítics, que ja no s\'escriuen en cap context',
+        'Va simplificar les regles generals d\'accentuació dels mots aguts i esdrúixols'
+      ],
+      correct:0,
+      variants:[
+        { question:'Després del 2016, quants mots conserven l\'accent diacrític en català?', options:['Cap: es van suprimir tots els accents diacrítics','Uns cent cinquanta, com abans de la reforma','Quinze monosíl·labs d\'ús freqüent (més els topònims)'], correct:2 },
+        { question:'Les regles generals d\'accentuació (aguts, plans, esdrúixols) van canviar el 2016?', options:['Sí: es van simplificar per acostar l\'escriptura a la pronúncia real','No: només es va tocar la llista de diacrítics i tres casos menors','Sí: els mots plans i els esdrúixols ja no duen mai accent gràfic'], correct:1 },
+      ],
+      theory:"El gruix de la reforma d'accents és la reducció dels diacrítics de ~150 a 15. Els altres tres canvis són menors i molt específics: la u tònica darrere g (gúa, agúo), l'accentuació de formes balears (anomèn, dispòs) i l'acceptació de l'accent agut valencià (café, comprén). Les regles generals d'accentuació no es van tocar.", example:'«Camió», «fàcil» i «música» s\'accentuen exactament igual que abans del 2016.' },
+
+    { id:'iec-mc5', type:'reading', level:'iec', category:'Mites i confusions',
+      text:"Sóc conscient que el món ha canviat: la meva néta em va ensenyar que ara moltes coses s'escriuen diferent.",
+      question:'Quins mots del text NO segueixen la normativa vigent?',
+      options:['«Sóc» i «néta»','«món» i «néta»','«Sóc» i «món»'],
+      correct:0,
+      variants:[
+        { text:"Cada matí em preparo un té ben calent i em menjo dues llesques de pa amb mèl.", question:'Quins mots del text NO segueixen la normativa vigent?', options:['Cap: el text és del tot correcte','«té» i «mèl»','Només «mèl»'], correct:1 },
+      ],
+      theory:"«Sóc» i «néta» duen diacrítics suprimits el 2016 (ara: soc, neta); «món» és a la llista dels quinze i està ben escrit. A la variant: «te» (infusió) mai no ha dut accent (té és el verb tenir) i «mel» tampoc (no té cap homògraf): no tot accent que sona antic era un diacrític real.", example:'Soc conscient. / La meva neta. / El món sencer. / Un te calent amb mel.' },
+
+    { id:'iec-mc6', type:'reading', level:'iec', category:'Mites i confusions',
+      text:"Molta gent creu que després del 2016 ja no cal escriure cap accent diacrític. La reforma, però, en va mantenir quinze de ben vius: si escrius «el sol de la cuina és brut», el lector es pensarà que parles d'astronomia.",
+      question:'Quin error il·lustra la frase final del text?',
+      options:[
+        'L\'omissió del diacrític de «sòl», que continua sent obligatori',
+        'L\'ús d\'un accent diacrític que la reforma del 2016 va suprimir',
+        'Cap error: «sol» hi és correcte perquè la llista de diacrítics es va buidar'
+      ],
+      correct:0,
+      variants:[
+        { text:"Els diacrítics no van desaparèixer del tot: si escrius «no en se res», el lector hi trobarà a faltar alguna cosa.", question:'Quin error il·lustra la frase final del text?', options:['Cap error: «se» hi és correcte perquè és un pronom feble','L\'ús d\'un accent diacrític que la reforma del 2016 va suprimir','L\'omissió del diacrític de «sé», que continua sent obligatori'], correct:2 },
+      ],
+      theory:"El mite que «ja no hi ha diacrítics» fa cometre faltes noves: sòl (terreny), sé (saber), més, què o món continuen exigint l'accent. La reforma va reduir la llista, no la va eliminar.", example:'El sòl de la cuina (terreny, paviment) / El sol de migdia (astre). No en sé res.' },
 
   ]
 };
