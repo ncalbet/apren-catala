@@ -2130,6 +2130,55 @@
     ]
   },
 
+  "L'ortografia dels pronoms febles": {
+    level: 'iec',
+    icon: '✒️',
+    subtitle: "L'IEC va publicar l'abril del 2024 el primer apartat ortogràfic complet dels pronoms febles",
+    sections: [
+      {
+        title: 'Què va passar el 2024?',
+        icon: '📌',
+        body: `<p>Compte: aquí <strong>no s'ha canviat cap grafia</strong>. El que va fer l'IEC l'abril del 2024 és publicar un apartat nou de l'<em>Ortografia catalana</em> (§ 4.3, amb dos quadres) que <strong>fixa per primera vegada per escrit</strong> com s'escriuen els pronoms febles i les seves combinacions.</p>
+               <p>Fins ara, molts d'aquests dubtes es resolien per tradició escolar o per manuals d'estil, i cadascú ho feia com podia. Ara hi ha una resposta oficial.</p>`
+      },
+      {
+        title: 'Les quatre formes de cada pronom',
+        icon: '📊',
+        table: {
+          headers: ['Forma', 'Quan', 'Exemples'],
+          rows: [
+            ['Reforçada (em, et, el, es, en)', 'Davant de verb començat per consonant', 'em treu, el rebien, es veu, en comprem'],
+            ['Elidida (m\', t\', l\', s\', n\')', 'Davant de verb començat per vocal', "m'agrada, t'entén, s'asseu, n'agafen"],
+            ['Plena (me, te, lo, se, ne, nos, vos)', 'Darrere de verb acabat en consonant o -u semivocàlica', 'saludar-me, vesteix-te, mou-te, perdoneu-lo'],
+            ['Reduïda (\'m, \'t, \'l, \'ns, \'ls, \'s, \'n)', 'Darrere de verb acabat en vocal (que no sigui -u de diftong)', "mira'm, renta't, talla'l, perdre's"],
+          ]
+        }
+      },
+      {
+        title: "La regla d'or: l'apòstrof, tan a la dreta com es pugui",
+        icon: '📋',
+        body: `<p>Quan l'apòstrof podria anar teòricament en més d'un lloc, <strong>va sempre el més a la dreta possible</strong>: <em>me'l donarà</em> (no *m'el donarà), <em>te l'obre</em> (no *t'el obre ni *te'l obre), <em>se n'adona</em> (no *se'n adona ni *s'en adona).</p>
+               <p><strong>Una sola excepció:</strong> la combinació <em>el</em> + <em>en</em> s'escriu <strong>l'en</strong> (<em>l'en treu, excloeu-l'en</em>), perquè si l'apòstrof anés a la dreta sortiria *le'n, i <em>le</em> no existeix com a pronom. Ara bé, davant de verb començat per vocal torna la regla general: <em>el n'exclouen</em>.</p>`
+      },
+      {
+        title: 'Els paranys més habituals',
+        icon: '⚠️',
+        rules: [
+          { bad: "*mou't, *compreu-me-l'a", good: 'mou-te, compreu-me-la (verb acabat en -u de diftong: guionet, mai apòstrof)' },
+          { bad: "*l'ignoren, *l'uneix", good: 'la ignoren, la uneix (la no s\'apostrofa davant i/u àtones, com l\'article)' },
+          { bad: "*l'hi diu (registre formal)", good: 'la hi diu, cedim-la-hi (la + hi: es manté la vocal)' },
+          { bad: "*s'us coneix", good: 'se us coneix (davant de us, es fa se)' },
+        ]
+      },
+      {
+        title: 'Registre: el col·loquial ara té grafia',
+        icon: '🆕',
+        body: `<p>La novetat més cridanera: l'IEC <strong>sanciona per escrit formes col·loquials</strong> per als textos que reprodueixen la llengua parlada (diàlegs, teatre, novel·la), tot i que s'eviten en registre formal.</p>
+               <p><em>anem's-en</em> (per «anem-nos-en»), <em>mireu's-el</em> (per «mireu-vos-el»), <em>feu's-ho</em> (per «feu-vos-ho»); i els imperatius <em>digue'm, estigue't quiet, tingue'n cura</em> (per «digues-me, estigues-te, tingues-ne»).</p>`
+      }
+    ]
+  },
+
   'Mites i confusions': {
     level: 'iec',
     icon: '🕵️',
@@ -5149,7 +5198,7 @@ const DATA = {
       ],
       theory:"La llista vigent té quinze mots, memoritzables en grups de tres: bé-déu-és · mà-més-món · pèl-què-sé · sí-sòl-són · té-ús-vós. Tota la resta de diacrítics van desaparèixer amb l'ortografia del 2016.", example:'Ho ha fet bé. / La fi del món. / El preu del sòl.' },
 
-    { id:'iec-dq2', type:'fill', level:'iec', category:'Els diacrítics que queden',
+    { id:'iec-dq2', type:'fill', level:'iec', strictAccents:true, category:'Els diacrítics que queden',
       question:'Escriu el mot adequat (amb accent o sense):',
       text:'El context decideix si toca la forma amb diacrític o la forma sense.',
       sentence:"El ramat de ___ pastura vora el riu.",
@@ -5161,7 +5210,7 @@ const DATA = {
       ],
       theory:"«Bé» (avantatge, riquesa; adverbi) duu accent i el conserva al plural: béns. «Be» (anyell; la lletra b) no en duu: bens, bes. El plural manté l'accent només quan xoca gràficament amb el del mot sense accent (béns/bens). Compte: «mà» i «món» NO el conserven (mans, mons), perquè aquests plurals no topen amb cap homògraf — el plural de «ma» és «mes» i el de «mon», «mos».", example:'Ho faig pel teu bé. / Béns immobles. / Un ramat de bens. / Les mans, els mons (sense accent).' },
 
-    { id:'iec-dq3', type:'fill', level:'iec', category:'Els diacrítics que queden',
+    { id:'iec-dq3', type:'fill', level:'iec', strictAccents:true, category:'Els diacrítics que queden',
       question:'Escriu el mot adequat (amb accent o sense):',
       text:'El context decideix si toca la forma amb diacrític o la forma sense.',
       sentence:"L'aigua d'aquesta ___ termal surt a seixanta graus.",
@@ -5173,7 +5222,7 @@ const DATA = {
       ],
       theory:"«Déu» només duu accent quan vol dir 'divinitat' (plural déus, amb accent conservat). La font (una deu), el número 10 i les formes del verb deure s'escriuen sense.", example:'Creure en Déu. / Una deu termal. / Em deus diners.' },
 
-    { id:'iec-dq4', type:'fill', level:'iec', category:'Els diacrítics que queden',
+    { id:'iec-dq4', type:'fill', level:'iec', strictAccents:true, category:'Els diacrítics que queden',
       question:'Escriu el mot adequat (amb accent o sense):',
       text:'El context decideix si toca la forma amb diacrític o la forma sense.',
       sentence:"El preu del ___ urbà ha pujat molt en aquesta ciutat.",
@@ -5185,7 +5234,7 @@ const DATA = {
       ],
       theory:"«Sòl» ('terreny') duu accent — és l'únic cas de la llista on s'accentua el mot MENYS freqüent — i el conserva al plural: sòls. «Sol» (astre, nota musical, adjectiu, verb soler) no en duu.", example:'Un sòl fèrtil. / La llum del sol. / Es troba molt sol.' },
 
-    { id:'iec-dq5', type:'fill', level:'iec', category:'Els diacrítics que queden',
+    { id:'iec-dq5', type:'fill', level:'iec', strictAccents:true, category:'Els diacrítics que queden',
       question:'Escriu el mot adequat (amb accent o sense):',
       text:'El context decideix si toca la forma amb diacrític o la forma sense.',
       sentence:"No sé de ___ em parles.",
@@ -5244,7 +5293,7 @@ const DATA = {
       ],
       theory:"Encara que «déu» conservi l'accent, els seus compostos aglutinats no: adeu, adeu-siau, marededeu, pregadeu. El mateix passa amb rodamon (de món), a contrapel (de pèl) i entresol o subsol (de sòl). Només els compostos AMB guionet mantenen l'accent del component: déu-n'hi-do, cotó-en-pèl.", example:'Va dir adeu i va marxar. / Un rodamon incansable. / El pàrquing és al subsol.' },
 
-    { id:'iec-dc4', type:'fill', level:'iec', category:'Els diacrítics que han caigut',
+    { id:'iec-dc4', type:'fill', level:'iec', strictAccents:true, category:'Els diacrítics que han caigut',
       question:'Escriu el mot segons la grafia vigent:',
       text:'Tots aquests mots duien accent diacrític fins al 2016.',
       sentence:"Per esmorzar he menjat pa amb mel i una ___ acabada de collir.",
@@ -5256,7 +5305,7 @@ const DATA = {
       ],
       theory:"«Móra» (fruita), «bóta» (recipient) i «mòlt» (participi de moldre) van perdre l'accent: ara s'escriuen com els seus antics homògrafs mora, bota i molt. El context desfà l'ambigüitat.", example:'Un pastís de mores. / Una bota de vi ranci. / Cafè molt fi, acabat de moldre.' },
 
-    { id:'iec-dc5', type:'fill', level:'iec', category:'Els diacrítics que han caigut',
+    { id:'iec-dc5', type:'fill', level:'iec', strictAccents:true, category:'Els diacrítics que han caigut',
       question:'Escriu la forma verbal segons la grafia vigent:',
       text:'Tots aquests verbs duien accent diacrític fins al 2016.',
       sentence:"Els meus cosins ___ a sopar cada divendres.",
@@ -5311,7 +5360,7 @@ const DATA = {
       ],
       theory:"Els compostos reduplicatius duen guionet (ping-pong, zig-zag), però els seus derivats s'aglutinen: pingponguista, zigzaguejar. El mateix patró segueixen els numerals: cinc-cents però cinccentista.", example:'Una partida de ping-pong. / El camí zigzagueja muntanya amunt.' },
 
-    { id:'iec-gc4', type:'fill', level:'iec', category:'Guionets als compostos',
+    { id:'iec-gc4', type:'fill', level:'iec', strictAccents:true, category:'Guionets als compostos',
       question:'Escriu el mot compost (pensa si duu guionet):',
       text:'Quan el primer element acaba en vocal i el segon comença per r-, s- o x-, el compost duu guionet.',
       sentence:"Al marge del camp hi creix un ___ enorme que segueix la llum.",
@@ -5323,12 +5372,12 @@ const DATA = {
       ],
       theory:"El guionet evita lectures errònies quan el primer element acaba en vocal i el segon comença per r, s o x: gira-sol (no *girasol), busca-raons, cama-sec, cul-de-sac. També en topònims: Poble-sec, Coma-ruga.", example:'Un camp de gira-sols. / Viu al Poble-sec.' },
 
-    { id:'iec-gc5', type:'fill', level:'iec', category:'Guionets als compostos',
+    { id:'iec-gc5', type:'fill', level:'iec', strictAccents:true, category:'Guionets als compostos',
       question:'Escriu l\'expressió segons la grafia vigent:',
       text:'Els compostos amb guionet conserven l\'accent diacrític dels seus components.',
       sentence:"___ , quin dinar que ens han preparat!",
       display:'exclamació de ponderació (compost de quatre elements)',
-      answers:["Déu-n'hi-do","déu-n'hi-do","Déu n'hi do"],
+      answers:["déu-n'hi-do"],
       variants:[
         { sentence:"M'he empassat tota una novel·la de ___ en un cap de setmana.", display:'gènere literari d\'anticipació científica', answers:['ciència-ficció'] },
         { sentence:"El germà petit és ___ , com el pare: tots dos amb aquella cabellera de foc.", display:'de cabells vermells (compost de pèl)', answers:['pèl-roig'] },
@@ -5391,7 +5440,7 @@ const DATA = {
       ],
       theory:"Regla general: la erra NO es dobla darrere de prefix (antiràbic, extraradi, infraroig, vicerector, preromà). Sí que es dobla amb els prefixos a- ('no' o verbalitzador), cor- i ir- (arrítmia, corresponsable, irreal) i en el cas d'erradicar — que abans de la reforma s'escrivia «eradicar».", example:'Cal erradicar la pobresa. / Llum infraroja. / Una proposta irrebatible.' },
 
-    { id:'iec-pj5', type:'fill', level:'iec', category:'Prefixos: junt o separat',
+    { id:'iec-pj5', type:'fill', level:'iec', strictAccents:true, category:'Prefixos: junt o separat',
       question:'Escriu l\'expressió amb «no» (pensa si duu guionet):',
       text:'Quan «no + nom/adjectiu» s\'ha lexicalitzat com a concepte d\'especialitat, s\'escriu amb guionet.',
       sentence:"Gandhi va fer de la ___ la seva forma de lluita.",
@@ -5403,7 +5452,7 @@ const DATA = {
       ],
       theory:"«No-» duu guionet quan el conjunt és un concepte lexicalitzat d'un camp d'especialitat: la no-violència, el no-res, un no-metall, la no-ficció, art no-figuratiu, països no-alineats. Abans del 2016 el guionet només es posava amb noms, mai amb adjectius; ara el criteri és la lexicalització.", example:'Un pacte de no-agressió. / El principi de no-intervenció.' },
 
-    { id:'iec-pj6', type:'fill', level:'iec', category:'Prefixos: junt o separat',
+    { id:'iec-pj6', type:'fill', level:'iec', strictAccents:true, category:'Prefixos: junt o separat',
       question:'Escriu l\'expressió amb «no» (pensa si duu guionet):',
       text:'Quan «no» conserva el seu valor d\'adverbi i el conjunt no és cap concepte fixat, s\'escriu separat i sense guionet.',
       sentence:"Treballa en una organització ___ que reparteix aliments.",
@@ -5487,6 +5536,80 @@ const DATA = {
         { text:"Els diacrítics no van desaparèixer del tot: si escrius «no en se res», el lector hi trobarà a faltar alguna cosa.", question:'Quin error il·lustra la frase final del text?', options:['Cap error: «se» hi és correcte perquè és un pronom feble','L\'ús d\'un accent diacrític que la reforma del 2016 va suprimir','L\'omissió del diacrític de «sé», que continua sent obligatori'], correct:2 },
       ],
       theory:"El mite que «ja no hi ha diacrítics» fa cometre faltes noves: sòl (terreny), sé (saber), més, què o món continuen exigint l'accent. La reforma va reduir la llista, no la va eliminar.", example:'El sòl de la cuina (terreny, paviment) / El sol de migdia (astre). No en sé res.' },
+
+    // ── L'ORTOGRAFIA DELS PRONOMS FEBLES (annex oficial, abril 2024) ──
+    { id:'iec-pf1', type:'choice', level:'iec', category:"L'ortografia dels pronoms febles",
+      question:"Quina és la grafia correcta?",
+      text:"Quan l'apòstrof podria anar teòricament en més d'una posició, la norma diu on va: sempre el més a la dreta possible.",
+      options:["me'l donarà","m'el donarà","me el donarà"],
+      correct:0,
+      variants:[
+        { text:"Combina els pronoms «te» + «el» amb el verb «obre» (començat per vocal).", options:["te'l obre","t'el obre","te l'obre"], correct:2 },
+        { text:"Combina els pronoms «se» + «en» amb el verb «adona» (començat per vocal).", options:["s'en adona","se n'adona","se'n adona"], correct:1 },
+      ],
+      theory:"Regla d'or (OIEC § 4.3.3d): l'apòstrof es col·loca tan a la dreta com sigui possible. Per això «me'l donarà» (no *m'el donarà) i, quan el verb comença per vocal, l'apòstrof salta a tocar del verb: «te l'obre», «se n'adona».", example:"me'l donarà · te l'obre · se n'adona · me'n vaig" },
+
+    { id:'iec-pf2', type:'choice', level:'iec', category:"L'ortografia dels pronoms febles",
+      question:"L'única excepció a la regla de l'apòstrof: com s'escriu la combinació «el» + «en»?",
+      text:"Si apliquéssim la regla general (apòstrof a la dreta), sortiria una forma que no existeix.",
+      options:["l'en treu","le'n treu","l'ne treu"],
+      correct:0,
+      variants:[
+        { question:"Com s'escriu la combinació «el» + «en» darrere del verb?", text:'Mateixa excepció, amb el pronom posposat.', options:["excloeu-le'n","excloeu-l'en","excloeu-len"], correct:1 },
+        { question:"I si el verb comença per vocal, com queda la combinació «el» + «en»?", text:"Davant de verb començat per vocal, l'excepció decau i torna la regla general.", options:["l'en exclouen","le n'exclouen","el n'exclouen"], correct:2 },
+      ],
+      theory:"«El» + «en» s'escriu l'en (l'en treu, excloeu-l'en) i no *le'n, perquè «le» no existeix com a pronom en català: és l'única excepció a la regla de l'apòstrof a la dreta. Ara bé, davant de verb començat per vocal la combinació s'escriu el n': «el n'exclouen», «el n'han exclòs».", example:"L'en treu de seguida. / Excloeu-l'en. / Però: el n'han exclòs." },
+
+    { id:'iec-pf3', type:'fill', level:'iec', strictAccents:true, category:"L'ortografia dels pronoms febles",
+      question:'Escriu el pronom «la» amb el verb (pensa si s\'apostrofa o no):',
+      text:"El pronom «la» segueix la mateixa regla que l'article: no s'apostrofa davant de i o u àtones.",
+      sentence:"Tothom ___ (la + ignorar, 3a pers. pl.) quan parla.",
+      display:'pronom «la» + ignoren',
+      answers:['la ignoren'],
+      variants:[
+        { sentence:"El pont ___ (la + unir) amb l'altra riba.", display:'pronom «la» + uneix', answers:['la uneix'] },
+        { sentence:"Sempre ___ (la + escoltar, 3a pers. sing.) amb atenció.", display:'pronom «la» + escolta', answers:["l'escolta"] },
+      ],
+      theory:"El pronom «la» no s'apostrofa davant de les vocals i o u àtones, precedides o no de h — exactament com l'article definit: «la ignoren», «la uneix», «la humilia». Sí que s'apostrofa davant de qualsevol altra vocal: «l'escolta», «l'aconseguiré».", example:"La ignoren. / La uneix. / La humilia. / Però: l'escolta, l'obre, l'estimo." },
+
+    { id:'iec-pf4', type:'choice', level:'iec', category:"L'ortografia dels pronoms febles",
+      question:'Quina és la grafia correcta?',
+      text:"Fixa't en quina lletra acaba el verb: no és el mateix acabar en vocal que acabar en -u de diftong.",
+      options:["mou-te","mou't","mou-t'"],
+      correct:0,
+      variants:[
+        { text:"El verb «renta» acaba en vocal plena.", options:["renta-te","renta't","renta-t'"], correct:1 },
+        { text:"El verb «compreu» acaba en -u semivocàlica (diftong).", options:["compreu-me'la","compreu'm-la","compreu-me-la"], correct:2 },
+      ],
+      theory:"Darrere d'un verb acabat en vocal, el pronom pren la forma reduïda amb apòstrof: mira'm, renta't, talla'l. Però darrere d'un verb acabat en -u semivocàlica (segon element d'un diftong: mou, escriu, beu), NO hi ha apòstrof: el pronom pren la forma plena i s'hi enllaça amb guionet: mou-te, escriu-me, compreu-me-la.", example:"renta't (acaba en vocal) / mou-te (acaba en -u de diftong)" },
+
+    { id:'iec-pf5', type:'fill', level:'iec', strictAccents:true, category:"L'ortografia dels pronoms febles",
+      question:'Escriu la combinació de pronoms correcta:',
+      text:"Davant del pronom «us» i davant del pronom «hi», el pronom que els precedeix no s'apostrofa.",
+      sentence:"De seguida ___ (es + us) coneix que sou germans.",
+      display:'combinació «es» + «us»',
+      answers:['se us'],
+      variants:[
+        { text:"El pronom «la» tampoc no s'apostrofa davant de «hi» (la i és àtona).", sentence:"La contrasenya, no ___ (la + hi) diguis a ningú.", display:'combinació «la» + «hi»', answers:['la hi'] },
+        { text:"Davant de verb començat pel so [s], la forma plena evita el xoc de dues sibilants.", sentence:"Cada any ___ (es + celebrar) una festa al carrer.", display:'combinació «es» + «celebra»', answers:['se celebra','es celebra'] },
+      ],
+      theory:"Davant del pronom «us», el pronom es pren la forma plena i no s'apostrofa: «se us coneix» (mai *s'us). Igualment, «la» no s'apostrofa davant de «hi», perquè la i és àtona: «la hi diu», «cedim-la-hi» — en registre formal és preferible a «l'hi», que reflecteix la pronúncia oral. I davant de verb començat pel so [s], se sol usar la forma plena per evitar dues sibilants seguides: «se senten crits», «se celebra una festa» (tot i que «es celebra» també és acceptable).",
+      example:"se us coneix · la hi diu · se senten crits · se celebra una festa" },
+
+    { id:'iec-pf6', type:'reading', level:'iec', category:"L'ortografia dels pronoms febles",
+      text:"—Va, nois, que fa tard: anem's-en! —va cridar des de la porta—. I vosaltres, mireu's-el bé abans de marxar, que després us queixareu.",
+      question:'Què tenen d\'especial les formes «anem\'s-en» i «mireu\'s-el» d\'aquest diàleg?',
+      options:[
+        "Són formes col·loquials que l'IEC ha sancionat per escrit per a reproduir la llengua parlada",
+        'Són faltes d\'ortografia: les úniques formes admeses són «anem-nos-en» i «mireu-vos-el»',
+        'Són formes antigues que la normativa del 2016 va suprimir definitivament'
+      ],
+      correct:0,
+      variants:[
+        { text:"—Digue'm la veritat —va insistir—. I tu, estigue't quiet d'una vegada.", question:"Què tenen d'especial les formes «digue'm» i «estigue't» d'aquest diàleg?", options:["Són faltes d'ortografia: només s'admeten «digues-me» i «estigues-te»",'Són variants informals admeses, pròpies de la llengua oral','Són formes exclusives del valencià, no admeses en la resta del domini'], correct:1 },
+      ],
+      theory:"L'annex del 2024 reconeix per escrit formes col·loquials que abans no tenien cap grafia sancionada: «anem's-en» (per anem-nos-en), «mireu's-el» (per mireu-vos-el), «feu's-ho» (per feu-vos-ho), i els imperatius «digue'm, estigue't, tingue'n cura» (per digues-me, estigues-te, tingues-ne). Serveixen per a textos que reprodueixen la llengua parlada — diàlegs, teatre, novel·la — però s'eviten en els registres formals.",
+      example:"Diàleg: «Anem's-en!» / Registre formal: «Anem-nos-en»." },
 
   ]
 };
