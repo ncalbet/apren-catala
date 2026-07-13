@@ -5159,7 +5159,7 @@ const DATA = {
         { sentence:"Va declarar tots els seus ___ immobles a Hisenda.", display:'propietats, riqueses (en plural)', answers:['béns'] },
         { sentence:"Aquest arròs t'ha quedat molt ___.", display:'adverbi de manera', answers:['bé'] },
       ],
-      theory:"«Bé» (avantatge, riquesa; adverbi) duu accent i el conserva al plural: béns. «Be» (anyell; la lletra b) no en duu: bens, bes. El plural conserva l'accent quan coincideix gràficament amb el del mot sense accent.", example:'Ho faig pel teu bé. / Béns immobles. / Un ramat de bens.' },
+      theory:"«Bé» (avantatge, riquesa; adverbi) duu accent i el conserva al plural: béns. «Be» (anyell; la lletra b) no en duu: bens, bes. El plural manté l'accent només quan xoca gràficament amb el del mot sense accent (béns/bens). Compte: «mà» i «món» NO el conserven (mans, mons), perquè aquests plurals no topen amb cap homògraf — el plural de «ma» és «mes» i el de «mon», «mos».", example:'Ho faig pel teu bé. / Béns immobles. / Un ramat de bens. / Les mans, els mons (sense accent).' },
 
     { id:'iec-dq3', type:'fill', level:'iec', category:'Els diacrítics que queden',
       question:'Escriu el mot adequat (amb accent o sense):',
