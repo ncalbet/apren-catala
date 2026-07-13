@@ -496,8 +496,18 @@ const SESSION_KEY = 'cat_session_v1';
 // ⚠️ HAN D'ANAR AQUÍ DALT: renderMenu() les llegeix, i renderMenu() es crida des del
 // bloc d'arrencada. Si es declaren més avall, queden en zona morta temporal i
 // l'arrencada peta amb ReferenceError → Inici en blanc. (Va passar a la v106.)
+//
+// DESACTIVAT durant el testeig tancat: els testers col·laboren de franc i no volem
+// que es pensin que els demanem diners a ells. Posar-ho a true en obrir al públic.
+const KOFI_BANNER_ACTIU = false;
 const KOFI_DIES_MINIMS = 7;
 const KOFI_SILENCI_DIES = 30;
+
+// Banner ✨ «Contingut actualitzat»: desactivat a la v107 perquè aquesta feina la fa
+// ara el modal showWhatsNew() en engegar l'app. Tenir-hi també el banner seria dir el
+// mateix dues vegades. Es manté el codi per a novetats petites que no mereixin modal.
+// (Aquest const també ha d'anar AQUÍ DALT, pel mateix motiu que els de Ko-fi.)
+const NOVETATS_BANNER_ACTIU = false;
 function findExerciseById(id) {
   return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1,...(DATA.iec||[])].find(q => q.id === id) || null;
 }
@@ -2245,7 +2255,9 @@ function finishOnboarding() {
 
 /* ══ AUTH SPLASH (nous usuaris) + NOVETATS (usuaris existents) ══ */
 const AUTH_SPLASH_KEY = 'cat_auth_prompted_v1';
-const WHATS_NEW_KEY   = 'cat_news_v87';
+// Canviar la clau cada cop que hi hagi novetats a anunciar → el modal torna a sortir
+// a tothom. (v87: notificacions · v107: nav inferior + mòdul Novetats IEC + contingut)
+const WHATS_NEW_KEY   = 'cat_news_v107';
 let _authMode = 'register';
 let _modalAuthMode = 'register';
 
@@ -2450,20 +2462,39 @@ function modalAuthError(msg) {
 
 function showWhatsNew() {
   if (localStorage.getItem(WHATS_NEW_KEY)) return;
+  if (document.getElementById('whats-new-overlay')) return;   // no el dupliquis
   const overlay = document.createElement('div');
   overlay.id = 'whats-new-overlay';
   overlay.className = 'ct-modal-overlay';
-  overlay.innerHTML = `<div class="ct-modal" style="max-width:360px;text-align:left;">
-    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:12px;">🔔 Novetats de l'app</div>
-    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:12px;">
-      <strong>Notificacions</strong><br>
-      Ara pots activar notificacions. Configura-les a 👤 <strong>Perfil → Recordatoris</strong>.
-    </p>
-    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:20px;">
-      <strong>Actualitzacions d'exercicis</strong><br>
-      Hem modificat alguns exercicis. Si ja n'havies fet algun, és possible que el progrés et variï lleugerament.
-    </p>
-    <button class="ct-btn primary" style="width:100%;margin-bottom:10px;" onclick="whatsNewGoToProfile()">Configurar notificacions</button>
+  overlay.innerHTML = `<div class="ct-modal" style="max-width:400px;text-align:left;max-height:85vh;overflow-y:auto;">
+    <div style="font-family:'Fraunces',serif;font-size:21px;color:var(--heading);margin-bottom:6px;">Novetats importants</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:18px;">Aquesta actualització és grossa i bona part surt del que ens heu dit vosaltres.</p>
+
+    <div style="display:flex;gap:11px;margin-bottom:16px;">
+      <span style="font-size:22px;line-height:1.2;flex-shrink:0;">📱</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--heading);margin-bottom:3px;">Nova navegació</div>
+        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:0;">La barra ha passat <strong>a baix</strong>, amb botons molt més grans i icones noves. Ens vau dir que els de dalt eren massa petits: mesurant-ho vam descobrir que en molts mòbils el <strong>Perfil quedava fora de pantalla</strong>. L'Ajuda ara és dins del Perfil.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:11px;margin-bottom:16px;">
+      <span style="font-size:22px;line-height:1.2;flex-shrink:0;">📜</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--heading);margin-bottom:3px;">Mòdul nou: Novetats IEC</div>
+        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:0;"><strong>36 exercicis</strong> sobre què va canviar amb la normativa de l'IEC del <strong>2016</strong>: els quinze diacrítics que queden, els que van desaparèixer, els guionets, els prefixos i l'ortografia dels pronoms febles. Pensat per a qui va estudiar amb la normativa antiga.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:11px;margin-bottom:22px;">
+      <span style="font-size:22px;line-height:1.2;flex-shrink:0;">✅</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--heading);margin-bottom:3px;">Contingut revisat a fons</div>
+        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin:0;">Desenes de correccions nascudes de les vostres aportacions: errors normatius, enunciats que revelaven la resposta i respostes bones que no s'acceptaven. Si havies fet algun d'aquests exercicis, el domini et pot variar lleugerament.</p>
+      </div>
+    </div>
+
+    <button class="ct-btn primary" style="width:100%;margin-bottom:10px;" onclick="whatsNewGoToIEC()">Vull veure el mòdul nou</button>
     <button class="ct-btn secondary" style="width:100%;" onclick="whatsNewDismiss()">Entesos</button>
   </div>`;
   document.body.appendChild(overlay);
@@ -2474,9 +2505,9 @@ function whatsNewDismiss() {
   document.getElementById('whats-new-overlay')?.remove();
 }
 
-function whatsNewGoToProfile() {
+function whatsNewGoToIEC() {
   whatsNewDismiss();
-  showTab('profile');
+  showTab('iec');
 }
 
 /* INICI */
@@ -2497,6 +2528,10 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
   if (shouldShowOnboarding() && !localStorage.getItem(AUTH_SPLASH_KEY)) showAuthSplash();
   else if (shouldShowOnboarding()) renderOnboarding();
   else renderMenu();
+  // El modal de novetats també es dispara des de «fb-auth-change», però si Firebase
+  // no carrega (offline, bloquejat) aquell esdeveniment no arriba mai. El cridem
+  // també aquí; showWhatsNew() ja és idempotent (clau + guarda de duplicat).
+  if (!shouldShowOnboarding()) showWhatsNew();
   initBackHandler();
   document.addEventListener('click', e => {
     if (!e.target.closest('#nav-levels') && !e.target.closest('#ct-levels-drop'))
@@ -2855,6 +2890,7 @@ function dismissNotifBanner() {
 }
 
 function shouldShowNovetatsBanner() {
+  if (!NOVETATS_BANNER_ACTIU) return false;
   return localStorage.getItem('novetats_v103_dismissed') !== 'true';
 }
 
@@ -2864,6 +2900,7 @@ function dismissNovetatsBanner() {
 }
 
 function shouldShowKofiBanner() {
+  if (!KOFI_BANNER_ACTIU) return false;
   if ((progress.practiceHistory || []).length < KOFI_DIES_MINIMS) return false;
   if (getSavedSession() || shouldShowNovetatsBanner() || shouldShowNotifBanner()) return false;
   const at = parseInt(localStorage.getItem('kofi_banner_dismissed_at') || '0', 10);
