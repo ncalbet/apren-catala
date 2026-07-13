@@ -2283,12 +2283,12 @@ const DATA = {
     // ── PRONOMS FEBLES B1 ──
     { id:'b1-pf1', type:'choice', level:'b1', category:'Pronoms febles B1',
       question:'Quin pronom substitueix correctament el complement subratllat?',
-      text:'«Vas al gimnàs?» → «Sí, ___ vaig cada dia.»',
+      text:'«Vas <u>al gimnàs</u>?» → «Sí, ___ vaig cada dia.»',
       options:['el','hi','en'],
       correct:1,
       variants:[
-        { text:'«Vas a la piscina?» → «Sí, ___ vaig cada dimecres.»', options:['hi','en','el'], correct:0 },
-        { text:'«Has anat a la reunió?» → «Sí, ___ he anat a les deu.»', options:['en','el','hi'], correct:2 },
+        { text:'«Vas <u>a la piscina</u>?» → «Sí, ___ vaig cada dimecres.»', options:['hi','en','el'], correct:0 },
+        { text:'«Has anat <u>a la reunió</u>?» → «Sí, ___ he anat a les deu.»', options:['en','el','hi'], correct:2 },
       ],
       theory:"«Hi» substitueix un lloc al qual es va («anar a»). «El gimnàs» és el destí → «hi vaig».", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
 
@@ -2304,13 +2304,13 @@ const DATA = {
       theory:"«En» substitueix un CD partitiu (sense article, quantitat indeterminada). «Arròs» sense article → «en vull».", example:"«Tens pa?» «Sí, en tinc.»" },
 
     { id:'b1-pf3', type:'fill', level:'b1', category:'Pronoms febles B1',
-      question:"Substitueix el complement subratllat pel pronom adequat: «Parlo molt de la meva feina.»",
+      question:"Substitueix el complement subratllat pel pronom adequat: «Parlo molt <u>de la meva feina</u>.»",
       sentence:'___ parlo molt.',
       display:'pronom feble adequat',
       answers:['en'],
       variants:[
-        { question:"Substitueix el complement subratllat pel pronom adequat: «Vinc de la biblioteca.»", sentence:'___ vinc ara mateix.', display:'pronom feble adequat', answers:['en'] },
-        { question:"Substitueix el complement subratllat pel pronom adequat: «Tinc ganes de vacances.»", sentence:'___ tinc moltes.', display:'pronom feble adequat', answers:['en'] },
+        { question:"Substitueix el complement subratllat pel pronom adequat: «Vinc <u>de la biblioteca</u>.»", sentence:'___ vinc ara mateix.', display:'pronom feble adequat', answers:['en'] },
+        { question:"Substitueix el complement subratllat pel pronom adequat: «Tinc ganes <u>de vacances</u>.»", sentence:'___ tinc moltes.', display:'pronom feble adequat', answers:['en'] },
       ],
       theory:"«Parlar de + cosa» → pronom «en». «En parlo molt» substitueix «de la meva feina».", example:"«Parles de política?» «Sí, en parlo.»" },
 
@@ -3224,12 +3224,12 @@ const DATA = {
 
     { id:'a2-pfa2', type:'fill', level:'a2', category:'Pronoms febles A2',
       question:'Substitueix el CD subratllat pel pronom feble adequat:',
-      sentence:"Convido les meves amigues. → ___ convido.",
+      sentence:"Convido <u>les meves amigues</u>. → ___ convido.",
       display:'pronom CD femení plural',
       answers:['les'],
       variants:[
-        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Compro els bitllets. → ___ compro.", display:'pronom CD masculí plural', answers:['els'] },
-        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Saludo la meva germana. → ___ saludo.", display:'pronom CD femení singular', answers:['la'] },
+        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Compro <u>els bitllets</u>. → ___ compro.", display:'pronom CD masculí plural', answers:['els'] },
+        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Saludo <u>la meva germana</u>. → ___ saludo.", display:'pronom CD femení singular', answers:['la'] },
       ],
       theory:"«Les» substitueix un CD femení plural determinat. El pronom va davant del verb conjugat.", example:"«Has vist les claus?» «Sí, les he vistes a la taula.»" },
 
@@ -4580,11 +4580,11 @@ const DATA = {
     { id:'c1-pf2', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Els complements de lloc tenen pronoms febles propis que els substitueixen sense repetir el sintagma.',
       question:'Substitueix el sintagma subratllat pel pronom feble adequat:',
-      sentence:'Vaig al mercat demà. → ___ vaig demà.',
+      sentence:'Vaig <u>al mercat</u> demà. → ___ vaig demà.',
       display:'pronom de lloc de destinació', answers:['hi'],
       variants:[
-        { sentence:'Vas a l\'escola cada matí? → Sí, ___ vaig cada matí.', display:'pronom de lloc de destinació', answers:['hi'] },
-        { sentence:'Has estat mai a Girona? → No, no ___ he estat mai.', display:'pronom de lloc (complement de lloc)', answers:['hi'] },
+        { sentence:'Vas <u>a l\'escola</u> cada matí? → Sí, ___ vaig cada matí.', display:'pronom de lloc de destinació', answers:['hi'] },
+        { sentence:'Has estat mai <u>a Girona</u>? → No, no ___ he estat mai.', display:'pronom de lloc (complement de lloc)', answers:['hi'] },
       ],
       theory:'«Hi» substitueix complements de lloc on es va o on s\'és (complement introduït per «a» o «en»).', example:'«Vas a la reunió?» «Sí, hi vaig.»' },
     { id:'c1-pf3', type:'choice', level:'c1', category:'Pronoms febles',
