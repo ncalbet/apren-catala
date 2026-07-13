@@ -142,6 +142,7 @@
     .ct-badge.b1 { background: #f3e8ff; color: #6b21a8; }
     .ct-badge.b2 { background: #dbeafe; color: #1e40af; }
     .ct-badge.c1 { background: #fef3c7; color: #92400e; }
+    .ct-badge.iec { background: #e2e8f0; color: #334155; }
 
     /* QUESTION */
     .ct-q { font-family: 'Fraunces', serif; font-size: 20px; line-height: 1.4; margin-bottom: 16px; color: var(--heading); }
@@ -360,6 +361,7 @@
     <button class="ct-lv-btn" id="drop-b1" onclick="showTab('b1')"><div class="lc">B1</div><div class="ll">Elemental</div><div class="ls">Comunicació quotidiana</div></button>
     <button class="ct-lv-btn" id="drop-b2" onclick="showTab('b2')"><div class="lc">B2</div><div class="ll">Intermedi</div><div class="ls">Registres i matissos</div></button>
     <button class="ct-lv-btn" id="drop-c1" onclick="showTab('c1')"><div class="lc">C1</div><div class="ll">Avançat</div><div class="ls">Llengua formal i complexa</div></button>
+    <button class="ct-lv-btn" id="drop-iec" onclick="showTab('iec')" style="border-top:1px solid var(--border);"><div class="lc">📜</div><div class="ll">Novetats IEC</div><div class="ls">Què va canviar amb la normativa del 2016</div></button>
     <button class="ct-lv-btn" id="drop-review" onclick="showTab('review')" style="border-top:1px solid var(--border);"><div class="lc">🔁</div><div class="ll">Repàs</div><div class="ls">Exercicis que necessites practicar</div></button>
   </div>
 </div>
@@ -459,7 +461,7 @@ function saveProgress() {
 // ══ SESSIÓ ACTIVA (persistència per reprendre on s'ha deixat) ══
 const SESSION_KEY = 'cat_session_v1';
 function findExerciseById(id) {
-  return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].find(q => q.id === id) || null;
+  return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1,...(DATA.iec||[])].find(q => q.id === id) || null;
 }
 
 // ══ VARIANTS ══
@@ -614,7 +616,7 @@ function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300
 
 // ══ NAV ══
 function showTab(tab) {
-  const levelTabs = ['a2','b1','b2','c1'];
+  const levelTabs = ['a2','b1','b2','c1','iec'];
   if (levelTabs.includes(tab)) _setNav({screen:'level', level:tab});
   else _setNav({screen: tab});
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
@@ -633,6 +635,7 @@ function showTab(tab) {
   else if (tab === 'b1') renderLevelMenu('b1');
   else if (tab === 'b2') renderLevelMenu('b2');
   else if (tab === 'c1') renderLevelMenu('c1');
+  else if (tab === 'iec') renderLevelMenu('iec');
   else if (tab === 'review') renderReview();
   else if (tab === 'achievements') renderAchievements();
   else if (tab === 'help') renderHelp();
@@ -650,7 +653,10 @@ function renderMenu() {
   const total = (DATA.a2||[]).length + (DATA.b1||[]).length + DATA.b2.length + DATA.c1.length;
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   const pct = Math.round(mastered / total * 100);
-  const needsReview = [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
+  // El % de dalt es calcula sobre el corpus de nivells (A2–C1); el mòdul Novetats IEC
+  // és transversal i té la seva pròpia barra a Progrés. El repàs, en canvi, sí que
+  // inclou l'IEC: si l'has practicat i el tens fluix, ha de sortir a repassar.
+  const needsReview = [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1,...(DATA.iec||[])].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
   const saved = getSavedSession();
   const resumeBanner = saved ? `
     <div class="ct-card" style="padding:16px 18px;margin-bottom:16px;border:1px solid var(--c1);background:var(--surface);">
@@ -743,6 +749,8 @@ function renderLevelMenu(level) {
     ? 'Nivell intermedi: verbs irregulars, pronoms, connectors i estructures de la vida quotidiana.'
     : level === 'b2'
     ? 'Cada tema inclou una lliçó de teoria i exercicis pràctics. Comença per la teoria per preparar-te millor.'
+    : level === 'iec'
+    ? "Mòdul transversal, fora dels nivells: què va canviar amb la normativa de l'IEC del 2016 (diacrítics, guionets, prefixos). Pensat per a qui va estudiar amb la normativa antiga i vol posar-se al dia."
     : 'Contingut avançat: argumentació, precisió lèxica i producció formal. Llegeix la teoria abans de practicar.';
 
   const cats = {};
@@ -947,7 +955,7 @@ const REVIEW_SIZE = 8;
 let reviewLevel = 'all';
 
 function getReviewPool() {
-  let all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  let all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1, ...(DATA.iec||[])];
   if (reviewLevel !== 'all') all = all.filter(q => q.level === reviewLevel);
   const dc = progress.dailyChallenge;
   const todayDC = (dc && dc.date === new Date().toDateString()) ? dc.ids : [];
@@ -981,7 +989,7 @@ function setReviewLevel(lv) { reviewLevel = lv; renderReview(); }
 function renderReview() {
   const pool = getReviewPool();
   const toStudy = getReviewItems();
-  const chips = [['all','Tot'],['a2','A2'],['b1','B1'],['b2','B2'],['c1','C1']].map(([lv,lab]) => {
+  const chips = [['all','Tot'],['a2','A2'],['b1','B1'],['b2','B2'],['c1','C1'],['iec','📜 IEC']].map(([lv,lab]) => {
     const active = reviewLevel === lv;
     return `<button onclick="setReviewLevel('${lv}')" style="padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ${active ? 'var(--c1)' : 'var(--border)'};background:${active ? 'var(--c1)' : 'var(--surface)'};color:${active ? '#fff' : 'var(--muted)'};">${lab}</button>`;
   }).join('');
@@ -1570,6 +1578,19 @@ function buildGrammarMedals() {
       }
     });
   });
+  const ieccats = [...new Set((DATA.iec||[]).map(q => q.category))];
+  ieccats.forEach(cat => {
+    const th = THEORY[cat];
+    medals.push({
+      id: 'iec__' + cat, level:'iec', category:cat,
+      icon: th ? th.icon : '📜', name: cat,
+      desc: `Domina tots els exercicis de ${cat} al mòdul Novetats IEC.`,
+      check: p => {
+        const exs = (DATA.iec||[]).filter(q => q.category === cat);
+        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+      }
+    });
+  });
   // Supermedalles
   medals.push({ id:'master_a2', level:'super', icon:'🌟', name:'Mestre de l\'A2',
     desc:'Domina totes les categories del nivell A2.',
@@ -1583,8 +1604,13 @@ function buildGrammarMedals() {
   medals.push({ id:'master_c1', level:'super', icon:'🏆', name:'Mestre del C1',
     desc:'Domina totes les categories del nivell C1.',
     check: p => DATA.c1.every(q => (p.mastery[q.id]||0) >= 4) });
+  medals.push({ id:'master_iec', level:'super', icon:'📜', name:'Al dia amb l\'IEC',
+    desc:'Domina totes les categories del mòdul Novetats IEC.',
+    check: p => (DATA.iec||[]).length > 0 && (DATA.iec||[]).every(q => (p.mastery[q.id]||0) >= 4) });
+  // «Mestre del Català» es manté sobre el corpus de nivells (A2–C1): el mòdul IEC és
+  // transversal i opcional, i té la seva pròpia supermedalla.
   medals.push({ id:'master_all', level:'super', icon:'👑', name:'Mestre del Català',
-    desc:'Domina absolutament tots els exercicis de B2 i C1. Felicitats!',
+    desc:'Domina absolutament tots els exercicis dels nivells A2, B1, B2 i C1. Felicitats!',
     check: p => [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].every(q => (p.mastery[q.id]||0) >= 4) });
   return medals;
 }
@@ -1630,7 +1656,10 @@ function getDailyChallenge() {
     return progress.dailyChallenge;
   }
   // Genera repte nou basat en la data, ponderat al nivell de l'usuari:
-  // es trien els 2 nivells més avançats on ha practicat (si és nou: A2+B1)
+  // es trien els 2 nivells més avançats on ha practicat (si és nou: A2+B1).
+  // El mòdul Novetats IEC NO hi entra a posta: l'array és una escala de nivells i,
+  // si hi fos, practicar-lo un sol cop el faria passar per «el més avançat» i
+  // desplaçaria el C1 del repte. És un mòdul transversal, no un esglaó.
   const counts = { a2: 0, b1: 0, b2: 0, c1: 0 };
   Object.keys(progress.mastery).forEach(id => {
     const lv = id.split('-')[0];
@@ -1660,7 +1689,7 @@ function getDailyChallenge() {
 
 function startDailySession() {
   const dc = getDailyChallenge();
-  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1, ...(DATA.iec||[])];
   const seed = dc.date.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const items = dc.ids.map((id, k) => {
     const base = all.find(q => q.id === id);
@@ -1833,6 +1862,8 @@ function renderAchievements() {
   const b2done    = b2medals.filter(m => unlockedM.has(m.id)).length;
   const c1medals  = medals.filter(m => m.level === 'c1');
   const c1done    = c1medals.filter(m => unlockedM.has(m.id)).length;
+  const iecmedals = medals.filter(m => m.level === 'iec');
+  const iecdone   = iecmedals.filter(m => unlockedM.has(m.id)).length;
   const superMs   = medals.filter(m => m.level === 'super');
   const superDone = superMs.filter(m => unlockedM.has(m.id)).length;
 
@@ -1906,6 +1937,14 @@ function renderAchievements() {
       </details>
 
       <details class="ct-acc">
+        <summary><span>📜 Medalles Novetats IEC <span style="font-size:13px;font-weight:400;color:var(--muted);">${iecdone}/${iecmedals.length}</span></span></summary>
+        <div style="padding:8px 16px 14px;">
+          <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">Domina el 100% dels exercicis de cada categoria del mòdul de normativa 2016+.</p>
+          ${renderMedalGrid(iecmedals, unlockedM)}
+        </div>
+      </details>
+
+      <details class="ct-acc">
         <summary><span>🏆 Supermedalles <span style="font-size:13px;font-weight:400;color:var(--muted);">${superDone}/${superMs.length}</span></span></summary>
         <div style="padding:8px 16px 14px;">
           <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">El repte final: domina nivells sencers.</p>
@@ -1951,6 +1990,9 @@ function renderProgress() {
   const b2done  = DATA.b2.filter(q => getMastery(q.id) >= 4).length;
   const c1done  = DATA.c1.filter(q => getMastery(q.id) >= 4).length;
   const b2total = DATA.b2.length, c1total = DATA.c1.length, total = all.length;
+  // Mòdul transversal: barra pròpia, fora de l'agregat de nivells (all)
+  const iecdone  = (DATA.iec||[]).filter(q => getMastery(q.id) >= 4).length;
+  const iectotal = (DATA.iec||[]).length;
 
   const lv = getLevel(progress.xp);
   const nextLv = getNextLevel(progress.xp);
@@ -2005,6 +2047,14 @@ function renderProgress() {
         </div>
         <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(c1done/c1total*100)}%;background:#d97706;"></div></div>
       </div>
+      ${iectotal ? `
+      <div style="margin-bottom:24px;padding-top:16px;border-top:1px dashed var(--border);">
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
+          <span style="font-weight:500;">📜 Novetats IEC <span style="font-size:11px;color:var(--muted);font-weight:400;">(mòdul transversal)</span></span>
+          <span style="color:var(--muted)">${iecdone} / ${iectotal} dominats</span>
+        </div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(iecdone/iectotal*100)}%;background:#475569;"></div></div>
+      </div>` : ''}
       <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:12px;">Distribució del domini</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px;">
         <div style="background:#f3f4f6;border-radius:10px;padding:12px;text-align:center;">
