@@ -613,6 +613,11 @@ function showEncouragement(category) {
   if (fa) fa.appendChild(el);
 }
 function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim().replace(/\s*[.;]+\s*$/,''); }
+// Comparaci\u00f3 ESTRICTA amb els accents: per als exercicis on l'accent \u00c9S la resposta
+// (m\u00f2dul Novetats IEC, marcats amb strictAccents:true). La resta del corpus mant\u00e9 la
+// indulg\u00e8ncia de normalize() \u2014 all\u00e0 l'accent no \u00e9s el que s'avalua i penalitzar-lo
+// desmotivaria sense ensenyar res.
+function normalizeStrict(t) { return t.toLowerCase().normalize('NFC').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim().replace(/\s*[.;]+\s*$/,''); }
 
 // ══ NAV ══
 function showTab(tab) {
@@ -1177,15 +1182,21 @@ function checkFill() {
   if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
   const input = document.getElementById('fill-in');
-  const val = normalize(input.value);
+  const norm = q.strictAccents ? normalizeStrict : normalize;
+  const val = norm(input.value);
   if (!val) { showAlert('Escriu una resposta primer.'); return; }
   currentSession.answered = true;
   input.disabled = true;
-  const ok = q.answers.some(a => normalize(a) === val);
-  const alts = q.answers.filter(a => normalize(a) !== val);
+  const ok = q.answers.some(a => norm(a) === val);
+  const alts = q.answers.filter(a => norm(a) !== val);
+  // Si només ha fallat l'accent en un exercici d'accents, dir-ho: és justament la lliçó.
+  const nomesAccent = !ok && q.strictAccents
+    && q.answers.some(a => normalize(a) === normalize(input.value));
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Correcte!${alts.length ? ` Altres formes vàlides: <strong>${alts.join(', ')}</strong>.` : ''}</div>`
-    : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
+    : nomesAccent
+      ? `<div class="ct-feedback ko">✗ Gairebé! Aquí l'accent ho és tot: la resposta és <strong>${q.answers[0]}</strong></div>`
+      : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q); markDone(ok, 10);
 }
 function onTapSelect(i) {
