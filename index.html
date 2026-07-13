@@ -489,6 +489,15 @@ function saveProgress() {
 
 // ══ SESSIÓ ACTIVA (persistència per reprendre on s'ha deixat) ══
 const SESSION_KEY = 'cat_session_v1';
+
+// Ko-fi: reciprocitat, no insistència. Només es demana a qui ja ha tret valor de
+// l'app (≥7 dies practicats), mai a un usuari nou, mai apilat sobre un altre avís,
+// i amb 30 dies de silenci si el tanca. Veure shouldShowKofiBanner().
+// ⚠️ HAN D'ANAR AQUÍ DALT: renderMenu() les llegeix, i renderMenu() es crida des del
+// bloc d'arrencada. Si es declaren més avall, queden en zona morta temporal i
+// l'arrencada peta amb ReferenceError → Inici en blanc. (Va passar a la v106.)
+const KOFI_DIES_MINIMS = 7;
+const KOFI_SILENCI_DIES = 30;
 function findExerciseById(id) {
   return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1,...(DATA.iec||[])].find(q => q.id === id) || null;
 }
@@ -2853,12 +2862,6 @@ function dismissNovetatsBanner() {
   localStorage.setItem('novetats_v103_dismissed', 'true');
   renderMenu();
 }
-
-// Ko-fi: reciprocitat, no insistència. Només es demana a qui ja ha tret valor de
-// l'app (≥7 dies practicats), mai a un usuari nou, mai apilat sobre un altre avís,
-// i amb 30 dies de silenci si el tanca.
-const KOFI_DIES_MINIMS = 7;
-const KOFI_SILENCI_DIES = 30;
 
 function shouldShowKofiBanner() {
   if ((progress.practiceHistory || []).length < KOFI_DIES_MINIMS) return false;
