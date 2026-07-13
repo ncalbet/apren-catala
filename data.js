@@ -4480,7 +4480,7 @@ const DATA = {
       theory:'Quan el relatiu va precedit de preposició, cal usar «el qual / la qual» en registre formal, no simplement «que».', example:'El comitè al qual pertanyo... / La reunió en la qual es va decidir...' },
     { id:'c1-rel3', type:'choice', level:'c1', category:'Oracions de relatiu',
       question:'Quina frase usa correctament les oracions de relatiu?',
-      text:'Una oració de relatiu especificativa (sense comes) restringeix el significat de l\'antecedent: «Els participants que havien superat la prova» (no tots, només els que la van superar). En relatives especificatives amb antecedent explícit s\'usa «que» per a persones, no «qui» (sí que és correcte «qui» sense antecedent: «Qui ho vulgui, que s\'apunti»).',
+      text:'Una relativa especificativa (sense comes) restringeix l\'antecedent: no es refereix a tots els elements, sinó només als que compleixen la condició. Una relativa explicativa (entre comes) hi afegeix informació sobre tots. El pronom relatiu tampoc no es tria lliurement.',
       options:['Els participants que, tots ells, havien superat la prova van ser admesos.','Els participants que havien superat la prova van ser admesos.','Els participants, qui havien superat la prova, van ser admesos.'],
       correct:1, variants:[
         { options:['Els participants que havien superat la prova van ser admesos.','Els participants que, tots ells, havien superat la prova van ser admesos.','Els participants, qui havien superat la prova, van ser admesos.'], correct:0 },
