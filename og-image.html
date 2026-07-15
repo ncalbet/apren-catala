@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<title>og-image — 1200×630</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;padding:28px;background:#f3f4f6;font-family:system-ui,sans-serif;color:#111827}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 4px}
+  p{color:#6b7280;margin:0 0 18px}
+  canvas{width:100%;max-width:1024px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.15)}
+  button{margin-top:16px;background:#1a2f4e;color:#fff;border:0;border-radius:10px;
+         padding:13px 22px;font-size:15px;font-weight:600;cursor:pointer}
+  button:hover{background:#24406b}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>og-image — vista prèvia en compartir (1200×630)</h1>
+<p>Cal obrir-ho via servidor local (no file://). El botó baixa <b>og-image.jpg</b> a mida exacta.</p>
+<canvas id="c" width="1200" height="630"></canvas><br>
+<button id="dl">Baixar og-image.jpg</button>
+<script>
+const g = document.getElementById('c').getContext('2d');
+
+function pill(x, y, text, color) {
+  g.font = '700 20px "DM Sans", sans-serif';
+  const w = g.measureText(text).width + 40;
+  g.fillStyle = 'rgba(255,255,255,0.07)';
+  g.strokeStyle = 'rgba(255,255,255,0.18)';
+  g.lineWidth = 1;
+  g.beginPath(); g.roundRect(x, y, w, 46, 23); g.fill(); g.stroke();
+  g.fillStyle = color;
+  g.fillText(text, x + 20, y + 31);
+  return w;
+}
+
+async function draw() {
+  await document.fonts.ready;
+  const icon = new Image();
+  icon.src = 'icons/icon-512x512.png?v=' + Date.now();   // esquiva el SW i la cache
+  await new Promise((res, rej) => { icon.onload = res; icon.onerror = rej; });
+
+  // fons
+  const bg = g.createLinearGradient(0, 0, 1200, 630);
+  bg.addColorStop(0, '#0f1e35'); bg.addColorStop(0.6, '#1a2f4e'); bg.addColorStop(1, '#1e3a5f');
+  g.fillStyle = bg; g.fillRect(0, 0, 1200, 630);
+
+  // decoració mínima, lluny del logo
+  g.globalAlpha = 0.5; g.fillStyle = '#16283f';
+  g.beginPath(); g.arc(130, 580, 170, 0, 7); g.fill();
+  g.globalAlpha = 1;
+
+  // barra daurada
+  const gold = g.createLinearGradient(72, 0, 170, 0);
+  gold.addColorStop(0, '#f59e0b'); gold.addColorStop(1, '#fbbf24');
+  g.fillStyle = gold;
+  g.beginPath(); g.roundRect(72, 110, 96, 6, 3); g.fill();
+
+  // títol
+  g.font = '800 92px "DM Sans", sans-serif';
+  g.fillStyle = '#ffffff';
+  g.fillText('Aprèn', 68, 226);
+  const wA = g.measureText('Aprèn').width;
+  g.fillStyle = '#f59e0b';
+  g.fillText('Català', 68 + wA, 226);
+
+  // subtítol
+  g.font = '400 30px "DM Sans", sans-serif';
+  g.fillStyle = '#b8c4d4';
+  g.fillText('Aprèn i perfecciona el català', 72, 290);
+  g.fillText('Nivells A2 – C1 i novetats de l’IEC', 72, 332);
+
+  // xips
+  let x = 72;
+  x += pill(x, 384, '336 exercicis', '#fbbf24') + 14;
+  x += pill(x, 384, 'Gratuït', '#6ee7b7') + 14;
+  pill(x, 384, 'Sense anuncis', '#fdba74');
+
+  // URL a baix
+  g.font = '700 26px "DM Sans", sans-serif';
+  g.fillStyle = 'rgba(255,255,255,0.75)';
+  g.fillText('app.aprencatala.cat', 72, 564);
+
+  // la icona nova, gran, a la dreta, sense halos
+  g.drawImage(icon, 760, 125, 380, 380);
+}
+draw();
+
+document.getElementById('dl').onclick = () =>
+  document.getElementById('c').toBlob(b => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = 'og-image.jpg';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }, 'image/jpeg', 0.92);
+</script>
+</div>
+</body>
+</html>
