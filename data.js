@@ -5563,9 +5563,9 @@ const DATA = {
     { id:'iec-pf3', type:'fill', level:'iec', strictAccents:true, category:"L'ortografia dels pronoms febles",
       question:'Escriu el pronom «la» amb el verb (pensa si s\'apostrofa o no):',
       text:"El pronom «la» segueix la mateixa regla que l'article: no s'apostrofa davant de i o u àtones.",
-      sentence:"Tothom ___ (la + ignorar, 3a pers. pl.) quan parla.",
-      display:'pronom «la» + ignoren',
-      answers:['la ignoren'],
+      sentence:"Tothom ___ (la + ignorar, 3a pers. sing.) quan parla.",
+      display:'pronom «la» + ignora',
+      answers:['la ignora'],
       variants:[
         { sentence:"El pont ___ (la + unir) amb l'altra riba.", display:'pronom «la» + uneix', answers:['la uneix'] },
         { sentence:"Sempre ___ (la + escoltar, 3a pers. sing.) amb atenció.", display:'pronom «la» + escolta', answers:["l'escolta"] },
