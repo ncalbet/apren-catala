@@ -1,140 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
+<title>Feature graphic — 1024×500</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { width:1024px; height:500px; overflow:hidden; background:#1a2f4e; }
+  body{margin:0;padding:28px;background:#f3f4f6;font-family:system-ui,sans-serif;color:#111827}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 4px}
+  p{color:#6b7280;margin:0 0 18px}
+  canvas{width:100%;max-width:1024px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.15)}
+  button{margin-top:16px;background:#1a2f4e;color:#fff;border:0;border-radius:10px;
+         padding:13px 22px;font-size:15px;font-weight:600;cursor:pointer}
+  button:hover{background:#24406b}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<svg width="1024" height="500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Background gradient -->
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f1e35"/>
-      <stop offset="60%" style="stop-color:#1a2f4e"/>
-      <stop offset="100%" style="stop-color:#1e3a5f"/>
-    </linearGradient>
-    <!-- Gold accent gradient -->
-    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#f59e0b"/>
-      <stop offset="100%" style="stop-color:#fbbf24"/>
-    </linearGradient>
-    <!-- Card gradient -->
-    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.08"/>
-      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.03"/>
-    </linearGradient>
-    <!-- Glow filter -->
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="softglow">
-      <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
+<div class="wrap">
+<h1>Feature graphic — Google Play (1024×500)</h1>
+<p>Cal obrir-ho via servidor local (no file://) perquè el canvas pugui llegir la icona. El botó baixa el PNG a mida exacta.</p>
+<canvas id="c" width="1024" height="500"></canvas><br>
+<button id="dl">Baixar feature-graphic.png</button>
+<script>
+const g = document.getElementById('c').getContext('2d');
 
-  <!-- Background -->
-  <rect width="1024" height="500" fill="url(#bg)"/>
+function pill(x, y, text, color) {
+  g.font = '700 16px "DM Sans", sans-serif';
+  const w = g.measureText(text).width + 34;
+  g.fillStyle = 'rgba(255,255,255,0.07)';
+  g.strokeStyle = 'rgba(255,255,255,0.18)';
+  g.lineWidth = 1;
+  g.beginPath(); g.roundRect(x, y, w, 38, 19); g.fill(); g.stroke();
+  g.fillStyle = color;
+  g.fillText(text, x + 17, y + 25);
+  return w;
+}
 
-  <!-- Decorative circles -->
-  <circle cx="820" cy="80" r="200" fill="#2d4a7a" opacity="0.4"/>
-  <circle cx="820" cy="80" r="130" fill="#3a5f9a" opacity="0.3"/>
-  <circle cx="150" cy="420" r="160" fill="#1e3a5f" opacity="0.5"/>
+async function draw() {
+  await document.fonts.ready;
+  const icon = new Image();
+  icon.src = 'icons/icon-512x512.png';
+  await new Promise((res, rej) => { icon.onload = res; icon.onerror = rej; });
 
-  <!-- Subtle grid pattern -->
-  <g opacity="0.04">
-    <line x1="0" y1="100" x2="1024" y2="100" stroke="#fff" stroke-width="1"/>
-    <line x1="0" y1="200" x2="1024" y2="200" stroke="#fff" stroke-width="1"/>
-    <line x1="0" y1="300" x2="1024" y2="300" stroke="#fff" stroke-width="1"/>
-    <line x1="0" y1="400" x2="1024" y2="400" stroke="#fff" stroke-width="1"/>
-    <line x1="200" y1="0" x2="200" y2="500" stroke="#fff" stroke-width="1"/>
-    <line x1="400" y1="0" x2="400" y2="500" stroke="#fff" stroke-width="1"/>
-    <line x1="600" y1="0" x2="600" y2="500" stroke="#fff" stroke-width="1"/>
-    <line x1="800" y1="0" x2="800" y2="500" stroke="#fff" stroke-width="1"/>
-  </g>
+  // fons
+  const bg = g.createLinearGradient(0, 0, 1024, 500);
+  bg.addColorStop(0, '#0f1e35'); bg.addColorStop(0.6, '#1a2f4e'); bg.addColorStop(1, '#1e3a5f');
+  g.fillStyle = bg; g.fillRect(0, 0, 1024, 500);
 
-  <!-- Gold accent line top -->
-  <rect x="64" y="56" width="80" height="4" rx="2" fill="url(#gold)"/>
+  // cercles decoratius sota la icona
+  g.globalAlpha = 0.4; g.fillStyle = '#2d4a7a';
+  g.beginPath(); g.arc(830, 250, 210, 0, 7); g.fill();
+  g.globalAlpha = 0.3; g.fillStyle = '#3a5f9a';
+  g.beginPath(); g.arc(830, 250, 150, 0, 7); g.fill();
+  g.globalAlpha = 0.5; g.fillStyle = '#16283f';
+  g.beginPath(); g.arc(120, 460, 150, 0, 7); g.fill();
+  g.globalAlpha = 1;
 
-  <!-- Main title -->
-  <text x="64" y="130" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="700" fill="#ffffff" filter="url(#softglow)">Aprèn</text>
-  <text x="64" y="200" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="700" fill="url(#gold)" filter="url(#glow)">Català</text>
+  // barra daurada
+  const gold = g.createLinearGradient(64, 0, 150, 0);
+  gold.addColorStop(0, '#f59e0b'); gold.addColorStop(1, '#fbbf24');
+  g.fillStyle = gold;
+  g.beginPath(); g.roundRect(64, 74, 84, 5, 2.5); g.fill();
 
-  <!-- Subtitle -->
-  <text x="64" y="248" font-family="DM Sans, sans-serif" font-size="22" fill="#94a3b8" letter-spacing="1">Aprèn català als nivells A2, B1, B2 i C1</text>
+  // títol: AprènCatalà en una línia, sans (adéu serif)
+  g.font = '800 78px "DM Sans", sans-serif';
+  g.fillStyle = '#ffffff';
+  g.fillText('Aprèn', 62, 170);
+  const wA = g.measureText('Aprèn').width;
+  g.fillStyle = '#f59e0b';
+  g.fillText('Català', 62 + wA, 170);
 
-  <!-- Tags row -->
-  <!-- Tag 1 -->
-  <rect x="64" y="278" width="120" height="32" rx="16" fill="#1e40af" opacity="0.8"/>
-  <text x="124" y="299" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="#93c5fd" text-anchor="middle" letter-spacing="0.5">GRAMÀTICA</text>
-  <!-- Tag 2 -->
-  <rect x="196" y="278" width="110" height="32" rx="16" fill="#065f46" opacity="0.8"/>
-  <text x="251" y="299" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="#6ee7b7" text-anchor="middle" letter-spacing="0.5">GAMIFICAT</text>
-  <!-- Tag 3 -->
-  <rect x="318" y="278" width="116" height="32" rx="16" fill="#7c2d12" opacity="0.8"/>
-  <text x="376" y="299" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="#fdba74" text-anchor="middle" letter-spacing="0.5">OFFLINE</text>
+  // subtítol
+  g.font = '400 25px "DM Sans", sans-serif';
+  g.fillStyle = '#b8c4d4';
+  g.fillText('Aprèn i perfecciona el català · nivells A2 – C1', 64, 222);
+  g.fillText('i les novetats normatives de l’IEC', 64, 256);
 
-  <!-- Feature cards on the right -->
-  <!-- Card 1: SRS -->
-  <rect x="560" y="60" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
-  <text x="580" y="100" font-family="DM Sans, sans-serif" font-size="28">🧠</text>
-  <text x="618" y="96" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Repetició</text>
-  <text x="618" y="114" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#fbbf24">espaiada</text>
-  <text x="580" y="142" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">Sistema SRS intel·ligent</text>
+  // xips (dades REALS: 336, SRS, repte diari, sense anuncis)
+  let x = 64;
+  x += pill(x, 296, '336 exercicis', '#fbbf24') + 12;
+  x += pill(x, 296, 'Repàs intel·ligent', '#93c5fd') + 12;
+  pill(x, 296, 'Repte diari', '#6ee7b7');
+  x = 64;
+  x += pill(x, 346, 'Gratuït', '#fdba74') + 12;
+  pill(x, 346, 'Sense anuncis', '#fdba74');
 
-  <!-- Card 2: 147 exercicis -->
-  <rect x="776" y="60" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
-  <text x="796" y="100" font-family="DM Sans, sans-serif" font-size="28">📚</text>
-  <text x="834" y="96" font-family="DM Sans, sans-serif" font-size="22" font-weight="700" fill="#ffffff">279</text>
-  <text x="834" y="116" font-family="DM Sans, sans-serif" font-size="14" fill="#fbbf24">exercicis</text>
-  <text x="796" y="142" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">A2 · B1 · B2 · C1 · 6 tipus</text>
+  // lema
+  g.font = 'italic 400 21px "DM Sans", sans-serif';
+  g.fillStyle = 'rgba(255,255,255,0.65)';
+  g.fillText('Aprèn. Practica. Domina.', 64, 448);
 
-  <!-- Card 3: Assoliments -->
-  <rect x="560" y="180" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
-  <text x="580" y="220" font-family="DM Sans, sans-serif" font-size="28">🏅</text>
-  <text x="618" y="216" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Assoliments</text>
-  <text x="618" y="234" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#fbbf24">i medalles</text>
-  <text x="580" y="262" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">Progressa i col·lecciona</text>
+  // la icona nova, gran, a la dreta, amb una lluïssor càlida subtil
+  g.save();
+  g.shadowColor = 'rgba(245,158,11,0.28)';
+  g.shadowBlur = 46;
+  g.drawImage(icon, 668, 88, 324, 324);
+  g.restore();
+}
+draw();
 
-  <!-- Card 4: Repte diari -->
-  <rect x="776" y="180" width="200" height="100" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.1"/>
-  <text x="796" y="220" font-family="DM Sans, sans-serif" font-size="28">🎯</text>
-  <text x="834" y="216" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Repte</text>
-  <text x="834" y="234" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#fbbf24">diari</text>
-  <text x="796" y="262" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">Crea l'hàbit d'aprendre</text>
-
-  <!-- Progress bar demo -->
-  <rect x="560" y="300" width="416" height="6" rx="3" fill="#ffffff" opacity="0.1"/>
-  <rect x="560" y="300" width="280" height="6" rx="3" fill="url(#gold)"/>
-  <text x="560" y="330" font-family="DM Sans, sans-serif" font-size="11" fill="#94a3b8">67% dominat · 🏆 Expert · 🔥 12 dies de ratxa</text>
-
-  <!-- Level badges row -->
-  <rect x="560" y="350" width="78" height="26" rx="13" fill="#1a2f4e" stroke="#fbbf24" stroke-width="1.5"/>
-  <text x="599" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#fbbf24" text-anchor="middle">🌱 Aprenent</text>
-
-  <rect x="648" y="350" width="78" height="26" rx="13" fill="#1e40af" opacity="0.8"/>
-  <text x="687" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#93c5fd" text-anchor="middle">📖 Estudiant</text>
-
-  <rect x="736" y="350" width="72" height="26" rx="13" fill="#065f46" opacity="0.8"/>
-  <text x="772" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7" text-anchor="middle">💬 Parlant</text>
-
-  <rect x="818" y="350" width="72" height="26" rx="13" fill="#4c1d95" opacity="0.8"/>
-  <text x="854" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#c4b5fd" text-anchor="middle">⭐ Expert</text>
-
-  <rect x="900" y="350" width="76" height="26" rx="13" fill="#7c2d12" opacity="0.8"/>
-  <text x="938" y="367" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#fdba74" text-anchor="middle">🏆 Mestre</text>
-
-  <!-- Bottom tagline -->
-  <text x="64" y="430" font-family="Fraunces, serif" font-size="18" font-style="italic" fill="#ffffff" opacity="0.6">Aprèn. Practica. Domina.</text>
-
-  <!-- Bottom decoration -->
-  <rect x="64" y="450" width="40" height="3" rx="1.5" fill="#fbbf24" opacity="0.6"/>
-  <rect x="112" y="450" width="20" height="3" rx="1.5" fill="#fbbf24" opacity="0.3"/>
-</svg>
+document.getElementById('dl').onclick = () =>
+  document.getElementById('c').toBlob(b => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = 'feature-graphic.png';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }, 'image/png');
+</script>
+</div>
 </body>
 </html>
