@@ -481,7 +481,7 @@ let progress = (function() {
     (v5.done || []).forEach(id => { mastery[id] = 3; });
     return { xp: v5.xp || 0, streak: v5.streak || 0, mastery, lastDay: v5.lastDay || null };
   }
-  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, dcHistory: [], practiceHistory: [], freezes: 1 };
+  return { xp: 0, streak: 0, mastery: {}, maxMastery: {}, lastDay: null, consec: 0, perfectSessions: 0, dailyChallenge: null, dcHistory: [], practiceHistory: [], freezes: 1, frozenDays: [] };
 })();
 if (progress.freezes === undefined) progress.freezes = 1; // gel de ratxa (sembra 1 als testers existents)
 
@@ -1405,6 +1405,14 @@ function markDone(ok, xp) {
       const missed = daysSince - 1;
       if ((progress.freezes || 0) >= missed) {
         progress.freezes -= missed;              // un gel cobreix cada dia saltat
+        // Registra quins dies concrets ha cobert cada gel, perquè el calendari els mostri amb 🛡️
+        if (!progress.frozenDays) progress.frozenDays = [];
+        for (let k = 1; k <= missed; k++) {
+          const fd = new Date(progress.lastDay);
+          fd.setDate(fd.getDate() + k);
+          progress.frozenDays.push(fd.toDateString());
+        }
+        if (progress.frozenDays.length > 30) progress.frozenDays = progress.frozenDays.slice(-30);
         progress.streak = (progress.streak || 0) + 1;
         _streakFrozen = missed;
       } else {
@@ -1800,6 +1808,7 @@ function getMidnightCountdown() {
 
 function render7DayHistory() {
   const history = new Set(progress.practiceHistory || []);
+  const frozen = new Set(progress.frozenDays || []);
   // Finestra mòbil dels últims 7 dies, en ordre cronològic (avui a la dreta)
   const days = [];
   for (let i = 6; i >= 0; i--) {
@@ -1812,13 +1821,14 @@ function render7DayHistory() {
       ${days.map(d => {
         const ds = d.toDateString();
         const done = history.has(ds);
+        const iced = !done && frozen.has(ds);
         const label = d.toLocaleDateString('ca', { weekday: 'short' });
         const isToday = ds === new Date().toDateString();
         return `<div style="text-align:center;flex:1;">
           <div style="height:36px;border-radius:8px;background:${done ? '#059669' : 'var(--track)'};
             display:flex;align-items:center;justify-content:center;font-size:18px;
             border:${isToday ? '2px solid var(--c1)' : '2px solid transparent'};">
-            ${done ? '✓' : (isToday ? '·' : '')}
+            ${done ? '✓' : iced ? '🛡️' : (isToday ? '·' : '')}
           </div>
           <div style="font-size:9px;color:var(--muted);margin-top:4px;text-transform:capitalize;">${label}</div>
         </div>`;
@@ -3016,7 +3026,7 @@ function showMasteryInfo() {
 }
 function resetProgress() {
   showConfirm('Segur que vols reiniciar tot el progrés? Aquesta acció no es pot desfer.', () => {
-    progress = { xp:0, streak:0, mastery:{}, maxMastery:{}, lastDay:null, consec:0, perfectSessions:0, dailyChallenge:null, dcHistory:[], practiceHistory:[], freezes:1 };
+    progress = { xp:0, streak:0, mastery:{}, maxMastery:{}, lastDay:null, consec:0, perfectSessions:0, dailyChallenge:null, dcHistory:[], practiceHistory:[], freezes:1, frozenDays:[] };
     saveProgress(); updateHeader(); renderProfile();   // el botó viu al Perfil: hi tornem
   });
 }
