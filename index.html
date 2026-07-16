@@ -771,6 +771,7 @@ function renderMenu() {
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;flex-shrink:0;text-decoration:none;white-space:nowrap;">Convida'm</a>
       <button onclick="dismissKofiBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
     </div>` : '';
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     ${resumeBanner}
     ${novetatsBanner}
@@ -818,6 +819,7 @@ function renderMenu() {
 function renderLevelMenu(level) {
   const items = DATA[level] || [];
   if (!items.length) {
+    window.scrollTo(0, 0);
     document.getElementById('ct-body').innerHTML = '<div class="ct-card" style="text-align:center;padding:32px;"><p style="color:var(--muted);">Nivell no disponible. Comprova que data.js s\'ha carregat correctament.</p></div>';
     return;
   }
@@ -875,6 +877,7 @@ function renderLevelMenu(level) {
       </div>`;
   }).join('');
 
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
       <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">Nivell ${level.toUpperCase()}</div>
@@ -936,6 +939,7 @@ function openCategory(level, cat) {
       </div>`;
   }).join('');
 
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto 8px;padding:0 0 4px;">
       <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
@@ -996,6 +1000,7 @@ function showMandatoryTheory(level, cat, onContinue) {
   markTheorySeen(cat);
   _pendingStart = onContinue;
   const sectionsHTML = (th.sections || []).map(renderTheorySection).join('');
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
       <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
@@ -1073,6 +1078,7 @@ function renderReview() {
     return `<button onclick="setReviewLevel('${lv}')" style="padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ${active ? 'var(--c1)' : 'var(--border)'};background:${active ? 'var(--c1)' : 'var(--surface)'};color:${active ? '#fff' : 'var(--muted)'};">${lab}</button>`;
   }).join('');
 
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <button onclick="showTab('menu')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Inici</button>
@@ -1128,6 +1134,7 @@ function renderExercise() {
   else if (q.type==='reorder') body = renderReorder(q);
   else if (q.type==='reading') body = renderReading(q);
 
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
       ${currentSession.isDailyChallenge ? `<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:0.5px;color:#f59e0b;margin-bottom:4px;">🎯 REPTE DIARI</div>` : ''}
@@ -1498,6 +1505,7 @@ function renderSummary() {
     : returnTo === 'review'
     ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="showTab('review')">← Tornar al repàs</button>`
     : `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="renderLevelMenu('${level}')">← Tornar al nivell</button>`;
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card ct-summary" style="max-width:480px;">
       <div style="font-size:48px;margin-bottom:12px;">${emoji}</div>
@@ -1962,6 +1970,7 @@ function renderAchievements() {
   const superMs   = medals.filter(m => m.level === 'super');
   const superDone = superMs.filter(m => unlockedM.has(m.id)).length;
 
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">🏅 Fites i medalles</div>
@@ -2095,6 +2104,7 @@ function renderProgress() {
   const xpToNext = nextLv ? (nextLv.min - lv.min) : 1;
   const lvPct = nextLv ? Math.round(xpInLevel / xpToNext * 100) : 100;
 
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">El teu progrés</div>
@@ -2532,6 +2542,7 @@ function whatsNewGoToIEC() {
 
 /* INICI */
 if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:480px;margin:0 auto;text-align:center;padding:32px;">
       <div style="font-size:40px;margin-bottom:12px;">⚠️</div>
@@ -2588,6 +2599,7 @@ function _goBack() {
 
 // ══ AJUDA ══
 function renderHelp() {
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
@@ -2935,6 +2947,7 @@ function dismissKofiBanner() {
 function renderProfile() {
   const p = safeParse('cat_profile_v1') || {};
   const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
