@@ -1,5 +1,5 @@
 // Català Trainer — Service Worker
-const CACHE_VERSION = 'catala-trainer-v112';
+const CACHE_VERSION = 'catala-trainer-v113';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -7,6 +7,7 @@ const ASSETS_TO_CACHE = [
   './manifest.json',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png',
+  './icons/badge-96.png',
   './data.js',
   './firebase.js'
 ];
@@ -97,7 +98,9 @@ self.addEventListener('push', event => {
       return self.registration.showNotification(notif.title || 'AprènCatalà', {
         body: notif.body || '',
         icon: '/icons/icon-192x192.png',
-        badge: '/icons/icon-192x192.png',
+        // Monocroma (silueta blanca + alfa): Android la pinta a la barra d'estat.
+        // Amb la de color hi sortia un quadrat blanc.
+        badge: '/icons/badge-96.png',
         tag: 'aprencatala-reminder',
         data: { url: '/' }
       });
