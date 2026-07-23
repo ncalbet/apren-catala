@@ -652,6 +652,24 @@ function showLevelUp(newLevel) {
     </div>`;
   document.body.appendChild(overlay);
 }
+// Celebració gran (overlay + confeti) per a una fita de NIVELL: completar-lo a
+// «exercicis fets» (domini ≥2 a tot) o «Dominat» (domini ≥4 a tot). Reaprofita
+// l'overlay de canvi de rang. Es dispara des de checkLevelMilestones().
+function showLevelDoneCelebration(emoji, title, sub) {
+  showConfetti();
+  const overlay = document.createElement('div');
+  overlay.className = 'ct-levelup-overlay';
+  overlay.innerHTML = `
+    <div class="ct-levelup-box">
+      <div class="ct-levelup-emoji">${emoji}</div>
+      <div class="ct-levelup-title">${title}</div>
+      <div class="ct-levelup-sub">${sub}</div>
+      <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
+        Continuar 🎉
+      </button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
 function showFreezeToast(n) {
   const el = document.createElement('div');
   el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
@@ -1462,6 +1480,7 @@ function markDone(ok, xp) {
     }
   }
 
+  checkLevelMilestones();   // fites de nivell (fets/dominat) → overlay + confeti; desa els flags
   const _prevUnlocked = [...getUnlockedAchievements(), ...getUnlockedMedals()];
   saveProgress(); updateHeader();
   checkNewAchievements(_prevUnlocked);
@@ -2067,7 +2086,9 @@ function checkNewAchievements(prevUnlocked) {
   // Medalles de gramàtica
   const nowMedals  = getUnlockedMedals();
   const newMedals  = nowMedals.filter(id => !prevUnlocked.includes(id));
-  const allNew = [...newOnes, ...newMedals];
+  // Els supermedals de nivell (master_*) se celebren amb l'overlay gran a
+  // checkLevelMilestones(); aquí en fem el toast només de la resta.
+  const allNew = [...newOnes, ...newMedals].filter(id => !id.startsWith('master_'));
   allNew.forEach((id, i) => {
     const a = ACHIEVEMENTS.find(x => x.id === id) || getAllMedals().find(x => x.id === id);
     if (!a) return;
@@ -2082,6 +2103,47 @@ function checkNewAchievements(prevUnlocked) {
       setTimeout(() => el.remove(), 3500);
     }, i * 800);
   });
+}
+
+// Fites de NIVELL sencer: completar-lo a «exercicis fets» (domini ≥2 a tots) o
+// «Dominat» (domini ≥4 a tots). No hi havia cap celebració per a «fets» —acabar
+// tots els exercicis d'un nivell almenys un cop— tot i ser la fita que més es viu.
+// Els supermedals de «Dominat» (master_*) ara se celebren aquí amb l'overlay gran
+// (per això checkNewAchievements ja no en fa el toast petit). Un flag persistent
+// per fita garanteix que se celebri un sol cop; qui ja hagi completat un nivell
+// abans d'aquesta versió rebrà la celebració pendent al pròxim exercici.
+function checkLevelMilestones() {
+  if (!progress.celebratedLevels) progress.celebratedLevels = {};
+  const flags = progress.celebratedLevels;
+  const queue = [];
+  const LV = [
+    { k:'a2',  ds:(DATA.a2||[]),  fetsTitle:"Has completat tot l'A2!",              domTitle:"Mestre de l'A2!",  icon:'🌟' },
+    { k:'b1',  ds:(DATA.b1||[]),  fetsTitle:'Has completat tot el B1!',             domTitle:'Mestre del B1!',   icon:'🟢' },
+    { k:'b2',  ds:(DATA.b2||[]),  fetsTitle:'Has completat tot el B2!',             domTitle:'Mestre del B2!',   icon:'🏅' },
+    { k:'c1',  ds:(DATA.c1||[]),  fetsTitle:'Has completat tot el C1!',             domTitle:'Mestre del C1!',   icon:'🏆' },
+    { k:'iec', ds:(DATA.iec||[]), fetsTitle:'Has completat el mòdul Novetats IEC!', domTitle:"Al dia amb l'IEC!", icon:'📜' },
+  ];
+  LV.forEach(l => {
+    if (l.ds.length === 0) return;
+    if (!flags[l.k+'_fets'] && l.ds.every(q => getMastery(q.id) >= 2)) {
+      flags[l.k+'_fets'] = true;
+      queue.push({ emoji:'🎉', title:l.fetsTitle,
+        sub:'Has fet tots els exercicis del nivell almenys un cop. Ara torna-hi en dies diferents per dominar-lo del tot. 💪' });
+    }
+    if (!flags[l.k+'_dom'] && l.ds.every(q => getMastery(q.id) >= 4)) {
+      flags[l.k+'_dom'] = true;
+      queue.push({ emoji:l.icon, title:l.domTitle,
+        sub:'Domines tots els exercicis del nivell. Impressionant!' });
+    }
+  });
+  // 👑 Mestre del Català: domini ≥4 a tot el corpus A2–C1 (el mòdul IEC va a part)
+  const cefr = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  if (!flags['all_dom'] && cefr.length && cefr.every(q => getMastery(q.id) >= 4)) {
+    flags['all_dom'] = true;
+    queue.push({ emoji:'👑', title:'Mestre del Català!',
+      sub:'Domines absolutament tots els exercicis dels nivells A2, B1, B2 i C1. Felicitats!' });
+  }
+  queue.forEach((c, i) => setTimeout(() => showLevelDoneCelebration(c.emoji, c.title, c.sub), 700 + i * 600));
 }
 
 
