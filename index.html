@@ -2382,7 +2382,7 @@ function showAuthSplash() {
       </div>
       <div style="text-align:left;margin-bottom:6px;">
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CONTRASENYA</label>
-        <input id="auth-password" type="password" class="ct-input" style="margin-top:0;" placeholder="Mínim 6 caràcters" autocomplete="new-password">
+        ${pwFieldHtml('auth-password', 'Mínim 6 caràcters', 'new-password')}
       </div>
       <div id="auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
       <button id="auth-email-btn" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="authSplashEmail()">Registra't</button>
@@ -2461,6 +2461,26 @@ function showAuthError(msg) {
   if (el) el.textContent = msg;
 }
 
+// Camp de contrasenya amb l'ull per mostrar-la/amagar-la (Feather eye / eye-off)
+function pwFieldHtml(id, placeholder, autocomplete) {
+  return `<div style="position:relative;">
+    <input id="${id}" type="password" class="ct-input" style="margin-top:0;padding-right:44px;" placeholder="${placeholder}" autocomplete="${autocomplete}">
+    <button type="button" aria-label="Mostra o amaga la contrasenya" onclick="togglePwVisibility(this,'${id}')" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:8px;color:var(--muted);display:flex;align-items:center;">
+      <svg class="pw-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg class="pw-eye-off" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+    </button>
+  </div>`;
+}
+
+function togglePwVisibility(btn, inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const show = input.type === 'password';
+  input.type = show ? 'text' : 'password';
+  btn.querySelector('.pw-eye').style.display = show ? 'none' : '';
+  btn.querySelector('.pw-eye-off').style.display = show ? '' : 'none';
+}
+
 function fbErrorMessage(code) {
   const m = {
     'auth/email-already-in-use': 'Aquest correu ja té un compte. Intenta iniciar sessió amb Google o amb la teva contrasenya.',
@@ -2515,7 +2535,7 @@ function showEmailAuthModal() {
     </div>
     <div style="margin-bottom:6px;">
       <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CONTRASENYA</label>
-      <input id="modal-auth-password" type="password" class="ct-input" style="margin-top:0;" placeholder="Mínim 6 caràcters" autocomplete="new-password">
+      ${pwFieldHtml('modal-auth-password', 'Mínim 6 caràcters', 'new-password')}
     </div>
     <div id="modal-auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
     <button id="modal-auth-submit" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="modalAuthSubmit()">Registra't</button>
@@ -3263,7 +3283,7 @@ function showPasswordPrompt(onSubmit, opts = {}) {
   el.className = 'ct-modal-overlay';
   el.innerHTML = `<div class="ct-modal">
     <p>${message}</p>
-    <input id="ct-pw-input" type="password" class="ct-input" style="margin-top:0;" placeholder="${placeholder}" autocomplete="${autocomplete}">
+    ${pwFieldHtml('ct-pw-input', placeholder, autocomplete)}
     <div class="ct-modal-btns">
       <button class="ct-btn secondary" onclick="this.closest('.ct-modal-overlay').remove()">Cancel·lar</button>
       <button class="ct-btn primary" id="ct-pw-ok">${okLabel}</button>
