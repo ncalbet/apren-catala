@@ -2482,9 +2482,21 @@ async function fbForgotPassword(emailId, showErr) {
   if (!email) { showErr('Escriu el teu correu a dalt i torna a prémer «Has oblidat la contrasenya?».'); return; }
   if (!window.fbResetPassword) { showErr('Carregant Firebase, espera un moment...'); return; }
   try {
+    // Amb la protecció d'enumeració de Firebase desactivada, la llista de mètodes
+    // diu com es va crear el compte; si està activada, retorna [] i anem al camí genèric.
+    const methods = window.fbGetSignInMethods ? await window.fbGetSignInMethods(email) : [];
+    if (methods.length && !methods.includes('password')) {
+      showErr('');
+      showAlert('Aquest compte es va crear amb Google i no té contrasenya. Prem «Continua amb Google» per entrar-hi.');
+      return;
+    }
     await window.fbResetPassword(email);
     showErr('');
-    showAlert('Si hi ha un compte amb aquest correu, t\'hi hem enviat un enllaç per restablir la contrasenya. Revisa també el correu brossa.');
+    if (methods.includes('password')) {
+      showAlert('T\'hem enviat un correu amb l\'enllaç per restablir la contrasenya. Si no el veus a la safata d\'entrada, revisa la carpeta de correu brossa.');
+    } else {
+      showAlert('Si hi ha un compte amb aquest correu, t\'hi hem enviat un enllaç per restablir la contrasenya. Si no el veus a la safata d\'entrada, revisa la carpeta de correu brossa.');
+    }
   } catch (e) {
     showErr(fbErrorMessage(e.code));
   }
