@@ -735,8 +735,13 @@ function toggleLevelsMenu() {
 // ══ MENU PRINCIPAL ══
 function renderMenu() {
   const lv = getLevel(progress.xp);
-  const total = (DATA.a2||[]).length + (DATA.b1||[]).length + DATA.b2.length + DATA.c1.length;
-  const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
+  // Numerador i denominador han de recórrer EL MATEIX corpus (A2–C1, sense el
+  // mòdul IEC: veure el comentari de sota). Comptar el domini sobre progress.mastery
+  // hi colava els exercicis de l'IEC —i qualsevol id antic que hi hagués quedat—
+  // contra un total que no els inclou: sortia «336/300 · 112% dominat».
+  const cefr = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  const total = cefr.length;
+  const mastered = cefr.filter(q => getMastery(q.id) >= 4).length;
   const pct = Math.round(mastered / total * 100);
   // El % de dalt es calcula sobre el corpus de nivells (A2–C1); el mòdul Novetats IEC
   // és transversal i té la seva pròpia barra a Progrés. El repàs, en canvi, sí que
