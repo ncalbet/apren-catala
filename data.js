@@ -2321,7 +2321,7 @@ const DATA = {
       correct:2,
       variants:[
         { question:'Tria la forma enclítica correcta per a «en» darrere d\'infinitiu:', text:'He de menjar-___ cinc, de nous.', options:['hi','ne','en'], correct:1 },
-        { question:'Quina frase és correcta en català?', options:["Puc comprar-ne tres, de taronges.","Puc comprar-en tres, de taronges.","Ne puc comprar tres, de taronges."], correct:0 },
+        { question:'Quina frase és correcta en català?', text:'', options:["Puc comprar-ne tres, de taronges.","Puc comprar-en tres, de taronges.","Ne puc comprar tres, de taronges."], correct:0 },
       ],
       theory:"Davant del verb: «En vull tres». Darrere de l'infinitiu (enclític), «en» pren la forma «ne» unida amb guionet: «Vull comprar-ne tres». Fora de posició enclítica, la forma és «en».", example:"Vull menjar-ne. / Puc comprar-ne dos. / En tinc molts (davant del verb)." },
 
@@ -4162,7 +4162,7 @@ const DATA = {
       options:['la','ho','les','en'],
       correct:2, variants:[
         { options:['les','ho','la','en'], correct:0 },
-        { question:'Quin pronom substitueix «els cotxes» com a objecte directe?', options:['la','ho','en','els'], correct:3 },
+        { question:'Quin pronom substitueix «els cotxes» com a objecte directe?', text:'Has aparcat <i>els cotxes</i> al garatge?', options:['la','ho','en','els'], correct:3 },
       ],
       theory:'El pronom de CD concorda en gènere i nombre amb el nom que substitueix. «Les entrades» = femení plural → «les». El/la (sing. def.), els/les (pl. def.), ho (neutre), en (partitiu).', example:'Has vist el gat? → L\'he vist. / Has llegit les cartes? → Les he llegides.' },
 
@@ -4172,7 +4172,7 @@ const DATA = {
       options:['la','li','els','ho'],
       correct:1, variants:[
         { options:['li','la','ho','els'], correct:0 },
-        { question:'Quin pronom substitueix el CI «a la seva mare» (singular)?', options:['la','ho','li','els'], correct:2 },
+        { question:'Quin pronom substitueix el CI «a la seva mare» (singular)?', text:'En Pau ha escrit una carta <i>a la seva mare</i>?', options:['la','ho','li','els'], correct:2 },
       ],
       theory:'El pronom de CI és «li» (singular) i «els» (plural), independentment del gènere. «A la professora» = CI singular → «li». Atenció: «la» és pronom de CD, no de CI.', example:'Has escrit a la Maria? → Li he escrit. / Has trucat als teus pares? → Els he trucat.' },
 
@@ -4182,7 +4182,7 @@ const DATA = {
       options:['hi','en','ho','li'],
       correct:0, variants:[
         { options:['en','hi','li','ho'], correct:1 },
-        { question:'Quin pronom substitueix «de Barcelona» com a complement de procedència?', options:['hi','li','en','ho'], correct:2 },
+        { question:'Quin pronom substitueix «de Barcelona» com a complement de procedència?', text:'«Que vens de Barcelona?» «Sí, ___ vinc amb el tren de les nou.»', options:['hi','li','en','ho'], correct:2 },
       ],
       theory:'«Hi» substitueix un complement de lloc (a/en + lloc) o un complement de règim verbal amb «a/en». «En» substitueix complements introduïts per «de» o un CD partitiu. «A Barcelona» = lloc → «hi».', example:'Vius a Barcelona? → Hi visc. / Vens de Barcelona? → En vinc. / Confies en ell? → Hi confio.' },
 
@@ -4574,7 +4574,7 @@ const DATA = {
       options:['la','hi','en','ho'],
       correct:2, variants:[
         { options:['en','la','ho','hi'], correct:0 },
-        { question:'Quin pronom feble substitueix correctament «de política» en: «Parleu de política?» «Sí, ___ parlem sovint.»?', options:['hi','ho','en','li'], correct:2 },
+        { question:'Quin pronom feble substitueix correctament «de política» en: «Parleu de política?» «Sí, ___ parlem sovint.»?', text:'', options:['hi','ho','en','li'], correct:2 },
       ],
       theory:'El pronom «en» substitueix complements introduïts per «de» (temes, matèries). «Parlar de X» → «en parlar».', example:'«Parles de la reunió?» «Sí, en parlo.»' },
     { id:'c1-pf2', type:'fill', level:'c1', category:'Pronoms febles',
