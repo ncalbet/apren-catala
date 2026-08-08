@@ -5190,11 +5190,12 @@ const DATA = {
     // ── ELS DIACRÍTICS QUE QUEDEN ──
     { id:'iec-dq1', type:'choice', level:'iec', category:'Els diacrítics que queden',
       question:'Quin d\'aquests grups conté només mots que conserven l\'accent diacrític?',
-      options:['bé, món i sòl','net, os i soc','dona, molt i ves'],
+      text:'Tots els mots apareixen escrits amb accent, però només en un dels grups totes les grafies són vigents: als altres, l\'accent és el diacrític antic que va caure el 2016.',
+      options:['bé, món i sòl','sóc, vés i dóna','nét, ós i móra'],
       correct:0,
       variants:[
-        { options:['fora, mora i sec','déu, pèl i vós','venen, vens i feu'], correct:1 },
-        { options:['bota, molt i ves','net, os i soc','més, sé i té'], correct:2 },
+        { options:['vénen, véns i fóra','déu, pèl i vós','móra, bóta i mòlt'], correct:1 },
+        { options:['bóta, mòlt i vés','nét, sóc i ós','més, sé i té'], correct:2 },
       ],
       theory:"La llista vigent té quinze mots, memoritzables en grups de tres: bé-déu-és · mà-més-món · pèl-què-sé · sí-sòl-són · té-ús-vós. Tota la resta de diacrítics van desaparèixer amb l'ortografia del 2016.", example:'Ho ha fet bé. / La fi del món. / El preu del sòl.' },
 
