@@ -4125,7 +4125,7 @@ const DATA = {
 
     { id:'b2-ort4', type:'choice', level:'b2', category:'Ortografia B2',
       question:'Quina opció mostra un ús correcte de la dièresi en totes les paraules?',
-      text:'La dièresi (ï, ü) indica que la vocal forma síl·laba per separat: veïna (ve-ï-na), raïm (ra-ïm), heroïna (he-ro-ï-na). Excepcions: els infinitius en -uir (conduir, fluir) i les paraules amb els sufixos -isme/-ista (altruisme) no porten dièresi.',
+      text:'La dièresi (ï, ü) indica que la vocal forma síl·laba per separat i es pronuncia a part. Ara bé, algunes terminacions i sufixos no la porten mai, encara que la pronúncia ho pugui suggerir.',
       options:['veïna, raïm, altruïsme','conduïr, veïna, heroïna','veïna, raïm, heroïna','construïr, distribuïr, fluïr'],
       correct:2, variants:[
         { options:['veïna, raïm, heroïna','veïna, raïm, altruïsme','conduïr, veïna, heroïna','construïr, distribuïr, fluïr'], correct:0 },
@@ -4147,7 +4147,7 @@ const DATA = {
 
     { id:'b2-ort6', type:'choice', level:'b2', category:'Ortografia B2',
       question:'Quina frase conté un error ortogràfic?',
-      text:'Atenció als errors ortogràfics habituals: dièresi (veïna ✓, raïm ✓), però «conduir» no porta dièresi. Un d\'aquests exemples amaga un error.',
+      text:'Atenció als errors habituals de dièresi: uns mots la porten i d\'altres que semblen demanar-la no la porten mai.',
       options:['El raïm és especialment dolç a la tardor.','La veïna de dalt té una veu molt bonica.','Cal conduïr amb prudència per la carretera.','El pingüí és un ocell que no pot volar.'],
       correct:2, variants:[
         { options:['Cal conduïr amb prudència per la carretera.','El raïm és especialment dolç a la tardor.','El pingüí és un ocell que no pot volar.','La veïna de dalt té una veu molt bonica.'], correct:0 },
@@ -4540,11 +4540,11 @@ const DATA = {
       theory:'Estil indirecte al passat: el present de subj. «facin» es transforma en imperfet «fessin» quan el verb introductori és en passat.', example:'Va dir que volia que fessin silenci.' },
     { id:'c1-si4', type:'choice', level:'c1', category:'Subjuntiu imperfet',
       question:'Quina forma verbal d\'imperfet de subjuntiu és incorrecta?',
-      text:'Les formes de l\'imperfet de subjuntiu es construeixen sobre el radical del passat: vaig ser → fos, vaig tenir → tingués, vaig poder → pogués. Una d\'aquestes formes és incorrecta.',
+      text:'Les formes de l\'imperfet de subjuntiu es construeixen sobre el radical del passat: vaig dir → digués, vaig fer → fes, vaig veure → veiés. Una de les opcions següents, però, no és una forma correcta d\'imperfet de subjuntiu.',
       options:['fos (ser)','tingués (tenir)','pugués (poder)'],
       correct:2, variants:[
         { options:['pugués (poder)','fos (ser)','tingués (tenir)'], correct:0 },
-        { question:'Quina forma verbal d\'imperfet de subjuntiu és incorrecta?', options:['pogués','pugués','podia'], correct:1 },
+        { question:'Quina d\'aquestes formes verbals no existeix en català?', text:'Les formes de l\'imperfet de subjuntiu es construeixen sobre el radical del passat: vaig dir → digués, vaig fer → fes, vaig veure → veiés. Una de les formes següents, però, no existeix en cap temps verbal.', options:['pogués','pugués','podia'], correct:1 },
       ],
       theory:'La forma correcta de «poder» en imperfet de subjuntiu és «pogués». «Pugués» és una confusió amb el present de subj. «pugui».', example:'Si pogués venir, ho faria. (subj. imperfet)' },
     { id:'c1-si5', type:'fill', level:'c1', category:'Subjuntiu imperfet',
@@ -4706,7 +4706,7 @@ const DATA = {
       theory:'Els mots plans acabats en consonant formen el plural afegint «-s»: «règim» → «règims». No «règimes».', example:'règim → règims; caràcter → caràcters; síntesi → síntesis.' },
     { id:'c1-df4', type:'choice', level:'c1', category:'Derivació i flexió',
       question:'Quin és el nom d\'agent correcte derivat del verb «traduir»?',
-      text:'Els verbs en -uir formen el nom d\'agent en -uctor en català: traduir → traductor, conduir → conductor, produir → productor. La forma amb dièresi no s\'aplica al nom d\'agent.',
+      text:'Els noms d\'agent d\'alguns verbs de la tercera conjugació no segueixen el patró regular de derivació, sinó que adopten una forma culta d\'origen llatí.',
       options:['traduïdor','traductor','traduhidor'],
       correct:1, variants:[
         { options:['traductor','traduïdor','traduhidor'], correct:0 },
