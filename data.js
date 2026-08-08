@@ -3688,7 +3688,7 @@ const DATA = {
       options:['dir','anunciar','comentar','explicar-li'],
       correct:1, variants:[
         { options:['anunciar','dir','explicar-li','comentar'], correct:0 },
-        { question:'Quin verb és el més adequat en context formal: «La presidenta va ___ que aprovaven el pressupost»?', options:['dir','comentar','manifestar','explicar-li'], correct:2 },
+        { question:'Quin verb és el més adequat en context formal: «La presidenta va ___ que aprovaven el pressupost»?', text:'', options:['dir','comentar','manifestar','explicar-li'], correct:2 },
       ],
       theory:'En registres formals cal usar verbs precisos: «afirmar», «manifestar», «anunciar» en lloc del genèric «dir».', example:'La ministra va anunciar noves mesures fiscals per al proper exercici.' },
     { id:'b2-lex2', type:'choice', level:'b2', category:'Lèxic formal B2',
@@ -3697,7 +3697,7 @@ const DATA = {
       options:['té','disposa de','agafa','porta'],
       correct:1, variants:[
         { options:['disposa de','agafa','té','porta'], correct:0 },
-        { question:'Tria el sinònim formal de «tenir» per a: «L\'entitat ___ de tots els recursos necessaris»:', options:['té','porta','agafa','disposa'], correct:3 },
+        { text:'L\'entitat ___ tots els recursos necessaris per executar el pla.', options:['té','porta','agafa','disposa de'], correct:3 },
       ],
       theory:'«Disposar de» és la forma formal equivalent a «tenir» quan es parla de recursos o capacitats institucionals.', example:'L\'organisme disposa de personal qualificat i equipament modern.' },
     { id:'b2-lex3', type:'fill', level:'b2', category:'Lèxic formal B2',
@@ -3717,7 +3717,7 @@ const DATA = {
       options:['a partir de','a nivell de','quant a','pel que fa a'],
       correct:1, variants:[
         { options:['a nivell de','quant a','pel que fa a','a partir de'], correct:0 },
-        { question:'Quina de les expressions NO és un calc del castellà?', options:['a nivell de','en base a','quant a','a nivell econòmic'], correct:2 },
+        { question:'Quina de les expressions NO és un calc del castellà?', text:'Tres d\'aquestes expressions són calcs del castellà molt estesos en el registre formal; només una és genuïna. Troba-la.', options:['a nivell de','en base a','quant a','a nivell econòmic'], correct:2 },
       ],
       theory:'«A nivell de» és un calc de «a nivel de». En català: «quant a», «pel que fa a», «en matèria de», «en l\'àmbit de».', example:'✗ A nivell econòmic → ✓ Quant a l\'economia.' },
     { id:'b2-lex5', type:'fill', level:'b2', category:'Lèxic formal B2',
@@ -3795,7 +3795,7 @@ const DATA = {
       options:['malgrat que','tot i que','a pesar de que','per bé que'],
       correct:2, variants:[
         { options:['a pesar de que','malgrat que','tot i que','per bé que'], correct:0 },
-        { question:'Quina forma és genuïnament catalana per expressar concessió?', options:['malgrat de que','incluso si','malgrat que','a pesar de que'], correct:2 },
+        { question:'Quina forma és genuïnament catalana per expressar concessió?', text:'Per expressar concessió (l\'equivalent de «aunque»), el català disposa de locucions pròpies, però aquí només una de les opcions és genuïna: les altres són calcs o deformacions. Tria la correcta.', options:['malgrat de que','incluso si','malgrat que','a pesar de que'], correct:2 },
       ],
       theory:'«A pesar de» és una locució genuïna recollida al DIEC, però davant la conjunció «que» la preposició «de» cau: «a pesar que». Per això «a pesar de que» és incorrecte (coincideix amb la forma castellana). En registre formal es prefereixen «malgrat que», «tot i que» i «per bé que».',  example:'✗ A pesar de que plovia, van sortir. ✓ A pesar que plovia, van sortir. / ✓ Malgrat que plovia, van sortir.' },
 
@@ -4015,7 +4015,7 @@ const DATA = {
       options:['més bo','millor','major'],
       correct:1, variants:[
         { options:['millor','major','més bo'], correct:0 },
-        { question:'Quin comparatiu irregular correspon a «dolent»?', options:['més dolent','pitjor','menor'], correct:1 },
+        { question:'Quin comparatiu irregular correspon a «dolent»?', text:'Alguns adjectius tenen, a més de la forma regular amb «més», un comparatiu sintètic irregular. Tria el que correspon a «dolent».', options:['més dolent','pitjor','menor'], correct:1 },
       ],
       theory:'«Bo» té comparatiu irregular: «millor». En registre formal s\'evita «més bo» (col·loquial). «Major» és comparatiu de «gran» (en sentit abstracte o formal).', example:'Aquesta opció és millor que la primera. / El millor resultat possible.' },
     { id:'b2-cmp4', type:'fill', level:'b2', category:'Construccions comparatives',
