@@ -1927,7 +1927,7 @@ function getNextGoals(unlocked, unlockedM, medals) {
     const [cur, target] = a.prog(progress);
     if (cur > 0) goals.push({ icon:a.icon, name:a.name, cur:Math.min(cur,target), target, ratio:cur/target });
   });
-  const tag = { a2:'A2', b1:'B1', b2:'B2', c1:'C1' };
+  const tag = { a2:'A2', b1:'B1', b2:'B2', c1:'C1', iec:'IEC' };
   medals.forEach(m => {
     if (unlockedM.has(m.id)) return;
     const pool = medalExercisePool(m);
