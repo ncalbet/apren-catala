@@ -2385,7 +2385,7 @@ const DATA = {
       options:['puguen','poden','pugan','podin'],
       correct:1,
       variants:[
-        { question:'Quina forma de «poder» és correcta per a «vosaltres»?', options:['puguen','podin','podeu','podem'], correct:2 },
+        { question:'Quina forma de «poder» és correcta per a «vosaltres»?', text:'El verb «poder» és irregular en present d\'indicatiu. Les formes amb «pugu-» pertanyen al subjuntiu; el present d\'indicatiu segueix un altre patró, i cada persona té la seva terminació.', options:['puguen','podin','podeu','podem'], correct:2 },
         { question:'Quina forma de «saber» és correcta per a «ells»?', text:'El verb «saber» és irregular en present d\'indicatiu. La 3a persona del plural no segueix el patró del subjuntiu.', options:['sapen','saben','sapien','sàpiguen'], correct:1 },
       ],
       theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguen» i «pugan» no existeixen en català normatiu; «podin» seria una forma incorrecta del subjuntiu (la forma correcta seria «puguin»).", example:"Ells poden venir demà si volen." },
@@ -3559,7 +3559,7 @@ const DATA = {
       options:['Encara que plourà, sortirem.','Encara que plou, sortirem.','Encara que plogui, sortirem.','Encara que plovent, sortirem.'],
       correct:2, variants:[
         { options:['Encara que plogui, sortirem.','Encara que plourà, sortirem.','Encara que plovent, sortirem.','Encara que plou, sortirem.'], correct:0 },
-        { question:'Tria la construcció correcta amb «per bé que» hipotètic:', options:['Per bé que plourà, sortirem.','Per bé que plovent, sortirem.','Per bé que plou, sortirem.','Per bé que plogui, sortirem.'], correct:3 },
+        { question:'Tria la construcció correcta amb «per bé que» hipotètic:', text:'La locució concessiva «per bé que» demana un mode verbal concret. Per a una hipòtesi (la pluja no és segura), tria la construcció correcta.', options:['Per bé que plourà, sortirem.','Per bé que plovent, sortirem.','Per bé que plou, sortirem.','Per bé que plogui, sortirem.'], correct:3 },
       ],
       theory:'«Encara que» amb valor hipotètic (la condició és incerta) va amb subjuntiu.', example:'Encara que plogui, sortirem. / Encara que plou (ja plou), sortim igualment.' },
 
@@ -3631,7 +3631,7 @@ const DATA = {
       options:['Afirmatiu i optimista sense reserves','Prudent i matisat','Negatiu i pessimista'],
       correct:1, variants:[
         { options:['Prudent i matisat','Negatiu i pessimista','Afirmatiu i optimista sense reserves'], correct:0 },
-        { question:'Quin to té la frase: «Els resultats semblen prometedors, tot i que caldria verificar-los»?', options:['Negatiu i pessimista','Afirmatiu i optimista sense reserves','Prudent i matisat'], correct:2 },
+        { question:'Quin to té la frase: «Els resultats semblen prometedors, tot i que caldria verificar-los»?', text:'El to d\'un text es detecta pels mots que tria l\'autor. Fixa\'t en «semblen» i «tot i que» i dedueix quina actitud transmeten.', options:['Negatiu i pessimista','Afirmatiu i optimista sense reserves','Prudent i matisat'], correct:2 },
       ],
       theory:'«Sembla que» relativitza, i «ara bé» frena l\'entusiasme. El to global és de cautela reflexiva.', example:'Paraules com «sembla», «ara bé», «cal ser prudents» → to matisat.' },
     { id:'b2-com5', type:'reading', level:'b2', category:'Comprensió lectora',
@@ -4223,7 +4223,7 @@ const DATA = {
       options:['sóc','fos','sigui','havia estat'],
       correct:1, variants:[
         { options:['fos','sóc','havia estat','sigui'], correct:0 },
-        { question:'Tria la forma correcta per a: «Si jo ___ rica, viatjaria arreu del món»:', options:['sóc','sigui','havia estat','fos'], correct:3 },
+        { question:'Tria la forma correcta per a: «Si jo ___ rica, viatjaria arreu del món»:', text:'', options:['sóc','sigui','havia estat','fos'], correct:3 },
       ],
       theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
     { id:'c1-sa2', type:'choice', level:'c1', category:'Subjuntiu avançat',
@@ -4270,7 +4270,7 @@ const DATA = {
       options:['Atès que','Per bé que','Ja que','Per tant'],
       correct:1, variants:[
         { options:['Per bé que','Atès que','Per tant','Ja que'], correct:0 },
-        { question:'Quin connector concessiu formal completa correctament: «___ el pressupost sigui limitat, el projecte és viable»?', options:['Ja que','Atès que','Per tant','Per bé que'], correct:3 },
+        { question:'Quin connector concessiu formal completa correctament: «___ el pressupost sigui limitat, el projecte és viable»?', text:'', options:['Ja que','Atès que','Per tant','Per bé que'], correct:3 },
       ],
       theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
 
@@ -4358,7 +4358,7 @@ const DATA = {
       options:['diu','constata','explica','comenta'],
       correct:1, variants:[
         { options:['constata','diu','comenta','explica'], correct:0 },
-        { question:'Quin verb acadèmic encaixa millor: «La investigació ___ l\'existència d\'un patró sistemàtic»?', options:['comenta','diu','evidencia','explica'], correct:2 },
+        { question:'Quin verb acadèmic encaixa millor: «La investigació ___ l\'existència d\'un patró sistemàtic»?', text:'', options:['comenta','diu','evidencia','explica'], correct:2 },
       ],
       theory:'«Constatar» és un verb epistèmic que expressa que quelcom ha quedat verificat empíricament. Molt freqüent en textos científics.', example:'L\'estudi constata / evidencia / posa de manifest / demostra...' },
     { id:'c1-lf6', type:'fill', level:'c1', category:'Lèxic formal',
