@@ -4525,7 +4525,7 @@ const DATA = {
       options:['Voldria que vingui aviat.','Voldria que vingués aviat.','Volia que vindrà aviat.'],
       correct:1, variants:[
         { options:['Voldria que vingués aviat.','Voldria que vingui aviat.','Volia que vindrà aviat.'], correct:0 },
-        { question:'Quina frase usa correctament la concordança temporal?', options:['Voldria que ___ (venir) aviat: «vingui».','Voldria que ___ (venir) aviat: «vindrà».','Voldria que ___ (venir) aviat: «vingués».'], correct:2 },
+        { options:['Volia que ho expliquessis tu.','Volia que ho expliquis tu.','Volia que ho explicaràs tu.'], correct:0 },
       ],
       theory:'Condicional (voldria) → subjuntiu imperfet (vingués). El condicional actua com un «passat» per a la concordança temporal.', example:'Voldria que m\'expliqués la situació.' },
     { id:'c1-si3', type:'fill', level:'c1', category:'Subjuntiu imperfet',
@@ -4810,7 +4810,7 @@ const DATA = {
       options:['Els estudiants han d\'entregar els treballs abans del dia 15.','S\'han d\'entregar els treballs abans del dia 15.','Tu has d\'entregar els treballs el dia 15.'],
       correct:1, variants:[
         { options:['S\'han d\'entregar els treballs abans del dia 15.','Tu has d\'entregar els treballs el dia 15.','Els estudiants han d\'entregar els treballs abans del dia 15.'], correct:0 },
-        { question:'Quina construcció és la més adequada per a una norma general en text institucional?', options:['Tots heu de lliurar el mòbil en arribar.','Es lliurarà el mòbil en arribar.','S\'ha de lliurar el mòbil en arribar.'], correct:2 },
+        { question:'Quina construcció és la més adequada per a una norma general en text institucional?', options:['Tots heu de lliurar el mòbil en arribar.','Us demano que em lliureu el mòbil en arribar.','S\'ha de lliurar el mòbil en arribar.'], correct:2 },
       ],
       theory:'Per a normes generals, la impersonal amb «es/se» evita mencionar l\'agent i dona un to objectiu i institucional.', example:'S\'ha de presentar la documentació. / Es recomana llegir les instruccions.' },
     { id:'c1-pi4', type:'fill', level:'c1', category:'Passiva i impersonal',
