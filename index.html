@@ -2204,7 +2204,7 @@ function renderProgress() {
           <span style="font-weight:500;">Nivell B1</span>
           <span style="color:var(--muted)">${(DATA.b1||[]).filter(q => getMastery(q.id) >= 4).length} / ${(DATA.b1||[]).length} dominats</span>
         </div>
-        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.b1||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.b1||[]).length)*100)}%;background:#059669;"></div></div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.b1||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.b1||[]).length)*100)}%;background:#0891b2;"></div></div>
       </div>
       <div style="margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
@@ -2226,7 +2226,7 @@ function renderProgress() {
           <span style="font-weight:500;">📜 Novetats IEC <span style="font-size:11px;color:var(--muted);font-weight:400;">(mòdul transversal)</span></span>
           <span style="color:var(--muted)">${iecdone} / ${iectotal} dominats</span>
         </div>
-        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(iecdone/iectotal*100)}%;background:#475569;"></div></div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(iecdone/iectotal*100)}%;background:#7c3aed;"></div></div>
       </div>` : ''}
       <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:12px;">Distribució del domini</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px;">
