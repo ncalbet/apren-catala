@@ -3806,7 +3806,7 @@ const DATA = {
       options:['Es pot','Cal','Solia','Acabava de'],
       correct:1, variants:[
         { options:['Cal','Acabava de','Solia','Es pot'], correct:0 },
-        { question:'Quina frase expressa una obligació impersonal?', options:['Solia enviar un informe mensual.','Acabava de rebre el document.','Cal presentar la documentació original.','Es pot demanar una pròrroga.'], correct:2 },
+        { question:'Quina frase expressa una obligació impersonal?', text:'', options:['Solia enviar un informe mensual.','Acabava de rebre el document.','Cal presentar la documentació original.','Es pot demanar una pròrroga.'], correct:2 },
       ],
       theory:'«Cal + infinitiu» expressa necessitat o obligació impersonal. Equivalents: «és necessari + inf.», «s\'ha de + inf.».', example:'Cal lliurar el treball abans del termini establert.' },
     { id:'b2-per2', type:'choice', level:'b2', category:'Perífrasis verbals',
@@ -3815,7 +3815,7 @@ const DATA = {
       options:['Han de','Acaben de','Solen','Tornen a'],
       correct:1, variants:[
         { options:['Acaben de','Han de','Tornen a','Solen'], correct:0 },
-        { question:'Quina perífrasi expressa que una acció acaba de finalitzar: «___ tancar la reunió»?', options:['Tornen a','Han de','Solen','Acaben de'], correct:3 },
+        { question:'Quina perífrasi expressa que una acció acaba de finalitzar: «___ tancar la reunió»?', text:'', options:['Tornen a','Han de','Solen','Acaben de'], correct:3 },
       ],
       theory:'«Acabar de + infinitiu» expressa una acció molt recent (aspecte perfectiu immediat).', example:'Acabo d\'arribar. / Acabes de dir una cosa molt interessant.' },
     { id:'b2-per3', type:'fill', level:'b2', category:'Perífrasis verbals',
@@ -3835,7 +3835,7 @@ const DATA = {
       options:['havia acabat','estava preparant','va preparar','prepararia'],
       correct:1, variants:[
         { options:['estava preparant','havia acabat','prepararia','va preparar'], correct:0 },
-        { question:'Quina forma verbal indica que una acció era en curs i va ser interrompuda?', options:['havia escrit','va escriure','escriuria','estava escrivint'], correct:3 },
+        { question:'Quina forma verbal indica que una acció era en curs i va ser interrompuda?', text:'Quan va sonar el telèfon, ___ la presentació per a la reunió.', options:['havia escrit','va escriure','escriuria','estava escrivint'], correct:3 },
       ],
       theory:'«Estar + gerundi» en imperfet expressa una acció en curs que es veu interrompuda (aspecte progressiu del passat).', example:'Estava escrivint l\'informe quan va arribar la notícia.' },
     { id:'b2-per5', type:'fill', level:'b2', category:'Perífrasis verbals',
@@ -3855,7 +3855,7 @@ const DATA = {
       options:['acabo de','estic a punt de','solia','haig de'],
       correct:1, variants:[
         { options:['estic a punt de','acabo de','haig de','solia'], correct:0 },
-        { question:'Quina frase expressa imminència?', options:['Haig de sortir aviat.','Solia sortir a les cinc.','Estic a punt de tancar l\'ordinador.','Acabo de sortir de la feina.'], correct:2 },
+        { question:'Quina frase expressa imminència?', text:'', options:['Haig de sortir aviat.','Solia sortir a les cinc.','Estic a punt de tancar l\'ordinador.','Acabo de sortir de la feina.'], correct:2 },
       ],
       theory:'«Estar a punt de + infinitiu» expressa imminència. Atenció: «anar a + infinitiu» amb valor de futur és un calc del castellà en present; només és correcte en passat («anava a sortir quan vas trucar»).', example:'Afanya\'t, que el tren està a punt de sortir.' },
 
@@ -3866,7 +3866,7 @@ const DATA = {
       options:['anava','vaig anar','he anat','hagués anat'],
       correct:1, variants:[
         { options:['vaig anar','anava','hagués anat','he anat'], correct:0 },
-        { question:'Quina forma és correcta per a: «Ahir a la nit, ___ al sopar de gala»?', options:['anava','vaig assistir','hagi assistit','hagués assistit'], correct:1 },
+        { question:'Quina forma és correcta per a: «Ahir a la nit, ___ al sopar de gala»?', text:'', options:['anava','vaig assistir','hagi assistit','hagués assistit'], correct:1 },
       ],
       theory:'El passat perifràstic (vaig + infinitiu) expressa accions passades puntuals i acabades. L\'imperfet «anava» indicaria un hàbit o acció de fons en curs.', example:'Vaig trucar tres vegades però no va respondre.' },
     { id:'b2-tv2', type:'choice', level:'b2', category:'Temps verbals',
@@ -3875,7 +3875,7 @@ const DATA = {
       options:['vaig anar','havia anat','anava','aniré'],
       correct:2, variants:[
         { options:['anava','vaig anar','aniré','havia anat'], correct:0 },
-        { question:'Quin temps verbal expressa un hàbit continu en el passat: «De jove, ___ molt»?', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3 },
+        { question:'Quin temps verbal expressa un hàbit continu en el passat: «De jove, ___ molt»?', text:'', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3 },
       ],
       theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Cada estiu» indica repetició habitual → imperfet.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
     { id:'b2-tv3', type:'fill', level:'b2', category:'Temps verbals',
@@ -3918,7 +3918,7 @@ const DATA = {
       options:['anava','aniré','aniria','anés'],
       correct:2, variants:[
         { options:['aniria','anava','anés','aniré'], correct:0 },
-        { question:'Tria la forma correcta del resultat en una condicional hipotètica irreal: «Si hagués tingut temps, ___ de viatge»:', options:['anava','aniré','hauria anat','anés'], correct:2 },
+        { question:'Tria la forma correcta del resultat en una condicional hipotètica irreal: «Si hagués tingut temps, ___ de viatge»:', text:'', options:['anava','aniré','hauria anat','anés'], correct:2 },
       ],
       theory:'En condicionals hipotètiques (si + imperfet subj.), el resultat va en condicional simple: -ia. «Aniria» = condicional d\'«anar».', example:'Si pogués, ho faria de seguida. / Ho compraria si fos més barat.' },
 
@@ -3929,7 +3929,7 @@ const DATA = {
       options:['per','per a','a','de'],
       correct:1, variants:[
         { options:['per a','per','de','a'], correct:0 },
-        { question:'Tria la preposició correcta: «Aquest informe és ___ la junta directiva»:', options:['per','de','a','per a'], correct:3 },
+        { question:'Tria la preposició correcta: «Aquest informe és ___ la junta directiva»:', text:'', options:['per','de','a','per a'], correct:3 },
       ],
       theory:'«Per a» indica destinació o destinatari. «Per» indica causa, durada o mitjà. La documentació «és per a» (destinada a) el departament.', example:'Aquesta carta és per a tu. / Ho faig per amor (causa).' },
     { id:'b2-prep2', type:'fill', level:'b2', category:'Preposicions',
