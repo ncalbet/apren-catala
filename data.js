@@ -2675,7 +2675,7 @@ const DATA = {
       answers:['despatx'],
       variants:[
         { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"He d'anar a la ___ a treure diners.", display:'finestra petita d\'atenció al públic (terme català, no «ventanilla»)', answers:['finestreta'] },
-        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina.", display:'aixeta de l\'aigua (terme català, no «grifo»)', answers:['aixeta'] },
+        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina.", display:'peça que obre i tanca el pas de l\'aigua (terme català, no «grifo»)', answers:['aixeta'] },
       ],
       theory:"«Despatx» = oficina pròpia o habitació de treball. «Oficina» = espai laboral general. Cap dels dos és «despacho».", example:"El director té un despatx molt gran. / Treballo en una oficina compartida." },
 
@@ -4025,7 +4025,7 @@ const DATA = {
       display:'quantitatiu «tant» concordat amb el nom (gènere i nombre)', answers:['tanta'],
       variants:[
         { text:'La diferència entre «tan» i «tant» és una de les confusions ortogràfiques més habituals del català.', sentence:'No sabia que tenies ___ llibres a casa!', display:'quantitatiu «tant» concordat amb el nom (gènere i nombre)', answers:['tants'] },
-        { text:'La diferència entre «tan» i «tant» és una de les confusions ortogràfiques més habituals del català.', sentence:'Mai no havia menjat una cosa ___ bona com aquesta.', display:'«tan» davant d\'adjectiu', answers:['tan'] },
+        { text:'La diferència entre «tan» i «tant» és una de les confusions ortogràfiques més habituals del català.', sentence:'Mai no havia menjat una cosa ___ bona com aquesta.', display:'davant d\'adjectiu: forma invariable, no concorda', answers:['tan'] },
       ],
       theory:'Davant de nom: «tant/tanta/tants/tantes + nom» (concorda en gènere i nombre). Davant d\'adjectiu o adverbi: «tan + adj./adv.».', example:'Tanta gent! / Tants problemes! / Tan aviat! / Tan bé!' },
     { id:'b2-cmp5', type:'choice', level:'b2', category:'Construccions comparatives',
