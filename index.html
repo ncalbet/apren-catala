@@ -191,6 +191,11 @@
     .ct-btn.primary:hover { background: #243f63; }
     .ct-btn.secondary { background: transparent; color: var(--heading); border: 1.5px solid var(--c1); }
     .ct-btn.secondary:hover { background: var(--hover); }
+    /* WhatsApp. No fem servir el verd de marca #25D366: amb text blanc dona
+       2,2:1 de contrast i no és llegible. Aquest teal el puja a 5,5:1 i es
+       comporta igual en clar i en fosc, que és el que demana el projecte. */
+    .ct-btn.wa { background: #0f766e; color: #fff; font-weight: 600; }
+    .ct-btn.wa:hover { background: #115e56; }
     .ct-btn.full { width: 100%; margin-top: 10px; text-align: center; }
     .ct-btn:disabled { opacity: 0.45; cursor: default; }
 
@@ -653,12 +658,20 @@ function showLevelUp(newLevel) {
       <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareLevelUp('${newLevel.name}','${newLevel.emoji}')">
         📣 Comparteix-ho
       </button>
+      <button class="ct-btn wa" style="width:100%;margin-top:8px;" onclick="waLevelUp('${newLevel.name}','${newLevel.emoji}')">
+        💬 Per WhatsApp
+      </button>
     </div>`;
   document.body.appendChild(overlay);
 }
-function shareLevelUp(name, emoji) {
-  shareText(`${emoji} He pujat a nivell «${name}» aprenent català amb AprènCatalà! 🎉 És gratis i sense anuncis.`);
+// El text es construeix a part perquè el comparteixen dos camins: el selector
+// del sistema (shareText) i WhatsApp directe (shareWhatsApp). Si es dupliqués,
+// un dia en canviaríem un i l'altre no.
+function textLevelUp(name, emoji) {
+  return `${emoji} He pujat a nivell «${name}» aprenent català amb AprènCatalà! 🎉 És gratis i sense anuncis.`;
 }
+function shareLevelUp(name, emoji) { shareText(textLevelUp(name, emoji)); }
+function waLevelUp(name, emoji) { shareWhatsApp(textLevelUp(name, emoji)); }
 // Celebració gran (overlay + confeti) per a una fita de NIVELL: completar-lo a
 // «exercicis fets» (domini ≥2 a tot) o «Dominat» (domini ≥4 a tot). Reaprofita
 // l'overlay de canvi de rang. Es dispara des de checkLevelMilestones().
@@ -754,22 +767,35 @@ function shareCopiaLlegat(text) {
     return ok;
   } catch (e) { return false; }
 }
-function shareSessionResult(pct, n) {
+// WhatsApp directe. Complementa el selector del sistema, no el substitueix:
+// wa.me funciona tamb\u00e9 a l'escriptori (WhatsApp Web), on navigator.share sovint
+// no hi \u00e9s, i a m\u00f2bil estalvia el pas de triar l'app a la safata.
+// Aqu\u00ed l'enlla\u00e7 S\u00cd que va dins del text, perqu\u00e8 wa.me nom\u00e9s t\u00e9 camp `text`.
+function shareWhatsApp(text) {
+  const full = text + '\n\ud83d\udc49 ' + APP_SHARE_URL;
+  window.open('https://wa.me/?text=' + encodeURIComponent(full), '_blank', 'noopener');
+}
+
+function textSessionResult(pct, n) {
   const text = pct === 100
     ? `\u2b50 Sessi\u00f3 perfecta! He encertat els ${n} exercicis de catal\u00e0 d'una sessi\u00f3 a Apr\u00e8nCatal\u00e0 \ud83d\udcaa`
     : `\ud83d\udcaa Acabo de practicar catal\u00e0 a Apr\u00e8nCatal\u00e0 amb un ${pct}% d'encerts. Cada dia una mica millor!`;
-  shareText(text + ' \u00c9s gratis i sense anuncis.');
+  return text + ' \u00c9s gratis i sense anuncis.';
 }
-function shareProgress() {
+function shareSessionResult(pct, n) { shareText(textSessionResult(pct, n)); }
+function waSessionResult(pct, n) { shareWhatsApp(textSessionResult(pct, n)); }
+
+function textProgress() {
   const lv = getLevel(progress.xp);
   const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
   let text = `${lv.emoji} Estic aprenent catal\u00e0 amb Apr\u00e8nCatal\u00e0: nivell ${lv.name} amb ${progress.xp} XP`;
   if ((progress.streak || 0) >= 2) text += ` i ${progress.streak} dies seguits practicant \ud83d\udd25`;
   if (mastered > 0) text += `. Ja domino ${mastered} exercicis!`;
   else text += '.';
-  text += ' \u00c9s gratis i sense anuncis.';
-  shareText(text);
+  return text + ' \u00c9s gratis i sense anuncis.';
 }
+function shareProgress() { shareText(textProgress()); }
+function waProgress() { shareWhatsApp(textProgress()); }
 
 function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim().replace(/\s*[.;]+\s*$/,''); }
 // Comparaci\u00f3 ESTRICTA amb els accents: per als exercicis on l'accent \u00c9S la resposta
@@ -1625,7 +1651,8 @@ function renderSummary() {
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
-      ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>` : ''}
+      ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>
+      <button class="ct-btn wa" style="width:100%;margin-top:8px;" onclick="waSessionResult(${pct},${items.length})">💬 Per WhatsApp</button>` : ''}
     </div>`;
 }
 
@@ -2345,7 +2372,8 @@ function renderProgress() {
           <div style="font-size:11px;color:var(--accent-blue-val);margin-top:2px;">Intentats</div>
         </div>
       </div>
-      <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="shareProgress()">📣 Comparteix el teu progrés</button>
+      <button class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="shareProgress()">📣 Comparteix el teu progrés</button>
+      <button class="ct-btn wa" style="width:100%;margin-bottom:16px;" onclick="waProgress()">💬 Comparteix per WhatsApp</button>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
         style="display:flex;align-items:center;gap:12px;background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--accent-amber-text);">
