@@ -650,8 +650,14 @@ function showLevelUp(newLevel) {
       <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
         Continuar 🎉
       </button>
+      <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareLevelUp('${newLevel.name}','${newLevel.emoji}')">
+        📣 Comparteix-ho
+      </button>
     </div>`;
   document.body.appendChild(overlay);
+}
+function shareLevelUp(name, emoji) {
+  shareText(`${emoji} He pujat a nivell «${name}» aprenent català amb AprènCatalà! 🎉 És gratis i sense anuncis.`);
 }
 // Celebració gran (overlay + confeti) per a una fita de NIVELL: completar-lo a
 // «exercicis fets» (domini ≥2 a tot) o «Dominat» (domini ≥4 a tot). Reaprofita
@@ -689,6 +695,41 @@ function showEncouragement(category) {
   const fa = document.getElementById('feedback-area');
   if (fa) fa.appendChild(el);
 }
+// \u2550\u2550 COMPARTIR A XARXES \u2550\u2550
+const APP_SHARE_URL = 'https://app.aprencatala.cat';
+function shareText(text) {
+  const full = text + '\n\ud83d\udc49 ' + APP_SHARE_URL;
+  if (navigator.share) {
+    navigator.share({ text: full }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(full).then(() => {
+      const el = document.createElement('div');
+      el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+        background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
+        font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+      el.textContent = "\ud83d\udccb Text copiat! Enganxa'l on vulguis.";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    });
+  }
+}
+function shareSessionResult(pct, n) {
+  const text = pct === 100
+    ? `\u2b50 Sessi\u00f3 perfecta! He encertat els ${n} exercicis de catal\u00e0 d'una sessi\u00f3 a Apr\u00e8nCatal\u00e0 \ud83d\udcaa`
+    : `\ud83d\udcaa Acabo de practicar catal\u00e0 a Apr\u00e8nCatal\u00e0 amb un ${pct}% d'encerts. Cada dia una mica millor!`;
+  shareText(text + ' \u00c9s gratis i sense anuncis.');
+}
+function shareProgress() {
+  const lv = getLevel(progress.xp);
+  const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
+  let text = `${lv.emoji} Estic aprenent catal\u00e0 amb Apr\u00e8nCatal\u00e0: nivell ${lv.name} amb ${progress.xp} XP`;
+  if ((progress.streak || 0) >= 2) text += ` i ${progress.streak} dies seguits practicant \ud83d\udd25`;
+  if (mastered > 0) text += `. Ja domino ${mastered} exercicis!`;
+  else text += '.';
+  text += ' \u00c9s gratis i sense anuncis.';
+  shareText(text);
+}
+
 function normalize(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2019\u2018\u02bc\u00b4`]/g,"'").replace(/\s+/g,' ').trim().replace(/\s*[.;]+\s*$/,''); }
 // Comparaci\u00f3 ESTRICTA amb els accents: per als exercicis on l'accent \u00c9S la resposta
 // (m\u00f2dul Novetats IEC, marcats amb strictAccents:true). La resta del corpus mant\u00e9 la
@@ -1543,6 +1584,7 @@ function renderSummary() {
       </div>
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
+      ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>` : ''}
     </div>`;
 }
 
@@ -2262,6 +2304,7 @@ function renderProgress() {
           <div style="font-size:11px;color:var(--accent-blue-val);margin-top:2px;">Intentats</div>
         </div>
       </div>
+      <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="shareProgress()">📣 Comparteix el teu progrés</button>
       <div style="border-top:1px solid var(--border);padding-top:16px;font-size:13px;color:var(--muted);">El progrés es guarda automàticament al navegador.</div>
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
         style="display:flex;align-items:center;gap:12px;background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--accent-amber-text);">
