@@ -697,21 +697,62 @@ function showEncouragement(category) {
 }
 // \u2550\u2550 COMPARTIR A XARXES \u2550\u2550
 const APP_SHARE_URL = 'https://app.aprencatala.cat';
+function shareToast(msg) {
+  const el = document.createElement('div');
+  el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
+    font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+// \u26a0 Aquesta cadena ha d'acabar SEMPRE amb alguna cosa visible. La primera
+// versi\u00f3 era \u00abif (share) \u2026 else if (clipboard) \u2026\u00bb sense sortida final: en un
+// navegador sense cap de les dues, el bot\u00f3 no feia res i tampoc ho deia. \u00c9s
+// l'error m\u00e9s car d'aquest projecte \u2014 el que no peta i sembla que funcioni.
 function shareText(text) {
   const full = text + '\n\ud83d\udc49 ' + APP_SHARE_URL;
+  // L'enlla\u00e7 va al camp `url`, no enganxat dins del text. \u00c9s el que la Web
+  // Share API espera, i fa que el destinatari el rebi com un enlla\u00e7 net en
+  // comptes d'una ratlla m\u00e9s de la frase \u2014 que \u00e9s el que li cal a WhatsApp
+  // per dibuixar la targeta de previsualitzaci\u00f3.
   if (navigator.share) {
-    navigator.share({ text: full }).catch(() => {});
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(full).then(() => {
-      const el = document.createElement('div');
-      el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
-        background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
-        font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
-      el.textContent = "\ud83d\udccb Text copiat! Enganxa'l on vulguis.";
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 3000);
-    });
+    navigator.share({ title: 'Apr\u00e8nCatal\u00e0', text, url: APP_SHARE_URL })
+      .catch(err => {
+        // Tancar el di\u00e0leg del sistema no \u00e9s cap error i no ha de dir res.
+        // Qualsevol altra cosa s\u00ed, i encara es pot deixar al porta-retalls.
+        if (!err || err.name !== 'AbortError') shareCopia(full);
+      });
+    return;
   }
+  shareCopia(full);
+}
+function shareCopia(full) {
+  const fet = () => shareToast("\ud83d\udccb Text copiat! Enganxa'l on vulguis.");
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(full).then(fet).catch(() => {
+      if (shareCopiaLlegat(full)) fet();
+      else shareToast("\u26a0\ufe0f No s'ha pogut copiar. Selecciona el text a m\u00e0.");
+    });
+    return;
+  }
+  if (shareCopiaLlegat(full)) fet();
+  else shareToast("\u26a0\ufe0f Aquest navegador no permet compartir autom\u00e0ticament.");
+}
+// execCommand \u00e9s obsolet, per\u00f2 \u00e9s l'\u00fanic cam\u00ed que queda quan navigator.clipboard
+// no existeix o el rebutgen: WebView antiga, o servit per http sense TLS.
+function shareCopiaLlegat(text) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:-1000px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  } catch (e) { return false; }
 }
 function shareSessionResult(pct, n) {
   const text = pct === 100
