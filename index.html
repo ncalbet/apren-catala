@@ -490,6 +490,21 @@ let progress = (function() {
 })();
 if (progress.freezes === undefined) progress.freezes = 1; // gel de ratxa (sembra 1 als testers existents)
 
+// Rebliment retroactiu de maxMastery. El bonus de domini es paga la primera vegada que
+// un exercici arriba a 5, i qui decideix si és la primera vegada és maxMastery. Qui ja
+// tenia exercicis dominats d'abans que existís aquesta clau la té buida: sense aquest
+// rebliment, el primer encert després del desplegament pagaria un bonus ja guanyat fa
+// mesos, i de cop, a tot el corpus.
+// Límit conegut i acceptat: si algú havia arribat a 5 i havia recaigut, la dada del
+// màxim històric no existeix enlloc i el rebliment només pot recuperar el domini
+// actual. Aquest cas cobrarà el bonus en tornar a pujar. S'assumeix a posta —
+// equivocar-se cap al costat generós és la línia del projecte.
+if (!progress.maxMastery) progress.maxMastery = {};
+for (const id in (progress.mastery || {})) {
+  const m = progress.mastery[id] || 0;
+  if (m > (progress.maxMastery[id] || 0)) progress.maxMastery[id] = m;
+}
+
 let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
 let tapSelectedIdx = null;
@@ -697,6 +712,16 @@ function showFreezeToast(n) {
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
   el.innerHTML = `<span style="font-size:22px;">🛡️</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">GEL DE RATXA</div>Has salvat la ratxa! Et queden ${progress.freezes} gel${progress.freezes===1?'':'s'}.</div>`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+function showMasteryBonusToast() {
+  const el = document.createElement('div');
+  el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:#7c3aed;color:#fff;padding:12px 20px;border-radius:12px;
+    font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
+    display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+  el.innerHTML = `<span style="font-size:22px;">🌟</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">EXERCICI DOMINAT</div>+25 XP de bonus!</div>`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
@@ -1527,6 +1552,25 @@ function markDone(ok, xp) {
       const newLevel = getLevel(progress.xp);
       if (newLevel.name !== prevLevel.name) showLevelUp(newLevel);
     }
+  }
+
+  // Bonus de domini: +25 XP la primera vegada que un exercici arriba a domini 5.
+  // Va deliberadament FORA del rendiment decreixent de dalt. El decay castiga repetir
+  // el mateix exercici el mateix dia, i això no és una repetició: és una fita que
+  // només es paga un cop a la vida. Si caigués dins del decay, qui domina un exercici
+  // a la tercera passada del dia cobraria 0 per haver-lo dominat.
+  // Qui recorda que ja s'ha pagat és maxMastery, no mastery: recaure i tornar a pujar
+  // NO el torna a pagar.
+  if (newM >= 5 && prevMax < 5) {
+    const nivellAbans = getLevel(progress.xp);
+    progress.xp += 25;
+    const nivellDespres = getLevel(progress.xp);
+    // Retardat 500 ms perquè no se solapi amb el pop de l'XP de l'exercici.
+    setTimeout(() => {
+      showXPPop(25);
+      showMasteryBonusToast();
+      if (nivellDespres.name !== nivellAbans.name) showLevelUp(nivellDespres);
+    }, 500);
   }
 
   // Missatge d'ànim si falla
