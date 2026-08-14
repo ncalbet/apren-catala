@@ -785,13 +785,16 @@ function textSessionResult(pct, n) {
 function shareSessionResult(pct, n) { shareText(textSessionResult(pct, n)); }
 function waSessionResult(pct, n) { shareWhatsApp(textSessionResult(pct, n)); }
 
+// Aqu\u00ed no hi van ni els XP, ni el nom de rang, ni els exercicis dominats. S\u00f3n
+// moneda interna: a qui rep el missatge no li diuen res, i el rang surt de
+// getLevel(progress.xp), o sigui que deixar-lo seria el mateix marcador amb
+// altres paraules. La ratxa s\u00ed que hi queda \u2014 \u00ab12 dies seguits\u00bb s'ent\u00e9n sense
+// con\u00e8ixer l'app i parla d'h\u00e0bit, no de puntuaci\u00f3.
 function textProgress() {
-  const lv = getLevel(progress.xp);
-  const mastered = Object.values(progress.mastery).filter(m => m >= 4).length;
-  let text = `${lv.emoji} Estic aprenent catal\u00e0 amb Apr\u00e8nCatal\u00e0: nivell ${lv.name} amb ${progress.xp} XP`;
-  if ((progress.streak || 0) >= 2) text += ` i ${progress.streak} dies seguits practicant \ud83d\udd25`;
-  if (mastered > 0) text += `. Ja domino ${mastered} exercicis!`;
-  else text += '.';
+  const streak = progress.streak || 0;
+  const text = streak >= 2
+    ? `\ud83d\udd25 Fa ${streak} dies seguits que practico catal\u00e0 amb Apr\u00e8nCatal\u00e0.`
+    : '\ud83d\udcda Estic aprenent catal\u00e0 amb Apr\u00e8nCatal\u00e0.';
   return text + ' \u00c9s gratis i sense anuncis.';
 }
 function shareProgress() { shareText(textProgress()); }
