@@ -5341,7 +5341,7 @@ const DATA = {
         { options:['tres cents deu','tres-cents deu','trescents deu'], correct:1 },
         { options:['seixanta dos','seixantados','seixanta-dos'], correct:2 },
       ],
-      theory:"Els numerals duen guionet entre desena i unitat (vint-i-quatre, seixanta-dos) i entre unitat i «cents» (tres-cents). Truc escolar: D-U-C (desena-unitat, unitat-cents). Els derivats, en canvi, s'aglutinen: cinccentista, noucentisme.", example:'Vint-i-un anys. / Dues-centes persones. / El Noucentisme.' },
+      theory:"Els numerals duen guionet entre desena i unitat (vint-i-quatre, seixanta-dos) i entre unitat i «cents» (tres-cents). Truc escolar: D-U-C (desena-unitat, unitat-cents). Els derivats, en canvi, s'aglutinen: cinccentista, Noucentisme. Els noms de segle mantenen el guionet i van en minúscula: el cinc-cents (segle XVI), el nou-cents (segle XX) — a diferència del moviment artístic, el Noucentisme, que és nom propi.", example:'Vint-i-un anys. / Dues-centes persones. / La pintura del nou-cents. / El Noucentisme.' },
 
     { id:'iec-gc2', type:'choice', level:'iec', category:'Guionets als compostos',
       question:'Quina forma és correcta?',
@@ -5386,7 +5386,7 @@ const DATA = {
         { sentence:"M'he empassat tota una novel·la de ___ en un cap de setmana.", display:'gènere literari d\'anticipació científica', answers:['ciència-ficció'] },
         { sentence:"El germà petit és ___ , com el pare: tots dos amb aquella cabellera de foc.", display:'de cabells vermells (compost de pèl)', answers:['pèl-roig'] },
       ],
-      theory:"Quan un element del compost duu accent gràfic, el compost s'escriu amb guionet i l'accent es conserva: déu-n'hi-do, ciència-ficció, pèl-roig, mà-llarg. «Déu-n'hi-do» s'escrivia sense guionets abans de la reforma; ara és un compost lexicalitzat amb tots els ets i uts.", example:"Déu-n'hi-do, quina calor! / Una sèrie de ciència-ficció." },
+      theory:"Quan l'element de l'esquerra duu accent gràfic, el compost s'escriu amb guionet i l'accent es conserva: déu-n'hi-do (i déu-n'hi-doret), ciència-ficció, pèl-roig, mà-llarg, camí-raler, cotó-en-pèl, el més-enllà. Hi ha, però, uns quants compostos antics de tradició consolidada que s'escriuen aglutinats: adesiara, quefer, queviure, usdefruit.", example:"Déu-n'hi-do, quina calor! / Una sèrie de ciència-ficció. / Però: adesiara, usdefruit." },
 
     { id:'iec-gc6', type:'choice', level:'iec', category:'Guionets als compostos',
       question:'Quina forma és la vigent?',
