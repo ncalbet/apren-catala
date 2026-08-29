@@ -2349,9 +2349,9 @@ const DATA = {
       theory:"«Quan tenia quinze anys» marca la circumstància de fons (imperfet). «Vaig aprendre» = acció puntual nova que es produeix en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:'Quan vivia a París, vaig aprendre francès. / Quan era jove, vaig conèixer el meu millor amic.' },
 
     { id:'b1-ip4', type:'reorder', level:'b1', category:'Imperfet i perifràstic B1',
-      question:'Ordena la narració cronològicament:',
+      question:'Ordena les frases perquè la narració tingui sentit:',
       parts:['Va tancar el llibre i va apagar el llum.','Aquella nit llegia tranquil·lament al llit.','De sobte va sentir un soroll estrany.','Normalment s\'adormia molt aviat.'],
-      correct:[3,1,2,0], alternates:[[3,1,0,2]], theory:"Imperfets per a hàbits/fons (normalment s'adormia, llegia); perifràstics per a accions noves (va sentir, va tancar).", example:'Mentre dormia (imperfet fons), va sonar el telèfon (perifràstic nou).' },
+      correct:[3,1,0,2], alternates:[[3,1,2,0],[1,0,3,2],[1,3,0,2]], theory:"Imperfets per a hàbits/fons (normalment s'adormia, llegia); perifràstics per a accions noves (va sentir, va tancar). La frase d'hàbit no marca cap moment concret, així que pot anar al principi com a fons o intercalada: hi ha més d'un ordre que funciona.", example:'Mentre dormia (imperfet fons), va sonar el telèfon (perifràstic nou).' },
 
     { id:'b1-ip5', type:'reading', level:'b1', category:'Imperfet i perifràstic B1',
       text:"L'Arnau vivia en un poble petit quan era jove. Cada matí es llevava d'hora i anava a treballar al camp. Un dia, però, va rebre una carta important: l'acceptaven a la universitat de la ciutat. Va decidir marxar i va canviar completament la seva vida.",
