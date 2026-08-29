@@ -2871,7 +2871,7 @@ const DATA = {
       correct:2,
       variants:[
         { text:'No vam arribar a temps ___ un embús a l\'autopista.', options:['per a','amb','de','per'], correct:3 },
-        { text:'Han preparat una sorpresa ___ els convidats.', options:['de','per a','per','amb'], correct:1 },
+        { text:'Han preparat una sorpresa ___ tots els convidats.', options:['de','per a','per','amb'], correct:1 },
       ],
       theory:"«Per a» indica destinació o beneficiari (les flors van destinades a la mare). «Per» indica causa o motiu (no arribar a temps a causa d'un embús). Distingir-les és el nucli de l'ús d'aquesta parella.", example:"Ho faig per tu (per la teva causa) / Ho compro per a tu (perquè ho rebis)." },
 
@@ -4015,13 +4015,13 @@ const DATA = {
     // PREPOSICIONS
     { id:'b2-prep1', type:'choice', level:'b2', category:'Preposicions',
       question:'Tria la preposició correcta:',
-      text:'Aquesta documentació és ___ el departament de recursos humans.',
-      options:['per','per a','a','de'],
+      text:'Aquesta documentació és ___ departament de recursos humans.',
+      options:['pel','per al','al','del'],
       correct:1, variants:[
-        { options:['per a','per','de','a'], correct:0 },
+        { options:['per al','pel','del','al'], correct:0 },
         { question:'Tria la preposició correcta: «Aquest informe és ___ la junta directiva»:', text:'', options:['per','de','a','per a'], correct:3 },
       ],
-      theory:'«Per a» indica destinació o destinatari. «Per» indica causa, durada o mitjà. La documentació «és per a» (destinada a) el departament.', example:'Aquesta carta és per a tu. / Ho faig per amor (causa).' },
+      theory:'«Per a» indica destinació o destinatari; «per» indica causa, durada o mitjà. Davant de l\'article masculí totes dues es contreuen: per a + el = per al, per + el = pel (i per als, pels en plural). Amb l\'article femení no hi ha contracció: per a la, per la.', example:'És per al director (destinació). / Han tancat pel mal temps (causa). / Aquesta carta és per a tu.' },
     { id:'b2-prep2', type:'fill', level:'b2', category:'Preposicions',
       text:'Una de les distincions clàssiques del català és quan correspon «per» i quan «per a».',
       question:'Omple amb «per» o «per a»:',
