@@ -2820,7 +2820,7 @@ const DATA = {
       answers:['qui','el qual'],
       variants:[
         { sentence:"La directora a ___ has d'enviar el correu és la Sra. Puig.", display:'relatiu de persona darrere de preposició', answers:['qui','la qual'] },
-        { sentence:"El metge de ___ em parlaves fa anys que s'ha jubilat.", display:'relatiu de persona darrere de preposició', answers:['qui','el qual'] },
+        { sentence:"La metgessa de ___ em parlaves fa anys que s'ha jubilat.", display:'relatiu de persona darrere de preposició', answers:['qui','la qual'] },
       ],
       theory:"Darrere d'una preposició i referit a persones, s'usa «qui» (o «el qual/la qual»). Mai «que» tot sol darrere de preposició.", example:"L'amic amb qui viatjo és puntual. / La persona de qui parlo és l'alcaldessa." },
 
@@ -4771,8 +4771,8 @@ const DATA = {
       sentence:'La ___ de les mesures ha requerit la col·laboració de totes les parts implicades.',
       display:'nominalització d\'«implementar»', answers:['implementació'],
       variants:[
-        { sentence:'La ___ dels resultats es farà la setmana vinent.', display:'nominalització d\'«avaluar»', answers:['avaluació'] },
-        { sentence:'La ___ del nou sistema ha estat tot un èxit.', display:'nominalització d\'«aplicar»', answers:['aplicació'] },
+        { sentence:'L\'___ dels resultats es farà la setmana vinent.', display:'nominalització d\'«avaluar»', answers:['avaluació'] },
+        { sentence:'L\'___ del nou sistema ha estat tot un èxit.', display:'nominalització d\'«aplicar»', answers:['aplicació'] },
       ],
       theory:'El sufix «-ció / -ió» forma noms d\'acció: implementar → implementació; aplicar → aplicació.', example:'avaluar → avaluació; decidir → decisió; organitzar → organització.' },
     { id:'c1-df2', type:'choice', level:'c1', category:'Derivació i flexió',
@@ -4999,7 +4999,7 @@ const DATA = {
     { id:'c1-lf7', type:'fill', level:'c1', category:'Lèxic formal',
       text:'Les expressions buides com «la cosa és que» se substitueixen en registre acadèmic per substantius precisos que condensen el contingut.',
       question:'Omple amb el substantiu formal precís:',
-      sentence:'La ___ de dades disponibles impedeix extreure conclusions definitives sobre el fenomen.',
+      sentence:'Una ___ de dades disponibles impedeix extreure conclusions definitives sobre el fenomen.',
       display:'substantiu precís (en lloc de «la cosa és que no tenim prous dades»)',
       answers:['insuficiència','manca','mancança','falta','absència','escassetat'],
       theory:'En registre acadèmic s\'eviten paraules buit (cosa, tema) i s\'usen substantius precisos. «La cosa és que no tenim dades» → «La insuficiència/manca de dades».', example:'La manca de dades... / La insuficiència d\'evidències... / L\'escassetat d\'informació...' },
