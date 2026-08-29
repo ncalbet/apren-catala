@@ -1431,13 +1431,17 @@ function checkFill() {
   input.disabled = true;
   const ok = q.answers.some(a => norm(a) === val);
   const alts = q.answers.filter(a => norm(a) !== val);
-  // Si només ha fallat l'accent en un exercici d'accents, dir-ho: és justament la lliçó.
-  const nomesAccent = !ok && q.strictAccents
-    && q.answers.some(a => normalize(a) === normalize(input.value));
+  // Si només ha fallat el diacrític en un exercici de diacrítics, dir-ho: és
+  // justament la lliçó. I dir-ne el nom que toca — a la categoria de la dièresi,
+  // parlar d'«accent» confon exactament allò que s'hi ensenya.
+  const quasi = !ok && q.strictAccents
+    && q.answers.find(a => normalize(a) === normalize(input.value));
+  const marca = quasi && /[ïü]/i.test(quasi) !== /[ïü]/i.test(input.value)
+    ? 'la dièresi' : 'l\'accent';
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Correcte!${alts.length ? ` Altres formes vàlides: <strong>${alts.join(', ')}</strong>.` : ''}</div>`
-    : nomesAccent
-      ? `<div class="ct-feedback ko">✗ Gairebé! Aquí l'accent ho és tot: la resposta és <strong>${q.answers[0]}</strong></div>`
+    : quasi
+      ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q); markDone(ok, 10);
 }
