@@ -2764,8 +2764,10 @@ const DATA = {
       display:'lloc de treball (terme català masculí, no «despacho»)',
       answers:['despatx'],
       variants:[
-        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"He d'anar a la ___ a treure diners.", display:'finestra petita d\'atenció al públic (terme català, no «ventanilla»)', answers:['finestreta'] },
-        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina.", display:'peça que obre i tanca el pas de l\'aigua (terme català, no «grifo»)', answers:['aixeta'] },
+        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"He d'anar a la ___ a treure diners.", display:'finestra petita d\'atenció al públic (terme català, no «ventanilla»)', answers:['finestreta'],
+          theory:"«Finestreta» és la finestra petita per on s'atén el públic a un banc, una estació o una oficina. El calc «*ventanilla» no hi val. Al cotxe i a l'avió, en canvi, també se'n diu finestreta.", example:'Va fer cua a la finestreta 3. / Vull seient de finestreta.' },
+        { question:'Omple amb la paraula catalana adequada (evita el calc):', sentence:"Hem comprat una ___ nova per a la cuina.", display:'peça que obre i tanca el pas de l\'aigua (terme català, no «grifo»)', answers:['aixeta'],
+          theory:"«Aixeta» és la peça que obre i tanca el pas de l'aigua. El calc «*grifo» no hi val. D'aquí ve l'expressió «tancar l'aixeta», que vol dir deixar de donar diners a algú.", example:'Obre l\'aixeta de l\'aigua freda. / Els inversors li van tancar l\'aixeta.' },
       ],
       theory:"«Despatx» = oficina pròpia o habitació de treball. «Oficina» = espai laboral general. Cap dels dos és «despacho».", example:"El director té un despatx molt gran. / Treballo en una oficina compartida." },
 
@@ -5140,8 +5142,10 @@ const DATA = {
       display:'verb de la col·locació amb «la paraula»',
       answers:['prendre','agafar'],
       variants:[
-        { question:'Tria la col·locació lèxica correcta: «El consell va ___ una decisió històrica aquella tarda.»', sentence:'El consell va ___ una decisió històrica aquella tarda.', display:'verb de la col·locació amb «una decisió»', answers:['prendre'] },
-        { question:'Tria la col·locació lèxica correcta: «L\'alcalde va ___ la benvinguda als nous veïns del municipi.»', sentence:'L\'alcalde va ___ la benvinguda als nous veïns del municipi.', display:'verb de la col·locació amb «la benvinguda»', answers:['donar'] },
+        { question:'Tria la col·locació lèxica correcta: «El consell va ___ una decisió històrica aquella tarda.»', sentence:'El consell va ___ una decisió històrica aquella tarda.', display:'verb de la col·locació amb «una decisió»', answers:['prendre'],
+          theory:'Les decisions es PRENEN, no es fan ni es prenen «a càrrec». «*Fer una decisió» és calc de l\'anglès «make a decision» i «*tomar una decisió» ho és del castellà. El verb de la col·locació és fix.', example:'Van prendre una decisió difícil. / Cal prendre mesures urgents.' },
+        { question:'Tria la col·locació lèxica correcta: «L\'alcalde va ___ la benvinguda als nous veïns del municipi.»', sentence:'L\'alcalde va ___ la benvinguda als nous veïns del municipi.', display:'verb de la col·locació amb «la benvinguda»', answers:['donar'],
+          theory:'La benvinguda es DONA. Amb el mateix substantiu no hi encaixen ni «*fer» ni «*prendre»: cada col·locació té el seu verb i no es dedueix del significat. També es dona el condol, l\'enhorabona i les gràcies.', example:'Va donar la benvinguda als assistents. / Li van donar el condol.' },
       ],
       theory:'«Prendre la paraula» és la col·locació estàndard en contextos formals i periodístics. «Agafar la paraula» és admès en registre col·loquial. En textos formals es prefereix sempre «prendre».',
       example:'El president de la comissió va prendre la paraula per tancar el debat. / En el parlament, es demana la paraula abans de prendre-la.' },
@@ -5188,8 +5192,10 @@ const DATA = {
       display:'expressió formal equivalent a «no tenir pèls a la llengua»',
       answers:['total franquesa','plena franquesa','franquesa i claredat','claredat i franquesa','franquesa','sinceritat'],
       variants:[
-        { question:'La locució «fer els ulls grossos» és col·loquial. Reformula-la per a un informe sobre control intern.', sentence:'Un sistema d\'auditoria rigorós no pot ___ les irregularitats detectades en els comptes.', display:'expressió formal equivalent a «fer els ulls grossos»', answers:['passar per alt','ignorar','tolerar'] },
-        { question:'La locució «anar al gra» és col·loquial. Reformula-la per a un manual d\'estil professional.', sentence:'Un bon informe ha d\'exposar les conclusions amb ___, sense divagacions innecessàries.', display:'expressió formal equivalent a «anar al gra»', answers:['concisió','brevetat','claredat'] },
+        { question:'La locució «fer els ulls grossos» és col·loquial. Reformula-la per a un informe sobre control intern.', sentence:'Un sistema d\'auditoria rigorós no pot ___ les irregularitats detectades en els comptes.', display:'expressió formal equivalent a «fer els ulls grossos»', answers:['passar per alt','ignorar','tolerar'],
+          theory:'«Fer els ulls grossos» → en registre formal: «passar per alt», «ignorar», «tolerar». Vol dir fer veure que no es veu una irregularitat. En un informe de control intern la locució literal desentona.', example:'Formal: «L\'auditoria no pot passar per alt les desviacions detectades.»' },
+        { question:'La locució «anar al gra» és col·loquial. Reformula-la per a un manual d\'estil professional.', sentence:'Un bon informe ha d\'exposar les conclusions amb ___, sense divagacions innecessàries.', display:'expressió formal equivalent a «anar al gra»', answers:['concisió','brevetat','claredat'],
+          theory:'«Anar al gra» → en registre formal, el nom que en recull el sentit: «concisió», «brevetat», «claredat». La locució descriu anar de dret a l\'essencial sense preàmbuls.', example:'Formal: «Exposar les conclusions amb concisió, sense digressions.»' },
       ],
       theory:'«No tenir pèls a la llengua» → en registre formal: «expressar-se amb total franquesa», «parlar sense eufemismes», «adoptar una comunicació directa». Mai s\'usa la locució literal en un text acadèmic o institucional.',
       example:'Formal: «Expressar-se amb total franquesa i sense eufemismes.» / Molt formal: «Adoptar una comunicació directa i transparent, sense ambigüitats.»' },
