@@ -2114,7 +2114,9 @@
             ['ex-URSS, ex-Iugoslàvia', 'ex URSS, ex Iugoslàvia'],
             ['manifestació anti-OTAN', 'manifestació anti OTAN'],
             ['selecció sub-21, pel·lícula súper-8', 'selecció sub 21, pel·lícula súper 8'],
-            ['ex-conseller en cap, vice-primer ministre', 'ex conseller en cap (separat, sense guionet)'],
+            ['ex-director general', 'exdirector general (aglutinat: «exdirector» existeix)'],
+            ['vice-primer ministre', 'vice primer ministre (separat: «*viceprimer» no existeix)'],
+            ['actitud anti-nord-americana', 'actitud anti nord-americana (davant de mot amb guionet)'],
           ]
         }
       },
@@ -2124,6 +2126,7 @@
         rules: [
           { label: 'Si el prefix + primer mot ja és una paraula (el prefix afecta el nucli), s\'aglutina', example: 'exministre de l\'Interior, vicepresidenta primera, subdirectora general' },
           { label: 'Si el prefix afecta tot un sintagma fet (i el prefix + primer mot no és cap paraula), va separat', example: 'ex alt càrrec, ex número dos, vice primera ministra (no existeix *viceprimera)' },
+          { label: 'Novetat del novembre del 2025: encara que el sintagma no sigui fixat, si el primer mot no n\'és el nucli, el prefix se\'n separa', example: 'un producte anti males olors, la ruta està mega ben senyalitzada, trigarem súper poca estona' },
           { label: '«no-» amb guionet només en conceptes lexicalitzats', example: 'la no-violència, el no-res, art no-figuratiu — però: organització no governamental, els no fumadors' },
         ]
       }
@@ -5405,7 +5408,7 @@ const DATA = {
         { text:'La ___ del club ha convocat eleccions.', options:['vice-presidenta','vicepresidenta','vice presidenta'], correct:1 },
         { text:'Es dedicava al ___ durant la guerra freda.', options:['contra-espionatge','contra espionatge','contraespionatge'], correct:2 },
       ],
-      theory:"Regla general: els prefixos s'escriuen aglutinats, sense guionet ni espai: exalcalde, vicepresidenta, contraespionatge, ultraconservador. Fins i tot amb dos prefixos: exvicepresident.", example:"L'expresident. / La sotsdirectora. / Un pseudoderivat." },
+      theory:"Regla general: davant d'un sol mot, els prefixos s'escriuen aglutinats, sense guionet ni espai: exalcalde, vicepresidenta, contraespionatge, ultraconservador. Fins i tot amb dos prefixos: exvicepresident, exeurodiputat. Compte, però: això val perquè al darrere hi ha un mot sol. Davant d'una expressió fixada, dos prefixos també se separen — ex vice primer ministre.", example:"L'expresident. / La sotsdirectora. / Un exeurodiputat. / Però: l'ex vice primer ministre." },
 
     { id:'iec-pj2', type:'choice', level:'iec', category:'Prefixos: junt o separat',
       question:'Des de l\'actualització oficial del 2021, com s\'escriu el prefix davant una sigla o una majúscula?',
@@ -5415,7 +5418,7 @@ const DATA = {
         { question:'Des de l\'actualització oficial del 2021, com s\'escriu el prefix davant una sigla o una majúscula?', options:["un país de l'ex-URSS","un país de l'ex URSS","un país de l'exURSS"], correct:1 },
         { question:'Des de l\'actualització oficial del 2021, com s\'escriu el prefix davant una xifra?', options:["la selecció sub21","la selecció sub-21","la selecció sub 21"], correct:2 },
       ],
-      theory:"L'OIEC impresa (2017) hi posava guionet (anti-OTAN, ex-URSS, sub-21), però l'actualització del juliol del 2021 va canviar la regla: davant majúscules, sigles, xifres, símbols o cursives, el prefix s'escriu SEPARAT: anti OTAN, ex URSS, selecció sub 21, pel·lícula súper 8. Excepció: si el resultat és un nom propi nou, s'aglutina i la majúscula es trasllada: Anticrist, Prealps, Cisjordània.", example:"l'ex Iugoslàvia / l'era pre Gutenberg / un pseudo Dalí" },
+      theory:"L'OIEC impresa (2017) hi posava guionet (anti-OTAN, ex-URSS, sub-21), però l'actualització del juliol del 2021 va canviar la regla: davant majúscules, sigles, xifres, símbols o cursives, el prefix s'escriu SEPARAT: anti OTAN, ex URSS, selecció sub 21, pel·lícula súper 8. La mateixa separació val davant d'un mot que ja duu guionet, que des del novembre del 2025 és un apartat a part: actitud anti nord-americana, ex camí-raler, pseudo ciència-ficció. Excepció: si el resultat és un nom propi nou, s'aglutina i la majúscula es trasllada: Anticrist, Prealps, Cisjordània.", example:"l'ex Iugoslàvia / l'era pre Gutenberg / un pseudo Dalí / una actitud anti nord-americana" },
 
     { id:'iec-pj3', type:'choice', level:'iec', category:'Prefixos: junt o separat',
       question:'Quina frase segueix la normativa vigent?',
@@ -5429,7 +5432,7 @@ const DATA = {
         { options:["Han citat a declarar un exalt càrrec.","Han citat a declarar un ex alt càrrec.","Han citat a declarar un ex-alt càrrec."], correct:1 },
         { options:["La viceprimera ministra visita Brussel·les.","La vice-primera ministra visita Brussel·les.","La vice primera ministra visita Brussel·les."], correct:2 },
       ],
-      theory:"El truc és mirar on incideix el prefix. Si prefix + primer mot ja formen una paraula (exministre, i «de l'Interior» és el complement), s'aglutina: exministre de l'Interior, vicepresidenta primera. Si el prefix afecta tot un sintagma fet i el conjunt prefix + primer mot no és cap paraula (*exalt, *viceprimera), s'escriu separat: ex alt càrrec, vice primera ministra, ex número dos.", example:"exministre de l'Interior (exministre existeix) / ex alt càrrec (*exalt no existeix)" },
+      theory:"Dues preguntes. La primera: el que ve darrere del prefix és una expressió fixada? Si ho és, el prefix va SEPARAT: ex alt càrrec, ex número dos, vice primera ministra, anti pena de mort. Si no ho és, s'aglutina amb el primer mot: exministre de l'Interior, exalcaldessa d'Alacant, excompany de pis, antiprivatització de la sanitat pública. La segona, afegida el novembre del 2025: encara que el sintagma no sigui fixat, si el primer mot no n'és el nucli, el prefix també se'n separa — un producte anti males olors, la ruta està mega ben senyalitzada. Com a comprovació ràpida, mireu si prefix + primer mot fan una paraula que existeixi: exministre sí, *exalt no.", example:"exministre de l'Interior, exalcaldessa d'Alacant (aglutinats) / ex alt càrrec, anti males olors (separats)" },
 
     { id:'iec-pj4', type:'choice', level:'iec', category:'Prefixos: junt o separat',
       question:'Darrere de prefix, la erra de vegades es dobla i de vegades no. Quina parella està ben escrita?',
