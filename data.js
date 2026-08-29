@@ -2220,6 +2220,50 @@
     ]
   },
 
+  'La e epentètica': {
+    level: 'iec',
+    icon: '➕',
+    subtitle: 'Fabra no havia fixat res, i s\'escrivia de dues maneres: la reforma va decidir quan hi va la e',
+    sections: [
+      {
+        title: 'D\'on ve el dubte',
+        icon: '📌',
+        body: `<p>Quan un mot compost o prefixat té un segon element que comença per <strong>s + consonant</strong>, hi ha d'anar una <strong>e</strong> al davant? Fabra no ho havia fixat, i durant dècades es va escriure de les dues maneres: <em>*polisportiu</em> i <em>poliesportiu</em>, <em>*microstructura</em> i <em>microestructura</em>.</p>
+               <p>L'<strong>Ortografia catalana</strong> del 2016 ho resol i és un dels sis canvis que l'IEC destaca com a significatius, tot i que va passar molt més desapercebut que el dels diacrítics.</p>`
+      },
+      {
+        title: 'La regla: el segon element existeix en català?',
+        icon: '🔑',
+        body: `<p>La pregunta que ho decideix tot: <strong>el segon element és un mot català que comença per e?</strong></p>
+               <p>Si ho és, la e <strong>no es perd mai</strong>: <em>escola</em> → <em>autoescola</em>; <em>esportiu</em> → <em>poliesportiu</em>; <em>estructura</em> → <em>infraestructura</em>; <em>espatlles</em> → <em>guardaespatlles</em>; <em>esquelet</em> → <em>endoesquelet</em>, <em>exoesquelet</em>.</p>
+               <p>Si no ho és —si el segon element és un radical culte que tot sol no vol dir res—, no hi va cap e: <em>microscopi</em> (no existeix <em>*escopi</em>), <em>batiscaf</em> (<em>*escaf</em>), <em>isòsceles</em> (<em>*esceles</em>), <em>Iugoslàvia</em> (<em>*Eslàvia</em>).</p>`
+      },
+      {
+        title: 'Tres paranys',
+        icon: '⚠️',
+        rules: [
+          { label: 'L\'accent al primer element: llavors la e no hi apareix, encara que el mot existeixi', example: 'aeròstat (cf. estat), megàspora (cf. espora), hipòstil (cf. estil), antístrofa (cf. estrofa)' },
+          { label: 'El significat no coincideix amb el del mot independent', example: 'atmosfera, biosfera (cf. esfera); substrat, superstrat (cf. estrat); gimnosperma (cf. esperma)' },
+          { label: 'Compostos antics amb tradició gràfica ja consolidada', example: 'restablir (cf. establir), prescriure, subscriure, manuscrit (cf. escriure, escrit), contrastar (cf. estar), transpirar, Txecoslovàquia' },
+        ]
+      },
+      {
+        title: 'Amb e i sense e',
+        icon: '📋',
+        table: {
+          headers: ['Amb e', 'Sense e'],
+          rows: [
+            ['autoescola, autoestop, poliesportiu', 'microscopi, batiscaf, circumspecte'],
+            ['infraestructura, superestructura', 'atmosfera, biosfera, estratosfera'],
+            ['reestructurar, reescriure, preescolar', 'restablir, prescriure, subscriure'],
+            ['guardaespatlles, barbaespès, alaestès', 'manuscrit, mecanoscrit, infrascrit'],
+            ['endoesquelet, exoesquelet, termoestable', 'aeròstat, megàspora, hipòstil'],
+          ]
+        }
+      }
+    ]
+  },
+
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -5614,6 +5658,77 @@ const DATA = {
       ],
       theory:"L'annex del 2024 reconeix per escrit formes col·loquials que abans no tenien cap grafia sancionada: «anem's-en» (per anem-nos-en), «mireu's-el» (per mireu-vos-el), «feu's-ho» (per feu-vos-ho), i els imperatius «digue'm, estigue't, tingue'n cura» (per digues-me, estigues-te, tingues-ne). Serveixen per a textos que reprodueixen la llengua parlada — diàlegs, teatre, novel·la — però s'eviten en els registres formals.",
       example:"Diàleg: «Anem's-en!» / Registre formal: «Anem-nos-en»." },
+
+    // ── LA E EPENTÈTICA ──
+    { id:'iec-ep1', type:'choice', level:'iec', category:'La e epentètica',
+      question:'Quina forma és correcta?',
+      text:'El poble ha inaugurat un ___ nou al costat de l\'escola.',
+      options:['poliesportiu','polisportiu','poli-esportiu'],
+      correct:0,
+      variants:[
+        { text:'La direcció vol ___ tot el departament abans de l\'estiu.', options:['restructurar','reestructurar','res-estructurar'], correct:1 },
+        { text:'El president va arribar envoltat de ___.', options:['guardaspatlles','guarda-espatlles','guardaespatlles'], correct:2 },
+      ],
+      theory:"Quan el segon element és un mot català que comença per e, aquesta e no es perd mai: esportiu → poliesportiu, estructura → reestructurar, espatlles → guardaespatlles. Fabra no ho havia fixat i s'escrivia de les dues maneres; l'ortografia del 2016 va triar sempre la forma amb e.", example:'Un poliesportiu municipal. / Cal reestructurar el deute. / Els guardaespatlles del cantant.' },
+
+    { id:'iec-ep2', type:'choice', level:'iec', category:'La e epentètica',
+      question:'Quina forma és correcta?',
+      text:'Van observar la mostra amb el ___ del laboratori.',
+      options:['microscopi','microescopi','micro-escopi'],
+      correct:0,
+      variants:[
+        { text:'El ___ va baixar fins als tres mil metres de fondària.', options:['batiescaf','batiscaf','bati-escaf'], correct:1 },
+        { text:'Un triangle ___ té dos costats iguals i un de desigual.', options:['isoesceles','iso-sceles','isòsceles'], correct:2 },
+      ],
+      theory:"Si el segon element és un radical culte que tot sol no vol dir res en català, no hi va cap e: microscopi, batiscaf, isòsceles, circumspecte, anastomosi, Iugoslàvia. La prova és mirar si existeix el mot solt: *escopi, *escaf, *esceles i *Eslàvia no existeixen, i per això no hi ha e.", example:'Mirar pel microscopi. / Un triangle isòsceles. / La costa de Iugoslàvia.' },
+
+    { id:'iec-ep3', type:'fill', level:'iec', strictAccents:true, category:'La e epentètica',
+      question:'Escriu el mot compost (pensa si duu e):',
+      text:'El segon element és un mot català ben viu.',
+      sentence:'Els insectes tenen un ___ dur que els protegeix per fora.',
+      display:'esquelet extern (compost amb exo-)',
+      answers:['exoesquelet'],
+      variants:[
+        { sentence:'Aquest plàstic és ___ : no es deforma amb la calor.', display:'que es manté estable (compost amb termo-)', answers:['termoestable'] },
+        { sentence:'El satèl·lit descriu una òrbita ___ sobre l\'equador.', display:'que es manté sempre sobre el mateix punt (compost amb geo-)', answers:['geoestacionari'] },
+      ],
+      theory:"També en la composició culta hi va la e si el segon element coincideix amb un mot català equivalent: esquelet → endoesquelet, exoesquelet, neuroesquelet; estable → termoestable, metaestable; estacionari → geoestacionari; esclerosi → arterioesclerosi; esteroide → corticoesteroide; espat → feldespat.", example:'L\'exoesquelet dels crustacis. / Un material termoestable. / Un satèl·lit geoestacionari.' },
+
+    { id:'iec-ep4', type:'fill', level:'iec', strictAccents:true, category:'La e epentètica',
+      question:'Escriu el mot (compte: aquí la e NO hi va):',
+      text:'Són compostos antics que ja tenien una grafia consolidada, i la reforma els va respectar.',
+      sentence:'Els tècnics van ___ el subministrament d\'aigua al cap de dos dies.',
+      display:'tornar a establir (infinitiu)',
+      answers:['restablir'],
+      variants:[
+        { sentence:'El metge li va ___ un antibiòtic per a una setmana.', display:'receptar (infinitiu, format sobre escriure)', answers:['prescriure'] },
+        { sentence:'El document original és un ___ del segle XIV.', display:'text escrit a mà (nom, format sobre escrit)', answers:['manuscrit'] },
+      ],
+      theory:"Un grup de compostos antics no duu la e encara que el segon element sigui un mot català reconeixible: restablir (cf. establir), contrastar (cf. estar), transpirar (cf. espirar), adscriure, inscriure, prescriure, subscriure (cf. escriure), infrascrit, manuscrit, mecanoscrit (cf. escrit), constrènyer (cf. estrènyer), Txecoslovàquia (cf. Eslovàquia). Costa identificar-los com a compostos, i és justament per això que mantenen la grafia de sempre.", example:'Restablir el diàleg. / Prescriure un tractament. / Un manuscrit il·luminat.' },
+
+    { id:'iec-ep5', type:'choice', level:'iec', category:'La e epentètica',
+      question:'Quan l\'accent recau en el primer element, la e no hi apareix. Quina forma és correcta?',
+      options:['aeròstat','aeroestat','aeroèstat'],
+      correct:0,
+      variants:[
+        { question:'Mateix cas, amb un terme de botànica. Quina forma és correcta?', options:['megaespora','megàspora','megaèspora'], correct:1 },
+        { question:'Mateix cas, amb un terme d\'arquitectura. Quina forma és correcta?', options:['hipoestil','hipoèstil','hipòstil'], correct:2 },
+      ],
+      theory:"Alguns compostos cultes no duen mai la e tot i que el segon element sigui identificable, perquè l'accent cau al primer formant: aeròstat (cf. estat), megàspora (cf. espora), hipòstil (cf. estil), antístrofa (cf. estrofa). Un segon grup tampoc no en duu perquè el significat s'ha allunyat del mot independent: atmosfera i biosfera (cf. esfera), substrat i superstrat (cf. estrat), gimnosperma (cf. esperma).", example:'Un aeròstat captiu. / Una sala hipòstila. / La biosfera terrestre.' },
+
+    { id:'iec-ep6', type:'reading', level:'iec', category:'La e epentètica',
+      text:'L\'autoescola del barri fa les classes en un poliesportiu reconvertit, però el microscopi de l\'aula de ciències continua guardat al laboratori.',
+      question:'Per què «autoescola» i «poliesportiu» duen e i «microscopi» no?',
+      options:[
+        'Perquè «escola» i «esportiu» són mots catalans i «*escopi» no existeix',
+        'Perquè «micro-» és un prefix culte i «auto-» i «poli-» són prefixos catalans',
+        'Perquè «microscopi» és un manlleu modern i els altres dos són mots patrimonials'
+      ],
+      correct:0,
+      variants:[
+        { text:'El manuscrit explica com es va restablir el subministrament d\'aigua després de la riuada.', question:'Per què «manuscrit» i «restablir» no duen e, si «escrit» i «establir» sí que són mots catalans?', options:['Perquè el segon element hi ha canviat de significat respecte del mot independent','Perquè són compostos antics amb una tradició gràfica ja consolidada','Perquè els elements «manu-» i «re-» no admeten mai la e epentètica'], correct:1 },
+      ],
+      theory:"La prova decisiva no és si el mot és culte o patrimonial, sinó si el segon element existeix tot sol en català amb el mateix sentit: escola i esportiu sí, *escopi no. A banda hi ha les excepcions de sempre: l'accent al primer formant (aeròstat), el canvi de significat (biosfera) i els compostos antics ja consolidats (restablir, manuscrit).", example:'autoescola, poliesportiu (amb e) / microscopi, restablir, manuscrit (sense e).' },
 
   ]
 };
