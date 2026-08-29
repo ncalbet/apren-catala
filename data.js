@@ -2264,6 +2264,49 @@
     ]
   },
 
+  'La dièresi que va caure': {
+    level: 'iec',
+    icon: '📐',
+    subtitle: 'La reforma va suprimir la dièresi dels derivats cultes en -al: ara és «helicoidal», no «*helicoïdal»',
+    sections: [
+      {
+        title: 'Què va passar el 2016',
+        icon: '📌',
+        body: `<p>És el sisè dels canvis que l'IEC destaca com a significatius, i el que menys s'ha comentat. La <strong>dièresi es va suprimir en els derivats cultes acabats en -al</strong>, d'acord amb la pronúncia general: on abans s'escrivia <em>*helicoïdal</em> o <em>*trapezoïdal</em>, ara s'escriu <strong>helicoidal</strong> i <strong>trapezoidal</strong>.</p>
+               <p>La supressió no és total: hi ha una condició, i és la que ho decideix tot.</p>`
+      },
+      {
+        title: 'La regla: mireu el mot primitiu',
+        icon: '🔑',
+        body: `<p>La dièresi cau <strong>només si el mot primitiu no en duu</strong>. Dit d'una altra manera: si al mot d'origen la <em>i</em> ja forma un diftong, el derivat en -al se'l queda i no cal marcar res.</p>
+               <p><em>trapezoide</em> → <strong>trapezoidal</strong> · <em>helicoide</em> → <strong>helicoidal</strong> · <em>col·loide</em> → <strong>col·loidal</strong> · <em>romboide</em> → <strong>romboidal</strong> · <em>esferoide</em> → <strong>esferoidal</strong> · <em>laic</em> → <strong>laical</strong> · <em>fluid</em> → <strong>fluidal</strong> · <em>coit</em> → <strong>coital</strong>.</p>
+               <p>Però si el primitiu ja porta la dièresi o l'accent —perquè la <em>i</em> hi fa síl·laba tota sola—, el derivat la manté: <em>veí</em> → <strong>veïnal</strong> · <em>proïsme</em> → <strong>proïsmal</strong>.</p>`
+      },
+      {
+        title: 'Compte: només afecta el sufix -al',
+        icon: '⚠️',
+        body: `<p>Els altres sufixos cultes <strong>continuen duent la dièresi</strong>, perquè hi desfan el diftong del primitiu. El mateix mot pot donar les dues coses:</p>
+               <p><em>fluid</em> → <strong>fluidal</strong> (-al, sense) però <strong>fluïditat</strong>, <strong>fluïdesa</strong>, <strong>fluïditzar</strong> (amb).<br>
+               <em>laic</em> → <strong>laical</strong> (-al, sense) però <strong>laïcisme</strong>, <strong>laïcat</strong>, <strong>laïcitzar</strong> (amb).</p>
+               <p>I igualment: <em>arcaic</em> → <strong>arcaïtzant</strong>, <em>heroic</em> → <strong>heroïcitat</strong>, <em>estoic</em> → <strong>estoïcisme</strong>, <em>judaic</em> → <strong>judaïtzar</strong>, <em>mosaic</em> → <strong>mosaïcista</strong>, <em>druida</em> → <strong>druïdisme</strong>, <em>tiroide</em> → <strong>atiroïdisme</strong>.</p>`
+      },
+      {
+        title: 'El mateix primitiu, dos resultats',
+        icon: '📋',
+        table: {
+          headers: ['Primitiu', 'Amb -al (sense dièresi)', 'Altres sufixos (amb dièresi)'],
+          rows: [
+            ['fluid', 'fluidal', 'fluïditat, fluïdesa, fluïditzar'],
+            ['laic', 'laical', 'laïcisme, laïcat, laïcitzar'],
+            ['heroic', '—', 'heroïcitat'],
+            ['veí (ja duu accent)', 'veïnal', '—'],
+            ['proïsme (ja duu dièresi)', 'proïsmal', '—'],
+          ]
+        }
+      }
+    ]
+  },
+
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -5729,6 +5772,77 @@ const DATA = {
         { text:'El manuscrit explica com es va restablir el subministrament d\'aigua després de la riuada.', question:'Per què «manuscrit» i «restablir» no duen e, si «escrit» i «establir» sí que són mots catalans?', options:['Perquè el segon element hi ha canviat de significat respecte del mot independent','Perquè són compostos antics amb una tradició gràfica ja consolidada','Perquè els elements «manu-» i «re-» no admeten mai la e epentètica'], correct:1 },
       ],
       theory:"La prova decisiva no és si el mot és culte o patrimonial, sinó si el segon element existeix tot sol en català amb el mateix sentit: escola i esportiu sí, *escopi no. A banda hi ha les excepcions de sempre: l'accent al primer formant (aeròstat), el canvi de significat (biosfera) i els compostos antics ja consolidats (restablir, manuscrit).", example:'autoescola, poliesportiu (amb e) / microscopi, restablir, manuscrit (sense e).' },
+
+    // ── LA DIÈRESI QUE VA CAURE ──
+    { id:'iec-di1', type:'choice', level:'iec', category:'La dièresi que va caure',
+      question:'Quina forma és correcta?',
+      text:'L\'escala del campanar puja fent una corba ___.',
+      options:['helicoidal','helicoïdal','helicòidal'],
+      correct:0,
+      variants:[
+        { text:'Al laboratori van preparar una dissolució ___.', options:['col·loïdal','col·loidal','col·lòidal'], correct:1 },
+        { text:'La finca té una planta ___ de quatre costats desiguals.', options:['trapezoïdal','trapezòidal','trapezoidal'], correct:2 },
+      ],
+      theory:"L'ortografia del 2016 va suprimir la dièresi dels derivats cultes acabats en -al: ara s'escriu helicoidal, col·loidal, trapezoidal, romboidal, esferoidal, laical, fluidal i coital, tots sense. Fins a la reforma es feien amb dièresi.", example:'Una escala helicoidal. / Una dissolució col·loidal. / Una planta trapezoidal.' },
+
+    { id:'iec-di2', type:'choice', level:'iec', category:'La dièresi que va caure',
+      question:'Quina forma és correcta?',
+      text:'Van mesurar la ___ del vidre fos a mil graus.',
+      options:['fluïditat','fluiditat','fluíditat'],
+      correct:0,
+      variants:[
+        { text:'El ___ defensa la separació entre la religió i l\'Estat.', options:['laicisme','laïcisme','laícisme'], correct:1 },
+        { text:'L\'___ va ser una de les grans escoles filosòfiques gregues.', options:['estoicisme','estoícisme','estoïcisme'], correct:2 },
+      ],
+      theory:"El canvi afecta NOMÉS el sufix -al. Amb la resta de sufixos cultes la dièresi es manté, perquè hi desfà el diftong del primitiu: fluïditat, fluïdesa, fluïditzar (de fluid); laïcisme, laïcat, laïcitzar (de laic); estoïcisme (d'estoic); heroïcitat (d'heroic); arcaïtzant (d'arcaic); judaïtzar (de judaic); mosaïcista (de mosaic); druïdisme (de druida).", example:'La fluïditat de l\'oli. / El laïcisme republicà. / L\'estoïcisme de Sèneca.' },
+
+    { id:'iec-di3', type:'fill', level:'iec', strictAccents:true, category:'La dièresi que va caure',
+      question:'Escriu el derivat que demana la frase:',
+      text:'Del mateix mot primitiu en surten formes amb dièresi i sense: ho decideix el sufix.',
+      sentence:'Van mesurar la ___ de l\'oli a diferents temperatures.',
+      display:'qualitat de fluid (sufix -itat)',
+      answers:['fluïditat'],
+      variants:[
+        { sentence:'L\'informe descriu el comportament ___ de la massa dins del motlle.', display:'relatiu al fluid (sufix -al)', answers:['fluidal'] },
+        { sentence:'La comunitat ___ es va organitzar al marge de la parròquia.', display:'relatiu als laics (sufix -al)', answers:['laical'] },
+      ],
+      theory:"El contrast més clar de la regla: «fluid» dona fluïditat, fluïdesa i fluïditzar amb dièresi, però fluidal sense; i «laic» dona laïcisme, laïcat i laïcitzar amb dièresi, però laical sense. No és el mot primitiu el que decideix, sinó el sufix que s'hi afegeix.", example:'fluïditat / fluidal · laïcisme / laical.' },
+
+    { id:'iec-di4', type:'fill', level:'iec', strictAccents:true, category:'La dièresi que va caure',
+      question:'Escriu el derivat en -al (pensa si duu dièresi):',
+      text:'Ara mireu el mot primitiu abans de decidir.',
+      sentence:'El camí ___ que uneix les dues masies s\'ha asfaltat aquest estiu.',
+      display:'relatiu als veïns, de «veí»',
+      answers:['veïnal'],
+      variants:[
+        { sentence:'L\'amor ___ és un dels fonaments de la doctrina cristiana.', display:'relatiu al proïsme, de «proïsme»', answers:['proïsmal'] },
+        { sentence:'La cara ___ d\'aquest cristall té quatre costats iguals dos a dos.', display:'relatiu al romboide, de «romboide»', answers:['romboidal'] },
+      ],
+      theory:"La supressió té una condició: la dièresi cau només si el primitiu no en duu. Quan al mot d'origen la i ja fa síl·laba tota sola —perquè hi porta accent o dièresi—, el derivat en -al se la queda: veí → veïnal, proïsme → proïsmal. En canvi romboide té diftong, i per això romboidal va sense.", example:'Un camí veïnal. / L\'amor proïsmal. / Una cara romboidal.' },
+
+    { id:'iec-di5', type:'choice', level:'iec', category:'La dièresi que va caure',
+      question:'Quina parella està ben escrita?',
+      options:['laical i laïcisme','laïcal i laicisme','laical i laicisme'],
+      correct:0,
+      variants:[
+        { options:['heroicitat i heroic','heroïcitat i heroic','heroïcitat i heroïc'], correct:1 },
+        { options:['arcaic i arcaitzant','arcaïc i arcaïtzant','arcaic i arcaïtzant'], correct:2 },
+      ],
+      theory:"Cal separar tres coses: el primitiu (laic, heroic, arcaic: mai amb dièresi, perquè hi ha diftong), el derivat en -al (laical: sense, des del 2016) i els derivats amb els altres sufixos (laïcisme, heroïcitat, arcaïtzant: amb dièresi, perquè el diftong s'hi desfà en perdre l'accent).", example:'laic → laical (sense) i laïcisme (amb). / heroic → heroïcitat.' },
+
+    { id:'iec-di6', type:'reading', level:'iec', category:'La dièresi que va caure',
+      text:'L\'informe descriu primer el comportament fluidal de la pasta dins del motlle i, unes línies més avall, la fluïditat que assoleix quan s\'escalfa. Les dues formes surten del mateix mot.',
+      question:'Per què «fluidal» va sense dièresi i «fluïditat» amb dièresi?',
+      options:[
+        'Perquè el sufix -al manté el diftong i el sufix -itat el desfà',
+        'Perquè «fluidal» és un adjectiu i «fluïditat» és un nom abstracte format amb un sufix culte',
+        'Perquè «fluïditat» és un cultisme modern i «fluidal» una forma patrimonial molt més antiga'
+      ],
+      correct:0,
+      variants:[
+        { text:'El camí veïnal voreja tota la finca; al capdamunt s\'hi veu una construcció de planta trapezoidal.', question:'Per què «veïnal» duu dièresi i «trapezoidal» no, si tots dos acaben en -al?', options:['Perquè «veïnal» deriva d\'un nom comú i «trapezoidal» deriva d\'un adjectiu de geometria','Perquè «veïnal» és un mot patrimonial antic i «trapezoidal» és un cultisme modern','Perquè a «veí» la i ja fa síl·laba tota sola i a «trapezoide» hi forma diftong'], correct:2 },
+      ],
+      theory:"Tota la regla es resol amb una pregunta sobre el primitiu: la i hi forma diftong? Si hi forma diftong (fluid, trapezoide, laic), el derivat en -al no duu dièresi perquè el diftong s'hi manté; els altres sufixos sí que en duen perquè el desfan. Si la i ja hi fa síl·laba tota sola (veí, proïsme), el derivat la conserva sempre.", example:'fluid → fluidal (sense) i fluïditat (amb). / veí → veïnal (sempre amb).' },
 
   ]
 };
