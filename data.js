@@ -2187,7 +2187,7 @@
       {
         title: 'Mite 1: «Ara puc posar el diacrític si vull»',
         icon: '❌',
-        body: `<p>Fals en prosa normal. L'<strong>ús discrecional</strong> del diacrític només és admès en casos molt marcats: transcripcions de textos medievals o dialectals, usos metalingüístics, i enunciats aïllats realment ambigus (titulars, etiquetes). En un text corrent, «*Li dóna les claus» és falta.</p>`
+        body: `<p>Fals en prosa normal, però no per la raó que sembla. El que obre la porta a l'<strong>ús discrecional</strong> no és el tipus de text, sinó l'<strong>ambigüitat que el context no resol</strong>: aleshores un parell homògraf de fora de la llista pot dur accent. L'IEC en dona dos exemples, tots dos d'accents caiguts: «Troben uns <strong>óssos</strong> a Tavascan» i «Cafè <strong>mòlt</strong> natural». Passa sobretot en enunciats aïllats —titulars, etiquetes— i també en transcripcions paleogràfiques, dialectals o metalingüístiques. En un text corrent, «*Li dóna les claus» continua sent falta: el context ja hi diu que és el verb.</p>`
       },
       {
         title: 'Mite 2: «Els topònims també l\'han perdut»',
@@ -5469,16 +5469,16 @@ const DATA = {
     { id:'iec-mc1', type:'choice', level:'iec', category:'Mites i confusions',
       question:'En un text normal hi ha la frase «Li dona les claus». És correcte escriure-hi «dóna» amb accent per desfer l\'ambigüitat?',
       options:[
-        'No: l\'ús discrecional del diacrític es limita a casos molt marcats, com titulars ambigus',
+        'No: aquí el context ja desfà l\'ambigüitat, i és l\'ambigüitat sense resoldre el que autoritza el diacrític',
         'Sí: quan hi ha risc de confusió, l\'accent diacrític sempre és opcional i recomanable',
         'Sí, però només si el mot ambigu apareix més d\'una vegada dins del mateix paràgraf'
       ],
       correct:0,
       variants:[
         { question:'Un diari titula «Véns o no véns?» amb accent per marcar que és el verb venir. És admissible?', options:['Només si el titular sencer s\'escriu entre cometes o en lletra cursiva','No: cap mot fora de la llista dels quinze pot dur mai accent diacrític','Sí: en enunciats aïllats realment ambigus, com els titulars, és admès'], correct:2 },
-        { question:'En l\'edició d\'un text medieval, l\'editor manté accents diacrítics antics. És admissible?', options:['Sí: les transcripcions de textos medievals o dialectals admeten l\'ús discrecional','No: tota edició moderna ha d\'aplicar la llista vigent de quinze diacrítics','Només si l\'editorial ho justifica en una nota a peu de pàgina de la primera pàgina'], correct:0 },
+        { question:'En l\'edició d\'un manuscrit antic, l\'editor manté accents diacrítics que avui no són a la llista. És admissible?', options:['Sí: les transcripcions de textos paleogràfics o dialectals admeten l\'ús discrecional','No: tota edició moderna ha d\'aplicar la llista vigent de quinze diacrítics','Només si l\'editorial ho justifica en una nota a peu de pàgina de la primera pàgina'], correct:0 },
       ],
-      theory:"L'OIEC admet l'ús discrecional del diacrític NOMÉS en usos molt particularitzats: transcripcions medievals o dialectals, usos metalingüístics i enunciats aïllats amb ambigüitat real que el context no resol (titulars, etiquetes). En prosa corrent, «*dóna» és falta: el context ja desambigua.", example:'Titular admès: «Véns demà?» / Text corrent: «Em dona les claus» (sense accent).' },
+      theory:"El que autoritza el diacrític discrecional no és el tipus de text, sinó l'ambigüitat: és acceptable en parells homògrafs fora de la llista quan l'enunciat admet més d'una lectura i el context no la resol. Els exemples que en dona l'IEC són «Troben uns óssos a Tavascan» i «Cafè mòlt natural». S'hi admet sobretot en enunciats aïllats — titulars, etiquetes — i també en transcripcions paleogràfiques, dialectals o metalingüístiques. En prosa corrent, en canvi, «*dóna» és falta: el context ja desambigua.", example:'Titular: «Troben uns óssos a Tavascan» / Prosa corrent: «Em dona les claus» (sense accent).' },
 
     { id:'iec-mc2', type:'choice', level:'iec', category:'Mites i confusions',
       question:'Com s\'escriu el nom d\'aquest municipi de la Ribera d\'Ebre?',
