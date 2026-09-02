@@ -2538,6 +2538,13 @@ const AUTH_SPLASH_KEY = 'cat_auth_prompted_v1';
 // Canviar la clau cada cop que hi hagi novetats a anunciar → el modal torna a sortir
 // a tothom. (v87: notificacions · v107: nav inferior + mòdul Novetats IEC + contingut)
 const WHATS_NEW_KEY   = 'cat_news_v107';
+// Apagat el 2 set 2026. La clau viu al localStorage, o sigui que el modal no
+// sortia «un cop i prou»: el rebia tothom que no la tingués —mòbil nou, dades
+// netes, perfil de navegador nou—, i el text ja era fals (deia 36 exercicis del
+// mòdul IEC, que ara en té 48, i anunciava com a novetat la nav inferior, que fa
+// mesos que hi és). Per tornar-lo a fer servir: text nou, CLAU NOVA i això a
+// true. Mateix patró que NOVETATS_BANNER_ACTIU.
+const WHATS_NEW_ACTIU = false;
 let _authMode = 'register';
 let _modalAuthMode = 'register';
 
@@ -2773,6 +2780,7 @@ function modalAuthError(msg) {
 }
 
 function showWhatsNew() {
+  if (!WHATS_NEW_ACTIU) return;
   if (localStorage.getItem(WHATS_NEW_KEY)) return;
   if (document.getElementById('whats-new-overlay')) return;   // no el dupliquis
   const overlay = document.createElement('div');
