@@ -3089,11 +3089,27 @@ function renderNotificationsSection() {
     return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Cal <strong>iniciar sessió</strong> (secció anterior) per activar els recordatoris personalitzats.</p>';
   }
   if (Notification.permission === 'denied') {
-    return `
-      <div style="background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start;">
-        <div style="font-size:22px;line-height:1.2;flex-shrink:0;">⚠️</div>
-        <div style="color:var(--accent-amber-text);">
-          <div style="font-size:15px;font-weight:700;margin-bottom:6px;">No rebràs recordatoris</div>
+    // Dins de l'app d'Android les notificacions van DELEGADES (el TWA declara
+    // POST_NOTIFICATIONS i un DelegationService): les publica l'app, no el
+    // navegador, i el permís que mana és el d'Android. Allà no hi ha barra
+    // d'adreces —les instruccions de navegador no s'hi poden seguir— i, un cop
+    // denegat, la pàgina no pot tornar a demanar-lo: l'única sortida és la
+    // configuració del sistema. Per web, en canvi, el bloqueig sí que és del
+    // lloc i es desfà des de la barra d'adreces.
+    const dinsApp = (document.referrer || '').startsWith('android-app://')
+      || (typeof window.matchMedia === 'function' && window.matchMedia('(display-mode: standalone)').matches);
+    const cos = dinsApp ? `
+          <p style="font-size:14px;line-height:1.6;margin:0 0 8px;">
+            Les notificacions d'<strong>AprènCatalà</strong> estan <strong>desactivades a la configuració d'Android</strong>. Des d'aquí no es poden tornar a demanar; cal activar-les al sistema:
+          </p>
+          <ol style="font-size:14px;line-height:1.7;margin:0;padding-left:18px;">
+            <li>Mantén premuda la <strong>icona de l'app</strong> a la pantalla d'inici i obre <strong>ⓘ Informació de l'app</strong> (o ves a <strong>Configuració → Aplicacions → AprènCatalà</strong>).</li>
+            <li>Entra a <strong>Notificacions</strong> i activa-les.</li>
+            <li>Torna a obrir l'app i torna en aquesta pantalla.</li>
+          </ol>
+          <p style="font-size:13px;line-height:1.6;margin:10px 0 0;opacity:0.85;">
+            Si l'avís continua després de fer-ho, el bloqueig ve del navegador: obre <strong>Chrome → ⋮ → Configuració → Configuració de llocs → Notificacions</strong> i posa <em>app.aprencatala.cat</em> a <strong>Permet</strong>.
+          </p>` : `
           <p style="font-size:14px;line-height:1.6;margin:0 0 8px;">
             Les notificacions estan <strong>bloquejades</strong> per a <em>app.aprencatala.cat</em> al teu navegador. Per activar-les:
           </p>
@@ -3101,7 +3117,13 @@ function renderNotificationsSection() {
             <li>Toca la <strong>icona</strong> a l'esquerra de l'adreça web (un cadenat o uns controls).</li>
             <li>Obre <strong>Configuració del lloc</strong> (o <strong>Permisos</strong>) → <strong>Notificacions</strong>.</li>
             <li>Tria <strong>Permet</strong> i torna a obrir aquesta pàgina.</li>
-          </ol>
+          </ol>`;
+    return `
+      <div style="background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:22px;line-height:1.2;flex-shrink:0;">⚠️</div>
+        <div style="color:var(--accent-amber-text);">
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;">No rebràs recordatoris</div>
+          ${cos}
         </div>
       </div>`;
   }
