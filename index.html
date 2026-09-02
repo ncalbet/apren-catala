@@ -320,6 +320,15 @@
     .ct-lesson-card.mastered { border-color:#d4a72c; }
     .ct-state { font-size:12px; font-weight:600; margin-top:6px; }
 
+    /* DISTRIBUCIÓ DEL DOMINI (Progrés) — 4 caselles de recompte.
+       Amb 1fr (= minmax(auto,1fr)) el mínim de cada columna és el seu text
+       indivisible («Aprenent» a 10px, o un recompte de 3 xifres a 22px, més
+       24px de padding): en un mòbil estret la suma passa de l'amplada del card
+       i la graella sobreïx per la dreta. minmax(0,1fr) treu aquest terra, i
+       sota 400px passem a 2x2, on hi cap amb marge. */
+    .ct-dist { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; margin-bottom: 24px; }
+    @media (max-width: 400px) { .ct-dist { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
     /* LEVEL BADGE al header */
     .ct-level-badge {
       font-weight:700; padding:3px 8px; border-radius:12px;
@@ -2391,7 +2400,7 @@ function renderProgress() {
         <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(iecdone/iectotal*100)}%;background:#7c3aed;"></div></div>
       </div>` : ''}
       <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:12px;">Distribució del domini</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px;">
+      <div class="ct-dist">
         <div style="background:#f3f4f6;border-radius:10px;padding:12px;text-align:center;">
           <div style="font-size:22px;font-weight:700;color:var(--muted);">${m0}</div>
           <div style="font-size:10px;color:var(--muted);margin-top:2px;">Nous</div>
