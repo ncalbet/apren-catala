@@ -327,6 +327,18 @@
        i la graella sobreïx per la dreta. minmax(0,1fr) treu aquest terra, i
        sota 400px passem a 2x2, on hi cap amb marge. */
     .ct-dist { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; margin-bottom: 24px; }
+
+    /* Botó «?» d'ajuda. Fa 30px per no competir amb el títol, i per això mateix
+       queda per sota del mínim tàctil: l'àrea de toc s'amplia amb ::after, sense
+       ocupar layout, com al toggle de tema de la capçalera. */
+    .ct-help-btn {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; padding: 0;
+      border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+      font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; position: relative;
+      display: inline-flex; align-items: center; justify-content: center; margin-left: auto;
+    }
+    .ct-help-btn::after { content: ''; position: absolute; inset: -8px; }
+    .ct-help-btn:hover { border-color: var(--c1); color: var(--heading); }
     @media (max-width: 400px) { .ct-dist { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 
     /* Resum d'XP, ratxa i intentats (Progrés) — mateix defecte que .ct-dist: el
@@ -3260,16 +3272,10 @@ function renderProfile() {
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">👤 El teu perfil</div>
-
-      <div onclick="showTab('help')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('help')"
-        style="display:flex;align-items:center;gap:12px;background:var(--accent-blue-bg);border-radius:12px;padding:14px 16px;margin-bottom:22px;cursor:pointer;min-height:56px;">
-        <span style="font-size:22px;flex-shrink:0;">❓</span>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">Ajuda i com funciona l'app</div>
-          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">Model pedagògic, guia d'ús i preguntes freqüents</div>
-        </div>
-        <span style="color:var(--accent-blue-val);font-size:20px;flex-shrink:0;">›</span>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px;">
+        <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">👤 El teu perfil</div>
+        <button type="button" class="ct-help-btn" onclick="showTab('help')"
+          aria-label="Ajuda i com funciona l'app" title="Ajuda i com funciona l'app">?</button>
       </div>
 
       <div style="margin-bottom:10px;">
