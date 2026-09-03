@@ -1284,7 +1284,7 @@ function renderReview() {
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <button onclick="showTab('menu')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Inici</button>
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:12px;">🔁 Repàs intel·ligent</div>
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:12px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Repàs intel·ligent</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">${chips}</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
         ${pool.length > 0
@@ -2201,11 +2201,11 @@ function renderAchievements() {
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">🏅 Fites i medalles</div>
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg> Fites i medalles</div>
 
       ${renderDailyChallengeSection()}
 
-      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">📅 Activitat dels últims 7 dies</div>
+      <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Activitat dels últims 7 dies</div>
       ${render7DayHistory()}
 
       <div style="font-size:13px;color:var(--muted);margin:16px 0 8px;">${nAll} de ${totalAll} assoliments desblocats</div>
@@ -2955,7 +2955,7 @@ function renderHelp() {
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Com funciona l'app</div>
 
       <details class="ct-acc">
-        <summary>🎯 Sistema de domini (0 → 5)</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Sistema de domini (0 → 5)</span></summary>
         <div class="ct-acc-body">
           Cada exercici té un <strong>nivell de domini</strong> que va de 0 a 5:<br><br>
           <strong>0 — Nou:</strong> encara no l'has fet mai.<br>
@@ -2979,7 +2979,7 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>⭐ XP i nivells</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> XP i nivells</span></summary>
         <div class="ct-acc-body">
           Guanyes <strong>XP</strong> (punts d'experiència) cada vegada que encertes un exercici. L'XP acumulat determina el teu <strong>nivell</strong>, que va d'Aprenent fins a Mestre del Català.<br><br>
           Els nivells són decoratius i no afecten el contingut disponible: pots practicar qualsevol nivell de l'app (A2, B1, B2, C1 i el mòdul Novetats IEC) des del primer dia.
@@ -2996,7 +2996,7 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>📅 Repte diari</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Repte diari</span></summary>
         <div class="ct-acc-body">
           Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
           No es trien a l'atzar: surten dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1), i s'eviten els exercicis que t'han sortit als reptes de l'última setmana perquè no es repeteixin. El mòdul <strong>Novetats IEC</strong> no hi entra: és transversal i el practiques quan vulguis.<br><br>
@@ -3005,7 +3005,7 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>🔁 Repàs intel·ligent</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Repàs intel·ligent</span></summary>
         <div class="ct-acc-body">
           El <strong>repàs intel·ligent</strong> selecciona els exercicis que més necessites practicar: prioritza els que tens pitjor dominats i assegura varietat entre categories.<br><br>
           Pots filtrar el repàs per nivell (A2, B1, B2, C1, 📜 Novetats IEC o Tot) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
@@ -3013,7 +3013,7 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>📜 Novetats IEC</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Novetats IEC</span></summary>
         <div class="ct-acc-body">
           A més dels quatre nivells, hi ha un <strong>mòdul transversal</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) sobre <strong>què va canviar amb la normativa de l'IEC del 2016</strong>: els quinze accents diacrítics que queden, els que van desaparèixer, els guionets dels compostos, els prefixos i l'ortografia dels pronoms febles.<br><br>
           Està pensat per a qui va estudiar amb la normativa antiga i vol posar-se al dia. <strong>No és un nivell del MECR</strong>: no cal fer-lo per avançar i no entra al repte diari, però compta per a l'XP i té <strong>medalles pròpies</strong>.<br><br>
@@ -3022,7 +3022,7 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>☁️ Compte i sincronització (opcional)</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> Compte i sincronització (opcional)</span></summary>
         <div class="ct-acc-body">
           Pots usar l'app <strong>sense registrar-te</strong>: el progrés es desa al teu dispositiu.<br><br>
           Si vols, pots crear un <strong>compte gratuït</strong> des de <strong>Perfil → Compte i sincronització</strong> (amb el teu compte de Google o amb correu i contrasenya). Així el progrés es <strong>sincronitza al núvol</strong> i el tens accessible des de qualsevol dispositiu, sense risc de perdre'l.<br><br>
@@ -3031,7 +3031,7 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
-        <summary>🔔 Recordatoris</summary>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Recordatoris</span></summary>
         <div class="ct-acc-body">
           Amb un compte iniciat, pots activar <strong>recordatoris</strong> des de <strong>Perfil → Recordatoris</strong> perquè l'app t'avisi de practicar quan fa dies que no véns.<br><br>
           Pots triar l'<strong>hora</strong> (matí, migdia, tarda o nit) i el <strong>ritme</strong>: <strong>diari</strong> (t'avisa cada dia que no hagis practicat) o <strong>espaiat</strong> (t'avisa al cap d'un parell de dies, i cada cop més de tant en tant). Si tornes a practicar, els avisos es reinicien; si ho deixes del tot, al cap d'unes setmanes deixen d'arribar. Pots desactivar-los en qualsevol moment.
