@@ -4781,7 +4781,7 @@ const DATA = {
       theory:'El sufix «-ció / -ió» forma noms d\'acció: implementar → implementació; aplicar → aplicació.', example:'avaluar → avaluació; decidir → decisió; organitzar → organització.' },
     { id:'c1-df2', type:'choice', level:'c1', category:'Derivació i flexió',
       question:'Quina paraula derivada amb el prefix «des-» és correcta?',
-      text:'El prefix «des-» indica negació o inversió de l\'acció i s\'afegeix directament al radical sense canviar l\'ortografia: des + conèixer = desconèixer. Les formes castellanitzades no existeixen en català.',
+      text:'El prefix «des-» indica negació o inversió de l\'acció i s\'afegeix directament al radical sense canviar-ne l\'ortografia: des + fer = desfer, des + muntar = desmuntar. Les formes castellanitzades no existeixen en català.',
       options:['desconèixer','desconexar','desconexió'],
       correct:0, variants:[
         { options:['desconexar','desconexió','desconèixer'], correct:2 },
@@ -5255,7 +5255,7 @@ const DATA = {
       example:'Estructura pendent lliscant: «Si X → inevitablement → Y extrem». La detecció requereix preguntar: on és la justificació de cada pas de la cadena causal?' },
 
     { id:'c1-lf8', type:'fill', level:'c1', category:'Lèxic formal',
-      text:'L\'estil acadèmic comprimeix oracions verbals en estructures nominals: el verb «decidir» es converteix en el nom «decisió».',
+      text:'L\'estil acadèmic comprimeix oracions verbals en estructures nominals: el verb «aplicar» es converteix en el nom «aplicació».',
       question:'Omple amb la nominalització correcta:',
       sentence:'La ___ d\'increment fiscal va ser adoptada amb l\'objectiu de reducció del dèficit públic.',
       display:'nominalització de «decidir» (nom d\'acció)',
