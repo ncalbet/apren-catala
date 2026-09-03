@@ -3312,6 +3312,10 @@ function renderProfile() {
       <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;">Ko-fi processa el pagament de forma segura. No cal registrar-se.</p>
       <button class="ct-btn wa" style="width:100%;margin-top:18px;" onclick="waProgress()">💬 Comparteix per WhatsApp</button>
 
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div id="data-section">${renderDataSection()}</div>
+
       <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:28px;"><a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">Política de privacitat</a></p>
 
     </div>`;
@@ -3387,7 +3391,7 @@ function renderAccountSection() {
       <button class="ct-btn secondary" style="width:100%;margin-bottom:0;" onclick="showEmailAuthModal()">
         Entra amb correu i contrasenya
       </button>
-      ${renderDataSection()}`;
+`;
   }
   const providers   = (user.providerData || []).map(p => p.providerId);
   const hasGoogle   = providers.includes('google.com');
@@ -3405,8 +3409,7 @@ function renderAccountSection() {
     </div>
     <p style="font-size:13px;color:var(--text-soft);margin-bottom:16px;">✅ Progrés sincronitzat al núvol</p>
     ${(!hasGoogle || !hasPassword) ? `<p style="font-size:13px;color:var(--text-soft);margin-bottom:10px;">Pots afegir una altra manera d'entrar (opcional), per no dependre d'un sol mètode:</p>${linkBtns}` : ''}
-    <button class="ct-btn secondary" style="width:100%;" onclick="fbHandleSignOut()">Tancar sessió</button>
-    ${renderDataSection()}`;
+    <button class="ct-btn secondary" style="width:100%;" onclick="fbHandleSignOut()">Tancar sessió</button>`;
 }
 
 async function fbHandleSignIn() {
@@ -3455,13 +3458,17 @@ function fbHandleAddPassword() {
 }
 
 function fbRefreshAccountUI() {
-  // La gestió de dades (reiniciar / esborrar compte) ja va DINS de renderAccountSection()
   const el = document.getElementById('fb-account-section');
   if (el) el.innerHTML = renderAccountSection();
+  // La gestió de dades ja no va dins d'aquell bloc: és una secció pròpia al final
+  // del Perfil. Cal refrescar-la aquí igualment, perquè «Esborrar el compte» només
+  // hi surt amb sessió iniciada i, si no, entrar o sortir no el faria aparèixer.
+  const dd = document.getElementById('data-section');
+  if (dd) dd.innerHTML = renderDataSection();
 }
 
 // Botó discret d'esborrar compte (només si hi ha sessió iniciada).
-// Va dins de renderDataSection(), agrupat amb «Reiniciar el progrés».
+// Va dins de renderDataSection(), agrupat amb «Reiniciar el progrés», al final del Perfil.
 function renderDeleteAccountSection() {
   if (!window.fbUser) return '';
   return `
