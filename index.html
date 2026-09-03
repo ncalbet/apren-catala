@@ -564,6 +564,12 @@ const KOFI_BANNER_ACTIU = true;
 const KOFI_DIES_MINIMS = 10;
 const KOFI_SILENCI_DIES = 30;
 
+// Llargada màxima del pseudònim. Es mostra a la salutació de l'Inici i als
+// banners, i un text llarg els trencaria. AQUÍ DALT pel mateix motiu que les
+// de Ko-fi: getPseudo() la llegeix des de renderMenu(), i renderMenu() es crida
+// des del bloc d'arrencada.
+const PSEUDO_MAX = 24;
+
 // Banner ✨ «Contingut actualitzat»: desactivat a la v107 perquè aquesta feina la fa
 // ara el modal showWhatsNew() en engegar l'app. Tenir-hi també el banner seria dir el
 // mateix dues vegades. Es manté el codi per a novetats petites que no mereixin modal.
@@ -915,9 +921,10 @@ function renderMenu() {
   // inclou l'IEC: si l'has practicat i el tens fluix, ha de sortir a repassar.
   const needsReview = [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1,...(DATA.iec||[])].filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4).length;
   const saved = getSavedSession();
+  const pseudo = escText(getPseudo());
   const resumeBanner = saved ? `
     <div class="ct-card" style="padding:16px 18px;margin-bottom:16px;border:1px solid var(--c1);background:var(--surface);">
-      <div style="font-size:14px;font-weight:600;color:var(--heading);margin-bottom:4px;">⏸️ Tens una sessió a mitges</div>
+      <div style="font-size:14px;font-weight:600;color:var(--heading);margin-bottom:4px;">⏸️ ${pseudo ? `${pseudo}, tens` : 'Tens'} una sessió a mitges</div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Exercici ${saved.idx + 1} de ${saved.ids.length}. Vols continuar on ho vas deixar?</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="ct-btn primary" style="flex:1;min-width:140px;" onclick="resumeSavedSession()">▶ Continuar</button>
@@ -944,7 +951,7 @@ function renderMenu() {
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:center;gap:12px;">
       <span style="font-size:20px;flex-shrink:0;">🔔</span>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">Activa els recordatoris diaris</div>
+        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">${pseudo ? `${pseudo}, activa` : 'Activa'} els recordatoris diaris</div>
         <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">Rep una push quan no hagis practicat el català</div>
       </div>
       <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="showTab('profile')">Activar</button>
@@ -955,7 +962,7 @@ function renderMenu() {
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid #f59e0b;background:var(--accent-amber-bg);display:flex;align-items:center;gap:12px;">
       <span style="font-size:24px;flex-shrink:0;">☕</span>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">Ja has practicat ${diesPracticats} dies. Gràcies!</div>
+        <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.` : `Ja has practicat ${diesPracticats} dies. Gràcies!`}</div>
         <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots convidar-me a un cafè.</div>
       </div>
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;flex-shrink:0;text-decoration:none;white-space:nowrap;">Convida'm</a>
@@ -968,7 +975,7 @@ function renderMenu() {
     ${notifBanner}
     ${kofiBanner}
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
-      <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">Benvingut/da!</div>
+      <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">${pseudo ? `Hola, ${pseudo}!` : 'Benvingut/da!'}</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
         Exercicis de nivell A2, B1, B2 i C1 de català amb repetició espaïada.<br>Cada tema inclou teoria + exercicis pràctics.
       </p>
@@ -3088,7 +3095,7 @@ function renderHelp() {
 // quedar orfe. Es desa NOMÉS en aquest dispositiu (no puja a Firestore).
 function getPseudo() {
   const p = safeParse('cat_profile_v1') || {};
-  return ((p.pseudo || p.nom || '') + '').trim();
+  return ((p.pseudo || p.nom || '') + '').trim().slice(0, PSEUDO_MAX);
 }
 // Escapa el que escriu la persona abans de posar-ho a un template d'HTML.
 function escText(t) {
@@ -3293,7 +3300,7 @@ function renderProfile() {
 
       <div style="margin-bottom:10px;">
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
-        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Com vols que et diguem" value="${esc(getPseudo())}">
+        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" maxlength="24" placeholder="Com vols que et diguem" value="${esc(getPseudo())}">
       </div>
       <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
 
