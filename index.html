@@ -139,6 +139,10 @@
     .ct-nav .nv-ico { display: flex; align-items: center; }
     .ct-nav .nv-ico svg { width: 19px; height: 19px; display: block; }
     .ct-nav .nv-lab { font-size: 13px; }
+    /* Icones de capçalera i de bàner: mateixa família Feather que la nav. 1em les lliga
+       a la mida del text que acompanyen, i currentColor al seu color. */
+    .ct-hico { width: 1em; height: 1em; vertical-align: -0.14em; flex-shrink: 0;
+      fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .ct-nav button:hover { color: rgba(255,255,255,0.85); }
     /* La icona és SVG amb currentColor: s'encén amb l'etiqueta, com a les apps de referència */
     .ct-nav button.active { color: #fbbf24; border-bottom-color: #f59e0b; }
@@ -943,13 +947,13 @@ function renderMenu() {
       </div>
       ${shouldShowNotifBanner() ? `
       <div style="display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--accent-green-val);">
-        <div style="flex:1;min-width:0;font-size:12px;color:var(--accent-green-val);">🔔 Recorda activar els recordatoris per no perdre't cap novetat</div>
+        <div style="flex:1;min-width:0;font-size:12px;color:var(--accent-green-val);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Recorda activar els recordatoris per no perdre't cap novetat</div>
         <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="showTab('profile')">Activar</button>
       </div>` : ''}
     </div>` : '';
   const notifBanner = (!novetatsBanner && shouldShowNotifBanner()) ? `
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:center;gap:12px;">
-      <span style="font-size:20px;flex-shrink:0;">🔔</span>
+      <span style="font-size:20px;flex-shrink:0;display:flex;color:var(--accent-blue-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">${pseudo ? `${pseudo}, activa` : 'Activa'} els recordatoris diaris</div>
         <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">Rep una push quan no hagis practicat el català</div>
@@ -960,7 +964,7 @@ function renderMenu() {
   const diesPracticats = (progress.practiceHistory || []).length;
   const kofiBanner = shouldShowKofiBanner() ? `
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid #f59e0b;background:var(--accent-amber-bg);display:flex;align-items:center;gap:12px;">
-      <span style="font-size:24px;flex-shrink:0;">☕</span>
+      <span style="font-size:24px;flex-shrink:0;display:flex;color:var(--accent-amber-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.` : `Ja has practicat ${diesPracticats} dies. Gràcies!`}</div>
         <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots convidar-me a un cafè.</div>
@@ -2910,9 +2914,9 @@ function renderHelp() {
 
       <button onclick="showTab('profile')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Perfil</button>
 
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;">❓ Ajuda</div>
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17.01"/></svg> Ajuda</div>
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;">🎓 Model pedagògic</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Model pedagògic</div>
       <p style="font-size:13px;color:var(--text-soft);line-height:1.75;margin-bottom:14px;">Aprèn Català és una eina d'<strong>aprenentatge profund</strong> dissenyada per a l'aprenentatge de la llengua catalana.</p>
 
       <details class="ct-acc">
@@ -2948,7 +2952,7 @@ function renderHelp() {
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;">📖 Com funciona l'app</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Com funciona l'app</div>
 
       <details class="ct-acc">
         <summary>🎯 Sistema de domini (0 → 5)</summary>
@@ -3036,7 +3040,7 @@ function renderHelp() {
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;">❓ Preguntes freqüents</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17.01"/></svg> Preguntes freqüents</div>
 
       <details class="ct-acc">
         <summary>Per què el meu domini no arriba a 5/5 de cop?</summary>
@@ -3331,14 +3335,14 @@ function renderProfile() {
   const blocCompte = `
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☁️ Compte i sincronització</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> Compte i sincronització</div>
       <div id="fb-account-section">${renderAccountSection()}</div>`;
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px;">
-        <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">👤 El teu perfil</div>
+        <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> El teu perfil</div>
         <button type="button" class="ct-help-btn" onclick="showTab('help')"
           aria-label="Ajuda i com funciona l'app" title="Ajuda i com funciona l'app">?</button>
       </div>
@@ -3365,12 +3369,12 @@ function renderProfile() {
       ${!window.fbUser ? blocCompte : ''}
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">🔔 Recordatoris</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Recordatoris</div>
       <div id="notif-section">${renderNotificationsSection()}</div>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☕ Col·labora</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Col·labora</div>
       <p style="font-size:14px;color:var(--text-soft);line-height:1.75;margin-bottom:18px;">
         <strong>Aprèn Català és completament gratuïta i sense anuncis.</strong> No hi ha subscripcions ni dades que es venguin: l'aprenentatge ha de ser accessible per a tothom.<br><br>
         Si t'està sent útil, hi ha tres maneres d'ajudar-la:
