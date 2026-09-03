@@ -3219,9 +3219,10 @@ function renderNotificationsSection() {
       </div>
     </div>` : '';
   return `
+    ${active ? '' : `
     <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">
       Rep un recordatori personalitzat quan no hagis practicat: ratxa en perill, XP per pujar de nivell o repte diari pendent.
-    </p>
+    </p>`}
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;">
       <div style="font-size:14px;font-weight:600;color:var(--text);">Recordatoris de pràctica</div>
       <button class="ct-btn ${active ? 'primary' : 'secondary'}" style="min-width:110px;flex-shrink:0;"
