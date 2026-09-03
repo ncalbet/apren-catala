@@ -3324,6 +3324,14 @@ function renderProfile() {
   // Amb pseudònim desat, el camp no es mostra obert: hi ha el valor i un «Canvia».
   // Un formulari sempre obert convida a reescriure el que ja està bé.
   const pseudoActual = getPseudo();
+  // Sense sessió, «Compte i sincronització» va amunt: és la invitació a iniciar-la.
+  // Amb sessió ja no cal tenir-la al davant —hi diu «✅ Progrés sincronitzat»— i
+  // baixa sota Col·labora, deixant a dalt el que sí que es toca.
+  const blocCompte = `
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☁️ Compte i sincronització</div>
+      <div id="fb-account-section">${renderAccountSection()}</div>`;
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
@@ -3352,11 +3360,8 @@ function renderProfile() {
         <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
       </div>
 
-      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☁️ Compte i sincronització</div>
-      <div id="fb-account-section">${renderAccountSection()}</div>
-
+      ${!window.fbUser ? blocCompte : ''}
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">🔔 Recordatoris</div>
@@ -3388,6 +3393,8 @@ function renderProfile() {
         <span style="font-size:22px;">☕</span> Convida'm a un cafè a Ko-fi
       </a>
       <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Mantenir l'app activa té un cost. Ko-fi processa el pagament de forma segura i no cal registrar-s'hi.</p>
+
+      ${window.fbUser ? blocCompte : ''}
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
@@ -3535,6 +3542,9 @@ function fbHandleAddPassword() {
 }
 
 function fbRefreshAccountUI() {
+  // Entrar o sortir canvia la POSICIÓ de la secció al Perfil, no només el contingut:
+  // si s'hi és, cal repintar-lo sencer.
+  if (_navState.screen === 'profile') { renderProfile(); return; }
   const el = document.getElementById('fb-account-section');
   if (el) el.innerHTML = renderAccountSection();
   // La gestió de dades ja no va dins d'aquell bloc: és una secció pròpia al final
