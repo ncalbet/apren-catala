@@ -3365,16 +3365,29 @@ function renderProfile() {
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;">☕ Col·labora</div>
-      <p style="font-size:14px;color:var(--text-soft);line-height:1.75;margin-bottom:20px;">
+      <p style="font-size:14px;color:var(--text-soft);line-height:1.75;margin-bottom:18px;">
         <strong>Aprèn Català és completament gratuïta i sense anuncis.</strong> No hi ha subscripcions ni dades que es venguin: l'aprenentatge ha de ser accessible per a tothom.<br><br>
-        Mantenir l'app activa i millorar-la té un cost. Si t'ha estat útil i vols contribuir-hi, qualsevol aportació és molt benvinguda.
+        Si t'està sent útil, hi ha tres maneres d'ajudar-la, i dues no costen res:
       </p>
+
+      <!-- 1. Valorar. Compte: qui encara sigui al programa de proves NO pot deixar
+           valoració pública (regla de Google); només comentaris privats al Console. -->
+      <a href="https://play.google.com/store/apps/details?id=cat.aprencatala.app" target="_blank" rel="noopener"
+        class="ct-btn secondary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;margin-bottom:6px;">
+        <span style="font-size:17px;">⭐</span> Valora-la a Google Play
+      </a>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin:0 0 18px;">És el que fa que altra gent la trobi.</p>
+
+      <!-- 2. Compartir -->
+      <button class="ct-btn wa" style="width:100%;margin-bottom:6px;" onclick="waProgress()">💬 Comparteix-la per WhatsApp</button>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin:0 0 18px;">Amb qui estigui aprenent català o s'hi estigui examinant.</p>
+
+      <!-- 3. Aportació econòmica -->
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
         style="display:flex;align-items:center;justify-content:center;gap:10px;background:#ff5e5b;color:white;border-radius:12px;padding:15px 20px;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap;">
         <span style="font-size:22px;">☕</span> Convida'm a un cafè a Ko-fi
       </a>
-      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;">Ko-fi processa el pagament de forma segura. No cal registrar-se.</p>
-      <button class="ct-btn wa" style="width:100%;margin-top:18px;" onclick="waProgress()">💬 Comparteix per WhatsApp</button>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Mantenir l'app activa té un cost. Ko-fi processa el pagament de forma segura i no cal registrar-s'hi.</p>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
