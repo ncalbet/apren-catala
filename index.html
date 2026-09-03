@@ -99,7 +99,7 @@
     .ct-stats { display: flex; gap: 10px; font-size: 12px; align-items: center; flex-wrap: nowrap; min-width: 0; }
     /* El Ko-fi de la capçalera s'ha retirat: era permanent (i per tant invisible),
        demanava enmig de la tasca i feia 26px. Ara es demana al moment de valor
-       (banner de l'Inici a partir de 7 dies practicats) + Progrés + Perfil. */
+       (banner de l'Inici a partir de 10 dies practicats) + Progrés + Perfil. */
     .ct-theme-toggle {
       font-size: 13px; line-height: 1; padding: 3px 6px; border-radius: 20px;
       background: transparent; border: 1px solid rgba(255,255,255,0.25);
@@ -539,7 +539,7 @@ function saveProgress() {
 const SESSION_KEY = 'cat_session_v1';
 
 // Ko-fi: reciprocitat, no insistència. Només es demana a qui ja ha tret valor de
-// l'app (≥7 dies practicats), mai a un usuari nou, mai apilat sobre un altre avís,
+// l'app (≥10 dies practicats), mai a un usuari nou, mai apilat sobre un altre avís,
 // i amb 30 dies de silenci si el tanca. Veure shouldShowKofiBanner().
 // ⚠️ HAN D'ANAR AQUÍ DALT: renderMenu() les llegeix, i renderMenu() es crida des del
 // bloc d'arrencada. Si es declaren més avall, queden en zona morta temporal i
@@ -549,7 +549,7 @@ const SESSION_KEY = 'cat_session_v1';
 // volíem que es pensessin que els demanàvem diners a ells). REACTIVAT el 2026-08-08, amb
 // l'app ja pública a Play. Les guardes de sota el mantenen discret: mai a un usuari nou.
 const KOFI_BANNER_ACTIU = true;
-const KOFI_DIES_MINIMS = 7;
+const KOFI_DIES_MINIMS = 10;
 const KOFI_SILENCI_DIES = 30;
 
 // Banner ✨ «Contingut actualitzat»: desactivat a la v107 perquè aquesta feina la fa
