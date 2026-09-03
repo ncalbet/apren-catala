@@ -177,6 +177,19 @@ window.fbDeleteAccount = async (password) => {
 };
 
 // ── Perfil ──
+// El perfil (avui: el pseudònim) va al mateix document que el progrés, sota
+// «profile». S'esborra amb el compte, perquè fbDeleteAccount esborra el
+// document sencer. Qui guanya quan dos dispositius discrepen ho decideix
+// index.html amb el segell «at» que hi va dins.
+window.fbLoadProfile = async () => {
+  const user = auth.currentUser;
+  if (!user) return null;
+  try {
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    return (snap.exists() && snap.data().profile) ? snap.data().profile : null;
+  } catch (e) { console.warn('[FB] Error carregant perfil:', e.code); return null; }
+};
+
 window.fbSaveProfile = async (data) => {
   const user = auth.currentUser;
   if (!user) return;

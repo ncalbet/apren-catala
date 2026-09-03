@@ -3097,6 +3097,24 @@ function getPseudo() {
   const p = safeParse('cat_profile_v1') || {};
   return ((p.pseudo || p.nom || '') + '').trim().slice(0, PSEUDO_MAX);
 }
+// Reconcilia el pseudònim entre aquest dispositiu i el núvol: guanya el més
+// recent, comparant el segell «at» de cada banda. Un perfil d'abans d'aquesta
+// versió no en té: compta com a 0, o sigui que el del núvol mana. Si el local
+// és més nou (o el núvol no en té cap), es puja.
+async function syncPseudonim() {
+  const remot = await window.fbLoadProfile?.();
+  const local = safeParse('cat_profile_v1') || {};
+  const localAt = +local.at || 0;
+  const remotAt = +(remot && remot.at) || 0;
+  if (remot && remot.pseudo !== undefined && remotAt > localAt) {
+    localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo: remot.pseudo, at: remotAt }));
+    if (_navState.screen === 'menu') renderMenu();
+    else if (_navState.screen === 'profile') renderProfile();
+  } else if (local.pseudo && localAt >= remotAt) {
+    window.fbSaveProfile?.({ pseudo: local.pseudo, at: localAt });
+  }
+}
+
 // Escapa el que escriu la persona abans de posar-ho a un template d'HTML.
 function escText(t) {
   return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -3104,7 +3122,11 @@ function escText(t) {
 
 function saveProfileData() {
   const pseudo = document.getElementById('prof-pseudo').value.trim();
-  localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo }));
+  // El segell «at» és el que decideix qui guanya quan dos dispositius discrepen:
+  // el més recent. Mateix criteri que el progrés, que ja porta progressAt.
+  const at = Date.now();
+  localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo, at }));
+  window.fbSaveProfile?.({ pseudo, at });
   const btn = document.getElementById('prof-save');
   btn.textContent = '✓ Desat!';
   btn.style.background = '#059669';
@@ -3559,6 +3581,8 @@ document.addEventListener('fb-auth-change', async (e) => {
   refreshNotifSection();
   if (!shouldShowOnboarding()) showWhatsNew();
   if (!user) return;
+
+  syncPseudonim();
 
   const cloud = await window.fbLoadProgress?.();
   if (!cloud) {
