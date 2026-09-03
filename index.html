@@ -3100,15 +3100,16 @@ function renderNotificationsSection() {
       || (typeof window.matchMedia === 'function' && window.matchMedia('(display-mode: standalone)').matches);
     const cos = dinsApp ? `
           <p style="font-size:14px;line-height:1.6;margin:0 0 8px;">
-            Les notificacions d'<strong>AprènCatalà</strong> estan <strong>desactivades a la configuració d'Android</strong>. Des d'aquí no es poden tornar a demanar; cal activar-les al sistema:
+            Les notificacions d'<strong>AprènCatalà</strong> estan <strong>bloquejades al sistema</strong>. Des d'aquí no es poden tornar a demanar; cal desbloquejar-les a la configuració d'Android:
           </p>
           <ol style="font-size:14px;line-height:1.7;margin:0;padding-left:18px;">
-            <li>Mantén premuda la <strong>icona de l'app</strong> a la pantalla d'inici i obre <strong>ⓘ Informació de l'app</strong> (o ves a <strong>Configuració → Aplicacions → AprènCatalà</strong>).</li>
-            <li>Entra a <strong>Notificacions</strong> i activa-les.</li>
-            <li>Torna a obrir l'app i torna en aquesta pantalla.</li>
+            <li>Obre <strong>Configuració → Aplicacions → AprènCatalà</strong> (o mantén premuda la icona de l'app i entra a <strong>ⓘ Informació de l'app</strong>).</li>
+            <li>Entra a <strong>Emmagatzematge → Gestiona l'espai</strong>: s'obre la configuració d'aquest lloc. Posa-hi <strong>Notificacions</strong> a <strong>Permet</strong>.</li>
+            <li>Torna enrere i comprova que <strong>Notificacions</strong> de l'app també estiguin activades.</li>
+            <li><strong>Tanca l'app del tot</strong> i torna-la a obrir: mentre estigui oberta, el permís vell no es rellegeix.</li>
           </ol>
           <p style="font-size:13px;line-height:1.6;margin:10px 0 0;opacity:0.85;">
-            Si l'avís continua després de fer-ho, el bloqueig ve del navegador: obre <strong>Chrome → ⋮ → Configuració → Configuració de llocs → Notificacions</strong> i posa <em>app.aprencatala.cat</em> a <strong>Permet</strong>.
+            ⚠️ A la pantalla de l'espai no toquis <strong>«Esborra i restableix»</strong>: esborraria el progrés guardat en aquest dispositiu.
           </p>` : `
           <p style="font-size:14px;line-height:1.6;margin:0 0 8px;">
             Les notificacions estan <strong>bloquejades</strong> per a <em>app.aprencatala.cat</em> al teu navegador. Per activar-les:
