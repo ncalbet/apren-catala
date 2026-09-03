@@ -3080,10 +3080,24 @@ function renderHelp() {
 }
 
 // ══ PERFIL ══
+// El pseudònim és l'únic camp del perfil. Fins ara n'hi havia dos —«nom» i
+// «pseudònim»— i cap dels dos es feia servir enlloc: es desaven i només es
+// tornaven a llegir per reomplir els mateixos camps. Ara el pseudònim surt a la
+// salutació de l'Inici i als banners; el camp «nom» s'ha retirat, i si algú
+// només l'havia omplert a ell, el seu valor passa a fer de pseudònim en lloc de
+// quedar orfe. Es desa NOMÉS en aquest dispositiu (no puja a Firestore).
+function getPseudo() {
+  const p = safeParse('cat_profile_v1') || {};
+  return ((p.pseudo || p.nom || '') + '').trim();
+}
+// Escapa el que escriu la persona abans de posar-ho a un template d'HTML.
+function escText(t) {
+  return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function saveProfileData() {
-  const nom = document.getElementById('prof-nom').value.trim();
   const pseudo = document.getElementById('prof-pseudo').value.trim();
-  localStorage.setItem('cat_profile_v1', JSON.stringify({ nom, pseudo }));
+  localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo }));
   const btn = document.getElementById('prof-save');
   btn.textContent = '✓ Desat!';
   btn.style.background = '#059669';
@@ -3266,8 +3280,7 @@ function dismissKofiBanner() {
 }
 
 function renderProfile() {
-  const p = safeParse('cat_profile_v1') || {};
-  const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  const esc = escText;
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
@@ -3279,12 +3292,8 @@ function renderProfile() {
       </div>
 
       <div style="margin-bottom:10px;">
-        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">NOM</label>
-        <input id="prof-nom" class="ct-input" style="margin-top:0;" placeholder="El teu nom" value="${esc(p.nom)}">
-      </div>
-      <div style="margin-bottom:10px;">
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
-        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Nom per mostrar a l'app" value="${esc(p.pseudo)}">
+        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" placeholder="Com vols que et diguem" value="${esc(getPseudo())}">
       </div>
       <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
 
