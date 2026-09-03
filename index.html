@@ -568,7 +568,7 @@ const KOFI_SILENCI_DIES = 30;
 // banners, i un text llarg els trencaria. AQUÍ DALT pel mateix motiu que les
 // de Ko-fi: getPseudo() la llegeix des de renderMenu(), i renderMenu() es crida
 // des del bloc d'arrencada.
-const PSEUDO_MAX = 24;
+const PSEUDO_MAX = 12;
 
 // Banner ✨ «Contingut actualitzat»: desactivat a la v107 perquè aquesta feina la fa
 // ara el modal showWhatsNew() en engegar l'app. Tenir-hi també el banner seria dir el
@@ -3300,7 +3300,7 @@ function renderProfile() {
 
       <div style="margin-bottom:10px;">
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
-        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" maxlength="24" placeholder="Com vols que et diguem" value="${esc(getPseudo())}">
+        <input id="prof-pseudo" class="ct-input" style="margin-top:0;" maxlength="12" placeholder="Com vols que et diguem" value="${esc(getPseudo())}">
       </div>
       <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
 
