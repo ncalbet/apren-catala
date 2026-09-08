@@ -774,7 +774,9 @@ function showEncouragement(category) {
   if (fa) fa.appendChild(el);
 }
 // \u2550\u2550 COMPARTIR A XARXES \u2550\u2550
-const APP_SHARE_URL = 'https://app.aprencatala.cat';
+// On porten els botons de compartir: la fitxa de Play, no el web. Qui rep el
+// missatge acaba amb l'app instal\u00b7lada.
+const APP_SHARE_URL = 'https://play.google.com/store/apps/details?id=cat.aprencatala.app';
 function shareToast(msg) {
   const el = document.createElement('div');
   el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
@@ -790,10 +792,11 @@ function shareToast(msg) {
 // l'error m\u00e9s car d'aquest projecte \u2014 el que no peta i sembla que funcioni.
 function shareText(text) {
   const full = text + '\n\ud83d\udc49 ' + APP_SHARE_URL;
-  // L'enlla\u00e7 va al camp `url`, no enganxat dins del text. \u00c9s el que la Web
-  // Share API espera, i fa que el destinatari el rebi com un enlla\u00e7 net en
-  // comptes d'una ratlla m\u00e9s de la frase \u2014 que \u00e9s el que li cal a WhatsApp
-  // per dibuixar la targeta de previsualitzaci\u00f3.
+  // L'enlla\u00e7 va al camp `url`, no enganxat dins del text: \u00e9s el que la Web
+  // Share API espera i fa que el destinatari el rebi com un enlla\u00e7 net.
+  // \u26a0 Amb la fitxa de Play no hi haur\u00e0 targeta de previsualitzaci\u00f3 al
+  // WhatsApp: la seva og:image \u00e9s al 84% d'un document d'1,2 MB i cap
+  // rastrejador hi arriba. \u00c9s la p\u00e0gina de Google i no es pot arreglar.
   if (navigator.share) {
     navigator.share({ title: 'Apr\u00e8nCatal\u00e0', text, url: APP_SHARE_URL })
       .catch(err => {
