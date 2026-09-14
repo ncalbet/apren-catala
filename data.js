@@ -3678,7 +3678,7 @@ const DATA = {
       answers:['tot seguit','a continuació','posteriorment','finalment','seguidament','després','acte seguit'],
       variants:[
         { sentence:'La candidata va saludar el públic, va exposar el seu programa i ___ va respondre les crítiques amb calma.', display:'connector temporal', answers:['tot seguit','a continuació','posteriorment','finalment','seguidament','després','acte seguit'] },
-        { sentence:'L\'investigadora va recollir les dades, les va analitzar i ___ va publicar els resultats.', display:'connector temporal', answers:['tot seguit','a continuació','posteriorment','finalment','seguidament','després','acte seguit'] },
+        { sentence:'La investigadora va recollir les dades, les va analitzar i ___ en va publicar els resultats.', display:'connector temporal', answers:['tot seguit','a continuació','posteriorment','finalment','seguidament','després','acte seguit'] },
       ],
       theory:'En català el pronom subjecte s\'omet quan el context queda clar (el·lipsi). El connector temporal afegeix ordre.', example:'El director va parlar, va respondre preguntes i tot seguit va marxar.' },
     { id:'b2-coh4', type:'reorder', level:'b2', category:'Cohesió textual',
