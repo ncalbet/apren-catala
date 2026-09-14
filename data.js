@@ -3837,7 +3837,7 @@ const DATA = {
       display:'verb pronominal: ___-me (no «donar-me compte»)',
       answers:['adonar-me'],
       variants:[
-        { text:'Molts errors freqüents en català són calcs del castellà: expressions traduïdes literalment que tenen una forma genuïna pròpia.', sentence:'No sé si t\'has volgut ___ del problema, però és greu.', display:'verb pronominal: ___-te (no «donar-te compte»)', answers:['adonar-te'] },
+        { text:'Molts errors freqüents en català són calcs del castellà: expressions traduïdes literalment que tenen una forma genuïna pròpia.', sentence:'No sé si has volgut ___ del problema, però és greu.', display:'verb pronominal: ___-te (no «donar-te compte»)', answers:['adonar-te'] },
         { text:'Molts errors freqüents en català són calcs del castellà: expressions traduïdes literalment que tenen una forma genuïna pròpia.', sentence:'Tothom es va ___ de seguida que alguna cosa no anava bé.', display:'verb pronominal: es va ___ (no «donar-se compte»)', answers:['adonar'] },
       ],
       theory:'«Donar-se compte» és un calc de «darse cuenta». La forma correcta en català és «adonar-se (de)».', example:'Em vaig adonar que havia oblidat les claus.' },
