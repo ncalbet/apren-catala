@@ -1,4 +1,6 @@
 'use strict';
+// ⚠️ El repo és PÚBLIC i el log de les Actions també: qualsevol el pot llegir.
+// Cap línia de log pot dur res que identifiqui un usuari (ni uid, ni correu, ni token).
 const admin = require('firebase-admin');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -201,7 +203,7 @@ async function run() {
           notifLastSent: admin.firestore.FieldValue.delete()
         });
         reset++;
-        console.log(`🔄 Cadència reiniciada (ha tornat a practicar): ${userDoc.id}`);
+        console.log('🔄 Cadència reiniciada (ha tornat a practicar)');
       } else if (daysSince > schedule[schedule.length - 1]) {
         paused++;   // ha superat l'últim recordatori de la corba: en pausa
       }
@@ -230,7 +232,7 @@ async function run() {
       });
     } catch (e) {
       errors++;
-      console.warn(`❌ No s'ha pogut registrar l'enviament ${userDoc.id}: ${e.code || e.message}`);
+      console.warn(`❌ No s'ha pogut registrar un enviament: ${e.code || e.message}`);
       continue;
     }
 
@@ -243,10 +245,10 @@ async function run() {
         }
       });
       sent++;
-      console.log(`✅ Enviat a ${userDoc.id}: "${notification.title}"`);
+      console.log(`✅ Enviat: "${notification.title}"`);
     } catch (e) {
       errors++;
-      console.warn(`❌ Error enviant ${userDoc.id}: ${e.code}`);
+      console.warn(`❌ Error enviant: ${e.code}`);
       if (e.code === 'messaging/registration-token-not-registered') {
         invalidTokens.push(userDoc.id);
       }
@@ -258,7 +260,7 @@ async function run() {
       fcmToken: admin.firestore.FieldValue.delete(),
       notificacionsActives: false
     });
-    console.log(`🧹 Token invàlid eliminat: ${uid}`);
+    console.log('🧹 Token invàlid eliminat');
   }
 
   console.log(`\nResultat: ${sent} enviats, ${skipped} omesos (${paused} en pausa, ${reset} cadències reiniciades), ${errors} errors.`);
