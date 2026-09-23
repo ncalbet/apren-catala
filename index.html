@@ -887,6 +887,8 @@ function showTab(tab) {
     document.getElementById('drop-' + tab).classList.add('active');
   } else if (tab === 'review') {
     document.getElementById('nav-levels').classList.add('active');
+  } else if (tab === 'lliga') {
+    document.getElementById('nav-menu').classList.add('active');
   } else if (tab === 'help') {
     // L'Ajuda ja no té pestanya pròpia (Material: màxim 5 destinacions): viu dins del Perfil
     document.getElementById('nav-profile').classList.add('active');
@@ -905,6 +907,7 @@ function showTab(tab) {
   else if (tab === 'achievements') renderAchievements();
   else if (tab === 'help') renderHelp();
   else if (tab === 'profile') renderProfile();
+  else if (tab === 'lliga') renderLliga();
   else renderProgress();
 }
 function toggleLevelsMenu() {
@@ -981,6 +984,7 @@ function renderMenu() {
     ${novetatsBanner}
     ${notifBanner}
     ${kofiBanner}
+    ${lligaTargetaHTML()}
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">${pseudo ? `Hola, ${pseudo}!` : 'Benvingut/da!'}</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
@@ -1019,6 +1023,7 @@ function renderMenu() {
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('iec')"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Novetats IEC</button>
       ${needsReview > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:var(--accent-green-bg);border-color:#059669;color:#059669;" onclick="showTab('review')"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Repàs intel·ligent</button>` : ''}
     </div>`;
+  lligaRefrescaTargeta();
 }
 
 function renderLevelMenu(level) {
@@ -1596,6 +1601,7 @@ function markDone(ok, xp) {
     progress.xpReps[q.id] = { date: todayISO, n: repsToday + 1 };
     if (xpAwarded > 0) {
       progress.xp += xpAwarded;
+      lligaSumaXP(xpAwarded);
       showXPPop(xpAwarded);
       const newLevel = getLevel(progress.xp);
       if (newLevel.name !== prevLevel.name) showLevelUp(newLevel);
@@ -1612,6 +1618,7 @@ function markDone(ok, xp) {
   if (newM >= 5 && prevMax < 5) {
     const nivellAbans = getLevel(progress.xp);
     progress.xp += 25;
+    lligaSumaXP(25);
     const nivellDespres = getLevel(progress.xp);
     // Retardat 500 ms perquè no se solapi amb el pop de l'XP de l'exercici.
     setTimeout(() => {
@@ -1675,6 +1682,7 @@ function markDone(ok, xp) {
       // Tots completats! Bonus XP
       setTimeout(() => {
         progress.xp += 50;
+        lligaSumaXP(50);
         showXPPop(50);
         const el = document.createElement('div');
         el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
@@ -2208,6 +2216,8 @@ function renderAchievements() {
 
       ${renderDailyChallengeSection()}
 
+      ${renderMedallesLliga()}
+
       <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Activitat dels últims 7 dies</div>
       ${render7DayHistory()}
 
@@ -2476,6 +2486,459 @@ function renderProgress() {
         <span style="font-size:18px;margin-left:auto;">→</span>
       </a>
     </div>`;
+}
+
+// ══ LLIGA SETMANAL ══
+// Disseny sencer: §4 de Catala/pla-millores-recorreguts.md. Qui fa complir les normes
+// (el sostre de 150 al dia, les dates de la setmana, els pseudònims únics) són les
+// regles de Firestore (firestore.rules). Aquí es calcula el mateix per ensenyar-ho.
+// ⚠️ Totes les const/let d'aquí han d'anar ABANS del bloc d'arrencada: renderMenu()
+// les llegeix (veure el comentari de PSEUDO_MAX).
+
+// Obertura: dilluns 28/9/2026 a les 00:00 de Madrid (22:00 UTC del diumenge). Abans
+// no es veu enlloc, tret dels dispositius amb l'interruptor de prova
+// (localStorage «cat_lliga_prova» = '1').
+const LLIGA_OBERTURA = Date.UTC(2026, 8, 27, 22, 0);
+const LLIGA_PRIMERA_SETMANA = '2026-09-28';
+const LLIGA_SOSTRE = 150;
+const LLIGA_KEY = 'cat_lliga_v1';
+// Mateix patró que pseudonimValid() de firestore.rules.
+const PSEUDO_PATRO = /^[A-Za-z0-9àáèéíïòóúüçñÀÁÈÉÍÏÒÓÚÜÇÑ·' ._-]+$/;
+const LLIGA_MEDALLES = ['🥇', '🥈', '🥉'];
+const LLIGA_ICONA = '<svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+let _lligaCache = null;    // { setmana, t, dades }: l'última classificació llegida
+let _lligaCompte = null;   // { t, n }: quanta gent hi participa
+let _lligaEnviant = false;
+
+function lligaVisible() {
+  if (Date.now() >= LLIGA_OBERTURA) return true;
+  try { return localStorage.getItem('cat_lliga_prova') === '1'; } catch (e) { return false; }
+}
+
+// ── Dates de Madrid. Mateix càlcul que scripts/lliga_setmanal.cjs ──
+// El formatador es crea una sola vegada: crear-ne un a cada crida és lent.
+const FMT_MADRID = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Madrid', hourCycle: 'h23',
+  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+});
+function partsMadrid(ms) {
+  const p = Object.fromEntries(FMT_MADRID.formatToParts(new Date(ms)).map(x => [x.type, x.value]));
+  return { y: +p.year, m: +p.month, d: +p.day, h: +p.hour, mi: +p.minute };
+}
+// El dia d'avui a Madrid com a enter AAAAMMDD: el que comproven les regles.
+function diaMadrid(ms) {
+  const p = partsMadrid(ms);
+  return p.y * 10000 + p.m * 100 + p.d;
+}
+function dataAAAAMMDD(t) {
+  return `${t.getUTCFullYear()}-${String(t.getUTCMonth() + 1).padStart(2, '0')}-${String(t.getUTCDate()).padStart(2, '0')}`;
+}
+// Dilluns (AAAA-MM-DD) de la setmana de Madrid: és l'identificador de la setmana.
+function setmanaMadrid(ms) {
+  const p = partsMadrid(ms);
+  const t = new Date(Date.UTC(p.y, p.m - 1, p.d));
+  t.setUTCDate(t.getUTCDate() - (t.getUTCDay() + 6) % 7);
+  return dataAAAAMMDD(t);
+}
+function sumaDiesData(s, n) {
+  const [y, m, d] = s.split('-').map(Number);
+  return dataAAAAMMDD(new Date(Date.UTC(y, m - 1, d + n)));
+}
+// Totes les setmanes on hi pot haver punts d'aquest compte (per esborrar-los amb
+// el compte). Inclou la setmana en curs encara que sigui anterior a l'obertura: és
+// on van a parar els punts de prova.
+function lligaTotesLesSetmanes() {
+  const fins = setmanaMadrid(Date.now());
+  const totes = [];
+  for (let s = LLIGA_PRIMERA_SETMANA; s <= fins; s = sumaDiesData(s, 7)) totes.push(s);
+  if (fins < LLIGA_PRIMERA_SETMANA) totes.push(fins);
+  return totes;
+}
+window.lligaTotesLesSetmanes = lligaTotesLesSetmanes;
+
+// ── Pseudònims ──
+// Clau de reserva: minúscules, sense accents, només lletres i xifres. «Marta»,
+// «marta» i «Màrta» són el mateix pseudònim.
+// ⚠️ Ha de donar EXACTAMENT el mateix que clauDe() de firestore.rules.
+function clauPseudonim(p) {
+  return (p || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
+}
+function pseudonimValid(p) {
+  return typeof p === 'string' && p.length >= 3 && p.length <= PSEUDO_MAX
+    && PSEUDO_PATRO.test(p) && clauPseudonim(p).length >= 3;
+}
+const PSEUDO_ERROR_FORMAT = 'El pseudònim ha de tenir de 3 a 15 caràcters: lletres, xifres, espais i · \' . _ -';
+const PSEUDO_ERROR_AGAFAT = 'Aquest pseudònim ja és d\'algú altre. Prova\'n un altre.';
+
+// ── Estat d'aquest dispositiu: còpia del que hi ha a Firestore, més els punts pendents ──
+function lligaLocal() { return safeParse(LLIGA_KEY) || {}; }
+function desaLligaLocal(canvis) {
+  try { localStorage.setItem(LLIGA_KEY, JSON.stringify({ ...lligaLocal(), ...canvis })); } catch (e) {}
+}
+
+// ── Classificació ──
+// Tots els perfils, amb els punts de la setmana (0 si encara no n'han fet). Els
+// empats comparteixen posició (1, 1, 3…), com el podi del cron.
+function lligaFiles(dades) {
+  const files = dades.perfils.map(p => ({
+    lid: p.lid, pseudonim: p.pseudonim || '', medalles: p.medalles || {},
+    punts: (dades.punts[p.lid] || {}).punts || 0,
+  }));
+  files.sort((a, b) => b.punts - a.punts || a.pseudonim.localeCompare(b.pseudonim, 'ca'));
+  files.forEach((f, i) => {
+    f.posicio = (i > 0 && f.punts === files[i - 1].punts) ? files[i - 1].posicio : i + 1;
+  });
+  return files;
+}
+// Podi: només qui ha fet algun punt, posicions 1 a 3. Mateix criteri que podiDe()
+// de scripts/lliga_setmanal.cjs.
+function podiDe(files) {
+  const amb = files.filter(f => f.punts > 0).sort((a, b) => b.punts - a.punts);
+  const podi = [];
+  amb.forEach((f, i) => {
+    podi.push({ ...f, posicio: (i > 0 && f.punts === amb[i - 1].punts) ? podi[i - 1].posicio : i + 1 });
+  });
+  return podi.filter(f => f.posicio <= 3);
+}
+
+// ── Punts: cada XP que guanyes passa per aquí ──
+// Els punts s'acumulen com a pendents d'avui i s'envien. Si no hi ha connexió, es
+// queden pendents fins al proper XP o fins a la propera vegada que s'obri l'app. Els
+// d'un dia passat es perden: les regles no accepten punts d'un dia que no és avui.
+function lligaSumaXP(xp) {
+  if (!(xp > 0) || !window.fbUser) return;
+  const l = lligaLocal();
+  if (!l.dins || !l.lid || !lligaVisible()) return;
+  const ara = Date.now();
+  const setmana = setmanaMadrid(ara), dia = diaMadrid(ara);
+  let p = l.pendent;
+  if (!p || p.dia !== dia || p.setmana !== setmana) p = { setmana, dia, xp: 0 };
+  p.xp += xp;
+  desaLligaLocal({ pendent: p });
+  lligaBuidaPendent();
+}
+async function lligaBuidaPendent() {
+  if (_lligaEnviant || !window.fbLligaSuma || !window.fbUser) return;
+  const l = lligaLocal();
+  const p = l.pendent;
+  if (!l.dins || !l.lid || !p || !(p.xp > 0)) return;
+  if (p.dia !== diaMadrid(Date.now())) { desaLligaLocal({ pendent: null }); return; }
+  _lligaEnviant = true;
+  let reenvia = false;
+  try {
+    const r = await window.fbLligaSuma(l.lid, p.setmana, p.dia, p.xp, LLIGA_SOSTRE);
+    // El que s'ha enviat ja és al servidor o ha topat amb el sostre. Si mentrestant
+    // n'ha entrat més, es torna a enviar.
+    const ara = lligaLocal().pendent;
+    const resta = (ara && ara.dia === p.dia) ? ara.xp - p.xp : 0;
+    desaLligaLocal({ pendent: resta > 0 ? { ...p, xp: resta } : null });
+    reenvia = resta > 0;
+    if (_lligaCache && _lligaCache.setmana === p.setmana) {
+      _lligaCache.dades.punts[l.lid] = { punts: r.punts, puntsDia: r.puntsDia, dia: r.dia };
+    }
+  } catch (e) {
+    // Sense connexió o rebutjat: es queda pendent.
+  } finally {
+    _lligaEnviant = false;
+  }
+  if (reenvia) lligaBuidaPendent();
+}
+
+// En iniciar sessió: quin és l'estat de lliga d'aquest compte.
+async function lligaSincronitza() {
+  const e = await window.fbLligaEstat?.();
+  if (!e) return;
+  desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau });
+  lligaBuidaPendent();
+  if (_navState.screen === 'lliga') renderLliga();
+  else if (_navState.screen === 'menu') lligaRefrescaTargeta();
+  lligaComprovaFesta();
+}
+
+// ── Targeta de l'Inici ──
+function lligaTargetaInner() {
+  const l = lligaLocal();
+  let sub;
+  if (window.fbUser && l.dins) {
+    const c = _lligaCache;
+    const jo = (c && c.setmana === setmanaMadrid(Date.now())) ? lligaFiles(c.dades).find(f => f.lid === l.lid) : null;
+    sub = jo ? `Posició ${jo.posicio} · ${jo.punts} punts` : 'Mira la classificació';
+  } else {
+    const n = _lligaCompte && _lligaCompte.n;
+    sub = (n ? `${n} ${n === 1 ? 'persona' : 'persones'} · ` : '') + 'Participa!';
+  }
+  return `<span style="font-size:28px;flex-shrink:0;">🏆</span>
+    <span style="flex:1;min-width:0;">
+      <span style="display:block;font-size:15px;font-weight:700;color:var(--heading);">Lliga setmanal</span>
+      <span style="display:block;font-size:13px;color:var(--muted);margin-top:2px;">${sub}</span>
+    </span>
+    <span style="font-size:22px;color:var(--muted);flex-shrink:0;">›</span>`;
+}
+function lligaTargetaHTML() {
+  if (!lligaVisible()) return '';
+  return `<button id="lliga-targeta" class="ct-card" onclick="showTab('lliga')"
+    style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 18px;margin-bottom:16px;cursor:pointer;text-align:left;font:inherit;color:inherit;">${lligaTargetaInner()}</button>`;
+}
+// Actualitza només la targeta (no tota la portada) quan arriben les dades.
+async function lligaRefrescaTargeta() {
+  if (!lligaVisible() || !window.fbUser) return;
+  const l = lligaLocal();
+  const ara = Date.now();
+  try {
+    if (l.dins) {
+      const s = setmanaMadrid(ara);
+      if (!_lligaCache || _lligaCache.setmana !== s || ara - _lligaCache.t > 300000) {
+        const dades = await window.fbLligaClassificacio?.(s);
+        if (dades) _lligaCache = { setmana: s, t: Date.now(), dades };
+      }
+    } else if (!_lligaCompte || ara - _lligaCompte.t > 300000) {
+      const n = await window.fbLligaCompta?.();
+      if (n != null) _lligaCompte = { t: Date.now(), n };
+    }
+  } catch (e) { return; }
+  // Si ja no s'és a l'Inici, la targeta no existeix i no es toca res.
+  const el = document.getElementById('lliga-targeta');
+  if (el) el.innerHTML = lligaTargetaInner();
+}
+
+// ── Pantalla de la lliga ──
+function lligaInstruccionsHTML() {
+  return `<ol style="font-size:14px;color:var(--text-soft);line-height:1.6;padding-left:20px;margin:0 0 18px;">
+    <li style="margin-bottom:8px;"><strong>Cada dia et comptem fins a ${LLIGA_SOSTRE} XP.</strong> Els que guanyis de més també són teus, però no sumen a la lliga.</li>
+    <li style="margin-bottom:8px;"><strong>És setmanal:</strong> comença dilluns i acaba diumenge a la nit. Cada dilluns, tothom torna a zero.</li>
+    <li><strong>Les tres primeres posicions</strong> de cada setmana guanyen medalla ${LLIGA_MEDALLES.join('')}.</li>
+  </ol>`;
+}
+function lligaMostraAjuda() {
+  const el = document.getElementById('lliga-ajuda');
+  if (el) el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+function renderLliga() {
+  window.scrollTo(0, 0);
+  const l = lligaLocal();
+  const dins = !!(window.fbUser && l.dins);
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card" style="max-width:600px;margin:0 auto;">
+      <button onclick="showTab('menu')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Inici</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">${LLIGA_ICONA} Lliga setmanal</div>
+        ${dins ? `<button type="button" class="ct-help-btn" onclick="lligaMostraAjuda()" aria-label="Com funciona la lliga" title="Com funciona la lliga">?</button>` : ''}
+      </div>
+      ${dins ? `<div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}</div>` : ''}
+      <div id="lliga-cos">${lligaCosHTML()}</div>
+    </div>`;
+  if (dins) lligaCarregaClassificacio();
+}
+function lligaCosHTML() {
+  if (!lligaVisible()) {
+    return `<p style="font-size:14px;color:var(--muted);">La lliga encara no ha començat.</p>`;
+  }
+  if (!window.fbUser) {
+    return `${lligaInstruccionsHTML()}
+      <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">Per participar a la lliga cal tenir un compte.</p>
+      <button class="ct-btn primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;" onclick="fbHandleSignIn()">${_googleSVG} Continua amb Google</button>
+      <button class="ct-btn secondary" style="width:100%;margin-bottom:0;" onclick="showEmailAuthModal()">Entra amb correu i contrasenya</button>`;
+  }
+  if (!lligaLocal().dins) {
+    const pseudo = getPseudo();
+    const valid = pseudonimValid(pseudo);
+    return `
+      ${valid ? `<div id="lliga-pseudo-vista" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="flex:1;min-width:0;font-size:14px;color:var(--text-soft);">Hi sortiràs com a <strong style="color:var(--text);overflow-wrap:anywhere;">${escText(pseudo)}</strong></div>
+        <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;flex-shrink:0;margin:0;" onclick="lligaEditaPseudo()">Canvia'l</button>
+      </div>` : ''}
+      <div id="lliga-pseudo-edicio" style="margin-bottom:16px;${valid ? 'display:none;' : ''}">
+        <label for="lliga-pseudo" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">EL TEU PSEUDÒNIM</label>
+        <input id="lliga-pseudo" class="ct-input" style="margin-top:0;" maxlength="${PSEUDO_MAX}" placeholder="Com vols sortir a la classificació" value="${escText(pseudo)}">
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">De 3 a 15 caràcters: lletres, xifres, espais i · ' . _ -</div>
+      </div>
+      ${lligaInstruccionsHTML()}
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);line-height:1.5;margin-bottom:12px;cursor:pointer;">
+        <input type="checkbox" id="lliga-accepto" style="margin-top:3px;flex-shrink:0;"
+          onchange="document.getElementById('lliga-entra').disabled = !this.checked">
+        <span>Vull sortir a la classificació amb el meu pseudònim, els punts de la setmana i les medalles.</span>
+      </label>
+      <div id="lliga-error" role="alert" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
+      <button id="lliga-entra" class="ct-btn primary" style="width:100%;margin:0;" disabled onclick="lligaEntra()">Entra a la lliga</button>`;
+  }
+  return `<p style="font-size:14px;color:var(--muted);">Carregant la classificació…</p>`;
+}
+function lligaEditaPseudo() {
+  const vista = document.getElementById('lliga-pseudo-vista');
+  const edicio = document.getElementById('lliga-pseudo-edicio');
+  if (vista) vista.style.display = 'none';
+  if (edicio) edicio.style.display = '';
+  const camp = document.getElementById('lliga-pseudo');
+  if (camp) { camp.focus(); camp.select(); }
+}
+async function lligaEntra() {
+  const err = document.getElementById('lliga-error');
+  const btn = document.getElementById('lliga-entra');
+  const camp = document.getElementById('lliga-pseudo');
+  const pseudo = ((camp && camp.value) || '').trim();
+  err.textContent = '';
+  if (!pseudonimValid(pseudo)) { err.textContent = PSEUDO_ERROR_FORMAT; lligaEditaPseudo(); return; }
+  if (!document.getElementById('lliga-accepto').checked) return;
+  btn.disabled = true;
+  btn.textContent = 'Un moment…';
+  const ara = Date.now();
+  const clau = clauPseudonim(pseudo);
+  const r = await window.fbLligaEntra?.(pseudo, clau, setmanaMadrid(ara), diaMadrid(ara));
+  if (!r || !r.ok) {
+    if (r && r.reason === 'agafat') { err.textContent = PSEUDO_ERROR_AGAFAT; lligaEditaPseudo(); }
+    else err.textContent = 'No s\'ha pogut entrar a la lliga. Comprova la connexió i torna-ho a provar.';
+    btn.disabled = false;
+    btn.textContent = 'Entra a la lliga';
+    return;
+  }
+  // El pseudònim de la lliga és el de tota l'app: també el de la salutació.
+  const at = Date.now();
+  localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo, at }));
+  window.fbSaveProfile?.({ pseudo, at });
+  desaLligaLocal({ lid: r.lid, dins: true, clau });
+  _lligaCache = null;
+  renderLliga();
+}
+async function lligaCarregaClassificacio() {
+  const s = setmanaMadrid(Date.now());
+  let dades = null;
+  try { dades = await window.fbLligaClassificacio?.(s); } catch (e) { dades = null; }
+  if (_navState.screen !== 'lliga') return;
+  const cos = document.getElementById('lliga-cos');
+  if (!cos) return;
+  if (!dades) {
+    cos.innerHTML = `<p style="font-size:14px;color:var(--muted);margin-bottom:12px;">No s'ha pogut carregar la classificació.</p>
+      <button class="ct-btn secondary" style="width:100%;margin:0;" onclick="renderLliga()">Torna-ho a provar</button>`;
+    return;
+  }
+  const l = lligaLocal();
+  const jo = dades.perfils.find(p => p.lid === l.lid);
+  if (!jo) {
+    // El perfil ja no hi és: n'ha sortit des d'un altre dispositiu.
+    desaLligaLocal({ dins: false });
+    renderLliga();
+    return;
+  }
+  _lligaCache = { setmana: s, t: Date.now(), dades };
+  lligaDesaMedalles(jo.medalles);
+  cos.innerHTML = lligaClassificacioHTML(dades, l.lid);
+  lligaPodiAnterior();
+}
+// Còpia privada de les medalles, perquè Fites les ensenyi encara que surtis de la lliga.
+function lligaDesaMedalles(m) {
+  const nou = { or: m.or || 0, plata: m.plata || 0, bronze: m.bronze || 0 };
+  const vell = progress.lligaMedalles || {};
+  if (nou.or === vell.or && nou.plata === vell.plata && nou.bronze === vell.bronze) return;
+  progress.lligaMedalles = nou;
+  saveProgress();
+}
+function lligaMedallesMini(m) {
+  const t = [['or', 0], ['plata', 1], ['bronze', 2]].filter(([k]) => m && m[k] > 0)
+    .map(([k, i]) => `${LLIGA_MEDALLES[i]}${m[k] > 1 ? m[k] : ''}`);
+  return t.length ? ` <span style="font-size:12px;font-weight:400;white-space:nowrap;">${t.join(' ')}</span>` : '';
+}
+function lligaDiaMes(ms) {
+  return new Date(ms).toLocaleDateString('ca-ES', { day: 'numeric', month: 'long', timeZone: 'Europe/Madrid' });
+}
+function lligaClassificacioHTML(dades, lid) {
+  const w = dades.setmana;
+  if (!w || Date.now() < w.inici) {
+    return `<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Ja hi ets! La primera setmana comença dilluns 28 de setembre a les 00:00.</p>`;
+  }
+  const meu = dades.punts[lid] || {};
+  const avui = meu.dia === diaMadrid(Date.now()) ? (meu.puntsDia || 0) : 0;
+  const pct = Math.min(100, Math.round(avui / LLIGA_SOSTRE * 100));
+  const files = lligaFiles(dades);
+  const llista = files.map(f => {
+    const mi = f.lid === lid;
+    const pos = (f.posicio <= 3 && f.punts > 0) ? LLIGA_MEDALLES[f.posicio - 1] : f.posicio;
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);${mi ? 'background:var(--accent-blue-bg);border-radius:10px;border-bottom-color:transparent;' : ''}">
+      <div style="width:30px;text-align:center;font-weight:700;color:${mi ? 'var(--accent-blue-text)' : 'var(--muted)'};flex-shrink:0;">${pos}</div>
+      <div style="flex:1;min-width:0;overflow-wrap:anywhere;color:${mi ? 'var(--accent-blue-text)' : 'var(--text)'};${mi ? 'font-weight:700;' : ''}">${escText(f.pseudonim)}${mi ? ' (tu)' : ''}${lligaMedallesMini(f.medalles)}</div>
+      <div style="font-weight:700;flex-shrink:0;color:${mi ? 'var(--accent-blue-text)' : 'var(--text)'};">${f.punts}</div>
+    </div>`;
+  }).join('');
+  return `
+    <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Setmana del ${lligaDiaMes(w.inici)} al ${lligaDiaMes(w.fi)} · tanca diumenge a les 23:58</div>
+    <div style="font-size:13px;color:var(--text-soft);margin-bottom:4px;">Avui: <strong>${avui}</strong> de ${LLIGA_SOSTRE} punts</div>
+    <div class="ct-progress-bar" style="margin-bottom:18px;"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
+    <div id="lliga-podi-anterior"></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">${files.length} ${files.length === 1 ? 'persona' : 'persones'} a la lliga</div>
+    ${llista}
+    <button class="ct-btn secondary" style="width:100%;margin:24px 0 0;font-size:13px;" onclick="lligaSurt()">Surt de la lliga</button>`;
+}
+// Podi de la setmana passada, a dalt de la classificació. Si el cron encara no l'ha
+// tancada, es calcula aquí amb el mateix criteri.
+async function lligaPodiAnterior() {
+  const s = sumaDiesData(setmanaMadrid(Date.now()), -7);
+  if (s < LLIGA_PRIMERA_SETMANA) return;
+  let d = null;
+  try { d = await window.fbLligaClassificacio?.(s); } catch (e) { return; }
+  if (!d || !d.setmana || d.setmana.prova || Date.now() < d.setmana.fi) return;
+  const noms = Object.fromEntries(d.perfils.map(p => [p.lid, p.pseudonim]));
+  const podi = (d.setmana.podi || podiDe(lligaFiles(d))).filter(f => noms[f.lid]);
+  const el = document.getElementById('lliga-podi-anterior');
+  if (!el || !podi.length) return;
+  el.innerHTML = `<div style="background:var(--accent-amber-bg);color:var(--accent-amber-text);border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:13px;line-height:1.7;">
+    <strong>Podi de la setmana passada</strong><br>
+    ${podi.map(f => `${LLIGA_MEDALLES[f.posicio - 1]} ${escText(noms[f.lid])} (${f.punts})`).join(' · ')}
+  </div>`;
+}
+function lligaSurt() {
+  showConfirm('Si surts de la lliga, deixaràs de sortir a la classificació i perdràs els punts d\'aquesta setmana. Les medalles que ja tens es queden a Fites.', async () => {
+    const r = await window.fbLligaSurt?.(setmanaMadrid(Date.now()));
+    if (!r || !r.ok) { showAlert('No s\'ha pogut sortir de la lliga. Comprova la connexió i torna-ho a provar.'); return; }
+    desaLligaLocal({ dins: false, pendent: null });
+    _lligaCache = null;
+    renderLliga();
+  });
+}
+
+// ── La festa del podi ──
+// La primera vegada que obres l'app després del tancament de diumenge a les 23:58.
+async function lligaComprovaFesta() {
+  const l = lligaLocal();
+  if (!lligaVisible() || !window.fbUser || !l.dins || !l.lid) return;
+  const s = sumaDiesData(setmanaMadrid(Date.now()), -7);
+  if (s < LLIGA_PRIMERA_SETMANA || l.festa === s) return;
+  let d = null;
+  try { d = await window.fbLligaClassificacio?.(s); } catch (e) { return; }
+  if (!d || !d.setmana || d.setmana.prova || Date.now() < d.setmana.fi) return;
+  desaLligaLocal({ festa: s });
+  const podi = d.setmana.podi || podiDe(lligaFiles(d));
+  const meu = podi.find(f => f.lid === l.lid);
+  if (meu) { lligaMostraFesta(meu.posicio, meu.punts); return; }
+  const files = lligaFiles(d).filter(f => f.punts > 0);
+  const jo = files.find(f => f.lid === l.lid);
+  if (jo) showAlert(`La setmana passada vas acabar a la posició ${jo.posicio} de ${files.length}. Aquesta setmana tornes a començar de zero. Endavant!`);
+}
+function lligaMostraFesta(posicio, punts) {
+  showConfetti();
+  const llocs = ['Primer lloc', 'Segon lloc', 'Tercer lloc'];
+  const overlay = document.createElement('div');
+  overlay.className = 'ct-levelup-overlay';
+  overlay.innerHTML = `
+    <div class="ct-levelup-box">
+      <div class="ct-levelup-emoji">${LLIGA_MEDALLES[posicio - 1]}</div>
+      <div class="ct-levelup-title">Enhorabona!</div>
+      <div style="font-size:22px;font-weight:700;color:var(--heading);margin-bottom:6px;">${llocs[posicio - 1]} a la lliga</div>
+      <div class="ct-levelup-sub">La setmana passada vas fer ${punts} punts. Et guardem la medalla a Fites.</div>
+      <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">Genial! 🎉</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+// ── Fites ──
+function renderMedallesLliga() {
+  if (!lligaVisible()) return '';
+  const m = progress.lligaMedalles || {};
+  const total = (m.or || 0) + (m.plata || 0) + (m.bronze || 0);
+  return `
+    <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:8px;">${LLIGA_ICONA} Medalles de lliga</div>
+    ${total
+      ? `<div style="display:flex;gap:18px;font-size:18px;margin-bottom:10px;">${LLIGA_MEDALLES.map((e, i) => `<span>${e} ${m[['or', 'plata', 'bronze'][i]] || 0}</span>`).join('')}</div>`
+      : `<p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;">Encara no n'has guanyat cap. Les tres primeres posicions de cada setmana s'emporten medalla.</p>`}
+    <button class="ct-btn secondary" style="width:100%;margin:0 0 24px;font-size:13px;" onclick="showTab('lliga')">Mira la classificació</button>`;
 }
 
 // ══ ONBOARDING ══
@@ -3136,14 +3599,34 @@ function editaPseudonim() {
   if (camp) { camp.focus(); camp.select(); }
 }
 
-function saveProfileData() {
+async function saveProfileData() {
   const pseudo = document.getElementById('prof-pseudo').value.trim();
+  const err = document.getElementById('prof-pseudo-error');
+  const btn = document.getElementById('prof-save');
+  if (err) err.textContent = '';
+  // El pseudònim és únic a tota l'app (el fa servir la lliga): format comú a tothom i,
+  // amb la sessió iniciada, reserva abans de desar. Buit vol dir «sense pseudònim».
+  if (pseudo && !pseudonimValid(pseudo)) { if (err) err.textContent = PSEUDO_ERROR_FORMAT; return; }
+  if (!pseudo && window.fbUser && lligaLocal().dins) {
+    if (err) err.textContent = 'A la lliga cal un pseudònim. Si no en vols cap, primer surt de la lliga.';
+    return;
+  }
+  if (pseudo && window.fbUser) {
+    btn.disabled = true;
+    const r = await window.fbReservaPseudonim?.(pseudo, clauPseudonim(pseudo));
+    btn.disabled = false;
+    if (r && !r.ok) {
+      if (err) err.textContent = r.reason === 'agafat' ? PSEUDO_ERROR_AGAFAT : "No s'ha pogut desar. Comprova la connexió i torna-ho a provar.";
+      return;
+    }
+    if (r && r.ok) desaLligaLocal({ clau: clauPseudonim(pseudo) });
+    _lligaCache = null;
+  }
   // El segell «at» és el que decideix qui guanya quan dos dispositius discrepen:
   // el més recent. Mateix criteri que el progrés, que ja porta progressAt.
   const at = Date.now();
   localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo, at }));
   window.fbSaveProfile?.({ pseudo, at });
-  const btn = document.getElementById('prof-save');
   btn.textContent = '✓ Desat!';
   btn.style.background = '#059669';
   // Es repinta el Perfil perquè torni a la vista compacta amb el valor nou. Si el
@@ -3365,6 +3848,7 @@ function renderProfile() {
           <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">PSEUDÒNIM</label>
           <input id="prof-pseudo" class="ct-input" style="margin-top:0;" maxlength="15" placeholder="Com vols que et diguem" value="${esc(pseudoActual)}">
         </div>
+        <div id="prof-pseudo-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
         <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
       </div>
 
@@ -3637,9 +4121,15 @@ document.addEventListener('fb-auth-change', async (e) => {
   fbRefreshAccountUI();
   refreshNotifSection();
   if (!shouldShowOnboarding()) showWhatsNew();
-  if (!user) return;
+  if (!user) {
+    // Sense sessió no es compta res per a la lliga en aquest dispositiu.
+    desaLligaLocal({ lid: null, dins: false, clau: null, pendent: null });
+    _lligaCache = null;
+    return;
+  }
 
   syncPseudonim();
+  lligaSincronitza();
 
   const cloud = await window.fbLoadProgress?.();
   if (!cloud) {
