@@ -1,0 +1,45 @@
+name: Lliga setmanal
+
+# Tanca la setmana (podi i medalles) i en deixa preparades les següents.
+# La setmana tanca diumenge a les 23:58 de Madrid: les 21:58 UTC a l'estiu i les
+# 22:58 UTC a l'hivern. Hi ha molts crons perquè GitHub en descarta una part (veure
+# notificacions.yml); el script és idempotent i una setmana només es tanca una vegada.
+# ⚠️ El repo és públic: el log també. El script només hi escriu recomptes.
+on:
+  schedule:
+    - cron: '5,35 22,23 * * 0'
+    - cron: '5,35 0-6 * * 1'
+  workflow_dispatch:
+    inputs:
+      ordre:
+        description: 'Què cal fer'
+        type: choice
+        options: [tot, prepara, tanca, prova-obre, neteja]
+        default: tot
+      setmana:
+        description: 'Dilluns de la setmana (AAAA-MM-DD), només per a prova-obre i neteja'
+        required: false
+
+concurrency:
+  group: lliga-setmanal
+  cancel-in-progress: false
+
+jobs:
+  lliga:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Instal·la dependències
+        run: npm ci
+        working-directory: scripts
+      - name: Lliga
+        working-directory: scripts
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          ORDRE: ${{ github.event.inputs.ordre || 'tot' }}
+          SETMANA: ${{ github.event.inputs.setmana }}
+        run: |
+          if [ "$ORDRE" = "tot" ]; then node lliga_setmanal.cjs; else node lliga_setmanal.cjs "$ORDRE" "$SETMANA"; fi
