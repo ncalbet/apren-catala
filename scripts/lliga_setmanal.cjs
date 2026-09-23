@@ -20,13 +20,13 @@ const MEDALLES = ['or', 'plata', 'bronze'];
 // ── Hora de Madrid, sense dependències ──
 
 // Parts de la data i l'hora a Madrid per a un instant (ms des de 1970).
+const FMT_MADRID = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Madrid', hourCycle: 'h23',
+  year: 'numeric', month: '2-digit', day: '2-digit',
+  hour: '2-digit', minute: '2-digit', second: '2-digit',
+});
 function partsMadrid(ms) {
-  const f = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Europe/Madrid', hourCycle: 'h23',
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-  });
-  const p = Object.fromEntries(f.formatToParts(new Date(ms)).map(x => [x.type, x.value]));
+  const p = Object.fromEntries(FMT_MADRID.formatToParts(new Date(ms)).map(x => [x.type, x.value]));
   return { y: +p.year, m: +p.month, d: +p.day, h: +p.hour, mi: +p.minute, s: +p.second };
 }
 
