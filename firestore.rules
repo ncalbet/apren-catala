@@ -95,16 +95,36 @@ service cloud.firestore {
 
     // Perfil públic de lliga: el que veu la resta de participants.
     // Les medalles només les escriu el cron de tancament (firebase-admin salta les regles).
+    //
+    // Qui surt de la lliga retira el consentiment: el perfil PERD el pseudònim i la
+    // clau i queda marcat «fora», però conserva les medalles (sense nom, ja no diuen
+    // de qui són). Si hi torna, recupera el nom i les medalles. Esborrar el compte
+    // l'esborra sencer.
     match /lligaPerfils/{lid} {
       allow read: if signat();
       allow create: if propietariLid(lid)
-        && request.resource.data.keys().hasOnly(['pseudonim', 'clau', 'medalles'])
+        && request.resource.data.keys().hasOnly(['pseudonim', 'clau', 'medalles', 'fora'])
         && request.resource.data.medalles == {'or': 0, 'plata': 0, 'bronze': 0}
+        && request.resource.data.fora == false
         && perfilCoherent(request.resource.data);
       allow update: if propietariLid(lid)
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pseudonim', 'clau'])
-        && perfilCoherent(request.resource.data);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pseudonim', 'clau', 'fora'])
+        && (
+          // Hi és (entra, hi torna o canvia de pseudònim): nom coherent i reservat.
+          (request.resource.data.fora == false && perfilCoherent(request.resource.data))
+          ||
+          // Surt: sense nom ni clau.
+          (request.resource.data.fora == true
+            && !('pseudonim' in request.resource.data)
+            && !('clau' in request.resource.data))
+        );
       allow delete: if propietariLid(lid);
+    }
+
+    // Cert si el lid participa ara mateix (té perfil i no n'ha sortit).
+    function participaAra(lid) {
+      return exists(/databases/$(database)/documents/lligaPerfils/$(lid))
+        && get(/databases/$(database)/documents/lligaPerfils/$(lid)).data.fora == false;
     }
 
     // La setmana és oberta de dilluns a les 00:00 fins diumenge a les 23:58:00 (hora
@@ -138,7 +158,7 @@ service cloud.firestore {
 
         allow create: if propietariLid(lid)
           && setmanaOberta(setmana)
-          && exists(/databases/$(database)/documents/lligaPerfils/$(lid))
+          && participaAra(lid)
           && request.resource.data.keys().hasOnly(['punts', 'puntsDia', 'dia'])
           && diaValid(request.resource.data.dia)
           && request.resource.data.puntsDia is int
@@ -148,6 +168,7 @@ service cloud.firestore {
 
         allow update: if propietariLid(lid)
           && setmanaOberta(setmana)
+          && participaAra(lid)
           && request.resource.data.keys().hasOnly(['punts', 'puntsDia', 'dia'])
           && diaValid(request.resource.data.dia)
           && request.resource.data.puntsDia is int

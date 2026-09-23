@@ -4,8 +4,8 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
          deleteUser, reauthenticateWithPopup, reauthenticateWithCredential, EmailAuthProvider,
          sendPasswordResetEmail, fetchSignInMethodsForEmail, linkWithPopup, linkWithCredential }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
-import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, getDocs,
-         runTransaction, getCountFromServer }
+import { getFirestore, doc, setDoc, getDoc, deleteDoc, updateDoc, deleteField, collection, getDocs,
+         query, where, runTransaction, getCountFromServer }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
 import { getMessaging, getToken, onMessage }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js';
@@ -278,11 +278,12 @@ window.fbLligaEntra = async (pseudonim, clau, setmana, dia) => {
       lid = nouLid();
       await setDoc(doc(db, 'lligaIds', lid), { uid: user.uid });
     }
+    // Si ja havia participat, el perfil hi és (sense nom, amb les medalles): el recupera.
     const perfilRef = doc(db, 'lligaPerfils', lid);
     if ((await getDoc(perfilRef)).exists()) {
-      await setDoc(perfilRef, { pseudonim, clau }, { merge: true });
+      await setDoc(perfilRef, { pseudonim, clau, fora: false }, { merge: true });
     } else {
-      await setDoc(perfilRef, { pseudonim, clau, medalles: { or: 0, plata: 0, bronze: 0 } });
+      await setDoc(perfilRef, { pseudonim, clau, medalles: { or: 0, plata: 0, bronze: 0 }, fora: false });
     }
     await setDoc(doc(db, 'users', user.uid), { lliga: { lid, dins: true } }, { merge: true });
     // Surt a la classificació amb 0 punts des del primer moment. Si ja hi era
@@ -295,8 +296,9 @@ window.fbLligaEntra = async (pseudonim, clau, setmana, dia) => {
   }
 };
 
-// Sortir: desapareix de la classificació (perfil i punts de la setmana). Es queden
-// el lid i la reserva del pseudònim, que també fa servir la resta de l'app.
+// Sortir: retira el consentiment. El perfil perd el nom i queda «fora», amb les
+// medalles guardades per si hi torna; els punts d'aquesta setmana s'esborren. Es
+// queden el lid i la reserva del pseudònim, que també fa servir la resta de l'app.
 window.fbLligaSurt = async (setmana) => {
   const user = auth.currentUser;
   if (!user) return { ok: false, reason: 'no-user' };
@@ -304,7 +306,7 @@ window.fbLligaSurt = async (setmana) => {
     const { lid } = await llegeixEstatLliga(user);
     if (lid) {
       await deleteDoc(doc(db, 'lliga', setmana, 'participants', lid)).catch(() => {});
-      await deleteDoc(doc(db, 'lligaPerfils', lid));
+      await updateDoc(doc(db, 'lligaPerfils', lid), { pseudonim: deleteField(), clau: deleteField(), fora: true });
     }
     await setDoc(doc(db, 'users', user.uid), { lliga: { lid, dins: false } }, { merge: true });
     return { ok: true };
@@ -343,14 +345,17 @@ window.fbLligaClassificacio = async (setmana) => {
       inici: wd.inici.toMillis(), fi: wd.fi.toMillis(),
       tancada: !!wd.tancada, prova: !!wd.prova, podi: wd.podi || null,
     } : null,
-    perfils: perfils.docs.map(p => ({ lid: p.id, pseudonim: p.data().pseudonim, medalles: p.data().medalles || {} })),
+    // Els perfils «fora» (han sortit) no tenen nom: només serveixen per al rècord.
+    perfils: perfils.docs.map(p => ({
+      lid: p.id, pseudonim: p.data().pseudonim || '', medalles: p.data().medalles || {}, fora: !!p.data().fora,
+    })),
     punts: Object.fromEntries(parts.docs.map(p => [p.id, { punts: p.data().punts || 0, puntsDia: p.data().puntsDia || 0, dia: p.data().dia || 0 }])),
   };
 };
 
-// Quanta gent hi participa (per a la targeta de l'Inici). Una sola lectura.
+// Quanta gent hi participa ara (per a la targeta de l'Inici). Una sola lectura.
 window.fbLligaCompta = async () => {
-  try { return (await getCountFromServer(collection(db, 'lligaPerfils'))).data().count; }
+  try { return (await getCountFromServer(query(collection(db, 'lligaPerfils'), where('fora', '==', false)))).data().count; }
   catch (e) { return null; }
 };
 

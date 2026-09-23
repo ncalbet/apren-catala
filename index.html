@@ -2577,10 +2577,11 @@ function desaLligaLocal(canvis) {
 }
 
 // ── Classificació ──
-// Tots els perfils, amb els punts de la setmana (0 si encara no n'han fet). Els
-// empats comparteixen posició (1, 1, 3…), com el podi del cron.
+// Tots els perfils de qui hi participa ara, amb els punts de la setmana (0 si encara
+// no n'han fet). Els «fora» (n'han sortit) no hi surten: no tenen nom. Els empats
+// comparteixen posició (1, 1, 3…), com el podi del cron.
 function lligaFiles(dades) {
-  const files = dades.perfils.map(p => ({
+  const files = dades.perfils.filter(p => !p.fora).map(p => ({
     lid: p.lid, pseudonim: p.pseudonim || '', medalles: p.medalles || {},
     punts: (dades.punts[p.lid] || {}).punts || 0,
   }));
@@ -2813,8 +2814,8 @@ async function lligaCarregaClassificacio() {
   }
   const l = lligaLocal();
   const jo = dades.perfils.find(p => p.lid === l.lid);
-  if (!jo) {
-    // El perfil ja no hi és: n'ha sortit des d'un altre dispositiu.
+  if (!jo || jo.fora) {
+    // N'ha sortit des d'un altre dispositiu (o se n'ha esborrat el perfil).
     desaLligaLocal({ dins: false });
     renderLliga();
     return;
@@ -2836,6 +2837,17 @@ function lligaMedallesMini(m) {
   const t = [['or', 0], ['plata', 1], ['bronze', 2]].filter(([k]) => m && m[k] > 0)
     .map(([k, i]) => `${LLIGA_MEDALLES[i]}${m[k] > 1 ? m[k] : ''}`);
   return t.length ? ` <span style="font-size:12px;font-weight:400;white-space:nowrap;">${t.join(' ')}</span>` : '';
+}
+// Rècord de la lliga: qui ha guanyat més setmanes (medalles d'or). És la meta a
+// superar, i es manté encara que qui el té en surti; però aleshores sense el seu nom,
+// perquè en sortir va retirar el consentiment per sortir-hi.
+function lligaRecordHTML(perfils) {
+  const or = p => (p.medalles && p.medalles.or) || 0;
+  const max = Math.max(0, ...perfils.map(or));
+  if (!max) return '';
+  const noms = perfils.filter(p => or(p) === max && !p.fora && p.pseudonim).map(p => escText(p.pseudonim));
+  const qui = noms.length ? noms.slice(0, 3).join(', ') + (noms.length > 3 ? '…' : '') : 'algú que ja no hi participa';
+  return `<div style="font-size:13px;color:var(--text-soft);margin-bottom:14px;">Rècord de la lliga: <strong>${max} 🥇</strong> · ${qui}</div>`;
 }
 function lligaDiaMes(ms) {
   return new Date(ms).toLocaleDateString('ca-ES', { day: 'numeric', month: 'long', timeZone: 'Europe/Madrid' });
@@ -2863,6 +2875,7 @@ function lligaClassificacioHTML(dades, lid) {
     <div style="font-size:13px;color:var(--text-soft);margin-bottom:4px;">Avui: <strong>${avui}</strong> de ${LLIGA_SOSTRE} punts</div>
     <div class="ct-progress-bar" style="margin-bottom:18px;"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
     <div id="lliga-podi-anterior"></div>
+    ${lligaRecordHTML(dades.perfils)}
     <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">${files.length} ${files.length === 1 ? 'persona' : 'persones'} a la lliga</div>
     ${llista}
     <button class="ct-btn secondary" style="width:100%;margin:24px 0 0;font-size:13px;" onclick="lligaSurt()">Surt de la lliga</button>`;
@@ -2875,7 +2888,7 @@ async function lligaPodiAnterior() {
   let d = null;
   try { d = await window.fbLligaClassificacio?.(s); } catch (e) { return; }
   if (!d || !d.setmana || d.setmana.prova || Date.now() < d.setmana.fi) return;
-  const noms = Object.fromEntries(d.perfils.map(p => [p.lid, p.pseudonim]));
+  const noms = Object.fromEntries(d.perfils.filter(p => !p.fora && p.pseudonim).map(p => [p.lid, p.pseudonim]));
   const podi = (d.setmana.podi || podiDe(lligaFiles(d))).filter(f => noms[f.lid]);
   const el = document.getElementById('lliga-podi-anterior');
   if (!el || !podi.length) return;
@@ -2885,7 +2898,7 @@ async function lligaPodiAnterior() {
   </div>`;
 }
 function lligaSurt() {
-  showConfirm('Si surts de la lliga, deixaràs de sortir a la classificació i perdràs els punts d\'aquesta setmana. Les medalles que ja tens es queden a Fites.', async () => {
+  showConfirm('Si surts de la lliga, deixaràs de sortir a la classificació i perdràs els punts d\'aquesta setmana. Les medalles es queden guardades: si hi tornes, les recuperes.', async () => {
     const r = await window.fbLligaSurt?.(setmanaMadrid(Date.now()));
     if (!r || !r.ok) { showAlert('No s\'ha pogut sortir de la lliga. Comprova la connexió i torna-ho a provar.'); return; }
     desaLligaLocal({ dins: false, pendent: null });
