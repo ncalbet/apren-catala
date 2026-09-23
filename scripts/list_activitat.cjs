@@ -2,6 +2,11 @@
 // Diagnòstic: llista l'activitat recent de tots els usuaris (només logs, no modifica res).
 // - lastRefreshTime (Auth): última sessió activa de l'app (refresc del token d'identitat)
 // - progress.lastDay (Firestore): últim dia amb un exercici completat
+//
+// ⚠️ El repo és PÚBLIC i el log de les Actions també: qualsevol el pot llegir.
+// Aquí no hi pot sortir res que identifiqui ningú — ni correu ni uid. Cada fila
+// porta només un número d'ordre. Per saber qui és qui, la consola de Firebase
+// (Authentication) ensenya el correu i la darrera connexió.
 const admin = require('firebase-admin');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -38,15 +43,15 @@ async function run() {
   users.sort((a, b) =>
     new Date(b.metadata.lastRefreshTime || 0) - new Date(a.metadata.lastRefreshTime || 0));
 
-  console.log('Correu | Última sessió (refresh) | Últim exercici (lastDay) | XP | Notifs actives');
+  console.log('# | Última sessió (refresh) | Últim exercici (lastDay) | XP | Notifs actives');
   console.log('---');
-  for (const u of users) {
+  users.forEach((u, i) => {
     const fs = fsData[u.uid] || {};
     const lastDay = fmtDay(fs.progress?.lastDay);
     const xp = fs.progress?.xp ?? '—';
     const notifs = fs.notificacionsActives === true ? 'sí' : (fs.notificacionsActives === false ? 'no' : '—');
-    console.log(`${u.email || u.uid} | ${fmt(u.metadata.lastRefreshTime)} | ${lastDay} | ${xp} | ${notifs}`);
-  }
+    console.log(`${i + 1} | ${fmt(u.metadata.lastRefreshTime)} | ${lastDay} | ${xp} | ${notifs}`);
+  });
   console.log(`\nTotal: ${users.length} usuaris.`);
 }
 
