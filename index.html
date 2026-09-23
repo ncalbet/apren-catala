@@ -981,6 +981,7 @@ function renderMenu() {
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     ${resumeBanner}
+    ${lligaPistaHTML()}
     ${novetatsBanner}
     ${notifBanner}
     ${kofiBanner}
@@ -2941,6 +2942,62 @@ function lligaMostraFesta(posicio, punts) {
   document.body.appendChild(overlay);
 }
 
+// ── Pistes abans de l'obertura (dijous 24 – diumenge 27, hora de Madrid) ──
+// Un avís a l'Inici amb el text del dia. Si es tanca, l'endemà surt la pista nova.
+const LLIGA_PISTES = {
+  20260924: '🤫 Alguna cosa es cou a AprènCatalà… Aviat els XP que ja guanyes valdran encara més.',
+  20260925: "🤫 Ja s'apropa… Aviat cada setmana, tres persones pujaran al podi d'AprènCatalà.",
+  20260926: "📅 Dilluns comença. Serà l'esdeveniment de l'any! Prepara el teu pseudònim i entra per la porta gran!",
+  20260927: "⏳ Demà comença la primera setmana. Qui pujarà al podi d'AprènCatalà?",
+};
+const LLIGA_PISTA_PERFIL = 20260926;   // la que demana preparar el pseudònim porta al Perfil
+function lligaPistaDe(ms) {
+  const dia = diaMadrid(ms);
+  const text = LLIGA_PISTES[dia];
+  if (!text) return null;
+  try { if (localStorage.getItem('cat_lliga_pista_tancada') === String(dia)) return null; } catch (e) {}
+  return { dia, text };
+}
+function lligaPistaHTML() {
+  const p = lligaPistaDe(Date.now());
+  if (!p) return '';
+  return `<div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-amber-val);background:var(--accent-amber-bg);display:flex;align-items:center;gap:12px;">
+    <div style="flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--accent-amber-text);line-height:1.5;">${p.text}</div>
+    ${p.dia === LLIGA_PISTA_PERFIL ? `<button class="ct-btn primary" style="font-size:13px;padding:6px 14px;flex-shrink:0;margin:0;" onclick="showTab('profile')">Perfil</button>` : ''}
+    <button onclick="lligaTancaPista(${p.dia})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+  </div>`;
+}
+function lligaTancaPista(dia) {
+  try { localStorage.setItem('cat_lliga_pista_tancada', String(dia)); } catch (e) {}
+  renderMenu();
+}
+
+// ── Finestra de l'obertura ──
+// Surt una sola vegada, en obrir l'app a partir del dilluns 28, durant quatre setmanes.
+// No surt a qui encara fa l'acollida: ja veurà la targeta de l'Inici.
+const LLIGA_ANUNCI_KEY = 'cat_lliga_anunci_v1';
+const LLIGA_ANUNCI_FINS = Date.UTC(2026, 9, 25, 23, 0);   // dilluns 26/10 a les 00:00 de Madrid
+function lligaAnunciToca(ms) {
+  if (ms < LLIGA_OBERTURA || ms >= LLIGA_ANUNCI_FINS) return false;
+  try { return !localStorage.getItem(LLIGA_ANUNCI_KEY); } catch (e) { return false; }
+}
+function lligaMostraAnunci() {
+  if (!lligaAnunciToca(Date.now()) || shouldShowOnboarding() || document.getElementById('lliga-anunci')) return;
+  try { localStorage.setItem(LLIGA_ANUNCI_KEY, '1'); } catch (e) {}
+  const dins = !!lligaLocal().dins;
+  const el = document.createElement('div');
+  el.id = 'lliga-anunci';
+  el.className = 'ct-modal-overlay';
+  el.innerHTML = `<div class="ct-modal" style="max-width:360px;text-align:center;">
+    <div style="font-size:52px;margin-bottom:8px;">🏆</div>
+    <div style="font-family:'Fraunces',serif;font-size:21px;color:var(--heading);margin-bottom:10px;">Ja és aquí la Lliga AprènCatalà!</div>
+    <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:18px;">Els XP que guanyes cada dia et fan pujar a la classificació. Entra-hi i lluita pel podi!</p>
+    <button class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="this.closest('.ct-modal-overlay').remove(); showTab('lliga')">${dins ? 'Mira la classificació' : 'Participa!'}</button>
+    <button class="ct-btn secondary" style="width:100%;margin:0;" onclick="this.closest('.ct-modal-overlay').remove()">Ara no</button>
+  </div>`;
+  document.body.appendChild(el);
+}
+
 // ── Fites ──
 function renderMedallesLliga() {
   if (!lligaVisible()) return '';
@@ -3351,6 +3408,7 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
   // no carrega (offline, bloquejat) aquell esdeveniment no arriba mai. El cridem
   // també aquí; showWhatsNew() ja és idempotent (clau + guarda de duplicat).
   if (!shouldShowOnboarding()) showWhatsNew();
+  lligaMostraAnunci();
   initBackHandler();
   document.addEventListener('click', e => {
     if (!e.target.closest('#nav-levels') && !e.target.closest('#ct-levels-drop'))
@@ -3813,7 +3871,7 @@ function dismissNovetatsBanner() {
 function shouldShowKofiBanner() {
   if (!KOFI_BANNER_ACTIU) return false;
   if ((progress.practiceHistory || []).length < KOFI_DIES_MINIMS) return false;
-  if (getSavedSession() || shouldShowNovetatsBanner() || shouldShowNotifBanner()) return false;
+  if (getSavedSession() || shouldShowNovetatsBanner() || shouldShowNotifBanner() || lligaPistaDe(Date.now())) return false;
   const at = parseInt(localStorage.getItem('kofi_banner_dismissed_at') || '0', 10);
   return !at || (Date.now() - at) > KOFI_SILENCI_DIES * 24 * 60 * 60 * 1000;
 }
