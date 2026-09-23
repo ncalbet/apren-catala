@@ -1,0 +1,175 @@
+rules_version = '2';
+
+// Regles de Firestore d'AprènCatalà.
+//
+// ⚠️ AQUEST FITXER NO ES DESPLEGA SOL. Les regles vives són les de la consola de
+// Firebase (Firestore → Rules). Aquest fitxer n'és la còpia versionada: qualsevol
+// canvi es fa aquí, es revisa i després s'enganxa i es publica a la consola.
+// Fins al 23/09/2026 les regles només eren a la consola i no les veia ningú.
+//
+// El repo és PÚBLIC: aquestes regles es poden llegir. No passa res, la seguretat no
+// depèn que siguin secretes. El que no pot sortir mai d'aquí és cap dada d'usuari.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signat() {
+      return request.auth != null;
+    }
+
+    // ── Document privat de cada usuari: progrés, perfil, notificacions ──
+    // Sense canvis respecte a les regles publicades el 17/06/2026.
+    match /users/{userId} {
+      allow read, write: if signat() && request.auth.uid == userId;
+    }
+
+    // ═══════════════════ LLIGA SETMANAL ═══════════════════
+    //
+    // Ningú no hi apareix amb el seu uid. Cada participant té un identificador de
+    // lliga aleatori (lid), i qui és el propietari d'un lid només ho sap
+    // /lligaIds/{lid}, que no el pot llegir cap client. Així la classificació no
+    // deixa veure l'uid de ningú, ni tan sols a les dades que viatgen.
+
+    // Cert si el lid és de qui fa la petició.
+    function propietariLid(lid) {
+      return signat()
+        && exists(/databases/$(database)/documents/lligaIds/$(lid))
+        && get(/databases/$(database)/documents/lligaIds/$(lid)).data.uid == request.auth.uid;
+    }
+
+    // Pseudònim → clau de reserva: minúscules, sense accents i només lletres i
+    // xifres. «Marta», «marta» i «Màrta» donen la mateixa clau: ningú no es pot fer
+    // passar per una altra persona canviant un accent o una majúscula.
+    // ⚠️ Ha de donar EXACTAMENT el mateix que clauPseudonim() d'index.html.
+    // tests_lliga.cjs en prova la paritat amb una còpia en JS d'aquesta funció.
+    function clauDe(p) {
+      return p.lower()
+        .replace('[àáâäÀÁÂÄ]', 'a')
+        .replace('[èéêëÈÉÊË]', 'e')
+        .replace('[ìíîïÌÍÎÏ]', 'i')
+        .replace('[òóôöÒÓÔÖ]', 'o')
+        .replace('[ùúûüÙÚÛÜ]', 'u')
+        .replace('[çÇ]', 'c')
+        .replace('[ñÑ]', 'n')
+        .replace('[^a-z0-9]', '');
+    }
+
+    // Mateix patró que PSEUDO_PATRO d'index.html: de 3 a 15 caràcters, lletres
+    // (amb els accents del català), xifres, espai i · ' . _ -
+    function pseudonimValid(p) {
+      return p is string
+        && p.size() >= 3 && p.size() <= 15
+        && p.matches("^[A-Za-z0-9àáèéíïòóúüçñÀÁÈÉÍÏÒÓÚÜÇÑ·' ._-]+$")
+        && clauDe(p).size() >= 3;
+    }
+
+    // Identitat de lliga. Només es pot crear (una vegada) i esborrar; mai llegir.
+    match /lligaIds/{lid} {
+      allow create: if signat()
+        && lid.matches('^[A-Za-z0-9]{20}$')
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == request.auth.uid;
+      allow delete: if signat() && resource.data.uid == request.auth.uid;
+    }
+
+    // Reserva de pseudònims: un per clau, i el primer que la reserva se la queda.
+    // Llegir-la només diu si està lliure (no existeix) o si és teva. D'una reserva
+    // d'algú altre no se'n pot llegir res: la petició es denega, i això vol dir
+    // «ja és d'algú altre».
+    match /pseudonims/{clau} {
+      allow get: if signat() && (resource == null || resource.data.uid == request.auth.uid);
+      allow create: if signat()
+        && clau.matches('^[a-z0-9]{3,15}$')
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == request.auth.uid;
+      allow delete: if signat() && resource.data.uid == request.auth.uid;
+    }
+
+    // El pseudònim és coherent amb la seva clau i la clau està reservada per qui escriu.
+    function perfilCoherent(d) {
+      return pseudonimValid(d.pseudonim)
+        && d.clau == clauDe(d.pseudonim)
+        && exists(/databases/$(database)/documents/pseudonims/$(d.clau))
+        && get(/databases/$(database)/documents/pseudonims/$(d.clau)).data.uid == request.auth.uid;
+    }
+
+    // Perfil públic de lliga: el que veu la resta de participants.
+    // Les medalles només les escriu el cron de tancament (firebase-admin salta les regles).
+    match /lligaPerfils/{lid} {
+      allow read: if signat();
+      allow create: if propietariLid(lid)
+        && request.resource.data.keys().hasOnly(['pseudonim', 'clau', 'medalles'])
+        && request.resource.data.medalles == {'or': 0, 'plata': 0, 'bronze': 0}
+        && perfilCoherent(request.resource.data);
+      allow update: if propietariLid(lid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pseudonim', 'clau'])
+        && perfilCoherent(request.resource.data);
+      allow delete: if propietariLid(lid);
+    }
+
+    // La setmana és oberta de dilluns a les 00:00 fins diumenge a les 23:58:00 (hora
+    // de Madrid). Les dates les posa el cron en crear la setmana; si el document de
+    // la setmana no existeix, get() falla i no s'hi pot escriure.
+    function setmanaOberta(setmana) {
+      let w = get(/databases/$(database)/documents/lliga/$(setmana)).data;
+      return request.time >= w.inici && request.time < w.fi;
+    }
+
+    // El dia (AAAAMMDD, enter) ha de ser el d'avui a Madrid. Madrid és UTC+1 a
+    // l'hivern i UTC+2 a l'estiu, i les regles no saben de zones horàries:
+    // s'accepten tots dos. Només hi ha una hora al dia en què donen dates
+    // diferents, i com a molt permet avançar o endarrerir el canvi de dia una hora.
+    function diaValid(d) {
+      let t1 = request.time + duration.value(1, 'h');
+      let t2 = request.time + duration.value(2, 'h');
+      return d is int
+        && (d == t1.year() * 10000 + t1.month() * 100 + t1.day()
+         || d == t2.year() * 10000 + t2.month() * 100 + t2.day());
+    }
+
+    match /lliga/{setmana} {
+      // Les setmanes (dates, podi, estadístiques) només les escriu el cron.
+      allow read: if signat();
+
+      // Punts de la setmana d'un participant. El sostre de 150 al dia es fa complir
+      // AQUÍ, al servidor: el mòbil pot demanar el que vulgui, però no passarà.
+      match /participants/{lid} {
+        allow read: if signat();
+
+        allow create: if propietariLid(lid)
+          && setmanaOberta(setmana)
+          && exists(/databases/$(database)/documents/lligaPerfils/$(lid))
+          && request.resource.data.keys().hasOnly(['punts', 'puntsDia', 'dia'])
+          && diaValid(request.resource.data.dia)
+          && request.resource.data.puntsDia is int
+          && request.resource.data.punts == request.resource.data.puntsDia
+          && request.resource.data.puntsDia >= 0
+          && request.resource.data.puntsDia <= 150;
+
+        allow update: if propietariLid(lid)
+          && setmanaOberta(setmana)
+          && request.resource.data.keys().hasOnly(['punts', 'puntsDia', 'dia'])
+          && diaValid(request.resource.data.dia)
+          && request.resource.data.puntsDia is int
+          && request.resource.data.punts is int
+          && request.resource.data.puntsDia <= 150
+          && (
+            // Mateix dia: puja el dia i el total en la mateixa quantitat.
+            (request.resource.data.dia == resource.data.dia
+              && request.resource.data.puntsDia > resource.data.puntsDia
+              && request.resource.data.punts - resource.data.punts
+                 == request.resource.data.puntsDia - resource.data.puntsDia)
+            ||
+            // Dia nou: el comptador del dia torna a començar.
+            (request.resource.data.dia > resource.data.dia
+              && request.resource.data.puntsDia > 0
+              && request.resource.data.punts - resource.data.punts
+                 == request.resource.data.puntsDia)
+          );
+
+        // Sortir de la lliga o esborrar el compte.
+        allow delete: if propietariLid(lid);
+      }
+    }
+  }
+}
