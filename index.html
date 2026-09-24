@@ -2086,6 +2086,13 @@ function getUnlockedAchievements() {
 
 
 // ══ MEDALLES DE GRAMÀTICA ══
+// Les medalles miren el domini MÀXIM que ha tingut cada exercici, no el d'avui: una
+// medalla guanyada no es perd. El domini de cada exercici sí que baixa quan t'equivoques,
+// i el repàs s'hi adapta; el «% dominat» i les barres de Progrés continuen mesurant el
+// present. Es mira el més alt dels dos per si a algú encara li falta maxMastery.
+function haDominat(p, id) {
+  return Math.max((p.maxMastery || {})[id] || 0, (p.mastery || {})[id] || 0) >= 4;
+}
 function buildGrammarMedals() {
   const medals = [];
   const a2cats = [...new Set((DATA.a2||[]).map(q => q.category))];
@@ -2097,7 +2104,7 @@ function buildGrammarMedals() {
       desc: `Domina tots els exercicis de ${cat} al nivell A2.`,
       check: p => {
         const exs = (DATA.a2||[]).filter(q => q.category === cat);
-        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+        return exs.length > 0 && exs.every(q => haDominat(p, q.id));
       }
     });
   });
@@ -2110,7 +2117,7 @@ function buildGrammarMedals() {
       desc: `Domina tots els exercicis de ${cat} al nivell B1.`,
       check: p => {
         const exs = (DATA.b1||[]).filter(q => q.category === cat);
-        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+        return exs.length > 0 && exs.every(q => haDominat(p, q.id));
       }
     });
   });
@@ -2123,7 +2130,7 @@ function buildGrammarMedals() {
       desc: `Domina tots els exercicis de ${cat} al nivell B2.`,
       check: p => {
         const exs = DATA.b2.filter(q => q.category === cat);
-        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+        return exs.length > 0 && exs.every(q => haDominat(p, q.id));
       }
     });
   });
@@ -2136,7 +2143,7 @@ function buildGrammarMedals() {
       desc: `Domina tots els exercicis de ${cat} al nivell C1.`,
       check: p => {
         const exs = DATA.c1.filter(q => q.category === cat);
-        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+        return exs.length > 0 && exs.every(q => haDominat(p, q.id));
       }
     });
   });
@@ -2149,31 +2156,31 @@ function buildGrammarMedals() {
       desc: `Domina tots els exercicis de ${cat} al mòdul Novetats IEC.`,
       check: p => {
         const exs = (DATA.iec||[]).filter(q => q.category === cat);
-        return exs.length > 0 && exs.every(q => (p.mastery[q.id]||0) >= 4);
+        return exs.length > 0 && exs.every(q => haDominat(p, q.id));
       }
     });
   });
   // Supermedalles
   medals.push({ id:'master_a2', level:'super', icon:'🌟', name:'Mestre de l\'A2',
     desc:'Domina totes les categories del nivell A2.',
-    check: p => (DATA.a2||[]).every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => (DATA.a2||[]).every(q => haDominat(p, q.id)) });
   medals.push({ id:'master_b1', level:'super', icon:'🟢', name:'Mestre del B1',
     desc:'Domina totes les categories del nivell B1.',
-    check: p => (DATA.b1||[]).every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => (DATA.b1||[]).every(q => haDominat(p, q.id)) });
   medals.push({ id:'master_b2', level:'super', icon:'🏅', name:'Mestre del B2',
     desc:'Domina totes les categories del nivell B2.',
-    check: p => DATA.b2.every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => DATA.b2.every(q => haDominat(p, q.id)) });
   medals.push({ id:'master_c1', level:'super', icon:'🏆', name:'Mestre del C1',
     desc:'Domina totes les categories del nivell C1.',
-    check: p => DATA.c1.every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => DATA.c1.every(q => haDominat(p, q.id)) });
   medals.push({ id:'master_iec', level:'super', icon:'📜', name:'Al dia amb l\'IEC',
     desc:'Domina totes les categories del mòdul Novetats IEC.',
-    check: p => (DATA.iec||[]).length > 0 && (DATA.iec||[]).every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => (DATA.iec||[]).length > 0 && (DATA.iec||[]).every(q => haDominat(p, q.id)) });
   // «Mestre del Català» es manté sobre el corpus de nivells (A2–C1): el mòdul IEC és
   // transversal i opcional, i té la seva pròpia supermedalla.
   medals.push({ id:'master_all', level:'super', icon:'👑', name:'Mestre del Català',
     desc:'Domina absolutament tots els exercicis dels nivells A2, B1, B2 i C1. Felicitats!',
-    check: p => [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].every(q => (p.mastery[q.id]||0) >= 4) });
+    check: p => [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1].every(q => haDominat(p, q.id)) });
   return medals;
 }
 
@@ -2190,7 +2197,7 @@ function renderMedalGrid(medals, unlocked) {
       ? (DATA[m.level]||[]).filter(q => q.category === m.category)
       : [];
     const dominated = exs.length > 0
-      ? exs.filter(q => (progress.mastery[q.id]||0) >= 4).length
+      ? exs.filter(q => haDominat(progress, q.id)).length
       : null;
     return `
       <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
@@ -2373,7 +2380,7 @@ function getNextGoals(unlocked, unlockedM, medals) {
     if (unlockedM.has(m.id)) return;
     const pool = medalExercisePool(m);
     if (!pool.length) return;
-    const cur = pool.filter(q => (progress.mastery[q.id]||0) >= 4).length;
+    const cur = pool.filter(q => haDominat(progress, q.id)).length;
     if (cur > 0) goals.push({
       icon: m.icon, name: m.level === 'super' ? m.name : `${m.name} (${tag[m.level]})`,
       cur, target: pool.length, ratio: cur/pool.length
@@ -2598,7 +2605,7 @@ function checkLevelMilestones() {
       queue.push({ emoji:'🎉', title:l.fetsTitle,
         sub:'Has fet tots els exercicis del nivell almenys un cop. Ara torna-hi en dies diferents per dominar-lo del tot. 💪' });
     }
-    if (!flags[l.k+'_dom'] && l.ds.every(q => getMastery(q.id) >= 4)) {
+    if (!flags[l.k+'_dom'] && l.ds.every(q => haDominat(progress, q.id))) {
       flags[l.k+'_dom'] = true;
       queue.push({ emoji:l.icon, title:l.domTitle,
         sub:'Domines tots els exercicis del nivell. Impressionant!' });
@@ -2606,7 +2613,7 @@ function checkLevelMilestones() {
   });
   // 👑 Mestre del Català: domini ≥4 a tot el corpus A2–C1 (el mòdul IEC va a part)
   const cefr = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
-  if (!flags['all_dom'] && cefr.length && cefr.every(q => getMastery(q.id) >= 4)) {
+  if (!flags['all_dom'] && cefr.length && cefr.every(q => haDominat(progress, q.id))) {
     flags['all_dom'] = true;
     queue.push({ emoji:'👑', title:'Mestre del Català!',
       sub:'Domines absolutament tots els exercicis dels nivells A2, B1, B2 i C1. Felicitats!' });
@@ -3748,7 +3755,8 @@ function renderHelp() {
           <strong>4 — Ben après:</strong> tres o més encerts en dies diferents.<br>
           <strong>5 — Dominat:</strong> màxim domini; apareixerà menys sovint al repàs.<br><br>
           <strong>Com puja:</strong> el primer encert et posa directament a <strong>2</strong>. A partir d'aquí, cada encert puja <strong>+1</strong>, però <strong>només un cop al dia</strong>: repetir el mateix exercici la mateixa tarda no el fa pujar més. Cal tornar-hi un <strong>dia natural diferent</strong> perquè l'aprenentatge es consolidi de veritat.<br><br>
-          <strong>Com baixa:</strong> si t'equivoques, el domini <strong>baixa 1 punt</strong> (mai per sota d'1). Ara bé, si després l'encertes, <strong>recuperes el mateix dia</strong> el que havies perdut: una errada no et castiga la jornada sencera.
+          <strong>Com baixa:</strong> si t'equivoques, el domini <strong>baixa 1 punt</strong> (mai per sota d'1). Ara bé, si després l'encertes, <strong>recuperes el mateix dia</strong> el que havies perdut: una errada no et castiga la jornada sencera.<br><br>
+          <strong>Les medalles no es perden:</strong> si t'equivoques en un exercici que ja havies dominat, el seu domini baixa i el repàs te'l torna a portar, però la medalla que vas guanyar continua sent teva.
         </div>
       </details>
 
