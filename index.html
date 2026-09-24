@@ -1673,6 +1673,10 @@ function diaLocal(ms = Date.now()) {
 
 function markDone(ok, xp) {
   const q = currentSession.items[currentSession.idx];
+  // Què hi havia desbloquejat ABANS d'aquesta resposta. S'ha de calcular aquí, abans
+  // de tocar domini, XP o ratxa: fins a la v140 es calculava al final, era idèntic
+  // a l'estat d'«ara» i cap assoliment ni medalla no s'havia celebrat mai.
+  const _prevUnlocked = [...getUnlockedAchievements(), ...getUnlockedMedals()];
   const prev = getMastery(q.id);
   const prevMax = (progress.maxMastery || {})[q.id] || 0;
   const prevLevel = getLevel(progress.xp);
@@ -1818,9 +1822,8 @@ function markDone(ok, xp) {
   }
 
   checkLevelMilestones();   // fites de nivell (fets/dominat) → overlay + confeti; desa els flags
-  const _prevUnlocked = [...getUnlockedAchievements(), ...getUnlockedMedals()];
+  checkNewAchievements(_prevUnlocked);   // abans de desar: apunta què s'ha celebrat
   saveProgress(); updateHeader();
-  checkNewAchievements(_prevUnlocked);
   if (_streakFrozen > 0) { showFreezeToast(_streakFrozen); _streakFrozen = 0; }
   if (ok) currentSession.correct++;
   document.getElementById('nav-row').style.display = 'flex';
@@ -2420,16 +2423,20 @@ function renderAchievements() {
 }
 
 // Mostra notificació d'assoliment nou
+// Com les fites de nivell (celebratedLevels), queda desat què s'ha celebrat
+// (progress.celebratedAch). Així una medalla que es perd (un error baixa el domini
+// de 4 a 3) i es recupera no es torna a anunciar. La primera vegada, tot el que ja
+// estava desbloquejat abans de la resposta compta com a celebrat sense dir res:
+// fins a la v140 aquests avisos no sortien mai, i no ha de caure una pluja de vells.
 function checkNewAchievements(prevUnlocked) {
-  // Assoliments generals
-  const nowUnlocked = getUnlockedAchievements();
-  const newOnes = nowUnlocked.filter(id => !prevUnlocked.includes(id));
-  // Medalles de gramàtica
-  const nowMedals  = getUnlockedMedals();
-  const newMedals  = nowMedals.filter(id => !prevUnlocked.includes(id));
+  if (!Array.isArray(progress.celebratedAch)) progress.celebratedAch = [...prevUnlocked];
+  const celebrats = new Set(progress.celebratedAch);
+  const nous = [...getUnlockedAchievements(), ...getUnlockedMedals()].filter(id => !celebrats.has(id));
+  if (!nous.length) return;
+  progress.celebratedAch = [...celebrats, ...nous];
   // Els supermedals de nivell (master_*) se celebren amb l'overlay gran a
   // checkLevelMilestones(); aquí en fem el toast només de la resta.
-  const allNew = [...newOnes, ...newMedals].filter(id => !id.startsWith('master_'));
+  const allNew = nous.filter(id => !id.startsWith('master_'));
   allNew.forEach((id, i) => {
     const a = ACHIEVEMENTS.find(x => x.id === id) || getAllMedals().find(x => x.id === id);
     if (!a) return;
