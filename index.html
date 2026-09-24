@@ -657,6 +657,9 @@ const RECORREGUTS = [
     ['Revisa altres grafies', ['La e epentètica', 'La dièresi que va caure']],
   ] },
 ];
+// Mida del repte diari de qui segueix un recorregut (la sessió d'avui).
+const REPTE_REPASSOS = 3;
+const REPTE_NOUS = 2;
 function recorregutDe(id) {
   return RECORREGUTS.find(r => r.id === id) || null;
 }
@@ -1176,6 +1179,9 @@ function renderMenu() {
   // inclou l'IEC: si l'has practicat i li toca, ha de sortir a repassar.
   // El botó és el mateix recompte que la pestanya de repàs (tots els nivells), i
   // hi és cada dia que hi ha res per repassar o per avançar.
+  // Primer el repte d'avui: amb recorregut s'hi emporta repassos, i aquests ja no
+  // han de comptar al botó de repàs (reviewCandidates exclou els ids del repte).
+  getDailyChallenge();
   const repasSessio = getReviewItems('all');
   const repasToca = getReviewPool('all').length > 0;
   const saved = getSavedSession();
@@ -1291,7 +1297,10 @@ function renderMenu() {
         const dcDone = dc.completed.length === dc.ids.length;
         return dcDone
           ? `<div style="background:var(--accent-green-bg);border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-green-text);font-weight:600;">✅ Repte diari completat! +50 XP</div>`
-          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)</button>`;
+          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;line-height:1.35;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
+              dc.repassos.length ? `${dc.repassos.length} ${dc.repassos.length === 1 ? 'repàs' : 'repassos'}` : '',
+              dc.nous.length ? `${dc.nous.length} de «${escText(findExerciseById(dc.nous[0]).category)}»` : '',
+            ].filter(Boolean).join(' · ')}</span>` : ''}</button>`;
       })()}
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('a2')">Practicar Nivell A2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b1')">Practicar Nivell B1</button>
@@ -1696,6 +1705,9 @@ function renderExercise() {
   const pct = Math.round(idx / items.length * 100);
   currentSession.answered = false;
   saveActiveSession();
+  // Després de desar: si es torna enrere des de la teoria, la sessió es reprèn aquí.
+  const teoria = teoriaAbansDelNou(idx);
+  if (teoria) return showMandatoryTheory(teoria.level, teoria.cat, renderExercise);
 
   let body = '';
   if (q.type==='choice') body = renderChoice(q);
@@ -2144,6 +2156,8 @@ function renderSummary() {
   _setNav({screen:'summary', returnTo, level, cat: cat||null});
   const pct = Math.round(correct / items.length * 100);
   if (pct === 100 && items.length >= 3) { progress.perfectSessions = (progress.perfectSessions||0)+1; saveProgress(); }
+  const dcR = sessioDelRecorregut(items);
+  if (dcR) return renderSummaryRecorregut(dcR);
   const emoji = pct>=80?'🏆':pct>=60?'👍':'📚';
   const msg = pct>=80?'Excel·lent feina! Domines bé aquest contingut.':pct>=60?'Bon resultat! Continua practicant per consolidar.':'Repassa la teoria i torna-ho a intentar.';
   const backBtn = returnTo === 'cat'
@@ -2166,6 +2180,39 @@ function renderSummary() {
       ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>
       <button class="ct-btn wa" style="width:100%;margin-top:8px;" onclick="waSessionResult(${pct},${items.length})">💬 Per WhatsApp</button>` : ''}
     </div>`;
+}
+
+// Final de la sessió d'avui del recorregut: el resultat real, sense «ja ho
+// domines». Els comptes són del repte d'avui sencer (dc.completed acumula els
+// encerts de tots els intents del dia), que és el que decideix els +50.
+function renderSummaryRecorregut(dc) {
+  const r = recorregutDe(dc.recorregut);
+  const fets = ids => ids.filter(id => dc.completed.includes(id)).length;
+  const fet = dc.completed.length === dc.ids.length;
+  const temaNou = dc.nous.length ? findExerciseById(dc.nous[0]).category : null;
+  const seg = r && seguentDelRecorregut(r.id);
+  const linia = t => `<p style="color:var(--text-soft);font-size:15px;margin:0 0 6px;">${t}</p>`;
+  window.scrollTo(0, 0);
+  document.getElementById('ct-body').innerHTML = `
+    <div class="ct-card ct-summary" style="max-width:480px;">
+      <div style="font-size:48px;margin-bottom:12px;">${fet ? '🎯' : '📚'}</div>
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:14px;">${fet ? "Repte d'avui completat!" : "Sessió d'avui acabada"}</div>
+      ${dc.repassos.length ? linia(`Repassos: n'has recordat <strong>${fets(dc.repassos)} de ${dc.repassos.length}</strong>.`) : ''}
+      ${temaNou ? linia(`${escText(temaNou)}: <strong>${fets(dc.nous)} de ${dc.nous.length}</strong> encertats.`) : ''}
+      <p style="color:var(--muted);font-size:13px;line-height:1.5;margin:12px 0 20px;">${fet
+        ? 'Has guanyat els +50 XP del repte. Els repassos tornaran quan els toqui.'
+        : 'Per completar el repte i guanyar els +50 XP, cal encertar-los tots. Pots tornar a provar els que falten ara; si no, els fallats tornaran al repàs.'}</p>
+      ${fet ? '' : `<button class="ct-btn primary" style="width:100%;" onclick="repeteixPendentsDelRepte()">Torna a provar els que falten (${dc.ids.length - dc.completed.length})</button>`}
+      ${seg ? `<button class="ct-btn ${fet ? 'primary' : 'secondary'}" style="width:100%;margin-top:8px;" onclick="continuaRecorregut('${r.id}')">▶ Continua practicant el recorregut</button>` : ''}
+      <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="showTab('menu')">Acaba per avui</button>
+    </div>`;
+}
+function repeteixPendentsDelRepte() {
+  const dc = progress.dailyChallenge;
+  const items = (window._lastSession.items || []).filter(q => !dc.completed.includes(q.id));
+  if (!items.length) { showTab('menu'); return; }
+  currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review', isDailyChallenge: true };
+  renderExercise();
 }
 
 // Repeteix els mateixos exercicis de la sessió acabada. Cal fer-ho així
@@ -2411,38 +2458,81 @@ function getDailyChallenge() {
   if (progress.dailyChallenge && progress.dailyChallenge.date === today) {
     return progress.dailyChallenge;
   }
-  // Genera repte nou basat en la data. Amb un recorregut triat, surt només del seu
-  // mòdul (també el de Novetats IEC, si és el triat). Sense recorregut, ponderat
-  // al nivell de l'usuari: els 2 nivells més avançats on ha practicat (si és nou:
-  // A2+B1). En aquest cas el mòdul IEC NO hi entra a posta: l'array és una escala
-  // de nivells i, si hi fos, practicar-lo un sol cop el faria passar per «el més
-  // avançat» i desplaçaria el C1 del repte. És un mòdul transversal, no un esglaó.
-  const counts = { a2: 0, b1: 0, b2: 0, c1: 0 };
-  Object.keys(progress.mastery).forEach(id => {
-    const lv = id.split('-')[0];
-    if (counts[lv] !== undefined) counts[lv]++;
-  });
-  const active = ['a2', 'b1', 'b2', 'c1'].filter(lv => counts[lv] > 0);
-  const levels = recorregutActiu() ? [recorregutActiu().id]
-    : active.length ? active.slice(-2) : ['a2', 'b1'];
-  const all = levels.flatMap(lv => DATA[lv] || []);
-  // Exclou els exercicis dels últims 7 reptes perquè no es repeteixin en pocs dies
   const recent = progress.dcHistory || [];
-  let pool = all.filter(q => !recent.includes(q.id));
-  if (pool.length < 3) pool = all;
   const seed = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-  const indices = [];
-  let attempts = 0;
-  while (indices.length < 3 && attempts < 200) {
-    const i = Math.floor(seededRand(seed, attempts++) * pool.length);
-    if (!indices.includes(i)) indices.push(i);
+  // Amb recorregut, el repte és la SESSIÓ D'AVUI (fase 3 del pla): fins a 3
+  // repassos que toquin avui (primer els del recorregut, i dins de cada grup els de
+  // domini més baix) i 2 exercicis encara no fets del tema on ets. Es desa quins
+  // són repassos i quins nous perquè la pantalla final ho pugui dir. Si no n'hi ha
+  // prou (recorregut acabat, per exemple), s'omple fins a 3 amb el repte de sempre.
+  const r = recorregutActiu();
+  let repassos = [], nous = [];
+  if (r) {
+    const pool = sortBySRS(getReviewPool('all'));
+    repassos = [...pool.filter(q => q.level === r.id), ...pool.filter(q => q.level !== r.id)]
+      .slice(0, REPTE_REPASSOS).map(q => q.id);
+    for (const e of etapesDe(r.id)) {
+      for (const c of e.cats) {
+        for (const q of DATA[r.id].filter(x => x.category === c)) {
+          if (nous.length < REPTE_NOUS && getMastery(q.id) < 2 && !repassos.includes(q.id)) nous.push(q.id);
+        }
+      }
+    }
   }
-  const ids = indices.map(i => pool[i].id);
+  const ids = [...repassos, ...nous];
+  if (ids.length < 3) {
+    // El repte de sempre. Amb recorregut, del seu mòdul (també el de Novetats IEC).
+    // Sense, ponderat al nivell de l'usuari: els 2 nivells més avançats on ha
+    // practicat (si és nou: A2+B1). En aquest cas el mòdul IEC NO hi entra a posta:
+    // l'array és una escala de nivells i, si hi fos, practicar-lo un sol cop el
+    // faria passar per «el més avançat» i desplaçaria el C1 del repte. És un mòdul
+    // transversal, no un esglaó.
+    const counts = { a2: 0, b1: 0, b2: 0, c1: 0 };
+    Object.keys(progress.mastery).forEach(id => {
+      const lv = id.split('-')[0];
+      if (counts[lv] !== undefined) counts[lv]++;
+    });
+    const active = ['a2', 'b1', 'b2', 'c1'].filter(lv => counts[lv] > 0);
+    const levels = r ? [r.id] : active.length ? active.slice(-2) : ['a2', 'b1'];
+    const all = levels.flatMap(lv => DATA[lv] || []).filter(q => !ids.includes(q.id));
+    // Exclou els exercicis dels últims 7 reptes perquè no es repeteixin en pocs dies
+    let pool = all.filter(q => !recent.includes(q.id));
+    if (pool.length < 3 - ids.length) pool = all;
+    const indices = [];
+    let attempts = 0;
+    while (ids.length + indices.length < 3 && attempts < 200) {
+      const i = Math.floor(seededRand(seed, attempts++) * pool.length);
+      if (!indices.includes(i)) indices.push(i);
+    }
+    ids.push(...indices.map(i => pool[i].id));
+  }
   const challenge = { date: today, ids, completed: [] };
+  if (r) Object.assign(challenge, { recorregut: r.id, repassos, nous });
   progress.dailyChallenge = challenge;
   progress.dcHistory = recent.concat(ids).slice(-21);
   saveProgress();
   return challenge;
+}
+// La sessió d'avui del recorregut és el repte diari d'avui amb recorregut. Es
+// reconeix pels ids, no per cap bandera de currentSession: així també val quan es
+// reprèn una sessió a mitges (resumeSavedSession no porta banderes), quan es
+// repeteix, o quan es tornen a provar només els que falten (un subconjunt).
+function sessioDelRecorregut(items) {
+  const dc = progress.dailyChallenge;
+  if (!dc || !dc.recorregut || dc.date !== new Date().toDateString()) return null;
+  const ids = (items || []).map(q => q.id);
+  return ids.length && ids.every(id => dc.ids.includes(id)) ? dc : null;
+}
+// Abans del primer exercici nou, la teoria del tema si és la primera vegada que s'hi
+// entra (cap exercici del tema tocat i teoria no vista). A tots els nivells: a la
+// sessió, el tema no l'ha triat la persona i no ha passat per la seva pantalla.
+function teoriaAbansDelNou(idx) {
+  const dc = sessioDelRecorregut(currentSession.items);
+  if (!dc || !(dc.nous || []).length || currentSession.items[idx].id !== dc.nous[0]) return null;
+  const q = findExerciseById(dc.nous[0]);
+  if (!q || !THEORY[q.category] || hasSeenTheory(q.category)) return null;
+  const tocat = DATA[q.level].some(x => x.category === q.category && getMastery(x.id) > 0);
+  return tocat ? null : { level: q.level, cat: q.category };
 }
 
 function startDailySession() {
@@ -2452,6 +2542,9 @@ function startDailySession() {
   const items = dc.ids.map((id, k) => {
     const base = all.find(q => q.id === id);
     if (!base) return null;
+    // Els nous de la sessió del recorregut, en la versió base: és el primer contacte,
+    // com a les sessions de tema (withVariantsIfPracticed).
+    if ((dc.nous || []).includes(id) && getMastery(id) === 0) return base;
     return withVariant(base, Math.floor(seededRand(seed, 500 + k) * variantCount(base)));
   }).filter(Boolean);
   currentSession = { items, idx: 0, correct: 0, level: 'mixed', returnTo: 'review', isDailyChallenge: true };
@@ -4006,8 +4099,9 @@ function renderHelp() {
       <details class="ct-acc">
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Repte diari</span></summary>
         <div class="ct-acc-body">
-          Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
-          No es trien a l'atzar. Si has triat un <strong>recorregut</strong>, surten del seu mòdul. Si no, dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1); en aquest cas, el mòdul <strong>Novetats IEC</strong> no hi entra. En tots dos casos s'eviten els exercicis que t'han sortit als reptes de l'última setmana perquè no es repeteixin.<br><br>
+          Cada dia hi ha un <strong>repte diari</strong>. Si l'encertes sencer, guanyes <strong>+50 XP extra</strong>; el que falles el pots tornar a provar el mateix dia.<br><br>
+          Si segueixes un <strong>recorregut</strong>, el repte és la teva <strong>sessió d'avui</strong>: fins a <strong>3 repassos</strong> que et toquen (primer els del recorregut) i <strong>2 exercicis nous</strong> del tema on ets. Si és la primera vegada que hi entres, abans et surt la teoria.<br><br>
+          Si vas per lliure, són 3 exercicis dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1), sense el mòdul <strong>Novetats IEC</strong>, i s'eviten els que t'han sortit als reptes de l'última setmana.<br><br>
           El recorregut que segueixes és el que tries en començar, o l'últim on prems <strong>Continua</strong> a la pantalla d'un nivell.<br><br>
           El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
         </div>
