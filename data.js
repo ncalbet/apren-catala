@@ -2344,7 +2344,7 @@ const DATA = {
       answers:['vaig aprendre'],
       variants:[
         { sentence:'Quan vivia a Londres, ___ (conèixer) la meva parella actual.', display:'passat perifràstic 1a pers. sing. de «conèixer»', answers:['vaig conèixer'] },
-        { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'passat perifràstic 1a pers. sing. de «decidir»', answers:['vaig decidir'] },
+        { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'passat perifràstic 1a pers. sing. de «decidir»', answers:['vaig decidir'], theory:"«Mentre estudiava a la universitat» marca la circumstància de fons (imperfet). «Vaig decidir» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:"Mentre vivia a Girona, vaig decidir aprendre a nedar. / Quan treballava a la biblioteca, vaig conèixer la Marta." },
       ],
       theory:"«Quan tenia quinze anys» marca la circumstància de fons (imperfet). «Vaig aprendre» = acció puntual nova que es produeix en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:'Quan vivia a París, vaig aprendre francès. / Quan era jove, vaig conèixer el meu millor amic.' },
 
@@ -2452,8 +2452,8 @@ const DATA = {
       options:['vins','venimos','venín','venim'],
       correct:3,
       variants:[
-        { question:'Quina és la forma correcta de «venir» en tercera persona del plural?', options:['vienes','vénen','venen','vinen'], correct:2 },
-        { question:'Quina és la forma correcta de «tenir» en primera persona del plural?', text:'El verb «tenir» és irregular. Atenció a les interferències del castellà.', options:['tenim','tenemos','tenin','tenis'], correct:0 },
+        { question:'Quina és la forma correcta de «venir» en tercera persona del plural?', options:['vienes','vénen','venen','vinen'], correct:2, theory:"«Venen» és la 3a persona del plural de «venir» en present. No és «vienen» (castellà) ni «vinen». I s'escriu sense accent: «vénen» és la grafia d'abans del 2017.", example:"Els meus cosins venen demà. / Venen tots a sopar a casa." },
+        { question:'Quina és la forma correcta de «tenir» en primera persona del plural?', text:'El verb «tenir» és irregular. Atenció a les interferències del castellà.', options:['tenim','tenemos','tenin','tenis'], correct:0, theory:"«Tenim» és la 1a persona del plural de «tenir» en present. No és «tenemos» (castellà).", example:"Tenim molta feina aquesta setmana. / Nosaltres tenim un gos." },
       ],
       theory:"«Venim» és la 1a persona del plural de «venir» en present. No és «venimos» (castellà).", example:"Venim d'Alemanya. / Nosaltres venim a peu." },
 
@@ -2476,7 +2476,7 @@ const DATA = {
       correct:1,
       variants:[
         { question:'Quina forma de «poder» és correcta per a «vosaltres»?', text:'El verb «poder» és irregular en present d\'indicatiu. Les formes amb «pugu-» pertanyen al subjuntiu; el present d\'indicatiu segueix un altre patró, i cada persona té la seva terminació.', options:['puguen','podin','podeu','podem'], correct:2 },
-        { question:'Quina forma de «saber» és correcta per a «ells»?', text:'El verb «saber» és irregular en present d\'indicatiu. La 3a persona del plural no segueix el patró del subjuntiu.', options:['sapen','saben','sapien','sàpiguen'], correct:1 },
+        { question:'Quina forma de «saber» és correcta per a «ells»?', text:'El verb «saber» és irregular en present d\'indicatiu. La 3a persona del plural no segueix el patró del subjuntiu.', options:['sapen','saben','sapien','sàpiguen'], correct:1, theory:"«Saber» en present d'indicatiu: jo sé, tu saps, ell sap, nosaltres sabem, vosaltres sabeu, ells saben. «Sàpiguen» és una forma del subjuntiu («que ells sàpiguen»), no de l'indicatiu.", example:"Ells saben parlar tres idiomes." },
       ],
       theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguen» i «pugan» no existeixen en català normatiu; «podin» seria una forma incorrecta del subjuntiu (la forma correcta seria «puguin»).", example:"Ells poden venir demà si volen." },
 
@@ -2494,8 +2494,8 @@ const DATA = {
       ],
       correct:1,
       variants:[
-        { question:'Quin és el paradigma complet correcte del present de «venir»?', options:['vinc, vens, ve, venim, veniu, venen','vinc, véns, ve, venim, veniu, vénen','vinc, vens, vé, venim, veneu, venen'], correct:0 },
-        { question:'Quin és el paradigma complet correcte del present de «poder»?', options:['puc, pots, pot, podem, podeu, poden','puc, pucs, pot, podim, podeu, puden','puig, puts, pot, podem, podeu, puguen'], correct:0 },
+        { question:'Quin és el paradigma complet correcte del present de «venir»?', options:['vinc, vens, ve, venim, veniu, venen','vinc, véns, ve, venim, veniu, vénen','vinc, vens, vé, venim, veneu, venen'], correct:0, theory:"«Venir» és irregular: vinc (1a sg.), vens (2a), ve (3a), venim (1a pl.), veniu (2a pl.), venen (3a pl.). «Vens» i «venen» s'escriuen sense accent des del 2017 (abans, «véns» i «vénen»), «ve» no en porta, i la 2a pl. és «veniu» (no «veneu»).", example:"Jo vinc de la feina. Ella ve amb nosaltres. Vosaltres veniu demà? Ells venen tard." },
+        { question:'Quin és el paradigma complet correcte del present de «poder»?', options:['puc, pots, pot, podem, podeu, poden','puc, pucs, pot, podim, podeu, puden','puig, puts, pot, podem, podeu, puguen'], correct:0, theory:"«Poder» és irregular: puc (1a sg.), pots (2a), pot (3a), podem (1a pl.), podeu (2a pl.), poden (3a pl.). La 1a persona és «puc» (no «puig»), i el plural manté el radical «pod-» (no «podim» ni «puden»).", example:"Jo no puc venir. Tu pots entrar. Vosaltres podeu seure aquí." },
       ],
       theory:"«Tenir» és irregular: tinc (1a sg.), tens (2a), té (3a), tenim (1a pl.), teniu (2a pl.), tenen (3a pl.). Atenció: 2a pl. és «teniu» (no «teneu») i 3a pl. és «tenen» (no «tinen»).",
       example:"Jo tinc fred. Ell té raó. Vosaltres teniu sort. Ells tenen pressa." },
@@ -3211,8 +3211,8 @@ const DATA = {
       options:['introvertit','obert','seriós'],
       correct:1,
       variants:[
-        { question:'Quina paraula significa el contrari de «pessimista»?', text:'En català hi ha adjectius de caràcter que es contraposen en parells. Pensa quin s\'oposa millor a «pessimista».', options:['optimista','realista','espontani'], correct:0 },
-        { question:'Quina paraula significa el contrari de «antipàtic»?', text:'En català hi ha adjectius de caràcter que es contraposen en parells. Pensa quin s\'oposa millor a «antipàtic».', options:['seriós','divertit','simpàtic'], correct:2 },
+        { question:'Quina paraula significa el contrari de «pessimista»?', text:'En català hi ha adjectius de caràcter que es contraposen en parells. Pensa quin s\'oposa millor a «pessimista».', options:['optimista','realista','espontani'], correct:0, theory:"«Optimista» és qui veu les coses pel costat bo i confia que sortiran bé. És el contrari de «pessimista».", example:"Tot i els problemes, és molt optimista i sempre troba una solució." },
+        { question:'Quina paraula significa el contrari de «antipàtic»?', text:'En català hi ha adjectius de caràcter que es contraposen en parells. Pensa quin s\'oposa millor a «antipàtic».', options:['seriós','divertit','simpàtic'], correct:2, theory:"«Simpàtic» és qui és agradable i cau bé a la gent. És el contrari d'«antipàtic».", example:"El nou veí és molt simpàtic: sempre ens saluda amb un somriure." },
       ],
       theory:"«Obert» s'usa per a persones que es comuniquen sense reserves ni dificultat.", example:"Sembla tímida, però quan la coneixes és molt oberta i parladora." },
 
@@ -3430,8 +3430,8 @@ const DATA = {
       display:"imperfet 1a pers. sing. de «fer»",
       answers:['feia'],
       variants:[
-        { text:"El verb «dir» és irregular en imperfet: segueix el patró -ia de la 2a conjugació sobre l'arrel «d-». Recorda'n la forma.", sentence:"De petita, la meva mare sempre em ___ (dir) que estudiés molt.", display:"imperfet 3a pers. sing. de «dir»", answers:['deia'] },
-        { text:"El verb «riure» fa l'imperfet sobre l'arrel «re-» amb la terminació -ia de la 2a conjugació. Recorda'n la forma.", sentence:"Quan ens explicava acudits, tothom ___ (riure) molt.", display:"imperfet 3a pers. sing. de «riure»", answers:['reia'] },
+        { text:"El verb «dir» és irregular en imperfet: segueix el patró -ia de la 2a conjugació sobre l'arrel «d-». Recorda'n la forma.", sentence:"De petita, la meva mare sempre em ___ (dir) que estudiés molt.", display:"imperfet 3a pers. sing. de «dir»", answers:['deia'], theory:"«Dir» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «riure»: jo deia, tu deies, ell deia, nosaltres dèiem, vosaltres dèieu, ells deien.", example:"El meu avi sempre deia que la paciència ho és tot." },
+        { text:"El verb «riure» fa l'imperfet sobre l'arrel «re-» amb la terminació -ia de la 2a conjugació. Recorda'n la forma.", sentence:"Quan ens explicava acudits, tothom ___ (riure) molt.", display:"imperfet 3a pers. sing. de «riure»", answers:['reia'], theory:"«Riure» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «dir»: jo reia, tu reies, ell reia, nosaltres rèiem, vosaltres rèieu, ells reien.", example:"De petit, reia molt amb els dibuixos animats." },
       ],
       theory:"«Fer» en imperfet d'indicatiu: jo feia, tu feies, ell feia, nosaltres fèiem, vosaltres fèieu, ells feien. La terminació -ia/-ies és regular per als verbs de la 2a conjugació.", example:"Quan tenia vint anys, feia molt esport cada dia." },
 
@@ -4049,8 +4049,8 @@ const DATA = {
       sentence:'He quedat ___ la Núria per dinar avui.',
       display:'preposició de companyia', answers:['amb'],
       variants:[
-        { text:'Molts verbs catalans regeixen una preposició fixa que de vegades no coincideix amb la del castellà.', question:'Tria la preposició correcta per al verb «pensar»:', sentence:'Sovint penso ___ les vacances de l\'estiu passat.', display:'preposició de règim de «pensar»', answers:['en'] },
-        { text:'Molts verbs catalans regeixen una preposició fixa que de vegades no coincideix amb la del castellà.', question:'Tria la preposició correcta per al verb «dependre»:', sentence:'La decisió final no depèn ___ mi, sinó del comitè.', display:'preposició de règim de «dependre»', answers:['de'] },
+        { text:'Molts verbs catalans regeixen una preposició fixa que de vegades no coincideix amb la del castellà.', question:'Tria la preposició correcta per al verb «pensar»:', sentence:'Sovint penso ___ les vacances de l\'estiu passat.', display:'preposició de règim de «pensar»', answers:['en'], theory:"«Pensar» porta la preposició «en» davant del complement: pensar en algú o en alguna cosa. Si el complement és una cosa i es pronominalitza, passa a «hi»: «Hi penso sovint».", example:"Penso molt en els meus avis. / No hi pensis més." },
+        { text:'Molts verbs catalans regeixen una preposició fixa que de vegades no coincideix amb la del castellà.', question:'Tria la preposició correcta per al verb «dependre»:', sentence:'La decisió final no depèn ___ mi, sinó del comitè.', display:'preposició de règim de «dependre»', answers:['de'], theory:"«Dependre» porta la preposició «de»: dependre d'algú o d'alguna cosa.", example:"Tot depèn del temps que faci. / Aquesta decisió no depèn de nosaltres." },
       ],
       theory:'«Quedar amb» algú = quedar per trobar-se (companyia). «Amb» expressa companyia o instrument.', example:'Quedo amb ella a les dues. / Ho escriu amb llapis.' },
     { id:'b2-prep5', type:'choice', level:'b2', category:'Preposicions',
@@ -4107,7 +4107,7 @@ const DATA = {
       options:['més bo','millor','major'],
       correct:1, variants:[
         { options:['millor','major','més bo'], correct:0 },
-        { question:'Quin comparatiu irregular correspon a «dolent»?', text:'Alguns adjectius tenen, a més de la forma regular amb «més», un comparatiu sintètic irregular. Tria el que correspon a «dolent».', options:['més dolent','pitjor','menor'], correct:1 },
+        { question:'Quin comparatiu irregular correspon a «dolent»?', text:'Alguns adjectius tenen, a més de la forma regular amb «més», un comparatiu sintètic irregular. Tria el que correspon a «dolent».', options:['més dolent','pitjor','menor'], correct:1, theory:"«Dolent» té un comparatiu irregular: «pitjor», que és el contrari de «millor». «Menor» és el comparatiu de «petit».", example:"Aquesta opció és pitjor que la primera. / Avui fa pitjor temps que ahir." },
       ],
       theory:'«Bo» té comparatiu irregular: «millor». En registre formal s\'evita «més bo» (col·loquial). «Major» és comparatiu de «gran» (en sentit abstracte o formal).', example:'Aquesta opció és millor que la primera. / El millor resultat possible.' },
     { id:'b2-cmp4', type:'fill', level:'b2', category:'Construccions comparatives',
@@ -4795,7 +4795,7 @@ const DATA = {
       display:'plural de «règim»', answers:['règims'],
       variants:[
         { sentence:'Aquests dos ___ tenen personalitats completament oposades.', display:'plural de «caràcter»', answers:['caràcters'] },
-        { sentence:'Els ___ finals comencen la setmana que ve.', display:'plural de «examen»', answers:['exàmens'] },
+        { sentence:'Els ___ finals comencen la setmana que ve.', display:'plural de «examen»', answers:['exàmens'], theory:"«Examen» és pla i acaba en -en, per això no porta accent. El plural «exàmens» també és pla, però acaba en -ens, que no és cap de les terminacions que van sense accent (vocal, -as, -es, -is, -os, -us, -en, -in): per això s'accentua. Igual: fenomen → fenòmens, dolmen → dòlmens.", example:"Els exàmens finals comencen dilluns. / Dos fenòmens difícils d'explicar." },
       ],
       theory:'Els mots plans acabats en consonant formen el plural afegint «-s»: «règim» → «règims». No «règimes».', example:'règim → règims; caràcter → caràcters; síntesi → síntesis.' },
     { id:'c1-df4', type:'choice', level:'c1', category:'Derivació i flexió',
@@ -5013,7 +5013,7 @@ const DATA = {
       options:['Comprar piles per a un dispositiu electrònic','Espavilar-se i posar-se a treballar amb energia','Preparar-se físicament per a una activitat esportiva'],
       correct:1, variants:[
         { options:['Espavilar-se i posar-se a treballar amb energia','Comprar piles per a un dispositiu electrònic','Preparar-se físicament per a una activitat esportiva'], correct:0 },
-        { question:'Quina és la interpretació correcta de «perdre el fil»?', options:['Rendir-se i abandonar la tasca','Perdre el seguiment d\'un raonament o d\'una conversa','Treballar molt dur fins a l\'extenuació'], correct:1 },
+        { question:'Quina és la interpretació correcta de «perdre el fil»?', options:['Rendir-se i abandonar la tasca','Perdre el seguiment d\'un raonament o d\'una conversa','Treballar molt dur fins a l\'extenuació'], correct:1, theory:"«Perdre el fil» és una locució verbal que vol dir perdre el seguiment d'un raonament o d'una conversa.", example:"Parlava tan de pressa que vaig perdre el fil." },
       ],
       theory:'«Posar-se les piles» és una locució verbal que significa activar-se, espabilar-se, posar esforç en una tasca. El seu ús és col·loquial.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
     { id:'c1-df7', type:'fill', level:'c1', category:'Derivació i flexió',
