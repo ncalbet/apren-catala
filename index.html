@@ -3099,7 +3099,7 @@ window.lligaTotesLesSetmanes = lligaTotesLesSetmanes;
 // «marta» i «Màrta» són el mateix pseudònim.
 // ⚠️ Ha de donar EXACTAMENT el mateix que clauDe() de firestore.rules.
 function clauPseudonim(p) {
-  return (p || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
+  return (p || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
 }
 function pseudonimValid(p) {
   return typeof p === 'string' && p.length >= 3 && p.length <= PSEUDO_MAX
