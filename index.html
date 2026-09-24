@@ -600,69 +600,146 @@ const PSEUDO_MAX = 15;
 const NOVETATS_BANNER_ACTIU = false;
 
 // ══ RECORREGUTS ══
-// Un recorregut és el mòdul que la persona tria per orientar la pràctica. Ara per
-// ara només decideix d'on surt el repte diari; la sessió d'avui el farà servir més
-// endavant. Títols i promeses: els del document de recorreguts, PROVISIONALS
-// (l'usuari els revisarà quan hi hagi més coses construïdes).
-// progress.recorregut té tres estats, i cal distingir-los:
-//   · undefined → encara no s'ha preguntat: l'Inici mostra la targeta de tria
-//   · null      → «Prefereixo triar jo»: el mode lliure de sempre, sense tornar a preguntar
-//   · 'a2'…'iec' → recorregut triat
-// Viatja dins del bloc de progrés, com la resta. AQUÍ DALT pel mateix motiu que
-// les de Ko-fi: renderMenu() la llegeix des del bloc d'arrencada.
+// Cada nivell és també un recorregut: les seves categories, agrupades en etapes i
+// en un ordre recomanat (annex A del pla). La pantalla del nivell les mostra així,
+// amb la següent destacada i un botó «Continua»; l'ordre recomana, no tanca res.
+// Títols i promeses: els del document de recorreguts, PROVISIONALS (l'usuari els
+// revisarà quan hi hagi més coses construïdes).
+// progress.recorregut és el que la persona SEGUEIX, i té tres estats:
+//   · undefined → encara no s'ha preguntat: l'Inici mostra l'avís de novetat
+//   · null      → «Vaig per lliure»: el mode de sempre, sense tornar a preguntar
+//   · 'a2'…'iec' → el recorregut triat, o l'últim on s'ha premut «Continua»
+// Decideix d'on surt el repte diari i què ofereix el «Continua» de l'Inici.
+// «On ets» no es desa: és la primera categoria del recorregut que encara no té
+// els exercicis fets (calculat), o sigui que no cal cap dada nova a sincronitzar.
+// AQUÍ DALT pel mateix motiu que les de Ko-fi: renderMenu() la llegeix des del
+// bloc d'arrencada.
 const RECORREGUTS = [
-  { id: 'a2',  nivell: 'A2',           titol: 'Fes-te entendre amb més confiança', promesa: 'Practica com descriure, preguntar i parlar del passat.' },
-  { id: 'b1',  nivell: 'B1',           titol: 'Que els dubtes no et frenin',       promesa: 'Guanya precisió amb verbs, pronoms i connexions entre frases.' },
-  { id: 'b2',  nivell: 'B2',           titol: 'Escriu clar, connecta millor',      promesa: 'Dona coherència als textos i afina les teves expressions.' },
-  { id: 'c1',  nivell: 'C1',           titol: 'Dona força i precisió al teu català', promesa: 'Argumenta, matisa i adapta el registre.' },
-  { id: 'iec', nivell: 'Novetats IEC', titol: 'Posa al dia el teu català escrit', promesa: 'Revisa accents, guionets i grafies que et poden fer dubtar.' },
+  { id: 'a2', nivell: 'A2', titol: 'Fes-te entendre amb més confiança', promesa: 'Practica com descriure, preguntar i parlar del passat.', etapes: [
+    ['Descriu amb precisió', ['Ser, estar i semblar']],
+    ['Troba les paraules', ['Adjectius de caràcter', 'Lèxic A2: caràcter i emocions']],
+    ['Pregunta el que necessites', ['Preguntes i interrogació']],
+    ['Explica què va passar', ['Passat perifràstic']],
+    ['Parla de com era abans', ["Imperfet d'indicatiu"]],
+    ['Reprèn la informació', ['Pronoms febles A2']],
+  ] },
+  { id: 'b1', nivell: 'B1', titol: 'Que els dubtes no et frenin', promesa: 'Guanya precisió amb verbs, pronoms i connexions entre frases.', etapes: [
+    ['Verbs que fas servir cada dia', ['Verbs irregulars B1', 'Lèxic quotidià B1']],
+    ['El passat, sense embolics', ['Imperfet i perifràstic B1']],
+    ['Parla de plans i obligacions', ['Futur i condicional B1', 'Perífrasis B1', 'Subordinades B1']],
+    ['Connecta el que dius', ['Connectors B1']],
+    ['Pronoms i preposicions amb sentit', ['Pronoms febles B1', 'Règim verbal B1', 'Preposicions B1']],
+    ['Fes frases més completes', ['Oracions de relatiu B1', 'Veu passiva B1']],
+    ['Revisa i aplica', ['Ortografia B1']],
+  ] },
+  { id: 'b2', nivell: 'B2', titol: 'Escriu clar, connecta millor', promesa: 'Dona coherència als textos i afina les teves expressions.', etapes: [
+    ['Fes avançar les idees', ['Connectors', 'Cohesió textual']],
+    ['Digues exactament què vols dir', ['Lèxic formal B2', 'Interferències', 'Construccions comparatives']],
+    ['Controla els matisos verbals', ['Subjuntiu', 'Temps verbals', 'Perífrasis verbals']],
+    ['Ajusta les peces de la frase', ['Pronoms febles B2', 'Preposicions']],
+    ['Llegeix per escriure millor', ['Comprensió lectora']],
+    ['Revisa un text complet', ['Ortografia B2', 'Producció escrita']],
+  ] },
+  { id: 'c1', nivell: 'C1', titol: 'Dona força i precisió al teu català', promesa: 'Argumenta, matisa i adapta el registre.', etapes: [
+    ['Defensa una idea', ['Argumentació', 'Comprensió crítica']],
+    ['Introdueix matisos', ['Connectors concessius', 'Subjuntiu avançat', 'Subjuntiu imperfet']],
+    ['Fes frases precises', ['Oracions de relatiu', 'Pronoms febles']],
+    ['Tria el registre', ['Lèxic formal', 'Frases fetes', 'Derivació i flexió']],
+    ['Explica què ha dit algú', ['Estil indirecte']],
+    ['Redacta i revisa', ['Passiva i impersonal', 'Producció formal']],
+  ] },
+  { id: 'iec', nivell: 'Novetats IEC', titol: 'Posa al dia el teu català escrit', promesa: 'Revisa accents, guionets i grafies que et poden fer dubtar.', etapes: [
+    ['Quins accents es mantenen?', ['Els diacrítics que queden']],
+    ['Quins accents ja no toquen?', ['Els diacrítics que han caigut']],
+    ['Entén els casos especials', ['Mites i confusions']],
+    ['Junt, separat o amb guionet?', ['Guionets als compostos', 'Prefixos: junt o separat']],
+    ['Col·loca apòstrofs i guionets', ["L'ortografia dels pronoms febles"]],
+    ['Revisa altres grafies', ['La e epentètica', 'La dièresi que va caure']],
+  ] },
 ];
-function recorregutActiu() {
-  return RECORREGUTS.find(r => r.id === progress.recorregut) || null;
+function recorregutDe(id) {
+  return RECORREGUTS.find(r => r.id === id) || null;
 }
-// Botons de tria, compartits per l'acollida, la targeta de l'Inici i el Perfil.
-// `accio` és el nom de la funció que rep l'id ('a2'…'iec', o null per al mode lliure).
+function recorregutActiu() {
+  return recorregutDe(progress.recorregut);
+}
+// Les etapes d'un nivell amb les categories que té DE DEBÒ a data.js. Una categoria
+// nova que encara no s'hagi posat a cap etapa no desapareix: va a «Altres temes».
+function etapesDe(level) {
+  const r = recorregutDe(level);
+  const cats = [...new Set((DATA[level] || []).map(q => q.category))];
+  const etapes = (r ? r.etapes : []).map(([nom, cs]) => ({ nom, cats: cs.filter(c => cats.includes(c)) }))
+    .filter(e => e.cats.length);
+  const posades = new Set(etapes.flatMap(e => e.cats));
+  const altres = cats.filter(c => !posades.has(c));
+  if (altres.length) etapes.push({ nom: 'Altres temes', cats: altres });
+  return etapes;
+}
+function categoriaFeta(level, cat) {
+  const st = groupState((DATA[level] || []).filter(q => q.category === cat).map(q => getMastery(q.id)));
+  return st === 'completed' || st === 'mastered';
+}
+// On ets dins del recorregut: la primera categoria, en l'ordre de les etapes, que
+// encara no té tots els exercicis fets. null si ja estan tots fets.
+function seguentDelRecorregut(level) {
+  const etapes = etapesDe(level);
+  for (let i = 0; i < etapes.length; i++) {
+    const cat = etapes[i].cats.find(c => !categoriaFeta(level, c));
+    if (cat) return { etapa: i + 1, nomEtapa: etapes[i].nom, cat };
+  }
+  return null;
+}
+function continuaRecorregut(level) {
+  const seg = seguentDelRecorregut(level);
+  triaRecorregut(level);
+  if (seg) openCategory(level, seg.cat);
+  else showTab(level);
+}
+// Botons de tria, compartits per l'acollida i per l'avís de novetat de l'Inici.
+// `accio` és el nom de la funció que rep l'id ('a2'…'iec', o null per anar per lliure).
 function recorregutOpcionsHTML(accio) {
-  const actual = progress.recorregut;
   return RECORREGUTS.map(r => `
     <button type="button" class="ct-btn secondary" onclick="${accio}('${r.id}')"
-      style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:10px 14px;line-height:1.35;${actual === r.id ? 'border-width:2px;' : ''}">
-      <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${r.titol} <span style="font-weight:400;color:var(--muted);">· ${r.nivell}</span>${actual === r.id ? ' ✓' : ''}</span>
+      style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:10px 14px;line-height:1.35;">
+      <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${r.titol} <span style="font-weight:400;color:var(--muted);">· ${r.nivell}</span></span>
       <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${r.promesa}</span>
     </button>`).join('') + `
     <button type="button" class="ct-btn secondary" onclick="${accio}(null)"
-      style="width:100%;margin:4px 0 0;font-size:13px;${actual === null ? 'border-width:2px;' : ''}">Prefereixo triar jo${actual === null ? ' ✓' : ''}</button>`;
+      style="width:100%;margin:4px 0 0;font-size:13px;">Vaig per lliure</button>`;
 }
-// Canviar de recorregut no esborra res: només canvia d'on surt el repte diari. Si
-// el d'avui encara no s'ha començat, es refà amb el recorregut nou (si no, qui el
-// tria a l'acollida el primer dia faria un repte que no hi té res a veure); si ja
-// n'hi ha algun de fet, es manté fins a demà.
+// Canviar de recorregut no esborra res: només canvia d'on surt el repte diari i
+// què ofereix el «Continua» de l'Inici. Si el repte d'avui encara no s'ha
+// començat, es refà amb el recorregut nou (si no, qui el tria a l'acollida el
+// primer dia faria un repte que no hi té res a veure); si ja n'hi ha algun de
+// fet, es manté fins a demà.
 function triaRecorregut(id) {
-  progress.recorregut = RECORREGUTS.some(r => r.id === id) ? id : null;
+  const nou = recorregutDe(id) ? id : null;
+  if (nou === progress.recorregut) return;
+  progress.recorregut = nou;
   const dc = progress.dailyChallenge;
   if (dc && dc.date === new Date().toDateString() && !dc.completed.length) progress.dailyChallenge = null;
   saveProgress();
-}
-function iniciTriaRecorregut(id) {
-  triaRecorregut(id);
-  renderMenu();
-}
-function perfilTriaRecorregut(id) {
-  triaRecorregut(id);
-  document.getElementById('recorregut-modal')?.remove();
-  renderProfile();
 }
 function obreTriaRecorregut() {
   const el = document.createElement('div');
   el.className = 'ct-modal-overlay';
   el.id = 'recorregut-modal';
   el.innerHTML = `<div class="ct-modal" style="max-width:380px;max-height:85vh;overflow-y:auto;text-align:left;">
-    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:6px;">Canvia de recorregut</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:14px;">No perds res: el progrés és el mateix. Només canvia d'on surt el repte diari.</div>
-    ${recorregutOpcionsHTML('perfilTriaRecorregut')}
-    <button class="ct-btn secondary" style="width:100%;margin-top:8px;font-size:13px;opacity:0.8;" onclick="this.closest('.ct-modal-overlay').remove()">Tanca</button>
+    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:6px;">Tria un recorregut</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:14px;">Cada nivell té els temes en un ordre recomanat i et porta on ho vas deixar. No perds res, i sempre pots entrar a qualsevol tema.</div>
+    ${recorregutOpcionsHTML('modalTriaRecorregut')}
+    <button class="ct-btn secondary" style="width:100%;margin-top:8px;font-size:13px;opacity:0.8;" onclick="this.closest('.ct-modal-overlay').remove()">Ara no</button>
   </div>`;
   document.body.appendChild(el);
+}
+function modalTriaRecorregut(id) {
+  triaRecorregut(id);
+  document.getElementById('recorregut-modal')?.remove();
+  if (id) showTab(id); else renderMenu();
+}
+function tancaAvisRecorreguts() {
+  triaRecorregut(null);
+  renderMenu();
 }
 function findExerciseById(id) {
   return [...(DATA.a2||[]),...(DATA.b1||[]),...DATA.b2,...DATA.c1,...(DATA.iec||[])].find(q => q.id === id) || null;
@@ -1112,14 +1189,22 @@ function renderMenu() {
         <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="clearActiveSession();renderMenu()">Descartar</button>
       </div>
     </div>` : '';
-  // Tria de recorregut per a qui no n'ha triat mai (usuaris d'abans de la fase 2 i
-  // qui salta l'acollida). Surt fins que en tria un o diu «Prefereixo triar jo», i
-  // mentre hi és, cap altre avís no s'hi apila (recordatoris i Ko-fi esperen).
-  const triaBanner = progress.recorregut === undefined ? `
-    <div class="ct-card" style="padding:18px;margin-bottom:16px;border:1px solid var(--c1-line);">
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:4px;">🧭 Tria el teu recorregut</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:14px;">El repte diari en sortirà. El pots canviar quan vulguis al Perfil, i no perds res.</div>
-      ${recorregutOpcionsHTML('iniciTriaRecorregut')}
+  // Avís de novetat dels recorreguts per a qui no n'ha triat mai (usuaris d'abans
+  // dels recorreguts i qui salta l'acollida). Surt fins que en tria un o el tanca
+  // (tancar-lo = «Vaig per lliure»), i mentre hi és, cap altre avís no s'hi apila
+  // (recordatoris i Ko-fi esperen). Va al progrés, no al mòbil: no torna en un
+  // mòbil nou, que és el que va fer apagar el modal de novetats.
+  const avisRecorreguts = progress.recorregut === undefined ? `
+    <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-green-text);background:var(--accent-green-bg);">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:20px;flex-shrink:0;">🧭</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:600;color:var(--accent-green-text);">Novetat: els recorreguts</div>
+          <div style="font-size:12px;color:var(--accent-green-val);margin-top:2px;line-height:1.5;">Ara pots seguir cada nivell pas a pas, amb els temes en un ordre recomanat, i continuar sempre on ho vas deixar.</div>
+          <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;margin-top:10px;" onclick="obreTriaRecorregut()">Tria'n un</button>
+        </div>
+        <button onclick="tancaAvisRecorreguts()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+      </div>
     </div>` : '';
   const novetatsBanner = shouldShowNovetatsBanner() ? `
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-green-text);background:var(--accent-green-bg);">
@@ -1137,7 +1222,7 @@ function renderMenu() {
         <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="showTab('profile')">Activar</button>
       </div>` : ''}
     </div>` : '';
-  const notifBanner = (!novetatsBanner && !triaBanner && shouldShowNotifBanner()) ? `
+  const notifBanner = (!novetatsBanner && !avisRecorreguts && shouldShowNotifBanner()) ? `
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:center;gap:12px;">
       <span style="font-size:20px;flex-shrink:0;display:flex;color:var(--accent-blue-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
       <div style="flex:1;min-width:0;">
@@ -1162,7 +1247,7 @@ function renderMenu() {
   document.getElementById('ct-body').innerHTML = `
     ${resumeBanner}
     ${lligaPistaHTML()}
-    ${triaBanner}
+    ${avisRecorreguts}
     ${novetatsBanner}
     ${notifBanner}
     ${kofiBanner}
@@ -1191,7 +1276,16 @@ function renderMenu() {
       <div style="font-size:13px;font-weight:600;color:var(--heading);text-align:left;">🔥 La teva ratxa</div>
       ${render7DayHistory()}
       <div style="font-size:11px;color:var(--muted);text-align:center;margin:-6px 0 18px;">🛡️ ${progress.freezes} gel${progress.freezes===1?'':'s'} de ratxa · et salven la ratxa si et saltes un dia</div>
-      ${recorregutActiu() ? `<div style="font-size:12px;color:var(--muted);text-align:left;margin:0 0 6px;">🧭 ${recorregutActiu().titol} · ${recorregutActiu().nivell}</div>` : ''}
+      ${(()=>{
+        // El recorregut que segueixes, amb on ets. Si ja l'has fet sencer, no hi ha
+        // res a continuar i no es mostra (la pantalla del nivell ho diu).
+        const r = recorregutActiu();
+        const seg = r && seguentDelRecorregut(r.id);
+        return seg ? `<button class="ct-btn secondary" style="width:100%;margin:0 0 10px;border-width:2px;line-height:1.35;" onclick="continuaRecorregut('${r.id}')">
+            <span style="display:block;font-weight:600;">▶ Continua el recorregut ${r.nivell}</span>
+            <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">Etapa ${seg.etapa} · ${seg.cat}</span>
+          </button>` : '';
+      })()}
       ${(()=>{
         const dc = getDailyChallenge();
         const dcDone = dc.completed.length === dc.ids.length;
@@ -1233,7 +1327,7 @@ function renderLevelMenu(level) {
     cats[q.category].push({ q, i });
   });
 
-  const catCards = Object.entries(cats).map(([cat, qs]) => {
+  const cardDe = (cat, qs, esSeguent) => {
     const th = THEORY[cat];
     const icon = th ? th.icon : icons[qs[0].q.type];
     const masteries = qs.map(({q}) => getMastery(q.id));
@@ -1251,9 +1345,10 @@ function renderLevelMenu(level) {
     const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
     return `
-      <div class="ct-lesson-card ${cardClass}" onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" onkeydown="if(event.key==='Enter'||event.key===' ')openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" role="button" tabindex="0">
+      <div class="ct-lesson-card ${cardClass}"${esSeguent ? ' style="border:2px solid var(--c1-line);"' : ''} onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" onkeydown="if(event.key==='Enter'||event.key===' ')openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" role="button" tabindex="0">
         ${corner}
         <div class="ct-lesson-icon">${icon}</div>
+        ${esSeguent ? '<div style="font-size:11px;font-weight:700;letter-spacing:0.5px;color:var(--c1-line);margin-bottom:2px;">➜ ET TOCA</div>' : ''}
         <div class="ct-lesson-title">${cat}</div>
         <div style="margin-top:6px;">${statusBadge}</div>
         <div style="margin-top:8px;height:4px;background:var(--track);border-radius:2px;overflow:hidden;">
@@ -1268,15 +1363,30 @@ function renderLevelMenu(level) {
           <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">EXERCICIS</span>
         </div>
       </div>`;
-  }).join('');
+  };
+
+  // El nivell com a recorregut: les categories per etapes, en l'ordre recomanat,
+  // amb la següent destacada. Cap cadenat: totes s'obren igual que abans.
+  const r = recorregutDe(level);
+  const seg = seguentDelRecorregut(level);
+  const etapesHTML = etapesDe(level).map((e, i) => `
+      <div style="font-size:13px;font-weight:700;color:var(--heading);margin:${i ? 22 : 4}px 0 10px;">${e.nom === 'Altres temes' ? e.nom : `${i + 1}. ${e.nom}`}</div>
+      <div class="ct-grid">${e.cats.map(c => cardDe(c, cats[c], !!seg && seg.cat === c)).join('')}</div>`).join('');
 
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
       <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">Nivell ${level.toUpperCase()}</div>
+      ${r ? `<div style="font-size:15px;font-weight:600;color:var(--heading);margin-bottom:6px;">🧭 ${r.titol}</div>` : ''}
       <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">${desc}</p>
-      <button class="ct-btn primary" style="margin-bottom:20px;" onclick="startAllSession('${level}')">▶ Practicar tots els exercicis (${items.length})</button>
-      <div class="ct-grid">${catCards}</div>
+      ${seg
+        ? `<button class="ct-btn primary" style="width:100%;margin-bottom:10px;line-height:1.35;" onclick="continuaRecorregut('${level}')">
+            <span style="display:block;">▶ ${progress.recorregut === level ? 'Continua' : 'Segueix'} el recorregut</span>
+            <span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">Etapa ${seg.etapa} · ${seg.cat}</span>
+          </button>`
+        : `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:600;">✅ Has fet tots els exercicis d'aquest recorregut. Ara toca repassar-los.</div>`}
+      <button class="ct-btn secondary" style="width:100%;margin-bottom:20px;" onclick="startAllSession('${level}')">▶ Practicar tots els exercicis (${items.length})</button>
+      ${etapesHTML}
     </div>`;
 }
 
@@ -3377,7 +3487,7 @@ function renderOnboarding() {
   let step = 0;
   // Després de les pantalles informatives, la tria de recorregut. Només si encara
   // no se n'ha triat cap: qui torna a veure l'acollida en un mòbil nou potser ja
-  // en té un. Qui salta el tutorial no tria: li sortirà la targeta a l'Inici.
+  // en té un. Qui salta el tutorial no tria: li sortirà l'avís de novetat a l'Inici.
   const ambTria = progress.recorregut === undefined;
   const nPantalles = ONBOARDING_STEPS.length + (ambTria ? 1 : 0);
 
@@ -3395,7 +3505,7 @@ function renderOnboarding() {
     overlay.innerHTML = esTria ? `
       <div style="background:var(--card);border-radius:22px;padding:28px 20px 24px;max-width:380px;width:100%;max-height:calc(100vh - 40px);overflow-y:auto;text-align:center;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
         <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:8px;line-height:1.25;">Per on vols començar?</div>
-        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">Tria un recorregut i el repte diari en sortirà. El pots canviar quan vulguis al Perfil, i no perds res.</p>
+        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">Cada nivell és un recorregut: els temes en un ordre recomanat, i l'app et porta on ho vas deixar. Sempre pots entrar a qualsevol tema.</p>
         <div style="display:flex;gap:6px;justify-content:center;margin-bottom:16px;">${dots}</div>
         ${recorregutOpcionsHTML('onbTriaRecorregut')}
       </div>` : `
@@ -3429,6 +3539,7 @@ function renderOnboarding() {
 function onbTriaRecorregut(id) {
   triaRecorregut(id);
   finishOnboarding();
+  if (id) showTab(id);
 }
 
 function finishOnboarding() {
@@ -3884,11 +3995,20 @@ function renderHelp() {
       </details>
 
       <details class="ct-acc">
+        <summary><span>🧭 Recorreguts</span></summary>
+        <div class="ct-acc-body">
+          Cada nivell (i el mòdul <strong>Novetats IEC</strong>) és també un <strong>recorregut</strong>: els temes, agrupats en etapes i en un ordre recomanat. A la pantalla del nivell, el tema que et toca surt marcat amb <strong>➜ ET TOCA</strong>, i el botó <strong>Continua</strong> t'hi porta directament.<br><br>
+          «On ets» és el primer tema del recorregut que encara no tens fet, o sigui que no cal desar res: si ja portaves mig nivell fet, et porta al lloc bo. L'ordre és una recomanació: pots entrar a qualsevol tema quan vulguis.<br><br>
+          Si has triat <strong>Vaig per lliure</strong>, tot funciona com abans. Pots començar a seguir un recorregut en qualsevol moment amb el botó de la pantalla del nivell.
+        </div>
+      </details>
+
+      <details class="ct-acc">
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Repte diari</span></summary>
         <div class="ct-acc-body">
           Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
           No es trien a l'atzar. Si has triat un <strong>recorregut</strong>, surten del seu mòdul. Si no, dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1); en aquest cas, el mòdul <strong>Novetats IEC</strong> no hi entra. En tots dos casos s'eviten els exercicis que t'han sortit als reptes de l'última setmana perquè no es repeteixin.<br><br>
-          El recorregut es tria i es canvia al <strong>Perfil</strong>. Canviar-lo no esborra res: només canvia d'on surt el repte.<br><br>
+          El recorregut que segueixes és el que tries en començar, o l'últim on prems <strong>Continua</strong> a la pantalla d'un nivell.<br><br>
           El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
         </div>
       </details>
@@ -4225,7 +4345,7 @@ function shouldShowKofiBanner() {
   if (!KOFI_BANNER_ACTIU) return false;
   if ((progress.practiceHistory || []).length < KOFI_DIES_MINIMS) return false;
   if (getSavedSession() || shouldShowNovetatsBanner() || shouldShowNotifBanner() || lligaPistaDe(Date.now())) return false;
-  if (progress.recorregut === undefined) return false;  // la targeta de tria de recorregut és al davant
+  if (progress.recorregut === undefined) return false;  // l'avís de novetat dels recorreguts és al davant
   const at = parseInt(localStorage.getItem('kofi_banner_dismissed_at') || '0', 10);
   return !at || (Date.now() - at) > KOFI_SILENCI_DIES * 24 * 60 * 60 * 1000;
 }
@@ -4275,15 +4395,6 @@ function renderProfile() {
         </div>
         <div id="prof-pseudo-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
         <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:12px;margin-top:18px;">
-        <div style="min-width:0;flex:1;">
-          <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:2px;">RECORREGUT</div>
-          <div style="font-size:16px;color:var(--text);overflow-wrap:anywhere;">${recorregutActiu() ? `${recorregutActiu().titol} <span style="color:var(--muted);font-size:13px;">· ${recorregutActiu().nivell}</span>` : 'Tries tu què practicar'}</div>
-        </div>
-        <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;flex-shrink:0;"
-          onclick="obreTriaRecorregut()" aria-label="Canvia el recorregut">${progress.recorregut === undefined ? 'Tria' : 'Canvia'}</button>
       </div>
 
 
