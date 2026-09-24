@@ -1263,6 +1263,28 @@ function renderMenu() {
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
         Exercicis de nivell A2, B1, B2 i C1 de català amb repetició espaiada.<br>Cada tema inclou teoria + exercicis pràctics.
       </p>
+      <!-- Primer, el que toca fer avui (fase 3 del pla): el repte i el recorregut. -->
+      ${(()=>{
+        const dc = getDailyChallenge();
+        const dcDone = dc.completed.length === dc.ids.length;
+        return dcDone
+          ? `<div style="background:var(--accent-green-bg);border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-green-text);font-weight:600;">✅ Repte diari completat! +50 XP</div>`
+          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;line-height:1.35;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
+              dc.repassos.length ? `${dc.repassos.length} ${dc.repassos.length === 1 ? 'repàs' : 'repassos'}` : '',
+              dc.nous.length ? `${dc.nous.length} de «${escText(findExerciseById(dc.nous[0]).category)}»` : '',
+            ].filter(Boolean).join(' · ')}</span>` : ''}</button>`;
+      })()}
+      ${(()=>{
+        // El recorregut que segueixes, amb on ets. Si ja l'has fet sencer, no hi ha
+        // res a continuar i no es mostra (la pantalla del nivell ho diu).
+        const r = recorregutActiu();
+        const seg = r && seguentDelRecorregut(r.id);
+        return seg ? `<button class="ct-btn secondary" style="width:100%;margin:0 0 10px;border-width:2px;line-height:1.35;" onclick="continuaRecorregut('${r.id}')">
+            <span style="display:block;font-weight:600;">▶ Continua el recorregut ${r.nivell}</span>
+            <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">Etapa ${seg.etapa} · ${seg.cat}</span>
+          </button>` : '';
+      })()}
+      <div style="height:14px;"></div>
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
         <div style="background:var(--accent-blue-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:22px;font-weight:700;color:var(--accent-blue-text);">${lv.emoji} ${lv.name}</div>
@@ -1282,26 +1304,6 @@ function renderMenu() {
       <div style="font-size:13px;font-weight:600;color:var(--heading);text-align:left;">🔥 La teva ratxa</div>
       ${render7DayHistory()}
       <div style="font-size:11px;color:var(--muted);text-align:center;margin:-6px 0 18px;">🛡️ ${progress.freezes} gel${progress.freezes===1?'':'s'} de ratxa · et salven la ratxa si et saltes un dia</div>
-      ${(()=>{
-        // El recorregut que segueixes, amb on ets. Si ja l'has fet sencer, no hi ha
-        // res a continuar i no es mostra (la pantalla del nivell ho diu).
-        const r = recorregutActiu();
-        const seg = r && seguentDelRecorregut(r.id);
-        return seg ? `<button class="ct-btn secondary" style="width:100%;margin:0 0 10px;border-width:2px;line-height:1.35;" onclick="continuaRecorregut('${r.id}')">
-            <span style="display:block;font-weight:600;">▶ Continua el recorregut ${r.nivell}</span>
-            <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">Etapa ${seg.etapa} · ${seg.cat}</span>
-          </button>` : '';
-      })()}
-      ${(()=>{
-        const dc = getDailyChallenge();
-        const dcDone = dc.completed.length === dc.ids.length;
-        return dcDone
-          ? `<div style="background:var(--accent-green-bg);border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-green-text);font-weight:600;">✅ Repte diari completat! +50 XP</div>`
-          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;line-height:1.35;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
-              dc.repassos.length ? `${dc.repassos.length} ${dc.repassos.length === 1 ? 'repàs' : 'repassos'}` : '',
-              dc.nous.length ? `${dc.nous.length} de «${escText(findExerciseById(dc.nous[0]).category)}»` : '',
-            ].filter(Boolean).join(' · ')}</span>` : ''}</button>`;
-      })()}
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('a2')">Practicar Nivell A2</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b1')">Practicar Nivell B1</button>
       <button class="ct-btn secondary" style="width:100%;margin:0 0 10px;" onclick="showTab('b2')">Practicar Nivell B2</button>
