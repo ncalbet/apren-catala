@@ -1380,8 +1380,10 @@ function renderReview() {
         </button>` : ''}
       ${toStudy.map(q => {
         const m = getMastery(q.id);
-        const colors = ['','#f59e0b','#f59e0b','#3b82f6','#3b82f6'];
-        const labels = ['','Iniciat','Baix','Mig','Alt'];
+        const colors = ['','#f59e0b','#f59e0b','#3b82f6','#3b82f6','var(--accent-green-text)'];
+        const labels = ['','Iniciat','Baix','Mig','Alt','Dominat'];
+        // Un consolidat que torna no és un retrocés: és que ja li toca.
+        const refresca = pool.length > 0 && m >= 4;
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
           <div>
             <div style="font-size:13px;font-weight:500;line-height:1.4;">${q.category}</div>
@@ -1390,6 +1392,7 @@ function renderReview() {
           <div style="text-align:right;flex-shrink:0;margin-left:12px;">
             ${masteryHTML(q.id)}
             <div style="font-size:10px;color:${colors[m]||'#6b7280'};font-weight:600;margin-top:2px;">${labels[m]||''}</div>
+            ${refresca ? '<div style="font-size:10px;color:var(--muted);margin-top:1px;">toca refrescar-ho</div>' : ''}
           </div>
         </div>`;
       }).join('')}
