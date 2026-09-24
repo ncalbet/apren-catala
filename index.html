@@ -66,7 +66,9 @@
       --accent-green-val: #059669;
       --accent-amber-val: #d97706;
       --progress-fill: var(--c1);
+      --progress-b1: #0e7490;
       --progress-b2: #1e40af;
+      --progress-c1: #b45309;
       --progress-iec: #7c3aed;
     }
     [data-theme="dark"] {
@@ -91,9 +93,13 @@
       --accent-green-val: #34d399;
       --accent-amber-val: #fbbf24;
       /* Barres de progrés: sobre la pista fosca (#2d3a4d), els colors del mode
-         clar quedaven per sota de 3:1 (el blau marí, a 1,17:1). Aquests hi passen. */
+         clar quedaven per sota de 3:1 (el blau marí, a 1,17:1). Aquests hi passen.
+         B1 i C1 van al revés: el to clar (#0891b2, #d97706) passa aquí, però sobre
+         la pista clara (#e5e7eb) es quedava a 2,97:1 i 2,57:1. */
       --progress-fill: #60a5fa;
+      --progress-b1: #0891b2;
       --progress-b2: #60a5fa;
+      --progress-c1: #d97706;
       --progress-iec: #a78bfa;
     }
     html { color-scheme: light dark; }
@@ -2534,7 +2540,7 @@ function renderProgress() {
           <span style="font-weight:500;">Nivell B1</span>
           <span style="color:var(--muted)">${(DATA.b1||[]).filter(q => getMastery(q.id) >= 4).length} / ${(DATA.b1||[]).length} dominats</span>
         </div>
-        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.b1||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.b1||[]).length)*100)}%;background:#0891b2;"></div></div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round((DATA.b1||[]).filter(q=>getMastery(q.id)>=4).length/Math.max(1,(DATA.b1||[]).length)*100)}%;background:var(--progress-b1);"></div></div>
       </div>
       <div style="margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
@@ -2548,7 +2554,7 @@ function renderProgress() {
           <span style="font-weight:500;">Nivell C1</span>
           <span style="color:var(--muted)">${c1done} / ${c1total} dominats</span>
         </div>
-        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(c1done/c1total*100)}%;background:#d97706;"></div></div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(c1done/c1total*100)}%;background:var(--progress-c1);"></div></div>
       </div>
       ${iectotal ? `
       <div style="margin-bottom:24px;padding-top:16px;border-top:1px dashed var(--border);">
