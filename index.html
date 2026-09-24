@@ -212,6 +212,11 @@
     .ct-btn { display: inline-block; width: auto; padding: 11px 22px; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; margin: 0; }
     .ct-btn.primary { background: var(--c1); color: white; }
     .ct-btn.primary:hover { background: #243f63; }
+    /* En fosc, el blau marí del principal es confonia amb la targeta (1,16:1) i amb
+       els secundaris. Daurat, triat per l'usuari el 24/09: forma 9,36:1 sobre la
+       targeta i text fosc a 9,36:1. És el to de l'XP de la capçalera. */
+    [data-theme="dark"] .ct-btn.primary { background: #fbbf24; color: #1a2433; }
+    [data-theme="dark"] .ct-btn.primary:hover { background: #f59e0b; }
     .ct-btn.secondary { background: transparent; color: var(--heading); border: 1.5px solid var(--c1-line); }
     .ct-btn.secondary:hover { background: var(--hover); }
     /* WhatsApp. No fem servir el verd de marca #25D366: amb text blanc dona
@@ -1269,7 +1274,7 @@ function renderMenu() {
         const dcDone = dc.completed.length === dc.ids.length;
         return dcDone
           ? `<div style="background:var(--accent-green-bg);border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-green-text);font-weight:600;">✅ Repte diari completat! +50 XP</div>`
-          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;background:#1a2f4e;line-height:1.35;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
+          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;line-height:1.35;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
               dc.repassos.length ? `${dc.repassos.length} ${dc.repassos.length === 1 ? 'repàs' : 'repassos'}` : '',
               dc.nous.length ? `${dc.nous.length} de «${escText(findExerciseById(dc.nous[0]).category)}»` : '',
             ].filter(Boolean).join(' · ')}</span>` : ''}</button>`;
