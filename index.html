@@ -65,6 +65,9 @@
       --accent-blue-val: #3b82f6;
       --accent-green-val: #059669;
       --accent-amber-val: #d97706;
+      --progress-fill: var(--c1);
+      --progress-b2: #1e40af;
+      --progress-iec: #7c3aed;
     }
     [data-theme="dark"] {
       --bg: #0f1623;
@@ -87,6 +90,11 @@
       --accent-blue-val: #60a5fa;
       --accent-green-val: #34d399;
       --accent-amber-val: #fbbf24;
+      /* Barres de progrés: sobre la pista fosca (#2d3a4d), els colors del mode
+         clar quedaven per sota de 3:1 (el blau marí, a 1,17:1). Aquests hi passen. */
+      --progress-fill: #60a5fa;
+      --progress-b2: #60a5fa;
+      --progress-iec: #a78bfa;
     }
     html { color-scheme: light dark; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -285,7 +293,7 @@
 
     /* PROGRESS BAR */
     .ct-progress-bar { height: 6px; background: var(--track); border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
-    .ct-progress-fill { height: 100%; background: var(--c1); border-radius: 3px; transition: width 0.4s ease; }
+    .ct-progress-fill { height: 100%; background: var(--progress-fill); border-radius: 3px; transition: width 0.4s ease; }
 
     /* MISC */
     .ct-step { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 8px; }
@@ -2428,7 +2436,7 @@ function renderProgress() {
           <span style="font-weight:500;">Nivell B2</span>
           <span style="color:var(--muted)">${b2done} / ${b2total} dominats</span>
         </div>
-        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(b2done/b2total*100)}%;background:#1e40af;"></div></div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(b2done/b2total*100)}%;background:var(--progress-b2);"></div></div>
       </div>
       <div style="margin-bottom:24px;">
         <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;">
@@ -2443,7 +2451,7 @@ function renderProgress() {
           <span style="font-weight:500;">📜 Novetats IEC <span style="font-size:11px;color:var(--muted);font-weight:400;">(mòdul transversal)</span></span>
           <span style="color:var(--muted)">${iecdone} / ${iectotal} dominats</span>
         </div>
-        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(iecdone/iectotal*100)}%;background:#7c3aed;"></div></div>
+        <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${Math.round(iecdone/iectotal*100)}%;background:var(--progress-iec);"></div></div>
       </div>` : ''}
       <div style="font-family:'Fraunces',serif;font-size:16px;color:var(--heading);margin-bottom:12px;">Distribució del domini</div>
       <div class="ct-dist">
