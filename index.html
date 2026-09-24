@@ -690,7 +690,7 @@ function groupState(masteries) {
 
 // ══ UI ══
 function updateHeader() {
-  document.getElementById('ct-xp').innerHTML = `<span class="xp-num">${progress.xp}</span><span class="xp-label">XP</span>`;
+  document.getElementById('ct-xp').innerHTML = `<span class="xp-num">${formatXP(progress.xp)}</span><span class="xp-label">XP</span>`;
   document.getElementById('ct-streak').textContent = '🔥 ' + progress.streak;
   const lv = getLevel(progress.xp);
   const badge = document.getElementById('ct-level-badge');
@@ -1099,7 +1099,7 @@ function renderMenu() {
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
         <div style="background:var(--accent-blue-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:22px;font-weight:700;color:var(--accent-blue-text);">${lv.emoji} ${lv.name}</div>
-          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">${progress.xp} XP</div>
+          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">${formatXP(progress.xp)} XP</div>
         </div>
         <div style="background:var(--accent-green-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:26px;font-weight:700;color:var(--accent-green-text);">${mastered}/${total}</div>
@@ -2057,17 +2057,17 @@ const ACHIEVEMENTS = [
   { id:'xp500', group:'xp', icon:'🧡', name:'500 XP',
     desc:"Acumula 500 punts d'experiència.",
     check: p => p.xp >= 500, prog: p => [p.xp, 500] },
-  { id:'xp1000', group:'xp', icon:'❤️', name:'1000 XP',
-    desc:"Acumula 1000 punts d'experiència.",
+  { id:'xp1000', group:'xp', icon:'❤️', name:'1.000 XP',
+    desc:"Acumula 1.000 punts d'experiència.",
     check: p => p.xp >= 1000, prog: p => [p.xp, 1000] },
-  { id:'xp2000', group:'xp', icon:'💜', name:'2000 XP — Mestre',
-    desc:"Acumula 2000 punts. Has assolit el rang de Mestre!",
+  { id:'xp2000', group:'xp', icon:'💜', name:'2.000 XP — Mestre',
+    desc:"Acumula 2.000 punts. Has assolit el rang de Mestre!",
     check: p => p.xp >= 2000, prog: p => [p.xp, 2000] },
-  { id:'xp5000', group:'xp', icon:'🌟', name:'5000 XP — Gran Mestre',
-    desc:"Acumula 5000 punts. Has assolit el rang de Gran Mestre!",
+  { id:'xp5000', group:'xp', icon:'🌟', name:'5.000 XP — Gran Mestre',
+    desc:"Acumula 5.000 punts. Has assolit el rang de Gran Mestre!",
     check: p => p.xp >= 5000, prog: p => [p.xp, 5000] },
-  { id:'xp10000', group:'xp', icon:'💎', name:'10000 XP — Mestre del Català',
-    desc:"Acumula 10000 punts. El cim absolut de l'aprenentatge!",
+  { id:'xp10000', group:'xp', icon:'💎', name:'10.000 XP — Mestre del Català',
+    desc:"Acumula 10.000 punts. El cim absolut de l'aprenentatge!",
     check: p => p.xp >= 10000, prog: p => [p.xp, 10000] },
 ];
 
@@ -2457,7 +2457,7 @@ function renderAchievements() {
           <div style="flex:1;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;">
               <span style="font-size:13px;font-weight:600;">${g.name}</span>
-              <span style="font-size:11px;color:var(--muted);">${g.cur}/${g.target}</span>
+              <span style="font-size:11px;color:var(--muted);">${formatXP(g.cur)}/${formatXP(g.target)}</span>
             </div>
             <div style="margin-top:4px;background:var(--track);border-radius:4px;height:5px;overflow:hidden;">
               <div style="background:var(--accent-amber-text);height:100%;width:${Math.round(g.ratio*100)}%;"></div>
@@ -2651,8 +2651,8 @@ function renderProgress() {
           <div style="background:#fbbf24;height:100%;width:${lvPct}%;border-radius:6px;transition:width 0.5s;"></div>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.8;margin-top:5px;">
-          <span>${progress.xp} XP</span>
-          <span>${nextLv ? 'Falten ' + (nextLv.min - progress.xp) + ' XP per a ' + nextLv.name : 'Nivell màxim assolit! 🏆'}</span>
+          <span>${formatXP(progress.xp)} XP</span>
+          <span>${nextLv ? 'Falten ' + formatXP(nextLv.min - progress.xp) + ' XP per a ' + nextLv.name : 'Nivell màxim assolit! 🏆'}</span>
         </div>
       </div>
       <div style="margin-bottom:20px;">
@@ -2712,7 +2712,7 @@ function renderProgress() {
       </div>
       <div class="ct-totals">
         <div style="background:var(--accent-green-bg);border-radius:10px;padding:14px;text-align:center;">
-          <div style="font-size:26px;font-weight:700;color:var(--accent-green-text);">${progress.xp}</div>
+          <div style="font-size:26px;font-weight:700;color:var(--accent-green-text);">${formatXP(progress.xp)}</div>
           <div style="font-size:11px;color:#059669;margin-top:2px;">XP totals</div>
         </div>
         <div style="background:var(--accent-amber-bg);border-radius:10px;padding:14px;text-align:center;">
