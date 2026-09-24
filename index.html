@@ -1478,6 +1478,27 @@ function checkChoice(selected) {
   showTheory(currentSession.items[currentSession.idx]);
   markDone(isOk, 10);
 }
+// Quins signes separen la forma escrita de la bona, quan només difereixen en
+// diacrítics: «l'accent», «la dièresi», «la ce trencada» o els plurals. Pensat
+// per a la nota d'encert de checkFill(): normalize() també treu la ce trencada,
+// i anomenar-la «accent» ensenyaria una cosa falsa.
+function signesDiferents(bona, escrita) {
+  const grups = t => normalizeStrict(t).normalize('NFD').match(/.[\u0300-\u036f]*/gu) || [];
+  const a = grups(bona), b = grups(escrita);
+  const compte = { accent: 0, dieresi: 0, cedilla: 0 };
+  a.forEach((g, i) => {
+    if (g === b[i]) return;
+    const marques = g.slice(1) + (b[i] || '').slice(1);
+    if (marques.includes('\u0308')) compte.dieresi++;
+    else if (marques.includes('\u0327')) compte.cedilla++;
+    else compte.accent++;
+  });
+  const noms = [];
+  if (compte.accent) noms.push(compte.accent > 1 ? 'els accents' : 'l\'accent');
+  if (compte.dieresi) noms.push(compte.dieresi > 1 ? 'les dièresis' : 'la dièresi');
+  if (compte.cedilla) noms.push(compte.cedilla > 1 ? 'les ces trencades' : 'la ce trencada');
+  return noms.join(' i ') || 'l\'accent';
+}
 function checkFill() {
   if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
@@ -1496,8 +1517,14 @@ function checkFill() {
     && q.answers.find(a => normalize(a) === normalize(input.value));
   const marca = quasi && /[ïü]/i.test(quasi) !== /[ïü]/i.test(input.value)
     ? 'la dièresi' : 'l\'accent';
+  // Fora de l'IEC, normalize() perdona els diacrítics a posta: l'encert compta
+  // igual, amb el mateix XP. Però els accents són ortografia, i qui ha escrit
+  // «cafe» ha de veure que és «cafè».
+  const exacta = q.answers.some(a => normalizeStrict(a) === normalizeStrict(input.value));
+  const bona = ok && !exacta && q.answers.find(a => norm(a) === val);
+  const fixat = bona ? `<br>Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>.` : '';
   document.getElementById('feedback-area').innerHTML = ok
-    ? `<div class="ct-feedback ok">✓ Correcte!${alts.length ? ` Altres formes vàlides: <strong>${alts.join(', ')}</strong>.` : ''}</div>`
+    ? `<div class="ct-feedback ok">✓ Correcte!${fixat}${alts.length ? ` Altres formes vàlides: <strong>${alts.join(', ')}</strong>.` : ''}</div>`
     : quasi
       ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
