@@ -2478,7 +2478,7 @@ const DATA = {
         { question:'Quina forma de «poder» és correcta per a «vosaltres»?', text:'El verb «poder» és irregular en present d\'indicatiu. Les formes amb «pugu-» pertanyen al subjuntiu; el present d\'indicatiu segueix un altre patró, i cada persona té la seva terminació.', options:['puguen','podin','podeu','podem'], correct:2 },
         { question:'Quina forma de «saber» és correcta per a «ells»?', text:'El verb «saber» és irregular en present d\'indicatiu. La 3a persona del plural no segueix el patró del subjuntiu.', options:['sapen','saben','sapien','sàpiguen'], correct:1, theory:"«Saber» en present d'indicatiu: jo sé, tu saps, ell sap, nosaltres sabem, vosaltres sabeu, ells saben. «Sàpiguen» és una forma del subjuntiu («que ells sàpiguen»), no de l'indicatiu.", example:"Ells saben parlar tres idiomes." },
       ],
-      theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguen» i «pugan» no existeixen en català normatiu; «podin» seria una forma incorrecta del subjuntiu (la forma correcta seria «puguin»).", example:"Ells poden venir demà si volen." },
+      theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden. «Puguin» (i la variant «puguen») són formes del present de subjuntiu («que ells puguin»), no de l'indicatiu. «Pugan» i «podin» no existeixen.", example:"Ells poden venir demà si volen." },
 
     { id:'b1-vi5', type:'reorder', level:'b1', category:'Verbs irregulars B1',
       question:'Ordena per formar una frase correcta:',
@@ -3651,7 +3651,7 @@ const DATA = {
       options:['Encara que plourà, sortirem.','Encara que plou, sortirem.','Encara que plogui, sortirem.','Encara que plovent, sortirem.'],
       correct:2, variants:[
         { options:['Encara que plogui, sortirem.','Encara que plourà, sortirem.','Encara que plovent, sortirem.','Encara que plou, sortirem.'], correct:0 },
-        { question:'Tria la construcció correcta amb «per bé que» hipotètic:', text:'La locució concessiva «per bé que» demana un mode verbal concret. Per a una hipòtesi (la pluja no és segura), tria la construcció correcta.', options:['Per bé que plourà, sortirem.','Per bé que plovent, sortirem.','Per bé que plou, sortirem.','Per bé que plogui, sortirem.'], correct:3 },
+        { question:'Tria la construcció correcta amb «malgrat que» hipotètic:', text:'La locució concessiva «malgrat que» pot anar amb indicatiu o amb subjuntiu segons si el fet és real o hipotètic. Per a una hipòtesi (la pluja no és segura), tria la construcció correcta.', options:['Malgrat que plourà, sortirem.','Malgrat que plovent, sortirem.','Malgrat que plou, sortirem.','Malgrat que plogui, sortirem.'], correct:3, theory:"«Malgrat que» amb valor hipotètic (la condició és incerta) va amb subjuntiu: «malgrat que plogui». Si el fet és real, va amb indicatiu: «malgrat que plou» (ja plou).", example:"Malgrat que plogui, sortirem. / Malgrat que plou, sortim igualment." },
       ],
       theory:'«Encara que» amb valor hipotètic (la condició és incerta) va amb subjuntiu.', example:'Encara que plogui, sortirem. / Encara que plou (ja plou), sortim igualment.' },
 
@@ -4102,14 +4102,14 @@ const DATA = {
       ],
       theory:'Superioritat: «més + adj. + que». «Más» és castellà. «Major» és comparatiu irregular de «gran», no aplicable a tots els adjectius.', example:'És més clar que la versió anterior. / Parla més lentament.' },
     { id:'b2-cmp3', type:'choice', level:'b2', category:'Construccions comparatives',
-      question:'Quin és el comparatiu de superioritat correcte de «bo»?',
-      text:'Alguns adjectius tenen un comparatiu de superioritat irregular. Tria la forma correcta per a «bo».',
+      question:'Quin és el comparatiu irregular de «bo»?',
+      text:'Alguns adjectius tenen, a més de la forma regular amb «més», un comparatiu sintètic irregular. Tria el que correspon a «bo».',
       options:['més bo','millor','major'],
       correct:1, variants:[
         { options:['millor','major','més bo'], correct:0 },
         { question:'Quin comparatiu irregular correspon a «dolent»?', text:'Alguns adjectius tenen, a més de la forma regular amb «més», un comparatiu sintètic irregular. Tria el que correspon a «dolent».', options:['més dolent','pitjor','menor'], correct:1, theory:"«Dolent» té un comparatiu irregular: «pitjor», que és el contrari de «millor». «Menor» és el comparatiu de «petit».", example:"Aquesta opció és pitjor que la primera. / Avui fa pitjor temps que ahir." },
       ],
-      theory:'«Bo» té comparatiu irregular: «millor». En registre formal s\'evita «més bo» (col·loquial). «Major» és comparatiu de «gran» (en sentit abstracte o formal).', example:'Aquesta opció és millor que la primera. / El millor resultat possible.' },
+      theory:'«Bo» té un comparatiu irregular: «millor». «Més bo» també existeix, però no és la forma irregular. «Major» és el comparatiu de «gran».', example:'Aquesta opció és millor que la primera. / El millor resultat possible.' },
     { id:'b2-cmp4', type:'fill', level:'b2', category:'Construccions comparatives',
       text:'La diferència entre «tan» i «tant» és una de les confusions ortogràfiques més habituals del català.',
       question:'Completa amb «tant» o «tan»:',
