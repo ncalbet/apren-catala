@@ -790,6 +790,43 @@ function showFitaXP(m) {
 function textFitaXP(m) {
   return `🎉 He arribat a ${formatXP(m)} XP aprenent català amb AprènCatalà! És gratis i sense anuncis.`;
 }
+// Celebració gran per a una medalla de categoria (dominar-ne tots els exercicis).
+// És una fita de setmanes, i es pot compartir. Es dispara des de
+// checkNewAchievements(). Els botons passen la posició de la medalla a la llista,
+// no el nom: els noms de categoria porten apòstrofs i trencarien l'onclick.
+const NOM_NIVELL_MEDALLA = { a2: 'A2', b1: 'B1', b2: 'B2', c1: 'C1', iec: 'Novetats IEC' };
+function nomMedalla(m) {
+  const nv = NOM_NIVELL_MEDALLA[m.level] || '';
+  return nv && !m.category.endsWith(nv) ? `«${m.category}» (${nv})` : `«${m.category}»`;
+}
+function showMedalla(idx) {
+  const m = getAllMedals()[idx];
+  if (!m) return;
+  showConfetti();
+  const overlay = document.createElement('div');
+  overlay.className = 'ct-levelup-overlay';
+  overlay.innerHTML = `
+    <div class="ct-levelup-box">
+      <div class="ct-levelup-emoji">${m.icon}</div>
+      <div class="ct-levelup-title">Nova medalla!</div>
+      <div style="font-size:22px;font-weight:700;color:var(--heading);margin-bottom:6px;">${m.category}</div>
+      <div class="ct-levelup-sub">Has dominat tots els exercicis de ${nomMedalla(m)}.</div>
+      <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
+        Continuar 🎉
+      </button>
+      <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareText(textMedalla(${idx}))">
+        📣 Comparteix-ho
+      </button>
+      <button class="ct-btn wa" style="width:100%;margin-top:8px;" onclick="shareWhatsApp(textMedalla(${idx}))">
+        💬 Per WhatsApp
+      </button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+function textMedalla(idx) {
+  const m = getAllMedals()[idx];
+  return m ? `${m.icon} He dominat ${nomMedalla(m)} aprenent català amb AprènCatalà! És gratis i sense anuncis.` : '';
+}
 // Avisos de celebració (gel de ratxa, bonus de domini, repte diari, assoliments).
 // Surten tots a baix, al mig. Si n'hi ha un altre a la vista, el nou es posa al
 // damunt en lloc de tapar-lo: «Primer pas» i «Primera encertada» surten junts.
@@ -2510,8 +2547,14 @@ function checkNewAchievements(prevUnlocked) {
   // Els supermedals de nivell (master_*) se celebren amb l'overlay gran a
   // checkLevelMilestones(); aquí en fem el toast només de la resta.
   const allNew = nous.filter(id => !id.startsWith('master_'));
-  allNew.forEach((id, i) => {
-    const a = ACHIEVEMENTS.find(x => x.id === id) || getAllMedals().find(x => x.id === id);
+  // Les medalles de categoria (id «nivell__categoria») tenen finestra gran pròpia;
+  // la resta d'assoliments, l'avís petit.
+  const medalles = getAllMedals();
+  allNew.filter(id => id.includes('__')).forEach((id, i) => {
+    setTimeout(() => showMedalla(medalles.findIndex(m => m.id === id)), 700 + i * 600);
+  });
+  allNew.filter(id => !id.includes('__')).forEach((id, i) => {
+    const a = ACHIEVEMENTS.find(x => x.id === id) || medalles.find(x => x.id === id);
     if (!a) return;
     setTimeout(() => {
       const el = document.createElement('div');
