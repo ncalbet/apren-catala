@@ -2301,18 +2301,20 @@ function getDailyChallenge() {
   if (progress.dailyChallenge && progress.dailyChallenge.date === today) {
     return progress.dailyChallenge;
   }
-  // Genera repte nou basat en la data, ponderat al nivell de l'usuari:
-  // es trien els 2 nivells més avançats on ha practicat (si és nou: A2+B1).
-  // El mòdul Novetats IEC NO hi entra a posta: l'array és una escala de nivells i,
-  // si hi fos, practicar-lo un sol cop el faria passar per «el més avançat» i
-  // desplaçaria el C1 del repte. És un mòdul transversal, no un esglaó.
+  // Genera repte nou basat en la data. Amb un recorregut triat, surt només del seu
+  // mòdul (també el de Novetats IEC, si és el triat). Sense recorregut, ponderat
+  // al nivell de l'usuari: els 2 nivells més avançats on ha practicat (si és nou:
+  // A2+B1). En aquest cas el mòdul IEC NO hi entra a posta: l'array és una escala
+  // de nivells i, si hi fos, practicar-lo un sol cop el faria passar per «el més
+  // avançat» i desplaçaria el C1 del repte. És un mòdul transversal, no un esglaó.
   const counts = { a2: 0, b1: 0, b2: 0, c1: 0 };
   Object.keys(progress.mastery).forEach(id => {
     const lv = id.split('-')[0];
     if (counts[lv] !== undefined) counts[lv]++;
   });
   const active = ['a2', 'b1', 'b2', 'c1'].filter(lv => counts[lv] > 0);
-  const levels = active.length ? active.slice(-2) : ['a2', 'b1'];
+  const levels = recorregutActiu() ? [recorregutActiu().id]
+    : active.length ? active.slice(-2) : ['a2', 'b1'];
   const all = levels.flatMap(lv => DATA[lv] || []);
   // Exclou els exercicis dels últims 7 reptes perquè no es repeteixin en pocs dies
   const recent = progress.dcHistory || [];
@@ -3885,7 +3887,8 @@ function renderHelp() {
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Repte diari</span></summary>
         <div class="ct-acc-body">
           Cada dia hi ha un <strong>repte diari</strong> de 3 exercicis. Si el completes, guanyes <strong>+50 XP extra</strong>.<br><br>
-          No es trien a l'atzar: surten dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1), i s'eviten els exercicis que t'han sortit als reptes de l'última setmana perquè no es repeteixin. El mòdul <strong>Novetats IEC</strong> no hi entra: és transversal i el practiques quan vulguis.<br><br>
+          No es trien a l'atzar. Si has triat un <strong>recorregut</strong>, surten del seu mòdul. Si no, dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1); en aquest cas, el mòdul <strong>Novetats IEC</strong> no hi entra. En tots dos casos s'eviten els exercicis que t'han sortit als reptes de l'última setmana perquè no es repeteixin.<br><br>
+          El recorregut es tria i es canvia al <strong>Perfil</strong>. Canviar-lo no esborra res: només canvia d'on surt el repte.<br><br>
           El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
         </div>
       </details>
@@ -3903,7 +3906,7 @@ function renderHelp() {
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Novetats IEC</span></summary>
         <div class="ct-acc-body">
           A més dels quatre nivells, hi ha un <strong>mòdul transversal</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) sobre <strong>què va canviar amb la normativa de l'IEC del 2016</strong>: els quinze accents diacrítics que queden, els que van desaparèixer, els guionets dels compostos, els prefixos i l'ortografia dels pronoms febles.<br><br>
-          Està pensat per a qui va estudiar amb la normativa antiga i vol posar-se al dia. <strong>No és un nivell del MECR</strong>: no cal fer-lo per avançar i no entra al repte diari, però compta per a l'XP i té <strong>medalles pròpies</strong>.<br><br>
+          Està pensat per a qui va estudiar amb la normativa antiga i vol posar-se al dia. <strong>No és un nivell del MECR</strong>: no cal fer-lo per avançar i només entra al repte diari si el tries com a recorregut, però compta per a l'XP i té <strong>medalles pròpies</strong>.<br><br>
           Compte: en aquest mòdul, els exercicis d'escriure <strong>exigeixen l'accent exacte</strong> (si la resposta és «sòl», «sol» no val). És justament el que s'hi practica.
         </div>
       </details>
