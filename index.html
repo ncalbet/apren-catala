@@ -626,12 +626,12 @@ function recorregutOpcionsHTML(accio) {
   const actual = progress.recorregut;
   return RECORREGUTS.map(r => `
     <button type="button" class="ct-btn secondary" onclick="${accio}('${r.id}')"
-      style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:10px 14px;line-height:1.35;${actual === r.id ? 'border-color:var(--c1-line);' : ''}">
+      style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:10px 14px;line-height:1.35;${actual === r.id ? 'border-width:2px;' : ''}">
       <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${r.titol} <span style="font-weight:400;color:var(--muted);">· ${r.nivell}</span>${actual === r.id ? ' ✓' : ''}</span>
       <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${r.promesa}</span>
     </button>`).join('') + `
     <button type="button" class="ct-btn secondary" onclick="${accio}(null)"
-      style="width:100%;margin:4px 0 0;font-size:13px;${actual === null ? 'border-color:var(--c1-line);' : ''}">Prefereixo triar jo${actual === null ? ' ✓' : ''}</button>`;
+      style="width:100%;margin:4px 0 0;font-size:13px;${actual === null ? 'border-width:2px;' : ''}">Prefereixo triar jo${actual === null ? ' ✓' : ''}</button>`;
 }
 // Canviar de recorregut no esborra res: només canvia d'on surt el repte diari. Si
 // el d'avui encara no s'ha començat, es refà amb el recorregut nou (si no, qui el
