@@ -759,6 +759,23 @@ function showLevelDoneCelebration(emoji, title, sub) {
     </div>`;
   document.body.appendChild(overlay);
 }
+// Avisos de celebració (gel de ratxa, bonus de domini, repte diari, assoliments).
+// Surten tots a baix, al mig. Si n'hi ha un altre a la vista, el nou es posa al
+// damunt en lloc de tapar-lo: «Primer pas» i «Primera encertada» surten junts.
+const _toastsVisibles = [];
+function mostraToast(el, ms) {
+  let pis = 0;
+  while (_toastsVisibles.some(t => t._pis === pis)) pis++;
+  el._pis = pis;
+  el.style.bottom = (80 + pis * 66) + 'px';
+  _toastsVisibles.push(el);
+  document.body.appendChild(el);
+  setTimeout(() => {
+    el.remove();
+    const i = _toastsVisibles.indexOf(el);
+    if (i >= 0) _toastsVisibles.splice(i, 1);
+  }, ms);
+}
 function showFreezeToast(n) {
   const el = document.createElement('div');
   el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
@@ -766,8 +783,7 @@ function showFreezeToast(n) {
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
   el.innerHTML = `<span style="font-size:22px;">🛡️</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">GEL DE RATXA</div>Has salvat la ratxa! Et queden ${progress.freezes} gel${progress.freezes===1?'':'s'}.</div>`;
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 4000);
+  mostraToast(el, 4000);
 }
 function showMasteryBonusToast() {
   const el = document.createElement('div');
@@ -776,8 +792,7 @@ function showMasteryBonusToast() {
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
   el.innerHTML = `<span style="font-size:22px;">🌟</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">EXERCICI DOMINAT</div>+25 XP de bonus!</div>`;
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 4000);
+  mostraToast(el, 4000);
 }
 function showEncouragement(category) {
   const msg = ENCOURAGEMENT[category] || ENCOURAGEMENT['default'];
@@ -1819,8 +1834,7 @@ function markDone(ok, xp) {
           font-size:14px;font-weight:700;z-index:9998;animation:popIn 0.4s ease;
           display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
         el.innerHTML = `<span style="font-size:26px;">🎯</span><div><div style="font-size:11px;opacity:0.85;margin-bottom:2px;">REPTE DIARI COMPLETAT</div>+50 XP de bonus!</div>`;
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 4000);
+        mostraToast(el, 4000);
         const nivellDespres = getLevel(progress.xp);
         if (nivellDespres.name !== nivellAbans.name) showLevelUp(nivellDespres);
         checkNewAchievements(abans);
@@ -2455,9 +2469,8 @@ function checkNewAchievements(prevUnlocked) {
         font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
         display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
       el.innerHTML = `<span style="font-size:22px;">${a.icon}</span><div><div style="font-size:11px;opacity:0.7;margin-bottom:1px;">ASSOLIMENT DESBLOQUEJAT</div>${a.name}</div>`;
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 3500);
-    }, i * 800);
+      mostraToast(el, 3500);
+    }, i * 400);
   });
 }
 
