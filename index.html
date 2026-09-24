@@ -1587,6 +1587,15 @@ function showTheory(q) {
 }
 
 /* ══ PROGRÉS SRS ══ */
+// El dia del mòbil, en format AAAA-MM-DD. És el dia de tot el que és personal
+// (domini, repàs, XP per repetició); la lliga fa servir diaMadrid(). Abans era
+// toISOString(), que dona el dia UTC: entre les 00:00 i les 02:00 d'aquí encara
+// era «ahir». El format no canvia, o sigui que les dates desades continuen valent.
+function diaLocal(ms = Date.now()) {
+  const d = new Date(ms);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 function markDone(ok, xp) {
   const q = currentSession.items[currentSession.idx];
   const prev = getMastery(q.id);
@@ -1595,7 +1604,7 @@ function markDone(ok, xp) {
 
   if (!progress.lastMasteryDate) progress.lastMasteryDate = {};
   if (!progress.masteryDayStart) progress.masteryDayStart = {};
-  const todayISO = new Date().toISOString().slice(0, 10);
+  const todayISO = diaLocal();
 
   // Sostre del dia: el domini només pot pujar +1 respecte el valor amb què començava el dia
   // (pràctica espaiada), però els encerts SÍ poden recuperar el que s'hagi perdut avui per errades.
