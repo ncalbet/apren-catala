@@ -1254,40 +1254,101 @@ function startCategoryType(level, cat, type) {
 }
 
 // ══ REPÀS SRS ══
+// El repàs va per dates, però no se'n desa cap: la de cada exercici es deriva del
+// que ja hi ha (l'últim encert, el domini i l'últim dia de pràctica). Així no hi
+// ha cap camp nou a Firestore ni cap conflicte de sincronització possible.
 const REVIEW_SIZE = 8;
+const REVIEW_INTERVALS = [0, 1, 3, 7, 14, 30];   // dies fins al repàs, per domini 1–5
 let reviewLevel = 'all';
 
-function getReviewPool() {
-  let all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1, ...(DATA.iec||[])];
-  if (reviewLevel !== 'all') all = all.filter(q => q.level === reviewLevel);
-  const dc = progress.dailyChallenge;
-  const todayDC = (dc && dc.date === new Date().toDateString()) ? dc.ids : [];
-  return all.filter(q => getMastery(q.id) > 0 && getMastery(q.id) < 4 && !todayDC.includes(q.id));
+// AAAA-MM-DD + n dies de calendari (local; els canvis d'hora no hi fan res).
+function sumaDies(iso, n) {
+  const [a, m, d] = iso.split('-').map(Number);
+  return diaLocal(new Date(a, m - 1, d + n).getTime());
 }
 
-// Tria fins a REVIEW_SIZE exercicis prioritzant domini baix, però repartint
-// entre categories (round-robin) perquè la sessió no sigui tota del mateix bloc.
-function getReviewItems() {
-  const pending = sortBySRS(getReviewPool());
-  const byCat = {};
-  pending.forEach(q => { (byCat[q.category] = byCat[q.category] || []).push(q); });
-  const cats = Object.keys(byCat);
+// Dia (AAAA-MM-DD) en què toca repassar un exercici; null si no s'ha practicat mai.
+//  · Normalment, l'últim encert + l'interval del domini.
+//  · Sense cap encert datat (domini 1, o domini assolit abans de l'11/06/2026): ja toca.
+//  · Si l'últim dia de pràctica va acabar amb el domini per sota del de l'inici del
+//    dia (un error net), toca l'endemà. L'últim encert pot ser recent, i sense
+//    això l'error esperaria tot l'interval.
+//  · Mai el mateix dia que s'ha practicat.
+function reviewDate(id) {
+  const m = getMastery(id);
+  if (m <= 0) return null;
+  const last = (progress.lastMasteryDate || {})[id];
+  const ds = (progress.masteryDayStart || {})[id];
+  if (ds && m < ds.value) return sumaDies(ds.date, 1);
+  const d = last ? sumaDies(last, REVIEW_INTERVALS[Math.min(m, 5)]) : '0000-00-00';
+  const endema = ds ? sumaDies(ds.date, 1) : d;
+  return d > endema ? d : endema;
+}
+
+// Exercicis practicats del nivell, sense els del repte diari d'avui.
+function reviewCandidates(level) {
+  let all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1, ...(DATA.iec||[])];
+  if (level !== 'all') all = all.filter(q => q.level === level);
+  const dc = progress.dailyChallenge;
+  const todayDC = (dc && dc.date === new Date().toDateString()) ? dc.ids : [];
+  return all.filter(q => getMastery(q.id) > 0 && !todayDC.includes(q.id));
+}
+
+// Els que avui toca repassar, de qualsevol domini.
+function getReviewPool(level = reviewLevel) {
+  const avui = diaLocal();
+  return reviewCandidates(level).filter(q => reviewDate(q.id) <= avui);
+}
+
+// Si avui no en toca cap: els que tocaran primer, per avançar-los. Fora els
+// practicats avui, que ja no hi pujarien de domini.
+function getAdvancePool(level = reviewLevel) {
+  const avui = diaLocal();
+  const ds = progress.masteryDayStart || {};
+  return reviewCandidates(level)
+    .filter(q => !(ds[q.id] && ds[q.id].date === avui))
+    .map(q => [reviewDate(q.id), q])
+    .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+    .map(([, q]) => q);
+}
+
+// Tria fins a REVIEW_SIZE exercicis entre els que toquen: primer tot el domini més
+// baix, després el següent, i així. Dins de cada graó es reparteixen les categories
+// (round-robin) perquè la sessió no sigui tota del mateix bloc. Abans el repartiment
+// anava per damunt del domini, i un error podia quedar darrere de set dominats
+// d'altres categories. Si avui no en toca cap, els que tocaran primer, per graons de data.
+function getReviewItems(level = reviewLevel) {
+  const pool = getReviewPool(level);
+  const pending = pool.length ? sortBySRS(pool) : getAdvancePool(level);
+  const grao = pool.length ? (q => getMastery(q.id)) : (q => reviewDate(q.id));
   const out = [];
-  let added = true;
-  while (out.length < REVIEW_SIZE && added) {
-    added = false;
-    for (const c of cats) {
-      if (byCat[c].length) {
-        out.push(byCat[c].shift());
-        added = true;
-        if (out.length >= REVIEW_SIZE) break;
+  for (let i = 0; i < pending.length && out.length < REVIEW_SIZE; ) {
+    // pending ja ve ordenat: el graó són els consecutius amb el mateix valor
+    const g = grao(pending[i]);
+    let j = i;
+    while (j < pending.length && grao(pending[j]) === g) j++;
+    const byCat = {};
+    pending.slice(i, j).forEach(q => { (byCat[q.category] = byCat[q.category] || []).push(q); });
+    const cats = Object.keys(byCat);
+    let added = true;
+    while (out.length < REVIEW_SIZE && added) {
+      added = false;
+      for (const c of cats) {
+        if (byCat[c].length) {
+          out.push(byCat[c].shift());
+          added = true;
+          if (out.length >= REVIEW_SIZE) break;
+        }
       }
     }
+    i = j;
   }
   return out;
 }
 
 function setReviewLevel(lv) { reviewLevel = lv; renderReview(); }
+
+const exercicis = n => `${n} ${n === 1 ? 'exercici' : 'exercicis'}`;
 
 function renderReview() {
   const pool = getReviewPool();
@@ -1305,12 +1366,14 @@ function renderReview() {
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">${chips}</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
         ${pool.length > 0
-          ? `Repassaràs <strong>${toStudy.length}</strong> exercicis variats, triats entre els que més et convé consolidar. Prioritzem els de domini més baix.`
-          : 'Encara no tens exercicis per repassar en aquest nivell. Practica una mica més i el repàs s\'activarà sol!'}
+          ? `Avui et toca repassar <strong>${exercicis(toStudy.length)}</strong>, triats entre els que et convé consolidar. Primer, els de domini més baix.`
+          : toStudy.length > 0
+            ? `Avui no et toca cap repàs${reviewLevel === 'all' ? '' : ' en aquest nivell'}. Si vols, avança'n alguns: són els que et tocaran primer.`
+            : 'Encara no tens exercicis per repassar en aquest nivell. Practica una mica més i el repàs s\'activarà sol!'}
       </p>
       ${toStudy.length > 0 ? `
         <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startReviewSession()">
-          ▶ Iniciar repàs (${toStudy.length} exercicis)
+          ▶ ${pool.length > 0 ? 'Iniciar repàs' : 'Avançar repàs'} (${exercicis(toStudy.length)})
         </button>` : ''}
       ${toStudy.map(q => {
         const m = getMastery(q.id);
