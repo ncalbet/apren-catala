@@ -1,5 +1,47 @@
-scripts/node_modules/
+# LLISTA BLANCA (24/09/2026). Aquest repo és PÚBLIC: qualsevol el pot clonar i llegir-ne
+# tot l'historial, fitxers esborrats inclosos. S'ignora tot i només hi entra el que es
+# nomena aquí: un fitxer que caigui a la carpeta per error (un PDF, unes notes, una clau)
+# no pujarà sol. Per afegir un fitxer nou a l'app, cal nomenar-lo a sota.
+# guarda_push.cjs bloqueja el push si res del que reparteix el Service Worker en queda
+# fora, si hi ha cap fitxer seguit fora de la llista, o si un commit porta un correu que
+# no sigui el «noreply» de GitHub.
+# ⚠️ Les pujades des de la web de GitHub NO respecten aquest fitxer: no se n'ha de fer cap.
+/*
 
-# Credencials Firebase — MAI pujar al repo
+!/.gitignore
+!/.nojekyll
+!/CNAME
+!/index.html
+!/data.js
+!/firebase.js
+!/sw.js
+!/manifest.json
+!/firestore.rules
+!/privacy-policy.html
+!/eliminar-compte.html
+!/robots.txt
+!/sitemap.xml
+!/favicon-16.png
+!/favicon-32.png
+!/og-image.jpg
+!/og-image.html
+!/feature-graphic.html
+!/icons/
+!/.well-known/
+!/.github/
+
+# Scripts de les Actions: només el codi i les dependències declarades
+!/scripts/
+/scripts/*
+!/scripts/*.cjs
+!/scripts/package.json
+!/scripts/package-lock.json
+
+# MAI, encara que algú afegeixi una excepció a dalt (les regles de baix manen):
+node_modules/
 *firebase-adminsdk*.json
 *serviceAccount*.json
+*.pdf
+*.docx
+*.keystore
+*.jks
