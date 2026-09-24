@@ -759,6 +759,37 @@ function showLevelDoneCelebration(emoji, title, sub) {
     </div>`;
   document.body.appendChild(overlay);
 }
+// Celebració gran per als milers d'XP que no coincideixen amb cap pujada de rang
+// (3.000, 4.000, 6.000…). A 100, 500, 1.000, 2.000, 5.000 i 10.000 ja hi ha la
+// finestra del rang i l'assoliment. Es dispara des de checkXPMilestone().
+function formatXP(n) {
+  return n >= 1000 ? Math.floor(n / 1000) + '.' + String(n % 1000).padStart(3, '0') : String(n);
+}
+function showFitaXP(m) {
+  const xp = formatXP(m);
+  showConfetti();
+  const overlay = document.createElement('div');
+  overlay.className = 'ct-levelup-overlay';
+  overlay.innerHTML = `
+    <div class="ct-levelup-box">
+      <div class="ct-levelup-emoji">🎉</div>
+      <div style="font-size:26px;font-weight:700;color:var(--heading);margin-bottom:6px;">${xp} XP!</div>
+      <div class="ct-levelup-sub">Felicitats, has arribat als ${xp} XP!!</div>
+      <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
+        Continuar 🎉
+      </button>
+      <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareText(textFitaXP(${m}))">
+        📣 Comparteix-ho
+      </button>
+      <button class="ct-btn wa" style="width:100%;margin-top:8px;" onclick="shareWhatsApp(textFitaXP(${m}))">
+        💬 Per WhatsApp
+      </button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+function textFitaXP(m) {
+  return `🎉 He arribat a ${formatXP(m)} XP aprenent català amb AprènCatalà! És gratis i sense anuncis.`;
+}
 // Avisos de celebració (gel de ratxa, bonus de domini, repte diari, assoliments).
 // Surten tots a baix, al mig. Si n'hi ha un altre a la vista, el nou es posa al
 // damunt en lloc de tapar-lo: «Primer pas» i «Primera encertada» surten junts.
@@ -1692,6 +1723,7 @@ function markDone(ok, xp) {
   // de tocar domini, XP o ratxa: fins a la v140 es calculava al final, era idèntic
   // a l'estat d'«ara» i cap assoliment ni medalla no s'havia celebrat mai.
   const _prevUnlocked = [...getUnlockedAchievements(), ...getUnlockedMedals()];
+  const _xpAbans = progress.xp || 0;
   const prev = getMastery(q.id);
   const prevMax = (progress.maxMastery || {})[q.id] || 0;
   const prevLevel = getLevel(progress.xp);
@@ -1825,6 +1857,7 @@ function markDone(ok, xp) {
         // de celebrar aquí. Abans no es feia.
         const nivellAbans = getLevel(progress.xp);
         const abans = [...getUnlockedAchievements(), ...getUnlockedMedals()];
+        const xpAbans = progress.xp;
         progress.xp += 50;
         lligaSumaXP(50);
         showXPPop(50);
@@ -1838,6 +1871,7 @@ function markDone(ok, xp) {
         const nivellDespres = getLevel(progress.xp);
         if (nivellDespres.name !== nivellAbans.name) showLevelUp(nivellDespres);
         checkNewAchievements(abans);
+        checkXPMilestone(xpAbans);
         saveProgress(); updateHeader();
       }, 600);
     }
@@ -1845,6 +1879,7 @@ function markDone(ok, xp) {
 
   checkLevelMilestones();   // fites de nivell (fets/dominat) → overlay + confeti; desa els flags
   checkNewAchievements(_prevUnlocked);   // abans de desar: apunta què s'ha celebrat
+  checkXPMilestone(_xpAbans);
   saveProgress(); updateHeader();
   if (_streakFrozen > 0) { showFreezeToast(_streakFrozen); _streakFrozen = 0; }
   if (ok) currentSession.correct++;
@@ -2445,6 +2480,22 @@ function renderAchievements() {
 }
 
 // Mostra notificació d'assoliment nou
+// Fites d'XP: 100, 500 i després cada 1.000. Queda desada l'última a la qual s'ha
+// arribat (progress.fitaXP) perquè no es repeteixi. La primera vegada es desa la de
+// l'XP d'abans de la resposta, sense celebrar-la: ningú no ha de rebre fites velles.
+function fitaXPDe(xp) {
+  return xp >= 1000 ? Math.floor(xp / 1000) * 1000 : xp >= 500 ? 500 : xp >= 100 ? 100 : 0;
+}
+function checkXPMilestone(xpAbans) {
+  if (typeof progress.fitaXP !== 'number') progress.fitaXP = fitaXPDe(xpAbans);
+  const m = fitaXPDe(progress.xp);
+  if (m <= progress.fitaXP) return;
+  progress.fitaXP = m;
+  // On coincideix amb una pujada de rang ja hi ha la finestra del rang i l'assoliment.
+  if (LEVELS.some(l => l.min === m)) return;
+  setTimeout(() => showFitaXP(m), 700);
+}
+
 // Com les fites de nivell (celebratedLevels), queda desat què s'ha celebrat
 // (progress.celebratedAch). Així una medalla que es perd (un error baixa el domini
 // de 4 a 3) i es recupera no es torna a anunciar. La primera vegada, tot el que ja
