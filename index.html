@@ -1512,7 +1512,9 @@ function hasSeenTheory(cat) { return localStorage.getItem('cat_th_' + cat) === '
 function markTheorySeen(cat) { localStorage.setItem('cat_th_' + cat, '1'); }
 function continuePendingSession() { if (_pendingStart) { _pendingStart(); _pendingStart = null; } }
 
-function showMandatoryTheory(level, cat, onContinue) {
+// `enrere` és l'onclick de «← Tornar». Per defecte, la pantalla del nivell; des de
+// la sessió d'avui, l'Inici, que és d'on s'ha vingut (la sessió queda desada).
+function showMandatoryTheory(level, cat, onContinue, enrere = `renderLevelMenu('${level}')`) {
   const th = THEORY[cat];
   if (!th) { onContinue(); return; }
   markTheorySeen(cat);
@@ -1521,7 +1523,7 @@ function showMandatoryTheory(level, cat, onContinue) {
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
-      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
+      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="${enrere}">← Tornar</button>
       <div class="th-hero">
         <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
         <div class="th-hero-title">${th.icon} ${cat}</div>
@@ -1713,7 +1715,7 @@ function renderExercise() {
   saveActiveSession();
   // Després de desar: si es torna enrere des de la teoria, la sessió es reprèn aquí.
   const teoria = teoriaAbansDelNou(idx);
-  if (teoria) return showMandatoryTheory(teoria.level, teoria.cat, renderExercise);
+  if (teoria) return showMandatoryTheory(teoria.level, teoria.cat, renderExercise, "showTab('menu')");
 
   let body = '';
   if (q.type==='choice') body = renderChoice(q);
