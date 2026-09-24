@@ -1805,6 +1805,11 @@ function markDone(ok, xp) {
     if (dc.completed.length === dc.ids.length) {
       // Tots completats! Bonus XP
       setTimeout(() => {
+        // Els +50 arriben 600 ms després que markDone() hagi comprovat el rang i els
+        // assoliments: si fan pujar de rang o desbloquegen un assoliment d'XP, s'ha
+        // de celebrar aquí. Abans no es feia.
+        const nivellAbans = getLevel(progress.xp);
+        const abans = [...getUnlockedAchievements(), ...getUnlockedMedals()];
         progress.xp += 50;
         lligaSumaXP(50);
         showXPPop(50);
@@ -1816,6 +1821,9 @@ function markDone(ok, xp) {
         el.innerHTML = `<span style="font-size:26px;">🎯</span><div><div style="font-size:11px;opacity:0.85;margin-bottom:2px;">REPTE DIARI COMPLETAT</div>+50 XP de bonus!</div>`;
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 4000);
+        const nivellDespres = getLevel(progress.xp);
+        if (nivellDespres.name !== nivellAbans.name) showLevelUp(nivellDespres);
+        checkNewAchievements(abans);
         saveProgress(); updateHeader();
       }, 600);
     }
