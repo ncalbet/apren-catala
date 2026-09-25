@@ -2317,14 +2317,14 @@ const DATA = {
     // ── IMPERFET I PERIFRÀSTIC B1 ──
     { id:'b1-ip1', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Tria el temps verbal correcte:',
-      text:'De petit, ___ al parc cada diumenge amb els meus pares.',
+      text:'Abans, ___ al parc cada diumenge amb els meus pares; ara hi anem poc.',
       options:['vaig anar','anava','vaig anar-hi'],
       correct:1,
       variants:[
-        { text:'Quan era jove, ___ a la biblioteca cada divendres.', options:['anava','vaig anar','vaig anar-hi'], correct:0, theory:"«Cada divendres» indica un costum del passat → imperfet. El perifràstic «vaig anar» presentaria una sola vegada, concreta i acabada." },
-        { text:'De petit, ___ al col·legi caminant cada dia.', options:['vaig anar','vaig anar-hi','anava'], correct:2, theory:"«Cada dia» indica un costum del passat → imperfet. El perifràstic «vaig anar» presentaria un sol dia, concret i acabat." },
+        { text:'Quan tenia temps, ___ a la biblioteca cada divendres.', options:['anava','vaig anar','vaig anar-hi'], correct:0, theory:"«Quan tenia temps» vol dir «cada vegada que en tenia»: un costum → imperfet. El perifràstic «vaig anar» presentaria una sola vegada, concreta i acabada." },
+        { text:'Ara agafo la bicicleta, però abans ___ a l\'escola caminant cada dia.', options:['vaig anar','vaig anar-hi','anava'], correct:2, theory:"«Abans… cada dia», en contrast amb «ara»: un costum del passat → imperfet. El perifràstic «vaig anar» presentaria un sol dia, concret i acabat." },
       ],
-      theory:"«Cada diumenge» indica hàbit del passat → imperfet. El passat perifràstic s'usa per a accions puntuals i acabades.", example:'De petit, jugava al carrer cada tarda.' },
+      theory:"«Abans… cada diumenge», en contrast amb «ara»: un costum del passat → imperfet. El passat perifràstic s'usa per a accions puntuals i acabades.", example:'Abans jugava al carrer cada tarda.' },
 
     { id:'b1-ip2', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Tria el temps verbal correcte:',
