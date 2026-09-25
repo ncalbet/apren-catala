@@ -4160,9 +4160,9 @@ const DATA = {
       options:['Crec que ve demà.','Dubto que vingui demà.','Sé que ve demà.'],
       correct:1, variants:[
         { options:['Dubto que vingui demà.','Crec que ve demà.','Sé que ve demà.'], correct:0 },
-        { question:'Quina frase requereix subjuntiu per expressar dubte o negació?', options:['Sé que ve demà.','Crec que ve demà.','No crec que vingui demà.'], correct:2 },
+        { question:'Quina frase requereix subjuntiu per expressar dubte o negació?', options:['Sé que ho sap.','Crec que ho sap.','Nega que ho sàpiga.'], correct:2, theory:"Els verbs de negació, com «negar», regeixen subjuntiu perquè la subordinada no és un fet afirmat: «Nega que ho sàpiga». ✗ «Sé que ho sap» porta indicatiu perquè «saber» expressa certesa plena. ✗ «Crec que ho sap» també: «creure» en afirmatiu presenta la subordinada com a probable o real." },
       ],
-      theory:'Verbs de dubte (dubtar, no creure, no estar segur) regeixen subjuntiu perquè la subordinada no és un fet afirmat. ✗ «Crec que ve» és correcte amb indicatiu perquè «creure» en afirmatiu presenta la subordinada com a probable o real. ✗ «Sé que ve» porta indicatiu perquè «saber» expressa certesa plena. La clau: valor epistèmic del verb principal (certesa → indicatiu; dubte o negació → subjuntiu).', example:'Dubto que ho sàpiga. / No crec que vingui. / Crec que vindrà. / Sé que vindrà.' },
+      theory:"Els verbs de dubte, com «dubtar», regeixen subjuntiu perquè la subordinada no és un fet afirmat. ✗ «Crec que ve» és correcte amb indicatiu perquè «creure» en afirmatiu presenta la subordinada com a probable o real. ✗ «Sé que ve» porta indicatiu perquè «saber» expressa certesa plena. La clau: valor epistèmic del verb principal (certesa → indicatiu; dubte → subjuntiu). Compte: si es nega «creure», s'admeten tots dos modes: «No crec que vingui» i «No crec que vindrà».", example:'Dubto que ho sàpiga. / No crec que vingui. / Crec que vindrà. / Sé que vindrà.' },
     // +1 LÈXIC FORMAL
     { id:'b2-lf7', type:'choice', level:'b2', category:'Lèxic formal B2',
       question:'Quina és la forma lèxica més adequada en un correu professional?',
