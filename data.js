@@ -4364,7 +4364,7 @@ const DATA = {
         { options:['Per bé que','Atès que','Per tant','Ja que'], correct:0 },
         { question:'Quin connector concessiu formal completa correctament: «___ el pressupost sigui limitat, el projecte és viable»?', text:'', options:['Ja que','Atès que','Per tant','Per bé que'], correct:3 },
       ],
-      theory:'«Per bé que» és un connector concessiu formal que sempre va seguit de subjuntiu. Propi del registre escrit acurat. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.', example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
+      theory:"«Per bé que» és un connector concessiu formal, propi del registre escrit acurat, que admet tant el subjuntiu com l'indicatiu. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.", example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
 
     // CONNECTORS CONCESSIUS
     { id:'c1-cc1', type:'fill', level:'c1', category:'Connectors concessius',
@@ -4381,12 +4381,12 @@ const DATA = {
     { id:'c1-cc2', type:'choice', level:'c1', category:'Connectors concessius',
       question:'Quin connector concessiu va obligatòriament amb subjuntiu?',
       text:'Els connectors concessius expressen un obstacle que no impedeix la conclusió principal. Alguns van sempre amb indicatiu (si bé), d\'altres sempre amb subjuntiu, i alguns admeten els dos modes.',
-      options:['si bé','per bé que','tot i que','malgrat que'],
+      options:['si bé','ni que','tot i que','malgrat que'],
       correct:1, variants:[
-        { options:['per bé que','si bé','malgrat que','tot i que'], correct:0 },
-        { options:['tot i que','malgrat que','si bé','per bé que'], correct:3 },
+        { options:['ni que','si bé','malgrat que','tot i que'], correct:0 },
+        { options:['tot i que','malgrat que','si bé','ni que'], correct:3 },
       ],
-      theory:'«Per bé que» és el connector concessiu formal que exigeix sempre subjuntiu. «Si bé» porta indicatiu.', example:'Per bé que els resultats siguin positius, cal prudència.' },
+      theory:"«Ni que» introdueix una concessió no factual (una hipòtesi), i per això va sempre amb subjuntiu: «No li diré res, ni que m'ho demani». «Si bé» fa el contrari: només introdueix fets, en indicatiu. «Tot i que» i «malgrat que» admeten tots dos modes, com també «per bé que».", example:"Ni que m'ho demanis de genolls, no hi aniré." },
     { id:'c1-cc3', type:'fill', level:'c1', category:'Connectors concessius',
       question:'Omple amb el connector concessiu més formal per a registre acadèmic + indicatiu:',
       text:'En registre acadèmic, el connector concessiu de major formalitat que va amb indicatiu és «si bé». «Malgrat que» i «tot i que» són neutres; «però» és massa col·loquial.',
@@ -4410,13 +4410,13 @@ const DATA = {
       correct:1, theory:'Els tres connectors són concessius: introdueixen un obstacle que no impedeix la conclusió principal.', example:'Tot i que [obstacle]... [la situació continua].' },
     { id:'c1-cc6', type:'choice', level:'c1', category:'Connectors concessius',
       question:'En quina frase s\'usa incorrectament un connector concessiu?',
-      text:'«Per bé que» exigeix sempre subjuntiu. Quan va seguit d\'indicatiu, l\'oració és incorrecta. «Malgrat» i «tot i» poden anar amb nom, infinitiu o verb conjugat.',
-      options:['Malgrat la crisi econòmica, l\'empresa va créixer força.','Tot i ploure molt tota la tarda, van sortir a caminar.','Per bé que és un bon professional, treballarà amb nosaltres.'],
+      text:"Els connectors concessius poden anar amb un nom («malgrat la pluja»), amb un infinitiu («tot i ploure») o, amb «que», amb un verb conjugat («malgrat que plovia»).",
+      options:['Malgrat la crisi econòmica, l\'empresa va créixer força.','Tot i ploure molt tota la tarda, van sortir a caminar.','A pesar de que és un bon professional, no el contractaran.'],
       correct:2, variants:[
-        { options:['Per bé que és un bon professional, treballarà amb nosaltres.','Malgrat la crisi econòmica, l\'empresa va créixer força.','Tot i ploure molt tota la tarda, van sortir a caminar.'], correct:0 },
-        { question:'Quina frase usa «per bé que» incorrectament?', options:['Per bé que sigui difícil, cal intentar-ho.','Per bé que plou, sortirem igualment.','Per bé que els resultats siguin positius, cal continuar vigilant.'], correct:1 },
+        { options:['A pesar de que és un bon professional, no el contractaran.','Malgrat la crisi econòmica, l\'empresa va créixer força.','Tot i ploure molt tota la tarda, van sortir a caminar.'], correct:0 },
+        { text:"Els connectors concessius presenten un obstacle que no impedeix la conclusió. N'hi ha que admeten fets i hipòtesis, i n'hi ha que només admeten fets.", options:['Per bé que plou, sortirem igualment.','Tot i que plovia molt, vam sortir a caminar per la muntanya.','Si bé plogués demà, sortiríem igualment.'], correct:2, theory:"«Si bé» només introdueix fets reals, en indicatiu: «Si bé plovia, vam sortir». Per a una hipòtesi («si plogués demà») cal un altre connector: «Encara que plogués demà, sortiríem». «Per bé que» admet l'indicatiu («Per bé que plou») i el subjuntiu, i «tot i que plovia» també és correcte." },
       ],
-      theory:'«Per bé que» exigeix subjuntiu. «És» (indicatiu) és incorrecte. La forma correcta: «per bé que sigui un bon professional».', example:'Per bé que sigui difícil, cal intentar-ho.' },
+      theory:"Davant de la conjunció «que», la preposició «de» cau: «a pesar que», no «a pesar de que». «Malgrat» amb un nom i «tot i» amb un infinitiu són correctes.", example:"A pesar que era tard, van sortir a caminar." },
 
     // LÈXIC FORMAL C1
     { id:'c1-lf1', type:'fill', level:'c1', category:'Lèxic formal',
