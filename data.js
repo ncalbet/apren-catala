@@ -2321,8 +2321,8 @@ const DATA = {
       options:['vaig anar','anava','vaig anar-hi'],
       correct:1,
       variants:[
-        { text:'Quan era jove, ___ a la biblioteca cada divendres.', options:['anava','vaig anar','vaig anar-hi'], correct:0 },
-        { text:'De petit, ___ al col·legi caminant cada dia.', options:['vaig anar','vaig anar-hi','anava'], correct:2 },
+        { text:'Quan era jove, ___ a la biblioteca cada divendres.', options:['anava','vaig anar','vaig anar-hi'], correct:0, theory:"«Cada divendres» indica un costum del passat → imperfet. El perifràstic «vaig anar» presentaria una sola vegada, concreta i acabada." },
+        { text:'De petit, ___ al col·legi caminant cada dia.', options:['vaig anar','vaig anar-hi','anava'], correct:2, theory:"«Cada dia» indica un costum del passat → imperfet. El perifràstic «vaig anar» presentaria un sol dia, concret i acabat." },
       ],
       theory:"«Cada diumenge» indica hàbit del passat → imperfet. El passat perifràstic s'usa per a accions puntuals i acabades.", example:'De petit, jugava al carrer cada tarda.' },
 
@@ -2332,7 +2332,7 @@ const DATA = {
       options:['apagava','vaig apagar','apago'],
       correct:1,
       variants:[
-        { text:'Dijous passat a les deu ___ el cotxe i vaig entrar a treballar.', options:['vaig aparcar','aparcava','aparco'], correct:0 },
+        { text:'Dijous passat a les deu ___ el cotxe i vaig entrar a treballar.', options:['vaig aparcar','aparcava','aparco'], correct:0, theory:"Una acció concreta, seguida d'una altra («vaig entrar a treballar») → passat perifràstic. L'imperfet «aparcava» indicaria un hàbit o una acció de fons." },
         { text:'La setmana passada, abans de marxar de vacances, ___ la llum del passadís i vaig tancar la porta amb clau.', options:['apago','apagava','vaig apagar'], correct:2, theory:"Dues accions concretes, l'una darrere l'altra (apagar la llum i tancar la porta) → passat perifràstic. «La setmana passada», sola, no decidiria res: també podria anar amb un costum d'aquells dies." },
       ],
       theory:"«Ahir a les vuit» situa l'acció en un moment puntual i acabat → passat perifràstic. L'imperfet «apagava» indicaria un hàbit o una acció de fons, no una acció concreta d'ahir.", example:'Quan vaig arribar, ell ja dormia.' },
@@ -2343,7 +2343,7 @@ const DATA = {
       display:'passat perifràstic 1a pers. sing. de «aprendre»',
       answers:['vaig aprendre'],
       variants:[
-        { sentence:'Quan vivia a Londres, ___ (conèixer) la meva parella actual.', display:'passat perifràstic 1a pers. sing. de «conèixer»', answers:['vaig conèixer'] },
+        { sentence:'Quan vivia a Londres, ___ (conèixer) la meva parella actual.', display:'passat perifràstic 1a pers. sing. de «conèixer»', answers:['vaig conèixer'], theory:"«Quan vivia a Londres» marca la circumstància de fons (imperfet). «Vaig conèixer» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal." },
         { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'passat perifràstic 1a pers. sing. de «decidir»', answers:['vaig decidir'], theory:"«Mentre estudiava a la universitat» marca la circumstància de fons (imperfet). «Vaig decidir» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:"Mentre vivia a Girona, vaig decidir aprendre a nedar. / Quan treballava a la biblioteca, vaig conèixer la Marta." },
       ],
       theory:"«Quan tenia quinze anys» marca la circumstància de fons (imperfet). «Vaig aprendre» = acció puntual nova que es produeix en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:'Quan vivia a París, vaig aprendre francès. / Quan era jove, vaig conèixer el meu millor amic.' },
@@ -2388,8 +2388,8 @@ const DATA = {
       options:['el','hi','en'],
       correct:2,
       variants:[
-        { text:'«Vols més pa?» → «No, no ___ vull.»', options:['en','hi','el'], correct:0 },
-        { text:'«Tens germans?» → «Sí, ___ tinc dos.»', options:['hi','el','en'], correct:2 },
+        { text:'«Vols més pa?» → «No, no ___ vull.»', options:['en','hi','el'], correct:0, theory:"«En» substitueix un CD sense article (partitiu): «No vull pa» → «No en vull»." },
+        { text:'«Tens germans?» → «Sí, ___ tinc dos.»', options:['hi','el','en'], correct:2, theory:"«En» substitueix un CD sense article, també quan porta un numeral: «Tinc dos germans» → «En tinc dos». El numeral es queda a la frase." },
       ],
       theory:"«En» substitueix un CD partitiu (sense article, quantitat indeterminada). «Arròs» sense article → «en vull».", example:"«Tens pa?» «Sí, en tinc.»" },
 
@@ -2399,8 +2399,8 @@ const DATA = {
       display:'pronom feble adequat',
       answers:['en'],
       variants:[
-        { question:"Substitueix el complement subratllat pel pronom adequat: «Vinc <u>de la biblioteca</u>.»", sentence:'___ vinc ara mateix.', display:'pronom feble adequat', answers:['en'] },
-        { question:"Substitueix el complement subratllat pel pronom adequat: «Tinc ganes <u>de vacances</u>.»", sentence:'___ tinc moltes.', display:'pronom feble adequat', answers:['en'] },
+        { question:"Substitueix el complement subratllat pel pronom adequat: «Vinc <u>de la biblioteca</u>.»", sentence:'___ vinc ara mateix.', display:'pronom feble adequat', answers:['en'], theory:"«En» substitueix el lloc d'on es ve, introduït per «de»: «Vinc de la biblioteca» → «En vinc»." },
+        { question:"Substitueix el complement subratllat pel pronom adequat: «Tinc ganes <u>de vacances</u>.»", sentence:'___ tinc moltes.', display:'pronom feble adequat', answers:['en'], theory:"«En» substitueix complements introduïts per «de»: «Tinc ganes de vacances» → «En tinc ganes»." },
       ],
       theory:"«Parlar de + cosa» → pronom «en». «En parlo molt» substitueix «de la meva feina».", example:"«Parles de política?» «Sí, en parlo.»" },
 
@@ -2519,7 +2519,7 @@ const DATA = {
       answers:['tanmateix','en canvi','no obstant això'],
       variants:[
         { sentence:"El meu germà prefereix la ciutat; ___, jo m'estimo més viure al poble.", display:'connector de contrast', answers:['en canvi','tanmateix','no obstant això'] },
-        { sentence:"L'examen semblava fàcil; ___, molts alumnes el van suspendre.", display:'connector de contrast', answers:['tanmateix','no obstant això','amb tot'] },
+        { sentence:"L'examen semblava fàcil; ___, molts alumnes el van suspendre.", display:'connector de contrast', answers:['tanmateix','no obstant això','amb tot'], theory:"«Tanmateix», «no obstant això» i «amb tot» expressen contrast i van entre pauses: «; tanmateix,». «Però» també indica contrast, però no s'escriu seguit de coma i per això no encaixa en aquest patró." },
       ],
       theory:"«Tanmateix», «en canvi» i «no obstant això» expressen contrast i van entre pauses: «; tanmateix,». «Però» també indica contrast, però no s'escriu seguit de coma i per això no encaixa en aquest patró.", example:"El pla era bo; tanmateix, va fracassar." },
 
@@ -2534,7 +2534,7 @@ const DATA = {
       correct:2,
       variants:[
         { options:["Com que plovia molt, no vam sortir.","No van venir per tant tenien molt de treball.","No va poder dormir perquè feia molta calor."], correct:1 },
-        { options:["Va ploure molt; per consegüent, el concert es va cancel·lar.","Va ploure molt; ja que, el concert es va cancel·lar.","Va ploure molt, però el concert no es va cancel·lar."], correct:1 },
+        { options:["Va ploure molt; per consegüent, el concert es va cancel·lar.","Va ploure molt; ja que, el concert es va cancel·lar.","Va ploure molt, però el concert no es va cancel·lar."], correct:1, theory:"«Ja que» introdueix una causa, i aquí el que ve darrere és una conseqüència. Cal un connector consecutiu: «Va ploure molt; per consegüent, el concert es va cancel·lar.»" },
       ],
       theory:"«Perquè» introdueix la causa en una frase subordinada, no una frase principal. Cal dir: «Va fer fred; per tant, no van sortir.»", example:"Correcte: «No van sortir perquè feia fred.» / «Feia fred; per tant, no van sortir.»" },
 
@@ -2598,7 +2598,7 @@ const DATA = {
       options:['tancaries','tanquis','tanca'],
       correct:2,
       variants:[
-        { text:'Si et sents malament, ___.', options:['descansares','descansis','descansa'], correct:2 },
+        { text:'Si et sents malament, ___.', options:['descansares','descansis','descansa'], correct:2, theory:"En les condicionals reals (si + present d'indicatiu), quan es dona un consell o una instrucció, la forma natural de la conseqüència és l'imperatiu: «descansa». ✗ «Descansis» (present de subjuntiu) no escau en la conseqüència d'una condicional real. ✗ «Descansares» (imperfet de subjuntiu) és propi de la condició de les condicionals irreals." },
         { text:'Si tens set, ___ una mica d\'aigua.', options:['beuràs','beu','beguessis'], correct:1 },
       ],
       theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dona una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
@@ -2648,8 +2648,8 @@ const DATA = {
       options:["He de fer la compra.","Tinc que fer la compra.","Cal que faci la compra."],
       correct:1,
       variants:[
-        { options:["He d'estudiar per a l'examen.","Tinc que estudiar per a l'examen.","Cal que estudiï per a l'examen."], correct:1 },
-        { options:["Tenim que parlar de les vacances.","Hem de parlar de les vacances.","Cal que parlem de les vacances."], correct:0 },
+        { options:["He d'estudiar per a l'examen.","Tinc que estudiar per a l'examen.","Cal que estudiï per a l'examen."], correct:1, theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «He d'estudiar» és la forma correcta per a l'obligació personal. ✓ «Cal que estudiï» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «tenir de» (sense «que») s'evita en els registres formals." },
+        { options:["Tenim que parlar de les vacances.","Hem de parlar de les vacances.","Cal que parlem de les vacances."], correct:0, theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «Hem de parlar» és la forma correcta per a l'obligació personal. ✓ «Cal que parlem» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «tenir de» (sense «que») s'evita en els registres formals." },
       ],
       theory:"«Tenir que» és un calc del castellà «tener que» i no és normatiu en català. ✓ «He de fer la compra» és la forma correcta per a l'obligació personal. ✓ «Cal que faci la compra» (cal + subjuntiu) és una alternativa impersonal correcta. Atenció: «Tinc de...» (sense «que») tampoc és normatiu en la majoria de contextos.", example:"He de trucar a la meva mare. / Ha de venir demà. / Cal que faci els deures." },
 
@@ -2798,7 +2798,7 @@ const DATA = {
       display:'terme català per a «basura» (femení singular, concorda amb «la»)',
       answers:['brossa'],
       variants:[
-        { sentence:"Hauríem de comprar un *cubo nou per a la brossa.", display:'terme català per a «cubo» (masculí, concorda amb «un»)', answers:['cubell','poal'] },
+        { sentence:"Hauríem de comprar un *cubo nou per a la brossa.", display:'terme català per a «cubo» (masculí, concorda amb «un»)', answers:['cubell','poal'], theory:"«Cubo» és castellà. En català, el recipient s'anomena «cubell» o «poal», masculins, que concorden amb «un»." },
         { sentence:"Cada matí passa el camió de la *basura pel nostre carrer.", display:'terme català per a «basura» (femení singular, concorda amb «la»)', answers:['brossa'] },
       ],
       theory:"«Brossa» (col·loquial) i «residus» (formal) equivalen a «basura»; «deixalles» i «escombraries» s'usen en plural («les deixalles»). Aquí cal un femení singular que concordi amb «la»: «brossa».", example:"Llença la brossa al contenidor. / Cal separar els residus orgànics." },
@@ -3124,7 +3124,7 @@ const DATA = {
       options:['està','és','sembla'],
       correct:1,
       variants:[
-        { text:"L'Antoni ___ dentista des de fa molts anys.", options:['és','sembla','està'], correct:0 },
+        { text:"L'Antoni ___ dentista des de fa molts anys.", options:['és','sembla','està'], correct:0, theory:"Per dir la professió amb un nom («dentista»), només hi va «ser». ✗ «Està» és agramatical amb un nom. ✗ «Sembla» diria que només ho aparenta, i «des de fa molts anys» diu que és un fet." },
         { text:'La música que toca el Pau ___ molt alegre i rítmica.', options:['sembla','està','és'], correct:2 },
       ],
       theory:"«La conec molt bé» indica que ho saps del cert → SER (fet, no impressió). ✗ «Sembla» implicaria que només t'ho sembla, però has dit que la coneixes bé. ✗ «Està» és agramatical: amb un sintagma nominal («una persona…») només hi va «ser».", example:"La Maria és molt divertida, però avui està trista." },
@@ -3320,8 +3320,8 @@ const DATA = {
       display:'pronom CD femení plural',
       answers:['les'],
       variants:[
-        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Compro <u>els bitllets</u>. → ___ compro.", display:'pronom CD masculí plural', answers:['els'] },
-        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Saludo <u>la meva germana</u>. → ___ saludo.", display:'pronom CD femení singular', answers:['la'] },
+        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Compro <u>els bitllets</u>. → ___ compro.", display:'pronom CD masculí plural', answers:['els'], theory:"«Els» substitueix un CD masculí plural determinat. El pronom va davant del verb conjugat." },
+        { question:'Substitueix el CD subratllat pel pronom feble adequat:', sentence:"Saludo <u>la meva germana</u>. → ___ saludo.", display:'pronom CD femení singular', answers:['la'], theory:"«La» substitueix un CD femení singular determinat. El pronom va davant del verb conjugat." },
       ],
       theory:"«Les» substitueix un CD femení plural determinat. El pronom va davant del verb conjugat.", example:"«Has vist les claus?» «Sí, les he vistes a la taula.»" },
 
@@ -3513,8 +3513,8 @@ const DATA = {
       options:['Quants anys tens tú?','Quants anys tens?','Quants anys tu tens?'],
       correct:1,
       variants:[
-        { question:'Quina pregunta és correcta en català?', options:['D\'on ets?','D\'on tu ets?','D\'on ets tú?'], correct:0 },
-        { question:'Quina pregunta és correcta en català?', options:['Com et dius tú?','Com tu et dius?','Com et dius?'], correct:2 },
+        { question:'Quina pregunta és correcta en català?', options:['D\'on ets?','D\'on tu ets?','D\'on ets tú?'], correct:0, theory:"En català el pronom subjecte (tu, ell, ella) s'omet habitualment perquè la desinència verbal ja l'indica. Atenció: en català «tu» no porta accent gràfic (a diferència del castellà «tú»): «D'on ets tú?» conté un accent inexistent, i «D'on tu ets?» força l'ordre de la frase." },
+        { question:'Quina pregunta és correcta en català?', options:['Com et dius tú?','Com tu et dius?','Com et dius?'], correct:2, theory:"En català el pronom subjecte (tu, ell, ella) s'omet habitualment perquè la desinència verbal ja l'indica. Atenció: en català «tu» no porta accent gràfic (a diferència del castellà «tú»): «Com et dius tú?» conté un accent inexistent, i «Com tu et dius?» força l'ordre de la frase." },
       ],
       theory:'En català el pronom subjecte (tu, ell, ella) s\'omet habitualment perquè la desinència verbal ja l\'indica. «Tu» és opcional i se sol ometre. Atenció: en català «tu» no porta accent gràfic (a diferència del castellà «tú»); l\'opció «Quants anys tens tú?» conté, a més d\'un ordre forçat, un accent inexistent en català.', example:'Quants anys tens? / D\'on ets? / Que treballes?' },
     { id:'a2-pi4', type:'fill', level:'a2', category:'Preguntes i interrogació',
@@ -3603,8 +3603,8 @@ const DATA = {
       sentence:'Vull que ___ a temps a la reunió d\'avui.',
       display:'arribar (2a pers. sing.)', answers:['arribis'],
       variants:[
-        { text:'Els verbs que expressen voluntat o desig, com «desitjar», regeixen subjuntiu a l\'oració subordinada.', sentence:'Desitjo que ___ molt aquest viatge.', display:'gaudir (2a pers. sing.)', answers:['gaudeixis'] },
-        { text:'Els verbs que expressen voluntat o desig, com «esperar», regeixen subjuntiu a l\'oració subordinada.', sentence:'Espero que ___ la decisió correcta.', display:'prendre (2a pers. sing.)', answers:['prenguis'] },
+        { text:'Els verbs que expressen voluntat o desig, com «desitjar», regeixen subjuntiu a l\'oració subordinada.', sentence:'Desitjo que ___ molt aquest viatge.', display:'gaudir (2a pers. sing.)', answers:['gaudeixis'], theory:"Amb «desitjo que» el verb subordinat va en subjuntiu. A la 2a persona del singular la terminació és -is: «gaudeixis». El pronom «tu» no hi cal: la desinència ja diu de qui es parla, i en català el pronom subjecte només s'expressa per a marcar contrast o èmfasi." },
+        { text:'Els verbs que expressen voluntat o desig, com «esperar», regeixen subjuntiu a l\'oració subordinada.', sentence:'Espero que ___ la decisió correcta.', display:'prendre (2a pers. sing.)', answers:['prenguis'], theory:"Amb «espero que», que aquí expressa un desig, el verb subordinat va en subjuntiu. A la 2a persona del singular la terminació és -is: «prenguis». El pronom «tu» no hi cal: la desinència ja diu de qui es parla." },
       ],
       theory:'Amb «vull que» el verb subordinat va en subjuntiu. A la 2a persona del singular la terminació és -is. El pronom «tu» no hi cal: la desinència ja diu de qui es parla, i en català el pronom subjecte només s\'expressa per a marcar contrast o èmfasi.', example:'Espero que puguis venir demà. / Vull que hi arribis d\'hora.' },
     { id:'b2-sub2', type:'choice', level:'b2', category:'Subjuntiu',
@@ -3613,7 +3613,7 @@ const DATA = {
       options:['Dubto que ve demà.','Dubto que vindrà demà.','Dubto que vingui demà.','Dubto de que ve.'],
       correct:2, variants:[
         { options:['Dubto que vingui demà.','Dubto que ve demà.','Dubto de que ve.','Dubto que vindrà demà.'], correct:0 },
-        { question:'Tria la frase amb mode verbal correcte:', options:['No crec que ve avui.','No crec que vindrà avui.','No crec que vingui avui.','No crec de que ve.'], correct:2 },
+        { question:'Tria la frase amb mode verbal correcte:', options:['No crec que ve avui.','No crec que vindrà avui.','No crec que vingui avui.','No crec de que ve.'], correct:2, theory:"Amb «no crec que» el verb subordinat va en subjuntiu: negar una creença expressa una actitud no factual. «No crec que vingui avui.»" },
       ],
       theory:'Amb «dubto que» s\'usa sempre el subjuntiu, perquè el dubte expressa una actitud no factual.', example:'Dubto que sigui possible acabar-ho avui.' },
     { id:'b2-sub3', type:'fill', level:'b2', category:'Subjuntiu',
@@ -3622,8 +3622,8 @@ const DATA = {
       sentence:'Sé que la Berta ___ molt bé el català des de petita.',
       display:'parlar (3a pers. sing.) — indicatiu o subjuntiu?', answers:['parla'],
       variants:[
-        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'] },
-        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Estic segur que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen'] },
+        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'], theory:"«És evident que» introdueix un fet cert → indicatiu: «té». «Vull que parli» (desig) → subjuntiu." },
+        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Estic segur que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen'], theory:"«Estic segur que» expressa certesa → indicatiu: «venen». «Vull que parli» (desig) → subjuntiu." },
       ],
       theory:'«Sé que» introdueix un fet cert → indicatiu. «Vull que parli» (desig) → subjuntiu.', example:'Sé que parla tres idiomes. / Vull que parli més a poc a poc.' },
     { id:'b2-sub4', type:'choice', level:'b2', category:'Subjuntiu',
@@ -3697,7 +3697,7 @@ const DATA = {
       options:['La directora va parlar. La directora va dir que la directora acceptava.','La directora va parlar. Va dir que acceptava la proposta.','La directora va parlar. Ella va dir que ella acceptava.'],
       correct:1, variants:[
         { options:['La directora va parlar. Va dir que acceptava la proposta.','La directora va parlar. La directora va dir que la directora acceptava.','La directora va parlar. Ella va dir que ella acceptava.'], correct:0 },
-        { question:'Quina versió evita correctament la repetició del subjecte?', options:['L\'advocat va exposar el cas. L\'advocat va concloure que l\'advocat era innocent.','L\'advocat va exposar el cas. Va concloure que el client era innocent.','L\'advocat va exposar el cas. Ell va concloure que ell era innocent.'], correct:1 },
+        { question:'Quina versió evita correctament la repetició del subjecte?', options:['L\'advocat va exposar el cas. L\'advocat va concloure que l\'advocat era innocent.','L\'advocat va exposar el cas. Va concloure que el client era innocent.','L\'advocat va exposar el cas. Ell va concloure que ell era innocent.'], correct:1, theory:"En català, el pronom subjecte s'omet quan el context queda clar (el·lipsi). Repetir el nom o «ell» és redundant." },
       ],
       theory:'En català, el pronom subjecte s\'omet quan el context queda clar (el·lipsi). Repetir el nom o «ella» és redundant.', example:'Va parlar i va dir que acceptava. (El subjecte s\'entén pel context.)' },
 
@@ -3723,7 +3723,7 @@ const DATA = {
       options:['Afirmatiu i optimista sense reserves','Prudent i matisat','Negatiu i pessimista'],
       correct:1, variants:[
         { options:['Prudent i matisat','Negatiu i pessimista','Afirmatiu i optimista sense reserves'], correct:0 },
-        { question:'Quin to té la frase: «Els resultats semblen prometedors, tot i que caldria verificar-los»?', text:'El to d\'un text es detecta pels mots que tria l\'autor. Fixa\'t en «semblen» i «tot i que» i dedueix quina actitud transmeten.', options:['Negatiu i pessimista','Afirmatiu i optimista sense reserves','Prudent i matisat'], correct:2 },
+        { question:'Quin to té la frase: «Els resultats semblen prometedors, tot i que caldria verificar-los»?', text:'El to d\'un text es detecta pels mots que tria l\'autor. Fixa\'t en «semblen» i «tot i que» i dedueix quina actitud transmeten.', options:['Negatiu i pessimista','Afirmatiu i optimista sense reserves','Prudent i matisat'], correct:2, theory:"«Semblen» relativitza, i «tot i que» hi afegeix una reserva. El to global és de cautela reflexiva." },
       ],
       theory:'«Sembla que» relativitza, i «ara bé» frena l\'entusiasme. El to global és de cautela reflexiva.', example:'Paraules com «sembla», «ara bé», «cal ser prudents» → to matisat.' },
     { id:'b2-com5', type:'reading', level:'b2', category:'Comprensió lectora',
@@ -3819,8 +3819,8 @@ const DATA = {
       display:'verb formal precís (no «fer» ni «posar»)',
       answers:['reforçar','endurir','implementar','intensificar','activar','extremar','reactivar','ampliar','incrementar','augmentar','portar a terme','dur a terme'],
       variants:[
-        { text:'En registre formal, en comptes de verbs comodí com «fer» o «posar», es trien verbs més precisos i propis del context.', sentence:'El govern va ___ una nova llei per protegir el medi ambient.', display:'verb formal precís (no «fer»)', answers:['aprovar','promulgar','impulsar','elaborar','redactar','desplegar'] },
-        { text:'En registre formal, en comptes de verbs comodí com «fer» o «posar», es trien verbs més precisos i propis del context.', sentence:'L\'empresa va ___ un pla de formació per als seus treballadors.', display:'verb formal precís (no «fer»)', answers:['implementar','desenvolupar','impulsar','elaborar','engegar','dissenyar'] },
+        { text:'En registre formal, en comptes de verbs comodí com «fer» o «posar», es trien verbs més precisos i propis del context.', sentence:'El govern va ___ una nova llei per protegir el medi ambient.', display:'verb formal precís (no «fer»)', answers:['aprovar','promulgar','impulsar','elaborar','redactar','desplegar'], theory:"En registre formal, en comptes del verb comodí «fer», es tria un verb precís. Per a una llei: «aprovar», «promulgar», «impulsar», «elaborar»." },
+        { text:'En registre formal, en comptes de verbs comodí com «fer» o «posar», es trien verbs més precisos i propis del context.', sentence:'L\'empresa va ___ un pla de formació per als seus treballadors.', display:'verb formal precís (no «fer»)', answers:['implementar','desenvolupar','impulsar','elaborar','engegar','dissenyar'], theory:"En registre formal, en comptes del verb comodí «fer», es tria un verb precís. Per a un pla: «implementar», «desenvolupar», «impulsar», «engegar»." },
       ],
       theory:'En contextos de seguretat i gestió, verbs com «reforçar», «implementar», «activar» aporten precisió al discurs formal.', example:'Les autoritats van activar el protocol d\'emergència davant la situació.' },
     { id:'b2-lex6', type:'reorder', level:'b2', category:'Lèxic formal B2',
@@ -3967,7 +3967,7 @@ const DATA = {
       options:['vaig anar','havia anat','anava','aniré'],
       correct:2, variants:[
         { options:['anava','vaig anar','aniré','havia anat'], correct:0 },
-        { question:'Quin temps verbal expressa un hàbit continu en el passat: «De jove, ___ molt»?', text:'', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3 },
+        { question:'Quin temps verbal expressa un hàbit continu en el passat: «De jove, ___ molt»?', text:'', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3, theory:"L'imperfet expressa hàbits, accions repetides o estats en el passat. «De jove, llegia molt» presenta la lectura com un costum d'aquella època → imperfet." },
       ],
       theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Cada estiu» indica repetició habitual → imperfet.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
     { id:'b2-tv3', type:'fill', level:'b2', category:'Temps verbals',
@@ -3986,7 +3986,7 @@ const DATA = {
       options:['Quan va arribar, ja vam menjar.','Quan va arribar, ja havíem menjat.','Quan va arribar, ja mengem.'],
       correct:1, variants:[
         { options:['Quan va arribar, ja havíem menjat.','Quan va arribar, ja mengem.','Quan va arribar, ja vam menjar.'], correct:0 },
-        { question:'Quina frase usa el plusquamperfet per indicar anterioritat al passat?', options:['Quan va trucar, ja sortia.','Quan va trucar, ja sortirà.','Quan va trucar, ja havia sortit.'], correct:2 },
+        { question:'Quina frase usa el plusquamperfet per indicar anterioritat al passat?', options:['Quan va trucar, ja sortia.','Quan va trucar, ja sortirà.','Quan va trucar, ja havia sortit.'], correct:2, theory:"El plusquamperfet (havia + participi) expressa una acció passada anterior a una altra acció passada. «Ja havia sortit» és anterior a «va trucar»." },
       ],
       theory:'El plusquamperfet (havia + participi) expressa una acció passada anterior a una altra acció passada. «Ja havíem menjat» és anterior a «va arribar».', example:'Quan va trucar, ja havia sortit. / L\'informe que havia escrit era excel·lent.' },
     { id:'b2-tv5', type:'fill', level:'b2', category:'Temps verbals',
@@ -3995,8 +3995,8 @@ const DATA = {
       sentence:'Si el temps ho permet, ___ una excursió diumenge.',
       display:'fer (1a pers. pl. futur simple)', answers:['farem'],
       variants:[
-        { text:'El futur simple expressa accions venidores i, a les condicionals reals, la conseqüència d\'una condició possible.', sentence:'Si aproves l\'examen, ___ anar de vacances tots junts.', display:'poder (1a pers. pl. futur simple)', answers:['podrem'] },
-        { text:'El futur simple expressa accions venidores i, a les condicionals reals, la conseqüència d\'una condició possible.', sentence:'Si t\'esforces una mica més, ___ el resultat que vols.', display:'tenir (2a pers. sing. futur simple)', answers:['tindràs'] },
+        { text:'El futur simple expressa accions venidores i, a les condicionals reals, la conseqüència d\'una condició possible.', sentence:'Si aproves l\'examen, ___ anar de vacances tots junts.', display:'poder (1a pers. pl. futur simple)', answers:['podrem'], theory:"El futur simple de «poder» és irregular: podré, podràs, podrà, podrem, podreu, podran." },
+        { text:'El futur simple expressa accions venidores i, a les condicionals reals, la conseqüència d\'una condició possible.', sentence:'Si t\'esforces una mica més, ___ el resultat que vols.', display:'tenir (2a pers. sing. futur simple)', answers:['tindràs'], theory:"El futur simple de «tenir» és irregular: tindré, tindràs, tindrà, tindrem, tindreu, tindran." },
       ],
       theory:'El futur simple de «fer» és irregular: faré, faràs, farà, farem, fareu, faran. Altres irregulars: poder → podré, voler → voldré, saber → sabré.', example:'Demà faré el sopar jo. / Quan acabi, t\'ho diré.' },
     { id:'b2-tv6', type:'reading', level:'b2', category:'Temps verbals',
@@ -4010,7 +4010,7 @@ const DATA = {
       options:['anava','aniré','aniria','anés'],
       correct:2, variants:[
         { options:['aniria','anava','anés','aniré'], correct:0 },
-        { question:'Tria la forma correcta del resultat en una condicional hipotètica irreal: «Si hagués tingut temps, ___ de viatge»:', text:'', options:['anava','aniré','hauria anat','anés'], correct:2 },
+        { question:'Tria la forma correcta del resultat en una condicional hipotètica irreal: «Si hagués tingut temps, ___ de viatge»:', text:'', options:['anava','aniré','hauria anat','anés'], correct:2, theory:"En les condicionals irreals referides al passat (si + plusquamperfet de subjuntiu: «si hagués tingut»), el resultat va en condicional perfet: «hauria anat»." },
       ],
       theory:'En condicionals hipotètiques (si + imperfet subj.), el resultat va en condicional simple: -ia. «Aniria» = condicional d\'«anar».', example:'Si pogués, ho faria de seguida. / Ho compraria si fos més barat.' },
 
@@ -4089,7 +4089,7 @@ const DATA = {
       options:['Aquesta proposta és igual de bona que l\'anterior.','Aquesta proposta és tan bona com l\'anterior.','Aquesta proposta és tant bona com l\'anterior.','Aquesta proposta és más bona que l\'anterior.'],
       correct:1, variants:[
         { options:['Aquesta proposta és tan bona com l\'anterior.','Aquesta proposta és tant bona com l\'anterior.','Aquesta proposta és igual de bona que l\'anterior.','Aquesta proposta és más bona que l\'anterior.'], correct:0 },
-        { question:'Quina frase expressa igualtat correctament?', options:['El resultat és igual de bo que l\'anterior.','El resultat és más bo que l\'anterior.','El resultat és tant bo com l\'anterior.','El resultat és tan bo com l\'anterior.'], correct:3 },
+        { question:'Quina frase expressa igualtat correctament?', options:['El resultat és igual de bo que l\'anterior.','El resultat és más bo que l\'anterior.','El resultat és tant bo com l\'anterior.','El resultat és tan bo com l\'anterior.'], correct:3, theory:"Igualtat amb adjectiu o adverbi: «tan + adj./adv. + com». Atenció a la diferència d'una sola lletra: ✓ «tan bo» (sense -t davant adjectiu) ✗ «tant bo». «Tant» només va davant un NOM: «tanta gent», «tants llibres». Tampoc «igual de...que» (calc) ni «más» (castellà)." },
       ],
       theory:'Igualtat amb adjectiu o adverbi: «tan + adj./adv. + com». Atenció a la diferència d\'una sola lletra: ✓ «tan bona» (sense -t davant adjectiu) ✗ «tant bona». «Tant» només va davant un NOM: «tanta gent», «tants llibres». Tampoc «igual de...que» (calc) ni «más» (castellà).', example:'✓ Tan bona com l\'anterior. ✗ Tant bona. / «tant» + nom: tanta feina, tants anys.' },
     { id:'b2-cmp2', type:'choice', level:'b2', category:'Construccions comparatives',
@@ -4254,7 +4254,7 @@ const DATA = {
       options:['la','ho','les','en'],
       correct:2, variants:[
         { options:['les','ho','la','en'], correct:0 },
-        { question:'Quin pronom substitueix «els cotxes» com a objecte directe?', text:'Has aparcat <i>els cotxes</i> al garatge?', options:['la','ho','en','els'], correct:3 },
+        { question:'Quin pronom substitueix «els cotxes» com a objecte directe?', text:'Has aparcat <i>els cotxes</i> al garatge?', options:['la','ho','en','els'], correct:3, theory:"El pronom de CD concorda en gènere i nombre amb el nom que substitueix. «Els cotxes» = masculí plural → «els». El/la (sing. def.), els/les (pl. def.), ho (neutre), en (partitiu)." },
       ],
       theory:'El pronom de CD concorda en gènere i nombre amb el nom que substitueix. «Les entrades» = femení plural → «les». El/la (sing. def.), els/les (pl. def.), ho (neutre), en (partitiu).', example:'Has vist el gat? → L\'he vist. / Has llegit les cartes? → Les he llegides.' },
 
@@ -4264,7 +4264,7 @@ const DATA = {
       options:['la','li','els','ho'],
       correct:1, variants:[
         { options:['li','la','ho','els'], correct:0 },
-        { question:'Quin pronom substitueix el CI «a la seva mare» (singular)?', text:'En Pau ha escrit una carta <i>a la seva mare</i>?', options:['la','ho','li','els'], correct:2 },
+        { question:'Quin pronom substitueix el CI «a la seva mare» (singular)?', text:'En Pau ha escrit una carta <i>a la seva mare</i>?', options:['la','ho','li','els'], correct:2, theory:"El pronom de CI és «li» (singular) i «els» (plural), independentment del gènere. «A la seva mare» = CI singular → «li». Atenció: «la» és pronom de CD, no de CI." },
       ],
       theory:'El pronom de CI és «li» (singular) i «els» (plural), independentment del gènere. «A la professora» = CI singular → «li». Atenció: «la» és pronom de CD, no de CI.', example:'Has escrit a la Maria? → Li he escrit. / Has trucat als teus pares? → Els he trucat.' },
 
@@ -4274,7 +4274,7 @@ const DATA = {
       options:['hi','en','ho','li'],
       correct:0, variants:[
         { options:['en','hi','li','ho'], correct:1 },
-        { question:'Quin pronom substitueix «de Barcelona» com a complement de procedència?', text:'«Que vens de Barcelona?» «Sí, ___ vinc amb el tren de les nou.»', options:['hi','li','en','ho'], correct:2 },
+        { question:'Quin pronom substitueix «de Barcelona» com a complement de procedència?', text:'«Que vens de Barcelona?» «Sí, ___ vinc amb el tren de les nou.»', options:['hi','li','en','ho'], correct:2, theory:"«En» substitueix complements introduïts per «de», com el lloc d'on es ve: «de Barcelona» → «en vinc». «Hi» substitueix un complement de lloc amb «a» o «en»." },
       ],
       theory:'«Hi» substitueix un complement de lloc (a/en + lloc) o un complement de règim verbal amb «a/en». «En» substitueix complements introduïts per «de» o un CD partitiu. «A Barcelona» = lloc → «hi».', example:'Vius a Barcelona? → Hi visc. / Vens de Barcelona? → En vinc. / Confies en ell? → Hi confio.' },
 
@@ -4295,8 +4295,8 @@ const DATA = {
       display:'CI de 1a persona + CD femení plural (forma i ordre correctes)',
       answers:['me les'],
       variants:[
-        { text:'Quan en una frase coincideixen un complement directe i un d\'indirecte, els pronoms febles es combinen seguint un ordre i unes formes concretes.', question:'Substitueix el CD (els documents) i el CI (a tu) pel pronom combinat correcte:', sentence:'T\'enviaré els documents per correu. → ___ enviaré per correu.', display:'CI de 2a persona + CD masculí plural (forma i ordre correctes)', answers:["te'ls"] },
-        { text:'Quan en una frase coincideixen un complement directe i un d\'indirecte, els pronoms febles es combinen seguint un ordre i unes formes concretes.', question:'Substitueix el CD (el regal) i el CI (a mi) pel pronom combinat correcte:', sentence:'La meva amiga m\'ha portat el regal. → La meva amiga ___ ha portat.', display:'CI de 1a persona + CD masculí singular (forma i ordre correctes)', answers:["me l'"] },
+        { text:'Quan en una frase coincideixen un complement directe i un d\'indirecte, els pronoms febles es combinen seguint un ordre i unes formes concretes.', question:'Substitueix el CD (els documents) i el CI (a tu) pel pronom combinat correcte:', sentence:'T\'enviaré els documents per correu. → ___ enviaré per correu.', display:'CI de 2a persona + CD masculí plural (forma i ordre correctes)', answers:["te'ls"], theory:"Quan es combinen CI i CD, l'ordre és sempre CI + CD: me'l, te'ls, me les, li ho... «A tu» (CI) → te · «els documents» (CD masc. pl.) → els · Combinació: te'ls." },
+        { text:'Quan en una frase coincideixen un complement directe i un d\'indirecte, els pronoms febles es combinen seguint un ordre i unes formes concretes.', question:'Substitueix el CD (el regal) i el CI (a mi) pel pronom combinat correcte:', sentence:'La meva amiga m\'ha portat el regal. → La meva amiga ___ ha portat.', display:'CI de 1a persona + CD masculí singular (forma i ordre correctes)', answers:["me l'"], theory:"Quan es combinen CI i CD, l'ordre és sempre CI + CD: me'l, te'ls, me les, li ho... «A mi» (CI) → me · «el regal» (CD masc. sing.) → el · Combinació: me'l, que davant de vocal s'escriu «me l'»: «me l'ha portat»." },
       ],
       theory:'Quan es combinen CI i CD, l\'ordre és sempre CI + CD: me\'l, te\'ls, me les, li ho... «A mi» (CI) → me · «les notes» (CD fem. pl.) → les · Combinació: me les.', example:'M\'has donat el regal → Me l\'has donat. / T\'ha explicat la situació → Te l\'ha explicada.' },
 
@@ -4626,8 +4626,8 @@ const DATA = {
       sentence:'Va dir: «Vull que tots facin l\'exercici». → Va dir que volia que tots ___ l\'exercici.',
       display:'fer (3a pers. pl. subj. imperfet)', answers:['fessin'],
       variants:[
-        { text:'En passar a estil indirecte en passat, els temps verbals de la frase original es desplacen cap enrere.', sentence:'Va dir: «Espero que vinguin tots». → Va dir que esperava que ___ tots.', display:'venir (3a pers. pl. subj. imperfet)', answers:['vinguessin'] },
-        { text:'En passar a estil indirecte en passat, els temps verbals de la frase original es desplacen cap enrere.', sentence:'Va dir: «Em sap greu que marxis». → Va dir que li sabia greu que ___.', display:'marxar (2a pers. sing. subj. imperfet)', answers:['marxessis'] },
+        { text:'En passar a estil indirecte en passat, els temps verbals de la frase original es desplacen cap enrere.', sentence:'Va dir: «Espero que vinguin tots». → Va dir que esperava que ___ tots.', display:'venir (3a pers. pl. subj. imperfet)', answers:['vinguessin'], theory:"Estil indirecte al passat: el present de subj. «vinguin» es transforma en imperfet «vinguessin» quan el verb introductori és en passat." },
+        { text:'En passar a estil indirecte en passat, els temps verbals de la frase original es desplacen cap enrere.', sentence:'Va dir: «Em sap greu que marxis». → Va dir que li sabia greu que ___.', display:'marxar (2a pers. sing. subj. imperfet)', answers:['marxessis'], theory:"Estil indirecte al passat: el present de subj. «marxis» es transforma en imperfet «marxessis» quan el verb introductori és en passat." },
       ],
       theory:'Estil indirecte al passat: el present de subj. «facin» es transforma en imperfet «fessin» quan el verb introductori és en passat.', example:'Va dir que volia que fessin silenci.' },
     { id:'c1-si4', type:'choice', level:'c1', category:'Subjuntiu imperfet',
@@ -4746,7 +4746,7 @@ const DATA = {
       options:['agafar una decisió','prendre una decisió','fer una decisió'],
       correct:1, variants:[
         { options:['prendre una decisió','agafar una decisió','fer una decisió'], correct:0 },
-        { question:'Quina col·locació lèxica és correcta en català?', options:['agafar una mesura','fer una mesura','prendre una mesura'], correct:2 },
+        { question:'Quina col·locació lèxica és correcta en català?', options:['agafar una mesura','fer una mesura','prendre una mesura'], correct:2, theory:"«Prendre una mesura» és la col·locació correcta en català, com «prendre una decisió». «Agafar» seria un calc incorrecte en aquest context." },
       ],
       theory:'«Prendre una decisió» és la col·locació correcta en català. «Agafar» seria un calc incorrecte en aquest context.', example:'El consell va prendre la decisió d\'ajornar la reunió.' },
     { id:'c1-ff4', type:'choice', level:'c1', category:'Frases fetes',
@@ -4833,8 +4833,8 @@ const DATA = {
       sentence:'Va dir: «Estic cansat.» → Va dir que ___ cansat.',
       display:'estar (imperfet, 3a pers. sing.)', answers:['estava'],
       variants:[
-        { sentence:'Va dir: «Treballo molt.» → Va dir que ___ molt.', display:'treballar (imperfet, 3a pers. sing.)', answers:['treballava'] },
-        { sentence:'Va dir: «Tinc gana.» → Va dir que ___ gana.', display:'tenir (imperfet, 3a pers. sing.)', answers:['tenia'] },
+        { sentence:'Va dir: «Treballo molt.» → Va dir que ___ molt.', display:'treballar (imperfet, 3a pers. sing.)', answers:['treballava'], theory:"Present → imperfet en estil indirecte (verb introductor en passat). «Treballo» → «treballava»." },
+        { sentence:'Va dir: «Tinc gana.» → Va dir que ___ gana.', display:'tenir (imperfet, 3a pers. sing.)', answers:['tenia'], theory:"Present → imperfet en estil indirecte (verb introductor en passat). «Tinc» → «tenia»." },
       ],
       theory:'Present → imperfet en estil indirecte (verb introductor en passat). «Estic» → «estava».', example:'«Treballo molt» → va dir que treballava molt.' },
     { id:'c1-ei3', type:'choice', level:'c1', category:'Estil indirecte',
@@ -4920,7 +4920,7 @@ const DATA = {
       options:['Es van publicar els resultats ahir.','Va ser decidit no fer canvis.','Es van ser aprovades les mesures.'],
       correct:2, variants:[
         { options:['Es van ser aprovades les mesures.','Es van publicar els resultats ahir.','Va ser decidit no fer canvis.'], correct:0 },
-        { question:'Quina frase usa incorrectament la passiva?', options:['Es van publicar els resultats.','Van ser aprovades les mesures.','Es van ser presentades les conclusions.'], correct:2 },
+        { question:'Quina frase usa incorrectament la passiva?', options:['Es van publicar els resultats.','Van ser aprovades les mesures.','Es van ser presentades les conclusions.'], correct:2, theory:"«Es van ser presentades» combina impròpiament passiva reflexa i perifràstica. Cal usar-ne una sola: «Es van presentar» o «Van ser presentades»." },
       ],
       theory:'«Es van ser aprovades» combina impropriament passiva reflexa i perifràstica. Cal usar-ne una sola: «Es van aprovar» O «Van ser aprovades».', example:'Correcte: Es van aprovar / Van ser aprovades. Incorrecte: *Es van ser aprovades.' },
     { id:'c1-pi6', type:'fill', level:'c1', category:'Passiva i impersonal',
@@ -5378,7 +5378,7 @@ const DATA = {
       correct:0,
       variants:[
         { options:['L\'ós bru viu als Pirineus.','L\'os bru viu als Pirineus.','L\'òs bru viu als Pirineus.'], correct:1 },
-        { options:['Els nets vénen a dinar cada diumenge.','Els néts venen a dinar cada diumenge.','Els nets venen a dinar cada diumenge.'], correct:2 },
+        { options:['Els nets vénen a dinar cada diumenge.','Els néts venen a dinar cada diumenge.','Els nets venen a dinar cada diumenge.'], correct:2, theory:"«Nets» (fills dels fills) i «venen» (verb venir) han perdut l'accent diacrític. Vigileu les frases mig actualitzades: una sola grafia antiga ja les fa incorrectes." },
       ],
       theory:"«Neta» (filla del fill), «dona» (verb donar) i «os» (animal) han perdut l'accent diacrític. «Mà», en canvi, és a la llista dels quinze i el manté. Vigileu les frases mig actualitzades: una sola grafia antiga ja les fa incorrectes.", example:'El net de la veïna. / Em dona bons consells. / Un os polar.' },
 
