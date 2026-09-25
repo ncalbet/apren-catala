@@ -2599,7 +2599,7 @@ const DATA = {
       correct:2,
       variants:[
         { text:'Si et sents malament, ___.', options:['descansares','descansis','descansa'], correct:2, theory:"En les condicionals reals (si + present d'indicatiu), quan es dona un consell o una instrucció, la forma natural de la conseqüència és l'imperatiu: «descansa». ✗ «Descansis» (present de subjuntiu) no escau en la conseqüència d'una condicional real. ✗ «Descansares» (imperfet de subjuntiu) és propi de la condició de les condicionals irreals." },
-        { text:'Si tens set, ___ una mica d\'aigua.', options:['beuràs','beu','beguessis'], correct:1 },
+        { text:'Si tens set, ___ una mica d\'aigua.', options:['beuries','beu','beguessis'], correct:1, theory:"En les condicionals reals (si + present d'indicatiu), quan es dona un consell o una instrucció, la forma natural de la conseqüència és l'imperatiu: «beu». ✗ «Beuries» (condicional) és propi de les condicionals irreals: «Si tinguessis set, beuries aigua». ✗ «Beguessis» (imperfet de subjuntiu) és propi de la condició de les condicionals irreals, no de la conseqüència." },
       ],
       theory:"En les condicionals reals (si + present d'indicatiu), l'apòdosi va en imperatiu, present o futur d'indicatiu. Aquí, com que es dona una instrucció, la forma natural és l'imperatiu «tanca». ✗ «Tancaries» (condicional) és propi de les condicionals irreals: «Si tinguessis fred, tancaries la finestra». ✗ «Tanquis» (present de subjuntiu) no escau en l'apòdosi d'una condicional real.", example:"Si tens gana, menja alguna cosa." },
 
@@ -3125,7 +3125,7 @@ const DATA = {
       correct:1,
       variants:[
         { text:"L'Antoni ___ dentista des de fa molts anys.", options:['és','sembla','està'], correct:0, theory:"Per dir la professió amb un nom («dentista»), només hi va «ser». ✗ «Està» és agramatical amb un nom. ✗ «Sembla» diria que només ho aparenta, i «des de fa molts anys» diu que és un fet." },
-        { text:'La música que toca el Pau ___ molt alegre i rítmica.', options:['sembla','està','és'], correct:2 },
+        { text:'Conec bé la música que toca el Pau: ___ molt alegre i rítmica.', options:['sembla','està','és'], correct:2, theory:"«Conec bé la música» indica que ho saps del cert → SER (una característica, no una impressió). ✗ «Sembla» implicaria que només t'ho sembla, però has dit que la coneixes bé. ✗ «Està» no escau: l'alegria i el ritme són característiques de la música, no un estat passatger." },
       ],
       theory:"«La conec molt bé» indica que ho saps del cert → SER (fet, no impressió). ✗ «Sembla» implicaria que només t'ho sembla, però has dit que la coneixes bé. ✗ «Està» és agramatical: amb un sintagma nominal («una persona…») només hi va «ser».", example:"La Maria és molt divertida, però avui està trista." },
 
@@ -3613,9 +3613,9 @@ const DATA = {
       options:['Dubto que ve demà.','Dubto que vindrà demà.','Dubto que vingui demà.','Dubto de que ve.'],
       correct:2, variants:[
         { options:['Dubto que vingui demà.','Dubto que ve demà.','Dubto de que ve.','Dubto que vindrà demà.'], correct:0 },
-        { question:'Tria la frase amb mode verbal correcte:', options:['No crec que ve avui.','No crec que vindrà avui.','No crec que vingui avui.','No crec de que ve.'], correct:2, theory:"Amb «no crec que» el verb subordinat va en subjuntiu: negar una creença expressa una actitud no factual. «No crec que vingui avui.»" },
+        { question:'Tria la frase amb mode verbal correcte:', options:['Dubtem que el tren arriba a temps.','Dubtem que el tren arribarà a temps.','Dubtem que el tren arribi a temps.','Dubtem de que el tren arriba a temps.'], correct:2, theory:"Amb «dubtar que», afirmatiu, la subordinada va en subjuntiu, perquè el dubte expressa una actitud no factual: «Dubtem que el tren arribi a temps». Només quan es nega el dubte («No dubtem que arribarà») passa a indicatiu. A «Dubtem de que el tren arriba», a més del mode, sobra la preposició: davant de «que», «de» s'elideix." },
       ],
-      theory:'Amb «dubto que» s\'usa sempre el subjuntiu, perquè el dubte expressa una actitud no factual.', example:'Dubto que sigui possible acabar-ho avui.' },
+      theory:"Amb «dubto que» s'usa el subjuntiu, perquè el dubte expressa una actitud no factual. Només quan es nega el dubte («No dubto que vindrà») la subordinada passa a indicatiu.", example:'Dubto que sigui possible acabar-ho avui.' },
     { id:'b2-sub3', type:'fill', level:'b2', category:'Subjuntiu',
       text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.',
       question:'Indicatiu o subjuntiu? Omple el buit:',
