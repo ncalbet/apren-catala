@@ -2683,15 +2683,15 @@ const DATA = {
 
     // ── SUBORDINADES B1 ──
     { id:'b1-sub1', type:'choice', level:'b1', category:'Subordinades B1',
-      question:'Quin mode verbal exigeix la subordinada temporal «quan» referida al futur?',
+      question:'Tria la forma que completa la frase:',
       text:'Quan ___ de la feina, et trucaré.',
-      options:['sortiré','surts','surti'],
+      options:['sortiria','surts','surti'],
       correct:2,
       variants:[
-        { text:'Quan ___ la paella, posa-la a la taula.', options:['estarà','estigui','està'], correct:1 },
-        { text:'Avisa\'m quan ___ els resultats.', options:['sàpigues','sabràs','saps'], correct:0 },
+        { text:'Quan ___ la paella, posa-la a la taula.', options:['estaria','estigui','està'], correct:1, theory:"En una temporal amb «quan» referida al futur, el més habitual és el present de subjuntiu: «quan estigui». ✗ «Estaria» (condicional) només hi va quan la frase parla del passat. ✗ «Està» (present d'indicatiu) expressa un fet habitual, no una acció futura. El futur d'indicatiu («quan estarà») també s'admet, però avui és menys habitual." },
+        { text:'Avisa\'m quan ___ els resultats.', options:['sàpigues','sabries','saps'], correct:0, theory:"En una temporal amb «quan» referida al futur, el més habitual és el present de subjuntiu: «quan sàpigues». ✗ «Sabries» (condicional) només hi va quan la frase parla del passat. ✗ «Saps» (present d'indicatiu) expressa un fet habitual, no una acció futura. El futur d'indicatiu («quan sabràs») també s'admet, però avui és menys habitual." },
       ],
-      theory:"Les oracions temporals de futur amb «quan» porten el verb subordinat en present de subjuntiu. ✗ «Sortiré» (futur d'indicatiu) és el calc del castellà «cuando salga» que els catalanoparlants amb interferència del castellà fan equivalent a «cuando saldré», però en català el futur d'indicatiu en temporals de futur és incorrecte. ✗ «Surts» (present d'indicatiu) expressa un fet habitual real, no una acció futura hipotètica.", example:"Quan arribi, avisa'm. / Quan tingui temps, vindré." },
+      theory:"En una temporal amb «quan» referida al futur, el més habitual és el present de subjuntiu: «quan surti». ✗ «Sortiria» (condicional) només hi va quan la frase parla del passat: «Va dir que em trucaria quan sortiria». ✗ «Surts» (present d'indicatiu) expressa un fet habitual, no una acció futura. El futur d'indicatiu («quan sortiré») també s'admet, però avui és menys habitual.", example:"Quan arribi, avisa'm. / Quan tingui temps, vindré." },
 
     { id:'b1-sub2', type:'fill', level:'b1', category:'Subordinades B1',
       question:'Omple amb el mode verbal correcte (indicatiu o subjuntiu):',
@@ -2738,13 +2738,13 @@ const DATA = {
 
     { id:'b1-sub6', type:'choice', level:'b1', category:'Subordinades B1',
       question:'Quina frase té la subordinada temporal correctament construïda?',
-      options:["Truqueu-me quan haureu arribat.","Truqueu-me quan arribareu.","Truqueu-me quan arribeu.","Truqueu-me quan arribaràs."],
+      options:["Truqueu-me quan hauríeu arribat.","Truqueu-me quan arribàveu.","Truqueu-me quan arribeu.","Truqueu-me quan arribaríeu."],
       correct:2,
       variants:[
-        { question:'Quina frase té la subordinada temporal correctament construïda?', options:['Digues-m\'ho quan te n\'hauries assabentat.','Digues-m\'ho quan te n\'assabentaràs.','Digues-m\'ho quan te n\'assabentis.','Digues-m\'ho quan te n\'assabentes.'], correct:2 },
-        { question:'Quina frase té la subordinada temporal correctament construïda?', options:['Vine quan podràs.','Vine quan puguis.','Vine quan hauries pogut.','Vine quan pots.'], correct:1 },
+        { question:'Quina frase té la subordinada temporal correctament construïda?', options:['Digues-m\'ho quan te n\'hauries assabentat.','Digues-m\'ho quan te n\'assabentaves.','Digues-m\'ho quan te n\'assabentis.','Digues-m\'ho quan te n\'assabentaries.'], correct:2, theory:"En una temporal referida al futur, el més habitual és el present de subjuntiu: «quan te n'assabentis». El condicional («te n'assabentaries», «te n'hauries assabentat») només hi va quan la frase parla del passat, i l'imperfet («te n'assabentaves») situa l'acció en el passat. El futur d'indicatiu («quan te n'assabentaràs») s'admet, però és menys habitual." },
+        { question:'Quina frase té la subordinada temporal correctament construïda?', options:['Vine quan podries.','Vine quan puguis.','Vine quan hauries pogut.','Vine quan podies.'], correct:1, theory:"En una temporal referida al futur, el més habitual és el present de subjuntiu: «quan puguis». El condicional («podries», «hauries pogut») només hi va quan la frase parla del passat, i l'imperfet («podies») situa l'acció en el passat. El futur d'indicatiu («quan podràs») s'admet, però és menys habitual." },
       ],
-      theory:"En temporals de futur, «quan» + futur d'indicatiu (arribareu, arribaràs, haureu llegit) és incorrecte en català. Cal usar el present de subjuntiu: «quan arribeu». Per marcar que l'acció ha de quedar acabada, s'usa el perfet de subjuntiu: «quan hàgiu llegit tota la documentació, passeu a signar.»", example:"Quan tingui temps, vindré. / Avisa'm quan surtin." },
+      theory:"En una temporal referida al futur, el més habitual és el present de subjuntiu: «quan arribeu». Per marcar que l'acció ha de quedar acabada, s'usa el perfet de subjuntiu: «quan hàgiu llegit tota la documentació, passeu a signar». El condicional («arribaríeu», «hauríeu arribat») només hi va quan la frase parla del passat, i l'imperfet («arribàveu») situa l'acció en el passat. El futur d'indicatiu («quan arribareu») s'admet, però és menys habitual.", example:"Quan tingui temps, vindré. / Avisa'm quan surtin." },
 
     // ── LÈXIC QUOTIDIÀ B1 ──
     { id:'b1-lq1', type:'choice', level:'b1', category:'Lèxic quotidià B1',
@@ -3629,12 +3629,12 @@ const DATA = {
     { id:'b2-sub4', type:'choice', level:'b2', category:'Subjuntiu',
       question:'Tria la forma verbal correcta per a una subordinada temporal de futur:',
       text:'T\'ho explicaré quan ___ més temps disponible.',
-      options:['tindré','tingui','tinc','tingués'],
+      options:['tindria','tingui','tinc','tingués'],
       correct:1, variants:[
-        { options:['tingui','tindré','tingués','tinc'], correct:0 },
-        { options:['tinc','tingués','tindré','tingui'], correct:3 },
+        { options:['tingui','tindria','tingués','tinc'], correct:0 },
+        { options:['tinc','tingués','tindria','tingui'], correct:3 },
       ],
-      theory:'Les oracions temporals de futur usen el present de subjuntiu (quan + subj.), mai el futur.', example:'Quan arribi, truqueu-me. / Ho farem quan puguem.' },
+      theory:"En les temporals referides al futur, el més habitual és el present de subjuntiu: «quan tingui». El futur d'indicatiu («quan tindré») també s'admet, però és menys habitual. ✗ «Tindria» (condicional) i «tingués» (imperfet de subjuntiu) només hi van quan la frase parla del passat: «Va dir que m'ho explicaria quan tingués temps». ✗ «Tinc» (present d'indicatiu) expressa un fet habitual, no una acció futura.", example:'Quan arribi, truqueu-me. / Ho farem quan puguem.' },
     { id:'b2-sub5', type:'fill', level:'b2', category:'Subjuntiu',
       text:'Les expressions de necessitat o obligació, com «cal que», introdueixen una subordinada en subjuntiu.',
       sentence:'Cal que tots els participants ___ el formulari abans del divendres.',
@@ -4336,7 +4336,7 @@ const DATA = {
         { text:'En un context formal, les oracions temporals que es projecten cap al futur tenen un comportament verbal particular en català.', sentence:'Us comunicarem la resolució tan bon punt el comitè ___ una decisió.', display:'prendre (3a pers. sing. present subj.)', answers:['prengui'] },
         { text:'En un context formal, les oracions temporals que es projecten cap al futur tenen un comportament verbal particular en català.', sentence:'Procedirem a la signatura del contracte una vegada ___ revisades totes les clàusules.', display:'estar (3a pers. pl. present subj.)', answers:['estiguin'] },
       ],
-      theory:'Les oracions temporals de futur porten sempre present de subjuntiu: «quan + subj.».', example:'Ho faré quan tingui temps. / Sortirem quan acabi la reunió.' },
+      theory:"En les temporals referides al futur (amb «quan», «tan bon punt», «una vegada»...), el més habitual és el present de subjuntiu: «quan + subj.». El futur d'indicatiu també s'admet («quan tindrem»), però avui és menys habitual.", example:'Ho faré quan tingui temps. / Sortirem quan acabi la reunió.' },
     { id:'c1-sa4', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Quina frase usa el subjuntiu correctament en una oració relativa?',
       text:'En les oracions de relatiu, el subjuntiu indica que l\'antecedent és indefinit o inexistent (no se sap si existeix): «Busco algú que sàpiga...». L\'indicatiu indica que l\'antecedent és conegut: «Conec algú que sap...».',
