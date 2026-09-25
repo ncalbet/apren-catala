@@ -2442,7 +2442,7 @@ const DATA = {
       answers:['faig'],
       variants:[
         { text:'El verb «anar» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial que no coincideix amb la castellana.', sentence:'Jo ___ (anar) a la feina amb bicicleta.', display:'anar → 1a persona singular', answers:['vaig'], theory:"«Anar» és irregular: jo vaig, tu vas, ell va, nosaltres anem, vosaltres aneu, ells van." },
-        { text:'El verb «venir» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial.', sentence:'Jo ___ (venir) de la feina molt cansat.', display:'venir → 1a persona singular', answers:['vinc'], theory:"«Venir» és irregular: jo vinc, tu vens, ell ve, nosaltres venim, vosaltres veniu, ells venen." },
+        { text:'El verb «venir» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial.', sentence:'Jo ___ (venir) de la feina a les sis.', display:'venir → 1a persona singular', answers:['vinc'], theory:"«Venir» és irregular: jo vinc, tu vens, ell ve, nosaltres venim, vosaltres veniu, ells venen." },
       ],
       theory:"«Fer» és irregular: jo faig, tu fas, ell fa, nosaltres fem, vosaltres feu, ells fan.", example:"Jo faig el sopar. / Ell fa molt de soroll." },
 
