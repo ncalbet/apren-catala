@@ -4885,9 +4885,9 @@ const DATA = {
       options:['El projecte va ser aprovat.','Es va aprovar el projecte.','El projecte ha sigut aprovat.'],
       correct:1, variants:[
         { options:['Es va aprovar el projecte.','El projecte ha sigut aprovat.','El projecte va ser aprovat.'], correct:0 },
-        { question:'Quina és la construcció preferida en català per expressar passiva sense agent? Tria com traduiries «La decisión fue aprobada»:', options:['La decisió ha sigut aprovada.','La decisió va ser aprovada.','Es va aprovar la decisió.'], correct:2 },
+        { question:'Quina és la construcció preferida en català per expressar passiva sense agent? Tria com traduiries «La decisión fue aprobada»:', text:"En català, hi ha dues maneres d'expressar la passiva. Una és més genuïna i preferida; l'altra sona a traducció.", options:['La decisió ha sigut aprovada.','La decisió va ser aprovada.','Es va aprovar la decisió.'], correct:2, theory:"El català prefereix la passiva reflexa (es + verb) quan l'agent és irrellevant: és la més habitual en tota mena de registres. La passiva amb «ser» («va ser aprovada», «ha sigut aprovada») és correcta, però menys habitual. «Sigut» és una variant del participi de «ser», tan correcta com «estat»." },
       ],
-      theory:'El català prefereix la passiva reflexa (es + verb) quan l\'agent és irrellevant. «Va ser aprovat» és correcte però menys habitual; «ha sigut» és híbrid incorrecte.', example:'Es van prendre mesures. / Es va signar l\'acord. / Es va decidir ajornar.' },
+      theory:"El català prefereix la passiva reflexa (es + verb) quan l'agent és irrellevant: és la més habitual en tota mena de registres. La passiva amb «ser» («va ser aprovat», «ha sigut aprovat») és correcta, però menys habitual. «Sigut» és una variant del participi de «ser», tan correcta com «estat».", example:'Es van prendre mesures. / Es va signar l\'acord. / Es va decidir ajornar.' },
     { id:'c1-pi2', type:'fill', level:'c1', category:'Passiva i impersonal',
       text:'La passiva reflexa amb «es» fa concordar el verb amb allò que rep l\'acció, sense esmentar qui la fa.',
       question:'Completa amb la forma de passiva reflexa correcta:',
