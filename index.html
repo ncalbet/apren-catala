@@ -709,7 +709,8 @@ function recorregutOpcionsHTML(accio) {
   return RECORREGUTS.map(r => `
     <button type="button" class="ct-btn secondary" onclick="${accio}('${r.id}')"
       style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:10px 14px;line-height:1.35;">
-      <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${r.titol} <span style="font-weight:400;color:var(--muted);">· ${r.nivell}</span></span>
+      <span class="ct-badge ${r.id}" style="margin-bottom:5px;">${r.nivell}</span>
+      <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${r.titol}</span>
       <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${r.promesa}</span>
     </button>`).join('') + `
     <button type="button" class="ct-btn secondary" onclick="${accio}(null)"
