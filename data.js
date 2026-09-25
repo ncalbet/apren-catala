@@ -2333,7 +2333,7 @@ const DATA = {
       correct:1,
       variants:[
         { text:'Dijous passat a les deu ___ el cotxe i vaig entrar a treballar.', options:['vaig aparcar','aparcava','aparco'], correct:0 },
-        { text:'La setmana passada ___ la llum del passadís per estalviar.', options:['apago','apagava','vaig apagar'], correct:2 },
+        { text:'La setmana passada, abans de marxar de vacances, ___ la llum del passadís i vaig tancar la porta amb clau.', options:['apago','apagava','vaig apagar'], correct:2, theory:"Dues accions concretes, l'una darrere l'altra (apagar la llum i tancar la porta) → passat perifràstic. «La setmana passada», sola, no decidiria res: també podria anar amb un costum d'aquells dies." },
       ],
       theory:"«Ahir a les vuit» situa l'acció en un moment puntual i acabat → passat perifràstic. L'imperfet «apagava» indicaria un hàbit o una acció de fons, no una acció concreta d'ahir.", example:'Quan vaig arribar, ell ja dormia.' },
 
@@ -2351,7 +2351,7 @@ const DATA = {
     { id:'b1-ip4', type:'reorder', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Ordena les frases perquè la narració tingui sentit:',
       parts:['Va tancar el llibre i va apagar el llum.','Aquella nit llegia tranquil·lament al llit.','De sobte va sentir un soroll estrany.','Normalment s\'adormia molt aviat.'],
-      correct:[3,1,0,2], alternates:[[3,1,2,0],[1,0,3,2],[1,3,0,2]], theory:"Imperfets per a hàbits/fons (normalment s'adormia, llegia); perifràstics per a accions noves (va sentir, va tancar). La frase d'hàbit no marca cap moment concret, així que pot anar al principi com a fons o intercalada: hi ha més d'un ordre que funciona.", example:'Mentre dormia (imperfet fons), va sonar el telèfon (perifràstic nou).' },
+      correct:[3,1,0,2], alternates:[[3,1,2,0],[1,0,3,2],[1,3,0,2],[1,3,2,0]], theory:"Imperfets per a hàbits/fons (normalment s'adormia, llegia); perifràstics per a accions noves (va sentir, va tancar). La frase d'hàbit no marca cap moment concret, així que pot anar al principi com a fons o intercalada: hi ha més d'un ordre que funciona.", example:'Mentre dormia (imperfet fons), va sonar el telèfon (perifràstic nou).' },
 
     { id:'b1-ip5', type:'reading', level:'b1', category:'Imperfet i perifràstic B1',
       text:"L'Arnau vivia en un poble petit quan era jove. Cada matí es llevava d'hora i anava a treballar al camp. Un dia, però, va rebre una carta important: l'acceptaven a la universitat de la ciutat. Va decidir marxar i va canviar completament la seva vida.",
@@ -2365,8 +2365,8 @@ const DATA = {
       options:["Ahir estava molt cansada, per tant vaig dormir onze hores.","Ahir era molt cansada, per tant dormia onze hores.","Ahir vaig estar molt cansada, per tant dormia onze hores."],
       correct:0,
       variants:[
-        { options:["L'Eduard tenia gana, per tant va menjar tres entrepans.","L'Eduard va tenir gana, per tant menjava tres entrepans.","L'Eduard tenia gana, per tant menjava tres entrepans."], correct:0 },
-        { options:["Era nerviosa, per tant no vaig dormir bé.","Estava nerviosa, per tant no vaig dormir bé.","Estava nerviosa, per tant no dormia bé."], correct:1 },
+        { options:["Aquell migdia, l'Eduard tenia gana, per tant va menjar tres entrepans.","Aquell migdia, l'Eduard va tenir gana, per tant menjava tres entrepans.","Aquell migdia, l'Eduard tenia gana, per tant menjava tres entrepans."], correct:0, theory:"«Tenia gana» descriu com estava aquell migdia (imperfet). «Va menjar tres entrepans» és el fet que en resulta, concret i acabat (perifràstic). «Menjava» el presentaria com un costum o una acció a mig fer." },
+        { options:["La Júlia estava nerviosa per l'examen, per tant no dormia en tota la nit.","La Júlia estava nerviosa per l'examen, per tant no va dormir en tota la nit.","La Júlia va estar nerviosa per l'examen, per tant no dormia en tota la nit."], correct:1, theory:"«Estava nerviosa» descriu com estava (imperfet). «No va dormir en tota la nit» és el fet que en resulta: una nit sencera, del principi al final (perifràstic)." },
       ],
       theory:"«Estava cansada» = estat de fons (imperfet). «Vaig dormir onze hores» = resultat puntual i delimitat (perifràstic).", example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
 
