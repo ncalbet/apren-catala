@@ -34,10 +34,10 @@ async function run() {
 
   console.log('Finestra | Amb sessió (refresh) | Amb exercici (lastDay)');
   console.log('---');
-  for (const [nom, dies] of finestres) {
+  for (const [finestra, dies] of finestres) {
     const sessio = users.filter(u => dins(u.metadata.lastRefreshTime, dies)).length;
     const exercici = users.filter(u => dins(fsData[u.uid]?.progress?.lastDay, dies)).length;
-    console.log(`${nom} | ${sessio} | ${exercici}`);
+    console.log(`${finestra} | ${sessio} | ${exercici}`);
   }
   const notifs = users.filter(u => fsData[u.uid]?.notificacionsActives === true).length;
   console.log(`\nTotal: ${users.length} usuaris, ${notifs} amb les notificacions actives.`);
