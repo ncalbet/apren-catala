@@ -56,6 +56,11 @@ function daysSinceLastPractice(lastDay) {
 // seqüència fixa per posició dins la corba (vegeu GENERIC_SEQUENCE).
 function pickBy(arr, n) { return arr[n % arr.length]; }
 
+// Cada notificació surt amb el seu «tipus», que és el que va al log. El títol NO hi
+// va mai: pot dur dades de la persona (els dies sense practicar, la ratxa) i el log
+// és públic. Vegeu l'avís de la capçalera.
+const ambTipus = (tipus, msg) => ({ ...msg, tipus });
+
 // ── Variants del PRIMER toc (pas 0 de la corba) ──
 // És el missatge més repetit de tots: el despistat que practica arran del toc
 // diari reinicia la corba cada dia i torna a caure al pas 0. Sense variants,
@@ -101,50 +106,50 @@ function buildNotification(progress, daysSince, step, sendCount) {
 
   // ⓪ Encara no ha practicat mai (lastDay buit): to de benvinguda, no d'abandó
   if (!progress?.lastDay) {
-    return pickBy([
+    return ambTipus('benvinguda', pickBy([
       { title: "🌱 Comencem amb el català?",
         body: "Fes el teu primer exercici, només et prendrà un minut." },
       { title: "👋 El teu primer repte t'espera",
         body: "Quan vulguis, fes la primera pràctica i arrenca l'hàbit." },
       { title: "📚 Encara no has començat… ho fem avui?",
         body: "" },
-    ], sendCount);
+    ], sendCount));
   }
 
   // ① Ratxa en perill (només si fa exactament 1 dia i hi ha ratxa)
   if (streak >= 2 && daysSince === 1) {
-    return pickBy([
+    return ambTipus('ratxa', pickBy([
       { title: `🔥 Portes ${streak} dies seguits!`,
         body: "Practica avui i mantén la teva ratxa viva." },
       { title: `🔥 La teva ratxa de ${streak} dies penja d'un fil`,
         body: "Encara ets a temps de salvar-la avui." },
       { title: `🔥 ${streak} dies sense fallar… continuem?`,
         body: "" },
-    ], sendCount);
+    ], sendCount));
   }
 
   // ② A prop de pujar de nivell (finestra de 60 XP; mai per a Mestre)
   const next = getNextLevel(xp);
   if (next && (next.min - xp) <= 60) {
     const gap = next.min - xp;
-    return pickBy([
+    return ambTipus('nivell', pickBy([
       { title: `⭐ Et falten només ${gap} XP per a ${next.name}`,
         body: "Practica i desbloqueja'l avui mateix." },
       { title: `⭐ ${next.name} el tens aquí mateix`,
         body: `Només ${gap} XP et separen del nou nivell. Aprofita l'impuls i fes-los avui!` },
       { title: `⭐ ${gap} XP i puges de nivell`,
         body: `Ja gairebé hi ets. Una sessió avui i ${next.name} és teu.` },
-    ], sendCount);
+    ], sendCount));
   }
 
   // ③ Genèric: el pas 0 rota entre variants (és el toc del dia a dia);
   // la resta segueix la seqüència fixa en crescendo (sense repetir)
-  if (step === 0) return pickBy(STEP0_VARIANTS, sendCount);
+  if (step === 0) return ambTipus('pas 0', pickBy(STEP0_VARIANTS, sendCount));
   const msg = GENERIC_SEQUENCE[Math.min(step, GENERIC_SEQUENCE.length - 1)];
-  return {
+  return ambTipus(`pas ${step}`, {
     title: msg.title.replace('{N}', daysSince),
     body: msg.body.replace('{N}', daysSince),
-  };
+  });
 }
 
 async function run() {
@@ -245,7 +250,7 @@ async function run() {
         }
       });
       sent++;
-      console.log(`✅ Enviat: "${notification.title}"`);
+      console.log(`✅ Enviat: ${notification.tipus}`);
     } catch (e) {
       errors++;
       console.warn(`❌ Error enviant: ${e.code}`);
