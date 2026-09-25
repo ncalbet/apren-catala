@@ -181,5 +181,6 @@ if (require.main === module) {
     undefined: async () => { await prepara(); await tanca(); },
   }[ordre];
   if (!feina) { console.error(`Ordre desconeguda: ${ordre}`); process.exit(1); }
-  feina().catch(e => { console.error(e.message); process.exit(1); });
+  // Log públic: només el codi de l'error, mai el missatge (hi pot sortir la ruta del document).
+  feina().catch(e => { console.error(`❌ ${ordre || 'lliga'}: ${e.code || e.name}`); process.exit(1); });
 }

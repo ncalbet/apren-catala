@@ -55,4 +55,5 @@ async function run() {
   console.log(`\nTotal: ${users.length} usuaris.`);
 }
 
-run().catch(e => { console.error(e); process.exit(1); });
+// Log públic: només el codi de l'error, mai el missatge (hi pot sortir la ruta users/<uid>).
+run().catch(e => { console.error(`❌ run: ${e.code || e.name}`); process.exit(1); });

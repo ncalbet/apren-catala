@@ -263,7 +263,7 @@ async function run() {
       });
     } catch (e) {
       errors++;
-      console.warn(`❌ No s'ha pogut registrar un enviament: ${e.code || e.message}`);
+      console.warn(`❌ No s'ha pogut registrar un enviament: ${e.code || e.name}`);
       continue;
     }
 
@@ -297,4 +297,6 @@ async function run() {
   console.log(`\nResultat: ${sent} enviats, ${skipped} omesos (${paused} en pausa, ${reset} cadències reiniciades), ${errors} errors.`);
 }
 
-run().catch(e => { console.error(e); process.exit(1); });
+// Del missatge d'un error de Firestore en surt la ruta del document (users/<uid>), i el
+// log és públic: només el codi, que és fix. L'error sencer, executant-lo en local.
+run().catch(e => { console.error(`❌ run: ${e.code || e.name}`); process.exit(1); });
