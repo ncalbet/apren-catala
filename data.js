@@ -2333,7 +2333,7 @@ const DATA = {
       correct:1,
       variants:[
         { text:'Dijous passat a les deu ___ el cotxe i vaig entrar a treballar.', options:['vaig aparcar','aparcava','aparco'], correct:0, theory:"Una acció concreta, seguida d'una altra («vaig entrar a treballar») → passat perifràstic. L'imperfet «aparcava» indicaria un hàbit o una acció de fons." },
-        { text:'La setmana passada, abans de marxar de vacances, ___ la llum del passadís i vaig tancar la porta amb clau.', options:['apago','apagava','vaig apagar'], correct:2, theory:"Dues accions concretes, l'una darrere l'altra (apagar la llum i tancar la porta) → passat perifràstic. «La setmana passada», sola, no decidiria res: també podria anar amb un costum d'aquells dies." },
+        { text:'La setmana passada, abans de marxar de vacances, ___ el llum del passadís i vaig tancar la porta amb clau.', options:['apago','apagava','vaig apagar'], correct:2, theory:"Dues accions concretes, l'una darrere l'altra (apagar el llum i tancar la porta) → passat perifràstic. «La setmana passada», sola, no decidiria res: també podria anar amb un costum d'aquells dies." },
       ],
       theory:"«Ahir a les vuit» situa l'acció en un moment puntual i acabat → passat perifràstic. L'imperfet «apagava» indicaria un hàbit o una acció de fons, no una acció concreta d'ahir.", example:'Quan vaig arribar, ell ja dormia.' },
 
