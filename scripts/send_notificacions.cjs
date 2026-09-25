@@ -61,6 +61,21 @@ function pickBy(arr, n) { return arr[n % arr.length]; }
 // és públic. Vegeu l'avís de la capçalera.
 const ambTipus = (tipus, msg) => ({ ...msg, tipus });
 
+// ── El pseudònim ──
+// Només en porten els missatges que tenen «titleNom» (i, si cal reformular-lo,
+// «bodyNom»): els més personals. Si sortís a tots, al cap d'una setmana ja no es
+// veuria. Els de nivell no en porten perquè ja són llargs i Android talla el títol.
+// Qui no té pseudònim rep el text de sempre.
+const PSEUDO_MAX = 15;   // el mateix límit que index.html i firestore.rules
+function nomDe(profile) {
+  const p = String(profile?.pseudo || '').trim();
+  return (p.length >= 3 && p.length <= PSEUDO_MAX) ? p : '';
+}
+function ambNom(msg, nom) {
+  if (!nom || !msg.titleNom) return { title: msg.title, body: msg.body };
+  return { title: msg.titleNom.replace('{NOM}', nom), body: msg.bodyNom ?? msg.body };
+}
+
 // ── Variants del PRIMER toc (pas 0 de la corba) ──
 // És el missatge més repetit de tots: el despistat que practica arran del toc
 // diari reinicia la corba cada dia i torna a caure al pas 0. Sense variants,
@@ -70,10 +85,12 @@ const STEP0_VARIANTS = [
   { title: "📚 El teu repte d'avui t'espera",
     body: "Tens el teu nou repte diari a punt." },
   { title: "✨ Tens cinc minuts per al català?",
+    titleNom: "✨ {NOM}, tens cinc minuts per al català?",
     body: "El repte d'avui és curt: comença'l i llestos." },
   { title: "🎯 El repte diari ja és a punt",
     body: "Un parell d'exercicis i dia guanyat." },
   { title: "☕ Una pausa i una mica de català?",
+    titleNom: "☕ {NOM}, una pausa i una mica de català?",
     body: "Aprofita un moment tranquil: el repte t'espera." },
   { title: "🧩 Avui encara no has practicat",
     body: "Fes el repte diari i mantén el ritme." },
@@ -87,26 +104,33 @@ const GENERIC_SEQUENCE = [
   { title: "📚 El teu repte d'avui t'espera",
     body: "Tens el teu nou repte diari a punt." },
   { title: "✏️ Avui toca una mica de català!",
+    titleNom: "✏️ {NOM}, avui toca una mica de català!",
     body: "Un exercici i mantens el ritme." },
   { title: "👋 Fa uns dies que no t'hi poses, tornem-hi?",
+    titleNom: "👋 {NOM}, tornem-hi?",
+    bodyNom: "Fa uns dies que no t'hi poses. Un exercici i tornes a agafar el fil.",
     body: "Un exercici i tornes a agafar el fil." },
   { title: "🌱 Reprenem el català on el vas deixar?",
     body: "Un petit pas avui ja compta molt." },
   { title: "📖 El teu català t'espera des de fa {N} dies",
     body: "Fes un exercici i deixa que torni l'hàbit." },
   { title: "🤗 Fa {N} dies… quant de temps!",
+    titleNom: "🤗 {NOM}, fa {N} dies… quant de temps!",
     body: "Tornar és més fàcil del que sembla. Un sol exercici, sense pressió, per reconnectar amb el català." },
   { title: "💚 El català t'espera, et trobem a faltar!",
+    titleNom: "💚 {NOM}, et trobem a faltar!",
+    bodyNom: "El català t'espera. Quan vulguis, un sol exercici per retrobar-nos.",
     body: "Quan vulguis, aquí seré. Un sol exercici per retrobar-nos." },
 ];
 
-function buildNotification(progress, daysSince, step, sendCount) {
+function buildNotification(progress, daysSince, step, sendCount, nom) {
   const xp = progress?.xp || 0;
   const streak = progress?.streak || 0;
+  const surt = (tipus, msg) => ambTipus(tipus, ambNom(msg, nom));
 
   // ⓪ Encara no ha practicat mai (lastDay buit): to de benvinguda, no d'abandó
   if (!progress?.lastDay) {
-    return ambTipus('benvinguda', pickBy([
+    return surt('benvinguda', pickBy([
       { title: "🌱 Comencem amb el català?",
         body: "Fes el teu primer exercici, només et prendrà un minut." },
       { title: "👋 El teu primer repte t'espera",
@@ -118,12 +142,14 @@ function buildNotification(progress, daysSince, step, sendCount) {
 
   // ① Ratxa en perill (només si fa exactament 1 dia i hi ha ratxa)
   if (streak >= 2 && daysSince === 1) {
-    return ambTipus('ratxa', pickBy([
+    return surt('ratxa', pickBy([
       { title: `🔥 Portes ${streak} dies seguits!`,
+        titleNom: `🔥 {NOM}, portes ${streak} dies seguits!`,
         body: "Practica avui i mantén la teva ratxa viva." },
       { title: `🔥 La teva ratxa de ${streak} dies penja d'un fil`,
         body: "Encara ets a temps de salvar-la avui." },
       { title: `🔥 ${streak} dies sense fallar… continuem?`,
+        titleNom: `🔥 {NOM}, ${streak} dies sense fallar… continuem?`,
         body: "" },
     ], sendCount));
   }
@@ -132,7 +158,7 @@ function buildNotification(progress, daysSince, step, sendCount) {
   const next = getNextLevel(xp);
   if (next && (next.min - xp) <= 60) {
     const gap = next.min - xp;
-    return ambTipus('nivell', pickBy([
+    return surt('nivell', pickBy([
       { title: `⭐ Et falten només ${gap} XP per a ${next.name}`,
         body: "Practica i desbloqueja'l avui mateix." },
       { title: `⭐ ${next.name} el tens aquí mateix`,
@@ -144,8 +170,8 @@ function buildNotification(progress, daysSince, step, sendCount) {
 
   // ③ Genèric: el pas 0 rota entre variants (és el toc del dia a dia);
   // la resta segueix la seqüència fixa en crescendo (sense repetir)
-  if (step === 0) return ambTipus('pas 0', pickBy(STEP0_VARIANTS, sendCount));
-  const msg = GENERIC_SEQUENCE[Math.min(step, GENERIC_SEQUENCE.length - 1)];
+  if (step === 0) return surt('pas 0', pickBy(STEP0_VARIANTS, sendCount));
+  const msg = ambNom(GENERIC_SEQUENCE[Math.min(step, GENERIC_SEQUENCE.length - 1)], nom);
   return ambTipus(`pas ${step}`, {
     title: msg.title.replace('{N}', daysSince),
     body: msg.body.replace('{N}', daysSince),
@@ -216,7 +242,7 @@ async function run() {
       continue;
     }
 
-    const notification = buildNotification(data.progress, daysSince, step, sendCount);
+    const notification = buildNotification(data.progress, daysSince, step, sendCount, nomDe(data.profile));
 
     const webpushNotif = {
       title: notification.title,
