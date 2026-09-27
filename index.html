@@ -2189,6 +2189,7 @@ function renderSummary() {
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
         💡 <strong>Exercicis fets</strong> ✅ vol dir que ja els has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaiada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
       </div>
+      ${preguntaRecordatoriHTML(items)}
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
       ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>
@@ -2216,6 +2217,7 @@ function renderSummaryRecorregut(dc) {
       <p style="color:var(--muted);font-size:13px;line-height:1.5;margin:12px 0 20px;">${fet
         ? 'Has guanyat els +50 XP del repte. Els repassos tornaran quan els toqui.'
         : 'Per completar el repte i guanyar els +50 XP, cal encertar-los tots. Pots tornar a provar els que falten ara; si no, els fallats tornaran al repàs.'}</p>
+      ${preguntaRecordatoriHTML(window._lastSession.items || [])}
       ${fet ? '' : `<button class="ct-btn primary" style="width:100%;" onclick="repeteixPendentsDelRepte()">Torna a provar els que falten (${dc.ids.length - dc.completed.length})</button>`}
       ${seg ? `<button class="ct-btn ${fet ? 'primary' : 'secondary'}" style="width:100%;margin-top:8px;" onclick="continuaRecorregut('${r.id}')">▶ Continua practicant el recorregut</button>` : ''}
       <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="showTab('menu')">Acaba per avui</button>
@@ -4385,13 +4387,8 @@ async function toggleNotifications() {
     refreshNotifSection();
     return;
   }
-  const result = await window.fbRequestNotifications?.() || { ok: false, reason: 'no-firebase' };
+  const result = await activaRecordatoris();
   if (result.ok) {
-    localStorage.setItem('notif_active', 'true');
-    await window.fbSaveNotifPrefs?.({
-      notifHour: parseInt(localStorage.getItem('notif_hour') || '19'),
-      notifFrequency: parseInt(localStorage.getItem('notif_freq') || '1')
-    });
     refreshNotifSection();
   } else if (result.reason === 'denied') {
     refreshNotifSection();
@@ -4402,6 +4399,79 @@ async function toggleNotifications() {
     if (btn) { btn.disabled = false; btn.textContent = '🔕 Desactivat'; }
     showAlert('No s\'han pogut activar les notificacions. Torna-ho a provar en uns moments.');
   }
+}
+
+// Demana el permís i, si el dona, desa el token i les preferències. La criden el
+// botó del Perfil i la pregunta del final de la sessió. Notification.requestPermission
+// va primer de tot dins de fbRequestNotifications: ha de caure dins del clic.
+async function activaRecordatoris() {
+  const result = await window.fbRequestNotifications?.() || { ok: false, reason: 'no-firebase' };
+  if (result.ok) {
+    localStorage.setItem('notif_active', 'true');
+    await window.fbSaveNotifPrefs?.({
+      notifHour: parseInt(localStorage.getItem('notif_hour') || '19'),
+      notifFrequency: parseInt(localStorage.getItem('notif_freq') || '1')
+    });
+  }
+  return result;
+}
+
+// ── La pregunta dels recordatoris al final de la sessió ──
+// Es fa quan la persona acaba de practicar i demà li tornarà part del que ha fet,
+// no a l'Inici, on competeix amb els altres avisos. Primer és una pregunta nostra,
+// i el diàleg del sistema només surt si diu que sí: a l'app d'Android, un cop
+// denegat, la pàgina ja no el pot tornar a demanar (vegeu renderNotificationsSection).
+const RECORDATORI_FINAL_SILENCI_DIES = 7;   // després d'un «Ara no»
+
+function tocaPreguntaRecordatori() {
+  if (!window.fbUser || !('Notification' in window) || Notification.permission === 'denied') return false;
+  // notif_active només s'escriu en activar-los o desactivar-los: si hi ha qualsevol
+  // valor, o ja els té o els ha desactivat al Perfil. No se li pregunta.
+  if (localStorage.getItem('notif_active') !== null) return false;
+  const at = parseInt(localStorage.getItem('recordatori_final_ara_no_at') || '0', 10);
+  return !at || (Date.now() - at) > RECORDATORI_FINAL_SILENCI_DIES * 24 * 60 * 60 * 1000;
+}
+
+function preguntaRecordatoriHTML(items) {
+  if (!tocaPreguntaRecordatori()) return '';
+  // Quants dels d'aquesta sessió tornaran demà al repàs: la promesa ha de ser
+  // certa. El primer dia ho són tots els encertats (domini 1, interval d'un dia).
+  const dema = sumaDies(diaLocal(), 1);
+  const n = new Set(items.map(q => q.id).filter(id => { const d = reviewDate(id); return d && d <= dema; })).size;
+  const hora = parseInt(localStorage.getItem('notif_hour') || '19');
+  const titol = n === 0 ? 'Tornar-hi en dies diferents és el que ho fixa.'
+    : n === 1 ? "Demà et tornarà un d'aquests exercicis al repàs."
+    : `Demà et tornaran ${n} d'aquests exercicis al repàs.`;
+  return `
+      <div id="recordatori-final" style="background:var(--accent-blue-bg);border-left:3px solid var(--accent-blue-text);border-radius:10px;padding:12px 14px;margin-bottom:20px;text-align:left;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="font-size:20px;flex-shrink:0;display:flex;color:var(--accent-blue-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);line-height:1.4;">${titol}</div>
+            <div style="font-size:13px;color:var(--accent-blue-text);margin-top:4px;line-height:1.5;">Vols un recordatori cap a les ${hora} h els dies que no practiquis?</div>
+            <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+              <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;margin:0;" onclick="respostaRecordatoriFinal(true)">Sí, avisa'm</button>
+              <button class="ct-btn secondary" style="font-size:13px;padding:6px 14px;margin:0;" onclick="respostaRecordatoriFinal(false)">Ara no</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+}
+
+async function respostaRecordatoriFinal(si) {
+  const el = document.getElementById('recordatori-final');
+  if (!si) {
+    localStorage.setItem('recordatori_final_ara_no_at', String(Date.now()));
+    if (el) el.remove();
+    return;
+  }
+  if (el) el.querySelectorAll('button').forEach(b => { b.disabled = true; });
+  const r = await activaRecordatoris();
+  const hora = parseInt(localStorage.getItem('notif_hour') || '19');
+  const text = r.ok ? `✓ Fet! T'avisarem cap a les ${hora} h els dies que no hagis practicat. L'hora es pot canviar al Perfil.`
+    : r.reason === 'denied' ? "D'acord, sense recordatoris. Si canvies d'idea, al Perfil t'expliquem com activar-los."
+    : "Ara no s'han pogut activar. Ho pots tornar a provar al Perfil.";
+  if (el) el.innerHTML = `<div style="font-size:13px;color:var(--accent-blue-text);line-height:1.5;">${text}</div>`;
 }
 
 function refreshNotifSection() {
