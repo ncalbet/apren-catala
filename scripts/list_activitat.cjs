@@ -41,6 +41,43 @@ async function run() {
   }
   const notifs = users.filter(u => fsData[u.uid]?.notificacionsActives === true).length;
   console.log(`\nTotal: ${users.length} usuaris, ${notifs} amb les notificacions actives.`);
+
+  // Actius per setmana (de dilluns a diumenge, com la lliga) a partir de
+  // progress.practiceHistory, que desa els últims 30 dies practicats amb toDateString().
+  // La llista té sostre: a qui l'ha omplerta se li han esborrat els dies més antics, i
+  // les setmanes d'abans del seu primer dia desat el deixen fora. Per això s'avisa.
+  const SETMANES = 10;
+  const dilluns = d => {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() - (x.getDay() + 6) % 7);
+    return x;
+  };
+  const clau = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const actius = {}, nous = {};
+  let plenaDes = null;
+  for (const u of users) {
+    const hist = (fsData[u.uid]?.progress?.practiceHistory || [])
+      .map(s => new Date(s)).filter(d => !isNaN(d));
+    for (const k of new Set(hist.map(d => clau(dilluns(d))))) actius[k] = (actius[k] || 0) + 1;
+    if (hist.length >= 30) {
+      const primer = new Date(Math.min(...hist));
+      if (!plenaDes || primer > plenaDes) plenaDes = primer;
+    }
+    const k = clau(dilluns(new Date(u.metadata.creationTime)));
+    nous[k] = (nous[k] || 0) + 1;
+  }
+  console.log('\nSetmana (dilluns) | Comptes que hi han practicat | Comptes nous');
+  console.log('---');
+  const aquesta = dilluns(new Date(ara));
+  for (let i = SETMANES - 1; i >= 0; i--) {
+    const d = new Date(aquesta);
+    d.setDate(d.getDate() - 7 * i);
+    const k = clau(d);
+    console.log(`${k}${i === 0 ? ' (en curs)' : ''} | ${actius[k] || 0} | ${nous[k] || 0}`);
+  }
+  if (plenaDes) {
+    console.log(`\nLes setmanes d'abans del ${clau(dilluns(plenaDes))} poden sortir per sota: hi ha comptes amb la llista de 30 dies plena.`);
+  }
 }
 
 // Log públic: només el codi de l'error, mai el missatge (hi pot sortir la ruta users/<uid>).
