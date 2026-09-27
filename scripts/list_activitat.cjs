@@ -60,6 +60,24 @@ async function run() {
   // - «han practicat després»: algun dia practicat en una setmana posterior a la d'alta.
   // - «han reobert»: l'última sessió (refresh) és d'una setmana posterior, hagin
   //   practicat o no. De les obertures no hi ha historial: només l'última.
+  const aquesta = dilluns(new Date(ara));
+  const setmanes = [];
+  for (let i = SETMANES - 1; i >= 0; i--) {
+    const d = new Date(aquesta);
+    d.setDate(d.getDate() - 7 * i);
+    setmanes.push(clau(d));
+  }
+  const kAquesta = clau(aquesta);
+  const nom = k => `${k}${k === kAquesta ? ' (en curs)' : ''}`;
+
+  // Diagnòstic: qui només ha practicat un dia, quants exercicis va fer (pocs = va plegar
+  // a mitja primera sessió; molts = la va acabar i no va tornar), i quants tornen segons
+  // el nivell que més han practicat. progress.mastery té una entrada per exercici fet, i
+  // el prefix de l'id és el nivell. Només comptes creats dins de les setmanes de la taula;
+  // per nivell, a més, d'abans de la setmana en curs, perquè hagin tingut temps de tornar.
+  const TRAMS = [[1, 2], [3, 5], [6, 9], [10, 19], [20, Infinity]];
+  const unDiaPerTram = TRAMS.map(() => 0), perNivell = {};
+
   const actius = {}, actiusDeLaSetmana = {}, cohorts = {};
   let plenaDes = null, senseHistorial = 0;
   for (const u of users) {
@@ -85,16 +103,21 @@ async function run() {
     if (dies === 0) c.cap++; else if (dies === 1) c.unDia++; else c.mesDies++;
     if (hist.some(d => clau(dilluns(d)) > kAlta)) c.despres++;
     if (ref && clau(dilluns(ref)) > kAlta) c.reobert++;
+
+    const fets = Object.keys(fsData[u.uid]?.progress?.mastery || {});
+    if (kAlta >= setmanes[0] && dies === 1) {
+      const i = TRAMS.findIndex(([a, b]) => fets.length >= a && fets.length <= b);
+      if (i >= 0) unDiaPerTram[i]++;
+    }
+    if (fets.length && kAlta >= setmanes[0] && kAlta < kAquesta) {
+      const perNv = {};
+      for (const id of fets) { const nv = id.split('-')[0]; perNv[nv] = (perNv[nv] || 0) + 1; }
+      const nivell = Object.entries(perNv).sort((a, b) => b[1] - a[1])[0][0];
+      const n = perNivell[nivell] ||= { comptes: 0, tornen: 0 };
+      n.comptes++;
+      if (hist.some(d => clau(dilluns(d)) > kAlta)) n.tornen++;
+    }
   }
-  const aquesta = dilluns(new Date(ara));
-  const setmanes = [];
-  for (let i = SETMANES - 1; i >= 0; i--) {
-    const d = new Date(aquesta);
-    d.setDate(d.getDate() - 7 * i);
-    setmanes.push(clau(d));
-  }
-  const kAquesta = clau(aquesta);
-  const nom = k => `${k}${k === kAquesta ? ' (en curs)' : ''}`;
 
   console.log('\nSetmana (dilluns) | Comptes que hi han practicat | D\'ells, creats aquella setmana | Comptes nous');
   console.log('---');
@@ -114,6 +137,18 @@ async function run() {
   }
   if (senseHistorial) {
     console.log(`\n⚠️ ${senseHistorial} comptes tenen lastDay però cap practiceHistory: surten com a «cap exercici».`);
+  }
+
+  console.log(`\nQui només ha practicat 1 dia (comptes creats des del ${setmanes[0]}): exercicis fets`);
+  console.log('Exercicis | Comptes');
+  console.log('---');
+  TRAMS.forEach(([a, b], i) => console.log(`${b === Infinity ? `${a} o més` : `${a}–${b}`} | ${unDiaPerTram[i]}`));
+
+  console.log(`\nPer nivell, el més practicat de cada compte (creats del ${setmanes[0]} a la setmana passada)`);
+  console.log('Nivell | Comptes amb algun exercici | Han practicat una setmana posterior');
+  console.log('---');
+  for (const nv of Object.keys(perNivell).sort()) {
+    console.log(`${nv} | ${perNivell[nv].comptes} | ${perNivell[nv].tornen}`);
   }
 }
 
