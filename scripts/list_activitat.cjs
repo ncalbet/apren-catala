@@ -53,30 +53,67 @@ async function run() {
     return x;
   };
   const clau = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  const actius = {}, nous = {};
-  let plenaDes = null;
+  // Per a cada setmana d'alta (cohort), d'on venen els comptes nous i si tornen:
+  // - «ja practicaven»: dies practicats d'abans del dia d'alta. El primer inici de sessió
+  //   puja l'historial local, o sigui que són usuaris d'abans que s'han registrat. Si van
+  //   practicar el mateix dia d'alta abans de registrar-se, no es pot distingir.
+  // - «han practicat després»: algun dia practicat en una setmana posterior a la d'alta.
+  // - «han reobert»: l'última sessió (refresh) és d'una setmana posterior, hagin
+  //   practicat o no. De les obertures no hi ha historial: només l'última.
+  const actius = {}, actiusDeLaSetmana = {}, cohorts = {};
+  let plenaDes = null, senseHistorial = 0;
   for (const u of users) {
     const hist = (fsData[u.uid]?.progress?.practiceHistory || [])
       .map(s => new Date(s)).filter(d => !isNaN(d));
-    for (const k of new Set(hist.map(d => clau(dilluns(d))))) actius[k] = (actius[k] || 0) + 1;
+    if (!hist.length && fsData[u.uid]?.progress?.lastDay) senseHistorial++;
+    const alta = new Date(u.metadata.creationTime);
+    const kAlta = clau(dilluns(alta));
+    for (const k of new Set(hist.map(d => clau(dilluns(d))))) {
+      actius[k] = (actius[k] || 0) + 1;
+      if (k === kAlta) actiusDeLaSetmana[k] = (actiusDeLaSetmana[k] || 0) + 1;
+    }
     if (hist.length >= 30) {
       const primer = new Date(Math.min(...hist));
       if (!plenaDes || primer > plenaDes) plenaDes = primer;
     }
-    const k = clau(dilluns(new Date(u.metadata.creationTime)));
-    nous[k] = (nous[k] || 0) + 1;
+    const c = cohorts[kAlta] ||= { nous: 0, abans: 0, cap: 0, unDia: 0, mesDies: 0, despres: 0, reobert: 0 };
+    const diaAlta = new Date(alta.getFullYear(), alta.getMonth(), alta.getDate());
+    const dies = new Set(hist.map(clau)).size;
+    const ref = u.metadata.lastRefreshTime ? new Date(u.metadata.lastRefreshTime) : null;
+    c.nous++;
+    if (hist.some(d => d < diaAlta)) c.abans++;
+    if (dies === 0) c.cap++; else if (dies === 1) c.unDia++; else c.mesDies++;
+    if (hist.some(d => clau(dilluns(d)) > kAlta)) c.despres++;
+    if (ref && clau(dilluns(ref)) > kAlta) c.reobert++;
   }
-  console.log('\nSetmana (dilluns) | Comptes que hi han practicat | Comptes nous');
-  console.log('---');
   const aquesta = dilluns(new Date(ara));
+  const setmanes = [];
   for (let i = SETMANES - 1; i >= 0; i--) {
     const d = new Date(aquesta);
     d.setDate(d.getDate() - 7 * i);
-    const k = clau(d);
-    console.log(`${k}${i === 0 ? ' (en curs)' : ''} | ${actius[k] || 0} | ${nous[k] || 0}`);
+    setmanes.push(clau(d));
+  }
+  const kAquesta = clau(aquesta);
+  const nom = k => `${k}${k === kAquesta ? ' (en curs)' : ''}`;
+
+  console.log('\nSetmana (dilluns) | Comptes que hi han practicat | D\'ells, creats aquella setmana | Comptes nous');
+  console.log('---');
+  for (const k of setmanes) {
+    console.log(`${nom(k)} | ${actius[k] || 0} | ${actiusDeLaSetmana[k] || 0} | ${cohorts[k]?.nous || 0}`);
   }
   if (plenaDes) {
     console.log(`\nLes setmanes d'abans del ${clau(dilluns(plenaDes))} poden sortir per sota: hi ha comptes amb la llista de 30 dies plena.`);
+  }
+
+  console.log('\nSetmana d\'alta | Nous | Ja practicaven abans | Cap exercici | 1 dia | 2 dies o més | Han practicat una setmana posterior | Han reobert l\'app una setmana posterior');
+  console.log('---');
+  for (const k of setmanes) {
+    const c = cohorts[k] || { nous: 0, abans: 0, cap: 0, unDia: 0, mesDies: 0, despres: 0, reobert: 0 };
+    const posterior = v => (k === kAquesta ? '—' : v);
+    console.log(`${nom(k)} | ${c.nous} | ${c.abans} | ${c.cap} | ${c.unDia} | ${c.mesDies} | ${posterior(c.despres)} | ${posterior(c.reobert)}`);
+  }
+  if (senseHistorial) {
+    console.log(`\n⚠️ ${senseHistorial} comptes tenen lastDay però cap practiceHistory: surten com a «cap exercici».`);
   }
 }
 
