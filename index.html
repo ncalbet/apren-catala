@@ -3565,26 +3565,15 @@ function renderMedallesLliga() {
 // ══ ONBOARDING ══
 const ONBOARDING_KEY = 'cat_onboarding_v1';
 
+// Una sola pantalla informativa (abans n'eren quatre: teoria, domini, ratxa i
+// repte). La gent plegava a mitja primera sessió, i aquelles explicacions arribaven
+// abans que li importessin: el domini ja s'explica al final de cada sessió, i la
+// ratxa i el repte es veuen a l'Inici.
 const ONBOARDING_STEPS = [
   {
     emoji: '👋',
     title: 'Et donem la benvinguda a AprènCatalà!',
-    body: 'L\'app per aprendre català de manera rigorosa i motivadora. Cobreix els nivells <strong>A2, B1, B2 i C1</strong> del Marc Europeu de Referència.',
-  },
-  {
-    emoji: '📚',
-    title: 'Teoria + pràctica',
-    body: 'Cada tema comença amb una <strong>lliçó de teoria</strong> i segueix amb exercicis pràctics: opció múltiple, omplir buits, reordenar frases i més.',
-  },
-  {
-    emoji: '⭐',
-    title: 'Sistema de domini',
-    body: 'Cada exercici té <strong>5 nivells de domini</strong>. L\'app et fa repassar el que necessites fins que ho dominis del tot.',
-  },
-  {
-    emoji: '🔥',
-    title: 'Ratxa i repte diari',
-    body: 'Practica cada dia per mantenir la <strong>ratxa</strong>. Completa el <strong>repte diari</strong> per guanyar XP extra i desbloqueja assoliments i medalles!',
+    body: 'Practica català de l\'<strong>A2 al C1</strong> amb exercicis breus i la teoria de cada tema. L\'app et fa <strong>repassar</strong> el que més et costa, just quan toca.',
   },
 ];
 
@@ -3604,7 +3593,8 @@ function renderOnboarding() {
     const esTria = ambTria && step === ONBOARDING_STEPS.length;
     const s = esTria ? null : ONBOARDING_STEPS[step];
     const isLast = step === nPantalles - 1;
-    const dots = Array.from({ length: nPantalles }, (_, i) =>
+    // Amb una sola pantalla (qui ja té recorregut i no passa per la tria), sense punts.
+    const dots = nPantalles < 2 ? '' : Array.from({ length: nPantalles }, (_, i) =>
       `<span style="width:8px;height:8px;border-radius:50%;display:inline-block;transition:background 0.2s;background:${i === step ? 'var(--c1-line)' : '#d1d5db'};"></span>`
     ).join('');
 
