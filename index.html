@@ -3061,6 +3061,7 @@ const LLIGA_ICONA = '<svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"
 let _lligaCache = null;    // { setmana, t, dades }: l'última classificació llegida
 let _lligaCompte = null;   // { t, n }: quanta gent hi participa
 let _lligaEnviant = false;
+let _lligaSincAt = 0;      // última vegada que s'ha llegit l'estat de lliga de Firestore
 
 function lligaVisible() {
   if (Date.now() >= LLIGA_OBERTURA) return true;
@@ -3161,7 +3162,10 @@ function podiDe(files) {
 function lligaSumaXP(xp) {
   if (!(xp > 0) || !window.fbUser) return;
   const l = lligaLocal();
-  if (!l.dins || !l.lid || !lligaVisible()) return;
+  if (!lligaVisible()) return;
+  // Si aquest dispositiu diu que no hi és però té un lid (hi ha estat), potser
+  // l'estat és vell: es torna a llegir. Qui no hi ha entrat mai no té lid.
+  if (!l.dins || !l.lid) { if (l.lid) lligaSincronitzaSiCal(); return; }
   const ara = Date.now();
   const setmana = setmanaMadrid(ara), dia = diaMadrid(ara);
   let p = l.pendent;
@@ -3197,15 +3201,28 @@ async function lligaBuidaPendent() {
   if (reenvia) lligaBuidaPendent();
 }
 
-// En iniciar sessió: quin és l'estat de lliga d'aquest compte.
+// Quin és l'estat de lliga d'aquest compte. Firestore mana: el que hi ha al
+// dispositiu només n'és una còpia, i es queda vella si l'app fa hores o dies que és
+// oberta (una pestanya de l'ordinador, l'app en segon pla) o si s'ha entrat a la
+// lliga des d'un altre dispositiu. El 28/09 una còpia vella deia «fora» a qui hi era:
+// no li comptava els punts i li tornava a oferir d'entrar-hi. Per això es llegeix en
+// iniciar sessió, en tornar a l'app i abans de decidir que algú no hi és.
 async function lligaSincronitza() {
   const e = await window.fbLligaEstat?.();
-  if (!e) return;
+  if (!e) return false;
+  _lligaSincAt = Date.now();
   desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau });
   lligaBuidaPendent();
   if (_navState.screen === 'lliga') renderLliga();
   else if (_navState.screen === 'menu') lligaRefrescaTargeta();
   lligaComprovaFesta();
+  return true;
+}
+// La mateixa lectura, si fa més de «ms» que no se'n fa cap.
+function lligaSincronitzaSiCal(ms = 5 * 60 * 1000) {
+  if (!window.fbUser || !lligaVisible() || Date.now() - _lligaSincAt < ms) return;
+  _lligaSincAt = Date.now();   // evita lectures repetides mentre aquesta és en curs
+  lligaSincronitza();
 }
 
 // ── Targeta de l'Inici ──
@@ -3270,6 +3287,9 @@ function renderLliga() {
   window.scrollTo(0, 0);
   const l = lligaLocal();
   const dins = !!(window.fbUser && l.dins);
+  // Abans d'oferir d'entrar-hi, es confirma amb Firestore que no hi és (vegeu
+  // lligaSincronitza). La lectura, en acabar, torna a pintar aquesta pantalla.
+  const confirma = !!window.fbUser && !l.dins && lligaVisible() && Date.now() - _lligaSincAt > 30 * 1000;
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <button onclick="showTab('menu')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Inici</button>
@@ -3278,9 +3298,13 @@ function renderLliga() {
         ${dins ? `<button type="button" class="ct-help-btn" onclick="lligaMostraAjuda()" aria-label="Com funciona la lliga" title="Com funciona la lliga">?</button>` : ''}
       </div>
       ${dins ? `<div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}</div>` : ''}
-      <div id="lliga-cos">${lligaCosHTML()}</div>
+      <div id="lliga-cos">${confirma ? '<p style="font-size:14px;color:var(--muted);">Un moment…</p>' : lligaCosHTML()}</div>
     </div>`;
-  if (dins) lligaCarregaClassificacio();
+  if (confirma) {
+    _lligaSincAt = Date.now();
+    // Si no es pot llegir (sense connexió), es pinta amb el que hi ha al dispositiu.
+    lligaSincronitza().then(ok => { if (!ok && _navState.screen === 'lliga') renderLliga(); });
+  } else if (dins) lligaCarregaClassificacio();
 }
 function lligaCosHTML() {
   if (!lligaVisible()) {
@@ -3367,7 +3391,13 @@ async function lligaCarregaClassificacio() {
   const l = lligaLocal();
   const jo = dades.perfils.find(p => p.lid === l.lid);
   if (!jo || jo.fora) {
-    // N'ha sortit des d'un altre dispositiu (o se n'ha esborrat el perfil).
+    // Abans de treure'l, es confirma amb Firestore: la còpia d'aquest dispositiu pot
+    // ser vella. Si ja s'ha llegit fa poc, és que n'ha sortit de debò (des d'un altre
+    // dispositiu) o que se n'ha esborrat el perfil.
+    if (Date.now() - _lligaSincAt > 30 * 1000) {
+      _lligaSincAt = Date.now();
+      if (await lligaSincronitza()) return;   // ja torna a pintar la pantalla
+    }
     desaLligaLocal({ dins: false });
     renderLliga();
     return;
@@ -4826,6 +4856,13 @@ document.addEventListener('fcm-foreground-message', (e) => {
   toast.textContent = notif.body || notif.title;
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 4000);
+});
+
+// En tornar a l'app (una pestanya que feia estona que no es mirava, l'app que
+// torna del segon pla), l'estat de la lliga es torna a llegir si fa més de 5 minuts.
+// Sense això, només es llegia en carregar la pàgina: vegeu lligaSincronitza().
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') lligaSincronitzaSiCal();
 });
 
 // Quan canvia l'estat d'auth: carreguem progrés del núvol si és millor
