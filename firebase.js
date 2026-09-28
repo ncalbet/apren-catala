@@ -5,7 +5,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
          sendPasswordResetEmail, fetchSignInMethodsForEmail, linkWithPopup, linkWithCredential }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc, deleteDoc, updateDoc, deleteField, collection, getDocs,
-         query, where, runTransaction, getCountFromServer }
+         getDocFromServer, getDocsFromServer, query, where, runTransaction, getCountFromServer }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
 import { getMessaging, getToken, onMessage }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js';
@@ -218,8 +218,15 @@ function nouLid() {
   return Array.from(crypto.getRandomValues(new Uint8Array(20)), b => abc[b % abc.length]).join('');
 }
 
+// Les lectures de la lliga van SEMPRE al servidor (getDocFromServer), i sense connexió
+// fallen. Amb getDoc, n'hi ha prou que en obrir l'app falli un sol intent de connexió
+// perquè Firestore es doni per desconnectat i respongui amb el que té a la memòria. I
+// en iniciar sessió, l'app acaba d'escriure-hi el progrés amb merge: a la memòria hi ha
+// un document amb només aquells camps, sense «lliga». El 28/09 això deia «fora» a qui
+// hi era, i la classificació sortia buida (0 perfils). Una lectura fallida, en canvi,
+// index.html ja la sap tractar: torna a provar i, mentrestant, no decideix res.
 async function llegeixEstatLliga(user) {
-  const snap = await getDoc(doc(db, 'users', user.uid));
+  const snap = await getDocFromServer(doc(db, 'users', user.uid));
   const d = snap.exists() ? snap.data() : {};
   return { lid: d.lliga?.lid || null, dins: !!d.lliga?.dins, clau: d.pseudonimClau || null };
 }
@@ -333,11 +340,13 @@ window.fbLligaSuma = async (lid, setmana, dia, quant, sostre) => {
 };
 
 // Classificació d'una setmana: perfils de tothom qui participa i punts de la setmana.
+// Del servidor o res (vegeu llegeixEstatLliga): sense connexió, getDocs donava una
+// classificació buida en lloc de fallar.
 window.fbLligaClassificacio = async (setmana) => {
   const [perfils, parts, w] = await Promise.all([
-    getDocs(collection(db, 'lligaPerfils')),
-    getDocs(collection(db, 'lliga', setmana, 'participants')),
-    getDoc(doc(db, 'lliga', setmana)),
+    getDocsFromServer(collection(db, 'lligaPerfils')),
+    getDocsFromServer(collection(db, 'lliga', setmana, 'participants')),
+    getDocFromServer(doc(db, 'lliga', setmana)),
   ]);
   const wd = w.exists() ? w.data() : null;
   return {
