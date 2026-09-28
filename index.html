@@ -567,8 +567,16 @@ let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
 let tapSelectedIdx = null;
 let _navState = { screen: 'menu' };
+// Lliga: la intenció d'entrar-hi d'un toc (lligaParticipa) i el pseudònim amb què s'hi
+// acaba d'entrar (la línia «Ja hi ets» de la classificació). Només valen mentre no es
+// surt de la pantalla de la lliga.
+let _lligaVolEntrar = false;
+let _lligaAcabaDEntrar = null;
 let _streakFrozen = 0;
-function _setNav(s) { _navState = s; }
+function _setNav(s) {
+  _navState = s;
+  if (s.screen !== 'lliga') { _lligaVolEntrar = false; _lligaAcabaDEntrar = null; }
+}
 
 function saveProgress() {
   localStorage.setItem('cat_prog_v7', JSON.stringify(progress));
@@ -3324,7 +3332,7 @@ function lligaTargetaInner() {
     const c = _lligaCache;
     const jo = (c && c.setmana === setmanaMadrid(Date.now())) ? lligaFiles(c.dades).find(f => f.lid === l.lid) : null;
     sub = jo ? `Posició ${jo.posicio} · ${jo.punts} punts` : 'Mira la classificació';
-  } else if (lligaForaConfirmat() || !lligaAmbSessio()) {
+  } else if (lligaConvida()) {
     const n = lligaForaConfirmat() && _lligaCompte && _lligaCompte.n;
     sub = (n ? `${n} ${n === 1 ? 'persona' : 'persones'} · ` : '') + 'Participa!';
   } else {
@@ -3337,9 +3345,27 @@ function lligaTargetaInner() {
     </span>
     <span style="font-size:22px;color:var(--muted);flex-shrink:0;">›</span>`;
 }
+// La targeta diu «Participa!» (i tocar-la t'hi fa entrar) a qui no té sessió o a qui
+// Firestore ha confirmat que no hi és.
+function lligaConvida() {
+  return lligaForaConfirmat() || !lligaAmbSessio();
+}
+// «Participa!» (targeta de l'Inici i finestra de l'obertura) fa entrar a la lliga d'un
+// sol toc (28/09): sense pantalla d'entrada ni instruccions, que són a «?». Aquí només
+// es marca la intenció; hi entra renderLliga() quan Firestore ha confirmat que no hi ets
+// i tens un pseudònim vàlid. Sense sessió, primer cal iniciar-ne una (Google i correu
+// són finestres: la pantalla no es recarrega i la intenció es manté).
+function lligaParticipa() {
+  _lligaVolEntrar = true;
+  showTab('lliga');
+}
+function lligaObreDesDeTargeta() {
+  if (lligaConvida()) lligaParticipa();
+  else showTab('lliga');
+}
 function lligaTargetaHTML() {
   if (!lligaVisible()) return '';
-  return `<button id="lliga-targeta" class="ct-card" onclick="showTab('lliga')"
+  return `<button id="lliga-targeta" class="ct-card" onclick="lligaObreDesDeTargeta()"
     style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 18px;margin-bottom:16px;cursor:pointer;text-align:left;font:inherit;color:inherit;">${lligaTargetaInner()}</button>`;
 }
 // Actualitza només la targeta (no tota la portada) quan arriben les dades.
@@ -3388,60 +3414,75 @@ function renderLliga() {
   //    lligaAmbSessio); en resoldre's, fb-auth-change la torna a pintar;
   //  · qui hi és veu de seguida la classificació de l'última vegada, i la nova la
   //    substitueix quan arriba (lligaCarregaClassificacio);
-  //  · a qui no hi és, si Firestore encara no ho ha confirmat en aquesta obertura, es
+  //  · de qui no hi és, si Firestore encara no ho ha confirmat en aquesta obertura, es
   //    llegeix de fons i la pantalla es torna a pintar en arribar (lligaSincronitza).
+  //    Mentrestant no se li ofereix d'entrar-hi: la còpia del dispositiu pot ser vella.
+  // Les instruccions no són a cap pantalla: només a «?» (28/09).
   const dins = lligaDins();
   const c = _lligaCache;
+  // «Participa!» d'un toc (lligaParticipa): hi entra sola quan se sap que no hi ets.
+  // La intenció es fa servir un sol cop: si falta el pseudònim, ja el posarà a mà.
+  const entraSola = _lligaVolEntrar && lligaVisible() && lligaForaConfirmat() && pseudonimValid(getPseudo());
+  if (dins || lligaForaConfirmat()) _lligaVolEntrar = false;
   const cos = (dins && lligaVisible() && c && c.setmana === setmanaMadrid(Date.now()))
     ? lligaClassificacioHTML(c.dades, l.lid)
+    : entraSola ? `<p style="font-size:14px;color:var(--muted);">Entrant a la lliga…</p>`
     : lligaCosHTML();
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <button onclick="showTab('menu')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Inici</button>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
         <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">${LLIGA_ICONA} Lliga AprènCatalà</div>
-        ${dins ? `<button type="button" class="ct-help-btn" onclick="lligaMostraAjuda()" aria-label="Com funciona la lliga" title="Com funciona la lliga">?</button>` : ''}
+        <button type="button" class="ct-help-btn" onclick="lligaMostraAjuda()" aria-label="Com funciona la lliga" title="Com funciona la lliga">?</button>
       </div>
-      ${dins ? `<div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}
-        <button type="button" onclick="lligaSurt()" style="background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:4px 0;margin:-8px 0 16px;">Surt de la lliga</button>
-      </div>` : ''}
+      <div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}
+        ${dins ? `<button type="button" onclick="lligaSurt()" style="background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:4px 0;margin:-8px 0 16px;">Surt de la lliga</button>` : ''}
+      </div>
       <div id="lliga-cos">${cos}</div>
     </div>`;
   if (!window.fbUser) return;
   if (dins) lligaCarregaClassificacio();
+  else if (entraSola) lligaEntraAmb(getPseudo());
   else if (lligaVisible() && !_lligaConfirmat) {
     _lligaSincAt = Date.now();
-    lligaSincronitza();
+    lligaSincronitza().then(ok => { if (!ok) lligaSenseConnexio(); });
   }
+}
+// No s'ha pogut llegir si hi ets (sense connexió): no es decideix res, es diu i prou.
+function lligaSenseConnexio() {
+  if (_navState.screen !== 'lliga' || _lligaConfirmat) return;
+  const cos = document.getElementById('lliga-cos');
+  if (cos) cos.innerHTML = `<p style="font-size:14px;color:var(--muted);margin-bottom:12px;">No s'ha pogut connectar amb la lliga.</p>
+    <button class="ct-btn secondary" style="width:100%;margin:0;" onclick="renderLliga()">Torna-ho a provar</button>`;
 }
 function lligaCosHTML() {
   if (!lligaVisible()) {
     return `<p style="font-size:14px;color:var(--muted);">La lliga encara no ha començat.</p>`;
   }
   if (!lligaAmbSessio()) {
-    return `${lligaInstruccionsHTML()}
-      <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">Per participar a la lliga cal tenir un compte.</p>
+    return `<p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">Per participar a la lliga cal tenir un compte.</p>
       <button class="ct-btn primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;" onclick="fbHandleSignIn()">${_googleSVG} Continua amb Google</button>
       <button class="ct-btn secondary" style="width:100%;margin-bottom:0;" onclick="showEmailAuthModal()">Entra amb correu i contrasenya</button>`;
   }
-  if (!lligaDins()) {
-    const pseudo = getPseudo();
-    const valid = pseudonimValid(pseudo);
-    return `
-      ${valid ? `<div id="lliga-pseudo-vista" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <div style="flex:1;min-width:0;font-size:14px;color:var(--text-soft);">Hi sortiràs com a <strong style="color:var(--text);overflow-wrap:anywhere;">${escText(pseudo)}</strong></div>
-        <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;flex-shrink:0;margin:0;" onclick="lligaEditaPseudo()">Canvia'l</button>
-      </div>` : ''}
-      <div id="lliga-pseudo-edicio" style="margin-bottom:16px;${valid ? 'display:none;' : ''}">
-        <label for="lliga-pseudo" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">EL TEU PSEUDÒNIM</label>
-        <input id="lliga-pseudo" class="ct-input" style="margin-top:0;" maxlength="${PSEUDO_MAX}" placeholder="Com vols sortir a la classificació" value="${escText(pseudo)}">
-        <div style="font-size:12px;color:var(--muted);margin-top:4px;">De 3 a 15 caràcters: lletres, xifres, espais i · ' . _ -</div>
-      </div>
-      ${lligaInstruccionsHTML()}
-      <div id="lliga-error" role="alert" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
-      <button id="lliga-entra" class="ct-btn primary" style="width:100%;margin:0;" onclick="lligaEntra()">Entra a la lliga</button>`;
-  }
-  return `<p style="font-size:14px;color:var(--muted);">Carregant la classificació…</p>`;
+  if (lligaDins()) return `<p style="font-size:14px;color:var(--muted);">Carregant la classificació…</p>`;
+  if (!lligaForaConfirmat()) return `<p style="font-size:14px;color:var(--muted);">Carregant la lliga…</p>`;
+  // La pantalla curta: només surt si no s'hi ha pogut entrar d'un toc (sense pseudònim
+  // vàlid, pseudònim d'algú altre, sense connexió) o si s'hi arriba sense haver tocat
+  // «Participa!» (Fites).
+  const pseudo = getPseudo();
+  const valid = pseudonimValid(pseudo);
+  return `
+    ${valid ? `<div id="lliga-pseudo-vista" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="flex:1;min-width:0;font-size:14px;color:var(--text-soft);">Hi sortiràs com a <strong style="color:var(--text);overflow-wrap:anywhere;">${escText(pseudo)}</strong></div>
+      <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;flex-shrink:0;margin:0;" onclick="lligaEditaPseudo()">Canvia'l</button>
+    </div>` : ''}
+    <div id="lliga-pseudo-edicio" style="margin-bottom:16px;${valid ? 'display:none;' : ''}">
+      <label for="lliga-pseudo" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">EL TEU PSEUDÒNIM</label>
+      <input id="lliga-pseudo" class="ct-input" style="margin-top:0;" maxlength="${PSEUDO_MAX}" placeholder="Com vols sortir a la classificació" value="${escText(pseudo)}">
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">De 3 a 15 caràcters: lletres, xifres, espais i · ' . _ -</div>
+    </div>
+    <div id="lliga-error" role="alert" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
+    <button id="lliga-entra" class="ct-btn primary" style="width:100%;margin:0;" onclick="lligaEntra()">Entra a la lliga</button>`;
 }
 function lligaEditaPseudo() {
   const vista = document.getElementById('lliga-pseudo-vista');
@@ -3451,26 +3492,40 @@ function lligaEditaPseudo() {
   const camp = document.getElementById('lliga-pseudo');
   if (camp) { camp.focus(); camp.select(); }
 }
-async function lligaEntra() {
-  const err = document.getElementById('lliga-error');
-  const btn = document.getElementById('lliga-entra');
+// Botó «Entra a la lliga» de la pantalla curta: amb el pseudònim del camp.
+function lligaEntra() {
   const camp = document.getElementById('lliga-pseudo');
-  const pseudo = ((camp && camp.value) || '').trim();
-  err.textContent = '';
-  if (!pseudonimValid(pseudo)) { err.textContent = PSEUDO_ERROR_FORMAT; lligaEditaPseudo(); return; }
-  // Sense casella de consentiment (des del 28/09): prémer «Entra a la lliga», amb la
-  // pantalla que diu amb quin nom hi sortiràs i què s'hi mostra, ja és l'acte
-  // afirmatiu que demana el consentiment (RGPD, cons. 32). La casella era una barrera.
-  btn.disabled = true;
-  btn.textContent = 'Un moment…';
+  lligaEntraAmb(((camp && camp.value) || '').trim());
+}
+// Entra a la lliga. Sense casella de consentiment ni pantalla d'entrada (des del
+// 28/09): tocar «Participa!» o «Entra a la lliga» ja és l'acte afirmatiu que demana el
+// consentiment (RGPD, cons. 32), i en entrar-hi la classificació diu amb quin nom hi
+// surts i com se'n surt (lligaAcabesDEntrarHTML). Si no se'n surt, la pantalla curta
+// diu per què.
+async function lligaEntraAmb(pseudo) {
+  const error = (text, editaPseudo) => {
+    if (_navState.screen !== 'lliga') return;
+    // D'un toc, encara no hi ha la pantalla curta: es pinta.
+    if (!document.getElementById('lliga-error')) {
+      const cos = document.getElementById('lliga-cos');
+      if (cos) cos.innerHTML = lligaCosHTML();
+    }
+    const err = document.getElementById('lliga-error');
+    if (err) err.textContent = text;
+    if (editaPseudo) lligaEditaPseudo();
+  };
+  if (!pseudonimValid(pseudo)) { error(PSEUDO_ERROR_FORMAT, true); return; }
+  const err = document.getElementById('lliga-error');
+  if (err) err.textContent = '';
+  const btn = document.getElementById('lliga-entra');
+  if (btn) { btn.disabled = true; btn.textContent = 'Un moment…'; }
   const ara = Date.now();
   const clau = clauPseudonim(pseudo);
   const r = await window.fbLligaEntra?.(pseudo, clau, setmanaMadrid(ara), diaMadrid(ara));
   if (!r || !r.ok) {
-    if (r && r.reason === 'agafat') { err.textContent = PSEUDO_ERROR_AGAFAT; lligaEditaPseudo(); }
-    else err.textContent = 'No s\'ha pogut entrar a la lliga. Comprova la connexió i torna-ho a provar.';
-    btn.disabled = false;
-    btn.textContent = 'Entra a la lliga';
+    if (btn) { btn.disabled = false; btn.textContent = 'Entra a la lliga'; }
+    if (r && r.reason === 'agafat') error(PSEUDO_ERROR_AGAFAT, true);
+    else error('No s\'ha pogut entrar a la lliga. Comprova la connexió i torna-ho a provar.');
     return;
   }
   // El pseudònim de la lliga és el de tota l'app: també el de la salutació.
@@ -3481,7 +3536,17 @@ async function lligaEntra() {
   _lligaConfirmat = { dins: true };
   lligaApunta('entra a la lliga');
   desaCacheLliga(null);
+  if (_navState.screen !== 'lliga') return;
+  _lligaAcabaDEntrar = pseudo;
   renderLliga();
+}
+// Just després d'entrar-hi: amb quin nom hi surts i com se'n surt, ja que no hi ha
+// cap pantalla d'entrada que ho digui abans.
+function lligaAcabesDEntrarHTML() {
+  if (!_lligaAcabaDEntrar) return '';
+  return `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
+    Ja hi ets, com a <strong style="overflow-wrap:anywhere;">${escText(_lligaAcabaDEntrar)}</strong>. El pseudònim es canvia al Perfil; per sortir de la lliga, toca «?».
+  </div>`;
 }
 async function lligaCarregaClassificacio() {
   const s = setmanaMadrid(Date.now());
@@ -3562,6 +3627,7 @@ function lligaClassificacioHTML(dades, lid) {
     </div>`;
   }).join('');
   return `
+    ${lligaAcabesDEntrarHTML()}
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Setmana del ${lligaDiaMes(w.inici)} al ${lligaDiaMes(w.fi)} · tanca diumenge a les 23:58</div>
     <div style="font-size:13px;color:var(--text-soft);margin-bottom:4px;">Avui: <strong>${avui}</strong> de ${LLIGA_SOSTRE} punts</div>
     <div class="ct-progress-bar" style="margin-bottom:18px;"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
@@ -3683,7 +3749,7 @@ function lligaMostraAnunci() {
     <div style="font-size:52px;margin-bottom:8px;">🏆</div>
     <div style="font-family:'Fraunces',serif;font-size:21px;color:var(--heading);margin-bottom:10px;">Ja és aquí la Lliga AprènCatalà!</div>
     <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:18px;">Els XP que guanyes cada dia et fan pujar a la classificació. Entra-hi i lluita pel podi!</p>
-    <button class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="this.closest('.ct-modal-overlay').remove(); showTab('lliga')">${dins ? 'Mira la classificació' : 'Participa!'}</button>
+    <button class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="this.closest('.ct-modal-overlay').remove(); ${dins ? "showTab('lliga')" : 'lligaParticipa()'}">${dins ? 'Mira la classificació' : 'Participa!'}</button>
     <button class="ct-btn secondary" style="width:100%;margin:0;" onclick="this.closest('.ct-modal-overlay').remove()">Ara no</button>
   </div>`;
   document.body.appendChild(el);
