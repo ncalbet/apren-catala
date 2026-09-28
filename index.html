@@ -1383,13 +1383,13 @@ function renderLevelMenu(level) {
 
   // El nivell com a recorregut: les categories per etapes, en l'ordre recomanat,
   // amb la següent destacada. Cap cadenat: totes s'obren igual que abans.
-  // El botó porta on ets i només diu el tema, sense parlar d'etapes: decisió de
-  // l'usuari (28/09), «la gent prefereix fluir»; «Etapa 2» a qui no havia seguit mai
-  // el recorregut no s'entenia.
+  // El botó porta on ets i només diu el tema, sense parlar d'etapes, i els blocs de la
+  // llista no van numerats: decisió de l'usuari (28/09), «la gent prefereix fluir»;
+  // «Etapa 2» a qui no havia seguit mai el recorregut no s'entenia.
   const r = recorregutDe(level);
   const seg = seguentDelRecorregut(level);
   const etapesHTML = etapesDe(level).map((e, i) => `
-      <div style="font-size:13px;font-weight:700;color:var(--heading);margin:${i ? 22 : 4}px 0 10px;">${e.nom === 'Altres temes' ? e.nom : `${i + 1}. ${e.nom}`}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--heading);margin:${i ? 22 : 4}px 0 10px;">${e.nom}</div>
       <div class="ct-grid">${e.cats.map(c => cardDe(c, cats[c], !!seg && seg.cat === c)).join('')}</div>`).join('');
 
   window.scrollTo(0, 0);
