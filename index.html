@@ -4282,7 +4282,15 @@ function renderHelp() {
         </div>
       </details>
 
+      <p style="font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6;margin:24px 0 0;">${lligaDiagnosticText()}</p>
     </div>`;
+}
+// Una línia al peu de l'Ajuda per esbrinar-ho si la lliga fa coses estranyes (28/09):
+// quan es va carregar la pàgina (si és d'abans d'una actualització, el mòbil executa
+// codi vell) i què en sap el dispositiu.
+function lligaDiagnosticText() {
+  const h = ms => new Date(ms).toLocaleString('ca-ES', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return `App carregada: ${h(LLIGA_T0)} · Lliga: ${lligaLocal().dins ? 'dins' : 'fora'} · Llegida: ${_lligaSincAt ? h(_lligaSincAt) : 'encara no'}`;
 }
 
 // ══ PERFIL ══
