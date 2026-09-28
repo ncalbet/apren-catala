@@ -3311,7 +3311,9 @@ function renderLliga() {
         <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">${LLIGA_ICONA} Lliga AprènCatalà</div>
         ${dins ? `<button type="button" class="ct-help-btn" onclick="lligaMostraAjuda()" aria-label="Com funciona la lliga" title="Com funciona la lliga">?</button>` : ''}
       </div>
-      ${dins ? `<div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}</div>` : ''}
+      ${dins ? `<div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}
+        <button type="button" onclick="lligaSurt()" style="background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:4px 0;margin:-8px 0 16px;">Surt de la lliga</button>
+      </div>` : ''}
       <div id="lliga-cos">${pendent || confirma ? '<p style="font-size:14px;color:var(--muted);">Un moment…</p>' : lligaCosHTML()}</div>
     </div>`;
   if (pendent) {
@@ -3474,8 +3476,7 @@ function lligaClassificacioHTML(dades, lid) {
     <div id="lliga-podi-anterior"></div>
     ${lligaRecordHTML(dades.perfils)}
     <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">${files.length} ${files.length === 1 ? 'persona' : 'persones'} a la lliga</div>
-    ${llista}
-    <button class="ct-btn secondary" style="width:100%;margin:24px 0 0;font-size:13px;" onclick="lligaSurt()">Surt de la lliga</button>`;
+    ${llista}`;
 }
 // Podi de la setmana passada, a dalt de la classificació. Si el cron encara no l'ha
 // tancada, es calcula aquí amb el mateix criteri.
