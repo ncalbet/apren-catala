@@ -1202,7 +1202,7 @@ function renderMenu() {
       </div>
     </div>` : '';
   // Avís de novetat dels recorreguts per a qui no n'ha triat mai (usuaris d'abans
-  // dels recorreguts i qui salta l'acollida). Surt fins que en tria un o el tanca
+  // dels recorreguts). Surt fins que en tria un o el tanca
   // (tancar-lo = «Vaig per lliure»), i mentre hi és, cap altre avís no s'hi apila
   // (recordatoris i Ko-fi esperen). Va al progrés, no al mòbil: no torna en un
   // mòbil nou, que és el que va fer apagar el modal de novetats.
@@ -3612,7 +3612,8 @@ function renderOnboarding() {
   let step = 0;
   // Després de les pantalles informatives, la tria de recorregut. Només si encara
   // no se n'ha triat cap: qui torna a veure l'acollida en un mòbil nou potser ja
-  // en té un. Qui salta el tutorial no tria: li sortirà l'avís de novetat a l'Inici.
+  // en té un. Ja no hi ha «Saltar tutorial»: amb una sola pantalla informativa només
+  // servia per saltar-se la tria, i la tria ja té «Vaig per lliure».
   const ambTria = progress.recorregut === undefined;
   const nPantalles = ONBOARDING_STEPS.length + (ambTria ? 1 : 0);
 
@@ -3643,9 +3644,6 @@ function renderOnboarding() {
         <button class="ct-btn primary" id="onb-next" style="width:100%;font-size:15px;padding:13px;">
           ${isLast ? 'Comencem! 🚀' : 'Següent →'}
         </button>
-        <button class="ct-btn secondary" id="onb-skip" style="width:100%;margin-top:10px;font-size:12px;padding:9px;opacity:0.7;">
-          Saltar tutorial
-        </button>
       </div>`;
 
     const existing = document.getElementById('onboarding-overlay');
@@ -3656,7 +3654,6 @@ function renderOnboarding() {
     document.getElementById('onb-next').onclick = () => {
       if (isLast) { finishOnboarding(); } else { step++; render(); }
     };
-    document.getElementById('onb-skip').onclick = finishOnboarding;
   }
 
   render();
