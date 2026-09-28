@@ -122,7 +122,7 @@ async function run() {
   console.log('\nSetmana (dilluns) | Comptes que hi han practicat | D\'ells, creats aquella setmana | Comptes nous');
   console.log('---');
   for (const k of setmanes) {
-    console.log(`${nom(k)} | ${actius[k] || 0} | ${actiusDeLaSetmana[k] || 0} | ${cohorts[k]?.nous || 0}`);
+    console.log(`${nom(k)} | ${actius[k] || 0} | ${actiusDeLaSetmana[k] || 0} | ${cohorts[k]?.nous || 0}`);  // log-ok: nom(k) és la setmana (AAAA-MM-DD), no una persona
   }
   if (plenaDes) {
     console.log(`\nLes setmanes d'abans del ${clau(dilluns(plenaDes))} poden sortir per sota: hi ha comptes amb la llista de 30 dies plena.`);
@@ -133,7 +133,7 @@ async function run() {
   for (const k of setmanes) {
     const c = cohorts[k] || { nous: 0, abans: 0, cap: 0, unDia: 0, mesDies: 0, despres: 0, reobert: 0 };
     const posterior = v => (k === kAquesta ? '—' : v);
-    console.log(`${nom(k)} | ${c.nous} | ${c.abans} | ${c.cap} | ${c.unDia} | ${c.mesDies} | ${posterior(c.despres)} | ${posterior(c.reobert)}`);
+    console.log(`${nom(k)} | ${c.nous} | ${c.abans} | ${c.cap} | ${c.unDia} | ${c.mesDies} | ${posterior(c.despres)} | ${posterior(c.reobert)}`);  // log-ok: nom(k) és la setmana (AAAA-MM-DD), no una persona
   }
   if (senseHistorial) {
     console.log(`\n⚠️ ${senseHistorial} comptes tenen lastDay però cap practiceHistory: surten com a «cap exercici».`);
