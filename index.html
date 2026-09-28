@@ -3330,13 +3330,8 @@ function lligaCosHTML() {
         <div style="font-size:12px;color:var(--muted);margin-top:4px;">De 3 a 15 caràcters: lletres, xifres, espais i · ' . _ -</div>
       </div>
       ${lligaInstruccionsHTML()}
-      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);line-height:1.5;margin-bottom:12px;cursor:pointer;">
-        <input type="checkbox" id="lliga-accepto" style="margin-top:3px;flex-shrink:0;"
-          onchange="document.getElementById('lliga-entra').disabled = !this.checked">
-        <span>Vull sortir a la classificació amb el meu pseudònim, els punts de la setmana i les medalles.</span>
-      </label>
       <div id="lliga-error" role="alert" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
-      <button id="lliga-entra" class="ct-btn primary" style="width:100%;margin:0;" disabled onclick="lligaEntra()">Entra a la lliga</button>`;
+      <button id="lliga-entra" class="ct-btn primary" style="width:100%;margin:0;" onclick="lligaEntra()">Entra a la lliga</button>`;
   }
   return `<p style="font-size:14px;color:var(--muted);">Carregant la classificació…</p>`;
 }
@@ -3355,7 +3350,9 @@ async function lligaEntra() {
   const pseudo = ((camp && camp.value) || '').trim();
   err.textContent = '';
   if (!pseudonimValid(pseudo)) { err.textContent = PSEUDO_ERROR_FORMAT; lligaEditaPseudo(); return; }
-  if (!document.getElementById('lliga-accepto').checked) return;
+  // Sense casella de consentiment (des del 28/09): prémer «Entra a la lliga», amb la
+  // pantalla que diu amb quin nom hi sortiràs i què s'hi mostra, ja és l'acte
+  // afirmatiu que demana el consentiment (RGPD, cons. 32). La casella era una barrera.
   btn.disabled = true;
   btn.textContent = 'Un moment…';
   const ara = Date.now();
