@@ -705,14 +705,6 @@ function seguentDelRecorregut(level) {
   }
   return null;
 }
-// Per a qui comença un recorregut que ja té avançat pel seu compte: per què no comença
-// per l'etapa 1. Abans deia «Segueix el recorregut · Etapa 2» a qui no l'havia seguit
-// mai, i semblava que continués una cosa començada (28/09).
-function etapesFetes(n) {
-  return n === 2 ? "l'etapa 1 ja la tens feta"
-    : n === 3 ? 'les etapes 1 i 2 ja les tens fetes'
-    : `de l'etapa 1 a la ${n - 1} ja les tens fetes`;
-}
 function continuaRecorregut(level) {
   const seg = seguentDelRecorregut(level);
   triaRecorregut(level);
@@ -1291,7 +1283,7 @@ function renderMenu() {
         const seg = r && seguentDelRecorregut(r.id);
         if (seg) return `<button class="ct-btn secondary" style="width:100%;margin:0 0 10px;border-width:2px;line-height:1.35;" onclick="continuaRecorregut('${r.id}')">
             <span style="display:block;font-weight:600;">▶ Continua el recorregut ${r.nivell}</span>
-            <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">Etapa ${seg.etapa} · ${seg.cat}</span>
+            <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${seg.cat}</span>
           </button>`;
         return progress.recorregut !== undefined
           ? `<button type="button" onclick="obreTriaRecorregut()" style="display:block;margin:2px auto 10px;background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:4px 8px;">🧭 Mira els recorreguts</button>`
@@ -1391,6 +1383,9 @@ function renderLevelMenu(level) {
 
   // El nivell com a recorregut: les categories per etapes, en l'ordre recomanat,
   // amb la següent destacada. Cap cadenat: totes s'obren igual que abans.
+  // El botó porta on ets i només diu el tema, sense parlar d'etapes: decisió de
+  // l'usuari (28/09), «la gent prefereix fluir»; «Etapa 2» a qui no havia seguit mai
+  // el recorregut no s'entenia.
   const r = recorregutDe(level);
   const seg = seguentDelRecorregut(level);
   const etapesHTML = etapesDe(level).map((e, i) => `
@@ -1406,7 +1401,7 @@ function renderLevelMenu(level) {
       ${seg
         ? `<button class="ct-btn primary" style="width:100%;margin-bottom:10px;line-height:1.35;" onclick="continuaRecorregut('${level}')">
             <span style="display:block;">▶ ${progress.recorregut === level ? 'Continua' : 'Comença'} el recorregut</span>
-            <span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">Etapa ${seg.etapa} · ${seg.cat}${seg.etapa > 1 && progress.recorregut !== level ? ` · ${etapesFetes(seg.etapa)}` : ''}</span>
+            <span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${seg.cat}</span>
           </button>`
         : `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:600;">✅ Has fet tots els exercicis d'aquest recorregut. Ara toca repassar-los.</div>`}
       <button class="ct-btn secondary" style="width:100%;margin-bottom:20px;" onclick="startAllSession('${level}')">▶ Practicar tots els exercicis (${items.length})</button>
