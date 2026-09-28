@@ -3058,6 +3058,18 @@ let _lligaCompte = null;   // { t, n }: quanta gent hi participa
 let _lligaEnviant = false;
 let _lligaSincAt = 0;      // última vegada que s'ha llegit l'estat de lliga de Firestore
 
+// En obrir l'app, Firebase tarda uns segons a recuperar la sessió. Fins aleshores
+// window.fbUser val undefined (i null si no n'hi ha cap). El 28/09 la lliga tractava
+// aquests segons com «sense sessió»: l'Inici deia «Participa!» i la pantalla demanava
+// Google o contrasenya a qui ja hi era. Mentre no se sap, es fa servir el que recorda
+// el dispositiu i la pantalla diu «Un moment…». Si Firebase no carrega (sense
+// connexió), no s'espera més de 8 segons.
+const LLIGA_T0 = Date.now();
+const AUTH_ESPERA_MS = 8000;
+function authPendent() {
+  return window.fbUser === undefined && Date.now() - LLIGA_T0 < AUTH_ESPERA_MS;
+}
+
 function lligaVisible() {
   if (Date.now() >= LLIGA_OBERTURA) return true;
   try { return localStorage.getItem('cat_lliga_prova') === '1'; } catch (e) { return false; }
@@ -3155,7 +3167,9 @@ function podiDe(files) {
 // queden pendents fins al proper XP o fins a la propera vegada que s'obri l'app. Els
 // d'un dia passat es perden: les regles no accepten punts d'un dia que no és avui.
 function lligaSumaXP(xp) {
-  if (!(xp > 0) || !window.fbUser) return;
+  // Mentre la sessió es recupera, els punts es queden pendents i s'envien en acabar
+  // (lligaSincronitza → lligaBuidaPendent). Si resulta que no n'hi ha, es descarten.
+  if (!(xp > 0) || !(window.fbUser || authPendent())) return;
   const l = lligaLocal();
   if (!lligaVisible()) return;
   // Si aquest dispositiu diu que no hi és però té un lid (hi ha estat), potser
@@ -3224,7 +3238,9 @@ function lligaSincronitzaSiCal(ms = 5 * 60 * 1000) {
 function lligaTargetaInner() {
   const l = lligaLocal();
   let sub;
-  if (window.fbUser && l.dins) {
+  // Mentre la sessió es recupera, el que recorda el dispositiu: qui hi és no ha de
+  // veure «Participa!» cada vegada que obre l'app.
+  if ((window.fbUser || authPendent()) && l.dins) {
     const c = _lligaCache;
     const jo = (c && c.setmana === setmanaMadrid(Date.now())) ? lligaFiles(c.dades).find(f => f.lid === l.lid) : null;
     sub = jo ? `Posició ${jo.posicio} · ${jo.punts} punts` : 'Mira la classificació';
@@ -3282,9 +3298,12 @@ function renderLliga() {
   window.scrollTo(0, 0);
   const l = lligaLocal();
   const dins = !!(window.fbUser && l.dins);
+  // Mentre la sessió es recupera (authPendent), ni pantalla d'entrar ni botons de
+  // Google: «Un moment…». Quan es resol, fb-auth-change la torna a pintar.
+  const pendent = lligaVisible() && authPendent();
   // Abans d'oferir d'entrar-hi, es confirma amb Firestore que no hi és (vegeu
   // lligaSincronitza). La lectura, en acabar, torna a pintar aquesta pantalla.
-  const confirma = !!window.fbUser && !l.dins && lligaVisible() && Date.now() - _lligaSincAt > 30 * 1000;
+  const confirma = !pendent && !!window.fbUser && !l.dins && lligaVisible() && Date.now() - _lligaSincAt > 30 * 1000;
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
       <button onclick="showTab('menu')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Inici</button>
@@ -3293,9 +3312,13 @@ function renderLliga() {
         ${dins ? `<button type="button" class="ct-help-btn" onclick="lligaMostraAjuda()" aria-label="Com funciona la lliga" title="Com funciona la lliga">?</button>` : ''}
       </div>
       ${dins ? `<div id="lliga-ajuda" style="display:none;">${lligaInstruccionsHTML()}</div>` : ''}
-      <div id="lliga-cos">${confirma ? '<p style="font-size:14px;color:var(--muted);">Un moment…</p>' : lligaCosHTML()}</div>
+      <div id="lliga-cos">${pendent || confirma ? '<p style="font-size:14px;color:var(--muted);">Un moment…</p>' : lligaCosHTML()}</div>
     </div>`;
-  if (confirma) {
+  if (pendent) {
+    // Si Firebase no respon (sense connexió), en acabar l'espera es pinta el que toqui.
+    setTimeout(() => { if (_navState.screen === 'lliga' && !authPendent()) renderLliga(); },
+      AUTH_ESPERA_MS - (Date.now() - LLIGA_T0) + 100);
+  } else if (confirma) {
     _lligaSincAt = Date.now();
     // Si no es pot llegir (sense connexió), es pinta amb el que hi ha al dispositiu.
     lligaSincronitza().then(ok => { if (!ok && _navState.screen === 'lliga') renderLliga(); });
@@ -4847,6 +4870,10 @@ document.addEventListener('fb-auth-change', async (e) => {
     // Sense sessió no es compta res per a la lliga en aquest dispositiu.
     desaLligaLocal({ lid: null, dins: false, clau: null, pendent: null });
     _lligaCache = null;
+    // Mentre es recuperava la sessió, la lliga mostrava «Un moment…» o el que
+    // recordava el dispositiu: ara ja se sap que no n'hi ha.
+    if (_navState.screen === 'lliga') renderLliga();
+    else { const t = document.getElementById('lliga-targeta'); if (t) t.innerHTML = lligaTargetaInner(); }
     return;
   }
 
