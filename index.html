@@ -3230,16 +3230,21 @@ function lligaSumaXP(xp) {
   if (!(xp > 0) || !(window.fbUser || authPendent())) return;
   const l = lligaLocal();
   if (!lligaVisible()) return;
-  // Si aquest dispositiu diu que no hi és però té un lid (hi ha estat), potser
-  // l'estat és vell: es torna a llegir. Qui no hi ha entrat mai no té lid.
-  if (!l.dins || !l.lid) { if (l.lid) lligaSincronitzaSiCal(); return; }
+  // Si aquest dispositiu diu que no hi és, pot ser una còpia vella: el 28/09 una lectura
+  // dolenta hi va deixar «fora» i sense lid a qui hi era, i els punts no comptaven fins
+  // que tornava a entrar. Mentre Firestore no ho confirmi en aquesta obertura, els punts
+  // es guarden igualment i es torna a llegir: si hi és, s'envien (lligaSincronitza →
+  // lligaBuidaPendent); si no, es descarten.
+  const potSerFora = !l.dins || !l.lid;
+  if (potSerFora && lligaForaConfirmat()) return;
   const ara = Date.now();
   const setmana = setmanaMadrid(ara), dia = diaMadrid(ara);
   let p = l.pendent;
   if (!p || p.dia !== dia || p.setmana !== setmana) p = { setmana, dia, xp: 0 };
   p.xp += xp;
   desaLligaLocal({ pendent: p });
-  lligaBuidaPendent();
+  if (potSerFora) lligaSincronitzaSiCal(30 * 1000);
+  else lligaBuidaPendent();
 }
 async function lligaBuidaPendent() {
   if (_lligaEnviant || !window.fbLligaSuma || !window.fbUser) return;
@@ -3281,7 +3286,8 @@ async function lligaSincronitza() {
   _lligaSincAt = Date.now();
   _lligaConfirmat = { dins: !!e.dins };
   lligaApunta(`lectura de l'estat: ${e.dins ? 'dins' : 'fora'}`);
-  desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau });
+  // Si no hi és, es descarten els punts guardats mentre no se sabia (lligaSumaXP).
+  desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau, ...(e.dins ? {} : { pendent: null }) });
   lligaBuidaPendent();
   if (_navState.screen === 'lliga') renderLliga();
   else if (_navState.screen === 'menu') lligaRefrescaTargeta();
@@ -3499,7 +3505,7 @@ async function lligaCarregaClassificacio() {
       _lligaSincAt = Date.now();
       if (await lligaSincronitza()) return;   // ja torna a pintar la pantalla
     }
-    desaLligaLocal({ dins: false });
+    desaLligaLocal({ dins: false, pendent: null });
     _lligaConfirmat = { dins: false };
     lligaApunta('la classificació no té el meu perfil: fora');
     renderLliga();
