@@ -4960,6 +4960,21 @@ if ('serviceWorker' in navigator) {
       .then(reg => console.log('[SW] Registrat correctament:', reg.scope))
       .catch(err => console.warn('[SW] Error en el registre:', err));
   });
+  // Una pàgina oberta fa hores o dies (l'app d'Android en segon pla, una pestanya)
+  // continua amb el codi amb què es va carregar, encara que n'hi hagi de nou: el
+  // navegador només ho mira en carregar-la. En tornar-hi, es demana al Service Worker
+  // que miri si hi ha versió nova; si n'hi ha, s'instal·la, pren el control i la pàgina
+  // es recarrega sola (controllerchange, a dalt). Com a molt un cop cada 5 minuts.
+  // 28/09: la lliga «anava i venia» segons si el mòbil reprenia una pàgina vella o no.
+  let _swMiratAt = Date.now();
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || Date.now() - _swMiratAt < 5 * 60 * 1000) return;
+    _swMiratAt = Date.now();
+    try {
+      const p = navigator.serviceWorker.getRegistration && navigator.serviceWorker.getRegistration();
+      if (p) p.then(r => r && r.update()).catch(() => {});
+    } catch (e) {}
+  });
 }
 
 </script>
