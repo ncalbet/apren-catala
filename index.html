@@ -3066,6 +3066,7 @@ let _lligaCompte = null;   // { t, n }: quanta gent hi participa
 let _lligaEnviant = false;
 let _lligaSincAt = 0;      // última vegada que s'ha llegit l'estat de lliga de Firestore
 let _lligaPrimeraSinc = null;   // la lectura de l'estat de lliga que es fa en iniciar sessió
+let _lligaConfirmat = null;     // { dins } segons l'última lectura bona de Firestore en aquesta obertura
 function desaCacheLliga(c) {
   _lligaCache = c || null;
   try { c ? localStorage.setItem(LLIGA_CACHE_KEY, JSON.stringify(c)) : localStorage.removeItem(LLIGA_CACHE_KEY); } catch (e) {}
@@ -3089,6 +3090,27 @@ function lligaAmbSessio() {
   if (window.fbUser) return true;
   if (!authPendent()) return false;
   try { return localStorage.getItem(SESSIO_KEY) === '1' || !!lligaLocal().dins; } catch (e) { return false; }
+}
+// Hi és? Si en aquesta obertura ja s'ha llegit de Firestore, el que diu Firestore; si no,
+// el que recorda el dispositiu. «Participa!», el recompte i la pantalla d'entrada només
+// surten quan Firestore ha confirmat que no hi és (lligaForaConfirmat). 28/09: amb l'app
+// tancada del tot, la targeta deia «2 persones · Participa!» a qui hi era una vegada sí
+// i una altra no; ara ni una lectura fallida ni una còpia vella no ho poden fer.
+function lligaDins() {
+  if (window.fbUser && _lligaConfirmat) return _lligaConfirmat.dins;
+  return lligaAmbSessio() && !!lligaLocal().dins;
+}
+function lligaForaConfirmat() {
+  return !!window.fbUser && !!_lligaConfirmat && !_lligaConfirmat.dins;
+}
+// Tancar la sessió (o esborrar el compte) sí que oblida la lliga d'aquest dispositiu. Un
+// «sense sessió» de Firebase per si sol no: pot ser momentani (vegeu fb-auth-change).
+function lligaOblida() {
+  try { localStorage.removeItem(SESSIO_KEY); } catch (e) {}
+  _lligaConfirmat = null;
+  _lligaPrimeraSinc = null;
+  desaLligaLocal({ lid: null, dins: false, clau: null, pendent: null });
+  desaCacheLliga(null);
 }
 
 function lligaVisible() {
@@ -3242,6 +3264,7 @@ async function lligaSincronitza() {
   const e = await window.fbLligaEstat?.();
   if (!e) return false;
   _lligaSincAt = Date.now();
+  _lligaConfirmat = { dins: !!e.dins };
   desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau });
   lligaBuidaPendent();
   if (_navState.screen === 'lliga') renderLliga();
@@ -3272,15 +3295,18 @@ function lligaSincronitzaSiCal(ms = 5 * 60 * 1000) {
 function lligaTargetaInner() {
   const l = lligaLocal();
   let sub;
-  // Mentre la sessió es recupera, el que recorda el dispositiu: qui hi és no ha de
-  // veure «Participa!» cada vegada que obre l'app.
-  if (lligaAmbSessio() && l.dins) {
+  // «Participa!» només a qui no té sessió o a qui Firestore ha confirmat que no hi és.
+  // Mentre no se sap (la lectura encara no ha arribat o ha fallat), la targeta no convida
+  // a entrar: vegeu lligaDins().
+  if (lligaDins()) {
     const c = _lligaCache;
     const jo = (c && c.setmana === setmanaMadrid(Date.now())) ? lligaFiles(c.dades).find(f => f.lid === l.lid) : null;
     sub = jo ? `Posició ${jo.posicio} · ${jo.punts} punts` : 'Mira la classificació';
-  } else {
-    const n = _lligaCompte && _lligaCompte.n;
+  } else if (lligaForaConfirmat() || !lligaAmbSessio()) {
+    const n = lligaForaConfirmat() && _lligaCompte && _lligaCompte.n;
     sub = (n ? `${n} ${n === 1 ? 'persona' : 'persones'} · ` : '') + 'Participa!';
+  } else {
+    sub = 'Mira la classificació';
   }
   return `<span style="font-size:28px;flex-shrink:0;">🏆</span>
     <span style="flex:1;min-width:0;">
@@ -3302,16 +3328,15 @@ async function lligaRefrescaTargeta() {
   // la targeta deia «2 persones · Participa!» a qui hi era fins que arribava (28/09).
   // Ara s'espera la lectura abans de decidir què diu.
   if (_lligaPrimeraSinc) await _lligaPrimeraSinc;
-  const l = lligaLocal();
   const ara = Date.now();
   try {
-    if (l.dins) {
+    if (lligaDins()) {
       const s = setmanaMadrid(ara);
       if (!_lligaCache || _lligaCache.setmana !== s || ara - _lligaCache.t > 300000) {
         const dades = await window.fbLligaClassificacio?.(s);
         if (dades) desaCacheLliga({ setmana: s, t: Date.now(), dades });
       }
-    } else if (!_lligaCompte || ara - _lligaCompte.t > 300000) {
+    } else if (lligaForaConfirmat() && (!_lligaCompte || ara - _lligaCompte.t > 300000)) {
       const n = await window.fbLligaCompta?.();
       if (n != null) _lligaCompte = { t: Date.now(), n };
     }
@@ -3341,10 +3366,9 @@ function renderLliga() {
   //    lligaAmbSessio); en resoldre's, fb-auth-change la torna a pintar;
   //  · qui hi és veu de seguida la classificació de l'última vegada, i la nova la
   //    substitueix quan arriba (lligaCarregaClassificacio);
-  //  · a qui no hi és, si fa estona que no es llegeix l'estat de lliga, es llegeix de
-  //    fons i la pantalla es torna a pintar en arribar (lligaSincronitza). Així, a qui
-  //    té una còpia vella, la pantalla d'entrada només li dura el que tarda la lectura.
-  const dins = lligaAmbSessio() && !!l.dins;
+  //  · a qui no hi és, si Firestore encara no ho ha confirmat en aquesta obertura, es
+  //    llegeix de fons i la pantalla es torna a pintar en arribar (lligaSincronitza).
+  const dins = lligaDins();
   const c = _lligaCache;
   const cos = (dins && lligaVisible() && c && c.setmana === setmanaMadrid(Date.now()))
     ? lligaClassificacioHTML(c.dades, l.lid)
@@ -3363,7 +3387,7 @@ function renderLliga() {
     </div>`;
   if (!window.fbUser) return;
   if (dins) lligaCarregaClassificacio();
-  else if (lligaVisible() && Date.now() - _lligaSincAt > 30 * 1000) {
+  else if (lligaVisible() && !_lligaConfirmat) {
     _lligaSincAt = Date.now();
     lligaSincronitza();
   }
@@ -3378,7 +3402,7 @@ function lligaCosHTML() {
       <button class="ct-btn primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;" onclick="fbHandleSignIn()">${_googleSVG} Continua amb Google</button>
       <button class="ct-btn secondary" style="width:100%;margin-bottom:0;" onclick="showEmailAuthModal()">Entra amb correu i contrasenya</button>`;
   }
-  if (!lligaLocal().dins) {
+  if (!lligaDins()) {
     const pseudo = getPseudo();
     const valid = pseudonimValid(pseudo);
     return `
@@ -3432,6 +3456,7 @@ async function lligaEntra() {
   localStorage.setItem('cat_profile_v1', JSON.stringify({ pseudo, at }));
   window.fbSaveProfile?.({ pseudo, at });
   desaLligaLocal({ lid: r.lid, dins: true, clau });
+  _lligaConfirmat = { dins: true };
   desaCacheLliga(null);
   renderLliga();
 }
@@ -3458,6 +3483,7 @@ async function lligaCarregaClassificacio() {
       if (await lligaSincronitza()) return;   // ja torna a pintar la pantalla
     }
     desaLligaLocal({ dins: false });
+    _lligaConfirmat = { dins: false };
     renderLliga();
     return;
   }
@@ -3542,6 +3568,7 @@ function lligaSurt() {
     const r = await window.fbLligaSurt?.(setmanaMadrid(Date.now()));
     if (!r || !r.ok) { showAlert('No s\'ha pogut sortir de la lliga. Comprova la connexió i torna-ho a provar.'); return; }
     desaLligaLocal({ dins: false, pendent: null });
+    _lligaConfirmat = { dins: false };
     desaCacheLliga(null);
     renderLliga();
   });
@@ -4792,6 +4819,7 @@ async function fbHandleSignIn() {
 }
 
 async function fbHandleSignOut() {
+  lligaOblida();
   await window.fbSignOut();
   showAlert('Sessió tancada. El teu progrés segueix desat al dispositiu.');
 }
@@ -4852,6 +4880,7 @@ function renderDeleteAccountSection() {
 async function fbDeleteAccountFlow(password) {
   const res = await window.fbDeleteAccount?.(password);
   if (res?.ok) {
+    lligaOblida();
     showAlert("El teu compte i les dades sincronitzades al núvol s'han eliminat. El progrés d'aquest dispositiu es manté; el pots reiniciar des del Perfil si vols.");
   } else if (res?.reason === 'need-password') {
     showPasswordPrompt(pw => { if (pw) fbDeleteAccountFlow(pw); });
@@ -4918,14 +4947,13 @@ document.addEventListener('fb-auth-change', async (e) => {
   refreshNotifSection();
   if (!shouldShowOnboarding()) showWhatsNew();
   if (!user) {
-    // Sense sessió no es compta res per a la lliga en aquest dispositiu, i s'oblida
-    // la sessió i la classificació que es recordaven (vegeu lligaAmbSessio).
-    try { localStorage.removeItem(SESSIO_KEY); } catch (e) {}
+    // Sense sessió no es compta res per a la lliga, però la memòria de la lliga NO
+    // s'esborra: un «sense sessió» de Firebase pot ser momentani, i abans deixava el
+    // dispositiu dient «fora» a qui hi era (28/09). Qui l'oblida és tancar la sessió de
+    // debò o esborrar el compte (lligaOblida).
     _lligaPrimeraSinc = null;
-    desaLligaLocal({ lid: null, dins: false, clau: null, pendent: null });
-    desaCacheLliga(null);
-    // Mentre es recuperava la sessió, la lliga es pintava amb el que recordava el
-    // dispositiu: ara ja se sap que no n'hi ha.
+    _lligaConfirmat = null;
+    desaLligaLocal({ pendent: null });
     if (_navState.screen === 'lliga') renderLliga();
     else { const t = document.getElementById('lliga-targeta'); if (t) t.innerHTML = lligaTargetaInner(); }
     return;
@@ -4934,6 +4962,7 @@ document.addEventListener('fb-auth-change', async (e) => {
   // Es recorda que aquest dispositiu té sessió: la propera vegada que s'obri l'app,
   // la lliga es pinta de seguida sense esperar Firebase (vegeu lligaAmbSessio).
   try { localStorage.setItem(SESSIO_KEY, '1'); } catch (e) {}
+  _lligaConfirmat = null;
   // Primer l'estat de la lliga, abans que res pugui tornar a pintar l'Inici: la targeta
   // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
   _lligaPrimeraSinc = lligaSincronitzaAmbReintents();
