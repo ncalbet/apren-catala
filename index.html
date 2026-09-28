@@ -3249,6 +3249,18 @@ async function lligaSincronitza() {
   lligaComprovaFesta();
   return true;
 }
+// La lectura d'en iniciar sessió. Amb l'app acabada d'obrir, la connexió de vegades
+// encara no és a punt i la lectura falla: aleshores el dispositiu es quedava amb la
+// còpia vella (potser «fora») fins a la vegada següent, i la targeta deia «Participa!»
+// una vegada sí i una altra no (28/09). Es torna a provar dues vegades.
+async function lligaSincronitzaAmbReintents() {
+  for (const espera of [0, 1500, 4000]) {
+    if (espera) await new Promise(r => setTimeout(r, espera));
+    if (!window.fbUser) return false;   // mentrestant s'ha tancat la sessió
+    if (await lligaSincronitza()) return true;
+  }
+  return false;
+}
 // La mateixa lectura, si fa més de «ms» que no se'n fa cap.
 function lligaSincronitzaSiCal(ms = 5 * 60 * 1000) {
   if (!window.fbUser || !lligaVisible() || Date.now() - _lligaSincAt < ms) return;
@@ -4916,7 +4928,7 @@ document.addEventListener('fb-auth-change', async (e) => {
   try { localStorage.setItem(SESSIO_KEY, '1'); } catch (e) {}
   // Primer l'estat de la lliga, abans que res pugui tornar a pintar l'Inici: la targeta
   // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
-  _lligaPrimeraSinc = lligaSincronitza();
+  _lligaPrimeraSinc = lligaSincronitzaAmbReintents();
   syncPseudonim();
 
   const cloud = await window.fbLoadProgress?.();
