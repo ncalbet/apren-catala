@@ -3062,6 +3062,7 @@ let _lligaCache = safeParse(LLIGA_CACHE_KEY);    // { setmana, t, dades }: l'úl
 let _lligaCompte = null;   // { t, n }: quanta gent hi participa
 let _lligaEnviant = false;
 let _lligaSincAt = 0;      // última vegada que s'ha llegit l'estat de lliga de Firestore
+let _lligaPrimeraSinc = null;   // la lectura de l'estat de lliga que es fa en iniciar sessió
 function desaCacheLliga(c) {
   _lligaCache = c || null;
   try { c ? localStorage.setItem(LLIGA_CACHE_KEY, JSON.stringify(c)) : localStorage.removeItem(LLIGA_CACHE_KEY); } catch (e) {}
@@ -3281,6 +3282,11 @@ function lligaTargetaHTML() {
 // Actualitza només la targeta (no tota la portada) quan arriben les dades.
 async function lligaRefrescaTargeta() {
   if (!lligaVisible() || !window.fbUser) return;
+  // En iniciar sessió, l'Inici es pot tornar a pintar abans que arribi l'estat de lliga
+  // (per exemple, en arribar el pseudònim del núvol). Amb una còpia vella al dispositiu,
+  // la targeta deia «2 persones · Participa!» a qui hi era fins que arribava (28/09).
+  // Ara s'espera la lectura abans de decidir què diu.
+  if (_lligaPrimeraSinc) await _lligaPrimeraSinc;
   const l = lligaLocal();
   const ara = Date.now();
   try {
@@ -4892,6 +4898,7 @@ document.addEventListener('fb-auth-change', async (e) => {
     // Sense sessió no es compta res per a la lliga en aquest dispositiu, i s'oblida
     // la sessió i la classificació que es recordaven (vegeu lligaAmbSessio).
     try { localStorage.removeItem(SESSIO_KEY); } catch (e) {}
+    _lligaPrimeraSinc = null;
     desaLligaLocal({ lid: null, dins: false, clau: null, pendent: null });
     desaCacheLliga(null);
     // Mentre es recuperava la sessió, la lliga es pintava amb el que recordava el
@@ -4904,8 +4911,10 @@ document.addEventListener('fb-auth-change', async (e) => {
   // Es recorda que aquest dispositiu té sessió: la propera vegada que s'obri l'app,
   // la lliga es pinta de seguida sense esperar Firebase (vegeu lligaAmbSessio).
   try { localStorage.setItem(SESSIO_KEY, '1'); } catch (e) {}
+  // Primer l'estat de la lliga, abans que res pugui tornar a pintar l'Inici: la targeta
+  // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
+  _lligaPrimeraSinc = lligaSincronitza();
   syncPseudonim();
-  lligaSincronitza();
 
   const cloud = await window.fbLoadProgress?.();
   if (!cloud) {
