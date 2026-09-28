@@ -603,6 +603,14 @@ const PSEUDO_MAX = 15;
 // mateix dues vegades. Es manté el codi per a novetats petites que no mereixin modal.
 // (Aquest const també ha d'anar AQUÍ DALT, pel mateix motiu que els de Ko-fi.)
 const NOVETATS_BANNER_ACTIU = false;
+// L'avís de novetat dels recorreguts a l'Inici, per als usuaris d'abans (els que no
+// n'han triat cap). APAGAT el 28/09/2026, decisió de l'usuari: la setmana de
+// llançament de la lliga, a l'Inici mana la lliga. Els recorreguts hi són igualment
+// (pantalla de cada nivell i acollida dels usuaris nous). Per encendre'l: true.
+// Mentre és apagat, el Ko-fi continua callant per a qui no ha triat (vegeu
+// shouldShowKofiBanner). És «let» perquè les proves el puguin encendre.
+// (AQUÍ DALT pel mateix motiu que els de Ko-fi: renderMenu() el llegeix en arrencar.)
+let AVIS_RECORREGUTS_ACTIU = false;
 
 // ══ RECORREGUTS ══
 // Cada nivell és també un recorregut: les seves categories, agrupades en etapes i
@@ -1202,11 +1210,11 @@ function renderMenu() {
       </div>
     </div>` : '';
   // Avís de novetat dels recorreguts per a qui no n'ha triat mai (usuaris d'abans
-  // dels recorreguts). Surt fins que en tria un o el tanca
+  // dels recorreguts), si AVIS_RECORREGUTS_ACTIU. Surt fins que en tria un o el tanca
   // (tancar-lo = «Vaig per lliure»), i mentre hi és, cap altre avís no s'hi apila
   // (el Ko-fi espera). Va al progrés, no al mòbil: no torna en un
   // mòbil nou, que és el que va fer apagar el modal de novetats.
-  const avisRecorreguts = progress.recorregut === undefined ? `
+  const avisRecorreguts = (AVIS_RECORREGUTS_ACTIU && progress.recorregut === undefined) ? `
     <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-green-text);background:var(--accent-green-bg);">
       <div style="display:flex;align-items:flex-start;gap:12px;">
         <span style="font-size:20px;flex-shrink:0;">🧭</span>
@@ -4504,7 +4512,10 @@ function shouldShowKofiBanner() {
   if (!KOFI_BANNER_ACTIU) return false;
   if ((progress.practiceHistory || []).length < KOFI_DIES_MINIMS) return false;
   if (getSavedSession() || shouldShowNovetatsBanner() || lligaPistaDe(Date.now())) return false;
-  if (progress.recorregut === undefined) return false;  // l'avís de novetat dels recorreguts és al davant
+  // Qui no ha triat recorregut té l'avís de novetat al davant. Mentre l'avís és
+  // apagat (AVIS_RECORREGUTS_ACTIU), el Ko-fi també calla per a ell: la setmana de la
+  // lliga, a l'Inici, com menys avisos, millor.
+  if (progress.recorregut === undefined) return false;
   const at = parseInt(localStorage.getItem('kofi_banner_dismissed_at') || '0', 10);
   return !at || (Date.now() - at) > KOFI_SILENCI_DIES * 24 * 60 * 60 * 1000;
 }
