@@ -151,8 +151,12 @@ service cloud.firestore {
       // Les setmanes (dates, podi, estadístiques) només les escriu el cron.
       allow read: if signat();
 
-      // Punts de la setmana d'un participant. El sostre de 150 al dia es fa complir
-      // AQUÍ, al servidor: el mòbil pot demanar el que vulgui, però no passarà.
+      // Punts de la setmana d'un participant. El mòbil pot demanar el que vulgui: qui
+      // decideix és AQUÍ, al servidor. Des del 29/09 no hi ha el sostre de joc de 150 al
+      // dia (el de la primera setmana, amb dies de 300 i sense límit, el posa l'app);
+      // aquí només hi ha el TOPALL DE SEGURETAT de 5.000 al dia, que ningú no toca
+      // practicant (uns 400 exercicis) i que impedeix escriure's punts impossibles des de
+      // fora de l'app. ⚠️ El mateix número que LLIGA_TOPALL d'index.html.
       match /participants/{lid} {
         allow read: if signat();
 
@@ -164,7 +168,7 @@ service cloud.firestore {
           && request.resource.data.puntsDia is int
           && request.resource.data.punts == request.resource.data.puntsDia
           && request.resource.data.puntsDia >= 0
-          && request.resource.data.puntsDia <= 150;
+          && request.resource.data.puntsDia <= 5000;
 
         allow update: if propietariLid(lid)
           && setmanaOberta(setmana)
@@ -173,7 +177,7 @@ service cloud.firestore {
           && diaValid(request.resource.data.dia)
           && request.resource.data.puntsDia is int
           && request.resource.data.punts is int
-          && request.resource.data.puntsDia <= 150
+          && request.resource.data.puntsDia <= 5000
           && (
             // Mateix dia: puja el dia i el total en la mateixa quantitat.
             (request.resource.data.dia == resource.data.dia
