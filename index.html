@@ -3733,8 +3733,36 @@ async function lligaComprovaFesta() {
   const jo = files.find(f => f.lid === l.lid);
   if (jo) showAlert(`La setmana passada vas acabar a la posició ${jo.posicio} de ${files.length}. Aquesta setmana tornes a començar de zero. Endavant!`);
 }
+// Confeti del podi: no ha de semblar el de pujar de nivell. Dues onades (~5 s), més
+// peces, de mides i formes diverses, i dels colors de la medalla que has guanyat.
+// «both»: mentre esperen la seva onada, les peces es queden amagades a dalt.
+const LLIGA_CONFETI = [
+  ['#f59e0b', '#fbbf24', '#fcd34d', '#d97706', '#fef3c7'],   // or
+  ['#94a3b8', '#cbd5e1', '#64748b', '#475569', '#e2e8f0'],   // plata
+  ['#b45309', '#d97706', '#ea580c', '#c2410c', '#fdba74'],   // bronze
+];
+function showConfettiPodi(posicio) {
+  const colors = LLIGA_CONFETI[posicio - 1] || LLIGA_CONFETI[0];
+  const onada = (quantes, retard) => {
+    for (let i = 0; i < quantes; i++) {
+      const p = document.createElement('div');
+      p.className = 'ct-confetti-piece';
+      const durada = 2.2 + Math.random() * 1.6, espera = retard + Math.random() * 0.8;
+      const ample = 6 + Math.random() * 6;
+      p.style.cssText = `left:${Math.random() * 100}vw; top:-24px;
+        width:${ample}px; height:${Math.random() < 0.5 ? ample : ample * 1.8}px;
+        border-radius:${Math.random() < 0.3 ? '50%' : '2px'};
+        background:${colors[Math.floor(Math.random() * colors.length)]};
+        animation-duration:${durada}s; animation-delay:${espera}s; animation-fill-mode:both;`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), (espera + durada) * 1000 + 100);
+    }
+  };
+  onada(90, 0);
+  onada(70, 1.8);
+}
 function lligaMostraFesta(posicio, punts) {
-  showConfetti();
+  showConfettiPodi(posicio);
   const llocs = ['Primer lloc', 'Segon lloc', 'Tercer lloc'];
   const overlay = document.createElement('div');
   overlay.className = 'ct-levelup-overlay';
