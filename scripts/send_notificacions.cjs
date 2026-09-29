@@ -12,6 +12,7 @@ if (require.main === module) {
   db = admin.firestore();
   messaging = admin.messaging();
 }
+const { partsMadrid, setmanaDe, sumaDies } = require('./lliga_setmanal.cjs');
 
 const LEVELS = [
   { min: 0,    max: 99,       name: 'Aprenent' },
@@ -127,7 +128,77 @@ const GENERIC_SEQUENCE = [
     body: "Quan vulguis, aquí seré. Un sol exercici per retrobar-nos." },
 ];
 
-function buildNotification(progress, daysSince, step, sendCount, nom) {
+// ── La lliga ──
+// Qui és a la lliga i avui li toca recordatori rep la seva posició en lloc del text de
+// sempre. Del dimarts al diumenge, la d'aquesta setmana; el dilluns, com va quedar la
+// setmana passada, perquè la nova encara és a 0 per a tothom. Sense punts no hi ha
+// posició, i surt el recordatori de sempre. L'hora i la freqüència són les del Perfil:
+// la lliga no envia res de més, només canvia el text.
+
+// Quina setmana es compta a aquest instant, i si és la passada (el dilluns).
+function setmanaDeLaLliga(ms) {
+  const setmana = setmanaDe(ms);
+  const p = partsMadrid(ms);
+  const avui = `${p.y}-${String(p.m).padStart(2, '0')}-${String(p.d).padStart(2, '0')}`;
+  return avui === setmana ? { setmana: sumaDies(setmana, -7), passada: true } : { setmana, passada: false };
+}
+
+// Posició de cada participant amb punts, pel lid. Mateix criteri que lligaFiles()
+// d'index.html: els perfils «fora» no hi surten, i els empats comparteixen posició
+// (1, 1, 3…). «amunt» és la posició de just a sobre i «falten», els punts per
+// arribar-hi; qui és primer no en té.
+function posicionsLliga(perfils, punts) {
+  const files = perfils.filter(p => !p.fora)
+    .map(p => ({ lid: p.lid, nom: p.pseudonim || '', punts: punts[p.lid] || 0 }))
+    .filter(f => f.punts > 0)
+    .sort((a, b) => b.punts - a.punts);
+  const res = new Map();
+  files.forEach((f, i) => {
+    const posicio = (i > 0 && f.punts === files[i - 1].punts) ? res.get(files[i - 1].lid).posicio : i + 1;
+    const davant = files.filter(g => g.punts > f.punts);
+    const proper = davant[davant.length - 1];
+    res.set(f.lid, {
+      posicio, nom: f.nom,
+      empat: files.some(g => g !== f && g.punts === f.punts),
+      amunt: proper ? res.get(proper.lid).posicio : null,
+      falten: proper ? proper.punts - f.punts : 0,
+    });
+  });
+  return res;
+}
+
+// «Posició» és femení i la persona no té gènere: 1a, 2a, 3a… i mai «vas tercer».
+// Si també hi ha ratxa en perill, la lliga mana i la ratxa passa al text de sota
+// (decisió de l'usuari, 29/09). El dilluns: al primer lloc, felicitació; a la resta,
+// la posició i ànims per quedar més amunt.
+const ord = n => `${n}a`;
+const majuscula = s => s[0].toUpperCase() + s.slice(1);
+function missatgeLliga(l, nom, ratxa) {
+  const amb = que => nom ? `${nom}, ${que}` : majuscula(que);
+  let title, body, tancament;
+  if (l.passada && l.posicio === 1) {
+    const que = l.empat ? 'Primer lloc compartit a la lliga' : 'Vas guanyar la lliga';
+    title = nom ? `🥇 Felicitats, ${nom}! ${que}` : `🥇 Felicitats! ${que}`;
+    body = 'Continua així amb el català!';
+    tancament = 'La lliga nova ja ha començat.';
+  } else if (l.passada) {
+    const medalla = ['🥈', '🥉'][l.posicio - 2] || '🏆';
+    title = `${medalla} ${amb(l.empat ? `vas compartir la ${ord(l.posicio)} posició a la lliga`
+                                      : `vas quedar en ${ord(l.posicio)} posició a la lliga`)}`;
+    body = 'Aquesta setmana pots quedar més amunt.';
+    tancament = 'La lliga nova ja ha començat!';
+  } else {
+    title = `🏆 ${amb(l.empat ? `comparteixes la ${ord(l.posicio)} posició a la lliga`
+                             : `vas en ${ord(l.posicio)} posició a la lliga`)}${l.posicio === 1 ? '!' : ''}`;
+    body = l.posicio > 1 ? `Amb ${l.falten} ${l.falten === 1 ? 'punt' : 'punts'} més arribes a la ${ord(l.amunt)}.`
+         : l.empat ? 'Amb un sol punt més passes al davant.'
+         : 'Defensa el primer lloc.';
+    tancament = "No t'oblidis de practicar!";
+  }
+  return { title, body: `${body} ${ratxa ? `I no perdis la ratxa de ${ratxa} dies!` : tancament}` };
+}
+
+function buildNotification(progress, daysSince, step, sendCount, nom, lliga = null) {
   const xp = progress?.xp || 0;
   const streak = progress?.streak || 0;
   const surt = (tipus, msg) => ambTipus(tipus, ambNom(msg, nom));
@@ -142,6 +213,13 @@ function buildNotification(progress, daysSince, step, sendCount, nom) {
       { title: "📚 Encara no has començat… ho fem avui?",
         body: "" },
     ], sendCount));
+  }
+
+  // La lliga, per davant de la ratxa i del nivell. El nom és el de la classificació.
+  if (lliga) {
+    const ratxa = (streak >= 2 && daysSince === 1) ? streak : 0;
+    return ambTipus(lliga.passada ? 'lliga, setmana passada' : 'lliga',
+      missatgeLliga(lliga, nomDe({ pseudo: lliga.nom }) || nom, ratxa));
   }
 
   // ① Ratxa en perill (només si fa exactament 1 dia i hi ha ratxa)
@@ -196,7 +274,32 @@ async function run() {
     return;
   }
 
-  let sent = 0, skipped = 0, errors = 0, reset = 0, paused = 0;
+  let sent = 0, skipped = 0, errors = 0, reset = 0, paused = 0, delaLliga = 0;
+
+  // La classificació es llegeix una sola vegada, i només si algú de la lliga ha de rebre
+  // un recordatori. Si no es pot llegir, el recordatori surt amb el text de sempre.
+  const quinaLliga = setmanaDeLaLliga(Date.now());
+  let posicions;   // undefined = encara no llegida; null = no s'ha pogut llegir
+  async function posicioALaLliga(ll) {
+    if (!ll?.dins || !ll.lid) return null;
+    if (posicions === undefined) {
+      try {
+        const [perfils, parts] = await Promise.all([
+          db.collection('lligaPerfils').get(),
+          db.collection('lliga').doc(quinaLliga.setmana).collection('participants').get(),
+        ]);
+        posicions = posicionsLliga(
+          perfils.docs.map(p => ({ lid: p.id, pseudonim: p.data().pseudonim || '', fora: !!p.data().fora })),
+          Object.fromEntries(parts.docs.map(p => [p.id, p.data().punts || 0])));
+      } catch (e) {
+        posicions = null;
+        console.warn(`❌ No s'ha pogut llegir la lliga: ${e.code || e.name}`);
+      }
+    }
+    const p = posicions?.get(ll.lid);
+    return p ? { ...p, passada: quinaLliga.passada } : null;
+  }
+
   const invalidTokens = [];
 
   for (const userDoc of snapshot.docs) {
@@ -246,7 +349,8 @@ async function run() {
       continue;
     }
 
-    const notification = buildNotification(data.progress, daysSince, step, sendCount, nomDe(data.profile));
+    const lliga = await posicioALaLliga(data.lliga);
+    const notification = buildNotification(data.progress, daysSince, step, sendCount, nomDe(data.profile), lliga);
 
     const webpushNotif = {
       title: notification.title,
@@ -280,6 +384,7 @@ async function run() {
         }
       });
       sent++;
+      if (lliga) delaLliga++;
       console.log(`✅ Enviat: ${notification.tipus}`);
     } catch (e) {
       errors++;
@@ -298,7 +403,7 @@ async function run() {
     console.log('🧹 Token invàlid eliminat');
   }
 
-  console.log(`\nResultat: ${sent} enviats, ${skipped} omesos (${paused} en pausa, ${reset} cadències reiniciades), ${errors} errors.`);
+  console.log(`\nResultat: ${sent} enviats (${delaLliga} de la lliga), ${skipped} omesos (${paused} en pausa, ${reset} cadències reiniciades), ${errors} errors.`);
 }
 
 // Del missatge d'un error de Firestore en surt la ruta del document (users/<uid>), i el
@@ -307,4 +412,4 @@ if (require.main === module) {
   run().catch(e => { console.error(`❌ run: ${e.code || e.name}`); process.exit(1); });
 }
 
-module.exports = { buildNotification, nomDe, getNextLevel, SCHEDULES };
+module.exports = { buildNotification, nomDe, getNextLevel, SCHEDULES, setmanaDeLaLliga, posicionsLliga };
