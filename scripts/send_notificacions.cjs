@@ -1,13 +1,17 @@
 'use strict';
 // ⚠️ El repo és PÚBLIC i el log de les Actions també: qualsevol el pot llegir.
 // Cap línia de log pot dur res que identifiqui un usuari (ni uid, ni correu, ni token).
-const admin = require('firebase-admin');
-
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-
-const db = admin.firestore();
-const messaging = admin.messaging();
+//
+// Firebase només s'engega si s'executa com a script. Així les proves de Catala/
+// (tests_notificacions.cjs) poden carregar els textos sense credencials.
+let admin, db, messaging;
+if (require.main === module) {
+  admin = require('firebase-admin');
+  const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+  db = admin.firestore();
+  messaging = admin.messaging();
+}
 
 const LEVELS = [
   { min: 0,    max: 99,       name: 'Aprenent' },
@@ -299,4 +303,8 @@ async function run() {
 
 // Del missatge d'un error de Firestore en surt la ruta del document (users/<uid>), i el
 // log és públic: només el codi, que és fix. L'error sencer, executant-lo en local.
-run().catch(e => { console.error(`❌ run: ${e.code || e.name}`); process.exit(1); });
+if (require.main === module) {
+  run().catch(e => { console.error(`❌ run: ${e.code || e.name}`); process.exit(1); });
+}
+
+module.exports = { buildNotification, nomDe, getNextLevel, SCHEDULES };
