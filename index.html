@@ -3058,7 +3058,41 @@ function renderProgress() {
 // (localStorage «cat_lliga_prova» = '1').
 const LLIGA_OBERTURA = Date.UTC(2026, 8, 27, 22, 0);
 const LLIGA_PRIMERA_SETMANA = '2026-09-28';
-const LLIGA_SOSTRE = 150;
+// Punts de lliga per dia (dia de Madrid, AAAAMMDD). Fins al 4/10/2026, 150, amb dies
+// especials: dc 30/9 i dv 2/10 fins a 300, i dg 4/10 sense límit. Des del dl 5/10, sense
+// sostre de joc (decisió de l'usuari, 28/09: dues de tres persones hi arribaven de
+// seguida, empataven a dalt, i qui no començava dilluns ja no podia guanyar). Repetir un
+// exercici el mateix dia ja paga menys (markDone): més punts vol dir més exercicis.
+// Les regles de Firestore només hi posen el topall de seguretat, LLIGA_TOPALL.
+const LLIGA_SOSTRE_BASE = 150;
+const LLIGA_DIES_ESPECIALS = { 20260930: 300, 20261002: 300, 20261004: null };   // null: sense límit
+const LLIGA_SENSE_SOSTRE_DES_DE = 20261005;
+const LLIGA_TOPALL = 5000;   // ⚠️ el mateix que firestore.rules
+function lligaSostreDe(dia) {
+  if (dia >= LLIGA_SENSE_SOSTRE_DES_DE) return null;
+  return dia in LLIGA_DIES_ESPECIALS ? LLIGA_DIES_ESPECIALS[dia] : LLIGA_SOSTRE_BASE;
+}
+// L'avís de la classificació, un per dia de la primera setmana, i la setmana del canvi.
+const LLIGA_AVISOS = {
+  20260928: '⚡ <strong>Aquesta setmana, dies especials:</strong> dimecres i divendres, fins a 300 punts, i diumenge, sense límit.',
+  20260929: '⚡ <strong>Aquesta setmana, dies especials:</strong> dimecres i divendres, fins a 300 punts, i diumenge, sense límit.',
+  20260930: '⚡ <strong>Avui, punts dobles: fins a 300.</strong> Divendres, també, i diumenge, sense límit.',
+  20261001: '⚡ <strong>Demà, divendres, punts dobles:</strong> fins a 300. I diumenge, sense límit.',
+  20261002: '⚡ <strong>Avui, punts dobles: fins a 300.</strong> Diumenge, sense límit.',
+  20261003: '🔥 <strong>Demà, diumenge, sense límit de punts.</strong>',
+  20261004: '🔥 <strong>Avui, sense límit de punts.</strong> Des de demà, sense límit cada dia.',
+};
+function lligaAvisHTML(dia) {
+  let text = LLIGA_AVISOS[dia] || '';
+  if (text && dia < 20261004) text += ' Des del dilluns 5 d\'octubre, sense límit cada dia.';
+  if (dia >= LLIGA_SENSE_SOSTRE_DES_DE && dia <= 20261011) text = '🎉 <strong>Novetat: ja no hi ha límit de punts al dia.</strong> Com més practiques, més amunt.';
+  return text ? `<div style="background:var(--accent-amber-bg);color:var(--accent-amber-text);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">${text}</div>` : '';
+}
+// La línia de la targeta de l'Inici, només els dies especials.
+function lligaDiaEspecialText(dia) {
+  if (!(dia in LLIGA_DIES_ESPECIALS)) return '';
+  return LLIGA_DIES_ESPECIALS[dia] === null ? '🔥 Avui, sense límit de punts' : '⚡ Avui, punts dobles';
+}
 const LLIGA_KEY = 'cat_lliga_v1';
 // Mateix patró que pseudonimValid() de firestore.rules.
 const PSEUDO_PATRO = /^[A-Za-z0-9àáèéíïòóúüçñÀÁÈÉÍÏÒÓÚÜÇÑ·' ._-]+$/;
@@ -3263,7 +3297,7 @@ async function lligaBuidaPendent() {
   _lligaEnviant = true;
   let reenvia = false;
   try {
-    const r = await window.fbLligaSuma(l.lid, p.setmana, p.dia, p.xp, LLIGA_SOSTRE);
+    const r = await window.fbLligaSuma(l.lid, p.setmana, p.dia, p.xp, lligaSostreDe(p.dia) ?? LLIGA_TOPALL);
     // El que s'ha enviat ja és al servidor o ha topat amb el sostre. Si mentrestant
     // n'ha entrat més, es torna a enviar.
     const ara = lligaLocal().pendent;
@@ -3338,10 +3372,12 @@ function lligaTargetaInner() {
   } else {
     sub = 'Mira la classificació';
   }
+  const especial = lligaDiaEspecialText(diaMadrid(Date.now()));
   return `<span style="font-size:28px;flex-shrink:0;">🏆</span>
     <span style="flex:1;min-width:0;">
       <span style="display:block;font-size:15px;font-weight:700;color:var(--heading);">Lliga AprènCatalà</span>
       <span style="display:block;font-size:13px;color:var(--muted);margin-top:2px;">${sub}</span>
+      ${especial ? `<span style="display:block;font-size:12px;font-weight:700;color:var(--accent-amber-text);margin-top:3px;">${especial}</span>` : ''}
     </span>
     <span style="font-size:22px;color:var(--muted);flex-shrink:0;">›</span>`;
 }
@@ -3396,10 +3432,13 @@ async function lligaRefrescaTargeta() {
 
 // ── Pantalla de la lliga ──
 function lligaInstruccionsHTML() {
+  const punts = diaMadrid(Date.now()) < LLIGA_SENSE_SOSTRE_DES_DE
+    ? `<strong>Cada XP que guanyes és un punt de lliga,</strong> fins a ${LLIGA_SOSTRE_BASE} al dia; aquesta setmana, dimecres i divendres fins a 300, i diumenge sense límit. Si en fas més, et sumen igualment al teu total d'XP. Des del dilluns 5 d'octubre, sense límit.`
+    : `<strong>Cada XP que guanyes és un punt de lliga.</strong> No hi ha límit: com més practiques, més amunt.`;
   return `<ol style="font-size:14px;color:var(--text-soft);line-height:1.6;padding-left:20px;margin:0 0 18px;">
     <li style="margin-bottom:8px;"><strong>Cada lliga dura una setmana:</strong> de dilluns a diumenge a la nit. El dilluns tothom torna a zero.</li>
     <li style="margin-bottom:8px;"><strong>En acabar la setmana,</strong> les tres primeres posicions guanyen medalla ${LLIGA_MEDALLES.join('')}.</li>
-    <li><strong>Cada XP que guanyes és un punt de lliga,</strong> fins a ${LLIGA_SOSTRE} al dia. Si en fas més, et sumen igualment al teu total d'XP.</li>
+    <li>${punts}</li>
   </ol>`;
 }
 function lligaMostraAjuda() {
@@ -3614,8 +3653,9 @@ function lligaClassificacioHTML(dades, lid) {
     return `<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Ja hi ets! La primera setmana comença dilluns 28 de setembre a les 00:00.</p>`;
   }
   const meu = dades.punts[lid] || {};
-  const avui = meu.dia === diaMadrid(Date.now()) ? (meu.puntsDia || 0) : 0;
-  const pct = Math.min(100, Math.round(avui / LLIGA_SOSTRE * 100));
+  const diaAvui = diaMadrid(Date.now());
+  const avui = meu.dia === diaAvui ? (meu.puntsDia || 0) : 0;
+  const sostre = lligaSostreDe(diaAvui);
   const files = lligaFiles(dades);
   const llista = files.map(f => {
     const mi = f.lid === lid;
@@ -3628,9 +3668,12 @@ function lligaClassificacioHTML(dades, lid) {
   }).join('');
   return `
     ${lligaAcabesDEntrarHTML()}
+    ${lligaAvisHTML(diaAvui)}
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Setmana del ${lligaDiaMes(w.inici)} al ${lligaDiaMes(w.fi)} · tanca diumenge a les 23:58</div>
-    <div style="font-size:13px;color:var(--text-soft);margin-bottom:4px;">Avui: <strong>${avui}</strong> de ${LLIGA_SOSTRE} punts</div>
-    <div class="ct-progress-bar" style="margin-bottom:18px;"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
+    ${sostre
+      ? `<div style="font-size:13px;color:var(--text-soft);margin-bottom:4px;">Avui: <strong>${avui}</strong> de ${sostre} punts</div>
+    <div class="ct-progress-bar" style="margin-bottom:18px;"><div class="ct-progress-fill" style="width:${Math.min(100, Math.round(avui / sostre * 100))}%"></div></div>`
+      : `<div style="font-size:13px;color:var(--text-soft);margin-bottom:18px;">Avui: <strong>${avui}</strong> punts · sense límit</div>`}
     <div id="lliga-podi-anterior"></div>
     ${lligaRecordHTML(dades.perfils)}
     <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">${files.length} ${files.length === 1 ? 'persona' : 'persones'} a la lliga</div>
