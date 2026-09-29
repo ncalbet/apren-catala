@@ -3728,7 +3728,14 @@ async function lligaComprovaFesta() {
   desaLligaLocal({ festa: s });
   const podi = d.setmana.podi || podiDe(lligaFiles(d));
   const meu = podi.find(f => f.lid === l.lid);
-  if (meu) { lligaMostraFesta(meu.posicio, meu.punts); return; }
+  if (meu) {
+    // Al podi dibuixat hi surt qui encara és a la lliga (com a lligaPodiAnterior), i tu.
+    const noms = Object.fromEntries(d.perfils.filter(p => !p.fora && p.pseudonim).map(p => [p.lid, p.pseudonim]));
+    const graons = podi.filter(f => noms[f.lid] || f.lid === l.lid)
+      .map(f => ({ posicio: f.posicio, punts: f.punts, nom: noms[f.lid] || 'Tu', jo: f.lid === l.lid }));
+    lligaMostraFesta(meu.posicio, meu.punts, graons);
+    return;
+  }
   const files = lligaFiles(d).filter(f => f.punts > 0);
   const jo = files.find(f => f.lid === l.lid);
   if (jo) showAlert(`La setmana passada vas acabar a la posició ${jo.posicio} de ${files.length}. Aquesta setmana tornes a començar de zero. Endavant!`);
@@ -3761,7 +3768,35 @@ function showConfettiPodi(posicio) {
   onada(90, 0);
   onada(70, 1.8);
 }
-function lligaMostraFesta(posicio, punts) {
+// El podi dibuixat: tres graons (2, 1, 3) amb qui hi ha a cadascun i tu ressaltat.
+// Els empats van junts al mateix graó (1, 1, 3…), i un graó que un empat ha deixat
+// sense ningú surt buit. Més de tres noms en un graó: «i N més», i tu sempre hi ets.
+// Els graons tenen el color de la medalla i el número fosc a sobre: es llegeix igual
+// en clar i en fosc.
+const LLIGA_GRAONS = [
+  { alt: 78, fons: '#f5c542', lletra: '#5c3d00' },   // or
+  { alt: 58, fons: '#cbd5e1', lletra: '#334155' },   // plata
+  { alt: 44, fons: '#d9a066', lletra: '#5a2d0c' },   // bronze
+];
+function lligaPodiHTML(graons) {
+  const grao = pos => {
+    const qui = graons.filter(f => f.posicio === pos).sort((a, b) => b.jo - a.jo);
+    const nom = f => f.jo
+      ? `<div style="margin:2px 0;"><span style="display:inline-block;max-width:100%;background:var(--accent-amber-bg);color:var(--accent-amber-text);border:1px solid var(--accent-amber-val);border-radius:6px;padding:1px 6px;font-weight:700;">${escText(f.nom)}</span></div>`
+      : `<div style="margin:2px 0;color:var(--text-soft);">${escText(f.nom)}</div>`;
+    const g = LLIGA_GRAONS[pos - 1];
+    return `<div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;text-align:center;font-size:12px;line-height:1.3;overflow-wrap:anywhere;">
+      <div style="margin-bottom:6px;">
+        ${qui.slice(0, 3).map(nom).join('')}
+        ${qui.length > 3 ? `<div style="color:var(--muted);">i ${qui.length - 3} més</div>` : ''}
+        ${qui.length ? `<div style="color:var(--muted);font-size:11px;margin-top:2px;">${qui[0].punts} punts</div>` : ''}
+      </div>
+      <div style="height:${g.alt}px;background:${g.fons};color:${g.lletra};border-radius:8px 8px 0 0;padding-top:6px;font-size:20px;font-weight:700;">${pos}</div>
+    </div>`;
+  };
+  return `<div class="lliga-podi-festa" style="display:flex;align-items:flex-end;gap:6px;margin:0 0 20px;">${grao(2)}${grao(1)}${grao(3)}</div>`;
+}
+function lligaMostraFesta(posicio, punts, graons = []) {
   showConfettiPodi(posicio);
   const llocs = ['Primer lloc', 'Segon lloc', 'Tercer lloc'];
   const overlay = document.createElement('div');
@@ -3772,6 +3807,7 @@ function lligaMostraFesta(posicio, punts) {
       <div class="ct-levelup-title">Enhorabona!</div>
       <div style="font-size:22px;font-weight:700;color:var(--heading);margin-bottom:6px;">${llocs[posicio - 1]} a la lliga</div>
       <div class="ct-levelup-sub">La setmana passada vas fer ${punts} punts. Et guardem la medalla a Fites.</div>
+      ${graons.length ? lligaPodiHTML(graons) : ''}
       <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">Genial! 🎉</button>
     </div>`;
   document.body.appendChild(overlay);
