@@ -125,13 +125,18 @@ window.fbSaveProgress = async (data) => {
   } catch (e) { console.warn('[FB] Error desant progrés:', e.code); }
 };
 
+// El progrés i el perfil del núvol es llegeixen del servidor o res, com la lliga
+// (vegeu llegeixEstatLliga). Tornen null si al núvol no n'hi ha i undefined si no
+// s'han pogut llegir. Abans totes dues coses eren null, i una lectura fallida en obrir
+// l'app (o la còpia a mitges de la memòria de Firestore) es prenia per un primer inici
+// de sessió: el progrés d'aquest dispositiu trepitjava el del núvol (29/09).
 window.fbLoadProgress = async () => {
   const user = auth.currentUser;
-  if (!user) return null;
+  if (!user) return undefined;
   try {
-    const snap = await getDoc(doc(db, 'users', user.uid));
+    const snap = await getDocFromServer(doc(db, 'users', user.uid));
     return (snap.exists() && snap.data().progress) ? snap.data().progress : null;
-  } catch (e) { console.warn('[FB] Error carregant progrés:', e.code); return null; }
+  } catch (e) { console.warn('[FB] Error carregant progrés:', e.code); return undefined; }
 };
 
 // ── Esborrar compte (requisit Google Play: eliminació de compte i dades) ──
@@ -186,13 +191,14 @@ window.fbDeleteAccount = async (password) => {
 // «profile». S'esborra amb el compte, perquè fbDeleteAccount esborra el
 // document sencer. Qui guanya quan dos dispositius discrepen ho decideix
 // index.html amb el segell «at» que hi va dins.
+// null si al núvol no n'hi ha; undefined si no s'ha pogut llegir (vegeu fbLoadProgress).
 window.fbLoadProfile = async () => {
   const user = auth.currentUser;
-  if (!user) return null;
+  if (!user) return undefined;
   try {
-    const snap = await getDoc(doc(db, 'users', user.uid));
+    const snap = await getDocFromServer(doc(db, 'users', user.uid));
     return (snap.exists() && snap.data().profile) ? snap.data().profile : null;
-  } catch (e) { console.warn('[FB] Error carregant perfil:', e.code); return null; }
+  } catch (e) { console.warn('[FB] Error carregant perfil:', e.code); return undefined; }
 };
 
 window.fbSaveProfile = async (data) => {

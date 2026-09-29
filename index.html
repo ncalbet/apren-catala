@@ -572,6 +572,13 @@ let _navState = { screen: 'menu' };
 // surt de la pantalla de la lliga.
 let _lligaVolEntrar = false;
 let _lligaAcabaDEntrar = null;
+// El progrés només es puja al núvol quan ja s'ha comparat amb el que hi havia en
+// iniciar sessió (sincronitzaProgres). Fins al 29/09 es pujava sempre, i si aquella
+// comparació no s'havia pogut fer (sense connexió en obrir l'app), el progrés d'aquest
+// dispositiu trepitjava el del núvol, potser més nou si s'havia fet servir un altre
+// dispositiu. Mentrestant es desa al dispositiu i prou.
+let _progresComparat = false;
+let _progresSincronitzant = false;
 let _streakFrozen = 0;
 function _setNav(s) {
   _navState = s;
@@ -580,7 +587,7 @@ function _setNav(s) {
 
 function saveProgress() {
   localStorage.setItem('cat_prog_v7', JSON.stringify(progress));
-  window.fbSaveProgress?.(progress);
+  if (_progresComparat) window.fbSaveProgress?.(progress);
 }
 
 // ══ SESSIÓ ACTIVA (persistència per reprendre on s'ha deixat) ══
@@ -4475,6 +4482,9 @@ function getPseudo() {
 // és més nou (o el núvol no en té cap), es puja.
 async function syncPseudonim() {
   const remot = await window.fbLoadProfile?.();
+  // No s'ha pogut llegir: no es decideix res (abans es pujava el d'aquí, com si al núvol
+  // no n'hi hagués cap). Es farà la propera vegada que s'iniciï sessió.
+  if (remot === undefined) return;
   const local = safeParse('cat_profile_v1') || {};
   const localAt = +local.at || 0;
   const remotAt = +(remot && remot.at) || 0;
@@ -5075,7 +5085,10 @@ document.addEventListener('fcm-foreground-message', (e) => {
 // torna del segon pla), l'estat de la lliga es torna a llegir si fa més de 5 minuts.
 // Sense això, només es llegia en carregar la pàgina: vegeu lligaSincronitza().
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') lligaSincronitzaSiCal();
+  if (document.visibilityState !== 'visible') return;
+  lligaSincronitzaSiCal();
+  // Si en iniciar sessió no s'ha pogut comparar el progrés amb el del núvol, es torna a provar.
+  if (window.fbUser && !_progresComparat) sincronitzaProgres();
 });
 
 // Quan canvia l'estat d'auth: carreguem progrés del núvol si és millor
@@ -5090,6 +5103,7 @@ document.addEventListener('fb-auth-change', async (e) => {
     // dispositiu dient «fora» a qui hi era (28/09). Qui l'oblida és tancar la sessió de
     // debò o esborrar el compte (lligaOblida).
     lligaApunta('sessió: no');
+    _progresComparat = false;   // la sessió següent es torna a comparar
     _lligaPrimeraSinc = null;
     _lligaConfirmat = null;
     desaLligaLocal({ pendent: null });
@@ -5107,32 +5121,52 @@ document.addEventListener('fb-auth-change', async (e) => {
   // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
   _lligaPrimeraSinc = lligaSincronitzaAmbReintents();
   syncPseudonim();
-
-  const cloud = await window.fbLoadProgress?.();
-  if (!cloud) {
-    // Primer login: pugem el progrés local al núvol
-    window.fbSaveProgress?.(progress);
-    return;
-  }
-
-  const localXP = progress.xp || 0;
-  const cloudXP = cloud.xp || 0;
-  if (cloudXP > localXP) {
-    showConfirm(
-      `Al núvol tens ${cloudXP} XP i aquí ${localXP} XP. Vols carregar el progrés del núvol?`,
-      () => {
-        const { _updatedAt, progressAt, ...cloudProgress } = cloud;
-        progress = { ...progress, ...cloudProgress };
-        saveProgress();
-        updateHeader();
-        showAlert('Progrés carregat des del núvol ✅');
-      }
-    );
-  } else {
-    // Local és igual o millor: pugem al núvol silenciosament
-    window.fbSaveProgress?.(progress);
-  }
+  await sincronitzaProgres();
 });
+
+// En iniciar sessió es compara el progrés d'aquest dispositiu amb el del núvol: si el del
+// núvol té més XP, es pregunta si es vol carregar; si no, es puja el d'aquí. Si no es pot
+// llegir (sense connexió en obrir l'app), es torna a provar com la lliga (1,5 s i 4 s) i,
+// si tot falla, en tornar a l'app; fins aleshores el progrés es desa només al dispositiu
+// (saveProgress). Abans, una lectura fallida es prenia per un primer inici de sessió.
+async function sincronitzaProgres() {
+  if (_progresComparat || _progresSincronitzant) return;
+  _progresSincronitzant = true;
+  try {
+    for (const espera of [0, 1500, 4000]) {
+      if (espera) await new Promise(r => setTimeout(r, espera));
+      if (!window.fbUser) return;
+      const cloud = await window.fbLoadProgress?.();
+      if (cloud === undefined) continue;   // no s'ha pogut llegir
+      _progresComparat = true;
+      if (!cloud) {
+        // Primer inici de sessió: el progrés d'aquí puja al núvol
+        window.fbSaveProgress?.(progress);
+        return;
+      }
+      const localXP = progress.xp || 0;
+      const cloudXP = cloud.xp || 0;
+      if (cloudXP > localXP) {
+        showConfirm(
+          `Al núvol tens ${cloudXP} XP i aquí ${localXP} XP. Vols carregar el progrés del núvol?`,
+          () => {
+            const { _updatedAt, progressAt, ...cloudProgress } = cloud;
+            progress = { ...progress, ...cloudProgress };
+            saveProgress();
+            updateHeader();
+            showAlert('Progrés carregat des del núvol ✅');
+          }
+        );
+      } else {
+        // Local és igual o millor: pugem al núvol silenciosament
+        window.fbSaveProgress?.(progress);
+      }
+      return;
+    }
+  } finally {
+    _progresSincronitzant = false;
+  }
+}
 
 /* ══ PWA: Registre del Service Worker ══ */
 if ('serviceWorker' in navigator) {
