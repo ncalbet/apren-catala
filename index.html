@@ -1762,10 +1762,10 @@ function renderExercise() {
         ${body}
         <div id="feedback-area"></div>
         <div id="theory-area"></div>
-        <div id="report-area"></div>
         <div class="ct-nav-row" id="nav-row" style="display:none;">
           <button class="ct-btn secondary" onclick="goNext()">Següent →</button>
         </div>
+        <div id="report-area"></div>
       </div>
     </div>`;
   if (q.type==='reorder') { dragIdx = null; tapSelectedIdx = null; }
@@ -1986,8 +1986,9 @@ function showTheory(q) {
 // ══ CORRECCIÓ DUBTOSA ══
 // Després d'un ✗, qui creu que la seva resposta era bona ens ho pot dir. L'enllaç
 // obre el correu de la persona amb l'exercici i la resposta ja escrits: l'app no
-// recull ni envia res, i per això no toca el Data Safety. Va sota la nota, perquè
-// primer es llegeixi l'explicació. Sense app de correu el mailto: no fa res: en
+// recull ni envia res, i per això no toca el Data Safety. Va petit i sota el
+// «Següent», a posta: no ha de competir amb l'explicació ni convidar a discutir
+// cada error (decisió de l'usuari, 30/09). Sense app de correu el mailto: no fa res: en
 // tocar-lo surt també l'adreça, per escriure-hi a mà.
 // El codi de l'exercici té el format de cerca_exercicis.cjs: «b1-sub1#v2».
 const CORREU_CORRECCIONS = 'correccions@aprencatala.cat';
@@ -2012,9 +2013,11 @@ function mostraCorreccioDubtosa(q, resposta, bona) {
   ];
   const href = `mailto:${CORREU_CORRECCIONS}?subject=${encodeURIComponent('Correcció dubtosa: ' + codi)}`
     + `&amp;body=${encodeURIComponent(linies.join('\r\n'))}`;
-  el.innerHTML = `<div style="margin-top:12px;text-align:center;font-size:13px;color:var(--muted);">
+  el.innerHTML = `<div style="margin-top:14px;text-align:center;font-size:12px;line-height:1.5;color:var(--muted);">
+      Creus que la teva resposta era bona?
       <a href="${href}" onclick="document.getElementById('report-adreca').hidden = false"
-        style="color:var(--muted);text-decoration:underline;display:inline-block;padding:4px 8px;">Creus que la teva resposta era bona? Avisa'ns</a>
+        style="color:var(--muted);text-decoration:underline;padding:4px 2px;">Avisa'ns</a>.
+      T'ho agrairem, i el teu progrés no canvia.
       <div id="report-adreca" hidden style="margin-top:4px;">Si no se t'ha obert el correu, escriu a <strong>${CORREU_CORRECCIONS}</strong> amb el codi <strong>${escText(codi)}</strong>.</div>
     </div>`;
 }
