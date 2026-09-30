@@ -1530,52 +1530,24 @@ function renderTheorySection(s) {
     </div>`;
 }
 
-// ══ TEORIA OBLIGATÒRIA (A2/B1) ══
-let _pendingStart = null;
-function hasSeenTheory(cat) { return localStorage.getItem('cat_th_' + cat) === '1'; }
-function markTheorySeen(cat) { localStorage.setItem('cat_th_' + cat, '1'); }
-function continuePendingSession() { if (_pendingStart) { _pendingStart(); _pendingStart = null; } }
-
-// `enrere` és l'onclick de «← Tornar». Per defecte, la pantalla del nivell; des de
-// la sessió d'avui, l'Inici, que és d'on s'ha vingut (la sessió queda desada).
-function showMandatoryTheory(level, cat, onContinue, enrere = `renderLevelMenu('${level}')`) {
-  const th = THEORY[cat];
-  if (!th) { onContinue(); return; }
-  markTheorySeen(cat);
-  _pendingStart = onContinue;
-  const sectionsHTML = (th.sections || []).map(renderTheorySection).join('');
-  window.scrollTo(0, 0);
-  document.getElementById('ct-body').innerHTML = `
-    <div style="max-width:640px;margin:0 auto;">
-      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="${enrere}">← Tornar</button>
-      <div class="th-hero">
-        <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
-        <div class="th-hero-title">${th.icon} ${cat}</div>
-        <div class="th-hero-sub">${th.subtitle || ''}</div>
-      </div>
-      ${sectionsHTML}
-      <button class="ct-btn primary" style="width:100%;margin-top:24px;font-size:16px;padding:16px;" onclick="continuePendingSession()">Ho he entès — Comencem els exercicis →</button>
-    </div>`;
-}
-
 // ══ SESSIONS ══
+// Sense teoria obligatòria abans dels exercicis (tampoc a l'A2 i el B1, ni a la
+// sessió d'avui): decisió de l'usuari, 28/09/2026. Una persona nova es va espantar
+// veient «tot teoria» i va plegar sense fer cap exercici, i un terç dels comptes
+// nous no en fa cap. La teoria és a la pantalla del tema i a l'exercici, per a qui la vulgui.
 function startAllSession(level) {
   currentSession = { items: withVariantsIfPracticed(sortBySRS(DATA[level])), idx:0, correct:0, level, returnTo: level };
   renderExercise();
 }
 function startCategorySession(level, cat) {
   const items = withVariantsIfPracticed(sortBySRS(DATA[level].filter(q => q.category === cat)));
-  const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
-  if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
-    showMandatoryTheory(level, cat, doStart);
-  } else { doStart(); }
+  currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat };
+  renderExercise();
 }
 function startCategoryType(level, cat, type) {
   const items = withVariantsIfPracticed(DATA[level].filter(q => q.category === cat && q.type === type));
-  const doStart = () => { currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat }; renderExercise(); };
-  if ((level === 'a2' || level === 'b1') && !hasSeenTheory(cat)) {
-    showMandatoryTheory(level, cat, doStart);
-  } else { doStart(); }
+  currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat };
+  renderExercise();
 }
 
 // ══ REPÀS SRS ══
@@ -1737,9 +1709,6 @@ function renderExercise() {
   const pct = Math.round(idx / items.length * 100);
   currentSession.answered = false;
   saveActiveSession();
-  // Després de desar: si es torna enrere des de la teoria, la sessió es reprèn aquí.
-  const teoria = teoriaAbansDelNou(idx);
-  if (teoria) return showMandatoryTheory(teoria.level, teoria.cat, renderExercise, "showTab('menu')");
 
   let body = '';
   if (q.type==='choice') body = renderChoice(q);
@@ -2603,17 +2572,6 @@ function sessioDelRecorregut(items) {
   if (!dc || !dc.recorregut || dc.date !== new Date().toDateString()) return null;
   const ids = (items || []).map(q => q.id);
   return ids.length && ids.every(id => dc.ids.includes(id)) ? dc : null;
-}
-// Abans del primer exercici nou, la teoria del tema si és la primera vegada que s'hi
-// entra (cap exercici del tema tocat i teoria no vista). A tots els nivells: a la
-// sessió, el tema no l'ha triat la persona i no ha passat per la seva pantalla.
-function teoriaAbansDelNou(idx) {
-  const dc = sessioDelRecorregut(currentSession.items);
-  if (!dc || !(dc.nous || []).length || currentSession.items[idx].id !== dc.nous[0]) return null;
-  const q = findExerciseById(dc.nous[0]);
-  if (!q || !THEORY[q.category] || hasSeenTheory(q.category)) return null;
-  const tocat = DATA[q.level].some(x => x.category === q.category && getMastery(x.id) > 0);
-  return tocat ? null : { level: q.level, cat: q.category };
 }
 
 function startDailySession() {
@@ -4475,7 +4433,7 @@ function renderHelp() {
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Repte diari</span></summary>
         <div class="ct-acc-body">
           Cada dia hi ha un <strong>repte diari</strong>. Si l'encertes sencer, guanyes <strong>+50 XP extra</strong>; el que falles el pots tornar a provar el mateix dia.<br><br>
-          Si segueixes un <strong>recorregut</strong>, el repte és la teva <strong>sessió d'avui</strong>: fins a <strong>3 repassos</strong> que et toquen (primer els del recorregut) i <strong>2 exercicis nous</strong> del tema on ets. Si és la primera vegada que hi entres, abans et surt la teoria.<br><br>
+          Si segueixes un <strong>recorregut</strong>, el repte és la teva <strong>sessió d'avui</strong>: fins a <strong>3 repassos</strong> que et toquen (primer els del recorregut) i <strong>2 exercicis nous</strong> del tema on ets.<br><br>
           Si vas per lliure, són 3 exercicis dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1), sense el mòdul <strong>Novetats IEC</strong>, i s'eviten els que t'han sortit als reptes de l'última setmana.<br><br>
           El recorregut que segueixes és el que tries en començar, o l'últim on prems <strong>Continua</strong> a la pantalla d'un nivell.<br><br>
           El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
