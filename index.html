@@ -1435,20 +1435,20 @@ function openCategory(level, cat) {
   const th = THEORY[cat];
   const exercises = DATA[level].filter(q => q.category === cat);
 
-  let theoryHTML = '';
-  if (th) {
-    theoryHTML = `
+  // Primer els exercicis i la teoria plegada a sota, per a qui la vulgui: decisió de
+  // l'usuari (28/09). Amb la teoria sencera a dalt, una persona nova va creure que
+  // l'app era «tot teoria» i va plegar sense fer cap exercici.
+  const heroHTML = th ? `
       <div class="th-hero">
         <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
         <div class="th-hero-title">${th.icon} ${cat}</div>
         <div class="th-hero-sub">${th.subtitle}</div>
-      </div>
-      ${th.sections.map(s => renderTheorySection(s)).join('')}
-      <div style="max-width:640px;margin:0 auto 8px;">
-        <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--heading);margin:8px 0 4px;padding:0 4px;">Ara practica</div>
-        <p style="font-size:13px;color:var(--muted);padding:0 4px;margin-bottom:12px;">Posa en pràctica el que has après amb ${exercises.length} exercici${exercises.length>1?'s':''}.</p>
-      </div>`;
-  }
+      </div>` : '';
+  const theoryHTML = th ? `
+      <details id="teoria-tema" style="max-width:640px;margin:20px auto 0;">
+        <summary class="ct-btn secondary" style="display:block;width:100%;text-align:center;cursor:pointer;">📖 Llegeix la teoria del tema</summary>
+        <div style="margin-top:14px;">${th.sections.map(s => renderTheorySection(s)).join('')}</div>
+      </details>` : '';
 
   const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
   const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió'};
@@ -1486,11 +1486,12 @@ function openCategory(level, cat) {
     <div style="max-width:640px;margin:0 auto 8px;padding:0 0 4px;">
       <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
     </div>
-    ${theoryHTML}
+    ${heroHTML}
     <div style="max-width:640px;margin:0 auto;">
+      <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startCategorySession('${level}','${cat.replace(/'/g,"\\'")}')">▶ Fer tots els exercicis d'aquest tema (${exercises.length})</button>
       <div class="ct-grid">${exCards}</div>
-      <button class="ct-btn primary" style="width:100%;margin-top:16px;" onclick="startCategorySession('${level}','${cat.replace(/'/g,"\\'")}')">▶ Fer tots els exercicis d'aquest tema</button>
-    </div>`;
+    </div>
+    ${theoryHTML}`;
 }
 
 function renderTheorySection(s) {
