@@ -2021,9 +2021,9 @@ function mostraCorreccioDubtosa(q, resposta, bona) {
   el.innerHTML = `<div style="margin-top:14px;text-align:center;font-size:12px;line-height:1.5;color:var(--muted);">
       Creus que la teva resposta era bona?
       <a href="${href}" onclick="document.getElementById('report-adreca').hidden = false"
-        style="color:var(--muted);text-decoration:underline;padding:4px 2px;">Avisa'ns</a>.
+        style="color:var(--muted);text-decoration:underline;padding:4px 0;">Avisa'ns</a>.
       T'ho agrairem, i el teu progrés no canvia.
-      <div id="report-adreca" hidden style="margin-top:4px;">Si no se t'ha obert el correu, escriu a <strong>${CORREU_CORRECCIONS}</strong> amb el codi <strong>${escText(codi)}</strong>.</div>
+      <div id="report-adreca" hidden style="margin-top:4px;">Si no se t'ha obert el correu, escriu a <strong>${CORREU_CORRECCIONS}</strong> amb el codi <strong style="white-space:nowrap;">${escText(codi)}</strong>.</div>
     </div>`;
 }
 
