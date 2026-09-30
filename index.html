@@ -3963,10 +3963,15 @@ function renderOnboarding() {
   render();
 }
 
+// De la tria, directament a exercitar-se: la sessió d'avui del recorregut triat
+// (qui comença hi troba els 2 primers exercicis del primer tema i un més del
+// mateix nivell). Decisió de l'usuari (28/09): abans anava a la pantalla del nivell,
+// després a la del tema i encara a la teoria, abans del primer exercici.
+// «Vaig per lliure», a l'Inici.
 function onbTriaRecorregut(id) {
   triaRecorregut(id);
   finishOnboarding();
-  if (id) showTab(id);
+  if (id) startDailySession();
 }
 
 function finishOnboarding() {
