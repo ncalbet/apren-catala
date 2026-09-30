@@ -1728,8 +1728,9 @@ function renderExercise() {
           <div>
             <span class="ct-badge ${q.level||'b2'}">${(q.level||'b2').toUpperCase()}</span>
             <span style="font-size:11px;color:var(--muted);margin-left:6px;">${q.category}</span>
+            ${THEORY[q.category] ? `<button type="button" onclick="obreTeoriaTema()" style="background:none;border:1px solid var(--border);border-radius:10px;padding:1px 8px;margin-left:6px;font-size:11px;color:var(--muted);cursor:pointer;">📖 Teoria</button>` : ''}
           </div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);" title="El teu domini d'aquest exercici (de 0 a 5). Puja quan l'encertes i baixa si falles.">
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0;" title="El teu domini d'aquest exercici (de 0 a 5). Puja quan l'encertes i baixa si falles.">
             Domini ${getMastery(q.id)}/5 ${masteryHTML(q.id)}
           </div>
         </div>
@@ -1842,7 +1843,7 @@ function checkChoice(selected) {
   opts[selected].classList.add(isOk?'correct':'wrong');
   if (!isOk) opts[correct].classList.add('correct');
   const q = currentSession.items[currentSession.idx];
-  showTheory(q);
+  showTheory(q, isOk);
   if (!isOk) mostraCorreccioDubtosa(q, q.options[currentSession.optOrder[selected]], q.options[q.correct]);
   markDone(isOk, 10);
 }
@@ -1896,7 +1897,7 @@ function checkFill() {
     : quasi
       ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
-  showTheory(q);
+  showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, input.value, q.answers.join(' / '));
   markDone(ok, 10);
 }
@@ -1945,17 +1946,44 @@ function checkReorder() {
   document.getElementById('feedback-area').innerHTML = ok
     ? `<div class="ct-feedback ok">✓ Ordre perfecte!</div>`
     : `<div class="ct-feedback ko">✗ L'ordre correcte és:<br><ol style="margin-top:8px;padding-left:18px;line-height:1.8;">${mainOrder.map(p=>`<li>${p}</li>`).join('')}</ol></div>`;
-  showTheory(q);
+  showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, cur.join(' / '), mainOrder.join(' / '));
   markDone(ok, 15);
 }
 
-function showTheory(q) {
+function showTheory(q, ok = true) {
+  // Després d'un error, la teoria sencera del tema a un toc (exercicis primer, 4/4).
+  const teoria = !ok && THEORY[q.category]
+    ? `<div style="margin-top:10px;"><button type="button" onclick="obreTeoriaTema()" style="background:none;border:none;padding:4px 0;font:inherit;font-weight:600;color:inherit;text-decoration:underline;cursor:pointer;">📖 Mira la teoria del tema</button></div>`
+    : '';
   document.getElementById('theory-area').innerHTML = `
     <div class="ct-theory">
       <strong>Nota gramatical:</strong> ${q.theory}<br><br>
-      <strong>Exemple:</strong> <em>${q.example||q.sample||''}</em>
+      <strong>Exemple:</strong> <em>${q.example||q.sample||''}</em>${teoria}
     </div>`;
+}
+
+// La teoria del tema de l'exercici, en una finestra per sobre: en tancar-la,
+// l'exercici continua tal com era, també si ja s'ha respost. Des de la capçalera
+// de l'exercici («📖 Teoria») i després d'un error. Decisió de l'usuari (28/09):
+// la teoria, per a qui la vulgui, quan la vulgui.
+function obreTeoriaTema() {
+  const q = currentSession && currentSession.items[currentSession.idx];
+  const th = q && THEORY[q.category];
+  if (!th) return;
+  document.getElementById('teoria-modal')?.remove();
+  const el = document.createElement('div');
+  el.className = 'ct-modal-overlay';
+  el.id = 'teoria-modal';
+  el.innerHTML = `<div style="background:var(--bg);border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">
+        <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);line-height:1.25;">${th.icon} ${q.category}</div>
+        <button type="button" class="ct-btn secondary" style="padding:6px 12px;font-size:13px;flex-shrink:0;" onclick="document.getElementById('teoria-modal').remove()">Tanca</button>
+      </div>
+      ${(th.sections || []).map(renderTheorySection).join('')}
+      <button type="button" class="ct-btn primary" style="width:100%;margin-top:8px;" onclick="document.getElementById('teoria-modal').remove()">Torna a l'exercici</button>
+    </div>`;
+  document.body.appendChild(el);
 }
 
 // ══ CORRECCIÓ DUBTOSA ══
