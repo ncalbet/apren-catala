@@ -635,6 +635,18 @@ let CORRECCIO_DUBTOSA_ACTIVA = null;
 function correccioDubtosaActiva(ms = Date.now()) {
   return CORRECCIO_DUBTOSA_ACTIVA ?? diaMadrid(ms) >= CORRECCIO_DUBTOSA_DES_DE;
 }
+// El compte, al final de la primera sessió i no a l'entrada (tanda 2 del pla de
+// retenció; disseny a Catala/disseny-compte-final-sessio.md). Un terç dels comptes
+// nous no feia cap exercici: la primera pantalla demanava un compte abans que la
+// persona sabés què fa l'app. S'encén sol el dilluns 12/10/2026, dia de Madrid
+// (decisió de l'usuari: el recompte d'aquell matí compta fins al diumenge).
+// COMPTE_AL_FINAL = false ho torna tot com abans (pantalla de compte a l'entrada,
+// cap targeta al final); null = segons la data. «let» per les proves.
+const COMPTE_AL_FINAL_DES_DE = 20261012;
+let COMPTE_AL_FINAL = null;
+function compteAlFinal(ms = Date.now()) {
+  return COMPTE_AL_FINAL ?? diaMadrid(ms) >= COMPTE_AL_FINAL_DES_DE;
+}
 
 // ══ RECORREGUTS ══
 // Cada nivell és també un recorregut: les seves categories, agrupades en etapes i
@@ -4070,6 +4082,13 @@ function showAuthSplash() {
   document.body.appendChild(overlay);
 }
 
+// Què veu qui obre l'app: l'Inici, l'acollida o, si el compte no va al final de la
+// sessió (compteAlFinal), la pantalla de compte abans de l'acollida.
+function pantallaInicial() {
+  if (!shouldShowOnboarding()) return 'inici';
+  return !compteAlFinal() && !localStorage.getItem(AUTH_SPLASH_KEY) ? 'compte' : 'acollida';
+}
+
 function authSplashDismiss() {
   localStorage.setItem(AUTH_SPLASH_KEY, '1');
   const el = document.getElementById('auth-splash-overlay');
@@ -4326,8 +4345,9 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
 } else {
   updateHeader();
   updateThemeIcon();
-  if (shouldShowOnboarding() && !localStorage.getItem(AUTH_SPLASH_KEY)) showAuthSplash();
-  else if (shouldShowOnboarding()) renderOnboarding();
+  const inicial = pantallaInicial();
+  if (inicial === 'compte') showAuthSplash();
+  else if (inicial === 'acollida') renderOnboarding();
   else renderMenu();
   // El modal de novetats també es dispara des de «fb-auth-change», però si Firebase
   // no carrega (offline, bloquejat) aquell esdeveniment no arriba mai. El cridem
