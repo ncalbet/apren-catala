@@ -627,10 +627,14 @@ const NOVETATS_BANNER_ACTIU = false;
 // (AQUÍ DALT pel mateix motiu que els de Ko-fi: renderMenu() el llegeix en arrencar.)
 let AVIS_RECORREGUTS_ACTIU = false;
 // L'enllaç «Creus que la teva resposta era bona? Avisa'ns» de després d'un error
-// (mostraCorreccioDubtosa). APAGAT fins a la tanda 2 del pla de retenció (dc 14/10),
-// decisió de l'usuari el 30/09: el codi pot pujar abans amb altres canvis, però
-// l'enllaç no ha de sortir. Per encendre'l: true + bump. «let» per les proves.
-let CORRECCIO_DUBTOSA_ACTIVA = false;
+// (mostraCorreccioDubtosa). S'encén sol el dilluns 5/10/2026, dia de Madrid: decisió
+// de l'usuari el 2/10, que l'avança del 14/10. Abans d'aquell dia no surt.
+// CORRECCIO_DUBTOSA_ACTIVA el força (true/false); null = segons la data. «let» per les proves.
+const CORRECCIO_DUBTOSA_DES_DE = 20261005;
+let CORRECCIO_DUBTOSA_ACTIVA = null;
+function correccioDubtosaActiva(ms = Date.now()) {
+  return CORRECCIO_DUBTOSA_ACTIVA ?? diaMadrid(ms) >= CORRECCIO_DUBTOSA_DES_DE;
+}
 
 // ══ RECORREGUTS ══
 // Cada nivell és també un recorregut: les seves categories, agrupades en etapes i
@@ -2000,7 +2004,7 @@ function textPla(t) {
 }
 function mostraCorreccioDubtosa(q, resposta, bona) {
   const el = document.getElementById('report-area');
-  if (!el || !CORRECCIO_DUBTOSA_ACTIVA) return;
+  if (!el || !correccioDubtosaActiva()) return;
   const codi = q.id + (q._variant ? `#v${q._variant}` : '');
   const retalla = t => t.length > 300 ? t.slice(0, 300) + '…' : t;
   const frase = q.type === 'reading' ? '' : textPla(q.sentence || q.text);   // la lectura, sencera, no hi cap
