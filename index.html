@@ -3994,6 +3994,7 @@ function renderOnboarding() {
         <button class="ct-btn primary" id="onb-next" style="width:100%;font-size:15px;padding:13px;">
           ${isLast ? 'Comencem! 🚀' : 'Següent →'}
         </button>
+        ${compteAlFinal() && !window.fbUser ? compteBenvingudaHTML() : ''}
       </div>`;
 
     const existing = document.getElementById('onboarding-overlay');
@@ -4019,6 +4020,47 @@ function onbTriaRecorregut(id) {
   finishOnboarding();
   if (id) startDailySession();
 }
+
+// «Ja tens compte? Inicia sessió» a la benvinguda, per a qui estrena mòbil (amb el
+// compte al final de la sessió, ja no hi ha pantalla de compte a l'entrada). Els
+// botons surten en tocar l'enllaç: si hi fossin sempre, la benvinguda tornaria a ser
+// una pantalla de compte (decisió de l'usuari, 02/10). En entrar, cap a l'Inici: ja
+// coneix l'app, i si al núvol té més XP, el diàleg de sempre li ofereix carregar-lo.
+function compteBenvingudaHTML() {
+  return `
+        <button type="button" id="onb-compte-enllac" onclick="onbCompteMostra(true)" style="background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:8px;margin-top:12px;">Ja tens compte? Inicia sessió</button>
+        <div id="onb-compte-botons" hidden style="margin-top:14px;">
+          <button type="button" id="onb-compte-google" class="ct-btn secondary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 8px;" onclick="onbCompteGoogle()">${_googleSVG} Continua amb Google</button>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteCorreu()">Amb correu</button>
+            <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteMostra(false)">Ara no</button>
+          </div>
+          <div id="onb-compte-error" style="font-size:13px;color:var(--danger);margin-top:8px;"></div>
+        </div>`;
+}
+function onbCompteMostra(si) {
+  const enllac = document.getElementById('onb-compte-enllac');
+  const botons = document.getElementById('onb-compte-botons');
+  if (enllac) enllac.hidden = si;
+  if (botons) botons.hidden = !si;
+}
+async function onbCompteGoogle() {
+  const error = document.getElementById('onb-compte-error');
+  if (!window.fbSignIn) { if (error) error.textContent = 'Carregant Firebase, espera un moment...'; return; }
+  const btn = document.getElementById('onb-compte-google');
+  if (btn) btn.disabled = true;
+  try {
+    await window.fbSignIn();
+    finishOnboarding();
+  } catch (e) {
+    if (btn) btn.disabled = false;
+    if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
+    if (error) error.textContent = e.code === 'auth/account-exists-with-different-credential'
+      ? 'Aquest compte és de correu i contrasenya: entra-hi amb «Amb correu».'
+      : 'Error en iniciar sessió amb Google.';
+  }
+}
+function onbCompteCorreu() { showEmailAuthModal('login', finishOnboarding); }
 
 function finishOnboarding() {
   localStorage.setItem(ONBOARDING_KEY, '1');
