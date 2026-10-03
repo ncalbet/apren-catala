@@ -2268,6 +2268,7 @@ function renderSummary() {
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
         💡 <strong>Exercicis fets</strong> ✅ vol dir que ja els has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaiada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
       </div>
+      ${targetaCompteHTML()}
       ${preguntaRecordatoriHTML(items)}
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
@@ -2296,6 +2297,7 @@ function renderSummaryRecorregut(dc) {
       <p style="color:var(--muted);font-size:13px;line-height:1.5;margin:12px 0 20px;">${fet
         ? 'Has guanyat els +50 XP del repte. Els repassos tornaran quan els toqui.'
         : 'Per completar el repte i guanyar els +50 XP, cal encertar-los tots. Pots tornar a provar els que falten ara; si no, els fallats tornaran al repàs.'}</p>
+      ${targetaCompteHTML()}
       ${preguntaRecordatoriHTML(window._lastSession.items || [])}
       ${fet ? '' : `<button class="ct-btn primary" style="width:100%;" onclick="repeteixPendentsDelRepte()">Torna a provar els que falten (${dc.ids.length - dc.completed.length})</button>`}
       ${seg ? `<button class="ct-btn ${fet ? 'primary' : 'secondary'}" style="width:100%;margin-top:8px;" onclick="continuaRecorregut('${r.id}')">▶ Continua practicant el recorregut</button>` : ''}
@@ -4215,8 +4217,12 @@ async function fbForgotPassword(emailId, showErr) {
   }
 }
 
-function showEmailAuthModal() {
+// `mode`: 'register' (alta) o 'login' (entrar). `despres`: què fer quan s'ha entrat
+// (la targeta del final de la sessió i la benvinguda en continuen el camí).
+let _modalAuthDespres = null;
+function showEmailAuthModal(mode = 'register', despres = null) {
   _modalAuthMode = 'register';
+  _modalAuthDespres = despres;
   const overlay = document.createElement('div');
   overlay.id = 'email-auth-modal';
   overlay.className = 'ct-modal-overlay';
@@ -4238,6 +4244,7 @@ function showEmailAuthModal() {
     <p style="font-size:11.5px;color:var(--muted);margin-top:12px;margin-bottom:0;line-height:1.5;text-align:center;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">política de privacitat</a>.</p>
   </div>`;
   document.body.appendChild(overlay);
+  if (mode === 'login') modalToggleAuthMode();
 }
 
 async function modalAuthSubmit() {
@@ -4250,6 +4257,9 @@ async function modalAuthSubmit() {
     if (_modalAuthMode === 'register') await window.fbRegisterEmail(email, password);
     else await window.fbSignInEmail(email, password);
     document.getElementById('email-auth-modal')?.remove();
+    const despres = _modalAuthDespres;
+    _modalAuthDespres = null;
+    if (despres) despres();
   } catch (e) {
     if (btn) { btn.disabled = false; btn.textContent = _modalAuthMode === 'register' ? "Registra't" : 'Inicia sessió'; }
     modalAuthError(fbErrorMessage(e.code));
@@ -4804,6 +4814,85 @@ async function activaRecordatoris() {
     });
   }
   return result;
+}
+
+// ── El compte, al final de la sessió (tanda 2) ──
+// A qui no té compte, en acabar la primera sessió: «Desa el que has fet avui». Si no
+// el fa, torna a sortir el 3r dia de pràctica i el 7è, i prou (decisió de l'usuari,
+// 02/10); el Perfil l'ofereix sempre. Es compten les vegades que ha sortit, no els
+// «Ara no»: qui la deixa passar també ha dit que ara no. Com a molt un cop al dia.
+// Només a qui no ha vist mai la pantalla de compte de l'entrada (tothom d'abans del
+// 12/10 l'hi ha vista). Si el fa, al mateix lloc surt la pregunta dels recordatoris,
+// que sense compte no es podien activar.
+const COMPTE_FINAL_DIES = [1, 3, 7];              // dies de pràctica en què surt
+const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: vegades que ha sortit, dia }
+
+function estatCompteFinal() {
+  try { return JSON.parse(localStorage.getItem(COMPTE_FINAL_KEY)) || { n: 0, dia: null }; }
+  catch (e) { return { n: 0, dia: null }; }
+}
+function tocaTargetaCompte() {
+  // fbUser és null quan Firebase diu «sense sessió»; undefined, si encara no ho sap
+  // (o no ha carregat): llavors no s'ofereix, perquè no es podria fer.
+  if (!compteAlFinal() || window.fbUser !== null || localStorage.getItem(AUTH_SPLASH_KEY)) return false;
+  const st = estatCompteFinal();
+  const dies = (progress.practiceHistory || []).length;
+  return st.n < COMPTE_FINAL_DIES.length && dies >= COMPTE_FINAL_DIES[st.n] && st.dia !== diaLocal();
+}
+function targetaCompteHTML() {
+  if (!tocaTargetaCompte()) return '';
+  localStorage.setItem(COMPTE_FINAL_KEY, JSON.stringify({ n: estatCompteFinal().n + 1, dia: diaLocal() }));
+  const xp = progress.xp || 0;
+  const text = xp > 0
+    ? `Desa el que has fet avui: amb un compte gratuït no perds els ${formatXP(xp)} XP.`
+    : 'Desa el que has fet avui: amb un compte gratuït no ho perds.';
+  return `
+      <div id="compte-final"><div style="background:var(--accent-blue-bg);border-left:3px solid var(--accent-blue-text);border-radius:10px;padding:12px 14px;margin-bottom:20px;text-align:left;">
+        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);line-height:1.4;">${text}</div>
+        <button id="compte-final-google" class="ct-btn secondary" style="width:100%;font-size:13px;padding:8px 14px;margin:10px 0 0;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="compteFinalGoogle()">${_googleSVG} Continua amb Google</button>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="compteFinalCorreu()">Amb correu</button>
+          <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="document.getElementById('compte-final').innerHTML = ''">Ara no</button>
+        </div>
+        <div id="compte-final-error" style="font-size:12.5px;color:var(--danger);margin-top:6px;"></div>
+        <p style="font-size:11.5px;color:var(--accent-blue-text);margin:6px 0 0;line-height:1.5;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:inherit;">política de privacitat</a>.</p>
+      </div></div>`;
+}
+async function compteFinalGoogle() {
+  const error = document.getElementById('compte-final-error');
+  if (!window.fbSignIn) { if (error) error.textContent = 'Carregant Firebase, espera un moment...'; return; }
+  const btn = document.getElementById('compte-final-google');
+  if (btn) btn.disabled = true;
+  try {
+    await window.fbSignIn();
+    await compteFinalFet();
+  } catch (e) {
+    if (btn) btn.disabled = false;
+    if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
+    if (error) error.textContent = e.code === 'auth/account-exists-with-different-credential'
+      ? 'Ja tens un compte amb aquest correu: entra-hi amb «Amb correu».'
+      : 'Error en iniciar sessió amb Google.';
+  }
+}
+function compteFinalCorreu() { showEmailAuthModal('register', compteFinalFet); }
+// Amb el compte fet, al lloc de la targeta, la pregunta dels recordatoris; si no
+// toca, que el progrés ja és desat.
+async function compteFinalFet() {
+  await esperaSessio();
+  const el = document.getElementById('compte-final');
+  if (!el) return;
+  el.innerHTML = preguntaRecordatoriHTML((window._lastSession || {}).items || [])
+    || `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:13px;font-weight:600;text-align:left;">✓ Fet! El que has practicat queda desat al teu compte.</div>`;
+}
+// fbSignIn es resol abans o després que Firebase avisi de la sessió (fb-auth-change):
+// s'espera l'avís, com a molt 5 s.
+function esperaSessio(maxMs = 5000) {
+  if (window.fbUser) return Promise.resolve(true);
+  return new Promise(resol => {
+    const quan = e => { if (e.detail) { document.removeEventListener('fb-auth-change', quan); resol(true); } };
+    document.addEventListener('fb-auth-change', quan);
+    setTimeout(() => { document.removeEventListener('fb-auth-change', quan); resol(!!window.fbUser); }, maxMs);
+  });
 }
 
 // ── La pregunta dels recordatoris al final de la sessió ──
