@@ -2692,7 +2692,9 @@ function render7DayHistory() {
 
 function renderDailyChallengeSection() {
   const dc = getDailyChallenge();
-  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1];
+  // Amb l'IEC: amb el seu recorregut, el repte en surt sencer, i sense ell no se'n
+  // trobava cap exercici i deia «Repte completat!» sense haver-lo fet.
+  const all = [...(DATA.a2||[]), ...(DATA.b1||[]), ...DATA.b2, ...DATA.c1, ...(DATA.iec||[])];
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   const nDone = dc.completed.length;
   const allDone = nDone === items.length;
