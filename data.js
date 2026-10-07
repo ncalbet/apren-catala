@@ -1,4 +1,770 @@
 ﻿const THEORY = {
+  // ── NIVELL A1 ──────────────────────────────────────────────
+
+  'Salutacions': {
+    level: 'a1',
+    icon: '👋',
+    subtitle: 'Comença i acaba una conversa curta amb expressions de cortesia.',
+    sections: [
+      {
+        title: 'Què pots dir?',
+        icon: '📊',
+        body: "<p>«Fins demà» anuncia que us veureu l'endemà. «Fins aviat» no concreta el dia.</p>",
+        table: {
+          headers: ['Situació','Expressió','Resposta possible'],
+          rows: [
+            ['Arribes i saludes','Hola!','Hola!'],
+            ['Entres al matí','Bon dia!','Bon dia!'],
+            ['Saludes a la tarda','Bona tarda!','Bona tarda!'],
+            ["Saludes de nit o te'n vas a dormir",'Bona nit!','Bona nit!'],
+            ['Marxes','Adeu!','Adeu!'],
+            ["Us veureu l'endemà",'Fins demà!','Fins demà!'],
+          ]
+        }
+      },
+      {
+        title: 'Pregunta com es troba una persona',
+        icon: '📊',
+        table: {
+          headers: ['Pregunta','Resposta','Per continuar'],
+          rows: [
+            ['Com estàs?','Bé, gràcies.','I tu?'],
+            ['Com estàs?','Així, així.','Avui necessito descansar.'],
+            ['Com estàs?','No gaire bé.','Em fa mal el cap.'],
+          ]
+        }
+      },
+      {
+        title: 'Una petició i un agraïment',
+        icon: '📌',
+        body: "<p>Demana amb «si us plau» o «per favor». Agraeix amb «gràcies» i respon amb «de res». Per cridar l'atenció o disculpar-te, pots dir «perdona».</p>"
+      },
+      {
+        title: 'Una conversa possible',
+        icon: '💬',
+        examples: [
+          { text: '—Hola! Com estàs? —Bé, gràcies. I tu?' },
+          { text: '—Em deixes un bolígraf, si us plau? —Sí. —Gràcies! —De res.' },
+          { text: '—Adeu! Fins dilluns. —Bon cap de setmana!' },
+        ]
+      },
+    ]
+  },
+
+  'Demana ajuda': {
+    level: 'a1',
+    icon: '🙋',
+    subtitle: "Demana una repetició, reconeix les instruccions de l'app i lletreja un nom.",
+    sections: [
+      {
+        title: "Tria l'ajuda que necessites",
+        icon: '📊',
+        body: '<p>Si no comprens una informació, pots dir «No ho entenc».</p>',
+        table: {
+          headers: ['Necessites…','Pots preguntar…'],
+          rows: [
+            ['Tornar a sentir la informació','Pots repetir-ho?'],
+            ['Un ritme més lent','Més a poc a poc, si us plau.'],
+            ['Saber el significat','Què vol dir aquesta paraula?'],
+            ['Saber la forma escrita',"Com s'escriu?"],
+            ['Saber una paraula en català','Com es diu això en català?'],
+          ]
+        }
+      },
+      {
+        title: 'Instruccions que trobaràs',
+        icon: '📊',
+        table: {
+          headers: ['Instrucció','Què has de fer'],
+          rows: [
+            ['Tria','Escull una resposta.'],
+            ['Completa','Escriu el que falta.'],
+            ['Ordena','Posa els fragments en un ordre que tingui sentit.'],
+            ['Llegeix',"Mira el text per entendre'l."],
+          ]
+        }
+      },
+      {
+        title: 'Lletres i noms',
+        icon: '📊',
+        body: '<p>Lletrejar és dir les lletres una per una: «Ona: o, ena, a». Consulta la taula quan ho necessitis.</p>',
+        table: {
+          headers: ['Lletra','Nom','Lletra','Nom'],
+          rows: [
+            ['a','a','n','ena'],
+            ['b','be','o','o'],
+            ['c','ce','p','pe'],
+            ['d','de','q','cu'],
+            ['e','e','r','erra'],
+            ['f','efa','s','essa'],
+            ['g','ge','t','te'],
+            ['h','hac','u','u'],
+            ['i','i','v','ve baixa'],
+            ['j','jota','w','ve doble'],
+            ['k','ca','x','ics'],
+            ['l','ela','y','i grega'],
+            ['m','ema','z','zeta'],
+          ]
+        }
+      },
+      {
+        title: 'Demana i confirma',
+        icon: '💬',
+        examples: [
+          { text: "—Com s'escriu el teu nom? —Ona: o, ena, a." },
+          { text: '—Què vol dir «adeu»? —És una paraula per acomiadar-se.' },
+          { text: '—Has dit «dimarts»? —Sí, dimarts.' },
+        ]
+      },
+    ]
+  },
+
+  'Presentacions': {
+    level: 'a1',
+    icon: '📛',
+    subtitle: "Explica qui ets, d'on ets, on vius i quines llengües parles.",
+    sections: [
+      {
+        title: 'Pregunta i resposta',
+        icon: '📊',
+        body: "<p>«Soc de» indica d'on ets; «visc a», on vius. Pots practicar amb dades inventades.</p>",
+        table: {
+          headers: ['Pregunta','Resposta possible'],
+          rows: [
+            ['Com et dius?','Em dic Dàlia.'],
+            ["D'on ets?",'Soc de Tortosa.'],
+            ['On vius?','Visc a Manresa.'],
+            ['Quants anys tens?','Tinc trenta anys.'],
+            ['Quines llengües parles?','Parlo català i italià.'],
+            ['De què treballes?','Treballo de cuinera.'],
+          ]
+        }
+      },
+      {
+        title: 'Formes útils en present',
+        icon: '📊',
+        body: "<p>Amb l'edat diem «tenir»: «tinc vint anys».</p>",
+        table: {
+          headers: ['Persona','Dir-se','Ser','Viure','Tenir'],
+          rows: [
+            ['jo','em dic','soc','visc','tinc'],
+            ['tu','et dius','ets','vius','tens'],
+            ['ell / ella','es diu','és','viu','té'],
+          ]
+        }
+      },
+      {
+        title: "De, d' i a",
+        icon: '📌',
+        body: "<p>«Soc de Lleida», «soc d'Amposta» i «visc a Lleida». Aprèn aquestes expressions amb el nom del lloc.</p>"
+      },
+      {
+        title: 'Llegir un formulari',
+        icon: '📊',
+        table: {
+          headers: ['Camp','Informació que demana','Exemple'],
+          rows: [
+            ['Nom','Nom de la persona','Dàlia'],
+            ['Cognoms','Cognoms de la persona','Serra Pont'],
+            ['Edat','Anys que té','30'],
+            ['Adreça','Carrer, número i altres dades del domicili','carrer de la Font, 12'],
+            ['Correu electrònic','Adreça per rebre missatges','dalia@example.org'],
+          ]
+        }
+      },
+      {
+        title: 'Primer repertori de nombres',
+        icon: '📊',
+        table: {
+          headers: ['Xifra','Paraula','Xifra','Paraula'],
+          rows: [
+            ['0','zero','6','sis'],
+            ['1','u','7','set'],
+            ['2','dos','8','vuit'],
+            ['3','tres','9','nou'],
+            ['4','quatre','10','deu'],
+            ['5','cinc','20','vint'],
+          ]
+        }
+      },
+    ]
+  },
+
+  'Persones properes': {
+    level: 'a1',
+    icon: '👪',
+    subtitle: 'Parla de relacions, roba i trets senzills; fes concordar les paraules.',
+    sections: [
+      {
+        title: 'Paraules per a les relacions',
+        icon: '📊',
+        table: {
+          headers: ['Relació','Exemple'],
+          rows: [
+            ['pare / mare','La meva mare es diu Sílvia.'],
+            ['germà / germana','Tinc una germana.'],
+            ['fill / filla','El seu fill té deu anys.'],
+            ['avi / àvia','La seva àvia viu a prop.'],
+            ['amic / amiga','Aquest és el meu amic.'],
+            ['parella','Aquesta és la meva parella.'],
+          ]
+        }
+      },
+      {
+        title: 'Els possessius canvien amb el nom',
+        icon: '📊',
+        body: '<p>També són vàlides «meua/meues», «teua/teues» i «seua/seues». El possessiu canvia amb la cosa: «el meu llibre», «les meves bosses».</p>',
+        table: {
+          headers: ['Persona de referència','Masculí singular','Femení singular','Plural'],
+          rows: [
+            ['jo','el meu llibre','la meva bossa','els meus llibres / les meves bosses'],
+            ['tu','el teu llibre','la teva bossa','els teus llibres / les teves bosses'],
+            ['ell / ella','el seu llibre','la seva bossa','els seus llibres / les seves bosses'],
+          ]
+        }
+      },
+      {
+        title: "Concordança: les paraules s'ajusten",
+        icon: '📌',
+        body: '<p>«Un amic alt», «una amiga alta», «uns amics alts», «unes amigues altes». També: «petit/petita/petits/petites». Observa els plurals: «germana/germanes», «amiga/amigues», «botiga/botigues».</p>'
+      },
+      {
+        title: 'Roba i colors',
+        icon: '📊',
+        table: {
+          headers: ['Una peça','Dues peces','Descripció'],
+          rows: [
+            ['una camisa','dues camises','una camisa blava'],
+            ['una sabata','dues sabates','unes sabates negres'],
+            ['un jersei','dos jerseis','un jersei verd'],
+            ['una jaqueta','dues jaquetes','una jaqueta vermella'],
+          ]
+        }
+      },
+      {
+        title: 'Assenyalar a prop i més lluny',
+        icon: '📊',
+        table: {
+          headers: ['Referència','Singular','Plural'],
+          rows: [
+            ['A prop','aquest llibre / aquesta bossa','aquests llibres / aquestes bosses'],
+            ['Més lluny','aquell llibre / aquella bossa','aquells llibres / aquelles bosses'],
+          ]
+        }
+      },
+    ]
+  },
+
+  'Casa i objectes': {
+    level: 'a1',
+    icon: '🏠',
+    subtitle: 'Fes servir articles, plurals i expressions de lloc per descriure un espai.',
+    sections: [
+      {
+        title: 'Presentar i identificar',
+        icon: '📌',
+        body: '<p>«Hi ha una cadira» presenta una cosa. «La cadira és al menjador» diu on és. A la cuina preparem menjar; al dormitori dormim; al bany hi ha la dutxa.</p>'
+      },
+      {
+        title: 'Articles amb noms comuns',
+        icon: '📊',
+        table: {
+          headers: ['Ús','Singular','Plural'],
+          rows: [
+            ['Presentem un element','un armari / una taula','uns armaris / unes taules'],
+            ['Identifiquem un element conegut','el menjador / la cuina','els menjadors / les cuines'],
+          ]
+        }
+      },
+      {
+        title: "L'apòstrof en paraules habituals",
+        icon: '📌',
+        body: "<p>Aprèn «l'armari», «l'habitació» i «l'escola», amb apòstrof. En canvi, escrivim «el llit» i «la taula».</p>"
+      },
+      {
+        title: "Una cosa o més d'una",
+        icon: '📊',
+        table: {
+          headers: ['Singular','Plural','Què observem?'],
+          rows: [
+            ['llibre','llibres','Afegim -s.'],
+            ['cadira','cadires','La terminació -a passa a -es.'],
+            ['taula petita','taules petites',"Canvien el nom i l'adjectiu."],
+            ['sofà','sofàs','Aquest plural afegeix -s.'],
+          ]
+        }
+      },
+      {
+        title: 'On és?',
+        icon: '📊',
+        table: {
+          headers: ['Expressió','Exemple'],
+          rows: [
+            ['damunt de / sobre','La llibreta és damunt de la taula.'],
+            ['sota','La capsa és sota el llit.'],
+            ['dins de','Les claus són dins de la bossa.'],
+            ['al costat de','El llum és al costat del sofà.'],
+            ['davant de / darrere de','La cadira és davant de la taula.'],
+          ]
+        }
+      },
+    ]
+  },
+
+  'El barri': {
+    level: 'a1',
+    icon: '🏘️',
+    subtitle: 'Troba un lloc, entén indicacions i identifica què demana un avís.',
+    sections: [
+      {
+        title: 'Preguntes útils',
+        icon: '📊',
+        table: {
+          headers: ['Vols saber…','Pregunta'],
+          rows: [
+            ['Si hi ha un servei a prop','Hi ha una biblioteca a prop?'],
+            ['On és un lloc concret',"On és l'estació?"],
+            ['Com arribar-hi','Com puc anar al mercat?'],
+            ['On obtenir informació','On puc demanar informació?'],
+            ['Si necessites reservar hora','Cal demanar cita?'],
+          ]
+        }
+      },
+      {
+        title: 'Preposicions i articles',
+        icon: '📊',
+        table: {
+          headers: ['Combinació','Forma','Exemple'],
+          rows: [
+            ['a + el','al','Vaig al mercat.'],
+            ['a + els','als','Vaig als jardins.'],
+            ['de + el','del','És al costat del forn.'],
+            ['de + els','dels','És a prop dels jardins.'],
+            ["Davant d'un article apostrofat","a l' / de l'","Vaig a l'escola. Soc davant de l'estació."],
+            ['Amb article femení','a la / de la','Vaig a la plaça. Vinc de la biblioteca.'],
+          ]
+        }
+      },
+      {
+        title: 'Entendre un trajecte',
+        icon: '📊',
+        table: {
+          headers: ['Indicació','Què comunica'],
+          rows: [
+            ['Continua recte','Segueix endavant.'],
+            ['Gira a la dreta','Canvia de direcció cap a la dreta.'],
+            ["Gira a l'esquerra","Canvia de direcció cap a l'esquerra."],
+            ['Puja al primer pis','Ves al pis indicat.'],
+            ['Baixa aquí','Deixa el vehicle o baixa en aquest punt, segons la situació.'],
+          ]
+        }
+      },
+      {
+        title: 'Ordre dels pisos: taula de consulta',
+        icon: '📊',
+        table: {
+          headers: ['Nombre','Masculí','Femení'],
+          rows: [
+            ['1','primer','primera'],
+            ['2','segon','segona'],
+            ['3','tercer','tercera'],
+            ['4','quart','quarta'],
+            ['5','cinquè','cinquena'],
+          ]
+        }
+      },
+      {
+        title: 'Un avís i una conversa',
+        icon: '💬',
+        examples: [
+          { text: 'Avís: «Atenció al segon pis. Per a la inscripció, cal portar el formulari».' },
+          { text: "—Perdona, on és el centre cívic? —Al costat de l'escola. Continua recte i gira a la dreta." },
+        ]
+      },
+    ]
+  },
+
+  'Rutines': {
+    level: 'a1',
+    icon: '⏰',
+    subtitle: 'Construeix frases en present sobre activitats, feina i moments del dia.',
+    sections: [
+      {
+        title: 'Un model regular: treballar',
+        icon: '📊',
+        body: '<p>«Estudiar» segueix el mateix model: «estudio, estudies, estudia, estudiem, estudieu, estudien». També pots trobar «treballe» o «treball» per a «jo» segons el parlar.</p>',
+        table: {
+          headers: ['Persona','Forma','Exemple'],
+          rows: [
+            ['jo','treballo','Treballo a la tarda.'],
+            ['tu','treballes','Treballes al mercat?'],
+            ['ell / ella','treballa','Ella treballa aquí.'],
+            ['nosaltres','treballem','Treballem al mateix centre.'],
+            ['vosaltres','treballeu','Treballeu al matí?'],
+            ['ells / elles','treballen','Treballen a prop.'],
+          ]
+        }
+      },
+      {
+        title: 'Altres formes freqüents',
+        icon: '📊',
+        table: {
+          headers: ['Acció','Jo','Tu','Ell / ella'],
+          rows: [
+            ['anar','vaig','vas','va'],
+            ['fer','faig','fas','fa'],
+            ['dormir','dormo','dorms','dorm'],
+            ['llevar-se','em llevo','et lleves','es lleva'],
+          ]
+        }
+      },
+      {
+        title: 'Organitza el dia',
+        icon: '📊',
+        table: {
+          headers: ['Moment o freqüència','Exemple'],
+          rows: [
+            ['al matí','Al matí em llevo i esmorzo.'],
+            ['al migdia','Al migdia dino.'],
+            ['a la tarda','A la tarda estudio.'],
+            ['al vespre','Al vespre sopo.'],
+            ['a la nit','A la nit dormo.'],
+            ['cada dia / sovint / mai','Cada dia camino. Sovint llegeixo. No treballo mai diumenge.'],
+          ]
+        }
+      },
+      {
+        title: 'Pregunta, afirma o nega',
+        icon: '📌',
+        body: '<p>«Treballes avui?» pregunta. «Treballo avui» afirma. «No treballo avui» nega. També: «No em llevo aviat».</p>'
+      },
+    ]
+  },
+
+  'Dies i hores': {
+    level: 'a1',
+    icon: '📅',
+    subtitle: "Pregunta l'hora i localitza una activitat al calendari.",
+    sections: [
+      {
+        title: 'La setmana',
+        icon: '📊',
+        body: '<p>«Avui» és el dia actual; «ahir», el dia anterior; «demà», el dia següent.</p>',
+        table: {
+          headers: ['Ordre','Dia','Exemple'],
+          rows: [
+            ['1','dilluns','Dilluns tinc classe.'],
+            ['2','dimarts','Dimarts vaig al mercat.'],
+            ['3','dimecres','Dimecres treballo.'],
+            ['4','dijous','Dijous estudio.'],
+            ['5','divendres','Divendres descanso.'],
+            ['6','dissabte','Dissabte quedem.'],
+            ['7','diumenge','Diumenge no hi ha classe.'],
+          ]
+        }
+      },
+      {
+        title: 'Els mesos',
+        icon: '📊',
+        body: '<p>«12 de novembre» es pot escriure «12/11». En aquestes dates escrivim primer el dia i després el mes.</p>',
+        table: {
+          headers: ['1–4','5–8','9–12'],
+          rows: [
+            ['gener','maig','setembre'],
+            ['febrer','juny','octubre'],
+            ['març','juliol','novembre'],
+            ['abril','agost','desembre'],
+          ]
+        }
+      },
+      {
+        title: "L'hora i el moment de l'activitat",
+        icon: '📊',
+        table: {
+          headers: ['Hora','Quina hora és?','A quina hora comença?'],
+          rows: [
+            ['01.00','És la una.','A la una.'],
+            ['09.00','Són les nou.','A les nou.'],
+            ['10.00','Són les deu.','A les deu.'],
+            ['18.00','Són les sis de la tarda.','A les sis de la tarda.'],
+          ]
+        }
+      },
+      {
+        title: 'Reconèixer els quarts',
+        icon: '📊',
+        table: {
+          headers: ['Hora','Expressió amb quarts','Referència'],
+          rows: [
+            ['09.15','un quart de deu',"Ha passat el primer quart de l'hora que acaba a les deu."],
+            ['09.30','dos quarts de deu','Ha passat mitja hora després de les nou.'],
+            ['09.45','tres quarts de deu','Falta un quart per a les deu.'],
+          ]
+        }
+      },
+      {
+        title: 'Llegir un horari',
+        icon: '📌',
+        body: "<p>En «de nou a una», la primera hora és l'inici i la segona és el final. «Obert» i «tancat» informen de l'estat del servei: «La botiga està oberta», «El centre està tancat». Per indicar un costum, pots trobar «els dilluns»; «dilluns» també pot referir-se a un dia concret segons el context.</p>"
+      },
+    ]
+  },
+
+  'Compres': {
+    level: 'a1',
+    icon: '🛒',
+    subtitle: 'Llegeix etiquetes i expressa què vols comprar i quant en necessites.',
+    sections: [
+      {
+        title: 'Una compra senzilla',
+        icon: '📌',
+        body: "<p>Per saber el preu: «Quant val?», «Quant costa?» o «Quin preu té?». Mira si l'etiqueta indica el preu per unitat, quilo o litre: «Pomes: 2 € el quilo».</p>"
+      },
+      {
+        title: 'Producte i quantitat',
+        icon: '📊',
+        body: '<p>Practiquem «dos pans» i «dues pomes». En alguns parlars també es fa servir «dos» amb noms femenins.</p>',
+        table: {
+          headers: ['Quantitat','Exemple'],
+          rows: [
+            ['un / una','un pa / una poma'],
+            ['dos / dues','dos pans / dues pomes'],
+            ['mig quilo de','mig quilo de pastanagues'],
+            ['un litre de','un litre de llet'],
+            ["una ampolla d'","una ampolla d'aigua"],
+            ["un paquet de / d'","un paquet d'arròs"],
+          ]
+        }
+      },
+      {
+        title: "De l'11 al 20",
+        icon: '📊',
+        table: {
+          headers: ['Xifra','Paraula','Xifra','Paraula'],
+          rows: [
+            ['11','onze','16','setze'],
+            ['12','dotze','17','disset'],
+            ['13','tretze','18','divuit'],
+            ['14','catorze','19','dinou'],
+            ['15','quinze','20','vint'],
+          ]
+        }
+      },
+      {
+        title: 'Desenes, centenes i mil',
+        icon: '📊',
+        body: '<p>Del 21 al 29: «vint-i-tres», «vint-i-set». Des de trenta: «trenta-set», «quaranta-dos».</p>',
+        table: {
+          headers: ['Quantitat','Nom','Un exemple compost'],
+          rows: [
+            ['30','trenta','trenta-set'],
+            ['40','quaranta','quaranta-dos'],
+            ['50','cinquanta','cinquanta-vuit'],
+            ['60','seixanta','seixanta-tres'],
+            ['70','setanta','setanta-quatre'],
+            ['80','vuitanta','vuitanta-sis'],
+            ['90','noranta','noranta-nou'],
+            ['100','cent','cent vint'],
+          ]
+        }
+      },
+      {
+        title: 'Quantitats no exactes i negació',
+        icon: '📊',
+        body: "<p>Si no en queda ni una: «No queda cap poma». Si la gerra és buida: «No queda gens d'aigua».</p>",
+        table: {
+          headers: ['Expressió','Exemple'],
+          rows: [
+            ['molt / molta','Hi ha molta fruita.'],
+            ['poc / poca','Queda poca llet.'],
+            ['cap','No queda cap poma.'],
+            ['gens de','No queda gens de llet.'],
+          ]
+        }
+      },
+    ]
+  },
+
+  'Menjar i beure': {
+    level: 'a1',
+    icon: '☕',
+    subtitle: 'Demana menjar o beguda i expressa gustos i preferències senzilles.',
+    sections: [
+      {
+        title: 'Una comanda clara',
+        icon: '📌',
+        body: '<p>«Un entrepà de formatge, si us plau». També pots dir «Voldria un entrepà». Per acabar: «El compte, si us plau».</p>',
+        examples: [
+          { text: '—Què vols per beure? —Aigua, si us plau.' },
+        ]
+      },
+      {
+        title: 'Amb i sense',
+        icon: '📊',
+        table: {
+          headers: ['Vols incloure…','Vols excloure…'],
+          rows: [
+            ['un cafè amb llet','un cafè sense llet'],
+            ['un te amb sucre','un te sense sucre'],
+            ['un entrepà amb tomàquet','un entrepà sense tomàquet'],
+          ]
+        }
+      },
+      {
+        title: "M'agrada o m'agraden?",
+        icon: '📊',
+        table: {
+          headers: ["Allò que t'agrada",'Frase','Què observem?'],
+          rows: [
+            ['Un nom singular',"M'agrada la sopa.",'agrada'],
+            ['Un nom plural',"M'agraden les maduixes.",'agraden'],
+            ['Una activitat',"M'agrada cuinar.",'agrada + infinitiu'],
+          ]
+        }
+      },
+      {
+        title: 'Pregunta i respon sobre gustos',
+        icon: '📌',
+        body: "<p>«T'agrada el te?» — «Sí, m'agrada molt», «No m'agrada gaire» o «No m'agrada gens». «No gaire» indica poc; «gens» indica que no t'agrada de cap manera.</p>"
+      },
+      {
+        title: 'Acord i diferència',
+        icon: '📊',
+        table: {
+          headers: ['Primer missatge','Resposta coherent'],
+          rows: [
+            ["M'agrada el cafè.",'A mi també.'],
+            ["No m'agrada el cafè.",'A mi tampoc.'],
+            ["M'agrada el cafè.",'A mi no.'],
+            ["No m'agrada el cafè.",'A mi sí.'],
+          ]
+        }
+      },
+    ]
+  },
+
+  'Necessitats': {
+    level: 'a1',
+    icon: '🤒',
+    subtitle: 'Expressa sensacions, necessitats i instruccions bàsiques; parla del temps.',
+    sections: [
+      {
+        title: 'Expressions freqüents',
+        icon: '📊',
+        body: '<p>Amb «tenir»: «jo tinc», «tu tens», «ell/ella té».</p>',
+        table: {
+          headers: ['Sensació o necessitat','Expressió'],
+          rows: [
+            ['Necessitat de beure','Tinc set.'],
+            ['Necessitat de menjar','Tinc gana.'],
+            ['Necessitat de dormir','Tinc son.'],
+            ['Sensació de temperatura','Tinc fred. / Tinc calor.'],
+            ["Necessitat d'ajuda",'Necessito ajuda.'],
+            ['Malestar','No em trobo bé.'],
+          ]
+        }
+      },
+      {
+        title: 'El cos i el dolor',
+        icon: '📊',
+        body: "<p>Amb una part del cos: «Em fa mal el peu». Amb més d'una: «Em fan mal els peus».</p>",
+        table: {
+          headers: ['Part del cos','Exemple'],
+          rows: [
+            ['cap','Em fa mal el cap.'],
+            ['panxa','Em fa mal la panxa.'],
+            ['mà','Em fa mal la mà.'],
+            ['peu','Em fa mal el peu.'],
+            ['cames','Em fan mal les cames.'],
+          ]
+        }
+      },
+      {
+        title: 'Voler, poder i necessitar',
+        icon: '📊',
+        table: {
+          headers: ['Persona','Voler','Poder','Necessitar'],
+          rows: [
+            ['jo','vull','puc','necessito'],
+            ['tu','vols','pots','necessites'],
+            ['ell / ella','vol','pot','necessita'],
+          ]
+        }
+      },
+      {
+        title: 'Entendre què cal fer',
+        icon: '📌',
+        body: '<p>«He de portar el document» expressa una obligació. Per parlar a una altra persona: «Has de portar el document». Sense indicar qui: «Cal portar el document».</p>'
+      },
+      {
+        title: 'El temps i les sensacions',
+        icon: '📊',
+        table: {
+          headers: ['Parlem del temps',"Parlem d'una persona"],
+          rows: [
+            ['Fa fred.','Tinc fred.'],
+            ['Fa calor.','Tinc calor.'],
+            ['Plou.','Necessito un paraigua.'],
+            ['Neva.','Porto una jaqueta.'],
+            ['Fa sol.','Avui passejo pel parc.'],
+          ]
+        }
+      },
+    ]
+  },
+
+  'Quedar i repassar': {
+    level: 'a1',
+    icon: '🤝',
+    subtitle: 'Proposa una trobada, respon-hi i uneix informacions amb connectors bàsics.',
+    sections: [
+      {
+        title: 'Proposa i respon',
+        icon: '📊',
+        body: "<p>Per quedar, concreta el dia, l'hora i el lloc. Dies: dilluns, dimarts, dimecres, dijous, divendres, dissabte i diumenge.</p>",
+        table: {
+          headers: ['Funció','Exemple'],
+          rows: [
+            ['Proposar','Quedem dimecres?'],
+            ['Acceptar','Sí, em va bé.'],
+            ['Dir que no pots','Avui no puc.'],
+            ['Demanar una alternativa','I dijous?'],
+            ['Concretar','A les cinc davant del centre cívic.'],
+            ['Confirmar',"D'acord. Fins dijous!"],
+          ]
+        }
+      },
+      {
+        title: 'Connecta les idees',
+        icon: '📊',
+        table: {
+          headers: ['Paraula','Funció','Exemple'],
+          rows: [
+            ['i','Afegir informació','Porto aigua i fruita.'],
+            ['o','Presentar alternatives','Quedem dimarts o dijous?'],
+            ['però','Introduir un contrast','Vull venir, però avui treballo.'],
+            ['perquè','Donar una causa','No puc venir perquè treballo.'],
+            ['també','Afegir una coincidència afirmativa','Jo també estudio català.'],
+            ['tampoc','Afegir una coincidència negativa','Jo tampoc puc venir.'],
+          ]
+        }
+      },
+      {
+        title: 'Per què i perquè',
+        icon: '📌',
+        body: '<p>«Per què no pots venir?» pregunta el motiu. «Perquè treballo» hi respon.</p>'
+      },
+      {
+        title: 'Dos missatges possibles',
+        icon: '💬',
+        examples: [
+          { text: 'Hola, Rita! Soc la Dàlia. Quedem divendres a les sis davant de la biblioteca? Fins aviat!' },
+          { text: 'Hola! Divendres no puc perquè treballo. Dissabte em va bé. Podem quedar al mateix lloc?' },
+        ]
+      },
+    ]
+  },
+
   // ── NIVELL A2 ──────────────────────────────────────────────
 // ── NIVELL A2 ──────────────────────────────────────────────
 
@@ -2336,6 +3102,749 @@ const CAPSULES = [
    EXERCICIS (5+ per categoria)
 ═══════════════════════════════════════════════════════════ */
 const DATA = {
+  a1: [
+    // ── SALUTACIONS ──
+    { id:'a1-u01-01', type:'choice', level:'a1', category:'Salutacions',
+      question:'Són les nou del matí. Entres a classe. Què dius?',
+      options:['Bona nit!','Bon dia!','Fins demà!'],
+      correct:1,
+      variants:[
+        { question:'Són les cinc de la tarda. Arribes a la biblioteca. Com saludes?', options:['Bona nit!','Bona tarda!','Fins demà!'], correct:1, theory:'A la tarda pots saludar amb «Bona tarda!».', example:'Bona tarda!' },
+        { question:"És de nit i te'n vas a dormir. Què dius?", options:['Bon dia!','Bona tarda!','Bona nit!'], correct:2, theory:'«Bona nit!» també serveix per acomiadar-se abans de dormir.', example:'Bona nit!' },
+      ],
+      theory:'«Bon dia» és una salutació adequada al matí.',
+      example:'Bon dia! Em dic Salma.' },
+
+    { id:'a1-u01-02', type:'reading', level:'a1', category:'Salutacions',
+      question:'Quan es tornaran a veure?',
+      text:'Adeu, Lina. Fins demà!',
+      options:['Avui','Demà','Ahir'],
+      correct:1,
+      theory:"«Fins demà» situa la pròxima trobada l'endemà.",
+      example:'Adeu! Fins demà al matí.' },
+
+    { id:'a1-u01-03', type:'choice', level:'a1', category:'Salutacions',
+      question:"Algú t'obre la porta i vols agrair-li l'ajuda. Què dius?",
+      options:['Gràcies!','Com et dius?','Bona nit!'],
+      correct:0,
+      variants:[
+        { question:'Et deixen una cadira i vols donar les gràcies. Què dius?', options:['Moltes gràcies!','On és?','Fins dilluns!'], correct:0, theory:'«Moltes gràcies!» expressa agraïment.', example:'Moltes gràcies!' },
+        { question:"Una persona t'ajuda a trobar el carrer. Com li agraeixes l'ajuda?", options:['Quants anys tens?',"Gràcies per l'ajuda!",'No ho entenc.'], correct:1, theory:'Agraïm una ajuda amb «Gràcies!».', example:"Gràcies per l'ajuda!" },
+      ],
+      theory:'«Gràcies» expressa agraïment.',
+      example:"Moltes gràcies per l'ajuda." },
+
+    { id:'a1-u01-04', type:'choice', level:'a1', category:'Salutacions',
+      question:"Algú et diu «Gràcies». Quina resposta correspon a l'agraïment?",
+      options:['Quants anys tens?','A la tarda.','De res.'],
+      correct:2,
+      variants:[
+        { question:'Has deixat un llapis a una persona i et dona les gràcies. Què respons?', options:['A les dues.','De res!','Soc de Reus.'], correct:1, theory:'«De res!» respon a un agraïment.', example:'De res!' },
+        { question:'—Moltes gràcies pel llibre! —___', options:['Quin dia és?','Tinc set.','De res!'], correct:2, theory:'Pots respondre «De res!» quan et donen les gràcies.', example:'—Moltes gràcies pel llibre! —De res!' },
+      ],
+      theory:'«De res» és una resposta habitual a un agraïment.',
+      example:'—Gràcies pel full. —De res.' },
+
+    { id:'a1-u01-05', type:'choice', level:'a1', category:'Salutacions',
+      question:'Et pregunten «Com estàs?». Quina resposta parla de com et trobes?',
+      options:['Em dic Eva.','Bé, gràcies.','Visc a Vic.'],
+      correct:1,
+      variants:[
+        { question:'Algú et pregunta com et trobes avui. Quina resposta és adequada?', options:['A Girona.','Em dic Jan.','No gaire bé.'], correct:2, theory:'«No gaire bé» explica com es troba una persona.', example:'No gaire bé.' },
+        { question:'—Com estàs? —___', options:['Així, així.','Demà al matí.',"Soc d'Olot."], correct:0, theory:'«Així, així» indica que no et trobes del tot bé.', example:'—Com estàs? —Així, així.' },
+      ],
+      theory:"La pregunta demana l'estat de la persona, no el nom o el lloc on viu.",
+      example:'—Com estàs? —No gaire bé.' },
+
+    { id:'a1-u01-06', type:'reading', level:'a1', category:'Salutacions',
+      question:'Quina funció té «Adeu» en aquest missatge?',
+      text:'Ens veurem demà al taller. Adeu!',
+      options:['Saludar en arribar','Demanar ajuda','Acomiadar-se'],
+      correct:2,
+      theory:'«Adeu» tanca aquest intercanvi.',
+      example:'Adeu, fins aviat!' },
+
+    // ── DEMANA AJUDA ──
+    { id:'a1-u02-01', type:'choice', level:'a1', category:'Demana ajuda',
+      question:'No has sentit bé el nom. Què demanes?',
+      options:['Quants anys tens?','Pots repetir-ho?','On vius?'],
+      correct:1,
+      variants:[
+        { question:"No has sentit l'hora de la cita. Què pots preguntar?", options:['Quants anys tens?',"Pots repetir l'hora?",'On és la cita, si us plau?'], correct:1, theory:'Pots demanar que et repeteixin la informació.', example:"Pots repetir l'hora?" },
+        { question:"T'han dit un carrer, però no has entès el nom. Què demanes?", options:['Quant val?','Quina hora és, si us plau?','Ho pots tornar a dir?'], correct:2, theory:'«Ho pots tornar a dir?» demana una repetició.', example:'Ho pots tornar a dir?' },
+      ],
+      theory:'Demanar una repetició permet tornar a sentir la informació.',
+      example:'Pots repetir el nom, si us plau?' },
+
+    { id:'a1-u02-02', type:'choice', level:'a1', category:'Demana ajuda',
+      question:'La persona parla massa de pressa. Què li dius?',
+      options:['Més de pressa, si us plau.','Bon profit.','Més a poc a poc, si us plau.'],
+      correct:2,
+      variants:[
+        { question:"No pots seguir l'explicació perquè parlen molt de pressa. Què demanes?", options:['Pots tancar la finestra, si us plau?','On és el forn?','Pots parlar més a poc a poc?'], correct:2, theory:'«Més a poc a poc» demana que parlin més lentament.', example:'Pots parlar més a poc a poc?' },
+        { question:'Vols que una persona redueixi el ritme quan parla. Què li dius?', options:['Més a poc a poc, si us plau.','Més de pressa, si us plau.','Fins demà, gràcies.'], correct:0, theory:'Per demanar un ritme més lent diem «més a poc a poc».', example:'Més a poc a poc, si us plau.' },
+      ],
+      theory:'«A poc a poc» demana un ritme més lent.',
+      example:'Parla més a poc a poc, si us plau.' },
+
+    { id:'a1-u02-03', type:'reorder', level:'a1', category:'Demana ajuda',
+      question:'Ordena la frase per indicar que no comprens una informació.',
+      parts:['ho','No','entenc.'],
+      correct:[1,0,2],
+      theory:'«No ho entenc» es pot aprendre com una expressió sencera.',
+      example:'No ho entenc. Pots repetir-ho?' },
+
+    { id:'a1-u02-04', type:'choice', level:'a1', category:'Demana ajuda',
+      question:'Algú lletreja «ela, i, ena, a». Quin nom diu?',
+      options:['Lina','Nila','Lia'],
+      correct:0,
+      variants:[
+        { question:'Algú lletreja «ena, i, ela». Quin nom diu?', options:['Lina','Nil','Lia'], correct:1, theory:'Les lletres N-I-L formen «Nil».', example:'Nil' },
+        { question:'Algú lletreja «o, ena, a». Quin nom diu?', options:['Noa','Anna','Ona'], correct:2, theory:'Les lletres O-N-A formen «Ona».', example:'Ona' },
+      ],
+      theory:'Les lletres L-I-N-A formen «Lina».',
+      example:'«Ona» es lletreja «o, ena, a».' },
+
+    { id:'a1-u02-05', type:'choice', level:'a1', category:'Demana ajuda',
+      question:'Veus una paraula nova i vols saber-ne el significat. Què preguntes?',
+      options:['A quina hora és?','Què vol dir?','Quant val?'],
+      correct:1,
+      variants:[
+        { question:'Llegeixes «obert», però no saps què significa. Què preguntes?', options:["Com s'escriu «obert»?",'Quina hora és?','Què vol dir «obert»?'], correct:2, theory:'«Què vol dir…?» demana el significat.', example:'Què vol dir «obert»?' },
+        { question:'Vols saber el significat de «demà». Quina pregunta fas?', options:['Què vol dir «demà»?','On vius?',"Com s'escriu «demà»?"], correct:0, theory:'Per saber el significat pots preguntar «Què vol dir…?».', example:'Què vol dir «demà»?' },
+      ],
+      theory:'«Què vol dir?» demana el significat.',
+      example:'Què vol dir «tancat»?' },
+
+    { id:'a1-u02-06', type:'choice', level:'a1', category:'Demana ajuda',
+      question:"L'exercici diu «Tria una resposta». Què has de fer?",
+      options:['Llegir totes les lletres en veu alta','Escriure tres noms','Escollir una opció'],
+      correct:2,
+      variants:[
+        { question:"L'exercici diu «Completa la frase». Què has de fer?", options:['Escriure el que falta',"Canviar l'ordre de totes les paraules",'Escollir el color de la pantalla'], correct:0, theory:'«Completa» demana escriure el que falta.', example:'Escriure el que falta' },
+        { question:"L'exercici diu «Ordena els fragments». Què has de fer?", options:['Escriure el teu nom','Posar-los en ordre','Triar una hora'], correct:1, theory:'«Ordena» demana posar els fragments en un ordre que tingui sentit.', example:'Posar-los en ordre' },
+      ],
+      theory:"«Tria» indica que has d'escollir entre opcions.",
+      example:'Tria el dia que apareix al missatge.' },
+
+    // ── PRESENTACIONS ──
+    { id:'a1-u03-01', type:'choice', level:'a1', category:'Presentacions',
+      question:'Et pregunten «Com et dius?». Quina resposta dona el nom?',
+      options:['A Reus.','Em dic Nil.','A les vuit.'],
+      correct:1,
+      variants:[
+        { question:'Et demanen el nom. Quina resposta correspon?', options:['Tinc vint anys.','Em dic Aina.','Visc a Vic.'], correct:1, theory:'«Em dic» serveix per presentar el nom.', example:'Em dic Aina.' },
+        { question:'—Com et dius? —___', options:['Soc de Salt.','Parlo català.','Em dic Omar.'], correct:2, theory:'La pregunta demana el nom de la persona.', example:'—Com et dius? —Em dic Omar.' },
+      ],
+      theory:'«Em dic» introdueix el nom de qui parla.',
+      example:'Em dic Bruna.' },
+
+    { id:'a1-u03-02', type:'fill', level:'a1', category:'Presentacions',
+      question:'Completa amb la forma de «viure» que correspon a «jo».',
+      sentence:'Jo ___ a Girona.',
+      answers:['visc'],
+      variants:[
+        { question:'Completa amb «viure» en present.', sentence:'Tu ___ a Reus.', answers:['vius'], theory:'Amb «tu» diem «vius».', example:'Tu vius a Reus.' },
+        { question:'Completa amb «viure» en present.', sentence:'La Mei ___ a Salt.', answers:['viu'], theory:'Amb «la Mei» diem «viu».', example:'La Mei viu a Salt.' },
+      ],
+      theory:'La primera persona del present de «viure» és «visc».',
+      example:'Visc a Amposta.' },
+
+    { id:'a1-u03-03', type:'reading', level:'a1', category:'Presentacions',
+      question:'On viu la Mei?',
+      text:'Em dic Mei. Soc de Vic i visc a Salt. Parlo xinès i català.',
+      options:['A Salt','A Vic','A Reus'],
+      correct:0,
+      theory:'«Visc a Salt» dona la residència; «soc de Vic» dona la procedència.',
+      example:'Soc de Reus, però visc a Valls.' },
+
+    { id:'a1-u03-04', type:'fill', level:'a1', category:'Presentacions',
+      question:'Completa amb una forma de «tenir».',
+      sentence:'Jo ___ vint anys.',
+      answers:['tinc'],
+      variants:[
+        { question:'Completa amb «tenir» en present.', sentence:'Tu ___ trenta anys.', answers:['tens'], theory:'Amb «tu» diem «tens».', example:'Tu tens trenta anys.' },
+        { question:'Completa amb «tenir» en present.', sentence:'El Nil ___ vint anys.', answers:['té'], theory:'Amb «el Nil» diem «té».', example:'El Nil té vint anys.' },
+      ],
+      theory:"L'edat s'expressa aquí amb «tenir»: «tinc vint anys».",
+      example:'La seva germana té divuit anys.' },
+
+    { id:'a1-u03-05', type:'choice', level:'a1', category:'Presentacions',
+      question:'Completa: «Soc ___ Amposta».',
+      options:['a',"d'",'amb'],
+      correct:1,
+      variants:[
+        { question:'Completa: «Soc ___ Girona».', options:['a','amb','de'], correct:2, theory:'Diem «Soc de Girona» per indicar la procedència.', example:'Completa: «Soc de Girona».' },
+        { question:'Completa: «Soc ___ Olot».', options:["d'",'a','amb'], correct:0, theory:"Davant d'«Olot» fem servir «d'»: «Soc d'Olot».", example:"Completa: «Soc d' Olot»." },
+      ],
+      theory:"Davant d'«Amposta», escrivim «d'» en aquesta expressió de procedència.",
+      example:"Soc d'Olot." },
+
+    { id:'a1-u03-06', type:'reading', level:'a1', category:'Presentacions',
+      question:'Què cal copiar al camp «Cognoms»?',
+      text:'Nom: Adil. Cognoms: Roca Soler. Edat: 24.',
+      options:['Adil','24','Roca Soler'],
+      correct:2,
+      theory:'El nom i els cognoms ocupen camps diferents.',
+      example:'Nom: Ona. Cognoms: Riera Mas.' },
+
+    // ── PERSONES PROPERES ──
+    { id:'a1-u04-01', type:'choice', level:'a1', category:'Persones properes',
+      question:'Completa: «La meva germana és ___».',
+      options:['petit','petita','petits'],
+      correct:1,
+      variants:[
+        { question:'Completa: «El meu germà és ___».', options:['petita','petit','petites'], correct:1, theory:'Amb «el meu germà» fem servir «petit».', example:'Completa: «El meu germà és petit».' },
+        { question:'Completa: «Les meves germanes són ___».', options:['petit','petita','petites'], correct:2, theory:'Amb «les meves germanes» fem servir «petites».', example:'Completa: «Les meves germanes són petites».' },
+      ],
+      theory:"L'adjectiu concorda amb «germana», en femení singular.",
+      example:'La jaqueta és petita.' },
+
+    { id:'a1-u04-02', type:'reading', level:'a1', category:'Persones properes',
+      question:'Qui és la Berta respecte del Pol?',
+      text:'La Rosa és la mare del Pol. La Berta és la germana del Pol.',
+      options:['La mare','La germana','Una amiga'],
+      correct:1,
+      theory:'El text identifica la Berta com a germana del Pol.',
+      example:"El Jan és el germà de l'Eva." },
+
+    { id:'a1-u04-03', type:'fill', level:'a1', category:'Persones properes',
+      question:"Escriu el plural d'«amiga».",
+      sentence:'Una amiga; dues ___.',
+      answers:['amigues'],
+      variants:[
+        { question:'Escriu el plural de «botiga».', sentence:'Una botiga; dues ___.', answers:['botigues'], theory:'El plural de «botiga» és «botigues».', example:'Una botiga; dues botigues.' },
+        { question:'Escriu el plural de «germana».', sentence:'Una germana; dues ___.', answers:['germanes'], theory:'El plural de «germana» és «germanes».', example:'Una germana; dues germanes.' },
+      ],
+      theory:"El plural d'«amiga» és «amigues». La grafia canvia de g a gu davant d'e.",
+      example:'Una botiga; dues botigues.' },
+
+    { id:'a1-u04-04', type:'reading', level:'a1', category:'Persones properes',
+      question:'Qui porta una camisa?',
+      text:"L'Èric porta un jersei verd. La Joana porta una camisa blava.",
+      options:['La Joana',"L'Èric",'Tots dos'],
+      correct:0,
+      theory:"La camisa correspon a la Joana; l'Èric porta un jersei.",
+      example:'La Rita porta una jaqueta vermella.' },
+
+    { id:'a1-u04-05', type:'fill', level:'a1', category:'Persones properes',
+      question:'La bossa és teva i en parles tu. Completa amb el possessiu corresponent a «jo».',
+      sentence:'És la ___ bossa.',
+      answers:['meva','meua'],
+      variants:[
+        { question:'El llibre és teu i en parles tu. Completa amb la paraula que indica que et pertany.', sentence:'És el ___ llibre.', answers:['meu'], theory:"Quan parles d'un llibre que et pertany, dius «el meu llibre».", example:'És el meu llibre.' },
+        { question:'Les bosses són teves i en parles tu. Completa amb la paraula que indica que et pertanyen.', sentence:'Són les ___ bosses.', answers:['meves','meues'], theory:'Pots dir «les meves bosses» o «les meues bosses».', example:'Són les meves bosses.' },
+      ],
+      theory:'El possessiu concorda amb «bossa». «Meva» i «meua» són variants vàlides.',
+      example:'És el meu llibre.' },
+
+    { id:'a1-u04-06', type:'choice', level:'a1', category:'Persones properes',
+      question:'La bossa és al teu costat. Completa: «___ bossa».',
+      options:['Aquests','Aquell','Aquesta'],
+      correct:2,
+      variants:[
+        { question:'El llibre és al teu costat. Completa: «___ llibre».', options:['Aquest','Aquesta','Aquestes'], correct:0, theory:"«Aquest» acompanya «llibre» quan l'assenyalem a prop.", example:'El llibre és al teu costat. Completa: «Aquest llibre».' },
+        { question:'Les bosses són al teu costat. Completa: «___ bosses».', options:['Aquesta','Aquestes','Aquest'], correct:1, theory:'«Aquestes» acompanya el plural «bosses».', example:'Les bosses són al teu costat. Completa: «Aquestes bosses».' },
+      ],
+      theory:'«Aquesta» expressa proximitat i concorda amb «bossa».',
+      example:'Aquest llibre és meu.' },
+
+    // ── CASA I OBJECTES ──
+    { id:'a1-u05-01', type:'choice', level:'a1', category:'Casa i objectes',
+      question:'Quin espai de casa està destinat a preparar el menjar?',
+      options:['La cuina','El bany','El dormitori'],
+      correct:0,
+      variants:[
+        { question:'En quina habitació hi sol haver el llit per dormir?', options:['A la cuina','Al dormitori','Al bany'], correct:1, theory:"El dormitori és l'habitació destinada a dormir.", example:'Al dormitori' },
+        { question:'En quin espai de casa hi ha habitualment la dutxa?', options:['Al menjador','Al dormitori','Al bany'], correct:2, theory:'La dutxa es troba habitualment al bany.', example:'Al bany' },
+      ],
+      theory:"La cuina és l'espai destinat a cuinar.",
+      example:'A la cuina hi ha una nevera.' },
+
+    { id:'a1-u05-02', type:'fill', level:'a1', category:'Casa i objectes',
+      question:"Completa amb la forma de present d'«haver-hi».",
+      sentence:'Al menjador ___ una taula.',
+      answers:['hi ha'],
+      variants:[
+        { question:'Completa amb «haver-hi» en present.', sentence:'A la cuina ___ una nevera.', answers:['hi ha'], theory:'«Hi ha» presenta una cosa que trobem en un lloc.', example:'A la cuina hi ha una nevera.' },
+        { question:'Completa amb «haver-hi» en present.', sentence:'Al dormitori ___ un llit.', answers:['hi ha'], theory:'Escrivim «hi ha» per indicar que trobem un llit en aquest lloc.', example:'Al dormitori hi ha un llit.' },
+      ],
+      theory:'«Hi ha» presenta una cosa que trobem en un lloc.',
+      example:"A l'habitació hi ha un armari." },
+
+    { id:'a1-u05-03', type:'reading', level:'a1', category:'Casa i objectes',
+      question:'Què hi ha sota la taula?',
+      text:'Les claus són damunt de la taula. La bossa és sota la taula.',
+      options:['Les claus','La bossa','Una tassa'],
+      correct:1,
+      theory:'El text situa la bossa sota la taula.',
+      example:'La capsa és sota el llit.' },
+
+    { id:'a1-u05-04', type:'choice', level:'a1', category:'Casa i objectes',
+      question:'Tria la forma escrita correcta.',
+      options:['la armari','el armari',"l'armari"],
+      correct:2,
+      variants:[
+        { question:'Tria la forma escrita correcta.', options:['la escola',"l'escola",'el escola'], correct:1, theory:"Escrivim «l'escola», amb apòstrof.", example:"l'escola" },
+        { question:'Tria la forma escrita correcta.', options:['la habitació','el habitació',"l'habitació"], correct:2, theory:"Escrivim «l'habitació», amb apòstrof.", example:"l'habitació" },
+      ],
+      theory:"Amb «armari», l'article masculí s'apostrofa: «l'armari».",
+      example:"L'armari és blanc." },
+
+    { id:'a1-u05-05', type:'fill', level:'a1', category:'Casa i objectes',
+      question:'Escriu el plural de «cadira».',
+      sentence:'Hi ha dues ___.',
+      answers:['cadires'],
+      variants:[
+        { question:'Escriu el plural de «taula».', sentence:'Al menjador hi ha dues ___.', answers:['taules'], theory:'El plural de «taula» és «taules».', example:'Al menjador hi ha dues taules.' },
+        { question:'Escriu el plural de «llibre».', sentence:"A l'armari hi ha dos ___.", answers:['llibres'], theory:'El plural de «llibre» és «llibres».', example:"A l'armari hi ha dos llibres." },
+      ],
+      theory:'En «cadira», el plural canvia la terminació -a per -es.',
+      example:'Una taula; dues taules.' },
+
+    { id:'a1-u05-06', type:'choice', level:'a1', category:'Casa i objectes',
+      question:'Completa: «Hi ha ___ taula i un sofà».',
+      options:['una','un','uns'],
+      correct:0,
+      variants:[
+        { question:'Completa: «Hi ha ___ armari al dormitori».', options:['un','una','unes'], correct:0, theory:'«Armari» va amb «un».', example:'Completa: «Hi ha un armari al dormitori».' },
+        { question:'Completa: «Hi ha ___ cadires al menjador».', options:['un','unes','una'], correct:1, theory:'«Cadires» és plural i va amb «unes».', example:'Completa: «Hi ha unes cadires al menjador».' },
+      ],
+      theory:'«Taula» és un nom femení singular i aquí va amb «una».',
+      example:'Hi ha una finestra.' },
+
+    // ── EL BARRI ──
+    { id:'a1-u06-01', type:'choice', level:'a1', category:'El barri',
+      question:'Necessites trobar el mercat. Què preguntes?',
+      options:['Quant val el mercat?','Com et dius?','On és el mercat?'],
+      correct:2,
+      variants:[
+        { question:'Busques la farmàcia. Què preguntes?', options:['Quant val la farmàcia?','On és la farmàcia?','Com estàs?'], correct:1, theory:'«On és…?» demana on es troba un lloc.', example:'On és la farmàcia?' },
+        { question:'Necessites trobar la biblioteca. Quina pregunta fas?', options:['Com et dius?','Quants anys tens?','On és la biblioteca?'], correct:2, theory:'Per trobar un lloc podem preguntar «On és…?».', example:'On és la biblioteca?' },
+      ],
+      theory:"«On és…?» demana la ubicació d'un lloc concret.",
+      example:'On és el centre cívic?' },
+
+    { id:'a1-u06-02', type:'reading', level:'a1', category:'El barri',
+      question:'Què hi ha al costat de la farmàcia?',
+      text:"La farmàcia és al costat del forn. L'escola és davant del parc.",
+      options:['El forn',"L'escola",'El parc'],
+      correct:0,
+      theory:'El text relaciona la farmàcia amb el forn.',
+      example:"La biblioteca és al costat de l'escola." },
+
+    { id:'a1-u06-03', type:'reading', level:'a1', category:'El barri',
+      question:'Què has de fer quan arribis al forn?',
+      text:"Per arribar a l'escola, continua recte fins al forn i gira a l'esquerra.",
+      options:['Continuar recte','Girar a la dreta',"Girar a l'esquerra"],
+      correct:2,
+      theory:"La instrucció indica un gir a l'esquerra en arribar al forn.",
+      example:'Continua recte fins a la plaça.' },
+
+    { id:'a1-u06-04', type:'fill', level:'a1', category:'El barri',
+      question:'Uneix «a» i «el» per completar la frase.',
+      sentence:'Vaig ___ mercat.',
+      answers:['al'],
+      variants:[
+        { question:'Uneix «a» i «els» per completar la frase.', sentence:'Vaig ___ tallers del barri.', answers:['als'], theory:"La combinació «a + els» s'escriu «als».", example:'Vaig als tallers del barri.' },
+        { question:'Uneix «de» i «el» per completar la frase.', sentence:'La biblioteca és al costat ___ mercat.', answers:['del'], theory:"La combinació «de + el» s'escriu «del».", example:'La biblioteca és al costat del mercat.' },
+      ],
+      theory:"La combinació «a + el» s'escriu «al».",
+      example:'Vaig al centre cívic.' },
+
+    { id:'a1-u06-05', type:'reading', level:'a1', category:'El barri',
+      question:'Què demana aquest avís?',
+      text:'Avís: per a la inscripció al taller, cal portar el formulari.',
+      options:['Un bitllet de tren','El formulari','Una jaqueta'],
+      correct:1,
+      theory:"L'avís diu que cal portar el formulari per inscriure's al taller.",
+      example:'Per entrar al taller, cal mostrar la inscripció.' },
+
+    { id:'a1-u06-06', type:'choice', level:'a1', category:'El barri',
+      question:"L'oficina és al pis 3. Com ho diu el cartell?",
+      options:['Primer pis','Segon pis','Tercer pis'],
+      correct:2,
+      variants:[
+        { question:"L'aula és al pis 2. Com ho diu el cartell?", options:['Segon pis','Primer pis','Tercer pis'], correct:0, theory:'El pis número 2 és el segon pis.', example:'Segon pis' },
+        { question:'La consulta és al pis 4. Com ho diu el cartell?', options:['Segon pis','Quart pis','Tercer pis'], correct:1, theory:'El pis número 4 és el quart pis.', example:'Quart pis' },
+      ],
+      theory:"L'ordinal de 3 en masculí és «tercer».",
+      example:"L'aula és al quart pis." },
+
+    // ── RUTINES ──
+    { id:'a1-u07-01', type:'fill', level:'a1', category:'Rutines',
+      question:'Completa amb «treballar» en present.',
+      sentence:'Nosaltres ___ al matí.',
+      answers:['treballem'],
+      variants:[
+        { question:'Completa amb «treballar» en present.', sentence:'Tu ___ a la tarda.', answers:['treballes'], theory:'Amb «tu» diem «treballes».', example:'Tu treballes a la tarda.' },
+        { question:'Completa amb «treballar» en present.', sentence:'Elles ___ al matí.', answers:['treballen'], theory:'Amb «elles» diem «treballen».', example:'Elles treballen al matí.' },
+      ],
+      theory:'Amb «nosaltres», la forma del present és «treballem».',
+      example:'Nosaltres estudiem a la tarda.' },
+
+    { id:'a1-u07-02', type:'reading', level:'a1', category:'Rutines',
+      question:'Quan estudia la Sara?',
+      text:'La Sara treballa al matí i estudia a la tarda.',
+      options:['Al matí','A la tarda','A la nit'],
+      correct:1,
+      theory:'«A la tarda» indica el moment en què estudia.',
+      example:'Al matí camino; a la tarda llegeixo.' },
+
+    { id:'a1-u07-03', type:'choice', level:'a1', category:'Rutines',
+      question:'Completa: «La Sara ___ català cada dia».',
+      options:['estudio','estudies','estudia'],
+      correct:2,
+      variants:[
+        { question:'Completa: «Tu ___ català cada dia».', options:['estudies','estudia','estudiem'], correct:0, theory:'Amb «tu» diem «estudies».', example:'Completa: «Tu estudies català cada dia».' },
+        { question:'Completa: «Nosaltres ___ català al vespre».', options:['estudies','estudiem','estudia'], correct:1, theory:'Amb «nosaltres» diem «estudiem».', example:'Completa: «Nosaltres estudiem català al vespre».' },
+      ],
+      theory:'La Sara correspon a «ella»: «estudia».',
+      example:'El Karim treballa aquí.' },
+
+    { id:'a1-u07-04', type:'fill', level:'a1', category:'Rutines',
+      question:'Completa la frase sobre la teva rutina amb la paraula que falta.',
+      sentence:'Jo ___ llevo a les set.',
+      answers:['em'],
+      variants:[
+        { question:'Completa amb la paraula que falta.', sentence:'Tu ___ lleves a les vuit.', answers:['et'], theory:'Amb «tu» diem «et lleves».', example:'Tu et lleves a les vuit.' },
+        { question:'Completa amb la paraula que falta.', sentence:'La Sara ___ lleva a les sis.', answers:['es'], theory:'Amb «la Sara» diem «es lleva».', example:'La Sara es lleva a les sis.' },
+      ],
+      theory:'La forma que practiquem és «em llevo».',
+      example:'Em llevo i esmorzo.' },
+
+    { id:'a1-u07-05', type:'choice', level:'a1', category:'Rutines',
+      question:'Completa: «Jo ___ a classe cada dia».',
+      options:['vaig','vas','va'],
+      correct:0,
+      variants:[
+        { question:'Completa: «Tu ___ al mercat cada dissabte».', options:['vaig','va','vas'], correct:2, theory:'Amb «tu» diem «vas».', example:'Completa: «Tu vas al mercat cada dissabte».' },
+        { question:'Completa: «La Sara ___ a la biblioteca cada dia».', options:['va','vas','vaig'], correct:0, theory:'Amb «la Sara» diem «va».', example:'Completa: «La Sara va a la biblioteca cada dia».' },
+      ],
+      theory:"La primera persona d'«anar» és «vaig».",
+      example:'Vaig al centre cívic.' },
+
+    { id:'a1-u07-06', type:'choice', level:'a1', category:'Rutines',
+      question:'Quina frase diu que avui no treballes?',
+      options:['Treballo avui.','No treballo avui.','Treballes avui?'],
+      correct:1,
+      variants:[
+        { question:'Avui la Sara descansa tot el dia. Quina frase és certa?', options:['La Sara no estudia avui.','La Sara estudia avui.','La Sara treballa molt avui.'], correct:0, theory:"Posem «no» davant del verb per negar l'acció: «La Sara no estudia avui».", example:'Avui no treballo.' },
+        { question:'Els diumenges et quedes a casa tot el dia. Quina frase és certa?', options:['Vaig a classe els diumenges.','No vaig a classe els diumenges.','Els diumenges vaig a la biblioteca.'], correct:1, theory:"«No vaig» nega l'acció d'anar-hi.", example:'No vaig a classe els diumenges.' },
+      ],
+      theory:"«No» davant del verb nega l'acció.",
+      example:'No estudio diumenge.' },
+
+    // ── DIES I HORES ──
+    { id:'a1-u08-01', type:'reading', level:'a1', category:'Dies i hores',
+      question:'A quina hora obre dissabte?',
+      text:'Biblioteca. Dissabte: de 10.00 a 13.00.',
+      options:['A les nou','A les deu','A les tretze'],
+      correct:1,
+      theory:"L'hora inicial de l'horari és les deu.",
+      example:'El centre obre de nou a dues.' },
+
+    { id:'a1-u08-02', type:'choice', level:'a1', category:'Dies i hores',
+      question:'Avui és dilluns. Quin dia serà demà?',
+      options:['Diumenge','Dimecres','Dimarts'],
+      correct:2,
+      variants:[
+        { question:'Avui és dijous. Quin dia serà demà?', options:['Dimecres','Dissabte','Divendres'], correct:2, theory:'Després de dijous ve divendres.', example:'Divendres' },
+        { question:'Avui és diumenge. Quin dia serà demà?', options:['Dilluns','Dissabte','Dimarts'], correct:0, theory:'Després de diumenge ve dilluns.', example:'Dilluns' },
+      ],
+      theory:'El dia següent a dilluns és dimarts.',
+      example:'Després de dijous ve divendres.' },
+
+    { id:'a1-u08-03', type:'fill', level:'a1', category:'Dies i hores',
+      question:'Escriu la paraula que falta per indicar a quina hora comença la classe.',
+      sentence:'La classe comença ___ les nou.',
+      answers:['a'],
+      variants:[
+        { question:"Escriu la paraula que falta per indicar l'hora de la cita.", sentence:'La cita és ___ les cinc.', answers:['a'], theory:"Diem «a les cinc» per indicar l'hora.", example:'La cita és a les cinc.' },
+        { question:"Escriu la paraula que falta per indicar l'hora de sortida.", sentence:'El tren surt ___ les deu.', answers:['a'], theory:"Diem «a les deu» per indicar l'hora.", example:'El tren surt a les deu.' },
+      ],
+      theory:'«A les nou» indica a quina hora comença una activitat.',
+      example:'La reunió comença a la una.' },
+
+    { id:'a1-u08-04', type:'choice', level:'a1', category:'Dies i hores',
+      question:'El rellotge marca les 09.30. Quina expressió correspon a aquesta hora?',
+      options:['Dos quarts de deu','Dos quarts de nou','Un quart de deu'],
+      correct:0,
+      variants:[
+        { question:'El rellotge marca les 09.15. Quina expressió correspon a aquesta hora?', options:['Un quart de nou','Un quart de deu','Dos quarts de deu'], correct:1, theory:'Les 09.15 són un quart de deu.', example:'Un quart de deu' },
+        { question:'El rellotge marca les 09.45. Quina expressió correspon a aquesta hora?', options:['Tres quarts de nou','Dos quarts de deu','Tres quarts de deu'], correct:2, theory:'Les 09.45 són tres quarts de deu.', example:'Tres quarts de deu' },
+      ],
+      theory:"A les 09.30 han passat dos quarts de l'hora que acaba a les deu.",
+      example:'09.15: un quart de deu.' },
+
+    { id:'a1-u08-05', type:'reading', level:'a1', category:'Dies i hores',
+      question:'Quina data hi correspon?',
+      text:'La trobada és el 12 de novembre.',
+      options:['12/10','12/11','11/12'],
+      correct:1,
+      theory:"Novembre és l'onzè mes: 12/11.",
+      example:"El 4 d'abril es pot escriure 4/4." },
+
+    { id:'a1-u08-06', type:'choice', level:'a1', category:'Dies i hores',
+      question:'Completa: «La cita és ___ una».',
+      options:['a les',"a l'",'a la'],
+      correct:2,
+      variants:[
+        { question:'Completa: «El taller comença ___ dues».', options:['a les','a la',"a l'"], correct:0, theory:'Amb «dues» diem «a les dues».', example:'Completa: «El taller comença a les dues».' },
+        { question:'Completa: «La biblioteca obre ___ onze».', options:['a la','a les',"a l'"], correct:1, theory:'Diem «a les onze» per indicar aquesta hora.', example:'Completa: «La biblioteca obre a les onze».' },
+      ],
+      theory:'Amb la una fem servir el singular: «a la una».',
+      example:'A les dues tinc classe.' },
+
+    // ── COMPRES ──
+    { id:'a1-u09-01', type:'choice', level:'a1', category:'Compres',
+      question:"Vols saber el preu d'un pa. Què preguntes?",
+      options:['Quant val?','On vius?','Quina hora és?'],
+      correct:0,
+      variants:[
+        { question:"Vols saber el preu d'una llibreta. Què preguntes?", options:['On vius?','Quant costa?','Com et dius?'], correct:1, theory:'«Quant costa?» demana el preu.', example:'Quant costa?' },
+        { question:'Vols saber què val una bossa. Quina pregunta fas?', options:['Quina hora és?','Quants anys tens?','Quin preu té?'], correct:2, theory:'«Quin preu té?» serveix per preguntar el preu.', example:'Quin preu té?' },
+      ],
+      theory:'«Quant val?» demana el preu.',
+      example:'Quant costa aquest entrepà?' },
+
+    { id:'a1-u09-02', type:'reading', level:'a1', category:'Compres',
+      question:'Quin producte val dos euros el quilo?',
+      text:'Pomes: 2 € el quilo. Peres: 3 € el quilo.',
+      options:['Les peres','Les pomes','El pa'],
+      correct:1,
+      theory:"L'etiqueta de les pomes marca dos euros per quilo.",
+      example:'Tomàquets: 4 € el quilo.' },
+
+    { id:'a1-u09-03', type:'fill', level:'a1', category:'Compres',
+      question:'Completa amb la preposició que uneix la quantitat i el producte.',
+      sentence:'Vull un quilo ___ tomàquets.',
+      answers:['de'],
+      variants:[
+        { question:'Completa amb la paraula que uneix la quantitat i el producte.', sentence:'Vull mig quilo ___ peres.', answers:['de'], theory:'Diem «mig quilo de peres».', example:'Vull mig quilo de peres.' },
+        { question:'Completa amb la paraula que uneix la quantitat i el producte.', sentence:'Vull un litre ___ llet.', answers:['de'], theory:'Diem «un litre de llet».', example:'Vull un litre de llet.' },
+      ],
+      theory:'La construcció és «un quilo de» davant de «tomàquets».',
+      example:'Mig quilo de pastanagues.' },
+
+    { id:'a1-u09-04', type:'choice', level:'a1', category:'Compres',
+      question:'Quina xifra correspon a «vint-i-set»?',
+      options:['72','17','27'],
+      correct:2,
+      variants:[
+        { question:'Quina xifra correspon a «vint-i-tres»?', options:['32','23','13'], correct:1, theory:'Vint-i-tres correspon a 23.', example:'23' },
+        { question:'Quina xifra correspon a «trenta-set»?', options:['73','27','37'], correct:2, theory:'Trenta-set correspon a 37.', example:'37' },
+      ],
+      theory:'Vint-i-set correspon a 27.',
+      example:'Vint-i-tres correspon a 23.' },
+
+    { id:'a1-u09-05', type:'choice', level:'a1', category:'Compres',
+      question:'Completa: «Vull ___ pomes».',
+      options:['dues','una','un'],
+      correct:0,
+      variants:[
+        { question:'Completa: «Vull ___ pans».', options:['una','un','dos'], correct:2, theory:'«Pans» és plural: «dos pans».', example:'Completa: «Vull dos pans».' },
+        { question:'Completa: «Vull ___ peres».', options:['dues','una','un'], correct:0, theory:'«Dues peres» és el model que practiquem; alguns parlars també fan servir «dos peres».', example:'Completa: «Vull dues peres».' },
+      ],
+      theory:'«Dues pomes» és el model que practiquem. En alguns parlars també es diu «dos pomes».',
+      example:'Dos pans i dues peres.' },
+
+    { id:'a1-u09-06', type:'fill', level:'a1', category:'Compres',
+      question:'No hi ha ni una poma. Completa amb una sola paraula.',
+      sentence:'No queda ___ poma.',
+      answers:['cap'],
+      variants:[
+        { question:'No hi ha ni una pera. Completa amb una sola paraula.', sentence:'No queda ___ pera.', answers:['cap'], theory:'Diem «cap pera» quan no en queda ni una.', example:'No queda cap pera.' },
+        { question:'La gerra és buida. Completa per dir que no hi ha aigua.', sentence:"No queda ___ d'aigua.", answers:['gens','gens ni mica','ni gota','ni una gota','ni mica'], theory:"«Gens d'aigua» expressa que no en queda. També podem dir «ni gota d'aigua».", example:"No queda gens d'aigua." },
+      ],
+      theory:'«Cap» acompanya el nom comptable «poma» en aquesta frase negativa.',
+      example:'No queda gens de llet.' },
+
+    // ── MENJAR I BEURE ──
+    { id:'a1-u10-01', type:'choice', level:'a1', category:'Menjar i beure',
+      question:'No vols sucre al te. Què demanes?',
+      options:['Te amb sucre','Te sense sucre','Sucre sense te'],
+      correct:1,
+      variants:[
+        { question:'Vols cafè i hi vols llet. Què demanes?', options:['Cafè sense llet','Cafè amb llet','Llet sense cafè'], correct:1, theory:'«Amb llet» inclou la llet a la comanda.', example:'Cafè amb llet' },
+        { question:'Vols un entrepà i no hi vols tomàquet. Què demanes?', options:['Un entrepà amb tomàquet','Tomàquet sense pa','Un entrepà sense tomàquet'], correct:2, theory:"«Sense tomàquet» indica que no en vols a l'entrepà.", example:'Un entrepà sense tomàquet' },
+      ],
+      theory:'«Sense sucre» exclou el sucre de la beguda.',
+      example:'Cafè sense llet.' },
+
+    { id:'a1-u10-02', type:'reading', level:'a1', category:'Menjar i beure',
+      question:'Qui demana aigua?',
+      text:'La Júlia demana aigua. En Pau demana suc.',
+      options:['En Pau','Tots dos','La Júlia'],
+      correct:2,
+      theory:"La comanda d'aigua correspon a la Júlia.",
+      example:'La Rita demana un te.' },
+
+    { id:'a1-u10-03', type:'reorder', level:'a1', category:'Menjar i beure',
+      question:'Ordena la comanda. Comença pel producte i acaba amb la fórmula de cortesia.',
+      parts:['si us plau.','Un entrepà','de formatge,'],
+      correct:[1,2,0],
+      theory:'La comanda indica el producte, el tipus i la fórmula de cortesia.',
+      example:'Un suc de taronja, si us plau.' },
+
+    { id:'a1-u10-04', type:'fill', level:'a1', category:'Menjar i beure',
+      question:'Completa amb una forma del verb «agradar» en present.',
+      sentence:"M'___ les maduixes.",
+      answers:['agraden'],
+      variants:[
+        { question:'Completa amb «agradar» en present.', sentence:"M'___ la sopa.", answers:['agrada'], theory:"Amb «la sopa» diem «m'agrada».", example:"M'agrada la sopa." },
+        { question:'Completa amb «agradar» en present.', sentence:"M'___ els tomàquets.", answers:['agraden'], theory:"Amb «els tomàquets» diem «m'agraden».", example:"M'agraden els tomàquets." },
+      ],
+      theory:'«Les maduixes» és plural; per això fem servir «agraden».',
+      example:"M'agrada la sopa." },
+
+    { id:'a1-u10-05', type:'choice', level:'a1', category:'Menjar i beure',
+      question:"Una persona diu «No m'agrada el te». A tu no t'agrada. Què respons?",
+      options:['A mi també.','A mi tampoc.','A mi sí.'],
+      correct:1,
+      variants:[
+        { question:"Una persona diu «M'agrada la sopa». A tu també t'agrada. Què respons?", options:['A mi tampoc.','A mi no.','A mi també.'], correct:2, theory:'«També» expressa que coincidiu en un gust afirmatiu.', example:'A mi també.' },
+        { question:"Una persona diu «M'agrada el cafè». A tu no t'agrada. Què respons?", options:['A mi no.','A mi també.','A mi sí.'], correct:0, theory:'«A mi no» expressa un gust diferent en aquest context.', example:'A mi no.' },
+      ],
+      theory:'«Tampoc» afegeix coincidència amb una afirmació negativa.',
+      example:'—No puc venir. —Jo tampoc.' },
+
+    { id:'a1-u10-06', type:'choice', level:'a1', category:'Menjar i beure',
+      question:"Vols dir que el cafè no t'agrada de cap manera. Quina frase ho expressa?",
+      options:["No m'agrada gaire.","M'agrada molt.","No m'agrada gens."],
+      correct:2,
+      variants:[
+        { question:"Vols dir que les olives no t'agraden de cap manera. Quina frase ho expressa?", options:["No m'agraden gens.","No m'agraden gaire.","M'agraden molt."], correct:0, theory:"«No… gens» expressa que no t'agraden de cap manera.", example:"No m'agraden gens." },
+        { question:"El te t'agrada una mica, però no gaire. Quina frase ho expressa?", options:["No m'agrada gens.","No m'agrada gaire.","M'agrada molt."], correct:1, theory:'«No gaire» expressa un grau baix; «gens» expressa absència.', example:"No m'agrada gaire." },
+      ],
+      theory:"«Gens» expressa absència de gust en aquest context; «no gaire» n'indica poca quantitat.",
+      example:"No m'agraden gens les olives." },
+
+    // ── NECESSITATS ──
+    { id:'a1-u11-01', type:'choice', level:'a1', category:'Necessitats',
+      question:'Necessites beure aigua. Quina frase ho expressa?',
+      options:['Tinc son.','Tinc set.','Tinc fred.'],
+      correct:1,
+      variants:[
+        { question:'Necessites menjar. Quina frase ho expressa?', options:['Tinc set.','Tinc gana.','Tinc fred.'], correct:1, theory:'La gana és la necessitat de menjar.', example:'Tinc gana.' },
+        { question:'Necessites dormir. Quina frase ho expressa?', options:['Tinc set.','Tinc calor.','Tinc son.'], correct:2, theory:'La son és la necessitat de dormir.', example:'Tinc son.' },
+      ],
+      theory:'La set és la necessitat de beure.',
+      example:'Tinc set. Puc beure aigua?' },
+
+    { id:'a1-u11-02', type:'fill', level:'a1', category:'Necessitats',
+      question:'Completa amb una forma de «tenir».',
+      sentence:'Jo ___ fred.',
+      answers:['tinc'],
+      variants:[
+        { question:'Completa amb «tenir» en present.', sentence:'Tu ___ gana.', answers:['tens'], theory:'Amb «tu» diem «tens gana».', example:'Tu tens gana.' },
+        { question:'Completa amb «tenir» en present.', sentence:'La Rita ___ son.', answers:['té'], theory:'Amb «la Rita» diem «té son».', example:'La Rita té son.' },
+      ],
+      theory:'Amb «jo», la forma és «tinc»: «tinc fred».',
+      example:'Tinc gana.' },
+
+    { id:'a1-u11-03', type:'reading', level:'a1', category:'Necessitats',
+      question:'Quina part del cos li fa mal?',
+      text:'Em dic Marc. Em fa mal el peu.',
+      options:['El cap','La mà','El peu'],
+      correct:2,
+      theory:'El text diu que li fa mal el peu.',
+      example:'Em fa mal el cap.' },
+
+    { id:'a1-u11-04', type:'fill', level:'a1', category:'Necessitats',
+      question:'Completa amb una forma del verb «fer» en present.',
+      sentence:'Em ___ mal les cames.',
+      answers:['fan'],
+      variants:[
+        { question:'Completa amb «fer» en present.', sentence:'Em ___ mal el cap.', answers:['fa'], theory:'Amb «el cap» diem «em fa mal».', example:'Em fa mal el cap.' },
+        { question:'Completa amb «fer» en present.', sentence:'Em ___ mal els peus.', answers:['fan'], theory:'Amb «els peus» diem «em fan mal».', example:'Em fan mal els peus.' },
+      ],
+      theory:'«Les cames» és plural: «em fan mal».',
+      example:'Em fa mal la mà.' },
+
+    { id:'a1-u11-05', type:'choice', level:'a1', category:'Necessitats',
+      question:'Completa la frase que descriu el temps: «Avui ___ fred».',
+      options:['fa','tinc','soc'],
+      correct:0,
+      variants:[
+        { question:'Completa la frase sobre el temps: «Avui ___ calor».', options:['tinc','soc','fa'], correct:2, theory:'«Fa calor» descriu el temps.', example:'Completa la frase sobre el temps: «Avui fa calor».' },
+        { question:'Completa la frase sobre una sensació personal: «Jo ___ fred».', options:['tinc','fa','soc'], correct:0, theory:'«Tinc fred» expressa una sensació de la persona.', example:'Completa la frase sobre una sensació personal: «Jo tinc fred».' },
+      ],
+      theory:'«Fa fred» descriu el temps. «Tinc fred» descriu una sensació personal.',
+      example:'Avui fa calor.' },
+
+    { id:'a1-u11-06', type:'choice', level:'a1', category:'Necessitats',
+      question:'Completa: «Per a aquesta activitat, he ___ portar una llibreta».',
+      options:['a','de','amb'],
+      correct:1,
+      variants:[
+        { question:'Completa: «Per entrar al taller, has ___ mostrar la inscripció».', options:['de','a','amb'], correct:0, theory:'Diem «has de» per expressar una obligació.', example:'Completa: «Per entrar al taller, has de mostrar la inscripció».' },
+        { question:'Completa: «Demà he ___ portar el llibre».', options:['a','de','amb'], correct:1, theory:'La construcció és «he de portar».', example:'Completa: «Demà he de portar el llibre».' },
+      ],
+      theory:'«Haver de + infinitiu» expressa aquí una obligació.',
+      example:'He de portar el formulari.' },
+
+    // ── QUEDAR I REPASSAR ──
+    { id:'a1-u12-01', type:'reading', level:'a1', category:'Quedar i repassar',
+      question:'On es trobaran?',
+      text:'Ens veiem dissabte a les deu davant del mercat.',
+      options:['A casa','Davant del mercat','A la biblioteca'],
+      correct:1,
+      theory:'El lloc indicat és davant del mercat.',
+      example:'Ens veiem a la plaça.' },
+
+    { id:'a1-u12-02', type:'choice', level:'a1', category:'Quedar i repassar',
+      question:'Et proposen quedar avui, però treballes i no hi pots anar. Què respons?',
+      options:['Sí, em va bé.','Avui no puc.','Bon profit.'],
+      correct:1,
+      variants:[
+        { question:'Et proposen quedar demà i hi pots anar. Què respons per acceptar?', options:['Demà no puc.','Bon profit.','Demà em va bé.'], correct:2, theory:'«Em va bé» accepta la proposta.', example:'Demà em va bé.' },
+        { question:'Et proposen quedar divendres, però tens classe. Què respons?', options:['Divendres no puc.','Sí, divendres em va bé.','De res.'], correct:0, theory:'«No puc» indica que no pots acceptar la proposta.', example:'Divendres no puc.' },
+      ],
+      theory:"«Avui no puc» indica que no pots acceptar la proposta d'avui.",
+      example:'Avui no puc. I demà?' },
+
+    { id:'a1-u12-03', type:'fill', level:'a1', category:'Quedar i repassar',
+      question:'Escriu el dia que falta.',
+      sentence:'Dilluns, dimarts, ___, dijous.',
+      answers:['dimecres'],
+      variants:[
+        { question:'Escriu el dia que falta.', sentence:'Dimecres, dijous, ___, dissabte.', answers:['divendres'], theory:'Després de dijous ve divendres.', example:'Dimecres, dijous, divendres, dissabte.' },
+        { question:'Escriu el dia que falta.', sentence:'Divendres, dissabte, ___, dilluns.', answers:['diumenge'], theory:'Després de dissabte ve diumenge.', example:'Divendres, dissabte, diumenge, dilluns.' },
+      ],
+      theory:'Després de dimarts ve dimecres.',
+      example:'Quedem dimecres a les sis.' },
+
+    { id:'a1-u12-04', type:'choice', level:'a1', category:'Quedar i repassar',
+      question:'Completa la resposta: «—Per què no vens? —___ treballo».',
+      options:['Perquè','Per què','Però'],
+      correct:0,
+      variants:[
+        { question:'Completa: «—Per què no vens? —___ tinc classe».', options:['Per què','Perquè','Però'], correct:1, theory:'«Perquè» introdueix el motiu de no venir.', example:'Completa: «—Per què no vens? —Perquè tinc classe».' },
+        { question:'Completa: «No vinc ___ no em trobo bé».', options:['per què','però','perquè'], correct:2, theory:'«Perquè» uneix la causa amb el que explica.', example:'Completa: «No vinc perquè no em trobo bé».' },
+      ],
+      theory:'«Perquè» introdueix la causa en aquesta resposta.',
+      example:'No vinc perquè no em trobo bé.' },
+
+    { id:'a1-u12-05', type:'choice', level:'a1', category:'Quedar i repassar',
+      question:'Completa amb el connector de contrast: «Vull venir, ___ no puc».',
+      options:['i','perquè','però'],
+      correct:2,
+      variants:[
+        { question:"Completa amb la paraula que expressa contrast: «M'agrada el cafè, ___ ara no en vull».", options:['i','perquè','però'], correct:2, theory:"«Però» contraposa el gust i la decisió de no prendre'n.", example:"Completa amb la paraula que expressa contrast: «M'agrada el cafè, però ara no en vull»." },
+        { question:'Completa amb la paraula que expressa contrast: «Vull sortir, ___ avui he de treballar».', options:['però','i','perquè'], correct:0, theory:'«Però» contraposa dues idees.', example:'Completa amb la paraula que expressa contrast: «Vull sortir, però avui he de treballar».' },
+      ],
+      theory:'«Però» contraposa la voluntat de venir i la impossibilitat de fer-ho.',
+      example:"M'agrada, però no en vull." },
+
+    { id:'a1-u12-06', type:'reading', level:'a1', category:'Quedar i repassar',
+      question:'Quan i on han acordat trobar-se?',
+      text:"—Quedem divendres a les sis al parc? —Divendres no puc. Dissabte, al mateix lloc i a la mateixa hora, sí. —D'acord!",
+      options:['Divendres a les sis al parc','Dissabte a les sis al parc','Dissabte a les set a la biblioteca'],
+      correct:1,
+      theory:"El dia canvia a dissabte; el lloc i l'hora es mantenen.",
+      example:"—Dijous no puc. —I divendres? —D'acord." },
+  ],
   b1: [
     // ── IMPERFET I PERIFRÀSTIC B1 ──
     { id:'b1-ip1', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
