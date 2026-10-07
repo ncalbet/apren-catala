@@ -2527,8 +2527,23 @@ function buildGrammarMedals() {
 
 function getAllMedals() { return buildGrammarMedals(); }
 
+// Una medalla que ja s'ha obert no es torna a tancar (decisió de l'usuari, 06/10).
+// Les de categoria ja ho complien amb haDominat(), però les supermedalles miren el
+// nivell sencer: si un nivell guanya exercicis (o n'arriba un de nou, com l'A1, que
+// compta per a «Mestre del Català»), tornarien a demanar-ne el domini. Compten les
+// ja celebrades (celebratedAch, des de la v141) i, per a qui no en té, les fites de
+// nivell, que són més antigues (celebratedLevels).
+const FITA_DE_SUPERMEDALLA = {
+  master_a1: 'a1_dom', master_a2: 'a2_dom', master_b1: 'b1_dom', master_b2: 'b2_dom',
+  master_c1: 'c1_dom', master_iec: 'iec_dom', master_all: 'all_dom',
+};
+function medallaJaOberta(p, id) {
+  if ((p.celebratedAch || []).includes(id)) return true;
+  const fita = FITA_DE_SUPERMEDALLA[id];
+  return !!(fita && (p.celebratedLevels || {})[fita]);
+}
 function getUnlockedMedals() {
-  return getAllMedals().filter(m => m.check(progress)).map(m => m.id);
+  return getAllMedals().filter(m => m.check(progress) || medallaJaOberta(progress, m.id)).map(m => m.id);
 }
 
 function renderMedalGrid(medals, unlocked) {
