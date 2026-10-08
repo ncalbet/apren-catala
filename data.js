@@ -2516,10 +2516,10 @@ const DATA = {
       question:'Omple amb el connector adequat (contrast):',
       sentence:"M'agrada la muntanya; ___, el mar és més relaxant per a mi.",
       display:'connector de contrast',
-      answers:['tanmateix','en canvi','no obstant això'],
+      answers:['tanmateix','en canvi','no obstant això','no obstant','això no obstant'],
       variants:[
-        { sentence:"El meu germà prefereix la ciutat; ___, jo m'estimo més viure al poble.", display:'connector de contrast', answers:['en canvi','tanmateix','no obstant això'] },
-        { sentence:"L'examen semblava fàcil; ___, molts alumnes el van suspendre.", display:'connector de contrast', answers:['tanmateix','no obstant això','amb tot'], theory:"«Tanmateix», «no obstant això» i «amb tot» expressen contrast i van entre pauses: «; tanmateix,». «Però» també indica contrast, però no s'escriu seguit de coma i per això no encaixa en aquest patró." },
+        { sentence:"El meu germà prefereix la ciutat; ___, jo m'estimo més viure al poble.", display:'connector de contrast', answers:['en canvi','tanmateix','no obstant això','no obstant','això no obstant'] },
+        { sentence:"L'examen semblava fàcil; ___, molts alumnes el van suspendre.", display:'connector de contrast', answers:['tanmateix','no obstant això','no obstant','això no obstant','amb tot'], theory:"«Tanmateix», «no obstant això» i «amb tot» expressen contrast i van entre pauses: «; tanmateix,». «Però» també indica contrast, però no s'escriu seguit de coma i per això no encaixa en aquest patró." },
       ],
       theory:"«Tanmateix», «en canvi» i «no obstant això» expressen contrast i van entre pauses: «; tanmateix,». «Però» també indica contrast, però no s'escriu seguit de coma i per això no encaixa en aquest patró.", example:"El pla era bo; tanmateix, va fracassar." },
 
@@ -3756,7 +3756,7 @@ const DATA = {
       question:'Omple amb el connector de contrast adequat:',
       sentence:'El projecte té molts punts forts. ___, el pressupost inicial sembla insuficient.',
       display:'connector de contrast formal (no «però»)',
-      answers:['Tanmateix','No obstant això','Ara bé','Tot i això','Malgrat això','Malgrat tot'],
+      answers:['Tanmateix','No obstant això','No obstant','Això no obstant','Ara bé','Tot i això','Malgrat això','Malgrat tot'],
       theory:'En textos B2, els connectors de contrast formals (tanmateix, ara bé, no obstant això) demostren domini del registre escrit. «Però» és correcte però menys marcat.', example:'El pla és ambiciós. Tanmateix, caldria revisar el calendari.' },
     { id:'b2-pro8', type:'fill', level:'b2', category:'Producció escrita',
       text:'Les cartes i correus formals s\'obren amb fórmules fixes que estableixen el to professional i marquen el tractament de vostè.',
@@ -4147,10 +4147,10 @@ const DATA = {
       text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.',
       question:'Omple amb el connector adequat:',
       sentence:'Els pronòstics eren pessimistes; ___, els resultats van superar les expectatives.',
-      display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','amb tot','així i tot'],
+      display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','no obstant','això no obstant','amb tot','així i tot'],
       variants:[
-        { text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.', sentence:'Feia molt mal temps; ___, la cursa es va celebrar igualment.', display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','amb tot','així i tot'] },
-        { text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.', sentence:'Tenia molt poca experiència; ___, va aconseguir la feina.', display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','amb tot','així i tot'] },
+        { text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.', sentence:'Feia molt mal temps; ___, la cursa es va celebrar igualment.', display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','no obstant','això no obstant','amb tot','així i tot'] },
+        { text:'Quan el resultat d\'una situació contradiu el que esperàvem, hi enllacem les idees amb un connector concessiu o adversatiu.', sentence:'Tenia molt poca experiència; ___, va aconseguir la feina.', display:'connector concessiu/adversatiu', answers:['tot i així','tanmateix','malgrat tot','no obstant això','no obstant','això no obstant','amb tot','així i tot'] },
       ],
       theory:'«Tot i així» i «tanmateix» introdueixen una conclusió inesperada que contradiu allò que la premissa feia esperar.', example:'Era difícil; tot i així, ho van aconseguir.' },
     // +1 SUBJUNTIU
@@ -4486,10 +4486,10 @@ const DATA = {
       text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.',
       sentence:'Els resultats han estat satisfactoris. ___, cal no perdre de vista les limitacions metodològiques.',
       display:'connector de matís (no «però»)',
-      answers:['ara bé','dit això','cal matisar que','no obstant això','tanmateix','amb tot','tot i així'],
+      answers:['ara bé','dit això','cal matisar que','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'],
       variants:[
-        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'La proposta presenta avantatges evidents. ___, no s\'han quantificat els costos d\'implementació.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','tanmateix','amb tot','tot i així'] },
-        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'L\'estudi aporta dades valuoses. ___, la mostra analitzada resulta poc representativa.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','tanmateix','amb tot','tot i així'] },
+        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'La proposta presenta avantatges evidents. ___, no s\'han quantificat els costos d\'implementació.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'] },
+        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'L\'estudi aporta dades valuoses. ___, la mostra analitzada resulta poc representativa.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'] },
       ],
       theory:'«Ara bé» i «dit això» introdueixen un matís que relativitza sense contradir frontalment. Característics del registre formal C1.', example:'La mesura ha estat eficaç. Ara bé, cal avaluar els seus efectes a llarg termini.' },
 
