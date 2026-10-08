@@ -2380,7 +2380,7 @@ const DATA = {
         { text:'«Vas <u>a la piscina</u>?» → «Sí, ___ vaig cada dimecres.»', options:['hi','en','el'], correct:0 },
         { text:'«Has anat <u>a la reunió</u>?» → «Sí, ___ vaig anar a les deu.»', options:['en','el','hi'], correct:2 },
       ],
-      theory:"«Hi» substitueix un lloc al qual es va («anar a»). «El gimnàs» és el destí → «hi vaig».", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
+      theory:"«Hi» substitueix el lloc al qual es va («anar a»).", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
 
     { id:'b1-pf2', type:'choice', level:'b1', category:'Pronoms febles B1',
       question:'Completa amb el pronom correcte:',
