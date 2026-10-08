@@ -2636,10 +2636,19 @@ const DATA = {
       question:'Omple amb la perífrasi correcta per indicar una acció recent:',
       sentence:'___ (dinar). Ara estic ple.',
       display:"acabar de + infinitiu (1a pers. sing.)",
-      answers:['Acabo de dinar'],
+      answers:['Acabo de dinar','Acabe de dinar','Acab de dinar'],
+      formes:{
+        'Acabe de dinar':{ etiqueta:'valencià', nota:"«Acabe» és la 1a persona del present en valencià; la general és «acabo».", font:'GEIEC 5.3.1' },
+        'Acab de dinar':{ etiqueta:'balear', nota:"«Acab» és la 1a persona del present en balear; la general és «acabo».", font:'GEIEC 5.3.1' } },
       variants:[
-        { sentence:'___ (arribar). Encara no m\'he tret l\'abric.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo d\'arribar'] },
-        { sentence:'___ (parlar) amb ella. M\'ha dit que ve de seguida.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo de parlar'] },
+        { sentence:'___ (arribar). Encara no m\'he tret l\'abric.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo d\'arribar','Acabe d\'arribar','Acab d\'arribar'],
+          formes:{
+            'Acabe d\'arribar':{ etiqueta:'valencià', nota:"«Acabe» és la 1a persona del present en valencià; la general és «acabo».", font:'GEIEC 5.3.1' },
+            'Acab d\'arribar':{ etiqueta:'balear', nota:"«Acab» és la 1a persona del present en balear; la general és «acabo».", font:'GEIEC 5.3.1' } } },
+        { sentence:'___ (parlar) amb ella. M\'ha dit que ve de seguida.', display:"acabar de + infinitiu (1a pers. sing.)", answers:['Acabo de parlar','Acabe de parlar','Acab de parlar'],
+          formes:{
+            'Acabe de parlar':{ etiqueta:'valencià', nota:"«Acabe» és la 1a persona del present en valencià; la general és «acabo».", font:'GEIEC 5.3.1' },
+            'Acab de parlar':{ etiqueta:'balear', nota:"«Acab» és la 1a persona del present en balear; la general és «acabo».", font:'GEIEC 5.3.1' } } },
       ],
       theory:"«Acabar de + infinitiu» expressa una acció que s'ha realitzat fa molt poc temps.", example:"Acabo d'arribar. / Acabes de telefonar?" },
 
@@ -3918,7 +3927,10 @@ const DATA = {
       answers:['torna a','vol tornar a'],
       variants:[
         { text:'Les perífrasis verbals combinen un auxiliar amb un infinitiu per matisar l\'acció; algunes indiquen que es repeteix.', sentence:'El sistema ja ha fallat un cop avui. Si ___ fallar, l\'haurem de reiniciar.', display:'perífrasi de repetició (+ infinitiu)', answers:['torna a','vol tornar a'] },
-        { text:'Les perífrasis verbals combinen un auxiliar amb un infinitiu per matisar l\'acció; algunes indiquen que es repeteix.', sentence:'Aquesta cançó m\'encanta; sempre la ___ escoltar quan estic trist.', display:'perífrasi de repetició (+ infinitiu)', answers:['torno a'] },
+        { text:'Les perífrasis verbals combinen un auxiliar amb un infinitiu per matisar l\'acció; algunes indiquen que es repeteix.', sentence:'Aquesta cançó m\'encanta; sempre la ___ escoltar quan estic trist.', display:'perífrasi de repetició (+ infinitiu)', answers:['torno a','torne a','torn a'],
+          formes:{
+            'torne a':{ etiqueta:'valencià', nota:"«Torne» és la 1a persona del present en valencià; la general és «torno».", font:'GEIEC 5.3.1' },
+            'torn a':{ etiqueta:'balear', nota:"«Torn» és la 1a persona del present en balear; la general és «torno».", font:'GEIEC 5.3.1' } } },
       ],
       theory:'«Tornar a + infinitiu» expressa la repetició d\'una acció. Equivalent a «una altra vegada + verb».', example:'Ha tornat a arribar tard. / Si torna a fallar, caldrà prendre mesures.' },
     { id:'b2-per4', type:'choice', level:'b2', category:'Perífrasis verbals',
