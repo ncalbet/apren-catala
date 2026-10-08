@@ -3270,12 +3270,12 @@ const DATA = {
       example:'La seva germana té divuit anys.' },
 
     { id:'a1-u03-05', type:'choice', level:'a1', category:'Presentacions',
-      question:'Completa: «Soc ___ Amposta».',
+      question:'Expliques on vas néixer. Completa: «Soc ___ Amposta».',
       options:['a',"d'",'amb'],
       correct:1,
       variants:[
-        { question:'Completa: «Soc ___ Girona».', options:['a','amb','de'], correct:2, theory:'Diem «Soc de Girona» per indicar la procedència.', example:'Completa: «Soc de Girona».' },
-        { question:'Completa: «Soc ___ Olot».', options:["d'",'a','amb'], correct:0, theory:"Davant d'«Olot» fem servir «d'»: «Soc d'Olot».", example:"Completa: «Soc d' Olot»." },
+        { question:'Expliques on vas néixer. Completa: «Soc ___ Girona».', options:['a','amb','de'], correct:2, theory:'Diem «Soc de Girona» per indicar la procedència.', example:'Soc de Girona.' },
+        { question:'Expliques on vas néixer. Completa: «Soc ___ Olot».', options:["d'",'a','amb'], correct:0, theory:"Davant d'«Olot» fem servir «d'»: «Soc d'Olot».", example:"Soc d'Olot." },
       ],
       theory:"Davant d'«Amposta», escrivim «d'» en aquesta expressió de procedència.",
       example:"Soc d'Olot." },
@@ -3466,7 +3466,7 @@ const DATA = {
       correct:2,
       variants:[
         { question:"L'aula és al pis 2. Com ho diu el cartell?", options:['Segon pis','Primer pis','Tercer pis'], correct:0, theory:'El pis número 2 és el segon pis.', example:'Segon pis' },
-        { question:'La consulta és al pis 4. Com ho diu el cartell?', options:['Segon pis','Quart pis','Tercer pis'], correct:1, theory:'El pis número 4 és el quart pis.', example:'Quart pis' },
+        { question:'El consultori és al pis 4. Com ho diu el cartell?', options:['Segon pis','Quart pis','Tercer pis'], correct:1, theory:'El pis número 4 és el quart pis.', example:'Quart pis' },
       ],
       theory:"L'ordinal de 3 en masculí és «tercer».",
       example:"L'aula és al quart pis." },
