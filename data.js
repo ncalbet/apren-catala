@@ -2879,14 +2879,14 @@ const DATA = {
 
     { id:'b1-prep2', type:'choice', level:'b1', category:'Preposicions B1',
       question:'Tria la preposició correcta:',
-      text:'La meva germana treballa ___ una empresa de disseny gràfic.',
-      options:['a','de','en','amb'],
+      text:'___ dues hores hem enllestit tota la feina.',
+      options:['A','De','En','Amb'],
       correct:2,
       variants:[
         { text:'Aquest estiu passarem les vacances ___ Menorca.', options:['de','a','en','amb'], correct:1 },
-        { text:'M\'agrada molt viatjar ___ tren per la comoditat.', options:['a','amb','de','en'], correct:3 },
+        { text:'M\'agrada molt viatjar ___ tren per la comoditat.', options:['a','de','en'], correct:2 },
       ],
-      theory:"Davant d'un nom comú que designa un lloc s'usa «en» («en una empresa»). Davant de topònims (noms propis de lloc) s'usa «a» («a Menorca»). Amb mitjans de transport s'usa «en» («en tren»). És una distinció que el castellà no marca igual.", example:"Visc a Girona, en un pis del centre." },
+      theory:"Amb topònims s'usa «a» («a Menorca»). Per indicar la durada s'usa «en» («en dues hores»). Amb els mitjans de transport valen «en» i «amb» («en tren», «amb tren»). I per a un lloc amb article definit, se sol usar «a» («a la platja»).", example:"Visc a Girona, en un pis del centre." },
 
     { id:'b1-prep3', type:'choice', level:'b1', category:'Preposicions B1',
       question:'Tria l\'opció correcta:',
