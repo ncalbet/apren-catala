@@ -3772,29 +3772,58 @@ function lligaSurt() {
 }
 
 // ── La festa del podi ──
-// La primera vegada que obres l'app després del tancament de diumenge a les 23:58.
+// La primera vegada que obres l'app després del tancament de diumenge a les 23:58
+// (lligaSincronitza la crida en obrir-la i en tornar-hi).
+// La medalla és teva encara que ara no siguis a la lliga: n'hi ha prou amb el lid, que
+// es conserva en sortir. Fins al 08/10 calia ser-hi, i a qui n'havia sortit la festa
+// li arribava el dia que hi tornava a entrar (bústia: un tercer lloc celebrat en
+// dimarts). Si la lectura falla, es torna a provar, i queda apuntat al registre.
+let _lligaFestaEnCurs = false;
 async function lligaComprovaFesta() {
   const l = lligaLocal();
-  if (!lligaVisible() || !window.fbUser || !l.dins || !l.lid) return;
+  if (!lligaVisible() || !window.fbUser || !l.lid) return;
   const s = sumaDiesData(setmanaMadrid(Date.now()), -7);
-  if (s < LLIGA_PRIMERA_SETMANA || l.festa === s) return;
-  let d = null;
-  try { d = await window.fbLligaClassificacio?.(s); } catch (e) { return; }
-  if (!d || !d.setmana || d.setmana.prova || Date.now() < d.setmana.fi) return;
-  desaLligaLocal({ festa: s });
-  const podi = d.setmana.podi || podiDe(lligaFiles(d));
-  const meu = podi.find(f => f.lid === l.lid);
-  if (meu) {
-    // Al podi dibuixat hi surt qui encara és a la lliga (com a lligaPodiAnterior), i tu.
-    const noms = Object.fromEntries(d.perfils.filter(p => !p.fora && p.pseudonim).map(p => [p.lid, p.pseudonim]));
-    const graons = podi.filter(f => noms[f.lid] || f.lid === l.lid)
-      .map(f => ({ posicio: f.posicio, punts: f.punts, nom: noms[f.lid] || 'Tu', jo: f.lid === l.lid }));
-    lligaMostraFesta(meu.posicio, meu.punts, graons);
-    return;
+  if (s < LLIGA_PRIMERA_SETMANA || l.festa === s || _lligaFestaEnCurs) return;
+  _lligaFestaEnCurs = true;
+  try {
+    let d = null;
+    for (const espera of [0, 1500, 4000]) {
+      if (espera) await new Promise(r => setTimeout(r, espera));
+      try { d = await window.fbLligaClassificacio?.(s); } catch (e) { d = null; }
+      if (d) break;
+    }
+    if (!d) { lligaApunta('festa del podi: la lectura ha fallat'); return; }
+    if (!d.setmana || d.setmana.prova || Date.now() < d.setmana.fi) return;
+    const lid = lligaLocal().lid;
+    if (!lid || !window.fbUser) return;   // mentrestant s'ha tancat la sessió
+    const dins = !!lligaLocal().dins;
+    // El podi que es calcula aquí només té qui és a la lliga (lligaFiles); el del cron
+    // té tothom qui va fer punts. A qui n'ha sortit, s'espera el del cron sense marcar
+    // res: la lectura següent ho tornarà a mirar.
+    if (!d.setmana.podi && !dins) return;
+    desaLligaLocal({ festa: s });
+    const podi = d.setmana.podi || podiDe(lligaFiles(d));
+    const meu = podi.find(f => f.lid === lid);
+    // La còpia de les medalles de Fites: la classificació només la refresca a qui hi és.
+    const perfil = d.perfils.find(p => p.lid === lid);
+    if (perfil) lligaDesaMedalles(perfil.medalles);
+    if (meu) {
+      // Al podi dibuixat hi surt qui encara és a la lliga (com a lligaPodiAnterior), i tu.
+      const noms = Object.fromEntries(d.perfils.filter(p => !p.fora && p.pseudonim).map(p => [p.lid, p.pseudonim]));
+      const graons = podi.filter(f => noms[f.lid] || f.lid === lid)
+        .map(f => ({ posicio: f.posicio, punts: f.punts, nom: noms[f.lid] || 'Tu', jo: f.lid === lid }));
+      lligaApunta(`festa del podi: posició ${meu.posicio}${dins ? '' : ' (fora de la lliga)'}`);
+      lligaMostraFesta(meu.posicio, meu.punts, graons);
+      return;
+    }
+    // Fora del podi, l'avís de la posició, només per a qui hi és: lligaFiles no té els
+    // perfils que n'han sortit.
+    const files = lligaFiles(d).filter(f => f.punts > 0);
+    const jo = files.find(f => f.lid === lid);
+    if (jo) showAlert(`La setmana passada vas acabar a la posició ${jo.posicio} de ${files.length}. Aquesta setmana tornes a començar de zero. Endavant!`);
+  } finally {
+    _lligaFestaEnCurs = false;
   }
-  const files = lligaFiles(d).filter(f => f.punts > 0);
-  const jo = files.find(f => f.lid === l.lid);
-  if (jo) showAlert(`La setmana passada vas acabar a la posició ${jo.posicio} de ${files.length}. Aquesta setmana tornes a començar de zero. Endavant!`);
 }
 // Confeti del podi: no ha de semblar el de pujar de nivell. Dues onades (~5 s), més
 // peces, de mides i formes diverses, i dels colors de la medalla que has guanyat.
