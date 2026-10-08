@@ -2378,7 +2378,7 @@ const DATA = {
       correct:1,
       variants:[
         { text:'«Vas <u>a la piscina</u>?» → «Sí, ___ vaig cada dimecres.»', options:['hi','en','el'], correct:0 },
-        { text:'«Has anat <u>a la reunió</u>?» → «Sí, ___ he anat a les deu.»', options:['en','el','hi'], correct:2 },
+        { text:'«Has anat <u>a la reunió</u>?» → «Sí, ___ vaig anar a les deu.»', options:['en','el','hi'], correct:2 },
       ],
       theory:"«Hi» substitueix un lloc al qual es va («anar a»). «El gimnàs» és el destí → «hi vaig».", example:"«Vas al mercat?» «Sí, hi vaig ara.»" },
 
@@ -2628,7 +2628,7 @@ const DATA = {
       correct:1,
       variants:[
         { text:'___ presentar la documentació a secretaria.', options:['He de','Vull','Acabo de'], correct:0 },
-        { text:'Per aprovar l\'examen, ___ estudiar molt.', options:['acabes de','vols','has de'], correct:2 },
+        { text:'Per aprovar l\'examen, ___ treballar molt.', options:['acabes de','vols','has de'], correct:2 },
       ],
       theory:"«Haver de + infinitiu» expressa obligació. «Voler» és voluntat. «Acabar de» indica acció recentment acabada.", example:"He de pagar la factura avui." },
 
@@ -2672,7 +2672,7 @@ const DATA = {
 
     { id:'b1-per6', type:'choice', level:'b1', category:'Perífrasis B1',
       question:'Quina perífrasi indica intenció de fer una cosa?',
-      text:'Avui a la nit ___ estudiar per a l\'examen.',
+      text:'Avui a la nit ___ preparar l\'examen.',
       options:["penso","acabo de","deixo de"],
       correct:0,
       variants:[
@@ -2844,7 +2844,7 @@ const DATA = {
       correct:0,
       variants:[
         { text:'La botiga ___ compren els ingredients obre molt aviat.', options:['que','qui','on','quan'], correct:2 },
-        { text:'La persona de ___ em parlaves és la meva tutora.', options:['que','qui','on','quan'], correct:1 },
+        { text:'La persona per ___ preguntaves és la meva tutora.', options:['que','qui','on','quan'], correct:1 },
       ],
       theory:"«Que» per a subjecte/CD sense preposició; «qui» per a persones darrere de preposició; «on» per a lloc; «quan» per a temps.", example:"El llibre que llegeixo / L'amic amb qui parlo / El poble on visc." },
 
@@ -2872,7 +2872,7 @@ const DATA = {
       options:['amb','per','per a','de'],
       correct:2,
       variants:[
-        { text:'No vam arribar a temps ___ un embús a l\'autopista.', options:['per a','amb','de','per'], correct:3 },
+        { text:'No vam arribar a temps ___ un embús a l\'autopista.', options:['per a','amb','en','per'], correct:3 },
         { text:'Han preparat una sorpresa ___ tots els convidats.', options:['de','per a','per','amb'], correct:1 },
       ],
       theory:"«Per a» indica destinació o beneficiari (les flors van destinades a la mare). «Per» indica causa o motiu (no arribar a temps a causa d'un embús). Distingir-les és el nucli de l'ús d'aquesta parella.", example:"Ho faig per tu (per la teva causa) / Ho compro per a tu (perquè ho rebis)." },
@@ -2997,7 +2997,7 @@ const DATA = {
     { id:'b1-rv1', type:'choice', level:'b1', category:'Règim verbal B1',
       question:'Tria la preposició que regeix el verb:',
       text:"Fixa't ___ aquell quadre de la paret, és preciós.",
-      options:['en','amb','a','de'],
+      options:['en','amb','a','per'],
       correct:0,
       variants:[
         { text:"No es va fixar ___ cap detall de l'habitació.", options:['amb','en','a','de'], correct:1 },
