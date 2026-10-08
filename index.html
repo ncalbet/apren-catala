@@ -567,11 +567,9 @@ let currentSession = { items:[], idx:0, correct:0, level:'b2' };
 let dragIdx = null;
 let tapSelectedIdx = null;
 let _navState = { screen: 'menu' };
-// Lliga: la intenció d'entrar-hi d'un toc (lligaParticipa) i el pseudònim amb què s'hi
-// acaba d'entrar (la línia «Ja hi ets» de la classificació). Només valen mentre no es
-// surt de la pantalla de la lliga.
+// Lliga: la intenció d'entrar-hi d'un toc (lligaParticipa). Només val mentre no es surt
+// de la pantalla de la lliga.
 let _lligaVolEntrar = false;
-let _lligaAcabaDEntrar = null;
 // El progrés només es puja al núvol quan ja s'ha comparat amb el que hi havia en
 // iniciar sessió (sincronitzaProgres). Fins al 29/09 es pujava sempre, i si aquella
 // comparació no s'havia pogut fer (sense connexió en obrir l'app), el progrés d'aquest
@@ -582,7 +580,7 @@ let _progresSincronitzant = false;
 let _streakFrozen = 0;
 function _setNav(s) {
   _navState = s;
-  if (s.screen !== 'lliga') { _lligaVolEntrar = false; _lligaAcabaDEntrar = null; }
+  if (s.screen !== 'lliga') _lligaVolEntrar = false;
 }
 
 function saveProgress() {
@@ -3612,9 +3610,10 @@ function lligaEntra() {
 }
 // Entra a la lliga. Sense casella de consentiment ni pantalla d'entrada (des del
 // 28/09): tocar «Participa!» o «Entra a la lliga» ja és l'acte afirmatiu que demana el
-// consentiment (RGPD, cons. 32), i en entrar-hi la classificació diu amb quin nom hi
-// surts i com se'n surt (lligaAcabesDEntrarHTML). Si no se'n surt, la pantalla curta
-// diu per què.
+// consentiment (RGPD, cons. 32). El nom amb què hi surts es veu a la classificació,
+// ressaltat amb «(tu)», i «Surt de la lliga» és a «?» (fins al 08/10, un quadre «Ja hi
+// ets» ho deia en entrar-hi; l'usuari el va trobar sobrer). Si no se'n surt, la
+// pantalla curta diu per què.
 async function lligaEntraAmb(pseudo) {
   const error = (text, editaPseudo) => {
     if (_navState.screen !== 'lliga') return;
@@ -3650,16 +3649,7 @@ async function lligaEntraAmb(pseudo) {
   lligaApunta('entra a la lliga');
   desaCacheLliga(null);
   if (_navState.screen !== 'lliga') return;
-  _lligaAcabaDEntrar = pseudo;
   renderLliga();
-}
-// Just després d'entrar-hi: amb quin nom hi surts i com se'n surt, ja que no hi ha
-// cap pantalla d'entrada que ho digui abans.
-function lligaAcabesDEntrarHTML() {
-  if (!_lligaAcabaDEntrar) return '';
-  return `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
-    Ja hi ets, com a <strong style="overflow-wrap:anywhere;">${escText(_lligaAcabaDEntrar)}</strong>. El pseudònim es canvia al Perfil; per sortir de la lliga, toca «?».
-  </div>`;
 }
 async function lligaCarregaClassificacio() {
   const s = setmanaMadrid(Date.now());
@@ -3741,7 +3731,6 @@ function lligaClassificacioHTML(dades, lid) {
     </div>`;
   }).join('');
   return `
-    ${lligaAcabesDEntrarHTML()}
     ${lligaAvisHTML(diaAvui)}
     <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Setmana del ${lligaDiaMes(w.inici)} al ${lligaDiaMes(w.fi)} · tanca diumenge a les 23:58</div>
     ${sostre
