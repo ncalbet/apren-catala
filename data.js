@@ -2525,8 +2525,8 @@ const DATA = {
 
     { id:'b1-con3', type:'reorder', level:'b1', category:'Connectors B1',
       question:'Ordena per formar una seqüència lògica:',
-      parts:['Finalment, va aconseguir el treball dels seus somnis.','Primer, va fer el currículum i el va enviar.','Més tard, va practicar molt per a l\'entrevista.','Després, va esperar la resposta durant dues setmanes.'],
-      correct:[1,2,3,0], theory:"Connectors d'ordre temporal: primer → més tard → després → finalment. Atenció: «a més» expressa addició lògica, no seqüència cronològica.", example:"Primer vaig estudiar, després vaig fer l'examen, finalment vaig celebrar-ho." },
+      parts:['Finalment, va aconseguir el treball dels seus somnis.','Primer, va fer el currículum i el va enviar.','Més tard, va practicar molt per a l\'entrevista.','Després, li van proposar una entrevista.'],
+      correct:[1,3,2,0], theory:"Connectors d'ordre temporal: «primer» obre la seqüència, «després» i «més tard» la fan avançar i «finalment» la tanca. «Després» i «més tard» són intercanviables: l'ordre dels passos del mig el decideix el contingut. Atenció: «a més» expressa addició lògica, no seqüència cronològica.", example:"Primer vaig estudiar, després vaig fer l'examen, finalment vaig celebrar-ho." },
 
     { id:'b1-con4', type:'choice', level:'b1', category:'Connectors B1',
       question:'Quina frase usa incorrectament el connector?',
