@@ -51,7 +51,7 @@
     ]
   },
 
-  'Demana ajuda': {
+  'Demanar ajuda': {
     level: 'a1',
     icon: '🙋',
     subtitle: "Demana una repetició, reconeix les instruccions de l'app i lletreja un nom.",
@@ -713,7 +713,7 @@
     ]
   },
 
-  'Quedar i repassar': {
+  'Quedar amb algú': {
     level: 'a1',
     icon: '🤝',
     subtitle: 'Proposa una trobada, respon-hi i uneix informacions amb connectors bàsics.',
@@ -3164,8 +3164,8 @@ const DATA = {
       theory:'«Adeu» tanca aquest intercanvi.',
       example:'Adeu, fins aviat!' },
 
-    // ── DEMANA AJUDA ──
-    { id:'a1-u02-01', type:'choice', level:'a1', category:'Demana ajuda',
+    // ── DEMANAR AJUDA ──
+    { id:'a1-u02-01', type:'choice', level:'a1', category:'Demanar ajuda',
       question:'No has sentit bé el nom. Què demanes?',
       options:['Quants anys tens?','Pots repetir-ho?','On vius?'],
       correct:1,
@@ -3176,7 +3176,7 @@ const DATA = {
       theory:'Demanar una repetició permet tornar a sentir la informació.',
       example:'Pots repetir el nom, si us plau?' },
 
-    { id:'a1-u02-02', type:'choice', level:'a1', category:'Demana ajuda',
+    { id:'a1-u02-02', type:'choice', level:'a1', category:'Demanar ajuda',
       question:'La persona parla massa de pressa. Què li dius?',
       options:['Més de pressa, si us plau.','Bon profit.','Més a poc a poc, si us plau.'],
       correct:2,
@@ -3187,14 +3187,14 @@ const DATA = {
       theory:'«A poc a poc» demana un ritme més lent.',
       example:'Parla més a poc a poc, si us plau.' },
 
-    { id:'a1-u02-03', type:'reorder', level:'a1', category:'Demana ajuda',
+    { id:'a1-u02-03', type:'reorder', level:'a1', category:'Demanar ajuda',
       question:'Ordena la frase per indicar que no comprens una informació.',
       parts:['ho','No','entenc.'],
       correct:[1,0,2],
       theory:'«No ho entenc» es pot aprendre com una expressió sencera.',
       example:'No ho entenc. Pots repetir-ho?' },
 
-    { id:'a1-u02-04', type:'choice', level:'a1', category:'Demana ajuda',
+    { id:'a1-u02-04', type:'choice', level:'a1', category:'Demanar ajuda',
       question:'Algú lletreja «ela, i, ena, a». Quin nom diu?',
       options:['Lina','Nila','Lia'],
       correct:0,
@@ -3205,7 +3205,7 @@ const DATA = {
       theory:'Les lletres L-I-N-A formen «Lina».',
       example:'«Ona» es lletreja «o, ena, a».' },
 
-    { id:'a1-u02-05', type:'choice', level:'a1', category:'Demana ajuda',
+    { id:'a1-u02-05', type:'choice', level:'a1', category:'Demanar ajuda',
       question:'Veus una paraula nova i vols saber-ne el significat. Què preguntes?',
       options:['A quina hora és?','Què vol dir?','Quant val?'],
       correct:1,
@@ -3216,7 +3216,7 @@ const DATA = {
       theory:'«Què vol dir?» demana el significat.',
       example:'Què vol dir «tancat»?' },
 
-    { id:'a1-u02-06', type:'choice', level:'a1', category:'Demana ajuda',
+    { id:'a1-u02-06', type:'choice', level:'a1', category:'Demanar ajuda',
       question:"L'exercici diu «Tria una resposta». Què has de fer?",
       options:['Llegir totes les lletres en veu alta','Escriure tres noms','Escollir una opció'],
       correct:2,
@@ -3784,8 +3784,8 @@ const DATA = {
       theory:'«Haver de + infinitiu» expressa aquí una obligació.',
       example:'He de portar el formulari.' },
 
-    // ── QUEDAR I REPASSAR ──
-    { id:'a1-u12-01', type:'reading', level:'a1', category:'Quedar i repassar',
+    // ── QUEDAR AMB ALGÚ ──
+    { id:'a1-u12-01', type:'reading', level:'a1', category:'Quedar amb algú',
       question:'On es trobaran?',
       text:'Ens veiem dissabte a les deu davant del mercat.',
       options:['A casa','Davant del mercat','A la biblioteca'],
@@ -3793,7 +3793,7 @@ const DATA = {
       theory:'El lloc indicat és davant del mercat.',
       example:'Ens veiem a la plaça.' },
 
-    { id:'a1-u12-02', type:'choice', level:'a1', category:'Quedar i repassar',
+    { id:'a1-u12-02', type:'choice', level:'a1', category:'Quedar amb algú',
       question:'Et proposen quedar avui, però treballes i no hi pots anar. Què respons?',
       options:['Sí, em va bé.','Avui no puc.','Bon profit.'],
       correct:1,
@@ -3804,7 +3804,7 @@ const DATA = {
       theory:"«Avui no puc» indica que no pots acceptar la proposta d'avui.",
       example:'Avui no puc. I demà?' },
 
-    { id:'a1-u12-03', type:'fill', level:'a1', category:'Quedar i repassar',
+    { id:'a1-u12-03', type:'fill', level:'a1', category:'Quedar amb algú',
       question:'Escriu el dia que falta.',
       sentence:'Dilluns, dimarts, ___, dijous.',
       answers:['dimecres'],
@@ -3815,7 +3815,7 @@ const DATA = {
       theory:'Després de dimarts ve dimecres.',
       example:'Quedem dimecres a les sis.' },
 
-    { id:'a1-u12-04', type:'choice', level:'a1', category:'Quedar i repassar',
+    { id:'a1-u12-04', type:'choice', level:'a1', category:'Quedar amb algú',
       question:'Completa la resposta: «—Per què no vens? —___ treballo».',
       options:['Perquè','Per què','Però'],
       correct:0,
@@ -3826,7 +3826,7 @@ const DATA = {
       theory:'«Perquè» introdueix la causa en aquesta resposta.',
       example:'No vinc perquè no em trobo bé.' },
 
-    { id:'a1-u12-05', type:'choice', level:'a1', category:'Quedar i repassar',
+    { id:'a1-u12-05', type:'choice', level:'a1', category:'Quedar amb algú',
       question:'Completa amb el connector de contrast: «Vull venir, ___ no puc».',
       options:['i','perquè','però'],
       correct:2,
@@ -3837,7 +3837,7 @@ const DATA = {
       theory:'«Però» contraposa la voluntat de venir i la impossibilitat de fer-ho.',
       example:"M'agrada, però no en vull." },
 
-    { id:'a1-u12-06', type:'reading', level:'a1', category:'Quedar i repassar',
+    { id:'a1-u12-06', type:'reading', level:'a1', category:'Quedar amb algú',
       question:'Quan i on han acordat trobar-se?',
       text:"—Quedem divendres a les sis al parc? —Divendres no puc. Dissabte, al mateix lloc i a la mateixa hora, sí. —D'acord!",
       options:['Divendres a les sis al parc','Dissabte a les sis al parc','Dissabte a les set a la biblioteca'],
