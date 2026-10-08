@@ -1277,14 +1277,16 @@ function renderMenu() {
   // (preguntaRecordatoriHTML), quan té sentit. El bàner d'aquí competia amb els
   // altres avisos: el 27/09/2026, només 5 dels 110 comptes els tenien activats.
   const diesPracticats = (progress.practiceHistory || []).length;
+  // El botó va a sota del text: al costat, en un mòbil, el text quedava en una
+  // columna d'una paraula per línia (bústia, 08/10).
   const kofiBanner = shouldShowKofiBanner() ? `
-    <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid #f59e0b;background:var(--accent-amber-bg);display:flex;align-items:center;gap:12px;">
+    <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid #f59e0b;background:var(--accent-amber-bg);display:flex;align-items:flex-start;gap:12px;">
       <span style="font-size:24px;flex-shrink:0;display:flex;color:var(--accent-amber-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.` : `Ja has practicat ${diesPracticats} dies. Gràcies!`}</div>
         <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots convidar-me a un cafè.</div>
+        <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">Convida'm</a>
       </div>
-      <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;flex-shrink:0;text-decoration:none;white-space:nowrap;">Convida'm</a>
       <button onclick="dismissKofiBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
     </div>` : '';
   window.scrollTo(0, 0);
