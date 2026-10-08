@@ -2698,6 +2698,8 @@ function renderDailyChallengeSection() {
   const allDone = nDone === items.length;
   const typeNames = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió'};
   const typeIcons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
+  // Fet el repte, només el títol i el bonus: la barra plena i la llista tatxada no
+  // hi afegien res (08/10/2026).
 
   return `
     <div style="background:${allDone ? 'linear-gradient(135deg,#065f46,#059669)' : 'linear-gradient(135deg,#1a2f4e,#2d4a7a)'};
@@ -2714,6 +2716,7 @@ function renderDailyChallengeSection() {
         </div>
       </div>
 
+      ${allDone ? '' : `
       <div style="background:rgba(255,255,255,0.15);border-radius:6px;height:6px;margin-bottom:12px;overflow:hidden;">
         <div style="background:#fbbf24;height:100%;width:${Math.round(nDone/items.length*100)}%;border-radius:6px;transition:width 0.5s;"></div>
       </div>
@@ -2729,7 +2732,7 @@ function renderDailyChallengeSection() {
             </div>
           </div>`;
         }).join('')}
-      </div>
+      </div>`}
 
       ${!allDone
         ? `<button class="ct-btn primary" style="width:100%;background:#fbbf24;color:#1a2f4e;border:none;font-weight:700;"
