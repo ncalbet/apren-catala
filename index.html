@@ -3584,14 +3584,11 @@ function lligaCosHTML() {
   if (!lligaForaConfirmat()) return `<p style="font-size:14px;color:var(--muted);">Carregant la lliga…</p>`;
   // La pantalla curta: només surt si no s'hi ha pogut entrar d'un toc (sense pseudònim
   // vàlid, pseudònim d'algú altre, sense connexió) o si s'hi arriba sense haver tocat
-  // «Participa!» (Fites).
+  // «Participa!» (Fites). Amb un pseudònim vàlid, només el botó: ja saben quin han posat,
+  // i es canvia al Perfil (08/10). El camp surt si no en té o si és d'algú altre.
   const pseudo = getPseudo();
   const valid = pseudonimValid(pseudo);
   return `
-    ${valid ? `<div id="lliga-pseudo-vista" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <div style="flex:1;min-width:0;font-size:14px;color:var(--text-soft);">Hi sortiràs com a <strong style="color:var(--text);overflow-wrap:anywhere;">${escText(pseudo)}</strong></div>
-      <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;flex-shrink:0;margin:0;" onclick="lligaEditaPseudo()">Canvia'l</button>
-    </div>` : ''}
     <div id="lliga-pseudo-edicio" style="margin-bottom:16px;${valid ? 'display:none;' : ''}">
       <label for="lliga-pseudo" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">EL TEU PSEUDÒNIM</label>
       <input id="lliga-pseudo" class="ct-input" style="margin-top:0;" maxlength="${PSEUDO_MAX}" placeholder="Com vols sortir a la classificació" value="${escText(pseudo)}">
@@ -3601,9 +3598,7 @@ function lligaCosHTML() {
     <button id="lliga-entra" class="ct-btn primary" style="width:100%;margin:0;" onclick="lligaEntra()">Entra a la lliga</button>`;
 }
 function lligaEditaPseudo() {
-  const vista = document.getElementById('lliga-pseudo-vista');
   const edicio = document.getElementById('lliga-pseudo-edicio');
-  if (vista) vista.style.display = 'none';
   if (edicio) edicio.style.display = '';
   const camp = document.getElementById('lliga-pseudo');
   if (camp) { camp.focus(); camp.select(); }
