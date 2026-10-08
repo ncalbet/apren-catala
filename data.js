@@ -3540,14 +3540,14 @@ const DATA = {
       theory:'«Quant» (invariable) per a preus i quantitats indeterminades. «Quants/Quantes» per a quantitats comptables: «Quants llibres tens?»', example:'Quant costa? / Quant val? / Quants en vols?' },
     { id:'a2-pi5', type:'choice', level:'a2', category:'Preguntes i interrogació',
       question:'Com es forma una pregunta de confirmació en català?',
-      text:'Les preguntes de confirmació s\'usen per verificar informació que es creu certa. En català s\'afegeix «no?» o «oi?» al final. El castellà «¿verdad?» no s\'usa en català.',
+      text:'Les preguntes de confirmació s\'usen per verificar informació que es creu certa.',
       options:['Parles català, no?','Parles català, ¿verdad?','Tu parles català, si?'],
       correct:0,
       variants:[
         { options:['Vius aquí, ¿verdad?','Vius aquí, no?','Tu vius aquí, si?'], correct:1 },
         { options:['Tu ja has menjat, si?','Ja has menjat, ¿verdad?','Ja has menjat, oi?'], correct:2 },
       ],
-      theory:'La fórmula de confirmació en català és «no?» (o «oi?» en registre col·loquial). «Coletilla» és un castellanisme; «¿Verdad?» és castellà i «Si?» no és la forma estàndard.', example:'Ets d\'aquí, no? / Ja has menjat, oi?' },
+      theory:'La fórmula de confirmació en català és «no?» (o «oi?» en registre col·loquial). «Coletilla» és un castellanisme; «¿Verdad?» és castellà i «Si?» no és la forma estàndard.', example:'Ets d\'aquí, no? / Vindràs a sopar, oi?' },
     { id:'a2-pi6', type:'reorder', level:'a2', category:'Preguntes i interrogació',
       question:'Ordena les paraules per formar una pregunta correcta:',
       text:'En les preguntes en català, la paraula interrogativa va al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.',
@@ -4053,7 +4053,7 @@ const DATA = {
       theory:'Termini (data límit) → «per a»: «per a divendres», «per a la setmana que ve». Durada → «per»: «estaré fora per dues setmanes».', example:'Ho necessito per a demà. / Estaré fora per dues setmanes.' },
     { id:'b2-prep3', type:'choice', level:'b2', category:'Preposicions',
       question:'Quin verb porta la preposició «en»?',
-      text:'Alguns verbs porten preposicions fixes que cal memoritzar: consistir en, confiar en, pensar en. Altres van amb «de» (dependre de) o «a» davant d\'infinitiu (insistir a, anar a).',
+      text:'Alguns verbs porten una preposició fixa (règim verbal) que cal memoritzar.',
       options:['Consisteix ___ tres fases.','Depèn ___ nosaltres.','Insisteix ___ venir.'],
       correct:0, variants:[
         { options:['Depèn ___ nosaltres.','Insisteix ___ venir.','Consisteix ___ tres fases.'], correct:2 },
@@ -4297,13 +4297,13 @@ const DATA = {
 
     { id:'b2-pfb4', type:'choice', level:'b2', category:'Pronoms febles B2',
       question:'Quina frase té la posició correcta del pronom feble?',
-      text:'En indicatiu, el pronom feble va DAVANT el verb (proclític): «Ho dic». En imperatiu afirmatiu, va DARRERE amb guió (enclític): «Digues-ho». En imperatiu negatiu, torna davant: «No ho diguis».',
+      text:'En indicatiu, el pronom feble va DAVANT el verb (proclític): «Ho porto». En imperatiu afirmatiu, va DARRERE amb guió (enclític): «Porta-ho». En imperatiu negatiu, torna davant: «No ho portis».',
       options:['Ho digues a la directora ara.','Digues-ho a la directora ara.','Digues ho a la directora ara.','La digues a la directora ara.'],
       correct:1, variants:[
         { options:['Digues-ho a la directora ara.','Ho digues a la directora ara.','La digues a la directora ara.','Digues ho a la directora ara.'], correct:0 },
         { question:'Quina frase té la posició correcta del pronom en imperatiu afirmatiu?', options:['Ho fes ara!','Fes ho ara!','Fes-ho ara!','La fes!'], correct:2 },
       ],
-      theory:'En l\'imperatiu afirmatiu, el pronom feble sempre va postposat al verb unit amb guió: Digues-ho, Porta\'l, Vine-hi. En indicatiu va proclíticament (davant el verb): Ho dic, L\'he portat. En imp. negatiu, torna a ser proclític: No ho diguis.', example:'Fes-ho ara! / Porta\'l! / Vine-hi! // No ho facis (imp. neg. → davant el verb).' },
+      theory:'En l\'imperatiu afirmatiu, el pronom feble sempre va postposat al verb unit amb guió: Escriu-ho, Porta\'l, Vine-hi. En indicatiu va proclíticament (davant el verb): Ho escric, L\'he portat. En imp. negatiu, torna a ser proclític: No ho escriguis.', example:'Escriu-ho ara! / Porta\'l! / Vine-hi! // No ho escriguis (imp. neg. → davant el verb).' },
 
     { id:'b2-pfb5', type:'fill', level:'b2', category:'Pronoms febles B2',
       text:'Quan en una frase coincideixen un complement directe i un d\'indirecte, els pronoms febles es combinen seguint un ordre i unes formes concretes.',
@@ -4358,7 +4358,7 @@ const DATA = {
       theory:"En les temporals referides al futur (amb «quan», «tan bon punt», «una vegada»...), el més habitual és el present de subjuntiu: «quan + subj.». El futur d'indicatiu també s'admet («quan tindrem»), però avui és menys habitual.", example:'Ho faré quan tingui temps. / Sortirem quan acabi la reunió.' },
     { id:'c1-sa4', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Quina frase usa el subjuntiu correctament en una oració relativa?',
-      text:'En les oracions de relatiu, el subjuntiu indica que l\'antecedent és indefinit o inexistent (no se sap si existeix): «Busco algú que sàpiga...». L\'indicatiu indica que l\'antecedent és conegut: «Conec algú que sap...».',
+      text:'En les oracions de relatiu, el subjuntiu indica que l\'antecedent és indefinit o inexistent (no se sap si existeix): «Necessito un pis que tingui terrassa». L\'indicatiu indica que l\'antecedent és conegut: «Tinc un pis que té terrassa».',
       options:['Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'],
       correct:1, variants:[
         { options:['Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'], correct:0 },
@@ -4496,7 +4496,7 @@ const DATA = {
       correct:1, theory:'L\'autor usa l\'estratègia de «sí, però»: reconeix la posició contrària, la matisa i redirigeix la conclusió.', example:'Reconèixer → Matisar («Ara bé») → Concloure diferent («Per consegüent»).' },
     { id:'c1-arg4', type:'choice', level:'c1', category:'Argumentació',
       question:'Quina expressió serveix per introduir una tesi en un text acadèmic?',
-      text:'En un text acadèmic, la tesi s\'introdueix amb expressions impersonals i objectives que eviten el «jo»: «es fa palès que», «cal tenir present que», «tot sembla indicar que».',
+      text:'En un text acadèmic, la tesi s\'introdueix amb expressions impersonals i objectives que eviten el «jo».',
       options:['Crec que és important dir que...','Es fa palès que les mesures adoptades han estat insuficients.','Bueno, bàsicament el que vull dir és que...'],
       correct:1, variants:[
         { options:['Es fa palès que les mesures adoptades han estat insuficients.','Crec que és important dir que...','Bueno, bàsicament el que vull dir és que...'], correct:0 },
@@ -4542,7 +4542,7 @@ const DATA = {
       correct:1, theory:'«Alguns experts... d\'altres, en canvi» presenta dues solucions enfrontades. La tensió és entre les dues propostes.', example:'«Alguns... d\'altres, en canvi» → dos bàndols en tensió.' },
     { id:'c1-crit5', type:'choice', level:'c1', category:'Comprensió crítica',
       question:'Quin to predomina en: «Podria semblar que les dades parlen per si soles. Res més lluny de la realitat»?',
-      text:'Per identificar el to, fixa\'t en l\'estructura: una primera frase que presenta una visió ingènua («podria semblar») seguida d\'una refutació contundent. Quin efecte produeix en el lector?',
+      text:'Per identificar el to, fixa\'t en l\'estructura: què afirma la primera frase i com hi respon la segona. Quin efecte produeix en el lector?',
       options:['Optimista i confirmatiu','Crític i correctiu: refuta una visió ingènua sobre les dades','Dubitatiu: no sap si les dades són fiables'],
       correct:1, variants:[
         { options:['Crític i correctiu: refuta una visió ingènua sobre les dades','Optimista i confirmatiu','Dubitatiu: no sap si les dades són fiables'], correct:0 },
@@ -4640,13 +4640,13 @@ const DATA = {
       theory:'Verb principal en passat → verb subordinat en imperfet de subjuntiu. 3a persona plural: -essin.', example:'Va demanar que tots portessin la documentació.' },
     { id:'c1-si2', type:'choice', level:'c1', category:'Subjuntiu imperfet',
       question:'Quina frase usa correctament la concordança temporal?',
-      text:'La concordança temporal exigeix que el verb subordinat estigui en imperfet de subjuntiu quan el verb principal és en condicional o en passat: «voldria que vingués», «va demanar que vingués».',
+      text:'La concordança temporal exigeix que el verb subordinat estigui en imperfet de subjuntiu quan el verb principal és en condicional o en passat: «m\'agradaria que t\'hi quedessis», «va demanar que l\'ajudessin».',
       options:['Voldria que vingui aviat.','Voldria que vingués aviat.','Volia que vindrà aviat.'],
       correct:1, variants:[
         { options:['Voldria que vingués aviat.','Voldria que vingui aviat.','Volia que vindrà aviat.'], correct:0 },
         { options:['Volia que ho expliquessis tu.','Volia que ho expliquis tu.','Volia que ho explicaràs tu.'], correct:0 },
       ],
-      theory:'Condicional (voldria) → subjuntiu imperfet (vingués). El condicional actua com un «passat» per a la concordança temporal.', example:'Voldria que m\'expliqués la situació.' },
+      theory:'Condicional (m\'agradaria) → subjuntiu imperfet (quedessis). El condicional actua com un «passat» per a la concordança temporal.', example:'Voldria que m\'expliqués la situació.' },
     { id:'c1-si3', type:'fill', level:'c1', category:'Subjuntiu imperfet',
       text:'En passar a estil indirecte en passat, els temps verbals de la frase original es desplacen cap enrere.',
       question:'Completa en estil indirecte al passat:',
@@ -4714,13 +4714,13 @@ const DATA = {
       theory:'«Hi» substitueix complements de lloc on es va o on s\'és (complement introduït per «a» o «en»).', example:'«Vas a la reunió?» «Sí, hi vaig.»' },
     { id:'c1-pf3', type:'choice', level:'c1', category:'Pronoms febles',
       question:'Quina combinació de pronoms febles és correcta per a «Li explico el que ha passat»?',
-      text:'Quan el complement directe és un concepte abstracte o una frase (no un nom concret), s\'usa «ho» (neutre). L\'ordre és sempre CI + CD: «li ho». «Lo» no existeix en català normatiu.',
+      text:'Fixa\'t en el complement directe: no és un nom, sinó una oració sencera.',
       options:['Lo li explico.','Li ho explico.','El li explico.'],
       correct:1, variants:[
         { options:['Li ho explico.','Lo li explico.','El li explico.'], correct:0 },
         { question:'Quina combinació de pronoms febles és correcta per a «Explica a la Maria el que va passar»?', options:['Lo li explica.','Li ho explica.','El li explica.'], correct:1 },
       ],
-      theory:'Quan el CD és una frase o concepte abstracte, s\'usa «ho» (neutre). Ordre: CI (li) + CD (ho) → li ho.', example:'«Li explico el que ha passat.» → «Li ho explico.»' },
+      theory:'Quan el CD és una frase o concepte abstracte, s\'usa «ho» (neutre). Ordre: CI (li) + CD (ho) → li ho.', example:'«Li dic que vindré.» → «Li ho dic.»' },
     { id:'c1-pf4', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Quan parlem d\'una quantitat indeterminada d\'alguna cosa, el català fa servir un pronom feble específic per no repetir el nom.',
       question:'Omple amb el pronom feble partitiu correcte:',
@@ -4891,11 +4891,11 @@ const DATA = {
       theory:'Imperatius → «demanar/ordenar que + subjuntiu imperfet» en estil indirecte quan el verb introductori és en passat. «Avui» → «aquell dia».', example:'«Veniu!» → Va demanar que vinguessin. / «Escriu-me!» → Va demanar que li escrigués.' },
     { id:'c1-ei5', type:'choice', level:'c1', category:'Estil indirecte',
       question:'Quina transformació de l\'adverbi de temps és correcta?',
-      text:'En l\'estil indirecte, els adverbis de temps canvien per adaptar-se al nou context enunciatiu: «avui» → «aquell dia», «ara» → «aleshores», «demà» → «l\'endemà». Mantenir l\'adverbi original és incorrecte quan el verb introductor és en passat.',
+      text:'Fa una setmana, la Marta va dir: «Vindré avui». Ara ho expliques en estil indirecte.',
       options:['Va dir que vindria avui.','Va dir que vindria aquell dia.','Va dir que venia avui.'],
       correct:1, variants:[
         { options:['Va dir que vindria aquell dia.','Va dir que venia avui.','Va dir que vindria avui.'], correct:0 },
-        { question:'Quina transformació de l\'adverbi de temps és correcta en estil indirecte?', options:['Va dir que vindria avui.','Va dir que venia aquell dia.','Va dir que vindria l\'endemà.'], correct:2 },
+        { question:'Quina transformació de l\'adverbi de temps és correcta en estil indirecte?', text:'Fa una setmana, la Marta va dir: «Vindré demà». Ara ho expliques en estil indirecte.', options:['Va dir que vindria avui.','Va dir que venia aquell dia.','Va dir que vindria l\'endemà.'], correct:2 },
       ],
       theory:'«Avui» en estil indirecte (passat) → «aquell dia». «Demà» → «l\'endemà». «Ahir» → «el dia anterior». «Aquí» → «allà».', example:'«Avui» → aquell dia. / «Demà» → l\'endemà. / «Aquí» → allà.' },
     { id:'c1-ei6', type:'fill', level:'c1', category:'Estil indirecte',
@@ -4978,7 +4978,7 @@ const DATA = {
     // +1 exercici per a categories existents amb 5 exercicis
     { id:'c1-arg6', type:'choice', level:'c1', category:'Argumentació',
       question:'Quina estratègia argumentativa s\'usa en: «Certament, hi ha arguments a favor. Tanmateix, les evidències apunten en la direcció contrària»?',
-      text:'La concessió retòrica és una estratègia argumentativa que reconeix la validesa parcial de la posició contrària per reforçar la pròpia. Estructura habitual: «Certament/És cert que X. Tanmateix/Tot i això, Y».',
+      text:'Fixa\'t en el connector que obre cada frase i en la relació que estableix entre les dues.',
       options:['Refutació directa sense concessions','Concessió retòrica seguida de contraargument','Simple enumeració de dues posicions'],
       correct:1, variants:[
         { options:['Concessió retòrica seguida de contraargument','Refutació directa sense concessions','Simple enumeració de dues posicions'], correct:0 },
@@ -4987,7 +4987,7 @@ const DATA = {
       theory:'La concessió retòrica («certament») reconeix la posició contrària sense abandonar la pròpia, i el contraargument («tanmateix») reorienta el discurs. És una marca de maduresa argumentativa.', example:'«És cert que X. No obstant, cal tenir present que Y.»' },
     { id:'c1-crit6', type:'choice', level:'c1', category:'Comprensió crítica',
       question:'Quin recurs usa l\'autor en: «Paradoxalment, com menys s\'hi pensa, millor es resol»?',
-      text:'Una paradoxa aparent presenta dues afirmacions que semblen contradir-se però que, analitzades en profunditat, revelen una veritat no òbvia. L\'adverbi «paradoxalment» és un senyal que en avisa.',
+      text:'Fixa\'t en la relació entre «menys» i «millor». Què vol fer veure l\'autor?',
       options:['Una contradicció lògica sense fonament','Una paradoxa aparent que suggereix que la reflexió excessiva és contraproduent','Una conclusió basada en dades empíriques'],
       correct:1, variants:[
         { options:['Una paradoxa aparent que suggereix que la reflexió excessiva és contraproduent','Una contradicció lògica sense fonament','Una conclusió basada en dades empíriques'], correct:0 },
@@ -5307,7 +5307,7 @@ const DATA = {
 
     { id:'c1-pi8', type:'choice', level:'c1', category:'Passiva i impersonal',
       question:'Quina frase usa correctament la passiva reflexa amb concordança de nombre?',
-      text:'En la passiva reflexa, el verb concorda en nombre amb el nom que el segueix (el subjecte pacient): «es van prendre mesures» (plural), «es va prendre una mesura» (singular).',
+      text:'En la passiva reflexa, el verb concorda en nombre amb el nom que el segueix (el subjecte pacient): «es van vendre totes les entrades» (plural), «es va vendre una entrada» (singular).',
       options:[
         'Es va prendre mesures dràstiques per resoldre la situació.',
         'Es van prendre mesures dràstiques per resoldre la situació.',
