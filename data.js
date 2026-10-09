@@ -4073,10 +4073,10 @@ const DATA = {
     { id:'b2-prep5', type:'choice', level:'b2', category:'Preposicions',
       question:'Quina frase és correcta?',
       text:'Per indicar la durada d\'una acció que continua fins al present, el català té una construcció pròpia.',
-      options:['Treballo aquí des de fa tres anys.','Treballo aquí desde fa tres anys.','Treballo aquí des de tres anys.'],
+      options:['Treballo aquí des de fa tres anys.','Treballo aquí desde fa tres anys.','Treballo aquí desde tres anys.'],
       correct:0, variants:[
-        { options:['Treballo aquí desde fa tres anys.','Treballo aquí des de fa tres anys.','Treballo aquí des de tres anys.'], correct:1 },
-        { options:['Visc aquí desde fa cinc anys.','Visc aquí des de cinc anys.','Visc aquí des de fa cinc anys.'], correct:2 },
+        { options:['Treballo aquí desde fa tres anys.','Treballo aquí des de fa tres anys.','Treballo aquí desde tres anys.'], correct:1 },
+        { options:['Visc aquí desde fa cinc anys.','Visc aquí desde cinc anys.','Visc aquí des de fa cinc anys.'], correct:2 },
       ],
       theory:'«Des de fa» + una quantitat de temps expressa des de quan dura una acció que continua fins al present: «des de fa un mes». Amb una quantitat de temps cal «fa»; «des de» sol va amb un moment concret («des de dilluns», «des del 2020»). «Desde» és la forma castellana.', example:'Estudio català des de fa un mes. / Hi visc des del 2020.' },
     { id:'b2-prep6', type:'fill', level:'b2', category:'Preposicions',
