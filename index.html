@@ -3351,21 +3351,22 @@ function lligaSumaXP(xp) {
   if (!(xp > 0) || !(window.fbUser || authPendent())) return;
   const l = lligaLocal();
   if (!lligaVisible()) return;
-  // Si aquest dispositiu diu que no hi és, pot ser una còpia vella: el 28/09 una lectura
-  // dolenta hi va deixar «fora» i sense lid a qui hi era, i els punts no comptaven fins
-  // que tornava a entrar. Mentre Firestore no ho confirmi en aquesta obertura, els punts
-  // es guarden igualment i es torna a llegir: si hi és, s'envien (lligaSincronitza →
-  // lligaBuidaPendent); si no, es descarten.
+  // Els punts d'avui es guarden sempre, també si Firestore diu que no hi és: qui entra a
+  // la lliga aquell dia s'emporta els del dia (decisió de l'usuari, 13/10), i s'envien en
+  // entrar-hi (lligaEntraAmb). Abans es llençaven, i una lectura dolenta («fora» a qui hi
+  // era: 28/09 i 13/10) deixava sense punts fins que tornava a entrar. Els d'un dia passat
+  // es perden igualment (lligaBuidaPendent): les regles no accepten punts d'un altre dia.
   const potSerFora = !l.dins || !l.lid;
-  if (potSerFora && lligaForaConfirmat()) return;
   const ara = Date.now();
   const setmana = setmanaMadrid(ara), dia = diaMadrid(ara);
   let p = l.pendent;
   if (!p || p.dia !== dia || p.setmana !== setmana) p = { setmana, dia, xp: 0 };
   p.xp += xp;
   desaLligaLocal({ pendent: p });
-  if (potSerFora) lligaSincronitzaSiCal(30 * 1000);
-  else lligaBuidaPendent();
+  // Si pot ser una còpia vella, es torna a llegir; si Firestore ja ho ha confirmat en
+  // aquesta obertura, no cal: els punts esperen que hi entri.
+  if (!potSerFora) lligaBuidaPendent();
+  else if (!lligaForaConfirmat()) lligaSincronitzaSiCal(30 * 1000);
 }
 async function lligaBuidaPendent() {
   if (_lligaEnviant || !window.fbLligaSuma || !window.fbUser) return;
@@ -3420,8 +3421,8 @@ async function lligaSincronitza() {
   _lligaSincAt = Date.now();
   _lligaConfirmat = { dins: !!e.dins };
   lligaApunta(`lectura de l'estat: ${e.dins ? 'dins' : 'fora' + lligaDetallLectura(e)}`);
-  // Si no hi és, es descarten els punts guardats mentre no se sabia (lligaSumaXP).
-  desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau, ...(e.dins ? {} : { pendent: null }) });
+  // Si no hi és, els punts d'avui es guarden: si hi entra avui, li compten (lligaSumaXP).
+  desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau });
   lligaBuidaPendent();
   if (_navState.screen === 'lliga') renderLliga();
   else if (_navState.screen === 'menu') lligaRefrescaTargeta();
@@ -3662,6 +3663,8 @@ async function lligaEntraAmb(pseudo) {
   desaLligaLocal({ lid: r.lid, dins: true, clau });
   _lligaConfirmat = { dins: true };
   lligaApunta('entra a la lliga');
+  // Els punts que ja ha fet avui (lligaSumaXP), abans de pintar la classificació.
+  await lligaBuidaPendent();
   desaCacheLliga(null);
   if (_navState.screen !== 'lliga') return;
   renderLliga();
