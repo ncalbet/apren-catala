@@ -5,7 +5,8 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
          sendPasswordResetEmail, fetchSignInMethodsForEmail, linkWithPopup, linkWithCredential }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc, deleteDoc, updateDoc, deleteField, collection, getDocs,
-         getDocFromServer, getDocsFromServer, query, where, runTransaction, getCountFromServer }
+         getDocFromServer, getDocsFromServer, query, where, runTransaction, getCountFromServer,
+         waitForPendingWrites }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
 import { getMessaging, getToken, onMessage }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js';
@@ -231,10 +232,18 @@ function nouLid() {
 // un document amb només aquells camps, sense «lliga». El 28/09 això deia «fora» a qui
 // hi era, i la classificació sortia buida (0 perfils). Una lectura fallida, en canvi,
 // index.html ja la sap tractar: torna a provar i, mentrestant, no decideix res.
+// 13/10: tampoc no n'hi ha prou amb llegir del servidor. En obrir l'app, el progrés (i el
+// token FCM) es desa amb merge al mateix document mentre aquesta lectura és en curs, i
+// tornava el document a mitges, sense «lliga»: «fora» a qui hi era, i l'XP es llençava.
+// Abans de llegir s'espera que el servidor hagi confirmat les escriptures pendents, 5 s
+// com a màxim (sense connexió no arriben mai, i aleshores la lectura ja fallarà sola).
+// «camps» i «pendents» només són per al registre de la lliga.
 async function llegeixEstatLliga(user) {
+  await Promise.race([waitForPendingWrites(db).catch(() => {}), new Promise(r => setTimeout(r, 5000))]);
   const snap = await getDocFromServer(doc(db, 'users', user.uid));
   const d = snap.exists() ? snap.data() : {};
-  return { lid: d.lliga?.lid || null, dins: !!d.lliga?.dins, clau: d.pseudonimClau || null };
+  return { lid: d.lliga?.lid || null, dins: !!d.lliga?.dins, clau: d.pseudonimClau || null,
+           camps: Object.keys(d).length, pendents: snap.metadata.hasPendingWrites };
 }
 
 window.fbLligaEstat = async () => {
