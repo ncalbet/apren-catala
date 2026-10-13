@@ -3401,12 +3401,25 @@ async function lligaBuidaPendent() {
 // lliga des d'un altre dispositiu. El 28/09 una còpia vella deia «fora» a qui hi era:
 // no li comptava els punts i li tornava a oferir d'entrar-hi. Per això es llegeix en
 // iniciar sessió, en tornar a l'app i abans de decidir que algú no hi és.
+// Un document sense «lliga» quan aquest dispositiu en té el lid no és el del servidor: el
+// lid no s'esborra mai, ni en sortir-ne. És la còpia a mitges d'un merge (13/10: «fora»
+// a cada obertura a qui hi era). Es tracta com una lectura fallida, sense decidir res.
+// A la tercera seguida es dona per bona: pot ser un altre compte en aquest dispositiu.
+let _lligaLecturesAMitges = 0;
+const lligaDetallLectura = e => e.camps === undefined ? ''
+  : ` (${e.camps} camps${e.pendents ? ', amb escriptures pendents' : ''})`;
 async function lligaSincronitza() {
   const e = await window.fbLligaEstat?.();
   if (!e) { lligaApunta("lectura de l'estat: ha fallat"); return false; }
+  if (!e.lid && lligaLocal().lid && _lligaLecturesAMitges < 2) {
+    _lligaLecturesAMitges++;
+    lligaApunta(`lectura de l'estat: a mitges${lligaDetallLectura(e)}, es torna a llegir`);
+    return false;
+  }
+  _lligaLecturesAMitges = 0;
   _lligaSincAt = Date.now();
   _lligaConfirmat = { dins: !!e.dins };
-  lligaApunta(`lectura de l'estat: ${e.dins ? 'dins' : 'fora'}`);
+  lligaApunta(`lectura de l'estat: ${e.dins ? 'dins' : 'fora' + lligaDetallLectura(e)}`);
   // Si no hi és, es descarten els punts guardats mentre no se sabia (lligaSumaXP).
   desaLligaLocal({ lid: e.lid, dins: e.dins, clau: e.clau, ...(e.dins ? {} : { pendent: null }) });
   lligaBuidaPendent();
