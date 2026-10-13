@@ -3725,10 +3725,7 @@ function lligaClassificacioHTML(dades, lid) {
   if (!w || Date.now() < w.inici) {
     return `<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Ja hi ets! La primera setmana comença dilluns 28 de setembre a les 00:00.</p>`;
   }
-  const meu = dades.punts[lid] || {};
   const diaAvui = diaMadrid(Date.now());
-  const avui = meu.dia === diaAvui ? (meu.puntsDia || 0) : 0;
-  const sostre = lligaSostreDe(diaAvui);
   const files = lligaFiles(dades);
   const llista = files.map(f => {
     const mi = f.lid === lid;
@@ -3739,17 +3736,14 @@ function lligaClassificacioHTML(dades, lid) {
       <div style="font-weight:700;flex-shrink:0;color:${mi ? 'var(--accent-blue-text)' : 'var(--text)'};">${f.punts}</div>
     </div>`;
   }).join('');
+  // La classificació, la primera (bústia, 13/10: «massa coses abans de veure-la»). Els
+  // punts d'avui no hi surten: els de la setmana ja són a la teva fila.
   return `
     ${lligaAvisHTML(diaAvui)}
-    <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Setmana ${lligaAmbDia('de', w.inici)} ${lligaAmbDia('a', w.fi)} · tanca diumenge a les 23:58</div>
-    ${sostre
-      ? `<div style="font-size:13px;color:var(--text-soft);margin-bottom:4px;">Avui: <strong>${avui}</strong> de ${sostre} punts</div>
-    <div class="ct-progress-bar" style="margin-bottom:18px;"><div class="ct-progress-fill" style="width:${Math.min(100, Math.round(avui / sostre * 100))}%"></div></div>`
-      : `<div style="font-size:13px;color:var(--text-soft);margin-bottom:18px;">Avui portes <strong>${avui}</strong> punts</div>`}
+    ${llista}
+    <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:14px 0;">Setmana ${lligaAmbDia('de', w.inici)} ${lligaAmbDia('a', w.fi)} · tanca diumenge a les 23:58<br>${files.length} ${files.length === 1 ? 'persona' : 'persones'} a la lliga</div>
     <div id="lliga-podi-anterior"></div>
-    ${lligaRecordHTML(dades.perfils)}
-    <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">${files.length} ${files.length === 1 ? 'persona' : 'persones'} a la lliga</div>
-    ${llista}`;
+    ${lligaRecordHTML(dades.perfils)}`;
 }
 // Podi de la setmana passada, a dalt de la classificació. Si el cron encara no l'ha
 // tancada, es calcula aquí amb el mateix criteri.
