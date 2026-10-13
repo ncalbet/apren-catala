@@ -3819,7 +3819,7 @@ async function lligaComprovaFesta() {
     // El podi que es calcula aquí només té qui és a la lliga (lligaFiles); el del cron
     // té tothom qui va fer punts. A qui n'ha sortit, s'espera el del cron sense marcar
     // res: la lectura següent ho tornarà a mirar.
-    if (!d.setmana.podi && !dins) return;
+    if (!d.setmana.podi && !dins) { lligaApunta('festa del podi: espera el tancament del cron'); return; }
     desaLligaLocal({ festa: s });
     const podi = d.setmana.podi || podiDe(lligaFiles(d));
     const meu = podi.find(f => f.lid === lid);
@@ -3839,6 +3839,8 @@ async function lligaComprovaFesta() {
     // perfils que n'han sortit.
     const files = lligaFiles(d).filter(f => f.punts > 0);
     const jo = files.find(f => f.lid === lid);
+    // Al registre, per saber quan ha sortit (bústia, 13/10: un avís en dimarts sense rastre).
+    lligaApunta(jo ? `avís del resultat: posició ${jo.posicio} de ${files.length}` : 'avís del resultat: cap (sense punts la setmana passada)');
     if (jo) showAlert(`La setmana passada vas acabar a la posició ${jo.posicio} de ${files.length}. Aquesta setmana tornes a començar de zero. Endavant!`);
   } finally {
     _lligaFestaEnCurs = false;
