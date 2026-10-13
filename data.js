@@ -4821,7 +4821,7 @@ const DATA = {
         { options:['desconexió','desconèixer','desconexar'], correct:1 },
       ],
       theory:'El prefix «des-» expressa negació o reversió: «desconèixer» (no conèixer), «desfer» (revertir «fer»). Cal usar les arrels catalanes.', example:'desfer / desconèixer / desaparèixer / desmuntar / desacord.' },
-    { id:'c1-df3', type:'fill', level:'c1', category:'Derivació i flexió',
+    { id:'c1-df3', type:'fill', level:'c1', strictAccents:true, category:'Derivació i flexió',
       text:'Alguns mots acabats en consonant formen el plural de manera que cal vigilar l\'accentuació i les regles ortogràfiques.',
       question:'Forma el plural correcte del mot indicat:',
       sentence:'Els ___ polítics autoritaris solen restringir les llibertats fonamentals.',
