@@ -4613,14 +4613,14 @@ const DATA = {
       ],
       theory:'Relativa especificativa (sense comes): identifica quin director. Relativa explicativa (amb comes): afegeix info sobre un director ja identificat.', example:'El professor, que sap japonès, és el millor. (explicativa)' },
     { id:'c1-rel5', type:'choice', level:'c1', category:'Oracions de relatiu',
-      question:'Quina construcció de relatiu és la més formal i precisa per a un subjecte?',
+      question:'Quin relatiu és el correcte en registre formal?',
       text:'La comissió ___ va elaborar l\'informe presentarà les seves conclusions dimecres.',
       options:['que','la qual','qui','on'],
-      correct:1, variants:[
-        { options:['la qual','que','on','qui'], correct:0 },
-        { options:['qui','on','la qual','que'], correct:2 },
+      correct:0, variants:[
+        { options:['la qual','que','on','qui'], correct:1 },
+        { options:['qui','on','la qual','que'], correct:3 },
       ],
-      theory:'En registre formal, «la qual» s\'usa per a subjectes de relativa quan l\'antecedent és un nom, especialment en prosa elaborada.', example:'La comissió la qual va elaborar l\'informe... (formal).' },
+      theory:'En una relativa especificativa (sense comes), el relatiu que fa de subjecte és «que», també en registre formal. «El qual / la qual» de subjecte només és possible en una explicativa (entre comes). «Qui» no fa de subjecte d\'una relativa amb antecedent.', example:'La comissió que va elaborar l\'informe... / Hem parlat amb la comissió, la qual presentarà l\'informe dimecres.' },
 
     // SUBJUNTIU IMPERFET
     { id:'c1-si1', type:'fill', level:'c1', category:'Subjuntiu imperfet',
