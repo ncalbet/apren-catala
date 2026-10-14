@@ -2510,7 +2510,7 @@ const DATA = {
         { text:'No et sento ___ parles molt baix.', options:['per tant','en canvi','ja que'], correct:2 },
         { text:'Porta un paraigua ___ sembla que plourà.', options:['ja que','per tant','en canvi'], correct:0 },
       ],
-      theory:"«Ja que» introdueix la causa. «Per tant» indica conseqüència. «En canvi» indica contrast.", example:"No vaig poder venir ja que estava malalt." },
+      theory:"«Ja que» introdueix la causa. «Per tant» indica conseqüència. «En canvi» indica contrast.", example:'No vaig poder venir ja que tenia febre.' },
 
     { id:'b1-con2', type:'fill', level:'b1', category:'Connectors B1',
       question:'Omple amb el connector adequat (contrast):',
@@ -2634,7 +2634,7 @@ const DATA = {
 
     { id:'b1-per2', type:'fill', level:'b1', category:'Perífrasis B1',
       question:'Omple amb la perífrasi correcta per indicar una acció recent:',
-      sentence:'___ (dinar). Ara estic ple.',
+      sentence:'___ (dinar). Ara no puc menjar res més.',
       display:"acabar de + infinitiu (1a pers. sing.)",
       answers:['Acabo de dinar','Acabe de dinar','Acab de dinar'],
       formes:{
@@ -3149,7 +3149,7 @@ const DATA = {
         { text:'La Jana ___ contenta perquè avui és el seu aniversari.', options:['sembla','està','és'], correct:1 },
         { text:"L'Oriol ___ distret avui perquè ha dormit poc.", options:['està','és','sembla'], correct:0 },
       ],
-      theory:"«Estar» s'usa per a estats transitoris com l'estat d'ànim. ✗ «Ser nerviós» seria incorrecte si és un estat puntual d'avui (indicaria que el nerviosisme és un tret permanent del caràcter). ✗ «Sembla nerviós» podria ser acceptable però expressa una impressió externa, no un estat real; aquí el text afirma que el nerviosisme és real.", example:"Avui estic nerviós. / Normalment soc força tranquil." },
+      theory:"«Estar» s'usa per a estats transitoris com l'estat d'ànim. ✗ «Ser nerviós» seria incorrecte si és un estat puntual d'avui (indicaria que el nerviosisme és un tret permanent del caràcter). ✗ «Sembla nerviós» podria ser acceptable però expressa una impressió externa, no un estat real; aquí el text afirma que el nerviosisme és real.", example:'Avui estic de mal humor. / Normalment soc una persona alegre.' },
 
     { id:'a2-ses3', type:'fill', level:'a2', category:'Ser, estar i semblar',
       question:'Omple amb el verb correcte (ser, estar o semblar):',
@@ -3184,7 +3184,7 @@ const DATA = {
         { text:'La preocupació és un estat d\'ànim temporal que canvia segons les circumstàncies. En català, els estats temporals es construeixen amb un verb diferent que els trets permanents.', sentence:'La Núria ___ preocupada perquè demà té un examen important.', answers:['està'] },
         { text:'La nacionalitat és un tret permanent, no un estat temporal. En català, els trets permanents es construeixen amb un verb diferent que els estats passatgers.', sentence:'El meu veí ___ de Girona, però viu a Lleida des de fa anys.', answers:['és'] },
       ],
-      theory:"El cansament és un estat físic temporal → «estar». Atenció: «ser cansat» té un significat diferent i vol dir ser esgotador o pesat («Aquesta feina és molt cansada»).", example:"Avui estic cansat. / Normalment soc molt actiu." },
+      theory:"El cansament és un estat físic temporal → «estar». Atenció: «ser cansat» té un significat diferent i vol dir ser esgotador o pesat («Aquesta feina és molt cansada»).", example:'Avui la Marta està cansada. / Normalment és molt activa.' },
 
     { id:'a2-ses6', type:'reading', level:'a2', category:'Ser, estar i semblar',
       text:"L'Emma és una persona molt sociable i alegre. Avui, però, està una mica trista perquè la seva amiga no ha pogut venir. Tot i així, sembla contenta quan parla amb nosaltres.",
@@ -3345,7 +3345,7 @@ const DATA = {
         { text:'Vols dir «Hem sortit per recollir la Nina a l\'escola.» Quina és la construcció correcta amb el pronom feble?', options:["Hem sortit per recollir-la.","Les hem sortit per recollir.","Hem sortit per-la recollir."], correct:0 },
         { text:'Vols dir «Va tornar per buscar les claus.» Quina és la construcció correcta amb el pronom feble?', options:["Va tornar les per buscar.","Va tornar per-les buscar.","Va tornar per buscar-les."], correct:2 },
       ],
-      theory:"Quan l'infinitiu expressa finalitat darrere de «per» (o va darrere de «sense», «de»...), el pronom feble va enclític: darrere i unit a l'infinitiu amb guionet («per veure-la»). Atenció: en les perífrasis verbals («haver de», «tornar a»...) el pronom sí que pot anar davant del verb conjugat: «Ho he de fer» / «He de fer-ho».", example:"He vingut per veure-la. / Estic content de conèixer-lo. / Va marxar sense dir-ho." },
+      theory:"Quan l'infinitiu expressa finalitat darrere de «per» (o va darrere de «sense», «de»...), el pronom feble va enclític: darrere i unit a l'infinitiu amb guionet («per veure-la»). Atenció: en les perífrasis verbals («haver de», «tornar a»...) el pronom sí que pot anar davant del verb conjugat: «Ho he de fer» / «He de fer-ho».", example:'He vingut per veure-la. / M\'alegro de conèixer-lo. / Va marxar sense dir-ho.' },
 
     { id:'a2-pfa4', type:'choice', level:'a2', category:'Pronoms febles A2',
       question:"Quin pronom s'usa per substituir una quantitat indeterminada?",
@@ -3392,7 +3392,7 @@ const DATA = {
         { sentence:"De jove, la meva mare ___ (cantar) a la coral del poble cada setmana.", display:"imperfet, 3a pers. sing. de «cantar»", answers:['cantava'] },
         { sentence:"Quan vivíem al poble, sempre ___ (passejar, nosaltres) vora el riu al capvespre.", display:"imperfet, 1a pers. pl. de «passejar»", answers:['passejàvem'] },
       ],
-      theory:"L'imperfet s'usa per a hàbits i rutines del passat. Terminació 3a pers. sing. verbs -ar: -ava.", example:"De petita, cada estiu anava a la platja. / Sempre llegíem abans de dormir." },
+      theory:"L'imperfet s'usa per a hàbits i rutines del passat. Terminació 3a pers. sing. verbs -ar: -ava.", example:'Quan tenia deu anys, cada estiu anava a la platja. / Sempre llegíem abans de dormir.' },
 
     { id:'a2-imp2', type:'choice', level:'a2', category:"Imperfet d'indicatiu",
       question:"Quina forma d'imperfet és correcta per a «nosaltres» amb «ser»?",
@@ -3442,7 +3442,7 @@ const DATA = {
       answers:['feia'],
       variants:[
         { text:"El verb «dir» és irregular en imperfet: segueix el patró -ia de la 2a conjugació sobre l'arrel «d-». Recorda'n la forma.", sentence:"De petita, la meva mare sempre em ___ (dir) que estudiés molt.", display:"imperfet 3a pers. sing. de «dir»", answers:['deia'], theory:"«Dir» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «riure»: jo deia, tu deies, ell deia, nosaltres dèiem, vosaltres dèieu, ells deien.", example:"El meu avi sempre deia que la paciència ho és tot." },
-        { text:"El verb «riure» fa l'imperfet sobre l'arrel «re-» amb la terminació -ia de la 2a conjugació. Recorda'n la forma.", sentence:"Quan ens explicava acudits, tothom ___ (riure) molt.", display:"imperfet 3a pers. sing. de «riure»", answers:['reia'], theory:"«Riure» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «dir»: jo reia, tu reies, ell reia, nosaltres rèiem, vosaltres rèieu, ells reien.", example:"De petit, reia molt amb els dibuixos animats." },
+        { text:"El verb «riure» fa l'imperfet sobre l'arrel «re-» amb la terminació -ia de la 2a conjugació. Recorda'n la forma.", sentence:"Quan ens explicava acudits, tothom ___ (riure) molt.", display:"imperfet 3a pers. sing. de «riure»", answers:['reia'], theory:"«Riure» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «dir»: jo reia, tu reies, ell reia, nosaltres rèiem, vosaltres rèieu, ells reien.", example:'Quan tenia sis anys, reia molt amb els dibuixos animats.' },
       ],
       theory:"«Fer» en imperfet d'indicatiu: jo feia, tu feies, ell feia, nosaltres fèiem, vosaltres fèieu, ells feien. La terminació -ia/-ies és regular per als verbs de la 2a conjugació.", example:"Quan tenia vint anys, feia molt esport cada dia." },
 
@@ -3450,11 +3450,11 @@ const DATA = {
     { id:'a2-lex1', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
       question:"Quina expressió s'usa per dir que algú sent molta vergonya i vol desaparèixer?",
       text:'El català té expressions molt vives per descriure reaccions emocionals intenses. Per a la vergonya màxima, hi ha una expressió que evoca la imatge de desaparèixer del tot.',
-      options:['em poso a riure','em vull fondre','em quedo callat'],
+      options:['em poso a riure','em vull fondre','em quedo sense paraules'],
       correct:1,
       variants:[
-        { options:['em vull fondre','em quedo callat','em poso a riure'], correct:0 },
-        { options:['em quedo callat','em poso a riure','em vull fondre'], correct:2 },
+        { options:['em vull fondre','em quedo sense paraules','em poso a riure'], correct:0 },
+        { options:['em quedo sense paraules','em poso a riure','em vull fondre'], correct:2 },
       ],
       theory:"«Em vull fondre» expressa la màxima vergonya: voler desaparèixer. Prové de la imatge de fondre's com si fos mantega.", example:"Quan vaig dir el nom equivocat, em volia fondre!" },
 
@@ -3637,7 +3637,7 @@ const DATA = {
       display:'parlar (3a pers. sing.) — indicatiu o subjuntiu?', answers:['parla'],
       variants:[
         { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'], theory:"«És evident que» introdueix un fet cert → indicatiu: «té». «Vull que parli» (desig) → subjuntiu." },
-        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Estic segur que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen'], theory:"«Estic segur que» expressa certesa → indicatiu: «venen». «Vull que parli» (desig) → subjuntiu." },
+        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Sé del cert que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen'], theory:'«Sé del cert que» expressa certesa → indicatiu: «venen». «Vull que parli» (desig) → subjuntiu.' },
       ],
       theory:'«Sé que» introdueix un fet cert → indicatiu. «Vull que parli» (desig) → subjuntiu.', example:'Sé que parla tres idiomes. / Vull que parli més a poc a poc.' },
     { id:'b2-sub4', type:'choice', level:'b2', category:'Subjuntiu',
@@ -3932,7 +3932,7 @@ const DATA = {
       answers:['torna a','vol tornar a'],
       variants:[
         { text:'Les perífrasis verbals combinen un auxiliar amb un infinitiu per matisar l\'acció; algunes indiquen que es repeteix.', sentence:'El sistema ja ha fallat un cop avui. Si ___ fallar, l\'haurem de reiniciar.', display:'perífrasi de repetició (+ infinitiu)', answers:['torna a','vol tornar a'] },
-        { text:'Les perífrasis verbals combinen un auxiliar amb un infinitiu per matisar l\'acció; algunes indiquen que es repeteix.', sentence:'Aquesta cançó m\'encanta; sempre la ___ escoltar quan estic trist.', display:'perífrasi de repetició (+ infinitiu)', answers:['torno a','torne a','torn a'],
+        { text:'Les perífrasis verbals combinen un auxiliar amb un infinitiu per matisar l\'acció; algunes indiquen que es repeteix.', sentence:'Aquesta cançó m\'encanta; sempre la ___ escoltar quan tinc un mal dia.', display:'perífrasi de repetició (+ infinitiu)', answers:['torno a','torne a','torn a'],
           formes:{
             'torne a':{ etiqueta:'valencià', nota:"«Torne» és la 1a persona del present en valencià; la general és «torno».", font:'GEIEC 5.3.1' },
             'torn a':{ etiqueta:'balear', nota:"«Torn» és la 1a persona del present en balear; la general és «torno».", font:'GEIEC 5.3.1' } } },
@@ -3980,7 +3980,7 @@ const DATA = {
       theory:'El passat perifràstic (vaig + infinitiu) expressa accions passades puntuals i acabades. L\'imperfet «anava» indicaria un hàbit o acció de fons en curs.', example:'Vaig trucar tres vegades però no va respondre.' },
     { id:'b2-tv2', type:'choice', level:'b2', category:'Temps verbals',
       question:'Quin temps verbal s\'usa per a una acció habitual en el passat?',
-      text:'De petit, ___ a la platja cada estiu amb la família.',
+      text:'Abans ___ a la platja cada estiu amb la família; ara hi anem molt poc.',
       options:['vaig anar','havia anat','anava','aniré'],
       correct:2, variants:[
         { options:['anava','vaig anar','aniré','havia anat'], correct:0 },
@@ -4328,11 +4328,11 @@ const DATA = {
     // SUBJUNTIU AVANÇAT
     { id:'c1-sa1', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Tria la forma correcta per a una condició hipotètica irreal en el present:',
-      text:'Si jo ___ president, canviaria moltes coses urgentment.',
+      text:'Si jo ___ al govern, canviaria moltes coses urgentment.',
       options:['sóc','fos','sigui','havia estat'],
       correct:1, variants:[
         { options:['fos','sóc','havia estat','sigui'], correct:0 },
-        { question:'Tria la forma correcta per a: «Si jo ___ rica, viatjaria arreu del món»:', text:'', options:['sóc','sigui','havia estat','fos'], correct:3 },
+        { question:'Tria la forma correcta per a: «Si jo ___ més jove, viatjaria arreu del món»:', text:'', options:['sóc','sigui','havia estat','fos'], correct:3 },
       ],
       theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
     { id:'c1-sa2', type:'choice', level:'c1', category:'Subjuntiu avançat',
@@ -5454,7 +5454,7 @@ const DATA = {
       display:'verb venir, 3a persona plural del present',
       answers:['venen'],
       variants:[
-        { sentence:"Jo ___ l'encarregat de tancar la botiga.", display:'verb ser, 1a persona singular del present', answers:['soc'] },
+        { sentence:'Jo ___ la persona que tanca la botiga cada vespre.', display:'verb ser, 1a persona singular del present', answers:['soc'] },
         { sentence:"La padrina sempre em ___ bons consells.", display:'verb donar, 3a persona singular del present', answers:['dona'] },
       ],
       theory:"Véns/vénen, sóc i dóna/dónes s'escriuen ara sense accent: venen, soc, dona. La confusió possible amb «venen» (vendre), «soc» (de fusta) o «dona» (persona) es resol pel context, com passa amb la majoria d'homògrafs de la llengua.", example:'Venen de Girona (venir) / Venen pisos (vendre). Soc aquí. / Em dona la raó.' },
