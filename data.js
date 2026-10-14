@@ -1017,7 +1017,7 @@
           headers: ['Pronom', 'Ús', 'Exemple'],
           rows: [
             ['que', 'Subjecte o objecte directe (sense preposició)', 'El document que has enviat...'],
-            ['el qual / la qual...', 'Amb preposició o per evitar ambigüitat', 'El tema del qual hem parlat... / La comissió la qual va redactar...'],
+            ['el qual / la qual...', 'Amb preposició; de subjecte, només en una explicativa (entre comes)', 'El tema del qual hem parlat... / Hem parlat amb la comissió, la qual...'],
             ['qui', 'Persones, quan és subjecte de la subordinada', 'Els qui vulguin participar que ho comuniquin.'],
             ['on', 'Lloc', 'La ciutat on va néixer és Barcelona.'],
             ['quan', 'Temps (registre literari)', 'Recordo l\'estiu quan ens vam conèixer.'],
