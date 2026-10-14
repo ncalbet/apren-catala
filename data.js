@@ -4150,7 +4150,7 @@ const DATA = {
       text:'El nou sistema és menys complex que l\'anterior, però no tan intuïtiu com esperàvem. Tot i que el rendiment és millor, la interfície resulta pitjor pel que fa a l\'ergonomia. En definitiva, cap dels dos és perfecte.',
       question:'Quants tipus de comparació s\'usen al text?',
       options:['Només superioritat','Inferioritat, igualtat i comparatius irregulars (millor/pitjor)','Només igualtat i superioritat regular'],
-      correct:1, theory:'«menys complex» (inferioritat), «tan intuïtiu com» (igualtat), «millor» i «pitjor» (superioritat/inferioritat irregulars de bo/dolent).', example:'Identifica cada estructura comparativa i el seu tipus.' },
+      correct:1, theory:'«menys complex» (inferioritat), «tan intuïtiu com» (igualtat), «millor» i «pitjor» (comparatius irregulars de superioritat: equivalen a «més bo» i «més dolent»).', example:'Identifica cada estructura comparativa i el seu tipus.' },
 
 
     // +1 COMPRENSIÓ LECTORA
