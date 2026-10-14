@@ -2728,11 +2728,7 @@ const DATA = {
 
     { id:'b1-sub4', type:'choice', level:'b1', category:'Subordinades B1',
       question:"Quin mode verbal s'usa amb «perquè» causal? Tria la frase correcta:",
-      options:[
-        "Ho faig perquè em sento millor. (causal → indicatiu)",
-        "Ho faig perquè em senti millor. (causal → subjuntiu)",
-        "Ho faig per tal que em sento millor. (final → indicatiu)"
-      ],
+      options:['Porto el paraigua perquè plou.','Porto el paraigua perquè plogui.','Porto el paraigua per tal que plou.'],
       correct:0,
       variants:[
         { question:'Quina frase usa «perquè» com a connector causal (amb indicatiu)?', options:["No va venir perquè estigués cansada.","No va venir perquè estava cansada.","No va venir per tal que estigués cansada."], correct:1 },
