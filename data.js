@@ -3734,10 +3734,10 @@ const DATA = {
     { id:'b2-com4', type:'choice', level:'b2', category:'Comprensió lectora',
       question:'Quin to predomina en: «Sembla que la solució és evident; ara bé, cal ser prudents i analitzar totes les variables»?',
       text:'El to d\'un text es detecta pels mots que tria l\'autor. Fixa\'t en «sembla» i «ara bé» i dedueix quina actitud transmeten.',
-      options:['Afirmatiu i optimista sense reserves','Prudent i matisat','Negatiu i pessimista'],
+      options:['Afirmatiu i optimista sense reserves','Cautelós i matisat','Negatiu i pessimista'],
       correct:1, variants:[
-        { options:['Prudent i matisat','Negatiu i pessimista','Afirmatiu i optimista sense reserves'], correct:0 },
-        { question:'Quin to té la frase: «Els resultats semblen prometedors, tot i que caldria verificar-los»?', text:'El to d\'un text es detecta pels mots que tria l\'autor. Fixa\'t en «semblen» i «tot i que» i dedueix quina actitud transmeten.', options:['Negatiu i pessimista','Afirmatiu i optimista sense reserves','Prudent i matisat'], correct:2, theory:"«Semblen» relativitza, i «tot i que» hi afegeix una reserva. El to global és de cautela reflexiva." },
+        { options:['Cautelós i matisat','Negatiu i pessimista','Afirmatiu i optimista sense reserves'], correct:0 },
+        { question:'Quin to té la frase: «Els resultats semblen prometedors, tot i que caldria verificar-los»?', text:'El to d\'un text es detecta pels mots que tria l\'autor. Fixa\'t en «semblen» i «tot i que» i dedueix quina actitud transmeten.', options:['Negatiu i pessimista','Afirmatiu i optimista sense reserves','Cautelós i matisat'], correct:2, theory:"«Semblen» relativitza, i «tot i que» hi afegeix una reserva. El to global és de cautela reflexiva." },
       ],
       theory:'«Sembla que» relativitza, i «ara bé» frena l\'entusiasme. El to global és de cautela reflexiva.', example:'Paraules com «sembla», «ara bé», «cal ser prudents» → to matisat.' },
     { id:'b2-com5', type:'reading', level:'b2', category:'Comprensió lectora',
@@ -3749,11 +3749,11 @@ const DATA = {
     // PRODUCCIÓ ESCRITA
     { id:'b2-pro4', type:'choice', level:'b2', category:'Producció escrita',
       question:'Quina estructura és la més adequada per a l\'inici d\'una carta formal?',
-      text:'Una carta o correu formal s\'obre amb una fórmula protocol·lària que estableix el tractament de vostè i indica l\'objecte de l\'escrit. S\'eviten les salutacions col·loquials.',
-      options:['Hola! T\'escric perquè tinc un problema...','Em plau adreçar-me a vostè en relació amb...','Mira, vull parlar-te d\'una cosa important...'],
+      text:'Una carta o un correu formal s\'obre amb una fórmula protocol·lària que manté la distància amb el destinatari i indica l\'objecte de l\'escrit. S\'eviten les salutacions col·loquials.',
+      options:['Escolti, li escric perquè tinc un problema...','Em plau adreçar-me a vostè en relació amb...','Mira, vull parlar-te d\'una cosa important...'],
       correct:1, variants:[
-        { options:['Em plau adreçar-me a vostè en relació amb...','Hola! T\'escric perquè tinc un problema...','Mira, vull parlar-te d\'una cosa important...'], correct:0 },
-        { question:'Quina fórmula és adequada per a un correu electrònic professional?', options:['Mira, vull parlar-te d\'una cosa important...','Em poso en contacte amb vostè per comunicar-li la resolució...','Hola! T\'escric perquè tinc un problema...'], correct:1 },
+        { options:['Em plau adreçar-me a vostè en relació amb...','Escolti, li escric perquè tinc un problema...','Mira, vull parlar-te d\'una cosa important...'], correct:0 },
+        { question:'Quina fórmula és adequada per a un correu electrònic professional?', options:['Mira, vull parlar-te d\'una cosa important...','Em poso en contacte amb vostè per comunicar-li la resolució...','Escolti, li escric per dir-li que ja tenim la resolució del tema...'], correct:1 },
       ],
       theory:'Les cartes formals s\'inicien amb fórmules protocol·làries: «Em plau adreçar-me a vostè», «Em poso en contacte amb vostè per»...', example:'Em plau adreçar-me a vostè en relació amb la sol·licitud presentada el dia 10.' },
     { id:'b2-pro6', type:'choice', level:'b2', category:'Producció escrita',
@@ -3939,7 +3939,7 @@ const DATA = {
       ],
       theory:'«Tornar a + infinitiu» expressa la repetició d\'una acció. Equivalent a «una altra vegada + verb».', example:'Ha tornat a arribar tard. / Si torna a fallar, caldrà prendre mesures.' },
     { id:'b2-per4', type:'choice', level:'b2', category:'Perífrasis verbals',
-      question:'Quina perífrasi expressa que una acció estava en curs en el passat?',
+      question:'Quina forma verbal indica que l\'acció era en curs i es va interrompre?',
       text:'Quan va sonar el telèfon, ___ la presentació per a la reunió.',
       options:['havia acabat','estava preparant','va preparar','prepararia'],
       correct:1, variants:[
@@ -5053,7 +5053,7 @@ const DATA = {
       options:['Comprar piles per a un dispositiu electrònic','Espavilar-se i posar-se a treballar amb energia','Preparar-se físicament per a una activitat esportiva'],
       correct:1, variants:[
         { options:['Espavilar-se i posar-se a treballar amb energia','Comprar piles per a un dispositiu electrònic','Preparar-se físicament per a una activitat esportiva'], correct:0 },
-        { question:'Quina és la interpretació correcta de «perdre el fil»?', options:['Rendir-se i abandonar la tasca','Perdre el seguiment d\'un raonament o d\'una conversa','Treballar molt dur fins a l\'extenuació'], correct:1, theory:"«Perdre el fil» és una locució verbal que vol dir perdre el seguiment d'un raonament o d'una conversa.", example:"Parlava tan de pressa que vaig perdre el fil." },
+        { question:'Quina és la interpretació correcta de «perdre el fil»?', options:['Rendir-se i abandonar la tasca a mig fer','Deixar de seguir un raonament o una conversa','Treballar molt dur fins a l\'extenuació'], correct:1, theory:"«Perdre el fil» és una locució verbal que vol dir perdre el seguiment d'un raonament o d'una conversa.", example:"Parlava tan de pressa que vaig perdre el fil." },
       ],
       theory:'«Posar-se les piles» és una locució verbal que significa activar-se, espabilar-se, posar esforç en una tasca. El seu ús és col·loquial.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
     { id:'c1-df7', type:'fill', level:'c1', category:'Derivació i flexió',
@@ -5096,15 +5096,11 @@ const DATA = {
 
     { id:'c1-ff9', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quina diferència de significat hi ha entre «fer el sord» i «fer els ulls grossos»?',
-      text:'Dues frases fetes poden semblar sinònimes però tenir matisos de significat importants. Fixa\'t en el sentit concret de cada acció: ignorar una petició no és el mateix que tolerar una irregularitat.',
-      options:[
-        'Són sinònims perfectes: les dues expressen ignorar alguna cosa deliberadament.',
-        '«Fer el sord» és ignorar un avís o petició; «fer els ulls grossos» és haver vist una falta però decidir no sancionar-la.',
-        '«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.'
-      ],
+      text:'Dues frases fetes que sovint es confonen. Pensa en quina situació faries servir cadascuna.',
+      options:['«Fer el sord» és fingir que no se sent; «fer els ulls grossos», mirar amb sorpresa.','«Fer el sord» és no voler escoltar; «fer els ulls grossos», deixar passar una falta que s\'ha vist.','«Fer el sord» és deixar passar una falta que s\'ha vist; «fer els ulls grossos», no voler escoltar.'],
       correct:1, variants:[
-        { options:['«Fer el sord» és ignorar un avís o petició; «fer els ulls grossos» és haver vist una falta però decidir no sancionar-la.','Són sinònims perfectes: les dues expressen ignorar alguna cosa deliberadament.','«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.'], correct:0 },
-        { options:['«Fer els ulls grossos» és la forma col·loquial de «fer el sord», pròpia del registre oral.','Són sinònims perfectes: les dues expressen ignorar alguna cosa deliberadament.','«Fer el sord» és ignorar un avís o petició; «fer els ulls grossos» és haver vist una falta però decidir no sancionar-la.'], correct:2 },
+        { options:['«Fer el sord» és no voler escoltar; «fer els ulls grossos», deixar passar una falta que s\'ha vist.','«Fer el sord» és deixar passar una falta que s\'ha vist; «fer els ulls grossos», no voler escoltar.','«Fer el sord» és fingir que no se sent; «fer els ulls grossos», mirar amb sorpresa.'], correct:0 },
+        { options:['«Fer el sord» és deixar passar una falta que s\'ha vist; «fer els ulls grossos», no voler escoltar.','«Fer el sord» és fingir que no se sent; «fer els ulls grossos», mirar amb sorpresa.','«Fer el sord» és no voler escoltar; «fer els ulls grossos», deixar passar una falta que s\'ha vist.'], correct:2 },
       ],
       theory:'La distinció és semànticament rellevant: «fer el sord» → no vull rebre el missatge (negar-se a percebre). «Fer els ulls grossos» → he vist la irregularitat però la perdono o la deixo passar conscientment.',
       example:'«Va fer el sord a les meves crides d\'ajuda.» / «El supervisor va fer els ulls grossos davant l\'error del becari.»' },
