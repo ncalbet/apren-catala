@@ -1510,7 +1510,7 @@
           headers: ['Temps', 'Usos principals', 'Exemple'],
           rows: [
             ['Passat perifràstic', 'Acció puntual i acabada; acció nova; acció comptada', 'Ahir va ploure a les sis. / Va trucar tres vegades.'],
-            ['Imperfet', 'Hàbit del passat; acció en curs (de fons); descripció; estat', "De petit, anava a la platja cada estiu. / Quan va entrar, plovia."],
+            ['Imperfet', 'Hàbit del passat; acció en curs (de fons); descripció; estat', "Abans anava a la platja cada estiu. / Quan va entrar, plovia."],
           ]
         }
       },
@@ -1527,7 +1527,7 @@
         icon: '⚠️',
         rules: [
           { bad: 'Ahir menjava pizza.', good: 'Ahir vaig menjar pizza. (acció puntual i acabada ahir)' },
-          { bad: "Quan era nen, vaig anar a l'escola cada dia.", good: "Quan era nen, anava a l'escola cada dia. (hàbit del passat)" },
+          { bad: "Abans vaig anar a l'escola a peu cada dia; ara hi vaig en bicicleta.", good: "Abans anava a l'escola a peu cada dia; ara hi vaig en bicicleta. (hàbit del passat)" },
         ]
       }
     ]
