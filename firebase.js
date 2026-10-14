@@ -237,10 +237,21 @@ function nouLid() {
 // tornava el document a mitges, sense «lliga»: «fora» a qui hi era, i l'XP es llençava.
 // Abans de llegir s'espera que el servidor hagi confirmat les escriptures pendents, 5 s
 // com a màxim (sense connexió no arriben mai, i aleshores la lectura ja fallarà sola).
+// 14/10: aquella espera s'acaba de seguida, perquè el progrés encara no s'ha començat a
+// desar: comença mentre la lectura és en curs, i la lectura torna igualment a mitges (2
+// camps de 10, amb escriptures pendents) a cada obertura. Ara sí que hi ha què esperar:
+// s'espera i es torna a llegir.
 // «camps» i «pendents» només són per al registre de la lliga.
 async function llegeixEstatLliga(user) {
-  await Promise.race([waitForPendingWrites(db).catch(() => {}), new Promise(r => setTimeout(r, 5000))]);
-  const snap = await getDocFromServer(doc(db, 'users', user.uid));
+  const esperaEscriptures = () =>
+    Promise.race([waitForPendingWrites(db).catch(() => {}), new Promise(r => setTimeout(r, 5000))]);
+  const ref = doc(db, 'users', user.uid);
+  await esperaEscriptures();
+  let snap = await getDocFromServer(ref);
+  if (snap.metadata.hasPendingWrites) {
+    await esperaEscriptures();
+    snap = await getDocFromServer(ref);
+  }
   const d = snap.exists() ? snap.data() : {};
   return { lid: d.lliga?.lid || null, dins: !!d.lliga?.dins, clau: d.pseudonimClau || null,
            camps: Object.keys(d).length, pendents: snap.metadata.hasPendingWrites };
