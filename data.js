@@ -4574,14 +4574,14 @@ const DATA = {
 
     // ORACIONS DE RELATIU
     { id:'c1-rel1', type:'choice', level:'c1', category:'Oracions de relatiu',
-      question:'Tria la construcció de relatiu correcta en registre culte:',
-      text:'La proposta ___ es va presentar ahir no compleix els requisits legals.',
-      options:['que la qual','la qual','en la qual que','qui'],
+      question:'Tria el relatiu correcte en registre culte:',
+      text:'La proposta ___ et vaig parlar ahir no compleix els requisits legals.',
+      options:['de la que','de la qual','que','de qui'],
       correct:1, variants:[
-        { options:['la qual','que la qual','qui','en la qual que'], correct:0 },
-        { options:['qui','en la qual que','que la qual','la qual'], correct:3 },
+        { options:['de la qual','de la que','de qui','que'], correct:0 },
+        { options:['de qui','que','de la que','de la qual'], correct:3 },
       ],
-      theory:'En registre formal, «el qual / la qual» substitueix «que» quan pot crear ambigüitat o en prosa elaborada.', example:'El document al qual fas referència no és vàlid.' },
+      theory:'Darrere de preposició, el registre formal demana «el qual / la qual» (o «què», si l\'antecedent és una cosa): «la proposta de la qual et vaig parlar». «De la que» és col·loquial; «que» sense la preposició, també; i «qui» només es fa servir per a persones.', example:'El document al qual fas referència no és vàlid.' },
     { id:'c1-rel2', type:'fill', level:'c1', category:'Oracions de relatiu',
       text:'Quan el relatiu va precedit d\'una preposició, el registre formal demana una forma composta en lloc del simple «que».',
       question:'Completa amb el pronom relatiu formal correcte (amb preposició «en»):',
