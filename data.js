@@ -4359,9 +4359,9 @@ const DATA = {
     { id:'c1-sa4', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Quina frase usa el subjuntiu correctament en una oració relativa?',
       text:'En les oracions de relatiu, el subjuntiu indica que l\'antecedent és indefinit o inexistent (no se sap si existeix): «Necessito un pis que tingui terrassa». L\'indicatiu indica que l\'antecedent és conegut: «Tinc un pis que té terrassa».',
-      options:['Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'],
+      options:['Busco un col·laborador que sap moltes llengües.','Busco un col·laborador que sàpiga moltes llengües.','Busco un col·laborador que sabrà moltes llengües.'],
       correct:1, variants:[
-        { options:['Busco un col·laborador que sàpiga moltes llengues.','Busco un col·laborador que sap moltes llengues.','Busco un col·laborador que sabrà moltes llengues.'], correct:0 },
+        { options:['Busco un col·laborador que sàpiga moltes llengües.','Busco un col·laborador que sap moltes llengües.','Busco un col·laborador que sabrà moltes llengües.'], correct:0 },
         { question:'Quina frase usa el subjuntiu correctament en una oració de relatiu?', options:['Conec una persona que parla xinès.','Busco algú que sàpiga programar.','Tinc un amic que sap cuinar molt bé.'], correct:1 },
       ],
       theory:'Quan l\'antecedent del relatiu és indefinit (no se sap si existeix), el verb de la subordinada va en subjuntiu.', example:'Busco algú que parli japonès. (subj.) / Conec algú que parla japonès. (ind.)' },
@@ -4492,7 +4492,7 @@ const DATA = {
     { id:'c1-arg3', type:'reading', level:'c1', category:'Argumentació',
       text:'Alguns defensors de la intel·ligència artificial sostenen que aquesta tecnologia resoldrà els grans problemes de la humanitat. Ara bé, cal matisar que les eines tecnològiques no actuen de manera autònoma: la seva eficàcia depèn de les decisions humanes. Per consegüent, el debat no hauria de centrar-se en la tecnologia, sinó en la responsabilitat dels seus creadors.',
       question:'Quina estratègia argumentativa usa l\'autor?',
-      options:['Presenta una sola posició sense matissos','Presenta una afirmació, la matisa i redirigeix el debat cap a una conclusió diferent','Refuta completament la posició dels defensors de la IA'],
+      options:['Presenta una sola posició sense matisos','Presenta una afirmació, la matisa i redirigeix el debat cap a una conclusió diferent','Refuta completament la posició dels defensors de la IA'],
       correct:1, theory:'L\'autor usa l\'estratègia de «sí, però»: reconeix la posició contrària, la matisa i redirigeix la conclusió.', example:'Reconèixer → Matisar («Ara bé») → Concloure diferent («Per consegüent»).' },
     { id:'c1-arg4', type:'choice', level:'c1', category:'Argumentació',
       question:'Quina expressió serveix per introduir una tesi en un text acadèmic?',
@@ -4548,7 +4548,7 @@ const DATA = {
         { options:['Crític i correctiu: refuta una visió ingènua sobre les dades','Optimista i confirmatiu','Dubitatiu: no sap si les dades són fiables'], correct:0 },
         { options:['Dubitatiu: no sap si les dades són fiables','Optimista i confirmatiu','Crític i correctiu: refuta una visió ingènua sobre les dades'], correct:2 },
       ],
-      theory:'«Res més lluny de la realitat» és una expressió correctiva molt forta. L\'autor primer presenta una posició i tot seguit la derriba completament.', example:'«Podria semblar X / Res més lluny» → refutació directa d\'una creença prèvia.' },
+      theory:'«Res més lluny de la realitat» és una expressió correctiva molt forta. L\'autor primer presenta una posició i tot seguit l\'enderroca completament.', example:'«Podria semblar X / Res més lluny» → refutació directa d\'una creença prèvia.' },
 
     // PRODUCCIÓ FORMAL
     { id:'c1-pro3', type:'choice', level:'c1', category:'Producció formal',
