@@ -3743,7 +3743,11 @@ function lligaClassificacioHTML(dades, lid) {
   }
   const diaAvui = diaMadrid(Date.now());
   const files = lligaFiles(dades);
-  const llista = files.map(f => {
+  // Qui encara no té punts no ocupa una fila cadascú (13/10: 11 de 26 a 0): una sola línia
+  // amb tots els noms. La teva fila surt sempre a part.
+  const sensePunts = files.filter(f => f.punts === 0 && f.lid !== lid);
+  const agrupa = sensePunts.length >= 2;
+  const llista = files.filter(f => !(agrupa && sensePunts.includes(f))).map(f => {
     const mi = f.lid === lid;
     const pos = (f.posicio <= 3 && f.punts > 0) ? LLIGA_MEDALLES[f.posicio - 1] : f.posicio;
     return `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);${mi ? 'background:var(--accent-blue-bg);border-radius:10px;border-bottom-color:transparent;' : ''}">
@@ -3751,7 +3755,12 @@ function lligaClassificacioHTML(dades, lid) {
       <div style="flex:1;min-width:0;overflow-wrap:anywhere;color:${mi ? 'var(--accent-blue-text)' : 'var(--text)'};${mi ? 'font-weight:700;' : ''}">${escText(f.pseudonim)}${mi ? ' (tu)' : ''}${lligaMedallesMini(f.medalles)}</div>
       <div style="font-weight:700;flex-shrink:0;color:${mi ? 'var(--accent-blue-text)' : 'var(--text)'};">${f.punts}</div>
     </div>`;
-  }).join('');
+  }).join('') + (!agrupa ? '' : `<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);">
+      <div style="width:30px;text-align:center;font-weight:700;color:var(--muted);flex-shrink:0;">${sensePunts[0].posicio}</div>
+      <div style="flex:1;min-width:0;overflow-wrap:anywhere;color:var(--text);">${sensePunts.length} persones encara sense punts
+        <div style="font-size:13px;color:var(--text-soft);line-height:1.5;margin-top:2px;">${sensePunts.map(f => escText(f.pseudonim)).filter(Boolean).join(', ')}</div></div>
+      <div style="font-weight:700;flex-shrink:0;color:var(--text);">0</div>
+    </div>`);
   // La classificació, la primera (bústia, 13/10: «massa coses abans de veure-la»). Els
   // punts d'avui no hi surten: els de la setmana ja són a la teva fila.
   return `
