@@ -2461,11 +2461,11 @@ const DATA = {
       question:'Escriu la forma correcta:',
       text:'El verb «saber» és irregular en present. La 1a persona és «sé», però la 3a persona del singular té una forma pròpia que cal no confondre amb la de «poder» o «voler».',
       sentence:'Ella ___ (saber) molt bé on és el mercat.',
-      display:'saber → 3a persona singular',
+      display:'saber → present, 3a persona singular',
       answers:['sap'],
       variants:[
-        { text:'El verb «voler» és irregular en present. La 3a persona del singular té una forma pròpia que cal no confondre amb la del subjuntiu.', sentence:'Ell ___ (voler) anar al cinema aquest cap de setmana.', display:'voler → 3a persona singular', answers:['vol'], theory:"«Voler» en present: jo vull, tu vols, ell vol, nosaltres volem, vosaltres voleu, ells volen." },
-        { text:'El verb «poder» és irregular en present. La 3a persona del singular té una forma pròpia que cal no confondre amb la del subjuntiu (amb «pugu-»).', sentence:'La meva germana no ___ (poder) venir a la festa de demà.', display:'poder → 3a persona singular', answers:['pot'], theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden." },
+        { text:'El verb «voler» és irregular en present. La 3a persona del singular té una forma pròpia que cal no confondre amb la del subjuntiu.', sentence:'Ell ___ (voler) anar al cinema, però no té diners.', display:'voler → present, 3a persona singular', answers:['vol'], theory:"«Voler» en present: jo vull, tu vols, ell vol, nosaltres volem, vosaltres voleu, ells volen.", example:'La Marta vol estudiar medicina.' },
+        { text:'El verb «poder» és irregular en present. La 3a persona del singular té una forma pròpia que cal no confondre amb la del subjuntiu (amb «pugu-»).', sentence:'La meva germana no ___ (poder) venir: treballa fins tard.', display:'poder → present, 3a persona singular', answers:['pot'], theory:"«Poder» en present: jo puc, tu pots, ell pot, nosaltres podem, vosaltres podeu, ells poden.", example:'En Pau no pot venir a sopar.' },
       ],
       theory:"«Saber» en present: jo sé, tu saps, ell sap, nosaltres sabem, vosaltres sabeu, ells saben.", example:"Ell sap parlar quatre idiomes." },
 
@@ -3633,7 +3633,7 @@ const DATA = {
       display:'parlar (3a pers. sing.) — indicatiu o subjuntiu?', answers:['parla'],
       variants:[
         { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'], theory:"«És evident que» introdueix un fet cert → indicatiu: «té». «Vull que parli» (desig) → subjuntiu." },
-        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Sé del cert que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen'], theory:'«Sé del cert que» expressa certesa → indicatiu: «venen». «Vull que parli» (desig) → subjuntiu.' },
+        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Sé del cert que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen','vindran'], theory:'«Sé del cert que» expressa certesa → indicatiu: «venen». «Vull que parli» (desig) → subjuntiu.' },
       ],
       theory:'«Sé que» introdueix un fet cert → indicatiu. «Vull que parli» (desig) → subjuntiu.', example:'Sé que parla tres idiomes. / Vull que parli més a poc a poc.' },
     { id:'b2-sub4', type:'choice', level:'b2', category:'Subjuntiu',
