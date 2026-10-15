@@ -1515,11 +1515,12 @@
         }
       },
       {
-        title: 'Expressions temporals que orienten la tria',
+        title: 'Expressions temporals: ajuden, però no decideixen',
         icon: '📋',
         examples: [
-          { text: "Perifràstic → ahir, fa una setmana, l'any passat, de cop, de sobte, llavors, finalment" },
-          { text: 'Imperfet → sempre, normalment, cada dia, sovint, mentre, en aquella època, de petit' },
+          { text: "Solen anar amb perifràstic: de sobte, de cop, llavors, i després, finalment (un fet que passa en un moment, o el següent d'una història)" },
+          { text: "Solen anar amb imperfet: sempre, sempre que, normalment, cada dia, sovint, abans… ara (un costum)" },
+          { text: "Però no decideixen soles. «Ahir», «l'any passat» o «fa una setmana» diuen quan va passar, no el temps: «L'any passat vaig estudiar alemany» (un fet) / «L'any passat les classes començaven a les vuit» (un costum)." },
         ]
       },
       {
