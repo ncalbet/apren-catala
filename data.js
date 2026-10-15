@@ -4135,7 +4135,7 @@ const DATA = {
       options:['vaig anar','havia anat','anava','aniré'],
       correct:2, variants:[
         { options:['anava','vaig anar','aniré','havia anat'], correct:0 },
-        { question:'Quin temps verbal expressa un hàbit continu en el passat: «De jove, ___ molt»?', text:'', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3, theory:"L'imperfet expressa hàbits, accions repetides o estats en el passat. «De jove, llegia molt» presenta la lectura com un costum d'aquella època → imperfet." },
+        { question:'Quin temps verbal expressa un hàbit del passat: «Abans ___ molt; ara gairebé no tinc temps de llegir»?', text:'', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3, theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Abans llegia molt; ara…» contraposa un costum d\'abans amb el present → imperfet.' },
       ],
       theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Cada estiu» indica repetició habitual → imperfet.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
     { id:'b2-tv3', type:'fill', level:'b2', category:'Temps verbals',
