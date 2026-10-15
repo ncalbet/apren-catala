@@ -2310,6 +2310,29 @@
 
 };
 
+// ── CÀPSULES ──
+// Una càpsula és un tros d'una categoria amb un objectiu i una microteoria. Els exercicis
+// nous de la sessió d'avui en surten en aquest ordre, i la microteoria surt plegada al
+// primer exercici de cada càpsula. La pantalla del nivell ensenya la categoria (14/10).
+const CAPSULES = [
+  { id:'b1-passat-1', categoria:'Imperfet i perifràstic B1', titol:'Feia o vaig fer?',
+    objectiu:'Distingir un costum del passat (imperfet) d\'un fet concret i acabat (perifràstic).',
+    microteoria:'<p>Tots dos temps parlen del passat. La diferència és com presentes l\'acció.</p><ul><li><strong>Passat perifràstic</strong> (<em>vaig fer</em>): un fet concret, que comença i s\'acaba. <em>Dissabte vaig anar al mercat.</em></li><li><strong>Imperfet</strong> (<em>feia</em>): un costum, una cosa que es repetia. <em>Abans anava al mercat cada dissabte.</em></li></ul><p>Compte: <em>ahir</em> o <em>l\'any passat</em> diuen <strong>quan</strong> va passar, però no trien el temps. <em>L\'any passat vaig estudiar alemany</em> (un fet); <em>l\'any passat les classes començaven a les vuit</em> (un costum).</p>',
+    exercicis:['b1-ip1','b1-ip2','b1-ip7','b1-ip8','b1-ip9'] },
+  { id:'b1-passat-2', categoria:'Imperfet i perifràstic B1', titol:'Situa l\'acció',
+    objectiu:'Distingir l\'acció que estava en marxa (imperfet) de la que passa enmig (perifràstic).',
+    microteoria:'<p>Sovint expliquem una cosa que va passar <strong>mentre n\'hi havia una altra en marxa</strong>.</p><ul><li>L\'acció en marxa, que ja havia començat i encara no s\'havia acabat, va en <strong>imperfet</strong>.</li><li>L\'acció que passa enmig, en <strong>perifràstic</strong>.</li></ul><p><em>Feia les maletes quan va trucar la Clara.</em><br><em>Mentre parlàvem, va arribar el seu germà.</em></p><p>Pregunta\'t: és el fons de l\'escena, o el que passa enmig?</p>',
+    exercicis:['b1-ip10','b1-ip11','b1-ip3','b1-ip12'] },
+  { id:'b1-passat-3', categoria:'Imperfet i perifràstic B1', titol:'Combina els dos temps',
+    objectiu:'En un relat, el perifràstic fa avançar la història i l\'imperfet descriu.',
+    microteoria:'<p>En un relat, cada temps fa una feina.</p><ul><li>El <strong>perifràstic</strong> fa avançar la història, un fet darrere l\'altre: <em>Va obrir la porta, va encendre el llum i va seure.</em></li><li>L\'<strong>imperfet</strong> descriu l\'escena i com estaven les coses: <em>Feia fred i la casa estava a les fosques.</em></li></ul><p>Sovint, un estat (imperfet) explica un fet (perifràstic): <em>Tenia son, i per això se\'n va anar a dormir d\'hora.</em></p>',
+    exercicis:['b1-ip6','b1-ip13','b1-ip14','b1-ip15'] },
+  { id:'b1-passat-4', categoria:'Imperfet i perifràstic B1', titol:'Una història nova',
+    objectiu:'Aplicar-ho tot en textos nous i més llargs.',
+    microteoria:'<p>Ja tens les tres claus:</p><ul><li>Costum o fet concret?</li><li>Fons de l\'escena o el que passa enmig?</li><li>Descripció o fet que fa avançar la història?</li></ul><p>Ara les aplicaràs en històries noves. Llegeix-les senceres abans de triar: el temps verbal depèn del que passa al voltant.</p>',
+    exercicis:['b1-ip5','b1-ip4','b1-ip16','b1-ip17'] },
+];
+
 /* ═══════════════════════════════════════════════════════════
    EXERCICIS (5+ per categoria)
 ═══════════════════════════════════════════════════════════ */
