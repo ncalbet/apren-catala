@@ -5334,15 +5334,15 @@ const DATA = {
       example:'El president de la comissió va prendre la paraula per tancar el debat. / En el parlament, es demana la paraula abans de prendre-la.' },
 
     { id:'c1-ff16', type:'choice', level:'c1', category:'Frases fetes',
-      question:'Quin és el significat precís de «ficar-se en camisa d\'onze vares»?',
-      text:'La vara era una antiga mesura de longitud, de menys d\'un metre: una camisa d\'onze vares és, doncs, una camisa desmesurada. Quin comportament descriu la locució?',
-      options:['Fer un gran esforç per superar un obstacle molt difícil.','Entremetre\'s en afers complicats que no li pertoquen.','Tenir molta experiència en un àmbit complex i especialitzat.'],
+      question:'Quin és el significat precís de «ficar el nas en alguna cosa»?',
+      text:'Moltes locucions parteixen d\'una part del cos i la fan servir en sentit figurat. Quin comportament descriu aquesta?',
+      options:['Deixar-se veure a penes, de tant en tant.','Intervenir en un afer sense tenir-hi cap dret.','Notar de seguida que alguna cosa no va bé.'],
       correct:1, variants:[
-        { options:['Entremetre\'s en afers complicats que no li pertoquen.','Fer un gran esforç per superar un obstacle molt difícil.','Tenir molta experiència en un àmbit complex i especialitzat.'], correct:0 },
-        { options:['Tenir molta experiència en un àmbit complex i especialitzat.','Fer un gran esforç per superar un obstacle molt difícil.','Entremetre\'s en afers complicats que no li pertoquen.'], correct:2 },
+        { options:['Intervenir en un afer sense tenir-hi cap dret.','Deixar-se veure a penes, de tant en tant.','Notar de seguida que alguna cosa no va bé.'], correct:0 },
+        { options:['Notar de seguida que alguna cosa no va bé.','Deixar-se veure a penes, de tant en tant.','Intervenir en un afer sense tenir-hi cap dret.'], correct:2 },
       ],
-      theory:'«Ficar-se en camisa d\'onze vares» vol dir ficar-se en afers que no li pertoquen o que són de solució difícil. La imatge és la d\'una camisa molt més gran que qui se la posa. També es diu «de dotze vares». L\'accent és en la imprudència d\'involucrar-s\'hi.',
-      example:'En publicar aquell comentari polèmic, es va ficar en camisa d\'onze vares i va haver de fer declaracions durant setmanes.' },
+      theory:'«Ficar el nas en alguna cosa» vol dir intervenir-hi sense tenir-hi dret: ficar-se on no el demanen. Si és a tot arreu, «ficar el nas per tot arreu», és tafanejar-ho tot. No s\'ha de confondre amb «tenir nas», que vol dir ser perspicaç.',
+      example:'No fiquis el nas en els afers dels veïns: no és cosa teva.' },
 
     { id:'c1-ff17', type:'fill', level:'c1', category:'Frases fetes',
       text:'En registre institucional, la locució col·loquial «fer mans i mànigues» se substitueix per un equivalent formal que expressa el màxim esforç.',
