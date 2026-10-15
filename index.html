@@ -1859,7 +1859,11 @@ function checkChoice(selected) {
   opts[selected].classList.add(isOk?'correct':'wrong');
   if (!isOk) opts[correct].classList.add('correct');
   const q = currentSession.items[currentSession.idx];
-  showTheory(q, isOk);
+  // Per què no és bona l'opció triada (càpsules, 14/10). Les opcions es barregen en
+  // pantalla: l'explicació va per l'índex original de l'opció. La bona hi té null (ho
+  // exigeix el validador), o sigui que després d'un encert no en surt cap.
+  const explicacio = Array.isArray(q.explicacions) ? q.explicacions[currentSession.optOrder[selected]] : null;
+  showTheory(q, isOk, explicacio);
   if (!isOk) mostraCorreccioDubtosa(q, q.options[currentSession.optOrder[selected]], q.options[q.correct]);
   markDone(isOk, 10);
 }
@@ -1977,14 +1981,14 @@ function checkReorder() {
   markDone(ok, 15);
 }
 
-function showTheory(q, ok = true) {
+function showTheory(q, ok = true, explicacio = null) {
   // Després d'un error, la teoria sencera del tema a un toc (exercicis primer, 4/4).
   const teoria = !ok && THEORY[q.category]
     ? `<div style="margin-top:10px;"><button type="button" onclick="obreTeoriaTema()" style="background:none;border:none;padding:4px 0;font:inherit;font-weight:600;color:inherit;text-decoration:underline;cursor:pointer;">📖 Mira la teoria del tema</button></div>`
     : '';
   document.getElementById('theory-area').innerHTML = `
     <div class="ct-theory">
-      <strong>Nota gramatical:</strong> ${q.theory}<br><br>
+      ${explicacio ? `<strong>Per què no:</strong> ${explicacio}<br><br>` : ''}<strong>Nota gramatical:</strong> ${q.theory}<br><br>
       <strong>Exemple:</strong> <em>${q.example||q.sample||''}</em>${teoria}
     </div>`;
 }
