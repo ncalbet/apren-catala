@@ -744,6 +744,21 @@ function exercicisPerAlsNous(level, cat) {
   const cap = caps.find(c => c.exercicis.some(id => getMastery(id) < 2));
   return cap ? cap.exercicis.map(id => exs.find(q => q.id === id)).filter(Boolean) : [];
 }
+// La microteoria de la càpsula, plegada (decisió de l'usuari, 14/10: com la teoria del
+// tema, per a qui la vulgui), al primer exercici nou que s'hi troba. Surt un cop per
+// càpsula: progress.capsulesVistes = { càpsula: exercici on va sortir }. Si aquell mateix
+// exercici es torna a pintar (una sessió represa), hi torna a ser.
+function microteoriaHTML(q) {
+  const cap = capsulaDe(q.id);
+  if (!cap || getMastery(q.id) > 0) return '';
+  const vistes = progress.capsulesVistes || {};
+  if (vistes[cap.id] && vistes[cap.id] !== q.id) return '';
+  progress.capsulesVistes = { ...vistes, [cap.id]: q.id };
+  return `<details class="ct-microteoria" style="margin:0 0 14px;">
+          <summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);">📖 Abans de començar: «${cap.titol}»</summary>
+          <div style="font-size:14px;line-height:1.6;color:var(--text-soft);margin-top:8px;">${cap.microteoria}</div>
+        </details>`;
+}
 // Lloc d'un exercici en l'ordre de les càpsules de la seva categoria (-1 si no en té).
 function ordreDeCapsula(id) {
   const cap = capsulaDe(id);
@@ -1786,6 +1801,7 @@ function renderExercise() {
             Domini ${getMastery(q.id)}/5 ${masteryHTML(q.id)}
           </div>
         </div>
+        ${microteoriaHTML(q)}
         <div class="ct-q">${q.question}</div>
         ${body}
         <div id="feedback-area"></div>
