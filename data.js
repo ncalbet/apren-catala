@@ -1112,7 +1112,7 @@
         title: 'El pronom «hi»: usos principals',
         icon: '🟢',
         rules: [
-          { label: 'Lloc on es va o on s\'és', example: '«Vas al mercat?» «Sí, hi vaig.» / «Hi sóc, a casa.»' },
+          { label: 'Lloc on es va o on s\'és', example: '«Vas al mercat?» «Sí, hi vaig.» / «Hi soc, a casa.»' },
           { label: 'Substitut de complement amb «en/a/amb»', example: '«Hi confio, en ell.» / «Hi estic d\'acord.»' },
           { label: '«Hi ha» (existència)', example: '«Hi ha molts participants.» (mai «Hay» sense hi!)' },
         ]
@@ -1265,7 +1265,7 @@
         table: {
           headers: ['Infinitiu', 'Ind. present (1a sg)', 'Subj. present (1a sg)', 'Perf. perifràstic (1a sg)'],
           rows: [
-            ['ser', 'sóc', 'sigui', 'vaig ser'],
+            ['ser', 'soc', 'sigui', 'vaig ser'],
             ['haver', 'he', 'hagi', 'vaig haver'],
             ['poder', 'puc', 'pugui', 'vaig poder'],
             ['voler', 'vull', 'vulgui', 'vaig voler'],
@@ -1368,7 +1368,7 @@
         rules: [
           { label: 'Des de (origen temporal)', example: '«Treballo aquí des de fa tres anys.» → fins ara' },
           { label: 'De (procedència puntual)', example: '«Vinc de Barcelona.» → procedència, sense continuïtat' },
-          { label: 'A (moviment / lloc fix)', example: '«Vaig a Barcelona.» / «Sóc a casa.» / «A classe.»' },
+          { label: 'A (moviment / lloc fix)', example: '«Vaig a Barcelona.» / «Soc a casa.» / «A classe.»' },
           { label: 'En (lloc abstracte/general)', example: '«Treballo en un hospital.» / «En reunió.»' },
         ]
       }
@@ -4480,10 +4480,10 @@ const DATA = {
     { id:'c1-sa1', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Tria la forma correcta per a una condició hipotètica irreal en el present:',
       text:'Si jo ___ al govern, canviaria moltes coses urgentment.',
-      options:['sóc','fos','sigui','havia estat'],
+      options:['soc','fos','sigui','havia estat'],
       correct:1, variants:[
-        { options:['fos','sóc','havia estat','sigui'], correct:0 },
-        { question:'Tria la forma correcta per a: «Si jo ___ més jove, viatjaria arreu del món»:', text:'', options:['sóc','sigui','havia estat','fos'], correct:3 },
+        { options:['fos','soc','havia estat','sigui'], correct:0 },
+        { question:'Tria la forma correcta per a: «Si jo ___ més jove, viatjaria arreu del món»:', text:'', options:['soc','sigui','havia estat','fos'], correct:3 },
       ],
       theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
     { id:'c1-sa2', type:'choice', level:'c1', category:'Subjuntiu avançat',
