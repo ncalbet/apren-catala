@@ -2363,13 +2363,13 @@ const DATA = {
     { id:'b1-ip6', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Quin parell de frases utilitza correctament els dos temps?',
       text:'En una narració podem combinar l\'imperfet (per a l\'estat de fons) i el perifràstic (per a l\'acció puntual i delimitada). Cada temps té el seu rol en la frase.',
-      options:["Ahir estava molt cansada, per tant vaig dormir onze hores.","Ahir era molt cansada, per tant dormia onze hores.","Ahir vaig estar molt cansada, per tant dormia onze hores."],
+      options:['Aquell vespre, en Lluc tenia pressa, per tant va agafar un taxi.','Aquell vespre, en Lluc tenia pressa, per tant agafava un taxi.','Aquell vespre, en Lluc va tenir pressa, per tant agafava un taxi.'],
       correct:0,
       variants:[
         { options:["Aquell migdia, l'Eduard tenia gana, per tant va menjar tres entrepans.","Aquell migdia, l'Eduard va tenir gana, per tant menjava tres entrepans.","Aquell migdia, l'Eduard tenia gana, per tant menjava tres entrepans."], correct:0, theory:"«Tenia gana» descriu com estava aquell migdia (imperfet). «Va menjar tres entrepans» és el fet que en resulta, concret i acabat (perifràstic). «Menjava» el presentaria com un costum o una acció a mig fer." },
         { options:["La Júlia estava nerviosa per l'examen, per tant no dormia en tota la nit.","La Júlia estava nerviosa per l'examen, per tant no va dormir en tota la nit.","La Júlia va estar nerviosa per l'examen, per tant no dormia en tota la nit."], correct:1, theory:"«Estava nerviosa» descriu com estava (imperfet). «No va dormir en tota la nit» és el fet que en resulta: una nit sencera, del principi al final (perifràstic)." },
       ],
-      theory:"«Estava cansada» = estat de fons (imperfet). «Vaig dormir onze hores» = resultat puntual i delimitat (perifràstic).", example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
+      theory:'«Tenia pressa» descriu com estava aquell vespre: imperfet. «Va agafar un taxi» és el fet que en resulta, concret i acabat: perifràstic.', example:"Tenia gana (estat), per tant vaig menjar (acció puntual)." },
 
     // ── PRONOMS FEBLES B1 ──
     { id:'b1-pf1', type:'choice', level:'b1', category:'Pronoms febles B1',
