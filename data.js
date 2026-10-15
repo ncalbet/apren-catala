@@ -2596,8 +2596,8 @@ const DATA = {
       display:'fer → 1a persona singular',
       answers:['faig','faç'],
       variants:[
-        { text:'El verb «anar» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial que no coincideix amb la castellana.', sentence:'Jo ___ (anar) a la feina amb bicicleta.', display:'anar → 1a persona singular', answers:['vaig'], theory:"«Anar» és irregular: jo vaig, tu vas, ell va, nosaltres anem, vosaltres aneu, ells van." },
-        { text:'El verb «venir» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial.', sentence:'Jo ___ (venir) de la feina a les sis.', display:'venir → 1a persona singular', answers:['vinc'], theory:"«Venir» és irregular: jo vinc, tu vens, ell ve, nosaltres venim, vosaltres veniu, ells venen." },
+        { text:'El verb «anar» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial que no coincideix amb la castellana.', sentence:'Jo ___ (anar) a la feina amb bicicleta.', display:'anar → 1a persona singular', answers:['vaig'], theory:"«Anar» és irregular: jo vaig, tu vas, ell va, nosaltres anem, vosaltres aneu, ells van.", example:'Vaig al mercat cada dissabte. / Ells van a l\'escola a peu.' },
+        { text:'El verb «venir» és un dels verbs irregulars més freqüents en català. La 1a persona del singular del present té una forma especial.', sentence:'Jo ___ (venir) de la feina a les sis.', display:'venir → 1a persona singular', answers:['vinc'], theory:"«Venir» és irregular: jo vinc, tu vens, ell ve, nosaltres venim, vosaltres veniu, ells venen.", example:'Vinc de Girona. / Vens a sopar dissabte?' },
       ],
       theory:"«Fer» és irregular: jo faig, tu fas, ell fa, nosaltres fem, vosaltres feu, ells fan.", example:"Jo faig el sopar. / Ell fa molt de soroll.", formes:{ 'faç':{ etiqueta:'balear', nota:"«Faç» és la 1a persona del present de «fer» en balear i en alguns parlars valencians; la general és «faig».", font:'GEIEC 5.5.1 c' } } },
 
@@ -2719,8 +2719,8 @@ const DATA = {
       display:'fer → 3a persona singular futur',
       answers:['farà'],
       variants:[
-        { text:'El verb «venir» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:'La meva cosina ___ (venir) a visitar-nos la setmana que ve.', display:'venir → 3a persona singular futur', answers:['vindrà'], theory:"«Venir» és irregular al futur: vindré, vindràs, vindrà, vindrem, vindreu, vindran." },
-        { text:'El verb «tenir» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:'L\'any que ve ___ (tenir, jo) més temps per a les meves aficions.', display:'tenir → 1a persona singular futur', answers:['tindré'], theory:"«Tenir» és irregular al futur: tindré, tindràs, tindrà, tindrem, tindreu, tindran." },
+        { text:'El verb «venir» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:'La meva cosina ___ (venir) a visitar-nos la setmana que ve.', display:'venir → 3a persona singular futur', answers:['vindrà'], theory:"«Venir» és irregular al futur: vindré, vindràs, vindrà, vindrem, vindreu, vindran.", example:'Demà vindré més d\'hora. / Per Nadal vindran els cosins.' },
+        { text:'El verb «tenir» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:'L\'any que ve ___ (tenir, jo) més temps per a les meves aficions.', display:'tenir → 1a persona singular futur', answers:['tindré'], theory:"«Tenir» és irregular al futur: tindré, tindràs, tindrà, tindrem, tindreu, tindran.", example:'Demà tindrem examen. / Quan tindràs vacances?' },
       ],
       theory:"«Fer» és irregular al futur: faré, faràs, farà, farem, fareu, faran.", example:"Demà farà sol. / L'any que ve faré un viatge." },
 
