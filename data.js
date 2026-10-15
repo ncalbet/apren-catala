@@ -3293,14 +3293,14 @@ const DATA = {
 
     { id:'a2-ses2', type:'choice', level:'a2', category:'Ser, estar i semblar',
       question:"Quin verb és el correcte per completar la frase?",
-      text:'Avui el Martí ___ molt nerviós perquè té un examen important.',
-      options:['és','sembla','està'],
+      text:'Ara el Martí ___ molt nerviós perquè té un examen important.',
+      options:['és','estava','està'],
       correct:2,
       variants:[
-        { text:'La Jana ___ contenta perquè avui és el seu aniversari.', options:['sembla','està','és'], correct:1 },
-        { text:"L'Oriol ___ distret avui perquè ha dormit poc.", options:['està','és','sembla'], correct:0 },
+        { text:'Ara la Jana ___ contenta perquè avui és el seu aniversari.', options:['estava','està','és'], correct:1, theory:'«Contenta» diu com està ara la Jana, per l\'aniversari: és un estat, «està». «És contenta» parlaria del seu caràcter, i «estava» és passat, però la frase parla d\'ara.' },
+        { text:'Ara l\'Oriol ___ distret perquè ha dormit poc.', options:['està','és','estava'], correct:0, theory:'«Distret» diu com està ara l\'Oriol, perquè ha dormit poc: un estat, «està». «És distret» parlaria de la seva manera de ser, i «estava» és passat, però la frase parla d\'ara.' },
       ],
-      theory:"«Estar» s'usa per a estats transitoris com l'estat d'ànim. ✗ «Ser nerviós» seria incorrecte si és un estat puntual d'avui (indicaria que el nerviosisme és un tret permanent del caràcter). ✗ «Sembla nerviós» podria ser acceptable però expressa una impressió externa, no un estat real; aquí el text afirma que el nerviosisme és real.", example:'Avui estic de mal humor. / Normalment soc una persona alegre.' },
+      theory:'«Ara… perquè té un examen» parla d\'un estat d\'ara: «està». «És nerviós» parlaria de la seva manera de ser, i «estava» és passat, però la frase parla d\'ara.', example:'Avui estic de mal humor. / Normalment soc una persona alegre.' },
 
     { id:'a2-ses3', type:'fill', level:'a2', category:'Ser, estar i semblar',
       question:'Omple amb el verb correcte (ser, estar o semblar):',
