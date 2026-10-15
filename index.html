@@ -651,6 +651,16 @@ let COMPTE_AL_FINAL = null;
 function compteAlFinal(ms = Date.now()) {
   return COMPTE_AL_FINAL ?? diaMadrid(ms) >= COMPTE_AL_FINAL_DES_DE;
 }
+// Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
+// puja) i, on fa una altra paraula (accentsEstrictes), un error. S'encén sol el dilluns
+// 19/10/2026, dia de Madrid, perquè la setmana del 12 al 18 quedi neta per mesurar la
+// tanda 2: un canvi per setmana. ACCENTS_ESTRICTES = false ho torna com abans («cafe»
+// compta com a encert, amb la nota); null = segons la data. «let» per les proves.
+const ACCENTS_ESTRICTES_DES_DE = 20261019;
+let ACCENTS_ESTRICTES = null;
+function accentsEstrictesActius(ms = Date.now()) {
+  return ACCENTS_ESTRICTES ?? diaMadrid(ms) >= ACCENTS_ESTRICTES_DES_DE;
+}
 
 // ══ RECORREGUTS ══
 // Cada nivell és també un recorregut: les seves categories, agrupades en etapes i
@@ -1995,14 +2005,17 @@ function checkFill() {
   // «accentsEstrictes» són les paraules de les respostes que, sense l'accent, en fan una
   // altra o un altre temps («té» → «te», «coneguí» → «conegui», subjuntiu). Si la que
   // falla és una d'aquestes, és un error; si és una altra («mànec»), «gairebé».
-  const canviaParaula = bona ? paraulaEstrictaFallada(bona, input.value, q.accentsEstrictes) : null;
+  // Fins al dl 19/10 (ACCENTS_ESTRICTES), com abans: és un encert, amb la nota de l'accent.
+  const accentsNous = accentsEstrictesActius();
+  const canviaParaula = accentsNous && bona ? paraulaEstrictaFallada(bona, input.value, q.accentsEstrictes) : null;
   const respostaEstricta = canviaParaula ? bona : null;
   if (canviaParaula) { ok = false; bona = null; }
   const altres = alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : '';
-  document.getElementById('feedback-area').innerHTML = bona
+  const fixat = bona && !accentsNous ? `<br>Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>.` : '';
+  document.getElementById('feedback-area').innerHTML = bona && accentsNous
     ? `<div class="ct-feedback quasi">≈ Gairebé. Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>. Et tornarà a sortir al repàs.${nota}${altres}</div>`
     : ok
-    ? `<div class="ct-feedback ok">✓ Correcte!${nota}${altres}</div>`
+    ? `<div class="ct-feedback ok">✓ Correcte!${fixat}${nota}${altres}</div>`
     : canviaParaula
     ? `<div class="ct-feedback ko">✗ Gairebé! Sense ${signesDiferents(canviaParaula.bona, canviaParaula.escrita)}, «${canviaParaula.bona}» és una altra paraula: la resposta és <strong>${respostaEstricta}</strong></div>`
     : quasi
@@ -2010,7 +2023,7 @@ function checkFill() {
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, input.value, q.answers.join(' / '));
-  markDone(ok, 10, !!bona);
+  markDone(ok, 10, accentsNous && !!bona);
 }
 function onTapSelect(i) {
   if (dragIdx !== null) return;
