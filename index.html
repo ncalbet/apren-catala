@@ -1955,7 +1955,7 @@ function checkFill() {
   if (!val) { showAlert('Escriu una resposta primer.'); return; }
   currentSession.answered = true;
   input.disabled = true;
-  const ok = q.answers.some(a => norm(a) === val);
+  let ok = q.answers.some(a => norm(a) === val);
   // Formes d'un parlar declarades a l'exercici (decisió de l'usuari, 08/10):
   // qui l'escriu veu de quin parlar és i si la recull l'IEC o només l'AVL.
   const formes = q.formes || {};
@@ -1979,12 +1979,18 @@ function checkFill() {
   // es perd res però el domini no puja, i l'exercici torna al repàs fins que s'escriu bé.
   // On l'accent canvia la paraula («és»/«es», «coneguí»/«conegui»), l'exercici és estricte.
   const exacta = q.answers.some(a => normalizeStrict(a) === normalizeStrict(input.value));
-  const bona = ok && !exacta && q.answers.find(a => norm(a) === val);
+  let bona = ok && !exacta && q.answers.find(a => norm(a) === val);
+  // Les respostes d'«accentsEstrictes» són les que, sense l'accent, fan una altra paraula
+  // o un altre temps («coneguí» → «conegui», subjuntiu): allà l'accent és un error.
+  const canviaParaula = bona && (q.accentsEstrictes || []).includes(bona) ? bona : null;
+  if (canviaParaula) { ok = false; bona = null; }
   const altres = alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : '';
   document.getElementById('feedback-area').innerHTML = bona
     ? `<div class="ct-feedback quasi">≈ Gairebé. Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>. Et tornarà a sortir al repàs.${nota}${altres}</div>`
     : ok
     ? `<div class="ct-feedback ok">✓ Correcte!${nota}${altres}</div>`
+    : canviaParaula
+    ? `<div class="ct-feedback ko">✗ Gairebé! Sense ${signesDiferents(canviaParaula, input.value)} és una altra paraula: la resposta és <strong>${canviaParaula}</strong></div>`
     : quasi
       ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
