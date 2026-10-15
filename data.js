@@ -4187,10 +4187,10 @@ const DATA = {
     { id:'b2-prep1', type:'choice', level:'b2', category:'Preposicions',
       question:'Tria la preposició correcta:',
       text:'Aquesta documentació és ___ departament de recursos humans.',
-      options:['pel','per al','al','del'],
+      options:['pel','per al','per a el','per el'],
       correct:1, variants:[
-        { options:['per al','pel','del','al'], correct:0 },
-        { question:'Tria la preposició correcta: «Aquest informe és ___ la junta directiva»:', text:'', options:['per','de','a','per a'], correct:3 },
+        { options:['per al','pel','per el','per a el'], correct:0 },
+        { question:'Tria la forma correcta: «Aquest informe és ___ junta directiva»:', text:'', options:['per la','per a la','per al','pel'], correct:1 },
       ],
       theory:'«Per a» indica destinació o destinatari; «per» indica causa, durada o mitjà. Davant de l\'article masculí totes dues es contreuen: per a + el = per al, per + el = pel (i per als, pels en plural). Amb l\'article femení no hi ha contracció: per a la, per la.', example:'És per al director (destinació). / Han tancat pel mal temps (causa). / Aquesta carta és per a tu.' },
     { id:'b2-prep2', type:'fill', level:'b2', category:'Preposicions',
