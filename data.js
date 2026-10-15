@@ -4485,7 +4485,7 @@ const DATA = {
         { options:['fos','soc','havia estat','sigui'], correct:0 },
         { question:'Tria la forma correcta per a: «Si jo ___ més jove, viatjaria arreu del món»:', text:'', options:['soc','sigui','havia estat','fos'], correct:3 },
       ],
-      theory:'Condicionals hipotètiques irrels: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
+      theory:'Condicionals hipotètiques irreals: si + imperfet de subjuntiu + condicional simple.', example:'Si tingués més temps, aprendria japonès.' },
     { id:'c1-sa2', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Tria la forma correcta per a una condicional irreal en el passat:',
       text:'Si ___ estudiat més, hauria aprovat l\'examen sense problemes.',
