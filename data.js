@@ -136,7 +136,7 @@
             ['On vius?','Visc a Manresa.'],
             ['Quants anys tens?','Tinc trenta anys.'],
             ['Quines llengües parles?','Parlo català i italià.'],
-            ['De què treballes?','Treballo de cuinera.'],
+            ['De què treballes?','Treballo de recepcionista.'],
           ]
         }
       },
