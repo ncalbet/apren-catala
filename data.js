@@ -762,7 +762,7 @@
   'Subjuntiu avançat': {
     level: 'c1',
     icon: '🔀',
-    subtitle: 'Subjuntiu imperfet, condicionals irrels i usos complexos',
+    subtitle: 'Subjuntiu imperfet, condicionals irreals i usos complexos',
     sections: [
       {
         title: 'El subjuntiu imperfet',
@@ -785,7 +785,7 @@
         }
       },
       {
-        title: 'Condicionals (reals vs. hipotètiques vs. irrels)',
+        title: 'Condicionals (reals vs. hipotètiques vs. irreals)',
         icon: '⚖️',
         table: {
           headers: ['Tipus', 'Estructura', 'Exemple'],
