@@ -3017,9 +3017,9 @@ const DATA = {
       correct:0,
       variants:[
         { text:'L\'ordinador amb ___ treballo és molt lent.', options:['el qual','qui','que','on'], correct:0 },
-        { text:"La persona a ___ m'he adreçat ha estat molt amable.", options:['què','qui','que','on'], correct:1 },
+        { text:"La persona a ___ m'he adreçat ha estat molt amable.", options:['qual','qui','que','on'], correct:1 },
       ],
-      theory:"Darrere de preposició i referit a coses, s'usa «el qual/la qual» (mai «qui», que és només per a persones). Per a persones, tant «qui» com «el qual/la qual» són correctes.", example:"L'empresa per a la qual treballo / La companya amb qui (amb la qual) col·laboro." },
+      theory:'Darrere de preposició, per a coses, «el qual / la qual» va bé sempre; amb «a», «de», «en» i «amb» també es pot fer servir «què»: «l\'ordinador amb el qual treballo» o «amb què treballo». Per a persones, «qui» o «el qual / la qual»: «la persona a qui m\'he adreçat». «Qui» no va mai amb coses, i «que» no va mai darrere de preposició.', example:"L'empresa per a la qual treballo / La companya amb qui (amb la qual) col·laboro." },
 
     { id:'b1-rel6', type:'reorder', level:'b1', category:'Oracions de relatiu B1',
       question:'Ordena per formar una oració de relatiu correcta:',
