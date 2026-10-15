@@ -2340,14 +2340,14 @@ const DATA = {
 
     { id:'b1-ip3', type:'fill', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Omple amb la forma correcta (imperfet o perifràstic):',
-      sentence:'Quan tenia quinze anys, ___ (aprendre) a tocar la guitarra.',
-      display:'passat perifràstic 1a pers. sing. de «aprendre»',
-      answers:['vaig aprendre'],
+      sentence:'Quan vivia a Londres, ___ (conèixer) la Sara en una festa d\'aniversari.',
+      display:'«conèixer», 1a persona del singular',
+      answers:['vaig conèixer','coneguí'],
       variants:[
-        { sentence:'Quan vivia a Londres, ___ (conèixer) la meva parella actual.', display:'passat perifràstic 1a pers. sing. de «conèixer»', answers:['vaig conèixer'], theory:"«Quan vivia a Londres» marca la circumstància de fons (imperfet). «Vaig conèixer» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal." },
-        { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'passat perifràstic 1a pers. sing. de «decidir»', answers:['vaig decidir'], theory:"«Mentre estudiava a la universitat» marca la circumstància de fons (imperfet). «Vaig decidir» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:"Mentre vivia a Girona, vaig decidir aprendre a nedar. / Quan treballava a la biblioteca, vaig conèixer la Marta." },
+        { sentence:'Quan tenia quinze anys, ___ (guanyar) un concurs de dibuix a l\'escola.', display:'«guanyar», 1a persona del singular', answers:['vaig guanyar','guanyí'], theory:'«Quan tenia quinze anys» és el fons. Guanyar un concurs és un fet concret: perifràstic.' },
+        { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'«decidir», 1a persona del singular', answers:['vaig decidir','decidí'], theory:"«Mentre estudiava a la universitat» marca la circumstància de fons (imperfet). «Vaig decidir» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:"Mentre vivia a Girona, vaig decidir aprendre a nedar. / Quan treballava a la biblioteca, vaig conèixer la Marta." },
       ],
-      theory:"«Quan tenia quinze anys» marca la circumstància de fons (imperfet). «Vaig aprendre» = acció puntual nova que es produeix en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:'Quan vivia a París, vaig aprendre francès. / Quan era jove, vaig conèixer el meu millor amic.' },
+      theory:'«Quan vivia a Londres» és el fons, una època: imperfet. Conèixer la Sara en una festa és un fet concret d\'aquella època: perifràstic. («Coneixia» voldria dir que ja la coneixia d\'abans.)', example:'Quan treballava a la biblioteca, vaig conèixer el meu millor amic.' },
 
     { id:'b1-ip4', type:'reorder', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Ordena les frases perquè la narració tingui sentit:',
