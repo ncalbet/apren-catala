@@ -10,7 +10,7 @@
       {
         title: 'La diferència fonamental',
         icon: '📌',
-        body: `<p>En català, <strong>ser</strong>, <strong>estar</strong> i <strong>semblar</strong> no s'intercanvien lliurement. Cada verb té un valor semàntic específic que cal respectar per comunicar-se correctament.</p>`
+        body: `<p>En català, <strong>ser</strong>, <strong>estar</strong> i <strong>semblar</strong> no s'intercanvien lliurement. Cada verb té un valor semàntic específic que cal respectar per comunicar-se correctament.</p><p>Amb alguns adjectius, com <strong>nerviós</strong>, <strong>tranquil</strong> o <strong>trist</strong>, tots dos verbs són correctes, però no diuen el mateix: «En Pau és nerviós» (és la seva manera de ser) / «En Pau està nerviós» (ara, per l'examen).</p>`
       },
       {
         title: "Usos de ser, estar i semblar",
@@ -39,8 +39,7 @@
         icon: '⚠️',
         rules: [
           { bad: 'Avui soc malalt, no aniré a treballar.', good: "Avui estic malalt, no aniré a treballar. (estat de salut transitori)" },
-          { bad: 'És nerviós ara mateix.', good: 'Està nerviós ara mateix. (estat transitori)' },
-          { bad: 'Ell és cansat.', good: 'Ell està cansat. (estat passatger)' },
+          { bad: 'És enfadat amb el seu germà.', good: 'Està enfadat amb el seu germà. (estat, no manera de ser)' },
         ]
       }
     ]
