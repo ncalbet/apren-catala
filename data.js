@@ -4137,7 +4137,7 @@ const DATA = {
         { options:['anava','vaig anar','aniré','havia anat'], correct:0 },
         { question:'Quin temps verbal expressa un hàbit del passat: «Abans ___ molt; ara gairebé no tinc temps de llegir»?', text:'', options:['vaig llegir','havia llegit','llegiré','llegia'], correct:3, theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Abans llegia molt; ara…» contraposa un costum d\'abans amb el present → imperfet.' },
       ],
-      theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Cada estiu» indica repetició habitual → imperfet.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
+      theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Abans… ara» contraposa un costum d\'abans amb el present → imperfet. «Cada estiu», sola, no ho decidiria.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
     { id:'b2-tv3', type:'fill', level:'b2', category:'Temps verbals',
       text:'El passat perifràstic (anar + infinitiu) expressa accions puntuals i acabades en un moment concret del passat.',
       question:'Completa amb un verb de moviment en passat perifràstic (va + infinitiu):',
