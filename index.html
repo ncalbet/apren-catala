@@ -1946,6 +1946,18 @@ function signesDiferents(bona, escrita) {
   if (compte.cedilla) noms.push(compte.cedilla > 1 ? 'les ces trencades' : 'la ce trencada');
   return noms.join(' i ') || 'l\'accent';
 }
+// La primera paraula d'«accentsEstrictes» que la persona ha escrit amb un altre accent, o
+// null. «bona» i «escrita» ja casen sense diacrítics, o sigui que tenen els mateixos mots.
+function paraulaEstrictaFallada(bona, escrita, estrictes) {
+  if (!estrictes || !estrictes.length) return null;
+  const mots = t => normalizeStrict(t).split(/[^a-zà-ÿ·']+/i).filter(Boolean);
+  const b = mots(bona), e = mots(escrita);
+  const llista = estrictes.map(x => normalizeStrict(x));
+  for (let i = 0; i < b.length; i++) {
+    if (b[i] !== e[i] && llista.includes(b[i])) return { bona: b[i], escrita: e[i] || '' };
+  }
+  return null;
+}
 function checkFill() {
   if (currentSession.answered) return;
   const q = currentSession.items[currentSession.idx];
@@ -1980,9 +1992,11 @@ function checkFill() {
   // On l'accent canvia la paraula («és»/«es», «coneguí»/«conegui»), l'exercici és estricte.
   const exacta = q.answers.some(a => normalizeStrict(a) === normalizeStrict(input.value));
   let bona = ok && !exacta && q.answers.find(a => norm(a) === val);
-  // Les respostes d'«accentsEstrictes» són les que, sense l'accent, fan una altra paraula
-  // o un altre temps («coneguí» → «conegui», subjuntiu): allà l'accent és un error.
-  const canviaParaula = bona && (q.accentsEstrictes || []).includes(bona) ? bona : null;
+  // «accentsEstrictes» són les paraules de les respostes que, sense l'accent, en fan una
+  // altra o un altre temps («té» → «te», «coneguí» → «conegui», subjuntiu). Si la que
+  // falla és una d'aquestes, és un error; si és una altra («mànec»), «gairebé».
+  const canviaParaula = bona ? paraulaEstrictaFallada(bona, input.value, q.accentsEstrictes) : null;
+  const respostaEstricta = canviaParaula ? bona : null;
   if (canviaParaula) { ok = false; bona = null; }
   const altres = alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : '';
   document.getElementById('feedback-area').innerHTML = bona
@@ -1990,7 +2004,7 @@ function checkFill() {
     : ok
     ? `<div class="ct-feedback ok">✓ Correcte!${nota}${altres}</div>`
     : canviaParaula
-    ? `<div class="ct-feedback ko">✗ Gairebé! Sense ${signesDiferents(canviaParaula, input.value)} és una altra paraula: la resposta és <strong>${canviaParaula}</strong></div>`
+    ? `<div class="ct-feedback ko">✗ Gairebé! Sense ${signesDiferents(canviaParaula.bona, canviaParaula.escrita)}, «${canviaParaula.bona}» és una altra paraula: la resposta és <strong>${respostaEstricta}</strong></div>`
     : quasi
       ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
