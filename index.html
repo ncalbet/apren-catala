@@ -725,6 +725,36 @@ function etapesDe(level) {
   if (altres.length) etapes.push({ nom: 'Altres temes', cats: altres });
   return etapes;
 }
+// ── Càpsules (CAPSULES, a data.js) ──
+// Una categoria pot estar partida en càpsules, cadascuna amb els seus exercicis en ordre
+// (introducció, aplicació i comprovació). La pantalla del nivell continua ensenyant la
+// categoria (decisió de l'usuari, 14/10): les càpsules només ordenen el que surt.
+function capsulesDe(cat) {
+  return (typeof CAPSULES !== 'undefined' ? CAPSULES : []).filter(c => c.categoria === cat);
+}
+function capsulaDe(id) {
+  return (typeof CAPSULES !== 'undefined' ? CAPSULES : []).find(c => c.exercicis.includes(id)) || null;
+}
+// D'on surten els nous de la sessió d'avui dins d'una categoria. Amb càpsules, només de
+// la primera que en té algun per fer, i en el seu ordre (guió de les càpsules, §6).
+function exercicisPerAlsNous(level, cat) {
+  const exs = (DATA[level] || []).filter(q => q.category === cat);
+  const caps = capsulesDe(cat);
+  if (!caps.length) return exs;
+  const cap = caps.find(c => c.exercicis.some(id => getMastery(id) < 2));
+  return cap ? cap.exercicis.map(id => exs.find(q => q.id === id)).filter(Boolean) : [];
+}
+// Lloc d'un exercici en l'ordre de les càpsules de la seva categoria (-1 si no en té).
+function ordreDeCapsula(id) {
+  const cap = capsulaDe(id);
+  if (!cap) return -1;
+  let n = 0;
+  for (const c of capsulesDe(cap.categoria)) {
+    if (c === cap) return n + c.exercicis.indexOf(id);
+    n += c.exercicis.length;
+  }
+  return -1;
+}
 function categoriaFeta(level, cat) {
   const st = groupState((DATA[level] || []).filter(q => q.category === cat).map(q => getMastery(q.id)));
   return st === 'completed' || st === 'mastered';
@@ -1557,7 +1587,13 @@ function startAllSession(level) {
   renderExercise();
 }
 function startCategorySession(level, cat) {
-  const items = withVariantsIfPracticed(sortBySRS(DATA[level].filter(q => q.category === cat)));
+  const exs = DATA[level].filter(q => q.category === cat);
+  // Amb càpsules, a igual domini van en l'ordre de les càpsules, i no a l'atzar: qui
+  // comença el tema fa primer la introducció i al final la comprovació.
+  const ordenats = capsulesDe(cat).length
+    ? [...exs].sort((a, b) => (getMastery(a.id) - getMastery(b.id)) || (ordreDeCapsula(a.id) - ordreDeCapsula(b.id)))
+    : sortBySRS(exs);
+  const items = withVariantsIfPracticed(ordenats);
   currentSession = { items, idx:0, correct:0, level, returnTo:'cat', cat };
   renderExercise();
 }
@@ -2599,7 +2635,7 @@ function getDailyChallenge() {
       .slice(0, REPTE_REPASSOS).map(q => q.id);
     for (const e of etapesDe(r.id)) {
       for (const c of e.cats) {
-        for (const q of DATA[r.id].filter(x => x.category === c)) {
+        for (const q of exercicisPerAlsNous(r.id, c)) {
           if (nous.length < REPTE_NOUS && getMastery(q.id) < 2 && !repassos.includes(q.id)) nous.push(q.id);
         }
       }
