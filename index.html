@@ -1973,20 +1973,23 @@ function checkFill() {
     && q.answers.find(a => normalize(a) === normalize(input.value));
   const marca = quasi && /[ïü]/i.test(quasi) !== /[ïü]/i.test(input.value)
     ? 'la dièresi' : 'l\'accent';
-  // Fora de l'IEC, normalize() perdona els diacrítics a posta: l'encert compta
-  // igual, amb el mateix XP. Però els accents són ortografia, i qui ha escrit
-  // «cafe» ha de veure que és «cafè».
+  // Fora dels exercicis estrictes, normalize() perdona els diacrítics: «cafe» no és un
+  // error. Però els accents són ortografia (decisió de l'usuari, 15/10): és «gairebé», no
+  // es perd res però el domini no puja, i l'exercici torna al repàs fins que s'escriu bé.
+  // On l'accent canvia la paraula («és»/«es», «coneguí»/«conegui»), l'exercici és estricte.
   const exacta = q.answers.some(a => normalizeStrict(a) === normalizeStrict(input.value));
   const bona = ok && !exacta && q.answers.find(a => norm(a) === val);
-  const fixat = bona ? `<br>Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>.` : '';
-  document.getElementById('feedback-area').innerHTML = ok
-    ? `<div class="ct-feedback ok">✓ Correcte!${fixat}${nota}${alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : ''}</div>`
+  const altres = alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : '';
+  document.getElementById('feedback-area').innerHTML = bona
+    ? `<div class="ct-feedback quasi">≈ Gairebé. Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>. Et tornarà a sortir al repàs.${nota}${altres}</div>`
+    : ok
+    ? `<div class="ct-feedback ok">✓ Correcte!${nota}${altres}</div>`
     : quasi
       ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, input.value, q.answers.join(' / '));
-  markDone(ok, 10);
+  markDone(ok, 10, !!bona);
 }
 function onTapSelect(i) {
   if (dragIdx !== null) return;
@@ -2122,7 +2125,10 @@ function diaLocal(ms = Date.now()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
-function markDone(ok, xp) {
+// «gairebe»: la resposta és bona però hi falla un accent (o la dièresi, o la ce trencada),
+// en un exercici que no és estricte. No es perd res (XP, ratxa, repte diari), però el
+// domini no puja: l'exercici torna al repàs fins que s'escriu bé (decisió de l'usuari, 15/10).
+function markDone(ok, xp, gairebe = false) {
   const q = currentSession.items[currentSession.idx];
   // Què hi havia desbloquejat ABANS d'aquesta resposta. S'ha de calcular aquí, abans
   // de tocar domini, XP o ratxa: fins a la v140 es calculava al final, era idèntic
@@ -2145,7 +2151,9 @@ function markDone(ok, xp) {
   const dayCeiling = dayStart === 0 ? 2 : Math.min(5, dayStart + 1);
 
   // Actualitza domini
-  if (prev === 0) {
+  if (ok && gairebe) {
+    if (prev === 0) progress.mastery[q.id] = 1;   // primer contacte: començat, no encertat
+  } else if (prev === 0) {
     progress.mastery[q.id] = ok ? 2 : 1;
     if (ok) progress.lastMasteryDate[q.id] = todayISO;
   } else if (ok) {
