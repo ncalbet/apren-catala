@@ -2367,10 +2367,10 @@ const DATA = {
       display:'«conèixer», 1a persona del singular',
       answers:['vaig conèixer','coneguí'],
       variants:[
-        { sentence:'Quan tenia quinze anys, ___ (guanyar) un concurs de dibuix a l\'escola.', display:'«guanyar», 1a persona del singular', answers:['vaig guanyar','guanyí'], theory:'«Quan tenia quinze anys» és el fons. Guanyar un concurs és un fet concret: perifràstic.' },
-        { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'«decidir», 1a persona del singular', answers:['vaig decidir','decidí'], theory:"«Mentre estudiava a la universitat» marca la circumstància de fons (imperfet). «Vaig decidir» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:"Mentre vivia a Girona, vaig decidir aprendre a nedar. / Quan treballava a la biblioteca, vaig conèixer la Marta." },
+        { sentence:'Quan tenia quinze anys, ___ (guanyar) un concurs de dibuix a l\'escola.', display:'«guanyar», 1a persona del singular', answers:['vaig guanyar','guanyí'], theory:'«Quan tenia quinze anys» és el fons. Guanyar un concurs és un fet concret: perifràstic.', accentsEstrictes:['guanyí'] },
+        { sentence:'Mentre estudiava a la universitat, ___ (decidir) canviar de carrera.', display:'«decidir», 1a persona del singular', answers:['vaig decidir','decidí'], theory:"«Mentre estudiava a la universitat» marca la circumstància de fons (imperfet). «Vaig decidir» és l'acció puntual que passa en aquell moment (perifràstic). Imperfet per al context, perifràstic per a l'acció principal.", example:"Mentre vivia a Girona, vaig decidir aprendre a nedar. / Quan treballava a la biblioteca, vaig conèixer la Marta.", accentsEstrictes:[] },
       ],
-      theory:'«Quan vivia a Londres» és el fons, una època: imperfet. Conèixer la Sara en una festa és un fet concret d\'aquella època: perifràstic. («Coneixia» voldria dir que ja la coneixia d\'abans.)', example:'Quan treballava a la biblioteca, vaig conèixer el meu millor amic.' },
+      theory:'«Quan vivia a Londres» és el fons, una època: imperfet. Conèixer la Sara en una festa és un fet concret d\'aquella època: perifràstic. («Coneixia» voldria dir que ja la coneixia d\'abans.)', example:'Quan treballava a la biblioteca, vaig conèixer el meu millor amic.', accentsEstrictes:['coneguí'] },
 
     { id:'b1-ip4', type:'reorder', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Ordena les frases perquè la narració tingui sentit:',
@@ -3334,7 +3334,7 @@ const DATA = {
       answers:['està'],
       variants:[
         { text:'La preocupació és un estat d\'ànim temporal que canvia segons les circumstàncies. En català, els estats temporals es construeixen amb un verb diferent que els trets permanents.', sentence:'La Núria ___ preocupada perquè demà té un examen important.', answers:['està'] },
-        { text:'La nacionalitat és un tret permanent, no un estat temporal. En català, els trets permanents es construeixen amb un verb diferent que els estats passatgers.', sentence:'El meu veí ___ de Girona, però viu a Lleida des de fa anys.', answers:['és'] },
+        { text:'La nacionalitat és un tret permanent, no un estat temporal. En català, els trets permanents es construeixen amb un verb diferent que els estats passatgers.', sentence:'El meu veí ___ de Girona, però viu a Lleida des de fa anys.', answers:['és'], accentsEstrictes:['és'] },
       ],
       theory:"El cansament és un estat físic temporal → «estar». Atenció: «ser cansat» té un significat diferent i vol dir ser esgotador o pesat («Aquesta feina és molt cansada»).", example:'Avui la Marta està cansada. / Normalment és molt activa.' },
 
@@ -3735,10 +3735,10 @@ const DATA = {
       display:'connector d\'addició formal',
       answers:['a més','a més a més','així mateix','addicionalment','igualment'],
       variants:[
-        { sentence:'El nou pla amplia la cobertura sanitària. ___, escurça les llistes d\'espera.', display:'connector d\'addició formal', answers:['a més','a més a més','així mateix','addicionalment','igualment'] },
-        { sentence:'La proposta és econòmicament sostenible. ___, respecta el medi ambient.', display:'connector d\'addició formal', answers:['a més','a més a més','així mateix','addicionalment','igualment'] },
+        { sentence:'El nou pla amplia la cobertura sanitària. ___, escurça les llistes d\'espera.', display:'connector d\'addició formal', answers:['a més','a més a més','així mateix','addicionalment','igualment'], accentsEstrictes:['més'] },
+        { sentence:'La proposta és econòmicament sostenible. ___, respecta el medi ambient.', display:'connector d\'addició formal', answers:['a més','a més a més','així mateix','addicionalment','igualment'], accentsEstrictes:['més'] },
       ],
-      theory:'En registre formal, «a més (a més)» o «així mateix» substitueixen el col·loquial «també».', example:'La proposta és viable; a més, compta amb el suport tècnic necessari.' },
+      theory:'En registre formal, «a més (a més)» o «així mateix» substitueixen el col·loquial «també».', example:'La proposta és viable; a més, compta amb el suport tècnic necessari.', accentsEstrictes:['més'] },
     { id:'b2-con4', type:'reorder', level:'b2', category:'Connectors',
       question:'Ordena les frases perquè el text sigui lògicament coherent:',
       text:'Els connectors textuals marquen la relació lògica entre les idees: causalitat, addició, contrast o conclusió. Ordena els fragments d\'un informe sobre qualitat de vida urbana.',
@@ -3788,7 +3788,7 @@ const DATA = {
       sentence:'Sé que la Berta ___ molt bé el català des de petita.',
       display:'parlar (3a pers. sing.) — indicatiu o subjuntiu?', answers:['parla'],
       variants:[
-        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'], theory:"«És evident que» introdueix un fet cert → indicatiu: «té». «Vull que parli» (desig) → subjuntiu." },
+        { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'És evident que el projecte ___ molta feina al darrere.', display:'tenir (3a pers. sing.) — indicatiu o subjuntiu?', answers:['té'], theory:"«És evident que» introdueix un fet cert → indicatiu: «té». «Vull que parli» (desig) → subjuntiu.", accentsEstrictes:['té'] },
         { text:'Després del verb principal cal decidir el mode de la subordinada: la certesa demana un mode i el dubte o el desig, un altre.', sentence:'Sé del cert que els teus cosins ___ a la festa de demà.', display:'venir (3a pers. pl.) — indicatiu o subjuntiu?', answers:['venen','vindran'], theory:'«Sé del cert que» expressa certesa → indicatiu: «venen». «Vull que parli» (desig) → subjuntiu.' },
       ],
       theory:'«Sé que» introdueix un fet cert → indicatiu. «Vull que parli» (desig) → subjuntiu.', example:'Sé que parla tres idiomes. / Vull que parli més a poc a poc.' },
@@ -3923,7 +3923,7 @@ const DATA = {
       sentence:'El projecte té molts punts forts. ___, el pressupost inicial sembla insuficient.',
       display:'connector de contrast formal (no «però»)',
       answers:['Tanmateix','No obstant això','No obstant','Això no obstant','Ara bé','Tot i això','Malgrat això','Malgrat tot'],
-      theory:'En textos B2, els connectors de contrast formals (tanmateix, ara bé, no obstant això) demostren domini del registre escrit. «Però» és correcte però menys marcat.', example:'El pla és ambiciós. Tanmateix, caldria revisar el calendari.' },
+      theory:'En textos B2, els connectors de contrast formals (tanmateix, ara bé, no obstant això) demostren domini del registre escrit. «Però» és correcte però menys marcat.', example:'El pla és ambiciós. Tanmateix, caldria revisar el calendari.', accentsEstrictes:['bé'] },
     { id:'b2-pro8', type:'fill', level:'b2', category:'Producció escrita',
       text:'Les cartes i correus formals s\'obren amb fórmules fixes que estableixen el to professional i marquen el tractament de vostè.',
       question:'Omple amb la fórmula d\'obertura formal correcta:',
@@ -4043,10 +4043,10 @@ const DATA = {
       display:'construcció sense «lo» (inexistent en català)',
       answers:['allò important','el que és important','la cosa important','el més important','allò més important'],
       variants:[
-        { question:'Substitueix «lo greu» per la construcció catalana correcta:', text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ del cas és que ningú no va denunciar la situació.', display:'construcció sense «lo» (inexistent en català)', answers:['allò greu','el que és greu','la cosa greu','el més greu','allò més greu'] },
-        { question:'Substitueix «lo bo» per la construcció catalana correcta:', text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ va ser que ho van solucionar entre tots.', display:'construcció sense «lo» (inexistent en català)', answers:['allò bo','el que és bo','la cosa bona','el més bo','allò millor','el millor'] },
+        { question:'Substitueix «lo greu» per la construcció catalana correcta:', text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ del cas és que ningú no va denunciar la situació.', display:'construcció sense «lo» (inexistent en català)', answers:['allò greu','el que és greu','la cosa greu','el més greu','allò més greu'], accentsEstrictes:['és','més'] },
+        { question:'Substitueix «lo bo» per la construcció catalana correcta:', text:'El català no té l\'article neutre «lo» del castellà; per expressar idees abstractes recorre a altres construccions.', sentence:'___ va ser que ho van solucionar entre tots.', display:'construcció sense «lo» (inexistent en català)', answers:['allò bo','el que és bo','la cosa bona','el més bo','allò millor','el millor'], accentsEstrictes:['és','més'] },
       ],
-      theory:'El català no té article neutre «lo». S\'usa «allò» (davant adj.) o «el que» (davant verb). «Lo» és sempre un calc del castellà.', example:'✗ Lo millor és descansar. ✓ Allò millor és descansar.' },
+      theory:'El català no té article neutre «lo». S\'usa «allò» (davant adj.) o «el que» (davant verb). «Lo» és sempre un calc del castellà.', example:'✗ Lo millor és descansar. ✓ Allò millor és descansar.', accentsEstrictes:['és','més'] },
     { id:'b2-int6', type:'choice', level:'b2', category:'Interferències',
       question:'Quina expressió és un calc del castellà que cal evitar?',
       text:'Per expressar concessió (l\'equivalent de «aunque»), el català disposa de diverses locucions pròpies, però una de les opcions és un calc del castellà. Tria la que cal evitar.',
@@ -4525,7 +4525,7 @@ const DATA = {
       formes:{ 'fora':{ etiqueta:'valencià', nota:"«Fora» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «fos».", font:'GEIEC 5.3.3, quadre 211' } },
       variants:[
         { text:'«Tant de bo» expressa un desig difícil o impossible de realitzar i exigeix imperfet de subjuntiu quan la situació és hipotètica o molt improbable.', sentence:'Tant de bo ___ tornar enrere i esmenar aquell error!', display:'poder (imperfet subj. 1a pers. sing.)', answers:['pogués','poguera'],
-          formes:{ 'poguera':{ etiqueta:'valencià', nota:"«Poguera» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «pogués».", font:'GEIEC 5.3.3, quadre 211' } } },
+          formes:{ 'poguera':{ etiqueta:'valencià', nota:"«Poguera» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «pogués».", font:'GEIEC 5.3.3, quadre 211' } }, accentsEstrictes:['pogués'] },
         { text:'«Tant de bo» expressa un desig difícil o impossible de realitzar i exigeix imperfet de subjuntiu quan la situació és hipotètica o molt improbable.', sentence:'Tant de bo ___ tu aquí per veure-ho amb els teus propis ulls!', display:'estar (imperfet subj. 2a pers. sing.)', answers:['estiguessis','estigueres'],
           formes:{ 'estigueres':{ etiqueta:'valencià', nota:"«Estigueres» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «estiguessis».", font:'GEIEC 5.3.3' } } },
       ],
@@ -4568,10 +4568,10 @@ const DATA = {
       display:'connector concessiu formal + indicatiu',
       answers:['si bé','tot i que','malgrat que','encara que'],
       variants:[
-        { text:'En registre acadèmic, el connector concessiu de major formalitat que va amb indicatiu és «si bé». «Malgrat que» i «tot i que» són neutres; «però» és massa col·loquial.', sentence:'___ el creixement econòmic s\'ha desaccelerat, els indicadors d\'ocupació es mantenen estables.', display:'connector concessiu formal + indicatiu', answers:['si bé','tot i que','malgrat que','encara que'] },
-        { text:'En registre acadèmic, el connector concessiu de major formalitat que va amb indicatiu és «si bé». «Malgrat que» i «tot i que» són neutres; «però» és massa col·loquial.', sentence:'___ la proposta ha rebut crítiques, compta amb un suport parlamentari majoritari.', display:'connector concessiu formal + indicatiu', answers:['si bé','tot i que','malgrat que','encara que'] },
+        { text:'En registre acadèmic, el connector concessiu de major formalitat que va amb indicatiu és «si bé». «Malgrat que» i «tot i que» són neutres; «però» és massa col·loquial.', sentence:'___ el creixement econòmic s\'ha desaccelerat, els indicadors d\'ocupació es mantenen estables.', display:'connector concessiu formal + indicatiu', answers:['si bé','tot i que','malgrat que','encara que'], accentsEstrictes:['bé'] },
+        { text:'En registre acadèmic, el connector concessiu de major formalitat que va amb indicatiu és «si bé». «Malgrat que» i «tot i que» són neutres; «però» és massa col·loquial.', sentence:'___ la proposta ha rebut crítiques, compta amb un suport parlamentari majoritari.', display:'connector concessiu formal + indicatiu', answers:['si bé','tot i que','malgrat que','encara que'], accentsEstrictes:['bé'] },
       ],
-      theory:'«Si bé» és el connector concessiu més marcat com a formal i acadèmic. Va amb indicatiu.', example:'Si bé els resultats milloren, la situació continua sent preocupant.' },
+      theory:'«Si bé» és el connector concessiu més marcat com a formal i acadèmic. Va amb indicatiu.', example:'Si bé els resultats milloren, la situació continua sent preocupant.', accentsEstrictes:['bé'] },
     { id:'c1-cc4', type:'reorder', level:'c1', category:'Connectors concessius',
       text:'Una bona frase concessiva situa el contrast i el resultat en l\'ordre adequat perquè el missatge flueixi.',
       question:'Ordena per formar una frase concessiva ben construïda:',
@@ -4633,7 +4633,7 @@ const DATA = {
       sentence:'___ que les administracions competents implementin mesures concretes per fer front a la problemàtica.',
       display:'expressió d\'obligació impersonal formal',
       answers:['S\'imposa','Cal','Resulta imprescindible','És necessari'],
-      theory:'En informes institucionals, l\'obligació impersonal s\'expressa amb «s\'imposa que», «cal que», «resulta imprescindible que» + subjuntiu. Eviten el subjecte «el govern» i aporten objectivitat.', example:'S\'imposa que les institucions actuïn. / Cal que s\'adoptin mesures urgents.' },
+      theory:'En informes institucionals, l\'obligació impersonal s\'expressa amb «s\'imposa que», «cal que», «resulta imprescindible que» + subjuntiu. Eviten el subjecte «el govern» i aporten objectivitat.', example:'S\'imposa que les institucions actuïn. / Cal que s\'adoptin mesures urgents.', accentsEstrictes:['és'] },
 
     // ARGUMENTACIÓ
     { id:'c1-arg1', type:'reorder', level:'c1', category:'Argumentació',
@@ -4662,10 +4662,10 @@ const DATA = {
       display:'connector de matís (no «però»)',
       answers:['ara bé','dit això','cal matisar que','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'],
       variants:[
-        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'La proposta presenta avantatges evidents. ___, no s\'han quantificat els costos d\'implementació.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'] },
-        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'L\'estudi aporta dades valuoses. ___, la mostra analitzada resulta poc representativa.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'] },
+        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'La proposta presenta avantatges evidents. ___, no s\'han quantificat els costos d\'implementació.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'], accentsEstrictes:['bé'] },
+        { text:'Un connector de matís reconeix parcialment l\'afirmació anterior i hi introdueix una reserva o limitació, sense negar-la del tot. «Però» és massa col·loquial per a textos acadèmics.', sentence:'L\'estudi aporta dades valuoses. ___, la mostra analitzada resulta poc representativa.', display:'connector de matís (no «però»)', answers:['ara bé','dit això','no obstant això','no obstant','això no obstant','tanmateix','amb tot','tot i així'], accentsEstrictes:['bé'] },
       ],
-      theory:'«Ara bé» i «dit això» introdueixen un matís que relativitza sense contradir frontalment. Característics del registre formal C1.', example:'La mesura ha estat eficaç. Ara bé, cal avaluar els seus efectes a llarg termini.' },
+      theory:'«Ara bé» i «dit això» introdueixen un matís que relativitza sense contradir frontalment. Característics del registre formal C1.', example:'La mesura ha estat eficaç. Ara bé, cal avaluar els seus efectes a llarg termini.', accentsEstrictes:['bé'] },
 
     // COMPRENSIÓ CRÍTICA
     { id:'c1-crit1', type:'reading', level:'c1', category:'Comprensió crítica',
@@ -4719,10 +4719,10 @@ const DATA = {
       display:'expressió impersonal epistèmica',
       answers:['es fa palès','és evident','cal constatar','s\'observa','es constata','es fa evident','queda palès','es posa de manifest'],
       variants:[
-        { text:'En els textos formals, les afirmacions s\'introdueixen amb fórmules impersonals que en remarquen l\'evidència sense esmentar qui ho diu.', sentence:'___ que la inversió en recerca repercuteix directament en la competitivitat econòmica.', display:'expressió impersonal epistèmica', answers:['es fa palès','és evident','cal constatar','s\'observa','es constata','es fa evident','queda palès','es posa de manifest'] },
-        { text:'En els textos formals, les afirmacions s\'introdueixen amb fórmules impersonals que en remarquen l\'evidència sense esmentar qui ho diu.', sentence:'A partir de les dades recollides, ___ una tendència sostinguda a l\'envelliment de la població.', display:'expressió impersonal epistèmica', answers:['s\'observa','es constata','es fa palès','es posa de manifest','queda palès'] },
+        { text:'En els textos formals, les afirmacions s\'introdueixen amb fórmules impersonals que en remarquen l\'evidència sense esmentar qui ho diu.', sentence:'___ que la inversió en recerca repercuteix directament en la competitivitat econòmica.', display:'expressió impersonal epistèmica', answers:['es fa palès','és evident','cal constatar','s\'observa','es constata','es fa evident','queda palès','es posa de manifest'], accentsEstrictes:['és'] },
+        { text:'En els textos formals, les afirmacions s\'introdueixen amb fórmules impersonals que en remarquen l\'evidència sense esmentar qui ho diu.', sentence:'A partir de les dades recollides, ___ una tendència sostinguda a l\'envelliment de la població.', display:'expressió impersonal epistèmica', answers:['s\'observa','es constata','es fa palès','es posa de manifest','queda palès'], accentsEstrictes:[] },
       ],
-      theory:'En registre acadèmic, s\'evita la 1a persona. Expressions impersonals: «es fa palès», «es constata», «s\'observa», «es posa de manifest».', example:'Es fa palès que la situació requereix una intervenció urgent.' },
+      theory:'En registre acadèmic, s\'evita la 1a persona. Expressions impersonals: «es fa palès», «es constata», «s\'observa», «es posa de manifest».', example:'Es fa palès que la situació requereix una intervenció urgent.', accentsEstrictes:['és'] },
 
     // ORACIONS DE RELATIU
     { id:'c1-rel1', type:'choice', level:'c1', category:'Oracions de relatiu',
@@ -4740,10 +4740,10 @@ const DATA = {
       sentence:'El projecte ___ hem treballat durant mesos ha estat finalment aprovat.',
       display:'relatiu compost (preposició + «qual»)', answers:['en el qual','en què'],
       variants:[
-        { text:'Quan el relatiu va precedit d\'una preposició, el registre formal demana una forma composta en lloc del simple «que».', sentence:'La comissió ___ pertanyo es reuneix cada dimarts.', display:'relatiu compost (preposició «a» + «qual»)', answers:['a la qual'] },
-        { text:'Quan el relatiu va precedit d\'una preposició, el registre formal demana una forma composta en lloc del simple «que».', sentence:'Aquests són els principis ___ es fonamenta la nostra proposta.', display:'relatiu compost (preposició «en» + «qual»)', answers:['en els quals','en què'] },
+        { text:'Quan el relatiu va precedit d\'una preposició, el registre formal demana una forma composta en lloc del simple «que».', sentence:'La comissió ___ pertanyo es reuneix cada dimarts.', display:'relatiu compost (preposició «a» + «qual»)', answers:['a la qual'], accentsEstrictes:[] },
+        { text:'Quan el relatiu va precedit d\'una preposició, el registre formal demana una forma composta en lloc del simple «que».', sentence:'Aquests són els principis ___ es fonamenta la nostra proposta.', display:'relatiu compost (preposició «en» + «qual»)', answers:['en els quals','en què'], accentsEstrictes:['què'] },
       ],
-      theory:'Quan el relatiu va precedit de preposició, cal usar «el qual / la qual» en registre formal, no simplement «que».', example:'El comitè al qual pertanyo... / La reunió en la qual es va decidir...' },
+      theory:'Quan el relatiu va precedit de preposició, cal usar «el qual / la qual» en registre formal, no simplement «que».', example:'El comitè al qual pertanyo... / La reunió en la qual es va decidir...', accentsEstrictes:['què'] },
     { id:'c1-rel3', type:'choice', level:'c1', category:'Oracions de relatiu',
       question:'Quina frase usa correctament les oracions de relatiu?',
       text:'Una relativa especificativa (sense comes) restringeix l\'antecedent: no es refereix a tots els elements, sinó només als que compleixen la condició. Una relativa explicativa (entre comes) hi afegeix informació sobre tots. El pronom relatiu tampoc no es tria lliurement.',
@@ -4760,10 +4760,10 @@ const DATA = {
       display:'insereix comes per fer-la explicativa',
       answers:['El director, que va signar el document, és el responsable.'],
       variants:[
-        { text:'Una relativa explicativa aporta informació addicional no essencial, i la puntuació la separa de la resta de la frase.', sentence:'Escriu la versió correcta de: La meva germana que viu a Berlín ve per Nadal.', display:'insereix comes per fer-la explicativa', answers:['La meva germana, que viu a Berlín, ve per Nadal.'] },
-        { text:'Una relativa explicativa aporta informació addicional no essencial, i la puntuació la separa de la resta de la frase.', sentence:'Escriu la versió correcta de: El nostre director general que es jubila aquest any va fundar l\'empresa.', display:'insereix comes per fer-la explicativa', answers:['El nostre director general, que es jubila aquest any, va fundar l\'empresa.'] },
+        { text:'Una relativa explicativa aporta informació addicional no essencial, i la puntuació la separa de la resta de la frase.', sentence:'Escriu la versió correcta de: La meva germana que viu a Berlín ve per Nadal.', display:'insereix comes per fer-la explicativa', answers:['La meva germana, que viu a Berlín, ve per Nadal.'], accentsEstrictes:[] },
+        { text:'Una relativa explicativa aporta informació addicional no essencial, i la puntuació la separa de la resta de la frase.', sentence:'Escriu la versió correcta de: El nostre director general que es jubila aquest any va fundar l\'empresa.', display:'insereix comes per fer-la explicativa', answers:['El nostre director general, que es jubila aquest any, va fundar l\'empresa.'], accentsEstrictes:[] },
       ],
-      theory:'Relativa especificativa (sense comes): identifica quin director. Relativa explicativa (amb comes): afegeix info sobre un director ja identificat.', example:'El professor, que sap japonès, és el millor. (explicativa)' },
+      theory:'Relativa especificativa (sense comes): identifica quin director. Relativa explicativa (amb comes): afegeix info sobre un director ja identificat.', example:'El professor, que sap japonès, és el millor. (explicativa)', accentsEstrictes:['és'] },
     { id:'c1-rel5', type:'choice', level:'c1', category:'Oracions de relatiu',
       question:'Quin relatiu és el correcte en registre formal?',
       text:'La comissió ___ va elaborar l\'informe presentarà les seves conclusions dimecres.',
@@ -4829,11 +4829,11 @@ const DATA = {
       formes:{ 'tinguera':{ etiqueta:'valencià', nota:"«Tinguera» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «tingués».", font:'GEIEC 5.3.3, quadre 211' } },
       variants:[
         { text:'«Tant de bo» expressa un desig; quan el desig és poc probable o irreal, el verb adopta un temps de subjuntiu particular.', sentence:'Tant de bo ___ tots plegats arribar a un acord abans de final d\'any!', display:'poder (1a pers. pl. imperfet subj.)', answers:['poguéssim','poguérem'],
-          formes:{ 'poguérem':{ etiqueta:'valencià', nota:"«Poguérem» és l'imperfet de subjuntiu valencià (no el passat simple); la forma general és «poguéssim».", font:'GEIEC 5.3.3, quadre 211' } } },
+          formes:{ 'poguérem':{ etiqueta:'valencià', nota:"«Poguérem» és l'imperfet de subjuntiu valencià (no el passat simple); la forma general és «poguéssim».", font:'GEIEC 5.3.3, quadre 211' } }, accentsEstrictes:[] },
         { text:'«Tant de bo» expressa un desig; quan el desig és poc probable o irreal, el verb adopta un temps de subjuntiu particular.', sentence:'Tant de bo ___ ell aquí per ajudar-nos amb aquest embolic!', display:'ser (3a pers. sg. imperfet subj.)', answers:['fos','fora'],
-          formes:{ 'fora':{ etiqueta:'valencià', nota:"«Fora» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «fos».", font:'GEIEC 5.3.3, quadre 211' } } },
+          formes:{ 'fora':{ etiqueta:'valencià', nota:"«Fora» és l'imperfet de subjuntiu valencià, d'ús en tots els registres; la forma general és «fos».", font:'GEIEC 5.3.3, quadre 211' } }, accentsEstrictes:[] },
       ],
-      theory:'«Tant de bo» + imperfet de subjuntiu: desig poc probable o impossible en el present.', example:'Tant de bo tingués temps! (poc probable)' },
+      theory:'«Tant de bo» + imperfet de subjuntiu: desig poc probable o impossible en el present.', example:'Tant de bo tingués temps! (poc probable)', accentsEstrictes:['tingués'] },
     { id:'c1-si6', type:'choice', level:'c1', category:'Subjuntiu imperfet',
       question:'Quina opció completa correctament la condicional irreal en el passat?',
       text:'Si hagués sabut la veritat, ___ d\'una altra manera.',
@@ -5161,10 +5161,10 @@ const DATA = {
       sentence:'La sala ___ es va celebrar la cerimònia era d\'un luxe inusitat.',
       display:'relatiu de lloc', answers:['en la qual','on','a la qual','en què'],
       variants:[
-        { sentence:'L\'edifici ___ treballa la delegació està al centre de la ciutat.', display:'relatiu de lloc (antecedent masculí)', answers:['en el qual','on','en què'] },
-        { sentence:'El poble ___ va néixer és molt petit i tranquil.', display:'relatiu de lloc (antecedent masculí)', answers:['on','en el qual','en què'] },
+        { sentence:'L\'edifici ___ treballa la delegació està al centre de la ciutat.', display:'relatiu de lloc (antecedent masculí)', answers:['en el qual','on','en què'], accentsEstrictes:['què'] },
+        { sentence:'El poble ___ va néixer és molt petit i tranquil.', display:'relatiu de lloc (antecedent masculí)', answers:['on','en el qual','en què'], accentsEstrictes:['què'] },
       ],
-      theory:'Relatius de lloc: «on» (estàndard i col·loquial), «en la qual / a la qual» (registre culte formal). En textos acadèmics es prefereix «en la qual».', example:'La ciutat on va néixer. / La sala en la qual es va celebrar.' },
+      theory:'Relatius de lloc: «on» (estàndard i col·loquial), «en la qual / a la qual» (registre culte formal). En textos acadèmics es prefereix «en la qual».', example:'La ciutat on va néixer. / La sala en la qual es va celebrar.', accentsEstrictes:['què'] },
 
 
 
@@ -5275,11 +5275,11 @@ const DATA = {
       display:'locució que significa «tenir tot el control de la situació» (en present o en passat)',
       answers:['tenia la paella pel mànec','tallava el bacallà','té la paella pel mànec','talla el bacallà'],
       variants:[
-        { question:'Completa amb la locució correcta: «Després de comprar la majoria d\'accions, aquell fons ja ___ dins el consell.»', sentence:'Després de comprar la majoria d\'accions, aquell fons ja ___ dins el consell.', display:'locució que significa «tenir tot el control de la situació» (en present o en passat)', answers:['tenia la paella pel mànec','tallava el bacallà','té la paella pel mànec','talla el bacallà'] },
-        { question:'Completa amb la locució correcta: «Al departament tothom sabia qui ___: era ella qui decidia de debò.»', sentence:'Al departament tothom sabia qui ___: era ella qui decidia de debò.', display:'locució que significa «tenir tot el control de la situació» (en present o en passat)', answers:['tenia la paella pel mànec','tallava el bacallà','té la paella pel mànec','talla el bacallà'] },
+        { question:'Completa amb la locució correcta: «Després de comprar la majoria d\'accions, aquell fons ja ___ dins el consell.»', sentence:'Després de comprar la majoria d\'accions, aquell fons ja ___ dins el consell.', display:'locució que significa «tenir tot el control de la situació» (en present o en passat)', answers:['tenia la paella pel mànec','tallava el bacallà','té la paella pel mànec','talla el bacallà'], accentsEstrictes:['té'] },
+        { question:'Completa amb la locució correcta: «Al departament tothom sabia qui ___: era ella qui decidia de debò.»', sentence:'Al departament tothom sabia qui ___: era ella qui decidia de debò.', display:'locució que significa «tenir tot el control de la situació» (en present o en passat)', answers:['tenia la paella pel mànec','tallava el bacallà','té la paella pel mànec','talla el bacallà'], accentsEstrictes:['té'] },
       ],
       theory:'«Tenir la paella pel mànec» expressa que algú controla completament una situació. «Tallar el bacallà» és similar però emfatitza l\'autoritat de decisió dins un grup. Totes dues són vàlides aquí.',
-      example:'Des que va assumir la presidència, ella tenia la paella pel mànec i ningú no gosava contradir-la.' },
+      example:'Des que va assumir la presidència, ella tenia la paella pel mànec i ningú no gosava contradir-la.', accentsEstrictes:['té'] },
 
     { id:'c1-ff12', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quin refrany s\'aplica a una persona que vol gestionar deu projectes a la vegada i cap no li surt bé?',
@@ -5403,12 +5403,12 @@ const DATA = {
       formes:{ 'haguera revisat':{ etiqueta:'valencià', nota:"«Haguera» és l'imperfet de subjuntiu valencià de «haver», d'ús en tots els registres; la forma general és «hagués».", font:'GEIEC 5.3.3, quadre 104' } },
       variants:[
         { sentence:'Si tu ___ (estudiar) una mica més, hauries aprovat l\'examen sense problemes.', display:'estudiar — plusquamperfet de subjuntiu (2a pers. sg.)', answers:['haguessis estudiat','hagueres estudiat'],
-          formes:{ 'hagueres estudiat':{ etiqueta:'valencià', nota:"«Hagueres» és l'imperfet de subjuntiu valencià de «haver», d'ús en tots els registres; la forma general és «haguessis».", font:'GEIEC 5.3.3' } } },
+          formes:{ 'hagueres estudiat':{ etiqueta:'valencià', nota:"«Hagueres» és l'imperfet de subjuntiu valencià de «haver», d'ús en tots els registres; la forma general és «haguessis».", font:'GEIEC 5.3.3' } }, accentsEstrictes:[] },
         { sentence:'Si ___ (saber) la veritat a temps, no hauríem signat aquell contracte.', display:'saber — plusquamperfet de subjuntiu (1a pers. pl.)', answers:['haguéssim sabut','haguérem sabut'],
-          formes:{ 'haguérem sabut':{ etiqueta:'valencià', nota:"«Haguérem» és l'imperfet de subjuntiu valencià de «haver» (no el passat simple); la forma general és «haguéssim».", font:'GEIEC 5.3.3' } } },
+          formes:{ 'haguérem sabut':{ etiqueta:'valencià', nota:"«Haguérem» és l'imperfet de subjuntiu valencià de «haver» (no el passat simple); la forma general és «haguéssim».", font:'GEIEC 5.3.3' } }, accentsEstrictes:[] },
       ],
       theory:'Condicional irreal en el passat: si + plusquamperfet de subjuntiu (hagués/haguessis/hagués/haguéssim/haguéssiu/haguessin + participi). L\'apòdosi porta el condicional compost: «haurien + participi».',
-      example:'Si hagués sabut la veritat, hauria actuat d\'una altra manera. / Si haguéssiu avisat, ho hauríem evitat.' },
+      example:'Si hagués sabut la veritat, hauria actuat d\'una altra manera. / Si haguéssiu avisat, ho hauríem evitat.', accentsEstrictes:['hagués'] },
 
     { id:'c1-cc8', type:'choice', level:'c1', category:'Connectors concessius',
       question:'Quina diferència hi ha entre «si bé» i «tot i que» en els textos formals?',
