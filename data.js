@@ -2340,7 +2340,7 @@ const DATA = {
     // ── IMPERFET I PERIFRÀSTIC B1 ──
     { id:'b1-ip1', type:'choice', level:'b1', category:'Imperfet i perifràstic B1',
       question:'Tria el temps verbal correcte:',
-      text:'Abans, ___ al parc cada diumenge amb els meus pares; ara hi anem poc.',
+      text:'Abans ___ al parc cada diumenge amb els meus pares; ara hi anem poc.',
       options:['vaig anar','anava','vaig anar-hi'],
       correct:1,
       variants:[
