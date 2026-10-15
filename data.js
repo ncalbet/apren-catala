@@ -5336,13 +5336,13 @@ const DATA = {
 
     { id:'c1-ff16', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quin és el significat precís de «ficar-se en camisa d\'onze vares»?',
-      text:'Les locucions amb peces de roba són freqüents en català, i aquesta és de les més antigues: la documentació en relaciona l\'origen amb la cerimònia medieval d\'adopció, en què es passava l\'infant per la màniga d\'una camisa enorme. Quin comportament descriu?',
+      text:'La vara era una antiga mesura de longitud, de menys d\'un metre: una camisa d\'onze vares és, doncs, una camisa desmesurada. Quin comportament descriu la locució?',
       options:['Fer un gran esforç per superar un obstacle molt difícil.','Entremetre\'s en afers complicats que no li pertoquen.','Tenir molta experiència en un àmbit complex i especialitzat.'],
       correct:1, variants:[
         { options:['Entremetre\'s en afers complicats que no li pertoquen.','Fer un gran esforç per superar un obstacle molt difícil.','Tenir molta experiència en un àmbit complex i especialitzat.'], correct:0 },
         { options:['Tenir molta experiència en un àmbit complex i especialitzat.','Fer un gran esforç per superar un obstacle molt difícil.','Entremetre\'s en afers complicats que no li pertoquen.'], correct:2 },
       ],
-      theory:'«Ficar-se en camisa d\'onze vares» significa posar-se en dificultats per haver-se involucrat en alguna cosa que no calia. Com que les adopcions medievals (passar l\'infant per la màniga d\'una camisa molt ampla) no sempre acabaven bé, el refranyer va convertir la camisa desmesurada en un advertiment. L\'accent és en la imprudència d\'involucrar-s\'hi.',
+      theory:'«Ficar-se en camisa d\'onze vares» vol dir ficar-se en afers que no li pertoquen o que són de solució difícil. La imatge és la d\'una camisa molt més gran que qui se la posa. També es diu «de dotze vares». L\'accent és en la imprudència d\'involucrar-s\'hi.',
       example:'En publicar aquell comentari polèmic, es va ficar en camisa d\'onze vares i va haver de fer declaracions durant setmanes.' },
 
     { id:'c1-ff17', type:'fill', level:'c1', category:'Frases fetes',
