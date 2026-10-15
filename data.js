@@ -2719,8 +2719,8 @@ const DATA = {
       display:'fer → 3a persona singular futur',
       answers:['farà'],
       variants:[
-        { text:'El verb «venir» és irregular en futur: la base canvia respecte a l\'infinitiu (vindr-). Recorda com es forma.', sentence:'La meva cosina ___ (venir) a visitar-nos la setmana que ve.', display:'venir → 3a persona singular futur', answers:['vindrà'], theory:"«Venir» és irregular al futur: vindré, vindràs, vindrà, vindrem, vindreu, vindran." },
-        { text:'El verb «tenir» és irregular en futur: la base canvia respecte a l\'infinitiu (tindr-). Recorda com es forma.', sentence:'L\'any que ve ___ (tenir, jo) més temps per a les meves aficions.', display:'tenir → 1a persona singular futur', answers:['tindré'], theory:"«Tenir» és irregular al futur: tindré, tindràs, tindrà, tindrem, tindreu, tindran." },
+        { text:'El verb «venir» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:'La meva cosina ___ (venir) a visitar-nos la setmana que ve.', display:'venir → 3a persona singular futur', answers:['vindrà'], theory:"«Venir» és irregular al futur: vindré, vindràs, vindrà, vindrem, vindreu, vindran." },
+        { text:'El verb «tenir» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:'L\'any que ve ___ (tenir, jo) més temps per a les meves aficions.', display:'tenir → 1a persona singular futur', answers:['tindré'], theory:"«Tenir» és irregular al futur: tindré, tindràs, tindrà, tindrem, tindreu, tindran." },
       ],
       theory:"«Fer» és irregular al futur: faré, faràs, farà, farem, fareu, faran.", example:"Demà farà sol. / L'any que ve faré un viatge." },
 
