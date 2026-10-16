@@ -27,6 +27,12 @@
 !/og-image.html
 !/feature-graphic.html
 !/icons/
+# Àudios dels exercicis (16/10/2026): audio/<nivell>/<id>-v<n>.mp3. Només hi entren .mp3.
+!/audio/
+/audio/*
+!/audio/*/
+/audio/*/*
+!/audio/*/*.mp3
 !/.well-known/
 !/.github/
 
