@@ -1714,9 +1714,9 @@
         title: 'Trampes en les opcions de resposta',
         icon: '⚠️',
         examples: [
-          { text: 'Opció "massa forta": generalitza en excés el que diu el text («sempre», «inevitablement»).' },
-          { text: 'Opció "verídica però irrellevant": conté informació correcta del text però no respon la pregunta.' },
-          { text: 'Opció "contrària al to": usa les mateixes paraules però amb valoració oposada a la de l\'autor.' },
+          { text: 'Opció «massa forta»: generalitza en excés el que diu el text («sempre», «inevitablement»).' },
+          { text: 'Opció «verídica però irrellevant»: conté informació correcta del text però no respon la pregunta.' },
+          { text: 'Opció «contrària al to»: usa les mateixes paraules però amb valoració oposada a la de l\'autor.' },
         ]
       }
     ]
