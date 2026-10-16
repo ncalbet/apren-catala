@@ -2043,12 +2043,41 @@ function mostraTranscripcio(q) {
   const b = document.getElementById('ct-sense-audio');
   if (b) b.remove();
 }
-// Treu de la sessió els d'escolta que encara no s'han respost. Diu si en queda cap.
+// Treu de la sessió els d'escolta que encara no s'han respost. Si un és del repte d'avui,
+// hi entra un altre exercici sense àudio al seu lloc, perquè el repte (i els +50) es pugui
+// completar igualment (decisió de l'usuari, 16/10). Diu si queda cap exercici.
 function treuEscoltes() {
   const s = currentSession;
   if (!s || !s.items) return true;
-  s.items = s.items.filter((q, i) => i < s.idx || q.type !== 'listen');
+  const dc = progress.dailyChallenge;
+  const avui = dc && dc.date === new Date().toDateString() ? dc : null;
+  const nous = [];
+  s.items.forEach((q, i) => {
+    if (i < s.idx || q.type !== 'listen') { nous.push(q); return; }
+    const sub = avui && avui.ids.includes(q.id) ? substitutDelRepte(avui, q) : null;
+    if (sub) nous.push(sub);
+  });
+  s.items = nous;
   return s.items.length > 0;
+}
+// Un exercici sense àudio que ocupi el lloc d'un d'escolta al repte d'avui: del mateix tema
+// si en queda cap per fer; si no, del mateix nivell. Si no n'hi ha cap, el repte es queda
+// amb un de menys (null).
+function substitutDelRepte(dc, q) {
+  const usats = new Set(dc.ids);
+  const cands = (DATA[q.level] || []).filter(x => x.type !== 'listen' && !usats.has(x.id));
+  const rep = cands.find(x => x.category === q.category && getMastery(x.id) < 2)
+    || cands.find(x => x.category === q.category)
+    || cands.find(x => getMastery(x.id) < 2)
+    || cands[0];
+  if (!rep) return null;
+  const canvia = arr => { const k = arr.indexOf(q.id); if (k >= 0) arr[k] = rep.id; };
+  canvia(dc.ids);
+  if (dc.nous) canvia(dc.nous);
+  if (dc.repassos) canvia(dc.repassos);
+  progress.dcHistory = (progress.dcHistory || []).concat(rep.id).slice(-21);
+  saveProgress();
+  return withVariantsIfPracticed([rep])[0];
 }
 // Sessió sense cap exercici: tornar d'on es venia, sense resum (diria «0 de 0»).
 function tornaDeLaSessio() {
