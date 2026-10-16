@@ -1412,8 +1412,8 @@ function renderMenu() {
       <div style="display:flex;align-items:flex-start;gap:12px;">
         <span style="font-size:20px;flex-shrink:0;">🎒</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:14px;font-weight:600;color:var(--accent-green-text);">Novetat: el nivell A1</div>
-          <div style="font-size:12px;color:var(--accent-green-val);margin-top:2px;line-height:1.5;">Per començar de zero. Coneixes algú que vulgui aprendre català? Recomana-li l'app.</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent-green-text);">Novetats: el nivell A1 i l'escolta</div>
+          <div style="font-size:12px;color:var(--accent-green-val);margin-top:2px;line-height:1.5;">Un nivell per començar de zero, i exercicis d'escolta amb àudio a l'A1 i l'A2. Coneixes algú que vulgui aprendre català? Recomana-li l'app.</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
             <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;" onclick="recomanaA1()">Recomana-la</button>
             <button class="ct-btn secondary" style="font-size:13px;padding:6px 14px;" onclick="showTab('a1')">Mira'l</button>
@@ -5431,8 +5431,9 @@ function dismissNovetatsBanner() {
   renderMenu();
 }
 
-// Bàner «Novetat: el nivell A1» (decisió de l'usuari, 08/10): perquè qui ja fa servir
-// l'app el pugui recomanar a qui vol aprendre des de zero. Només amb el mòdul encès i
+// Bàner «Novetats: el nivell A1 i l'escolta» (decisió de l'usuari, 08/10; l'escolta s'hi
+// va afegir el 16/10, perquè surt el mateix dia): perquè qui ja fa servir l'app el pugui
+// recomanar a qui vol aprendre des de zero. Només amb el mòdul encès i
 // a qui ja practicava (algun exercici fora de l'A1): qui comença ja tria l'A1 a
 // l'acollida. Es tanca amb ✕ o en recomanar-la, i es desa al progrés, no al mòbil,
 // com els recorreguts: no ha de tornar en un mòbil nou.
@@ -5441,7 +5442,7 @@ function avisA1Toca() {
   return Object.keys(progress.mastery || {}).some(id => !id.startsWith('a1-'));
 }
 function textA1() {
-  return '📚 AprènCatalà ara té un nivell A1 per aprendre català des de zero. És gratis i sense anuncis.';
+  return "📚 AprènCatalà ara té un nivell A1 per aprendre català des de zero, i exercicis d'escolta amb àudio. És gratis i sense anuncis.";
 }
 function tancaAvisA1() {
   progress.avisA1 = true;
