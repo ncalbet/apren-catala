@@ -626,6 +626,9 @@ function _setNav(s) {
 // El nom porta la versió: el Service Worker té una memòria cau d'àudio que sobreviu
 // els bumps, i un clip refet ha de ser un fitxer nou o se serviria el vell.
 let _audio = null;
+// «Ara no puc escoltar» (decisió de l'usuari, 16/10): salta l'exercici d'escolta sense comptar
+// error i amaga els d'escolta fins que es torni a obrir l'app. Viu en memòria a posta.
+let _senseAudio = false;
 function aturaAudio() {
   if (!_audio) return;
   _audio.pause();
@@ -1589,7 +1592,8 @@ function renderLevelMenu(level) {
 function openCategory(level, cat) {
   _setNav({screen:'cat', level, cat});
   const th = THEORY[cat];
-  const exercises = DATA[level].filter(q => q.category === cat);
+  // Qui ha dit «Ara no puc escoltar» no veu els d'escolta fins que torni a obrir l'app.
+  const exercises = DATA[level].filter(q => q.category === cat && !(_senseAudio && q.type === 'listen'));
 
   // Primer els exercicis i la teoria plegada a sota, per a qui la vulgui: decisió de
   // l'usuari (28/09). Amb la teoria sencera a dalt, una persona nova va creure que
@@ -1606,9 +1610,9 @@ function openCategory(level, cat) {
         <div style="margin-top:14px;">${th.sections.map(s => renderTheorySection(s)).join('')}</div>
       </details>` : '';
 
-  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
-  const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió'};
-  const typeOrder = ['choice','fill','reorder','reading'];
+  const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',listen:'🎧'};
+  const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',listen:'Escolta'};
+  const typeOrder = ['choice','fill','reorder','reading','listen'];
 
   const byType = {};
   exercises.forEach(q => { (byType[q.type] = byType[q.type] || []).push(q); });
@@ -1866,6 +1870,7 @@ function startReviewSession() {
 // ══ EXERCICI ══
 function renderExercise() {
   _setNav({screen:'exercise'});
+  if (_senseAudio && !treuEscoltes()) return tornaDeLaSessio();
   const { items, idx } = currentSession;
   if (idx >= items.length) return renderSummary();
   const q = items[idx];
@@ -1878,6 +1883,7 @@ function renderExercise() {
   else if (q.type==='fill') body = renderFill(q);
   else if (q.type==='reorder') body = renderReorder(q);
   else if (q.type==='reading') body = renderReading(q);
+  else if (q.type==='listen') body = renderListen(q);
 
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
@@ -1997,9 +2003,9 @@ function renderReading(q) {
     ${shuffledOptionsHTML(q)}`;
 }
 // El botó «Escolta» dels exercicis amb àudio. És un commutador: tocat mentre sona, para.
-function audioHTML(q) {
+function audioHTML(q, dins) {
   if (!q.audio) return '';
-  return `<div style="display:flex;align-items:center;gap:10px;margin:-6px 0 16px;">
+  return `<div style="display:flex;align-items:center;gap:10px;margin:${dins ? '0' : '-6px 0 16px'};">
       <button type="button" class="ct-btn secondary" id="ct-audio-btn" style="padding:8px 14px;" onclick="escolta()">🔊 Escolta</button>
       <span id="ct-audio-estat" style="font-size:12px;color:var(--muted);" aria-live="polite"></span>
     </div>`;
@@ -2020,6 +2026,44 @@ function escolta() {
   const p = a.play();
   if (p && p.catch) p.catch(() => { if (_audio === a) _audio = null; posa('🔊 Escolta', "No s'ha pogut reproduir l'àudio."); });
 }
+// ══ ESCOLTA (tipus «listen») ══
+// Només l'àudio, la pregunta i les opcions; la transcripció (q.text) surt en respondre.
+function renderListen(q) {
+  return `<div style="background:var(--surface);border-radius:10px;padding:16px;margin-bottom:16px;border-left:3px solid var(--c1-line);">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:10px;">🎧 Escolta i tria la resposta.</div>
+      ${audioHTML(q, true)}
+      <div id="ct-transcripcio" style="display:none;font-size:14px;line-height:1.7;color:var(--text-soft);margin-top:12px;"></div>
+      <button type="button" id="ct-sense-audio" onclick="senseAudio()" style="background:none;border:none;padding:0;margin-top:12px;font-size:12px;color:var(--muted);text-decoration:underline;cursor:pointer;">Ara no puc escoltar</button>
+    </div>
+    ${shuffledOptionsHTML(q)}`;
+}
+function mostraTranscripcio(q) {
+  const t = document.getElementById('ct-transcripcio');
+  if (t) { t.innerHTML = q.text; t.style.display = 'block'; }
+  const b = document.getElementById('ct-sense-audio');
+  if (b) b.remove();
+}
+// Treu de la sessió els d'escolta que encara no s'han respost. Diu si en queda cap.
+function treuEscoltes() {
+  const s = currentSession;
+  if (!s || !s.items) return true;
+  s.items = s.items.filter((q, i) => i < s.idx || q.type !== 'listen');
+  return s.items.length > 0;
+}
+// Sessió sense cap exercici: tornar d'on es venia, sense resum (diria «0 de 0»).
+function tornaDeLaSessio() {
+  const s = currentSession || {};
+  clearActiveSession();
+  if (s.returnTo === 'cat' && s.cat) openCategory(s.level, s.cat);
+  else if (s.returnTo === 'review' || !s.level || s.level === 'mixed') showTab('review');
+  else renderLevelMenu(s.level);
+}
+function senseAudio() {
+  _senseAudio = true;
+  aturaAudio();
+  if (!treuEscoltes()) return tornaDeLaSessio();
+  renderExercise();
+}
 /* COMPROVACIÓ */
 function checkChoice(selected) {
   if (currentSession.answered) return;
@@ -2036,6 +2080,7 @@ function checkChoice(selected) {
   // exigeix el validador), o sigui que després d'un encert no en surt cap.
   const explicacio = Array.isArray(q.explicacions) ? q.explicacions[currentSession.optOrder[selected]] : null;
   showTheory(q, isOk, explicacio);
+  if (q.type === 'listen') mostraTranscripcio(q);
   if (!isOk) mostraCorreccioDubtosa(q, q.options[currentSession.optOrder[selected]], q.options[q.correct]);
   markDone(isOk, 10);
 }
@@ -2231,7 +2276,7 @@ function mostraCorreccioDubtosa(q, resposta, bona) {
   if (!el || !correccioDubtosaActiva()) return;
   const codi = q.id + (q._variant ? `#v${q._variant}` : '');
   const retalla = t => t.length > 300 ? t.slice(0, 300) + '…' : t;
-  const frase = q.type === 'reading' ? '' : textPla(q.sentence || q.text);   // la lectura, sencera, no hi cap
+  const frase = (q.type === 'reading' || q.type === 'listen') ? '' : textPla(q.sentence || q.text);   // la lectura, sencera, no hi cap
   const linies = [
     `Exercici: ${codi}`,
     `Pregunta: ${retalla(textPla(q.question))}`,
@@ -2937,8 +2982,8 @@ function renderDailyChallengeSection() {
   const items = dc.ids.map(id => all.find(q => q.id === id)).filter(Boolean);
   const nDone = dc.completed.length;
   const allDone = nDone === items.length;
-  const typeNames = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió'};
-  const typeIcons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖'};
+  const typeNames = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',listen:'Escolta'};
+  const typeIcons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',listen:'🎧'};
   // Fet el repte, només el títol i el bonus: la barra plena i la llista tatxada no
   // hi afegien res (08/10/2026).
 
