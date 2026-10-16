@@ -5313,7 +5313,7 @@ const DATA = {
       example:'A la tarda vam anar al cinema.' },
 
     { id:'a2-lex4', type:'reading', level:'a2', category:"Lèxic A2: caràcter i emocions",
-      text:"Un dia vaig anar a buscar el meu nebot a l'escola. Llavors, un senyor gran em va dir que el nen havia estat molt bo. Jo li vaig dir: \"Quin avi tan simpàtic que tens!\". El nen, molt enfadat, em va respondre: \"No és el meu avi, és el meu pare!\". La veritat és que em vaig posar molt vermella.",
+      text:"Un dia vaig anar a buscar el meu nebot a l'escola. Llavors, un senyor gran em va dir que el nen havia estat molt bo. Jo li vaig dir: «Quin avi tan simpàtic que tens!». El nen, molt enfadat, em va respondre: «No és el meu avi, és el meu pare!». La veritat és que em vaig posar molt vermella.",
       audio:'a2/a2-lex4-v1.mp3',
       question:"Com es va sentir la persona que explica l'anècdota al final?",
       options:['Contenta i divertida','Avergonyida','Sorpresa però tranquil·la'],
