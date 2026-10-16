@@ -4979,6 +4979,15 @@ const DATA = {
       options:['L\'Emma normalment és trista, però avui està alegre tot i que sembla cansada.','L\'Emma normalment és alegre, però avui està trista tot i que sembla contenta.','L\'Emma normalment és alegre, i avui també ho està, tot i que sembla trista.'],
       correct:1, theory:"«És» (permanent), «està» (avui), «sembla» (aparença). Cada verb té una funció diferent.", example:"Ser: permanent. Estar: transitori. Semblar: aparença." },
 
+    { id:'a2-ses7', type:'listen', level:'a2', category:'Ser, estar i semblar',
+      question:'Com és en Pere normalment?',
+      text:'—Com és el teu germà? —En Pere és molt tranquil i sociable. Però aquests dies està nerviós perquè comença una feina nova. —Doncs ahir semblava content. —Sí, sembla content, però està preocupat.',
+      audio:'a2/a2-ses7-v1.mp3',
+      options:['Tranquil i sociable','Nerviós i preocupat','Content i tímid'],
+      correct:0,
+      theory:"«És tranquil i sociable» diu com és en Pere; «està nerviós» i «està preocupat» són aquests dies, i «sembla content», l'aparença.",
+      example:'En Pere és tranquil, però aquests dies està nerviós.' },
+
     // ── ADJECTIUS DE CARÀCTER ──
     { id:'a2-adc1', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina és la forma femenina correcta de «simpàtic»?',
@@ -5043,6 +5052,15 @@ const DATA = {
         { question:'Quina frase té l\'adjectiu correctament escrit?', text:'Recorda la particularitat de la l·l geminada de «tranquil» en les formes femenines.', options:['Elles estan molt tranquiles.','Elles estan molt tranquils.','Elles estan molt tranquil·les.'], correct:2 },
       ],
       theory:"«Tranquil» fa femení «tranquil·la» (l·l geminada) i plurals «tranquils» (masc.) i «tranquil·les» (fem.).", example:"Ells són molt tranquils. / Elles són molt tranquil·les." },
+
+    { id:'a2-adc7', type:'listen', level:'a2', category:'Adjectius de caràcter',
+      question:'Com és la Laia amb la gent que no coneix?',
+      text:"—La meva companya de pis es diu Laia. És molt amable i generosa: sempre m'ajuda. Però amb la gent nova és tímida i no parla gaire. —I tu, com ets? —Jo soc més extravertida: parlo amb tothom.",
+      audio:'a2/a2-adc7-v1.mp3',
+      options:['Tímida','Extravertida','Impacient'],
+      correct:0,
+      theory:'«Amb la gent nova és tímida» és la Laia; qui parla diu de si mateixa que és extravertida.',
+      example:'La Laia és amable i generosa, però una mica tímida.' },
 
     // ── PASSAT PERIFRÀSTIC ──
     { id:'a2-pas1', type:'fill', level:'a2', category:'Passat perifràstic',
@@ -5169,6 +5187,15 @@ const DATA = {
       ],
       theory:"En frases declaratives amb verb conjugat, el pronom feble va davant del verb: els busco, la crido, ho faig.", example:"Els documents? Els busco demà. / Necessito buscar-los ara." },
 
+    { id:'a2-pfa7', type:'listen', level:'a2', category:'Pronoms febles A2',
+      question:'Què no ha pogut comprar?',
+      text:"—Has comprat el pa? —Sí, l'he comprat al forn del costat. —I les pomes? —No, no les he trobades. Però he comprat peres: en tinc un quilo.",
+      audio:'a2/a2-pfa7-v1.mp3',
+      options:['Les pomes','El pa','Les peres'],
+      correct:0,
+      theory:"«No les he trobades»: «les» substitueix «les pomes». «L'he comprat» és el pa, i «en tinc un quilo», les peres.",
+      example:'—I les pomes? —No les he trobades.' },
+
     // ── IMPERFET D'INDICATIU ──
     { id:'a2-imp1', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Omple amb l'imperfet correcte:",
@@ -5234,6 +5261,15 @@ const DATA = {
       ],
       theory:"«Fer» en imperfet d'indicatiu: jo feia, tu feies, ell feia, nosaltres fèiem, vosaltres fèieu, ells feien. La terminació -ia/-ies és regular per als verbs de la 2a conjugació.", example:"Quan tenia vint anys, feia molt esport cada dia." },
 
+    { id:'a2-imp7', type:'listen', level:'a2', category:"Imperfet d'indicatiu",
+      question:'Què feia a la tarda quan era jove?',
+      text:"Quan era jove, vivia en un poble de muntanya. Cada matí anava a l'escola a peu i, a la tarda, ajudava el meu avi a l'hort. Els diumenges tota la família dinava junta. Ara visc a la ciutat i agafo el metro cada dia.",
+      audio:'a2/a2-imp7-v1.mp3',
+      options:["Ajudava l'avi a l'hort","Anava a l'escola a peu",'Agafava el metro'],
+      correct:0,
+      theory:"«A la tarda ajudava el meu avi a l'hort»: un hàbit del passat, en imperfet. L'escola era al matí, i el metro és d'ara («agafo»).",
+      example:"Quan era jove, ajudava el meu avi a l'hort." },
+
     // ── LÈXIC A2: CARÀCTER I EMOCIONS ──
     { id:'a2-lex1', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
       question:"Quina expressió s'usa per dir que algú sent molta vergonya i vol desaparèixer?",
@@ -5267,6 +5303,15 @@ const DATA = {
       ],
       theory:"«Al principi» situa el lector al moment inicial del relat. Seqüència típica: al principi → llavors/aleshores → finalment.", example:"Al principi no entenia res. Llavors vaig demanar ajuda. Finalment ho vaig entendre." },
 
+    { id:'a2-pas7', type:'listen', level:'a2', category:'Passat perifràstic',
+      question:'Què va fer dissabte a la tarda?',
+      text:"Dissabte passat al matí vaig anar al mercat amb la meva mare. Després vam dinar a casa de l'àvia. A la tarda vaig quedar amb els amics i vam anar al cinema. Vaig arribar a casa a les onze, molt cansada.",
+      audio:'a2/a2-pas7-v1.mp3',
+      options:['Va anar al cinema amb els amics','Va anar al mercat amb la mare',"Va dinar a casa de l'àvia"],
+      correct:0,
+      theory:"«A la tarda vaig quedar amb els amics i vam anar al cinema»; el mercat va ser al matí, i el dinar a casa de l'àvia, al migdia.",
+      example:'A la tarda vam anar al cinema.' },
+
     { id:'a2-lex4', type:'reading', level:'a2', category:"Lèxic A2: caràcter i emocions",
       text:"Un dia vaig anar a buscar el meu nebot a l'escola. Llavors, un senyor gran em va dir que el nen havia estat molt bo. Jo li vaig dir: \"Quin avi tan simpàtic que tens!\". El nen, molt enfadat, em va respondre: \"No és el meu avi, és el meu pare!\". La veritat és que em vaig posar molt vermella.",
       audio:'a2/a2-lex4-v1.mp3',
@@ -5284,6 +5329,15 @@ const DATA = {
         { text:"L'Oriol estava molt ___ perquè havia de parlar davant de tothom.", options:['tímid','nerviós','seriós'], correct:1 },
       ],
       theory:"«Nerviós/osa» s'usa amb «estar» per a un estat d'agitació temporal. «Seriós/osa» i «tímid/ida» solen descriure característiques permanents de caràcter, no estats transitoris.", example:"Estic nerviosa avui. / Normalment soc força tranquil·la." },
+
+    { id:'a2-lex6', type:'listen', level:'a2', category:'Lèxic A2: caràcter i emocions',
+      question:'Com va reaccionar el cap?',
+      text:'Ahir, a la reunió, vaig dir malament el nom del cap davant de tothom. Al principi, tots es van quedar callats. Llavors el cap es va posar a riure, i jo em vaig posar molt vermella. Després em vaig disculpar i tot va anar bé.',
+      audio:'a2/a2-lex6-v1.mp3',
+      options:['Es va posar a riure','Es va enfadar','Es va quedar callat'],
+      correct:0,
+      theory:'«El cap es va posar a riure»; els qui es van quedar callats són els altres, i qui es va posar vermella, qui ho explica.',
+      example:'Es va posar a riure i jo em vaig posar vermella.' },
 
 
     // PREGUNTES I INTERROGACIÓ
@@ -5343,6 +5397,15 @@ const DATA = {
       parts:['vens','d\'on','tu','?'],
       correct:[1,0,2,3],
       theory:'Les paraules interrogatives van al principi. El pronom subjecte (tu) és opcional i sol anar després del verb.', example:'D\'on vens? / On vas? / Quan arribes?' },
+
+    { id:'a2-pi7', type:'listen', level:'a2', category:'Preguntes i interrogació',
+      question:'Què vol saber primer el client?',
+      text:'—Perdona, quant costa aquest llibre? —Dotze euros. —I quants en queden? —Només dos. Per què ho preguntes? —Perquè en vull un per a mi i un per al meu germà.',
+      audio:'a2/a2-pi7-v1.mp3',
+      options:['El preu del llibre','Quants llibres queden','On és la llibreria'],
+      correct:0,
+      theory:'«Quant costa?» pregunta pel preu; «quants», per la quantitat, i «per què», pel motiu. La primera pregunta és la del preu.',
+      example:'Perdona, quant costa aquest llibre?' },
   ],
 
   b2: [
