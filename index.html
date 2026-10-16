@@ -618,6 +618,18 @@ let _streakFrozen = 0;
 function _setNav(s) {
   _navState = s;
   if (s.screen !== 'lliga') _lligaVolEntrar = false;
+  aturaAudio();   // cap clip no sobreviu un canvi de pantalla ni d'exercici
+}
+
+// ══ ÀUDIO ══
+// Un exercici amb «audio» reprodueix audio/<nivell>/<id>-v<n>.mp3 (16/10/2026, l'A1).
+// El nom porta la versió: el Service Worker té una memòria cau d'àudio que sobreviu
+// els bumps, i un clip refet ha de ser un fitxer nou o se serviria el vell.
+let _audio = null;
+function aturaAudio() {
+  if (!_audio) return;
+  _audio.pause();
+  _audio = null;
 }
 
 function saveProgress() {
@@ -907,7 +919,11 @@ function findExerciseById(id) {
 function variantCount(q) { return 1 + (q && q.variants ? q.variants.length : 0); }
 function withVariant(q, vIdx) {
   if (!vIdx || !q.variants || !q.variants[vIdx-1]) return q;
-  return { ...q, ...q.variants[vIdx-1], id: q.id, type: q.type, variants: q.variants, _variant: vIdx };
+  const v = q.variants[vIdx-1];
+  const r = { ...q, ...v, id: q.id, type: q.type, variants: q.variants, _variant: vIdx };
+  // L'àudio és del text: una variant amb text propi i sense àudio propi no hereta el de la base.
+  if ('text' in v && !('audio' in v)) delete r.audio;
+  return r;
 }
 function pickRandomVariant(q) {
   const n = variantCount(q);
@@ -1977,7 +1993,32 @@ function renderReorder(q) {
 }
 function renderReading(q) {
   return `<div style="background:var(--surface);border-radius:10px;padding:16px;font-size:14px;line-height:1.7;color:var(--text-soft);margin-bottom:16px;border-left:3px solid var(--c1-line);">${q.text}</div>
+    ${audioHTML(q)}
     ${shuffledOptionsHTML(q)}`;
+}
+// El botó «Escolta» dels exercicis amb àudio. És un commutador: tocat mentre sona, para.
+function audioHTML(q) {
+  if (!q.audio) return '';
+  return `<div style="display:flex;align-items:center;gap:10px;margin:-6px 0 16px;">
+      <button type="button" class="ct-btn secondary" id="ct-audio-btn" style="padding:8px 14px;" onclick="escolta()">🔊 Escolta</button>
+      <span id="ct-audio-estat" style="font-size:12px;color:var(--muted);" aria-live="polite"></span>
+    </div>`;
+}
+function escolta() {
+  const q = currentSession && currentSession.items[currentSession.idx];
+  if (!q || !q.audio) return;
+  const btn = document.getElementById('ct-audio-btn');
+  const estat = document.getElementById('ct-audio-estat');
+  const posa = (text, avis) => { if (btn) btn.textContent = text; if (estat) estat.textContent = avis || ''; };
+  if (_audio && !_audio.paused) { aturaAudio(); posa('🔊 Escolta'); return; }
+  aturaAudio();
+  const a = new Audio(`audio/${q.audio}`);
+  _audio = a;
+  a.onended = () => { if (_audio === a) _audio = null; posa('🔊 Torna-ho a escoltar'); };
+  a.onerror = () => { if (_audio === a) _audio = null; posa('🔊 Escolta', "No s'ha pogut carregar l'àudio."); };
+  posa('⏸ Para');
+  const p = a.play();
+  if (p && p.catch) p.catch(() => { if (_audio === a) _audio = null; posa('🔊 Escolta', "No s'ha pogut reproduir l'àudio."); });
 }
 /* COMPROVACIÓ */
 function checkChoice(selected) {
