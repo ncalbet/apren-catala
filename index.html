@@ -721,11 +721,11 @@ function compteAlFinal(ms = Date.now()) {
   return COMPTE_AL_FINAL ?? diaMadrid(ms) >= COMPTE_AL_FINAL_DES_DE;
 }
 // Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
-// puja) i, on fa una altra paraula (accentsEstrictes), un error. S'encén sol el dilluns
-// 19/10/2026, dia de Madrid, perquè la setmana del 12 al 18 quedi neta per mesurar la
-// tanda 2: un canvi per setmana. ACCENTS_ESTRICTES = false ho torna com abans («cafe»
-// compta com a encert, amb la nota); null = segons la data. «let» per les proves.
-const ACCENTS_ESTRICTES_DES_DE = 20261019;
+// puja) i, on fa una altra paraula (accentsEstrictes), un error. Havia d'encendre's el
+// dilluns 19/10/2026; el 16/10 l'usuari ho va avançar al mateix dia: és un canvi menor, i
+// el dl 19 és per a l'A1. ACCENTS_ESTRICTES = false ho torna com abans («cafe» compta
+// com a encert, amb la nota); null = segons la data. «let» per les proves.
+const ACCENTS_ESTRICTES_DES_DE = 20261016;
 let ACCENTS_ESTRICTES = null;
 function accentsEstrictesActius(ms = Date.now()) {
   return ACCENTS_ESTRICTES ?? diaMadrid(ms) >= ACCENTS_ESTRICTES_DES_DE;
