@@ -4974,6 +4974,7 @@ const DATA = {
 
     { id:'a2-ses6', type:'reading', level:'a2', category:'Ser, estar i semblar',
       text:"L'Emma és una persona molt sociable i alegre. Avui, però, està una mica trista perquè la seva amiga no ha pogut venir. Tot i així, sembla contenta quan parla amb nosaltres.",
+      audio:'a2/a2-ses6-v1.mp3',
       question:'Quina afirmació és correcta?',
       options:['L\'Emma normalment és trista, però avui està alegre tot i que sembla cansada.','L\'Emma normalment és alegre, però avui està trista tot i que sembla contenta.','L\'Emma normalment és alegre, i avui també ho està, tot i que sembla trista.'],
       correct:1, theory:"«És» (permanent), «està» (avui), «sembla» (aparença). Cada verb té una funció diferent.", example:"Ser: permanent. Estar: transitori. Semblar: aparença." },
@@ -5027,6 +5028,7 @@ const DATA = {
 
     { id:'a2-adc5', type:'reading', level:'a2', category:'Adjectius de caràcter',
       text:"Soc un noi amb ganes de conèixer gent nova. Soc valent, decidit, obert i generós. M'agrada la feina que faig i col·laborar per tenir un món millor. M'encanta fer activitats a l'aire lliure.",
+      audio:'a2/a2-adc5-v1.mp3',
       question:'Quins adjectius usa per descriure el seu caràcter?',
       options:['tímid, reservat, introvertit','valent, decidit, obert, generós','alegre, espontani, sociable'],
       correct:1, theory:"Llegeix atentament i identifica els adjectius. Tots quatre apareixen explícitament en la descripció.", example:"«valent, decidit, obert i generós» → quatre adjectius de caràcter." },
@@ -5267,6 +5269,7 @@ const DATA = {
 
     { id:'a2-lex4', type:'reading', level:'a2', category:"Lèxic A2: caràcter i emocions",
       text:"Un dia vaig anar a buscar el meu nebot a l'escola. Llavors, un senyor gran em va dir que el nen havia estat molt bo. Jo li vaig dir: \"Quin avi tan simpàtic que tens!\". El nen, molt enfadat, em va respondre: \"No és el meu avi, és el meu pare!\". La veritat és que em vaig posar molt vermella.",
+      audio:'a2/a2-lex4-v1.mp3',
       question:"Com es va sentir la persona que explica l'anècdota al final?",
       options:['Contenta i divertida','Avergonyida','Sorpresa però tranquil·la'],
       correct:1, theory:"«Em vaig posar molt vermella» indica vergonya intensa. Posar-se vermell/a és una reacció física associada a la vergonya.", example:"Quan vaig dir alguna cosa inoportuna, em vaig posar vermella de vergonya." },
