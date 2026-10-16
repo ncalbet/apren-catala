@@ -481,16 +481,39 @@
 
 <script src="data.js"></script>
 <script>
+// El formatador de dates de Madrid (partsMadrid, diaMadrid, més avall). Es crea una sola
+// vegada: crear-ne un a cada crida és lent. És aquí dalt perquè l'interruptor per data de
+// l'A1 el fa servir en arrencar, abans que res més.
+const FMT_MADRID = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Madrid', hourCycle: 'h23',
+  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+});
+
 // ══ MÒDUL A1 ══
 // L'A1 és a data.js però no es veu fins que s'encengui. Apagat, DATA.a1 no hi és i
 // l'app es comporta com abans: tots els llocs que en llegeixen toleren que falti.
-// Per encendre'l: MODUL_A1_ACTIU = true, i el bump. AQUÍ DALT perquè ho ha de fer
-// abans que res llegeixi DATA. (Les metaetiquetes del <head> diuen «A2, B1, B2 i C1»:
-// el dia que s'encengui, cal canviar-les a mà.)
-let MODUL_A1_ACTIU = false;
-const _DATA_A1 = DATA.a1;
+// S'encén sol el dilluns 19/10/2026, dia de Madrid (decisió de l'usuari, 16/10):
+// MODUL_A1_DES_DE. MODUL_A1_ACTIU = true/false el força; null = segons la data.
+// L'àudio surt amb l'A1: apagat, cap exercici d'escolta ni cap «Escolta» a cap nivell.
+// AQUÍ DALT perquè ho ha de fer abans que res llegeixi DATA.
+const MODUL_A1_DES_DE = 20261019;
+let MODUL_A1_ACTIU = null;
+function modulA1Actiu(ms = Date.now()) { return MODUL_A1_ACTIU ?? diaMadrid(ms) >= MODUL_A1_DES_DE; }
+const _DATA_ORIG = { ...DATA };
+// Un exercici sense el seu clip (ni el de les variants): el que es veu amb l'A1 apagat.
+// (senseAudio(), més avall, és una altra cosa: el botó «Ara no puc escoltar».)
+function senseClip(q) {
+  if (!q.audio && !(q.variants || []).some(v => v.audio)) return q;
+  const r = { ...q }; delete r.audio;
+  if (r.variants) r.variants = r.variants.map(v => { if (!v.audio) return v; const w = { ...v }; delete w.audio; return w; });
+  return r;
+}
 function aplicaModulA1() {
-  if (MODUL_A1_ACTIU && _DATA_A1) DATA.a1 = _DATA_A1; else delete DATA.a1;
+  const actiu = modulA1Actiu();
+  for (const l of Object.keys(_DATA_ORIG)) {
+    if (l === 'a1') { if (actiu) DATA.a1 = _DATA_ORIG.a1; else delete DATA.a1; }
+    else DATA[l] = actiu ? _DATA_ORIG[l] : _DATA_ORIG[l].filter(q => q.type !== 'listen').map(senseClip);
+  }
   const boto = document.getElementById('drop-a1');
   if (boto) boto.style.display = DATA.a1 ? '' : 'none';
 }
@@ -3588,11 +3611,7 @@ function lligaVisible() {
 }
 
 // ── Dates de Madrid. Mateix càlcul que scripts/lliga_setmanal.cjs ──
-// El formatador es crea una sola vegada: crear-ne un a cada crida és lent.
-const FMT_MADRID = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Europe/Madrid', hourCycle: 'h23',
-  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
-});
+// El formatador (FMT_MADRID) és a dalt de tot, amb el mòdul A1, que el fa servir en arrencar.
 function partsMadrid(ms) {
   const p = Object.fromEntries(FMT_MADRID.formatToParts(new Date(ms)).map(x => [x.type, x.value]));
   return { y: +p.year, m: +p.month, d: +p.day, h: +p.hour, mi: +p.minute };
