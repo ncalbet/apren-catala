@@ -3175,6 +3175,15 @@ const DATA = {
       theory:'«Bona tarda» és la salutació de la tarda; al matí, «Bon dia», i a la nit, «Bona nit».',
       example:'Bona tarda! Com estàs?' },
 
+    { id:'a1-u01-08', type:'listen', level:'a1', category:'Salutacions',
+      question:'Com està la Rita?',
+      text:'Hola, Pau! Soc la Rita. Com estàs? Jo, no gaire bé: avui necessito descansar. Ens veiem dilluns. Bon cap de setmana!',
+      audio:'a1/a1-u01-08-v1.mp3',
+      options:['No gaire bé','Molt bé','Així, així'],
+      correct:0,
+      theory:'«No gaire bé» és una de les tres respostes a «Com estàs?»; «necessito descansar» ho confirma.',
+      example:'—Com estàs? —No gaire bé.' },
+
     // ── DEMANAR AJUDA ──
     { id:'a1-u02-01', type:'choice', level:'a1', category:'Demanar ajuda',
       question:'No has sentit bé el nom. Què demanes?',
@@ -3246,6 +3255,15 @@ const DATA = {
       correct:0,
       theory:'«Pots repetir-ho?» demana que tornin a dir el mateix. Lletrejar és dir les lletres una per una.',
       example:'Perdona, pots repetir-ho, si us plau?' },
+
+    { id:'a1-u02-08', type:'listen', level:'a1', category:'Demanar ajuda',
+      question:'Què demana primer?',
+      text:'—Perdona, què vol dir «taller»? —És una classe pràctica. —Pots repetir-ho més a poc a poc, si us plau? —Sí: és… una classe… pràctica. —Ara ho entenc. Gràcies!',
+      audio:'a1/a1-u02-08-v1.mp3',
+      options:["El significat d'una paraula",'Que parli més a poc a poc',"Com s'escriu una paraula"],
+      correct:0,
+      theory:"«Què vol dir…?» demana el significat d'una paraula. Després demana «més a poc a poc».",
+      example:'Perdona, què vol dir «taller»?' },
 
     // ── PRESENTACIONS ──
     { id:'a1-u03-01', type:'choice', level:'a1', category:'Presentacions',
@@ -3319,6 +3337,15 @@ const DATA = {
       theory:"«Soc de» diu d'on ets; «visc a», on vius ara.",
       example:'Soc del Marroc i visc a Lleida.' },
 
+    { id:'a1-u03-08', type:'listen', level:'a1', category:'Presentacions',
+      question:'Quants anys té en Karim?',
+      text:'Hola, bon dia. Em dic Karim Soler. Tinc trenta anys. Soc de Girona, però ara visc a Reus. Parlo àrab, català i castellà. Treballo de cuiner.',
+      audio:'a1/a1-u03-08-v1.mp3',
+      options:['Trenta','Tretze','Tres'],
+      correct:0,
+      theory:"L'edat es diu amb «tenir»: «tinc trenta anys». «Trenta» i «tretze» sonen semblants: escolta el final de la paraula.",
+      example:'Tinc trenta anys.' },
+
     // ── PERSONES PROPERES ──
     { id:'a1-u04-01', type:'choice', level:'a1', category:'Persones properes',
       question:'Completa: «La meva germana és ___».',
@@ -3390,6 +3417,15 @@ const DATA = {
       correct:0,
       theory:'«El meu germà» és un fill dels meus pares. «Aquest» presenta algú que és a prop.',
       example:'Aquest és el meu germà. Es diu Biel.' },
+
+    { id:'a1-u04-08', type:'listen', level:'a1', category:'Persones properes',
+      question:"Què porta l'amiga?",
+      text:"Hola! Soc a l'estació i busco la meva amiga. Ella porta una jaqueta vermella. La seva parella porta un jersei verd, i el seu fill, una camisa blava.",
+      audio:'a1/a1-u04-08-v1.mp3',
+      options:['Una jaqueta vermella','Un jersei verd','Una camisa blava'],
+      correct:0,
+      theory:"Cada peça va amb una persona: l'amiga, «una jaqueta vermella»; la seva parella, «un jersei verd»; el seu fill, «una camisa blava».",
+      example:'Ella porta una jaqueta vermella.' },
 
     // ── CASA I OBJECTES ──
     { id:'a1-u05-01', type:'choice', level:'a1', category:'Casa i objectes',
@@ -3465,6 +3501,15 @@ const DATA = {
       theory:"En un diàleg, el lloc bo pot ser l'últim que es diu: «No hi és» descarta el primer.",
       example:"La llibreta és dins de l'armari." },
 
+    { id:'a1-u05-08', type:'listen', level:'a1', category:'Casa i objectes',
+      question:'On és el llibre?',
+      text:'Hola! Soc a la feina. Les claus són dins de la bossa, i la bossa és damunt de la taula del menjador. El llibre és sota el llit, al dormitori.',
+      audio:'a1/a1-u05-08-v1.mp3',
+      options:['Sota el llit','Dins de la bossa','Damunt de la taula'],
+      correct:0,
+      theory:'«El llibre és sota el llit». Les claus són «dins de la bossa», i la bossa, «damunt de la taula».',
+      example:'El llibre és sota el llit.' },
+
     // ── EL BARRI ──
     { id:'a1-u06-01', type:'choice', level:'a1', category:'El barri',
       question:'Necessites trobar el mercat. Què preguntes?',
@@ -3534,6 +3579,15 @@ const DATA = {
       correct:0,
       theory:"«Davant de l'estació» diu on és el lloc; «continua recte» i «gira a la dreta» diuen com arribar-hi.",
       example:"La biblioteca és davant de l'estació." },
+
+    { id:'a1-u06-08', type:'listen', level:'a1', category:'El barri',
+      question:'On és el taller de català?',
+      text:'Atenció, si us plau. El taller de català és al tercer pis. La biblioteca és al segon pis. Per a la inscripció, cal pujar al primer pis. Gràcies.',
+      audio:'a1/a1-u06-08-v1.mp3',
+      options:['Al tercer pis','Al segon pis','Al primer pis'],
+      correct:0,
+      theory:'«El taller de català és al tercer pis». La biblioteca és al segon, i la inscripció, al primer.',
+      example:'El taller és al tercer pis.' },
 
     // ── RUTINES ──
     { id:'a1-u07-01', type:'fill', level:'a1', category:'Rutines',
@@ -3609,6 +3663,15 @@ const DATA = {
       theory:'Cada moment del dia va amb la seva acció: «a la tarda vaig a classe».',
       example:'A la tarda vaig a classe de català.' },
 
+    { id:'a1-u07-08', type:'listen', level:'a1', category:'Rutines',
+      question:'Quan treballa?',
+      text:'—Treballes al matí? —No, al matí estudio. Treballo a la tarda, en un mercat. —I al vespre? —Al vespre faig esport. No treballo mai diumenge.',
+      audio:'a1/a1-u07-08-v1.mp3',
+      options:['A la tarda','Al matí','Al vespre'],
+      correct:0,
+      theory:'«Treballo a la tarda». Al matí estudia i al vespre fa esport.',
+      example:'Al matí estudio i a la tarda treballo.' },
+
     // ── DIES I HORES ──
     { id:'a1-u08-01', type:'reading', level:'a1', category:'Dies i hores',
       question:'A quina hora obre dissabte?',
@@ -3680,6 +3743,15 @@ const DATA = {
       correct:0,
       theory:"«A les sis de la tarda» diu l'hora; «els dimarts» diu quin dia es repeteix.",
       example:'La classe és a les sis de la tarda.' },
+
+    { id:'a1-u08-08', type:'listen', level:'a1', category:'Dies i hores',
+      question:'A quina hora obre el centre dijous?',
+      text:'Centre cívic, bon dia. Avui, dimecres, el centre està tancat. Dijous obrim a les nou del matí i tanquem a la una. Dissabte obrim a les deu.',
+      audio:'a1/a1-u08-08-v1.mp3',
+      options:['A les nou','A les deu','A la una'],
+      correct:0,
+      theory:'«Dijous obrim a les nou». A la una tanquen, i a les deu obren dissabte.',
+      example:'Dijous obrim a les nou del matí.' },
 
     // ── COMPRES ──
     { id:'a1-u09-01', type:'choice', level:'a1', category:'Compres',
@@ -3755,6 +3827,15 @@ const DATA = {
       theory:'«Set euros amb cinquanta» és 7,50 €. Compte amb els parells que sonen semblants: set i disset, quinze i cinquanta.',
       example:'—Quant val tot? —Set euros amb cinquanta.' },
 
+    { id:'a1-u09-08', type:'listen', level:'a1', category:'Compres',
+      question:'Quant val el quilo de peres?',
+      text:'Bon dia! Avui tenim peres a dos euros el quilo i taronges a tres euros el quilo. El formatge, a dotze euros el quilo.',
+      audio:'a1/a1-u09-08-v1.mp3',
+      options:['Dos euros','Dotze euros','Tres euros'],
+      correct:0,
+      theory:'«Peres a dos euros el quilo». «Dos» i «dotze» sonen semblants: a dotze hi ha el formatge.',
+      example:'Les peres, a dos euros el quilo.' },
+
     // ── MENJAR I BEURE ──
     { id:'a1-u10-01', type:'choice', level:'a1', category:'Menjar i beure',
       question:'No vols sucre al te. Què demanes?',
@@ -3824,6 +3905,15 @@ const DATA = {
       correct:0,
       theory:"Cada persona demana una cosa: la Marta, «un cafè amb llet»; l'altra, «un te sense sucre».",
       example:'Un cafè amb llet, si us plau.' },
+
+    { id:'a1-u10-08', type:'listen', level:'a1', category:'Menjar i beure',
+      question:'Què no li agrada gaire?',
+      text:"—T'agrada el te? —No gaire. M'agrada més el cafè. —I les maduixes? —M'agraden molt! —A mi també.",
+      audio:'a1/a1-u10-08-v1.mp3',
+      options:['El te','El cafè','Les maduixes'],
+      correct:0,
+      theory:'«No gaire» vol dir que agrada poc: el te. El cafè li agrada més, i les maduixes, molt.',
+      example:"—T'agrada el te? —No gaire." },
 
     // ── NECESSITATS ──
     { id:'a1-u11-01', type:'choice', level:'a1', category:'Necessitats',
@@ -3899,6 +3989,15 @@ const DATA = {
       theory:'«Em fa mal el cap» diu quina part del cos fa mal; «tinc fred» és una sensació.',
       example:'Tinc fred i em fa mal el cap.' },
 
+    { id:'a1-u11-08', type:'listen', level:'a1', category:'Necessitats',
+      question:'Quin temps fa avui?',
+      text:'Bon dia! Avui no fa sol: plou i fa fred. No neva. Tinc fred i necessito un paraigua.',
+      audio:'a1/a1-u11-08-v1.mp3',
+      options:['Plou','Fa sol','Neva'],
+      correct:0,
+      theory:'«Plou i fa fred». Les altres dues van amb «no»: «no fa sol», «no neva».',
+      example:'Avui plou i fa fred.' },
+
     // ── QUEDAR AMB ALGÚ ──
     { id:'a1-u12-01', type:'reading', level:'a1', category:'Quedar amb algú',
       question:'On es trobaran?',
@@ -3970,6 +4069,15 @@ const DATA = {
       correct:0,
       theory:'La primera proposta (diumenge) es rebutja; queden amb la segona: «dijous a la tarda».',
       example:'—Et va bé dijous a la tarda? —Sí, perfecte.' },
+
+    { id:'a1-u12-08', type:'listen', level:'a1', category:'Quedar amb algú',
+      question:'Quin dia proposa quedar?',
+      text:"Hola, Marc! Soc l'Anna. Dimecres no puc quedar perquè treballo. Dijous tampoc. Divendres a les set, davant del centre cívic? Fins aviat!",
+      audio:'a1/a1-u12-08-v1.mp3',
+      options:['Divendres','Dimecres','Dijous'],
+      correct:0,
+      theory:'Dimecres no pot i dijous tampoc; proposa «divendres a les set».',
+      example:'Divendres a les set, davant del centre cívic?' },
   ],
   b1: [
     // ── IMPERFET I PERIFRÀSTIC B1 ──
@@ -4988,6 +5096,15 @@ const DATA = {
       theory:"«És tranquil i sociable» diu com és en Pere; «està nerviós» i «està preocupat» són aquests dies, i «sembla content», l'aparença.",
       example:'En Pere és tranquil, però aquests dies està nerviós.' },
 
+    { id:'a2-ses8', type:'listen', level:'a2', category:'Ser, estar i semblar',
+      question:'Com està la Marta avui?',
+      text:'Avui la Marta està molt nerviosa: té una entrevista de feina. Normalment és una persona tranquil·la i sembla segura de tot, però ara no para quieta.',
+      audio:'a2/a2-ses8-v1.mp3',
+      options:['Nerviosa','Tranquil·la','Segura'],
+      correct:0,
+      theory:"«Està nerviosa» és avui; «és tranquil·la», sempre, i «sembla segura», l'aparença.",
+      example:'Avui la Marta està nerviosa.' },
+
     // ── ADJECTIUS DE CARÀCTER ──
     { id:'a2-adc1', type:'choice', level:'a2', category:'Adjectius de caràcter',
       question:'Quina és la forma femenina correcta de «simpàtic»?',
@@ -5061,6 +5178,15 @@ const DATA = {
       correct:0,
       theory:'«Amb la gent nova és tímida» és la Laia; qui parla diu de si mateixa que és extravertida.',
       example:'La Laia és amable i generosa, però una mica tímida.' },
+
+    { id:'a2-adc8', type:'listen', level:'a2', category:'Adjectius de caràcter',
+      question:'Què tenen en comú en Joan i la Núria?',
+      text:'—Com són els nous companys de feina? —En Joan és molt simpàtic, divertit i amable, però una mica impacient. La Núria és seriosa, amable i força formal.',
+      audio:'a2/a2-adc8-v1.mp3',
+      options:['Són amables','Són divertits','Són seriosos'],
+      correct:0,
+      theory:'«Amable» surt a les dues llistes: en Joan és «simpàtic, divertit i amable»; la Núria, «seriosa, amable i força formal».',
+      example:'En Joan i la Núria són amables.' },
 
     // ── PASSAT PERIFRÀSTIC ──
     { id:'a2-pas1', type:'fill', level:'a2', category:'Passat perifràstic',
@@ -5196,6 +5322,15 @@ const DATA = {
       theory:"«No les he trobades»: «les» substitueix «les pomes». «L'he comprat» és el pa, i «en tinc un quilo», les peres.",
       example:'—I les pomes? —No les he trobades.' },
 
+    { id:'a2-pfa8', type:'listen', level:'a2', category:'Pronoms febles A2',
+      question:'Què no troba?',
+      text:'—Tens les claus de casa? —Sí, les tinc a la bossa. —I el teu telèfon? —No el trobo! —Vols que et passi la cartera? —Sí, si us plau, moltes gràcies.',
+      audio:'a2/a2-pfa8-v1.mp3',
+      options:['El telèfon','Les claus','La cartera'],
+      correct:0,
+      theory:'«No el trobo»: «el» substitueix «el telèfon». «Les tinc» són les claus.',
+      example:'—I el teu telèfon? —No el trobo!' },
+
     // ── IMPERFET D'INDICATIU ──
     { id:'a2-imp1', type:'fill', level:'a2', category:"Imperfet d'indicatiu",
       question:"Omple amb l'imperfet correcte:",
@@ -5270,6 +5405,15 @@ const DATA = {
       theory:"«A la tarda ajudava el meu avi a l'hort»: un hàbit del passat, en imperfet. L'escola era al matí, i el metro és d'ara («agafo»).",
       example:"Quan era jove, ajudava el meu avi a l'hort." },
 
+    { id:'a2-imp8', type:'listen', level:'a2', category:"Imperfet d'indicatiu",
+      question:'Què feien els diumenges?',
+      text:'—Què feies els estius quan eres petit? —Anàvem al poble dels avis. Cada dia em llevava tard i jugava al carrer amb els cosins. A la tarda fèiem bicicleta, i els diumenges anàvem a la platja.',
+      audio:'a2/a2-imp8-v1.mp3',
+      options:['Anaven a la platja','Feien bicicleta','Jugaven al carrer'],
+      correct:0,
+      theory:'«Els diumenges anàvem a la platja». La bicicleta era a la tarda, i el carrer, cada dia.',
+      example:'Els diumenges anàvem a la platja.' },
+
     // ── LÈXIC A2: CARÀCTER I EMOCIONS ──
     { id:'a2-lex1', type:'choice', level:'a2', category:"Lèxic A2: caràcter i emocions",
       question:"Quina expressió s'usa per dir que algú sent molta vergonya i vol desaparèixer?",
@@ -5312,6 +5456,15 @@ const DATA = {
       theory:"«A la tarda vaig quedar amb els amics i vam anar al cinema»; el mercat va ser al matí, i el dinar a casa de l'àvia, al migdia.",
       example:'A la tarda vam anar al cinema.' },
 
+    { id:'a2-pas8', type:'listen', level:'a2', category:'Passat perifràstic',
+      question:'Què va fer ahir a la nit?',
+      text:"—Vas anar al concert ahir? —No, no hi vaig anar. Vaig arribar tard a casa, vaig sopar amb la família i vam veure una pel·lícula. —I abans-d'ahir? —Abans-d'ahir sí que vaig sortir: vaig anar al teatre amb la Marta.",
+      audio:'a2/a2-pas8-v1.mp3',
+      options:['Va veure una pel·lícula','Va anar al concert','Va anar al teatre'],
+      correct:0,
+      theory:"«Vam veure una pel·lícula» és ahir. Al concert «no hi va anar», i al teatre va anar-hi abans-d'ahir.",
+      example:'Ahir vam veure una pel·lícula.' },
+
     { id:'a2-lex4', type:'reading', level:'a2', category:"Lèxic A2: caràcter i emocions",
       text:"Un dia vaig anar a buscar el meu nebot a l'escola. Llavors, un senyor gran em va dir que el nen havia estat molt bo. Jo li vaig dir: «Quin avi tan simpàtic que tens!». El nen, molt enfadat, em va respondre: «No és el meu avi, és el meu pare!». La veritat és que em vaig posar molt vermella.",
       audio:'a2/a2-lex4-v1.mp3',
@@ -5338,6 +5491,15 @@ const DATA = {
       correct:0,
       theory:'«El cap es va posar a riure»; els qui es van quedar callats són els altres, i qui es va posar vermella, qui ho explica.',
       example:'Es va posar a riure i jo em vaig posar vermella.' },
+
+    { id:'a2-lex7', type:'listen', level:'a2', category:'Lèxic A2: caràcter i emocions',
+      question:'Com està la Júlia?',
+      text:'—Hola, Júlia! Et veig trista. —No, no estic trista: estic cansada. Ahir vaig dormir poc. I una mica nerviosa, perquè demà tinc un examen. —Doncs jo estic molt content: he aprovat el meu!',
+      audio:'a2/a2-lex7-v1.mp3',
+      options:['Cansada i nerviosa','Trista i cansada','Contenta i nerviosa'],
+      correct:0,
+      theory:"«No estic trista: estic cansada» i «una mica nerviosa». Qui està content és l'altre.",
+      example:'Estic cansada i una mica nerviosa.' },
 
 
     // PREGUNTES I INTERROGACIÓ
@@ -5406,6 +5568,15 @@ const DATA = {
       correct:0,
       theory:'«Quant costa?» pregunta pel preu; «quants», per la quantitat, i «per què», pel motiu. La primera pregunta és la del preu.',
       example:'Perdona, quant costa aquest llibre?' },
+
+    { id:'a2-pi8', type:'listen', level:'a2', category:'Preguntes i interrogació',
+      question:"Què vol saber amb l'última pregunta?",
+      text:"—Bon dia, truco per la classe de cuina. Quan comença? —Dilluns vinent. —I on és? —Al centre cívic. —Com m'hi apunto? —Per internet. —I quant costa? —Trenta euros.",
+      audio:'a2/a2-pi8-v1.mp3',
+      options:['El preu de la classe','On és la classe','Quan comença la classe'],
+      correct:0,
+      theory:"L'última pregunta és «quant costa?», que demana el preu. «On» demana el lloc, i «quan», el moment.",
+      example:'—I quant costa? —Trenta euros.' },
   ],
 
   b2: [
