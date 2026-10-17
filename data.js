@@ -6017,7 +6017,7 @@ const DATA = {
       answers:['va entrar','va anar','va arribar','va venir'],
       variants:[
         { text:'El passat perifràstic (anar + infinitiu) expressa accions puntuals i acabades en un moment concret del passat.', question:'Completa amb un verb de comunicació en passat perifràstic (va + infinitiu):', sentence:'Quan la directora ___ la notícia, tothom va aplaudir.', answers:['va anunciar','va dir','va comunicar','va donar','va explicar'] },
-        { text:'El passat perifràstic (anar + infinitiu) expressa accions puntuals i acabades en un moment concret del passat.', question:'Completa amb un verb de moviment en passat perifràstic (va + infinitiu):', sentence:'Quan va sentir el seu nom, ___ de la cadira d\'un salt.', answers:['es va aixecar','es va alçar','es va llevar'] },
+        { text:'El passat perifràstic (anar + infinitiu) expressa accions puntuals i acabades en un moment concret del passat.', question:'Completa amb un verb de moviment en passat perifràstic (va + infinitiu):', sentence:'Quan va sentir el seu nom, ___ de la cadira d\'un salt.', answers:['es va aixecar','es va alçar','va aixecar-se','va alçar-se'] },
       ],
       theory:'Passat perifràstic: anar conjugat (vaig/vas/va/vam/vau/van) + infinitiu. 3a pers. sing.: «va» + infinitiu.', example:'Va entrar sense trucar. / Vas dir la veritat?' },
     { id:'b2-tv4', type:'choice', level:'b2', category:'Temps verbals',
@@ -6951,10 +6951,10 @@ const DATA = {
       text:'La passiva reflexa amb «es» fa concordar el verb amb allò que rep l\'acció, sense esmentar qui la fa.',
       question:'Completa amb la forma de passiva reflexa correcta:',
       sentence:'___ moltes entrades per al concert en poques hores.',
-      display:'vendre (passiva reflexa, plural)', answers:['Es van vendre','S\'han venut'],
+      display:'vendre (passiva reflexa, plural)', answers:['Es van vendre','Van vendre\'s','S\'han venut'],
       variants:[
-        { sentence:'___ diverses mesures durant la reunió d\'ahir.', display:'aprovar (passiva reflexa, plural)', answers:['Es van aprovar','S\'han aprovat'] },
-        { sentence:'___ tots els documents abans del termini.', display:'signar (passiva reflexa, plural)', answers:['Es van signar','S\'han signat'] },
+        { sentence:'___ diverses mesures durant la reunió d\'ahir.', display:'aprovar (passiva reflexa, plural)', answers:['Es van aprovar','Van aprovar-se','S\'han aprovat'] },
+        { sentence:'___ tots els documents abans del termini.', display:'signar (passiva reflexa, plural)', answers:['Es van signar','Van signar-se','S\'han signat'] },
       ],
       theory:'Passiva reflexa: «es + verb». Quan el CD és plural, el verb concorda: «Es van vendre moltes entrades» (plural).', example:'Es van vendre totes les entrades. / Es van aprovar les mesures.' },
     { id:'c1-pi3', type:'choice', level:'c1', category:'Passiva i impersonal',
