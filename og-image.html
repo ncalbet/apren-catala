@@ -36,6 +36,28 @@ function pill(x, y, text, color) {
   return w;
 }
 
+// La icona porta el seu quadrat de blau (#193052), una mica diferent del fons
+// (#1a2f4e i degradat): es veia el quadrat. El fem transparent amb el «color a
+// alfa» de GIMP, que també neteja les vores suavitzades del llibre i la bombolla.
+function senseFons(img, fons) {
+  const c = document.createElement('canvas');
+  c.width = img.naturalWidth; c.height = img.naturalHeight;
+  const x = c.getContext('2d');
+  x.drawImage(img, 0, 0);
+  const d = x.getImageData(0, 0, c.width, c.height), p = d.data;
+  for (let i = 0; i < p.length; i += 4) {
+    let a = 0;
+    for (let k = 0; k < 3; k++) {
+      const v = p[i + k], b = fons[k];
+      a = Math.max(a, v > b ? (v - b) / (255 - b) : v < b ? (b - v) / b : 0);
+    }
+    if (a > 0) for (let k = 0; k < 3; k++) p[i + k] = Math.round((p[i + k] - fons[k]) / a + fons[k]);
+    p[i + 3] = Math.round(p[i + 3] * a);
+  }
+  x.putImageData(d, 0, 0);
+  return c;
+}
+
 async function draw() {
   await document.fonts.ready;
   const icon = new Image();
@@ -83,8 +105,8 @@ async function draw() {
   g.fillStyle = 'rgba(255,255,255,0.75)';
   g.fillText('app.aprencatala.cat', 72, 564);
 
-  // la icona nova, gran, a la dreta, sense halos
-  g.drawImage(icon, 760, 125, 380, 380);
+  // la icona nova, gran, a la dreta, sense halos ni el seu quadrat de fons
+  g.drawImage(senseFons(icon, [0x19, 0x30, 0x52]), 760, 125, 380, 380);
 }
 draw();
 
