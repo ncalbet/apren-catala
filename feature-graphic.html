@@ -36,6 +36,27 @@ function pill(x, y, text, color) {
   return w;
 }
 
+// La icona porta el seu quadrat de blau (#193052), que no és el del fons: el fem
+// transparent amb el «color a alfa» de GIMP (el mateix que og-image.html).
+function senseFons(img, fons) {
+  const c = document.createElement('canvas');
+  c.width = img.naturalWidth; c.height = img.naturalHeight;
+  const x = c.getContext('2d');
+  x.drawImage(img, 0, 0);
+  const d = x.getImageData(0, 0, c.width, c.height), p = d.data;
+  for (let i = 0; i < p.length; i += 4) {
+    let a = 0;
+    for (let k = 0; k < 3; k++) {
+      const v = p[i + k], b = fons[k];
+      a = Math.max(a, v > b ? (v - b) / (255 - b) : v < b ? (b - v) / b : 0);
+    }
+    if (a > 0) for (let k = 0; k < 3; k++) p[i + k] = Math.round((p[i + k] - fons[k]) / a + fons[k]);
+    p[i + 3] = Math.round(p[i + 3] * a);
+  }
+  x.putImageData(d, 0, 0);
+  return c;
+}
+
 async function draw() {
   await document.fonts.ready;
   const icon = new Image();
@@ -47,11 +68,8 @@ async function draw() {
   bg.addColorStop(0, '#0f1e35'); bg.addColorStop(0.6, '#1a2f4e'); bg.addColorStop(1, '#1e3a5f');
   g.fillStyle = bg; g.fillRect(0, 0, 1024, 500);
 
-  // cercles decoratius sota la icona
-  g.globalAlpha = 0.4; g.fillStyle = '#2d4a7a';
-  g.beginPath(); g.arc(830, 250, 210, 0, 7); g.fill();
-  g.globalAlpha = 0.3; g.fillStyle = '#3a5f9a';
-  g.beginPath(); g.arc(830, 250, 150, 0, 7); g.fill();
+  // cercle decoratiu. Sota la icona no n'hi ha: amb el fons del logo transparent,
+  // canviarien el color de les ratlles del llibre (i el del 15/07 tampoc no en tenia)
   g.globalAlpha = 0.5; g.fillStyle = '#16283f';
   g.beginPath(); g.arc(120, 460, 150, 0, 7); g.fill();
   g.globalAlpha = 1;
@@ -73,12 +91,12 @@ async function draw() {
   // subtítol
   g.font = '400 25px "DM Sans", sans-serif';
   g.fillStyle = '#b8c4d4';
-  g.fillText('Aprèn i perfecciona el català · nivells A2 – C1', 64, 222);
+  g.fillText('Aprèn i perfecciona el català · nivells A1 – C1', 64, 222);
   g.fillText('i les novetats normatives de l’IEC', 64, 256);
 
-  // xips (dades REALS: 336, SRS, repte diari, sense anuncis)
+  // xips (dades REALS: +450 al 19/10/2026, SRS, repte diari, sense anuncis)
   let x = 64;
-  x += pill(x, 296, '336 exercicis', '#fbbf24') + 12;
+  x += pill(x, 296, '+450 exercicis', '#fbbf24') + 12;
   x += pill(x, 296, 'Repàs intel·ligent', '#93c5fd') + 12;
   pill(x, 296, 'Repte diari', '#6ee7b7');
   x = 64;
@@ -90,15 +108,14 @@ async function draw() {
   g.fillStyle = 'rgba(255,255,255,0.65)';
   g.fillText('Aprèn. Practica. Domina.', 64, 448);
 
-  // la icona nova, gran, a la dreta, amb una lluïssor càlida subtil
-  g.save();
-  g.shadowColor = 'rgba(245,158,11,0.28)';
-  g.shadowBlur = 46;
-  g.drawImage(icon, 668, 88, 324, 324);
-  g.restore();
+  // la icona nova, gran, a la dreta, sense el seu quadrat de fons. Sense lluïssor:
+  // amb el fons transparent, es veia a través de les ratlles del llibre i les agrisava
+  g.drawImage(senseFons(icon, [0x19, 0x30, 0x52]), 668, 88, 324, 324);
 }
 draw();
 
+// Atenció: Google Play vol el feature graphic en JPEG o PNG de 24 bits SENSE alfa,
+// i el PNG del canvas en porta. Abans de pujar-lo, cal treure-li el canal alfa.
 document.getElementById('dl').onclick = () =>
   document.getElementById('c').toBlob(b => {
     const a = document.createElement('a');
