@@ -7078,7 +7078,7 @@ const DATA = {
         { options:['Espavilar-se i posar-se a treballar amb energia','Comprar piles per a un dispositiu electrònic','Preparar-se físicament per a una activitat esportiva'], correct:0 },
         { question:'Quina és la interpretació correcta de «perdre el fil»?', options:['Rendir-se i abandonar la tasca a mig fer','Deixar de seguir un raonament o una conversa','Treballar molt dur fins a l\'extenuació'], correct:1, theory:"«Perdre el fil» és una locució verbal que vol dir perdre el seguiment d'un raonament o d'una conversa.", example:"Parlava tan de pressa que vaig perdre el fil." },
       ],
-      theory:'«Posar-se les piles» és una locució verbal que significa activar-se, espabilar-se, posar esforç en una tasca. El seu ús és col·loquial.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
+      theory:'«Posar-se les piles» és una expressió col·loquial que vol dir afanyar-se, o sortir d\'una situació difícil amb una actitud desperta i diligent (CPNL). No és al DIEC.', example:'«Posa\'t les piles o no acabaràs mai el projecte.»' },
     { id:'c1-df7', type:'fill', level:'c1', category:'Derivació i flexió',
       text:'Molts verbs generen un substantiu abstracte que designa el procés o la facultat associada a l\'acció.',
       question:'Forma el substantiu abstracte a partir del verb indicat:',
