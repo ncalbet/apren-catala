@@ -6860,9 +6860,9 @@ const DATA = {
       options:['traduïdor','traductor','traduhidor'],
       correct:1, variants:[
         { options:['traductor','traduïdor','traduhidor'], correct:0 },
-        { question:'Quin és el nom d\'agent correcte derivat del verb «conduir»?', options:['conduïdor','conduhidor','conductor'], correct:2 },
+        { question:'Quin és el nom d\'agent correcte derivat del verb «produir»?', options:['produïdor','produhidor','productor'], correct:2 },
       ],
-      theory:'El nom d\'agent de «traduir» és «traductor» (forma culta d\'origen llatí), no «traduïdor». Molts verbs en -ir presenten noms d\'agent irregulars: «conduir» → «conductor», «produir» → «productor», «seduir» → «seductor». Cal evitar les formes analògiques en -ïdor.',
+      theory:'El nom d\'agent de «traduir» és «traductor» (forma culta d\'origen llatí), no «traduïdor». Molts verbs en -ir presenten noms d\'agent irregulars: «produir» → «productor», «seduir» → «seductor». De «conduir», el DIEC recull «conductor» i també «conduïdor» (persona que guia els altres).',
       example:'traduir → traductor / conduir → conductor / produir → productor / seduir → seductor.' },
     { id:'c1-df5', type:'fill', level:'c1', category:'Derivació i flexió',
       text:'El sufix «-ble» forma adjectius a partir de verbs i n\'expressa la possibilitat (allò que es pot fer).',
