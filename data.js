@@ -6623,7 +6623,7 @@ const DATA = {
         { options:['Els participants que havien superat la prova van ser admesos.','Els participants que, tots ells, havien superat la prova van ser admesos.','Els participants, qui havien superat la prova, van ser admesos.'], correct:0 },
         { question:'Quina frase usa correctament les oracions de relatiu?', options:['Els alumnes, qui havien aprovat, van rebre el diploma.','Els alumnes que havien aprovat van rebre el diploma.','Els alumnes que tots ells havien aprovat van rebre el diploma.'], correct:1 },
       ],
-      theory:'«Qui» s\'usa per a persones en funció de subjecte, preferentment en relativa sense antecedent. En relativa especificativa amb antecedent, s\'usa «que».', example:'Els qui vulguin participar que s\'apuntin. / Els estudiants que han aprovat...' },
+      theory:'«Qui» només fa de subjecte en una relativa sense antecedent: «Els qui vulguin participar…». Amb antecedent, el subjecte és «que» (o «el qual», en una explicativa).', example:'Els qui vulguin participar que s\'apuntin. / Els estudiants que han aprovat...' },
     { id:'c1-rel4', type:'fill', level:'c1', category:'Oracions de relatiu',
       text:'Una relativa explicativa aporta informació addicional no essencial, i la puntuació la separa de la resta de la frase.',
       question:'Converteix la frase en relativa explicativa afegint comes:',
