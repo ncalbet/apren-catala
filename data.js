@@ -6407,9 +6407,9 @@ const DATA = {
       options:['Atès que','Per bé que','Ja que','Per tant'],
       correct:1, variants:[
         { options:['Per bé que','Atès que','Per tant','Ja que'], correct:0 },
-        { question:'Quin connector concessiu formal completa correctament: «___ el pressupost sigui limitat, el projecte és viable»?', text:'', options:['Ja que','Atès que','Per tant','Per bé que'], correct:3 },
+        { question:'Quin connector concessiu completa correctament: «___ el pressupost sigui limitat, el projecte és viable»?', text:'', options:['Ja que','Atès que','Per tant','Per bé que'], correct:3 },
       ],
-      theory:"«Per bé que» és un connector concessiu formal, propi del registre escrit acurat, que admet tant el subjuntiu com l'indicatiu. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.", example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
+      theory:"«Per bé que» és un connector concessiu que admet tant el subjuntiu com l'indicatiu. «Atès que» i «Ja que» són causals (+ indicatiu) i «Per tant» és consecutiu.", example:'Per bé que els indicadors millorin, no hem de relaxar la vigilància.' },
 
     // CONNECTORS CONCESSIUS
     { id:'c1-cc1', type:'fill', level:'c1', category:'Connectors concessius',
