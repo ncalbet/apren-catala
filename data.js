@@ -7217,7 +7217,7 @@ const DATA = {
       example:'No fiquis el nas en els afers dels veïns: no és cosa teva.' },
 
     { id:'c1-ff17', type:'fill', level:'c1', category:'Frases fetes',
-      text:'En registre institucional, la locució col·loquial «fer mans i mànigues» se substitueix per un equivalent formal que expressa el màxim esforç.',
+      text:'En registre institucional, la locució «fer mans i mànigues» se sol substituir per un equivalent formal que expressa el màxim esforç.',
       question:'Omple amb l\'equivalent formal de «fer mans i mànigues»:',
       sentence:'L\'empresa va ___ tots els recursos disponibles per implementar el projecte.',
       display:'equivalent formal de «fer mans i mànigues» (verb precís)',
