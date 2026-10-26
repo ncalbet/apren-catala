@@ -6593,7 +6593,7 @@ const DATA = {
         { text:'En els textos formals, les afirmacions s\'introdueixen amb fórmules impersonals que en remarquen l\'evidència sense esmentar qui ho diu.', sentence:'___ que la inversió en recerca repercuteix directament en la competitivitat econòmica.', display:'expressió impersonal epistèmica', answers:['es fa palès','és evident','cal constatar','s\'observa','es constata','es fa evident','queda palès','es posa de manifest'], accentsEstrictes:['és'] },
         { text:'En els textos formals, les afirmacions s\'introdueixen amb fórmules impersonals que en remarquen l\'evidència sense esmentar qui ho diu.', sentence:'A partir de les dades recollides, ___ una tendència sostinguda a l\'envelliment de la població.', display:'expressió impersonal epistèmica', answers:['s\'observa','es constata','es fa palès','es posa de manifest','queda palès'], accentsEstrictes:[] },
       ],
-      theory:'En registre acadèmic, s\'evita la 1a persona. Expressions impersonals: «es fa palès», «es constata», «s\'observa», «es posa de manifest».', example:'Es fa palès que la situació requereix una intervenció urgent.', accentsEstrictes:['és'] },
+      theory:'En registre acadèmic, s\'evita la 1a persona del singular; s\'admet el plural de modèstia («hem observat»). Expressions impersonals: «es fa palès», «es constata», «s\'observa», «es posa de manifest».', example:'Es fa palès que la situació requereix una intervenció urgent.', accentsEstrictes:['és'] },
 
     // ORACIONS DE RELATIU
     { id:'c1-rel1', type:'choice', level:'c1', category:'Oracions de relatiu',
