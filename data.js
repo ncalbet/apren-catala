@@ -7237,18 +7237,18 @@ const DATA = {
       example:'«Anar pel dret» i «posar les cartes sobre la taula» s\'usen sovint juntes per emfatitzar una actitud franca i sense subterfugis.' },
 
     { id:'c1-ff19', type:'fill', level:'c1', category:'Frases fetes',
-      text:'Cada locució col·loquial té un equivalent formal que en conserva el sentit però encaixa en un text acadèmic.',
-      question:'La locució «no tenir pèls a la llengua» és col·loquial. Reformula-la per incloure-la en un informe acadèmic sobre comunicació corporativa.',
+      text:'Moltes locucions tenen un equivalent més neutre que en conserva el sentit i que encaixa millor en un text acadèmic.',
+      question:'Reformula la locució «no tenir pèls a la llengua» per incloure-la en un informe acadèmic sobre comunicació corporativa.',
       sentence:'La cultura de la transparència requereix professionals que s\'expressin amb ___ i que no defugin les qüestions difícils.',
       display:'expressió formal equivalent a «no tenir pèls a la llengua»',
       answers:['total franquesa','plena franquesa','franquesa i claredat','claredat i franquesa','franquesa','sinceritat'],
       variants:[
-        { question:'La locució «fer els ulls grossos» és col·loquial. Reformula-la per a un informe sobre control intern.', sentence:'Un sistema d\'auditoria rigorós no pot ___ les irregularitats detectades en els comptes.', display:'expressió formal equivalent a «fer els ulls grossos»', answers:['passar per alt','ignorar','tolerar'],
+        { question:'Reformula la locució «fer els ulls grossos» per a un informe sobre control intern.', sentence:'Un sistema d\'auditoria rigorós no pot ___ les irregularitats detectades en els comptes.', display:'expressió formal equivalent a «fer els ulls grossos»', answers:['passar per alt','ignorar','tolerar'],
           theory:'«Fer els ulls grossos» → en registre formal: «passar per alt», «ignorar», «tolerar». Vol dir fer veure que no es veu una irregularitat. En un informe de control intern la locució literal desentona.', example:'Formal: «L\'auditoria no pot passar per alt les desviacions detectades.»' },
-        { question:'La locució «anar al gra» és col·loquial. Reformula-la per a un manual d\'estil professional.', sentence:'Un bon informe ha d\'exposar les conclusions amb ___, sense divagacions innecessàries.', display:'expressió formal equivalent a «anar al gra»', answers:['concisió','brevetat','claredat'],
+        { question:'Reformula la locució «anar al gra» per a un manual d\'estil professional.', sentence:'Un bon informe ha d\'exposar les conclusions amb ___, sense divagacions innecessàries.', display:'expressió formal equivalent a «anar al gra»', answers:['concisió','brevetat','claredat'],
           theory:'«Anar al gra» → en registre formal, el nom que en recull el sentit: «concisió», «brevetat», «claredat». La locució descriu anar de dret a l\'essencial sense preàmbuls.', example:'Formal: «Exposar les conclusions amb concisió, sense digressions.»' },
       ],
-      theory:'«No tenir pèls a la llengua» → en registre formal: «expressar-se amb total franquesa», «parlar sense eufemismes», «adoptar una comunicació directa». En un text acadèmic o institucional, la locució col·loquial se sol substituir per un equivalent formal.',
+      theory:'«No tenir pèls a la llengua» → en registre formal: «expressar-se amb total franquesa», «parlar sense eufemismes», «adoptar una comunicació directa». En un text acadèmic o institucional, la locució se sol substituir per un equivalent més neutre.',
       example:'Formal: «Expressar-se amb total franquesa i sense eufemismes.» / Molt formal: «Adoptar una comunicació directa i transparent, sense ambigüitats.»' },
 
 
