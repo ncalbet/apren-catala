@@ -6795,7 +6795,7 @@ const DATA = {
         { sentence:'Davant del problema, la direcció va decidir ___ cartes en l\'assumpte.', display:'verb de la locució (intervenir-hi)', answers:['prendre'],
           theory:'«Prendre cartes en un assumpte» vol dir intervenir-hi decididament. Ve del joc de cartes: qui pren cartes entra a la partida.', example:'La inspecció va prendre cartes en l\'assumpte al cap d\'una setmana.' },
       ],
-      theory:'«Llançar la tovallola» significa rendir-se. Ve de la boxa, on es llança la tovallola al ring per reconèixer la derrota. El Termcat recull «llançar la tovallola» com a forma de diccionari; «tirar» hi és igualment corrent, i «llençar» també s\'admet, perquè l\'IEC tracta «llançar» i «llençar» com a intercanviables fora del sentit de desfer-se d\'una cosa.', example:'Malgrat les dificultats, no hem de llançar la tovallola ara.' },
+      theory:'«Llançar la tovallola» significa rendir-se. Ve de la boxa, on es llança la tovallola al ring per reconèixer la derrota. El DNV de l\'AVL la recull com «tirar (o llançar) la tovallola», i «llençar» també s\'admet: el DIEC dona «llençar» també amb el sentit de «llançar».', example:'Malgrat les dificultats, no hem de llançar la tovallola ara.' },
     { id:'c1-ff3', type:'choice', level:'c1', category:'Frases fetes',
       question:'Quina col·locació lèxica és correcta en català?',
       text:'Les col·locacions lèxiques (verb + nom) sovint difereixen entre el català i el castellà. Molts errors provenen de traduir literalment la combinació castellana.',
