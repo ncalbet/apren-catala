@@ -720,6 +720,11 @@ let COMPTE_AL_FINAL = null;
 function compteAlFinal(ms = Date.now()) {
   return COMPTE_AL_FINAL ?? diaMadrid(ms) >= COMPTE_AL_FINAL_DES_DE;
 }
+// La pantalla de compte torna a l'entrada (decisió de l'usuari, 26/10/2026): amb la
+// tanda 2, els comptes nous van caure de ~20 a 9 per setmana sense que en tornessin més. Qui
+// la salta («Continua sense compte») rep igualment la targeta del final de la sessió.
+// COMPTE_A_ENTRADA = false ho torna com a la tanda 2 (només la targeta). «let» per les proves.
+let COMPTE_A_ENTRADA = true;
 // Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
 // puja) i, on fa una altra paraula (accentsEstrictes), un error. Havia d'encendre's el
 // dilluns 19/10/2026; el 16/10 l'usuari ho va avançar al mateix dia: és un canvi menor, i
@@ -4405,7 +4410,7 @@ function renderOnboarding() {
         <button class="ct-btn primary" id="onb-next" style="width:100%;font-size:15px;padding:13px;">
           ${isLast ? 'Comencem! 🚀' : 'Següent →'}
         </button>
-        ${compteAlFinal() && !window.fbUser ? compteBenvingudaHTML() : ''}
+        ${compteAlFinal() && !COMPTE_A_ENTRADA && !window.fbUser ? compteBenvingudaHTML() : ''}
       </div>`;
 
     const existing = document.getElementById('onboarding-overlay');
@@ -4432,8 +4437,8 @@ function onbTriaRecorregut(id) {
   if (id) startDailySession();
 }
 
-// «Ja tens compte? Inicia sessió» a la benvinguda, per a qui estrena mòbil (amb el
-// compte al final de la sessió, ja no hi ha pantalla de compte a l'entrada). Els
+// «Ja tens compte? Inicia sessió» a la benvinguda, per a qui estrena mòbil quan no hi
+// ha pantalla de compte a l'entrada (tanda 2, COMPTE_A_ENTRADA = false). Els
 // botons surten en tocar l'enllaç: si hi fossin sempre, la benvinguda tornaria a ser
 // una pantalla de compte (decisió de l'usuari, 02/10). En entrar, cap a l'Inici: ja
 // coneix l'app, i si al núvol té més XP, el diàleg de sempre li ofereix carregar-lo.
@@ -4537,11 +4542,12 @@ function showAuthSplash() {
   document.body.appendChild(overlay);
 }
 
-// Què veu qui obre l'app: l'Inici, l'acollida o, si el compte no va al final de la
-// sessió (compteAlFinal), la pantalla de compte abans de l'acollida.
+// Què veu qui obre l'app: l'Inici, l'acollida o, abans de l'acollida, la pantalla de
+// compte (COMPTE_A_ENTRADA, o sempre que no hi hagi la targeta del final).
 function pantallaInicial() {
   if (!shouldShowOnboarding()) return 'inici';
-  return !compteAlFinal() && !localStorage.getItem(AUTH_SPLASH_KEY) ? 'compte' : 'acollida';
+  const compteEntrada = COMPTE_A_ENTRADA || !compteAlFinal();
+  return compteEntrada && !localStorage.getItem(AUTH_SPLASH_KEY) ? 'compte' : 'acollida';
 }
 
 function authSplashDismiss() {
@@ -4602,7 +4608,7 @@ function toggleAuthMode() {
   if (err) err.textContent = '';
 }
 
-function authSplashSkip() { authSplashDismiss(); }
+function authSplashSkip() { localStorage.setItem(COMPTE_SALTAT_KEY, '1'); authSplashDismiss(); }
 
 function showAuthError(msg) {
   const el = document.getElementById('auth-error');
@@ -5274,11 +5280,13 @@ async function activaRecordatoris() {
 // el fa, torna a sortir el 3r dia de pràctica i el 7è, i prou (decisió de l'usuari,
 // 02/10); el Perfil l'ofereix sempre. Es compten les vegades que ha sortit, no els
 // «Ara no»: qui la deixa passar també ha dit que ara no. Com a molt un cop al dia.
-// Només a qui no ha vist mai la pantalla de compte de l'entrada (tothom d'abans del
-// 12/10 l'hi ha vista). Si el fa, al mateix lloc surt la pregunta dels recordatoris,
-// que sense compte no es podien activar.
+// Surt a qui salta la pantalla de compte de l'entrada (des del 26/10, COMPTE_SALTAT_KEY)
+// i a qui no l'ha vista mai (qui va entrar del 12 al 26/10, sense pantalla), però no
+// als d'abans del 12/10, que la van saltar quan no hi havia targeta. Si el fa, al
+// mateix lloc surt la pregunta dels recordatoris, que sense compte no es podien activar.
 const COMPTE_FINAL_DIES = [1, 3, 7];              // dies de pràctica en què surt
 const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: vegades que ha sortit, dia }
+const COMPTE_SALTAT_KEY = 'cat_compte_saltat_v1'; // ha saltat la pantalla de l'entrada
 
 function estatCompteFinal() {
   try { return JSON.parse(localStorage.getItem(COMPTE_FINAL_KEY)) || { n: 0, dia: null }; }
@@ -5287,7 +5295,8 @@ function estatCompteFinal() {
 function tocaTargetaCompte() {
   // fbUser és null quan Firebase diu «sense sessió»; undefined, si encara no ho sap
   // (o no ha carregat): llavors no s'ofereix, perquè no es podria fer.
-  if (!compteAlFinal() || window.fbUser !== null || localStorage.getItem(AUTH_SPLASH_KEY)) return false;
+  if (!compteAlFinal() || window.fbUser !== null) return false;
+  if (localStorage.getItem(AUTH_SPLASH_KEY) && !localStorage.getItem(COMPTE_SALTAT_KEY)) return false;
   const st = estatCompteFinal();
   const dies = (progress.practiceHistory || []).length;
   return st.n < COMPTE_FINAL_DIES.length && dies >= COMPTE_FINAL_DIES[st.n] && st.dia !== diaLocal();
