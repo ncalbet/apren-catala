@@ -5889,7 +5889,7 @@ const DATA = {
       theory:'«En base a» és un calc del castellà. La forma catalana correcta és «basant-se en», «a partir de» o «d\'acord amb».', example:'✗ En base a les dades. ✓ A partir de les dades disponibles.' },
     { id:'b2-int3', type:'fill', level:'b2', category:'Interferències',
       text:'Sovint el català disposa de verbs propis més naturals que els calcs directes del castellà.',
-      question:'Substitueix «realizar» pel verb català adequat:',
+      question:'Substitueix «realitzar» pel verb català adequat:',
       sentence:'Van ___ una investigació exhaustiva sobre l\'origen del problema.',
       display:'verb català correcte (no «realitzar»)',
       answers:['fer','dur a terme','efectuar','portar a terme'],
