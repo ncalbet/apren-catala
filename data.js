@@ -7195,14 +7195,14 @@ const DATA = {
       question:'Tria la col·locació lèxica correcta: «La portaveu va ___ la paraula per respondre les acusacions en la roda de premsa.»',
       sentence:'La portaveu va ___ la paraula per respondre les acusacions en la roda de premsa.',
       display:'verb de la col·locació amb «la paraula»',
-      answers:['prendre','agafar'],
+      answers:['prendre'],
       variants:[
         { question:'Tria la col·locació lèxica correcta: «El consell va ___ una decisió històrica aquella tarda.»', sentence:'El consell va ___ una decisió històrica aquella tarda.', display:'verb de la col·locació amb «una decisió»', answers:['prendre'],
-          theory:'Les decisions es PRENEN, no es fan ni es prenen «a càrrec». «*Fer una decisió» és calc de l\'anglès «make a decision» i «*tomar una decisió» ho és del castellà. El verb de la col·locació és fix.', example:'Van prendre una decisió difícil. / Cal prendre mesures urgents.' },
+          theory:'Les decisions es PRENEN: el DIEC recull «prendre una decisió». No hi encaixen «*fer» ni el castellanisme «*tomar». El verb de la col·locació és fix.', example:'Van prendre una decisió difícil. / Cal prendre mesures urgents.' },
         { question:'Tria la col·locació lèxica correcta: «L\'alcalde va ___ la benvinguda als nous veïns del municipi.»', sentence:'L\'alcalde va ___ la benvinguda als nous veïns del municipi.', display:'verb de la col·locació amb «la benvinguda»', answers:['donar'],
           theory:'La benvinguda es DONA. Amb el mateix substantiu no hi encaixen ni «*fer» ni «*prendre»: cada col·locació té el seu verb i no es dedueix del significat. També es dona el condol, l\'enhorabona i les gràcies.', example:'Va donar la benvinguda als assistents. / Li van donar el condol.' },
       ],
-      theory:'«Prendre la paraula» és la col·locació estàndard en contextos formals i periodístics. «Agafar la paraula» és admès en registre col·loquial. En textos formals es prefereix sempre «prendre».',
+      theory:'«Prendre la paraula» (intervenir, parlar en una reunió) és la locució que recull el DIEC; amb «agafar» no hi és.',
       example:'El president de la comissió va prendre la paraula per tancar el debat. / En el parlament, es demana la paraula abans de prendre-la.' },
 
     { id:'c1-ff16', type:'choice', level:'c1', category:'Frases fetes',
