@@ -6776,14 +6776,14 @@ const DATA = {
 
     // FRASES FETES
     { id:'c1-ff1', type:'choice', level:'c1', category:'Frases fetes',
-      question:'Quina frase feta catalana significa «estar molt enfeinat, sense un moment lliure»?',
+      question:'Quina frase feta catalana significa «actuar precipitadament, sense saber ben bé què cal fer, perquè es tenen moltes coses entre mans»?',
       text:'Les frases fetes no es tradueixen literalment. Cal aprendre-les en context, associant-les al seu significat global i no a les paraules que les componen.',
       options:['Estar a les vores','Anar de bòlit','Tenir moltes mans'],
       correct:1, variants:[
         { options:['Anar de bòlit','Estar a les vores','Tenir moltes mans'], correct:0 },
-        { question:'Quina frase feta catalana significa «estar molt enfeinat, sense un moment lliure»?', options:['Tirar la tovallola','Fer la viu-viu','Anar de bòlit'], correct:2 },
+        { question:'Quina frase feta catalana significa «actuar precipitadament, sense saber ben bé què cal fer, perquè es tenen moltes coses entre mans»?', options:['Tirar la tovallola','Fer la viu-viu','Anar de bòlit'], correct:2 },
       ],
-      theory:'«Anar de bòlit» és la locució per expressar que s\'està molt ocupat. Pertany al registre col·loquial.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
+      theory:'«Anar de bòlit» vol dir actuar precipitadament, sense saber ben bé què cal fer (DIEC). El DNV de l\'AVL hi afegeix el motiu: estar desorientat o tenir moltes ocupacions.', example:'Aquesta setmana anem de bòlit amb el tancament del projecte.' },
     { id:'c1-ff2', type:'fill', level:'c1', category:'Frases fetes',
       text:'Les frases fetes tenen un verb fix que no es pot canviar per un sinònim qualsevol: forma part de la locució.',
       question:'Omple la frase feta amb el verb adequat:',
