@@ -7248,7 +7248,7 @@ const DATA = {
         { question:'La locució «anar al gra» és col·loquial. Reformula-la per a un manual d\'estil professional.', sentence:'Un bon informe ha d\'exposar les conclusions amb ___, sense divagacions innecessàries.', display:'expressió formal equivalent a «anar al gra»', answers:['concisió','brevetat','claredat'],
           theory:'«Anar al gra» → en registre formal, el nom que en recull el sentit: «concisió», «brevetat», «claredat». La locució descriu anar de dret a l\'essencial sense preàmbuls.', example:'Formal: «Exposar les conclusions amb concisió, sense digressions.»' },
       ],
-      theory:'«No tenir pèls a la llengua» → en registre formal: «expressar-se amb total franquesa», «parlar sense eufemismes», «adoptar una comunicació directa». Mai s\'usa la locució literal en un text acadèmic o institucional.',
+      theory:'«No tenir pèls a la llengua» → en registre formal: «expressar-se amb total franquesa», «parlar sense eufemismes», «adoptar una comunicació directa». En un text acadèmic o institucional, la locució col·loquial se sol substituir per un equivalent formal.',
       example:'Formal: «Expressar-se amb total franquesa i sense eufemismes.» / Molt formal: «Adoptar una comunicació directa i transparent, sense ambigüitats.»' },
 
 
