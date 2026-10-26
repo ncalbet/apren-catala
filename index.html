@@ -5305,9 +5305,12 @@ function targetaCompteHTML() {
   if (!tocaTargetaCompte()) return '';
   localStorage.setItem(COMPTE_FINAL_KEY, JSON.stringify({ n: estatCompteFinal().n + 1, dia: diaLocal() }));
   const xp = progress.xp || 0;
+  // Els recordatoris, només on es podran activar en fer el compte (tocaPreguntaRecordatori).
+  const recorda = 'Notification' in window && Notification.permission !== 'denied'
+    ? ' i et recordem quan et toca repassar' : '';
   const text = xp > 0
-    ? `Desa el que has fet avui: amb un compte gratuït no perds els ${formatXP(xp)} XP.`
-    : 'Desa el que has fet avui: amb un compte gratuït no ho perds.';
+    ? `Desa el que has fet avui: amb un compte gratuït no perds els ${formatXP(xp)} XP${recorda}.`
+    : `Desa el que has fet avui: amb un compte gratuït no ho perds${recorda}.`;
   return `
       <div id="compte-final"><div style="background:var(--accent-blue-bg);border-left:3px solid var(--accent-blue-text);border-radius:10px;padding:12px 14px;margin-bottom:20px;text-align:left;">
         <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);line-height:1.4;">${text}</div>
