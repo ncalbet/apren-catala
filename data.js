@@ -7282,19 +7282,19 @@ const DATA = {
       example:'Si hagués sabut la veritat, hauria actuat d\'una altra manera. / Si haguéssiu avisat, ho hauríem evitat.', accentsEstrictes:['hagués'] },
 
     { id:'c1-cc8', type:'choice', level:'c1', category:'Connectors concessius',
-      question:'Quina diferència hi ha entre «si bé» i «tot i que» en els textos formals?',
-      text:'No tots els connectors concessius són intercanviables. El mode verbal que regeixen i el grau de formalitat els diferencien, especialment en textos acadèmics i institucionals.',
+      question:'Quina diferència hi ha entre «si bé» i «tot i que»?',
+      text:'No tots els connectors concessius són intercanviables: el mode verbal que admeten els diferencia.',
       options:[
-        'No hi ha cap diferència: tots dos s\'usen indistintament en qualsevol registre i mode.',
-        '«Si bé» porta indicatiu i és més marcat acadèmicament; «tot i que» és neutre i admet tots dos modes.',
-        '«Si bé» porta sempre subjuntiu i és col·loquial; «tot i que» porta sempre indicatiu i és formal.'
+        'No hi ha cap diferència: tots dos admeten exactament els mateixos modes verbals i les mateixes construccions.',
+        '«Si bé» només introdueix fets, amb indicatiu o sense verb; «tot i que» també pot anar amb subjuntiu.',
+        '«Si bé» va sempre amb subjuntiu, fins i tot amb fets reals; «tot i que» va sempre amb indicatiu.'
       ],
       correct:1, variants:[
-        { options:['«Si bé» porta indicatiu i és més marcat acadèmicament; «tot i que» és neutre i admet tots dos modes.','No hi ha cap diferència: tots dos s\'usen indistintament en qualsevol registre i mode.','«Si bé» porta sempre subjuntiu i és col·loquial; «tot i que» porta sempre indicatiu i és formal.'], correct:0 },
-        { options:['«Si bé» porta sempre subjuntiu i és col·loquial; «tot i que» porta sempre indicatiu i és formal.','No hi ha cap diferència: tots dos s\'usen indistintament en qualsevol registre i mode.','«Si bé» porta indicatiu i és més marcat acadèmicament; «tot i que» és neutre i admet tots dos modes.'], correct:2 },
+        { options:['«Si bé» només introdueix fets, amb indicatiu o sense verb; «tot i que» també pot anar amb subjuntiu.','No hi ha cap diferència: tots dos admeten exactament els mateixos modes verbals i les mateixes construccions.','«Si bé» va sempre amb subjuntiu, fins i tot amb fets reals; «tot i que» va sempre amb indicatiu.'], correct:0 },
+        { options:['«Si bé» va sempre amb subjuntiu, fins i tot amb fets reals; «tot i que» va sempre amb indicatiu.','No hi ha cap diferència: tots dos admeten exactament els mateixos modes verbals i les mateixes construccions.','«Si bé» només introdueix fets, amb indicatiu o sense verb; «tot i que» també pot anar amb subjuntiu.'], correct:2 },
       ],
-      theory:'«Si bé» és el connector concessiu de registre més formal i analític; porta indicatiu i aporta un to distanciat i objectiu. «Tot i que» és neutre i vàlid en tots els registres; admet indicatiu (fet real) o subjuntiu (hipòtesi).',
-      example:'«Si bé els resultats milloren, persisteix la incertesa.» (acadèmic) / «Tot i que els resultats milloren, cal prudència.» (neutre)' },
+      theory:'«Si bé» només introdueix fets: va amb indicatiu o sense verb («si bé amb una mica de retard»). «Tot i que» va sobretot amb indicatiu, però també admet el subjuntiu. Cap dels dos no té cap marca de registre.',
+      example:'Si bé els resultats milloren, persisteix la incertesa. / Tot i que els resultats millorin, cal prudència.' },
 
     { id:'c1-arg7', type:'reading', level:'c1', category:'Argumentació',
       text:'«Si permetem que els joves abandonin els estudis obligatoris, demà tindrem una societat analfabeta. Per tant, és imperatiu reforçar els mecanismes de control i sanció als centres educatius.»',
