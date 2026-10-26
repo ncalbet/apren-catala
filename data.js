@@ -7256,13 +7256,13 @@ const DATA = {
 
     { id:'c1-sa8', type:'choice', level:'c1', category:'Subjuntiu avançat',
       question:'Tria la forma verbal correcta. «Per molt que ___ l\'informe, no convencerà el consell sense dades sòlides.»',
-      text:'«Per molt que» és una conjunció concessiva que sempre va seguida de subjuntiu, independentment del temps verbal del verb principal.',
+      text:'«Per molt que» introdueix una concessió que pondera el grau: per molt que es faci una cosa, el resultat no canvia.',
       options:['presenti','presenta','presentarà'],
       correct:0, variants:[
         { options:['presenta','presenti','presentarà'], correct:1 },
         { options:['presentarà','presenta','presenti'], correct:2 },
       ],
-      theory:'«Per molt que» expressa una concessió hipotètica graduada i exigeix sempre subjuntiu, a diferència de «tot i que» (que pot portar indicatiu si és un fet real). «Per molt que» + subjuntiu = malgrat qualsevol grau de l\'acció, el resultat no canvia.',
+      theory:'«Per molt que» expressa una concessió graduada i, amb aquest valor ponderatiu, va amb subjuntiu, a diferència de «tot i que» (que pot portar indicatiu si és un fet real). «Per molt que» + subjuntiu = malgrat qualsevol grau de l\'acció, el resultat no canvia.',
       example:'Per molt que ho expliqui, no l\'entendrà. / Per molt que treballin, no acabaran a temps.' },
 
     { id:'c1-sa9', type:'fill', level:'c1', category:'Subjuntiu avançat',
