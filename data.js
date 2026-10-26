@@ -7313,7 +7313,7 @@ const DATA = {
       theory:'La nominalització encadenada (verb → nom + nom complement) és la marca distintiva del registre acadèmic dens. «Van decidir incrementar» → «la decisió d\'increment».', example:'decidir → decisió / incrementar → increment / reduir → reducció / adoptar → adopció.' },
 
     { id:'c1-pi8', type:'choice', level:'c1', category:'Passiva i impersonal',
-      question:'Quina frase usa correctament la passiva reflexa amb concordança de nombre?',
+      question:'En un text formal, quina frase usa correctament la passiva reflexa amb concordança de nombre?',
       text:'En la passiva reflexa, el verb concorda en nombre amb el nom que el segueix (el subjecte pacient): «es van vendre totes les entrades» (plural), «es va vendre una entrada» (singular).',
       options:[
         'Es va prendre mesures dràstiques per resoldre la situació.',
@@ -7322,10 +7322,10 @@ const DATA = {
       ],
       correct:1, variants:[
         { options:['Es van prendre mesures dràstiques per resoldre la situació.','Es va prendre mesures dràstiques per resoldre la situació.','Se van prendre mesures dràstiques per resoldre la situació.'], correct:0 },
-        { question:'Quina frase usa correctament la passiva reflexa amb concordança de nombre?', options:['Se van publicar els resultats ahir.','Es va publicar els resultats ahir.','Es van publicar els resultats ahir.'], correct:2 },
+        { question:'En un text formal, quina frase usa correctament la passiva reflexa amb concordança de nombre?', options:['Se van publicar els resultats ahir.','Es va publicar els resultats ahir.','Es van publicar els resultats ahir.'], correct:2 },
       ],
-      theory:'En la passiva reflexa (es + verb), el verb concorda en nombre amb el subjecte pacient: «mesures» és plural → «es van prendre». La forma «es va prendre» seria correcta si el subjecte pacient fos singular: «es va prendre una mesura». «Se» en lloc de «es» davant de verb conjugat és un castellanisme a evitar.',
-      example:'Es va aprovar la mesura (subjecte sing.) / Es van aprovar les mesures (subjecte pl.) / *Se van prendre → forma incorrecta.' },
+      theory:'En la passiva reflexa (es + verb), el verb concorda en nombre amb el subjecte pacient: «mesures» és plural → «es van prendre». La forma «es va prendre» seria correcta si el subjecte pacient fos singular: «es va prendre una mesura». En un text formal, davant de verb que comença per consonant, el pronom és «es»: «se van prendre» es diu en part del valencià, del balear i del gironí, però només a la llengua oral. Davant de [s], en canvi, «se» és la forma habitual: «se celebra».',
+      example:'Es va aprovar la mesura (subjecte sing.) / Es van aprovar les mesures (subjecte pl.) / En un text formal: «es van prendre», no «se van prendre».' },
 
   ],
 
