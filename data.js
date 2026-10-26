@@ -7027,15 +7027,15 @@ const DATA = {
       ],
       theory:'El tancament d\'un informe formal recull la tesi amb un verb epistèmic impersonal, sense referències personals ni registre col·loquial.', example:'«Les dades permeten afirmar que...» / «Es conclou, per tant, que...»' },
     { id:'c1-rel6', type:'fill', level:'c1', category:'Oracions de relatiu',
-      question:'Completa amb el pronom relatiu adequat per a lloc en registre formal:',
-      text:'Per a complements de lloc en registre formal s\'usa «en la qual» (o «al qual» si porta a + masculí), que és més precís que «on», tot i que «on» també és correcte.',
+      question:'Completa amb el relatiu de lloc que concorda amb l\'antecedent:',
+      text:'Amb antecedent, un complement de lloc es pot introduir amb un adverbi invariable o amb un relatiu compost, que concorda amb l\'antecedent en gènere i nombre.',
       sentence:'La sala ___ es va celebrar la cerimònia era d\'un luxe inusitat.',
-      display:'relatiu de lloc', answers:['en la qual','on','a la qual','en què'],
+      display:'relatiu compost', answers:['en la qual','a la qual'],
       variants:[
-        { sentence:'L\'edifici ___ treballa la delegació està al centre de la ciutat.', display:'relatiu de lloc (antecedent masculí)', answers:['en el qual','on','en què'], accentsEstrictes:['què'] },
-        { sentence:'El poble ___ va néixer és molt petit i tranquil.', display:'relatiu de lloc (antecedent masculí)', answers:['on','en el qual','en què'], accentsEstrictes:['què'] },
+        { sentence:'L\'edifici ___ treballa la delegació està al centre de la ciutat.', answers:['en el qual','al qual'] },
+        { sentence:'El poble ___ va néixer és molt petit i tranquil.', answers:['en el qual','al qual'] },
       ],
-      theory:'Relatius de lloc: «on» (estàndard i col·loquial), «en la qual / a la qual» (registre culte formal). En textos acadèmics es prefereix «en la qual».', example:'La ciutat on va néixer. / La sala en la qual es va celebrar.', accentsEstrictes:['què'] },
+      theory:'Relatius de lloc: l\'adverbi «on», invariable, és el més habitual. Amb antecedent també es pot fer servir una preposició amb «què» o amb «el qual», i aquest concorda amb l\'antecedent: la sala en la qual, l\'edifici en el qual.', example:'La ciutat on va néixer. / L\'empresa en la qual treballa.' },
 
 
 
