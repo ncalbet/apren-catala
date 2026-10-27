@@ -5281,9 +5281,10 @@ async function activaRecordatoris() {
 // 02/10); el Perfil l'ofereix sempre. Es compten les vegades que ha sortit, no els
 // «Ara no»: qui la deixa passar també ha dit que ara no. Com a molt un cop al dia.
 // Surt a qui salta la pantalla de compte de l'entrada (des del 26/10, COMPTE_SALTAT_KEY)
-// i a qui no l'ha vista mai (qui va entrar del 12 al 26/10, sense pantalla), però no
-// als d'abans del 12/10, que la van saltar quan no hi havia targeta. Si el fa, al
-// mateix lloc surt la pregunta dels recordatoris, que sense compte no es podien activar.
+// i a qui no l'ha vista mai (qui va entrar del 12 al 26/10, sense pantalla). Als d'abans
+// del 12/10, que la van saltar quan no hi havia targeta, una sola vegada (decisió de
+// l'usuari, 27/10). Si el fa, al mateix lloc surt la pregunta dels recordatoris, que
+// sense compte no es podien activar.
 const COMPTE_FINAL_DIES = [1, 3, 7];              // dies de pràctica en què surt
 const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: vegades que ha sortit, dia }
 const COMPTE_SALTAT_KEY = 'cat_compte_saltat_v1'; // ha saltat la pantalla de l'entrada
@@ -5296,10 +5297,10 @@ function tocaTargetaCompte() {
   // fbUser és null quan Firebase diu «sense sessió»; undefined, si encara no ho sap
   // (o no ha carregat): llavors no s'ofereix, perquè no es podria fer.
   if (!compteAlFinal() || window.fbUser !== null) return false;
-  if (localStorage.getItem(AUTH_SPLASH_KEY) && !localStorage.getItem(COMPTE_SALTAT_KEY)) return false;
+  const dabans = localStorage.getItem(AUTH_SPLASH_KEY) && !localStorage.getItem(COMPTE_SALTAT_KEY);
   const st = estatCompteFinal();
   const dies = (progress.practiceHistory || []).length;
-  return st.n < COMPTE_FINAL_DIES.length && dies >= COMPTE_FINAL_DIES[st.n] && st.dia !== diaLocal();
+  return st.n < (dabans ? 1 : COMPTE_FINAL_DIES.length) && dies >= COMPTE_FINAL_DIES[st.n] && st.dia !== diaLocal();
 }
 function targetaCompteHTML() {
   if (!tocaTargetaCompte()) return '';
