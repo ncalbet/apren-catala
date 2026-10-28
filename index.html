@@ -2411,6 +2411,82 @@ function correctorNivellActual() {
   return CORRECTOR_NIVELLS.includes(n) ? n : 'B1';
 }
 
+// Les consignes, com a les proves d'expressió escrita de cada nivell: tipus de text i tema,
+// amb una extensió orientativa (no es comprova: els límits són CORRECTOR_MIN i CORRECTOR_MAX).
+// Sense cap formulació que atribueixi gènere a qui escriu. Se'n tria una a l'atzar per nivell
+// i es pot demanar «Una altra». La consigna no viatja al Worker: corregeix el text i prou.
+const CORRECTOR_CONSIGNES = {
+  A1: { paraules: [20, 50], llista: [
+    'Presenta\'t: com et dius, d\'on ets, on vius i què t\'agrada fer.',
+    'Descriu la teva família: qui són i com són.',
+    'Explica què fas un dia normal, des que et lleves fins que te\'n vas a dormir.',
+    'Descriu casa teva: quantes habitacions té i què hi ha a cada una.',
+    'Escriu un missatge curt per quedar amb algú: on, quin dia i a quina hora.',
+    'Explica què t\'agrada menjar i beure, i què no.',
+  ] },
+  A2: { paraules: [40, 80], llista: [
+    'Escriu un correu a una persona amiga explicant-li què vas fer el cap de setmana passat.',
+    'Descriu el teu barri o el teu poble: què hi ha, què hi falta i què t\'hi agrada.',
+    'Explica com era la teva vida fa deu anys i què ha canviat.',
+    'Escriu un missatge per demanar informació sobre un curs: horaris, preu i com apuntar-s\'hi.',
+    'Descriu una persona que coneixes bé: com és físicament i de caràcter.',
+    'Explica una festa o una tradició del lloc on vius.',
+  ] },
+  B1: { paraules: [80, 150], llista: [
+    'Escriu un correu a una botiga per queixar-te d\'un producte que ha arribat fet malbé i demanar una solució.',
+    'Explica una anècdota que et va passar en un viatge.',
+    'Dona la teva opinió: és millor viure en una ciutat gran o en un poble? Per què?',
+    'Escriu un missatge al grup de veïns per proposar una activitat al barri.',
+    'Explica què faries si et toqués un premi important.',
+    'Escriu una ressenya d\'un llibre, una pel·lícula o una sèrie que hagis vist fa poc.',
+  ] },
+  B2: { paraules: [150, 250], llista: [
+    'Escriu un article d\'opinió sobre si les xarxes socials ens acosten o ens allunyen.',
+    'Escriu una carta formal a l\'ajuntament per demanar millores en el transport públic del teu municipi.',
+    'Argumenta a favor o en contra del teletreball, amb avantatges i inconvenients.',
+    'Escriu un text per convèncer algú de llegir més: per què val la pena i com començar.',
+    'Explica un problema mediambiental del teu entorn i proposa-hi solucions.',
+    'Escriu una sol·licitud per participar en un programa d\'intercanvi, explicant per què t\'hi haurien d\'acceptar.',
+  ] },
+  C1: { paraules: [200, 350], llista: [
+    'Escriu un article per a una revista sobre el paper de la intel·ligència artificial en l\'aprenentatge de llengües.',
+    'Redacta una carta a la direcció d\'un diari sobre un tema d\'actualitat que et preocupi.',
+    'Analitza les causes i les conseqüències de la pèrdua d\'ús social d\'una llengua i proposa-hi mesures.',
+    'Escriu un informe breu per a la teva empresa o entitat que avaluï una proposta i recomani una decisió.',
+    'Escriu un text argumentatiu sobre si cal limitar l\'ús del mòbil a les escoles.',
+    'Redacta una crítica cultural (teatre, música, una exposició) amb una valoració raonada.',
+  ] },
+};
+let _correctorConsigna = {};   // nivell → índex de la consigna triada
+function correctorConsigna(nivell = correctorNivellActual()) {
+  const c = CORRECTOR_CONSIGNES[nivell];
+  if (!c) return null;
+  if (_correctorConsigna[nivell] === undefined) _correctorConsigna[nivell] = Math.floor(Math.random() * c.llista.length);
+  return { nivell, text: c.llista[_correctorConsigna[nivell]], paraules: c.paraules };
+}
+function correctorAltraConsigna() {
+  const nivell = correctorNivellActual();
+  const c = CORRECTOR_CONSIGNES[nivell];
+  if (!c || c.llista.length < 2) return;
+  const actual = _correctorConsigna[nivell];
+  let nou;
+  do { nou = Math.floor(Math.random() * c.llista.length); } while (nou === actual);
+  _correctorConsigna[nivell] = nou;
+  const el = document.getElementById('corrector-consigna');
+  if (el) el.innerHTML = correctorConsignaInner();
+}
+function correctorConsignaInner() {
+  const c = correctorConsigna();
+  if (!c) return '';
+  return `<div style="background:var(--accent-blue-bg);border-left:3px solid var(--accent-blue-text);border-radius:10px;padding:12px 14px;">
+      <div style="font-size:14px;color:var(--text);line-height:1.55;">${escText(c.text)}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap;">
+        <span style="font-size:12px;color:var(--accent-blue-val);">Entre ${c.paraules[0]} i ${c.paraules[1]} paraules, més o menys.</span>
+        <button type="button" onclick="correctorAltraConsigna()" style="background:none;border:none;padding:4px 0;font:inherit;font-size:13px;font-weight:600;color:var(--accent-blue-text);text-decoration:underline;cursor:pointer;">Una altra</button>
+      </div>
+    </div>`;
+}
+
 // La targeta de l'Inici: només amb sessió i accés. renderMenu() deixa el lloc i
 // correctorRefrescaTargeta() l'omple quan /estat ha respost, com la de la lliga.
 function correctorTargetaHTML() {
@@ -2495,8 +2571,10 @@ function correctorFormulariHTML() {
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;" role="group" aria-label="Nivell del text">
         ${CORRECTOR_NIVELLS.map(n => `<button type="button" class="ct-btn ${n === nivell ? 'primary' : 'secondary'}" style="padding:7px 14px;font-size:13px;" aria-pressed="${n === nivell}" onclick="correctorTriaNivell('${n}')">${n}</button>`).join('')}
       </div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">LA CONSIGNA</div>
+      <div id="corrector-consigna" style="margin-bottom:14px;">${correctorConsignaInner()}</div>
       <label for="corrector-text" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;">EL TEU TEXT</label>
-      <textarea id="corrector-text" class="ct-input" rows="9" style="resize:vertical;line-height:1.55;" placeholder="Escriu aquí un text d'entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules: un correu, una opinió, el que vulguis." oninput="correctorCompta(this.value)">${escText(_correctorText)}</textarea>
+      <textarea id="corrector-text" class="ct-input" rows="9" style="resize:vertical;line-height:1.55;" placeholder="Escriu aquí el teu text (entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules)." oninput="correctorCompta(this.value)">${escText(_correctorText)}</textarea>
       <div id="corrector-compta" style="font-size:12px;color:var(--muted);margin:6px 0 14px;text-align:right;">${correctorComptaText(correctorParaules(_correctorText))}</div>
       ${correctorAcceptat() ? '' : `<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-soft);line-height:1.55;margin-bottom:14px;cursor:pointer;">
         <input type="checkbox" id="corrector-accepta" style="margin-top:3px;flex-shrink:0;width:18px;height:18px;">
@@ -2545,7 +2623,8 @@ async function correctorEnvia() {
   const d = r.dades || {};
   if (_correctorEstat && typeof d.usats === 'number' && typeof d.maxim === 'number') { _correctorEstat.usats = d.usats; _correctorEstat.maxim = d.maxim; }
   if (r.status === 200 && Array.isArray(d.errors)) {
-    _correctorResultat = { text, nivell, errors: d.errors, valoracio: String(d.valoracio || ''), usats: d.usats | 0, maxim: d.maxim | 0 };
+    const consigna = correctorConsigna(nivell);
+    _correctorResultat = { text, nivell, consigna: consigna ? consigna.text : '', errors: d.errors, valoracio: String(d.valoracio || ''), usats: d.usats | 0, maxim: d.maxim | 0 };
     if (document.getElementById('corrector-pantalla')) renderCorrector();
     return;
   }
@@ -2605,7 +2684,9 @@ function correctorResultatHTML(res) {
       <div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
         <strong>${n === 0 ? 'Cap error trobat.' : n === 1 ? '1 error trobat.' : `${n} errors trobats.`}</strong>${res.valoracio ? ' ' + escText(res.valoracio) : ''}
       </div>
-      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">EL TEU TEXT (${escText(res.nivell)})</div>
+      ${res.consigna ? `<div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">LA CONSIGNA (${escText(res.nivell)})</div>
+      <div style="font-size:13px;color:var(--text-soft);line-height:1.55;background:var(--accent-blue-bg);border-left:3px solid var(--accent-blue-text);border-radius:10px;padding:10px 14px;margin-bottom:14px;">${escText(res.consigna)}</div>` : ''}
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">EL TEU TEXT${res.consigna ? '' : ` (${escText(res.nivell)})`}</div>
       <div style="font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:18px;">${correctorTextMarcat(res.text, errors)}</div>
       ${n ? `<div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">ELS ERRORS</div>` : ''}
       ${errors.map((e, i) => correctorErrorHTML(e, i + 1)).join('')}
