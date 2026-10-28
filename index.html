@@ -2715,6 +2715,33 @@ function correctorResultatHTML(res) {
         <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="correctorNou(false)">Text nou</button>
       </div>
       <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Avui: ${res.usats | 0} de ${res.maxim | 0} correccions</div>
+      ${correctorDubtosaHTML(res, errors)}
+    </div>`;
+}
+// Com la correcció dubtosa dels exercicis: un enllaç discret que obre el correu de la persona
+// amb el nivell, la consigna, les correccions i el text ja escrits. L'app no recull ni envia
+// res. El text va retallat: un mailto: massa llarg no s'obre en alguns clients de correu.
+function correctorDubtosaHTML(res, errors) {
+  const retalla = (t, n) => { t = textPla(t); return t.length > n ? t.slice(0, n) + '…' : t; };
+  const linies = [
+    `Expressió escrita, nivell ${res.nivell}`,
+    ...(res.consigna ? [`Consigna: ${retalla(res.consigna, 200)}`] : []),
+    `Correccions (${errors.length}):`,
+    ...errors.map((e, i) => `${i + 1}. «${retalla(e.fragment, 80)}» → «${retalla(e.proposta, 80)}»${CORRECTOR_TIPUS[e.tipus] ? ` (${CORRECTOR_TIPUS[e.tipus]})` : ''}`),
+    '',
+    `El meu text: ${retalla(res.text, 700)}`,
+    '',
+    'Què crec que no és bo (o què hi falta):',
+    '',
+  ];
+  const href = `mailto:${CORREU_CORRECCIONS}?subject=${encodeURIComponent(`Correcció dubtosa: expressió escrita ${res.nivell}`)}`
+    + `&amp;body=${encodeURIComponent(linies.join('\r\n'))}`;
+  return `<div style="margin-top:14px;text-align:center;font-size:12px;line-height:1.5;color:var(--muted);">
+      Creus que alguna correcció no és bona, o que n'hi falta alguna?
+      <a href="${href}" onclick="document.getElementById('corrector-report-adreca').hidden = false"
+        style="color:var(--muted);text-decoration:underline;padding:4px 0;">Avisa'ns</a>.
+      T'ho agrairem: és una prova i ens ajuda a millorar-la.
+      <div id="corrector-report-adreca" hidden style="margin-top:4px;">Si no se t'ha obert el correu, escriu a <strong>${CORREU_CORRECCIONS}</strong> i digues-nos quin nivell i quina correcció.</div>
     </div>`;
 }
 
