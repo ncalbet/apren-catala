@@ -443,6 +443,13 @@
   })();
 </script>
 
+<!-- La pantalla del logo (el mateix fons i la mateixa icona que la d'Android): es manté fins
+     que Firebase diu si hi ha sessió i el que en depèn s'ha refrescat, amb un màxim
+     (vegeu treuSplash). Així la primera pantalla que es veu ja és la bona. -->
+<div id="splash" aria-hidden="true" style="position:fixed;inset:0;z-index:100000;background:#1a2f4e;display:flex;align-items:center;justify-content:center;transition:opacity 0.25s;">
+  <img src="icons/icon-192x192.png" width="112" height="112" alt="" style="border-radius:26px;">
+</div>
+
 <div class="ct-header">
   <div class="ct-logo" onclick="showTab('menu')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('menu')" role="button" tabindex="0" style="cursor:pointer;">Aprèn<span>Català</span></div>
   <div class="ct-stats">
@@ -6222,13 +6229,32 @@ function refrescaAmbSessio(user) {
   return Promise.allSettled(REFRESCOS_SESSIO.map(f => { try { return Promise.resolve(f(user)); } catch (e) { return Promise.resolve(); } }));
 }
 
+// ── La pantalla del logo (#splash) ──
+// Tapa l'app fins que Firebase diu si hi ha sessió i REFRESCOS_SESSIO ha acabat, perquè la
+// primera pantalla que es veu ja sigui la bona (decisió de l'usuari, 28/10/2026). Mai més de
+// SPLASH_MAX_MS: sense connexió o sense Firebase, l'app no s'ha de quedar darrere del logo.
+// SPLASH_MIN_MS evita el parpelleig quan tot arriba de seguida.
+const SPLASH_T0 = Date.now();
+const SPLASH_MIN_MS = 300;
+const SPLASH_MAX_MS = 1500;
+let _splashTret = false;
+function treuSplash() {
+  if (_splashTret) return;
+  _splashTret = true;
+  const el = document.getElementById('splash');
+  if (!el) return;
+  const espera = Math.max(0, SPLASH_MIN_MS - (Date.now() - SPLASH_T0));
+  setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 250); }, espera);
+}
+setTimeout(treuSplash, SPLASH_MAX_MS);
+
 document.addEventListener('fb-auth-change', async (e) => {
   const user = e.detail;
   fbRefreshAccountUI();
   refreshNotifSection();
   if (!shouldShowOnboarding()) showWhatsNew();
   if (!user) {
-    refrescaAmbSessio(null);
+    refrescaAmbSessio(null).finally(treuSplash);
     // Sense sessió no es compta res per a la lliga, però la memòria de la lliga NO
     // s'esborra: un «sense sessió» de Firebase pot ser momentani, i abans deixava el
     // dispositiu dient «fora» a qui hi era (28/09). Qui l'oblida és tancar la sessió de
@@ -6252,7 +6278,7 @@ document.addEventListener('fb-auth-change', async (e) => {
   // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
   _lligaPrimeraSinc = lligaSincronitzaAmbReintents();
   syncPseudonim();
-  refrescaAmbSessio(user);
+  refrescaAmbSessio(user).finally(treuSplash);
   await sincronitzaProgres();
 });
 
