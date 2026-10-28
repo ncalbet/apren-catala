@@ -2498,9 +2498,9 @@ function correctorTargetaInner() {
       <div style="display:flex;align-items:flex-start;gap:12px;">
         <span style="font-size:20px;flex-shrink:0;">✍️</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">Corregeix un text</div>
-          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;line-height:1.5;">Escriu entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules i te'l tornem corregit, amb el perquè de cada error. Prova tancada · ${q ? `avui encara en pots fer ${q}` : 'avui ja has fet les del dia'}.</div>
-          <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;margin-top:10px;" onclick="showTab('corrector')">Escriu-ne un</button>
+          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">Nou: exercicis d'expressió escrita (prova)</div>
+          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;line-height:1.5;">Tria una consigna, escriu el text i te'l tornem corregit, amb el perquè de cada error. ${q ? `Avui encara en pots fer ${q}` : 'Avui ja has fet les del dia'}.</div>
+          <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;margin-top:10px;" onclick="showTab('corrector')">Prova'n un</button>
         </div>
       </div>
     </div>`;
@@ -2515,17 +2515,18 @@ async function correctorRefrescaTargeta() {
 // ── La pantalla ──
 function correctorCapHTML(ambAjuda = false) {
   return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:${ambAjuda ? 10 : 16}px;">
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">✍️ Corregeix un text</div>
-      ${ambAjuda ? `<button type="button" class="ct-help-btn" onclick="correctorAjuda()" aria-label="Com funciona el corrector" title="Com funciona el corrector">?</button>` : ''}
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">✍️ Expressió escrita</div>
+      <span class="ct-badge" style="background:var(--accent-amber-bg);color:var(--accent-amber-text);">Prova</span>
+      ${ambAjuda ? `<button type="button" class="ct-help-btn" onclick="correctorAjuda()" aria-label="Com funcionen aquests exercicis" title="Com funcionen aquests exercicis">?</button>` : ''}
     </div>`;
 }
 // L'ajuda, darrere del «?»: què fa, els límits i on va el text.
 function correctorAjudaHTML() {
   const e = _correctorEstat || {};
   return `<div id="corrector-ajuda" style="display:none;background:var(--accent-amber-bg);color:var(--accent-amber-text);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
-      <strong>Què fa.</strong> Busca al teu text els errors d'ortografia, de gramàtica i de lèxic segons la normativa de l'IEC, i t'explica cadascun amb el tema de la teoria per repassar-lo. Les formes pròpies del valencià i del balear les accepta.<br><br>
-      <strong>Límits.</strong> Entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules per text, i ${(e.maxim | 0) || 3} correccions al dia. És una prova tancada i el corrector pot equivocar-se: si una correcció et sembla dubtosa, comprova-la.<br><br>
-      <strong>On va el text.</strong> S'envia a Anthropic, l'empresa del model Claude, perquè el corregeixi, i el resultat torna aquí. L'app no el desa: només és a la memòria mentre tens l'app oberta.
+      <strong>Què és.</strong> Estem provant exercicis nous d'expressió escrita: tries una consigna, escrius el text i te'l tornem corregit segons la normativa vigent de l'IEC, amb el perquè de cada error i el tema de la teoria per repassar-lo. Les formes pròpies del valencià i del balear s'accepten.<br><br>
+      <strong>Límits.</strong> Entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules per text, i ${(e.maxim | 0) || 3} correccions al dia. És una prova i el corrector pot equivocar-se: si una correcció et sembla dubtosa, comprova-la.<br><br>
+      <strong>On va el text.</strong> S'envia a un servei extern només per corregir-lo. No s'hi envia cap dada del teu compte, i el text no es guarda ni es fa servir per a res més que la correcció.
     </div>`;
 }
 function correctorAjuda() {
@@ -2578,7 +2579,7 @@ function correctorFormulariHTML() {
       <div id="corrector-compta" style="font-size:12px;color:var(--muted);margin:6px 0 14px;text-align:right;">${correctorComptaText(correctorParaules(_correctorText))}</div>
       ${correctorAcceptat() ? '' : `<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-soft);line-height:1.55;margin-bottom:14px;cursor:pointer;">
         <input type="checkbox" id="corrector-accepta" style="margin-top:3px;flex-shrink:0;width:18px;height:18px;">
-        <span>Sé que és una prova i que el text que envio va a Anthropic, l'empresa del model Claude, perquè el corregeixi. L'app no el desa.</span>
+        <span>Participo en una prova. El text s'envia a un servei extern només per corregir-lo segons la normativa vigent de l'IEC: no s'hi envia cap dada del meu compte, i no es guarda ni es fa servir per a res més.</span>
       </label>`}
       <div id="corrector-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
       <button id="corrector-envia" class="ct-btn primary" style="width:100%;" onclick="correctorEnvia()">Corregeix</button>
