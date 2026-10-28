@@ -1333,7 +1333,7 @@ function showTab(tab) {
     document.getElementById('drop-' + tab).classList.add('active');
   } else if (tab === 'review') {
     document.getElementById('nav-levels').classList.add('active');
-  } else if (tab === 'lliga') {
+  } else if (tab === 'lliga' || tab === 'corrector') {
     document.getElementById('nav-menu').classList.add('active');
   } else if (tab === 'help') {
     // L'Ajuda ja no té pestanya pròpia (Material: màxim 5 destinacions): viu dins del Perfil
@@ -1355,6 +1355,7 @@ function showTab(tab) {
   else if (tab === 'help') renderHelp();
   else if (tab === 'profile') renderProfile();
   else if (tab === 'lliga') renderLliga();
+  else if (tab === 'corrector') renderCorrector();
   else renderProgress();
 }
 function toggleLevelsMenu() {
@@ -1463,6 +1464,7 @@ function renderMenu() {
     ${novetatsBanner}
     ${kofiBanner}
     ${lligaTargetaHTML()}
+    ${correctorTargetaHTML()}
     <div class="ct-card" style="text-align:center;padding:32px 24px;">
       <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--heading);margin-bottom:8px;">${pseudo ? `Hola, ${pseudo}!` : 'Hola!'}</div>
       <p style="color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;">
@@ -1522,6 +1524,7 @@ function renderMenu() {
       ${repasSessio.length > 0 ? `<button class="ct-btn secondary" style="width:100%;margin:0;background:var(--accent-green-bg);border-color:#059669;color:#059669;" onclick="reviewLevel='all';showTab('review')"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> ${repasToca ? `Avui et toca repassar ${exercicis(repasSessio.length)}` : 'Avui no et toca cap repàs · Avança\'n alguns'}</button>` : ''}
     </div>`;
   lligaRefrescaTargeta();
+  correctorRefrescaTargeta();
 }
 
 function renderLevelMenu(level) {
@@ -2316,6 +2319,302 @@ function obreTeoriaTema(categoria = null) {
       <button type="button" class="ct-btn primary" style="width:100%;margin-top:8px;" onclick="document.getElementById('teoria-modal').remove()">${categoria ? 'Tanca' : 'Torna a l\'exercici'}</button>
     </div>`;
   document.body.appendChild(el);
+}
+
+// ══ CORRECTOR DE TEXTOS (prova tancada, 28/10/2026) ══
+// Un text de 20 a 400 paraules va al Worker (corrector.aprencatala.cat), que el passa a
+// Claude i torna els errors (fragment → proposta, tipus, explicació i el tema de la teoria)
+// i una valoració curta. La clau de l'API viu al Worker; d'aquí només hi va el token de
+// Firebase. Qui pot corregir i quant ho decideix el Worker (llista d'admesos i límit del
+// dia): la targeta de l'Inici només surt a qui /estat diu que és admès, però l'accés no
+// depèn de la targeta. El text viu en memòria mentre l'app és oberta: no es desa enlloc.
+// Decisions dels dies 27 i 28/10/2026: Catala/Documentacio/Correccio-IA/disseny.md.
+const CORRECTOR_URL = 'https://corrector.aprencatala.cat';
+const CORRECTOR_NIVELLS = ['A1', 'A2', 'B1', 'B2', 'C1'];
+const CORRECTOR_MIN = 20;           // paraules: els mateixos límits que el Worker (validaEntrada)
+const CORRECTOR_MAX = 400;
+const CORRECTOR_TEMPS_MS = 45000;   // el model triga entre 5 i 15 s; més enllà, es dona per perdut
+const CORRECTOR_TIPUS = { ortografia: 'ortografia', accentuacio: 'accentuació', apostrof_contraccio: 'apòstrof i contraccions', verb: 'verb', pronom: 'pronom', preposicio: 'preposició', concordanca: 'concordança', lexic: 'lèxic', sintaxi: 'sintaxi', puntuacio: 'puntuació' };
+let _correctorEstat = null;          // { admes, usats, maxim, t }: l'última lectura de /estat
+let _correctorEstatPromesa = null;   // la lectura en curs, per no fer-ne dues alhora
+let _correctorNivell = null;         // el nivell triat; null = el del recorregut, o B1
+let _correctorText = '';             // el text escrit (en memòria, a posta)
+let _correctorResultat = null;       // l'última correcció, mentre es mira
+let _correctorEnviant = false;
+
+// La mateixa normalització i el mateix recompte que el Worker: el que passa aquí passa allà.
+function correctorNormalitza(t) {
+  return String(t || '').replace(/\r\n?/g, '\n').replace(/[ \t]+\n/g, '\n').trim();
+}
+function correctorParaules(t) {
+  const n = correctorNormalitza(t);
+  return n ? n.split(/\s+/).length : 0;
+}
+function correctorAcceptat() {
+  try { return !!localStorage.getItem('corrector_acceptat_at'); } catch (e) { return false; }
+}
+async function correctorToken() {
+  const u = window.fbUser;
+  if (!u || typeof u.getIdToken !== 'function') return null;
+  try { return await u.getIdToken(); } catch (e) { return null; }
+}
+// Una crida al Worker amb el token. Torna { status, dades } o, si no s'hi arriba,
+// { status: 0, codi: 'sessio' | 'temps' | 'xarxa' }.
+async function correctorCrida(ruta, opcions = {}) {
+  const token = await correctorToken();
+  if (!token) return { status: 0, codi: 'sessio' };
+  const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+  const temps = setTimeout(() => { if (ctrl) ctrl.abort(); }, CORRECTOR_TEMPS_MS);
+  try {
+    const r = await fetch(CORRECTOR_URL + ruta, {
+      ...opcions,
+      headers: { Authorization: 'Bearer ' + token, ...(opcions.headers || {}) },
+      signal: ctrl ? ctrl.signal : undefined,
+    });
+    let dades = null;
+    try { dades = await r.json(); } catch (e) { dades = null; }
+    return { status: r.status, dades };
+  } catch (e) {
+    return { status: 0, codi: e && e.name === 'AbortError' ? 'temps' : 'xarxa' };
+  } finally {
+    clearTimeout(temps);
+  }
+}
+// L'estat d'aquest compte al Worker (admès, usats, màxim), amb cinc minuts de cau.
+async function correctorEstat(forca = false) {
+  if (!window.fbUser) { _correctorEstat = null; return null; }
+  if (!forca && _correctorEstat && Date.now() - _correctorEstat.t < 300000) return _correctorEstat;
+  if (_correctorEstatPromesa) return _correctorEstatPromesa;
+  _correctorEstatPromesa = (async () => {
+    const r = await correctorCrida('/estat');
+    if (r.status === 200 && r.dades) {
+      _correctorEstat = { admes: !!r.dades.admes, usats: r.dades.usats | 0, maxim: r.dades.maxim | 0, t: Date.now() };
+    } else if (r.status === 403 || r.status === 401) {
+      _correctorEstat = { admes: false, usats: 0, maxim: 0, t: Date.now() };
+    }
+    // Sense resposta (xarxa, Worker caigut): es queda el que hi havia, o res.
+    return _correctorEstat;
+  })();
+  try { return await _correctorEstatPromesa; } finally { _correctorEstatPromesa = null; }
+}
+function correctorAdmes() {
+  return !!(window.fbUser && _correctorEstat && _correctorEstat.admes);
+}
+function correctorQueden() {
+  const e = _correctorEstat || {};
+  return Math.max(0, (e.maxim | 0) - (e.usats | 0));
+}
+function correctorNivellActual() {
+  if (_correctorNivell) return _correctorNivell;
+  const r = recorregutActiu();
+  const n = r ? String(r.nivell || r.id || '').toUpperCase() : '';
+  return CORRECTOR_NIVELLS.includes(n) ? n : 'B1';
+}
+
+// La targeta de l'Inici: només amb sessió i accés. renderMenu() deixa el lloc i
+// correctorRefrescaTargeta() l'omple quan /estat ha respost, com la de la lliga.
+function correctorTargetaHTML() {
+  return `<div id="corrector-targeta">${correctorAdmes() ? correctorTargetaInner() : ''}</div>`;
+}
+function correctorTargetaInner() {
+  const q = correctorQueden();
+  return `<div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <span style="font-size:20px;flex-shrink:0;">✍️</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">Corregeix un text</div>
+          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;line-height:1.5;">Escriu entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules i te'l tornem corregit, amb el perquè de cada error. Prova tancada · ${q ? `avui encara en pots fer ${q}` : 'avui ja has fet les del dia'}.</div>
+          <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;margin-top:10px;" onclick="showTab('corrector')">Escriu-ne un</button>
+        </div>
+      </div>
+    </div>`;
+}
+async function correctorRefrescaTargeta() {
+  if (!window.fbUser) return;
+  await correctorEstat();
+  const el = document.getElementById('corrector-targeta');
+  if (el) el.innerHTML = correctorAdmes() ? correctorTargetaInner() : '';
+}
+
+// ── La pantalla ──
+function correctorCapHTML(ambAjuda = false) {
+  return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:${ambAjuda ? 10 : 16}px;">
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);">✍️ Corregeix un text</div>
+      ${ambAjuda ? `<button type="button" class="ct-help-btn" onclick="correctorAjuda()" aria-label="Com funciona el corrector" title="Com funciona el corrector">?</button>` : ''}
+    </div>`;
+}
+// L'ajuda, darrere del «?»: què fa, els límits i on va el text.
+function correctorAjudaHTML() {
+  const e = _correctorEstat || {};
+  return `<div id="corrector-ajuda" style="display:none;background:var(--accent-amber-bg);color:var(--accent-amber-text);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
+      <strong>Què fa.</strong> Busca al teu text els errors d'ortografia, de gramàtica i de lèxic segons la normativa de l'IEC, i t'explica cadascun amb el tema de la teoria per repassar-lo. Les formes pròpies del valencià i del balear les accepta.<br><br>
+      <strong>Límits.</strong> Entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules per text, i ${(e.maxim | 0) || 3} correccions al dia. És una prova tancada i el corrector pot equivocar-se: si una correcció et sembla dubtosa, comprova-la.<br><br>
+      <strong>On va el text.</strong> S'envia a Anthropic, l'empresa del model Claude, perquè el corregeixi, i el resultat torna aquí. L'app no el desa: només és a la memòria mentre tens l'app oberta.
+    </div>`;
+}
+function correctorAjuda() {
+  const el = document.getElementById('corrector-ajuda');
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+function renderCorrector() {
+  window.scrollTo(0, 0);
+  const cos = document.getElementById('ct-body');
+  if (!window.fbUser) {
+    cos.innerHTML = `<div class="ct-card" id="corrector-pantalla" style="max-width:600px;margin:0 auto;">
+        ${correctorCapHTML()}
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:16px;">Per corregir textos cal haver entrat amb el compte: el corrector ha de saber a qui respon.</p>
+        <button class="ct-btn primary" style="width:100%;" onclick="showTab('profile')">Entra o crea el compte</button>
+      </div>`;
+    return;
+  }
+  if (!correctorAdmes()) {
+    cos.innerHTML = `<div class="ct-card" id="corrector-pantalla" style="max-width:600px;margin:0 auto;">
+        ${correctorCapHTML()}
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:16px;">El corrector és una prova tancada i, ara mateix, el teu compte no hi té accés.</p>
+        <button class="ct-btn secondary" style="width:100%;" onclick="showTab('menu')">Torna a l'Inici</button>
+      </div>`;
+    // Potser l'estat encara no s'ha llegit: es llegeix i, si cal, es torna a pintar.
+    if (!_correctorEstat) correctorEstat().then(() => { if (correctorAdmes() && document.getElementById('corrector-pantalla')) renderCorrector(); });
+    return;
+  }
+  cos.innerHTML = _correctorResultat ? correctorResultatHTML(_correctorResultat) : correctorFormulariHTML();
+}
+function correctorComptaText(n) {
+  if (n < CORRECTOR_MIN) return `${n} ${n === 1 ? 'paraula' : 'paraules'} · en calen almenys ${CORRECTOR_MIN}`;
+  if (n > CORRECTOR_MAX) return `${n} paraules · el màxim és ${CORRECTOR_MAX}`;
+  return `${n} paraules`;
+}
+function correctorFormulariHTML() {
+  const e = _correctorEstat || {};
+  const q = correctorQueden();
+  const nivell = correctorNivellActual();
+  return `<div class="ct-card" id="corrector-pantalla" style="max-width:600px;margin:0 auto;">
+      ${correctorCapHTML(true)}
+      ${correctorAjudaHTML()}
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">NIVELL DEL TEXT</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;" role="group" aria-label="Nivell del text">
+        ${CORRECTOR_NIVELLS.map(n => `<button type="button" class="ct-btn ${n === nivell ? 'primary' : 'secondary'}" style="padding:7px 14px;font-size:13px;" aria-pressed="${n === nivell}" onclick="correctorTriaNivell('${n}')">${n}</button>`).join('')}
+      </div>
+      <label for="corrector-text" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;">EL TEU TEXT</label>
+      <textarea id="corrector-text" class="ct-input" rows="9" style="resize:vertical;line-height:1.55;" placeholder="Escriu aquí un text d'entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules: un correu, una opinió, el que vulguis." oninput="correctorCompta(this.value)">${escText(_correctorText)}</textarea>
+      <div id="corrector-compta" style="font-size:12px;color:var(--muted);margin:6px 0 14px;text-align:right;">${correctorComptaText(correctorParaules(_correctorText))}</div>
+      ${correctorAcceptat() ? '' : `<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-soft);line-height:1.55;margin-bottom:14px;cursor:pointer;">
+        <input type="checkbox" id="corrector-accepta" style="margin-top:3px;flex-shrink:0;width:18px;height:18px;">
+        <span>Sé que és una prova i que el text que envio va a Anthropic, l'empresa del model Claude, perquè el corregeixi. L'app no el desa.</span>
+      </label>`}
+      <div id="corrector-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
+      <button id="corrector-envia" class="ct-btn primary" style="width:100%;" onclick="correctorEnvia()">Corregeix</button>
+      <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Prova tancada · ${q ? `avui encara en pots fer ${q}` : `avui ja n'has fet ${e.maxim | 0}`} · triga uns segons</div>
+    </div>`;
+}
+function correctorCompta(valor) {
+  _correctorText = valor;
+  const el = document.getElementById('corrector-compta');
+  if (el) el.textContent = correctorComptaText(correctorParaules(valor));
+}
+function correctorTriaNivell(n) {
+  if (!CORRECTOR_NIVELLS.includes(n)) return;
+  _correctorNivell = n;
+  renderCorrector();
+}
+function correctorNou(mantenirText) {
+  _correctorResultat = null;
+  if (!mantenirText) _correctorText = '';
+  renderCorrector();
+}
+async function correctorEnvia() {
+  if (_correctorEnviant) return;
+  const errorEl = document.getElementById('corrector-error');
+  const diu = m => { if (errorEl) errorEl.textContent = m; };
+  const text = correctorNormalitza(_correctorText);
+  const n = text ? text.split(/\s+/).length : 0;
+  if (n < CORRECTOR_MIN) return diu(`El text ha de tenir almenys ${CORRECTOR_MIN} paraules (en té ${n}).`);
+  if (n > CORRECTOR_MAX) return diu(`El text no pot passar de ${CORRECTOR_MAX} paraules (en té ${n}).`);
+  if (!correctorAcceptat()) {
+    const casella = document.getElementById('corrector-accepta');
+    if (!casella || !casella.checked) return diu('Marca la casella per enviar el text.');
+    try { localStorage.setItem('corrector_acceptat_at', new Date().toISOString()); } catch (e) {}
+  }
+  diu('');
+  _correctorEnviant = true;
+  const btn = document.getElementById('corrector-envia');
+  if (btn) { btn.disabled = true; btn.textContent = 'Corregint… triga uns segons'; }
+  const nivell = correctorNivellActual();
+  const r = await correctorCrida('/corregeix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nivell, text }) });
+  _correctorEnviant = false;
+  const d = r.dades || {};
+  if (_correctorEstat && typeof d.usats === 'number' && typeof d.maxim === 'number') { _correctorEstat.usats = d.usats; _correctorEstat.maxim = d.maxim; }
+  if (r.status === 200 && Array.isArray(d.errors)) {
+    _correctorResultat = { text, nivell, errors: d.errors, valoracio: String(d.valoracio || ''), usats: d.usats | 0, maxim: d.maxim | 0 };
+    if (document.getElementById('corrector-pantalla')) renderCorrector();
+    return;
+  }
+  if (btn) { btn.disabled = false; btn.textContent = 'Corregeix'; }
+  diu(correctorMissatgeError(r));
+}
+function correctorMissatgeError(r) {
+  const codi = (r.dades && r.dades.codi) || r.codi || '';
+  if (r.status === 429) return `Avui ja has fet les ${(r.dades && r.dades.maxim) || ''} correccions del dia. Demà en tindràs més.`.replace('  ', ' ');
+  if (r.status === 401) return 'La sessió ha caducat. Torna a entrar amb el compte i prova-ho de nou.';
+  if (r.status === 403) return 'El teu compte no té accés al corrector: és una prova tancada.';
+  if (r.status === 400) {
+    if (codi === 'curt') return `El text ha de tenir almenys ${CORRECTOR_MIN} paraules.`;
+    if (codi === 'llarg') return `El text no pot passar de ${CORRECTOR_MAX} paraules.`;
+    return 'El corrector no ha entès el text. Revisa\'l i torna-ho a provar.';
+  }
+  if (r.status >= 500) return 'El corrector no ha pogut respondre. Torna-ho a provar d\'aquí a un moment.';
+  if (codi === 'temps') return 'El corrector triga massa. Torna-ho a provar d\'aquí a un moment.';
+  if (codi === 'sessio') return 'Cal haver entrat amb el compte.';
+  return 'No s\'ha pogut connectar amb el corrector. Comprova la connexió i torna-ho a provar.';
+}
+
+// ── El resultat ──
+// El text amb cada error marcat a la posició que diu el Worker (ini/fi sobre el text
+// normalitzat). Una posició estranya o solapada amb l'anterior es deixa sense marca.
+function correctorTextMarcat(text, errors) {
+  let sortida = '', pos = 0;
+  errors.forEach((e, i) => {
+    const ini = e.ini | 0, fi = e.fi | 0;
+    if (!(ini >= pos && fi > ini && fi <= text.length)) return;
+    sortida += escText(text.slice(pos, ini))
+      + `<mark style="background:var(--accent-amber-bg);color:var(--accent-amber-text);border-bottom:2px solid var(--accent-amber-val);border-radius:3px;padding:0 1px;">${escText(text.slice(ini, fi))}</mark><sup style="font-size:10px;color:var(--accent-amber-text);">${i + 1}</sup>`;
+    pos = fi;
+  });
+  return sortida + escText(text.slice(pos));
+}
+function correctorErrorHTML(e, num) {
+  const tipus = CORRECTOR_TIPUS[e.tipus] || '';
+  const tema = e.tema && THEORY[e.tema] ? String(e.tema) : null;
+  return `<div style="border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;">
+      <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:15px;line-height:1.5;">
+        <span style="font-size:11px;font-weight:700;color:var(--muted);">${num}</span>
+        <span style="text-decoration:line-through;color:var(--danger);overflow-wrap:anywhere;">${escText(e.fragment)}</span>
+        <span style="color:var(--muted);">→</span>
+        <strong style="color:var(--accent-green-text);overflow-wrap:anywhere;">${escText(e.proposta)}</strong>
+        ${tipus ? `<span class="ct-badge" style="background:var(--accent-blue-bg);color:var(--accent-blue-text);">${tipus}</span>` : ''}
+      </div>
+      ${e.explicacio ? `<div style="font-size:13px;color:var(--text-soft);line-height:1.6;margin-top:6px;">${escText(e.explicacio)}</div>` : ''}
+      ${tema ? `<button type="button" data-tema="${escText(tema)}" onclick="obreTeoriaTema(this.dataset.tema)" style="background:none;border:none;padding:6px 0 0;font:inherit;font-size:13px;font-weight:600;color:var(--accent-blue-text);text-decoration:underline;cursor:pointer;">📖 Repassa: ${escText(tema)}</button>` : ''}
+    </div>`;
+}
+function correctorResultatHTML(res) {
+  const errors = (res.errors || []).slice().sort((a, b) => (a.ini | 0) - (b.ini | 0));
+  const n = errors.length;
+  return `<div class="ct-card" id="corrector-pantalla" style="max-width:600px;margin:0 auto;">
+      ${correctorCapHTML()}
+      <div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
+        <strong>${n === 0 ? 'Cap error trobat.' : n === 1 ? '1 error trobat.' : `${n} errors trobats.`}</strong>${res.valoracio ? ' ' + escText(res.valoracio) : ''}
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">EL TEU TEXT (${escText(res.nivell)})</div>
+      <div style="font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:18px;">${correctorTextMarcat(res.text, errors)}</div>
+      ${n ? `<div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;">ELS ERRORS</div>` : ''}
+      ${errors.map((e, i) => correctorErrorHTML(e, i + 1)).join('')}
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;">
+        <button class="ct-btn primary" style="flex:1;min-width:140px;" onclick="correctorNou(true)">Edita el text</button>
+        <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="correctorNou(false)">Text nou</button>
+      </div>
+      <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Avui: ${res.usats | 0} de ${res.maxim | 0} correccions</div>
+    </div>`;
 }
 
 // ══ CORRECCIÓ DUBTOSA ══
