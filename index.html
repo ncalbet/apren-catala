@@ -2511,6 +2511,18 @@ async function correctorRefrescaTargeta() {
   const el = document.getElementById('corrector-targeta');
   if (el) el.innerHTML = correctorAdmes() ? correctorTargetaInner() : '';
 }
+// Firebase confirma la sessió (o la perd) després que l'Inici ja s'hagi pintat: l'estat es
+// torna a demanar i la targeta, o la pantalla si s'hi és, es refan. Ho crida REFRESCOS_SESSIO.
+async function correctorSessioCanvia(user) {
+  _correctorEstat = null;
+  if (!user) {
+    const el = document.getElementById('corrector-targeta');
+    if (el) el.innerHTML = '';
+  } else {
+    await correctorRefrescaTargeta();
+  }
+  if (_navState.screen === 'corrector') renderCorrector();
+}
 
 // ── La pantalla ──
 function correctorCapHTML(ambAjuda = false) {
@@ -6195,12 +6207,28 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // Quan canvia l'estat d'auth: carreguem progrés del núvol si és millor
+// ── El que depèn de la sessió es refresca sol quan Firebase la confirma o la perd ──
+// L'Inici es pinta en uns 50 ms i Firebase respon centenars de mil·lisegons després: el que
+// depèn de la sessió es pintava buit i no es refeia fins que alguna altra cosa repintava la
+// pantalla (28/10/2026, la targeta del corrector; el 28/09, la de la lliga). Cada entrada rep
+// l'usuari (o null) i refresca el seu tros EN EL SEU LLOC, sense repintar la pantalla sencera:
+// repintar-la mouria el desplaçament i es podria menjar un toc. Una targeta nova que depengui
+// de la sessió s'apunta aquí i prou.
+const REFRESCOS_SESSIO = [
+  user => { if (user) return lligaRefrescaTargeta(); },   // en sortir, ja ho fa el gestor de sota
+  user => correctorSessioCanvia(user),
+];
+function refrescaAmbSessio(user) {
+  return Promise.allSettled(REFRESCOS_SESSIO.map(f => { try { return Promise.resolve(f(user)); } catch (e) { return Promise.resolve(); } }));
+}
+
 document.addEventListener('fb-auth-change', async (e) => {
   const user = e.detail;
   fbRefreshAccountUI();
   refreshNotifSection();
   if (!shouldShowOnboarding()) showWhatsNew();
   if (!user) {
+    refrescaAmbSessio(null);
     // Sense sessió no es compta res per a la lliga, però la memòria de la lliga NO
     // s'esborra: un «sense sessió» de Firebase pot ser momentani, i abans deixava el
     // dispositiu dient «fora» a qui hi era (28/09). Qui l'oblida és tancar la sessió de
@@ -6224,6 +6252,7 @@ document.addEventListener('fb-auth-change', async (e) => {
   // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
   _lligaPrimeraSinc = lligaSincronitzaAmbReintents();
   syncPseudonim();
+  refrescaAmbSessio(user);
   await sincronitzaProgres();
 });
 
