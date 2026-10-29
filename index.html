@@ -2596,8 +2596,8 @@ function correctorFormulariHTML() {
       <label for="corrector-text" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;">EL TEU TEXT</label>
       <textarea id="corrector-text" class="ct-input" rows="9" style="resize:vertical;line-height:1.55;" placeholder="Escriu aquí el teu text (entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules)." oninput="correctorCompta(this.value)">${escText(_correctorText)}</textarea>
       <div id="corrector-compta" style="font-size:12px;color:var(--muted);margin:6px 0 14px;text-align:right;">${correctorComptaText(correctorParaules(_correctorText))}</div>
-      ${correctorAcceptat() ? '' : `<label id="corrector-accepta-fila" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-soft);line-height:1.55;margin-bottom:14px;cursor:pointer;">
-        <input type="checkbox" id="corrector-accepta" style="margin-top:3px;flex-shrink:0;width:18px;height:18px;">
+      ${correctorAcceptat() ? '' : `<label id="corrector-accepta-fila" style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--text);line-height:1.55;margin-bottom:14px;padding:12px 14px;border:1px solid var(--accent-blue-text);border-radius:10px;background:var(--accent-blue-bg);cursor:pointer;">
+        <input type="checkbox" id="corrector-accepta" style="margin-top:1px;flex-shrink:0;width:22px;height:22px;accent-color:var(--accent-blue-text);cursor:pointer;">
         <span>Participo en una prova. El text s'envia a un servei extern només per corregir-lo segons la normativa vigent de l'IEC: no s'hi envia cap dada del meu compte, i no es guarda ni es fa servir per a res més.</span>
       </label>`}
       <div id="corrector-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
