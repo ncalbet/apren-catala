@@ -2347,6 +2347,13 @@ let _correctorEstatPromesa = null;   // la lectura en curs, per no fer-ne dues a
 let _correctorNivell = null;         // el nivell triat; null = el del recorregut, o B1
 let _correctorText = '';             // el text escrit (en memòria, a posta)
 let _correctorResultat = null;       // l'última correcció, mentre es mira
+// La invitació per a qui és a la lliga (29/10/2026): el «sí» es desa al perfil de Firestore
+// (correctorVoluntari), que és la constància; l'usuari afegeix l'uid a la llista d'admesos
+// a mà. La resposta es recorda al dispositiu per no tornar a preguntar.
+const CORRECTOR_INVITACIO_KEY = 'corrector_invitacio_v1';   // 'si' | 'no'
+// Les 5 preguntes, una setmana després d'acceptar la casella (corrector_acceptat_at).
+const CORRECTOR_PREGUNTES_KEY = 'corrector_preguntes_v1';
+const CORRECTOR_PREGUNTES_DIES = 7;
 let _correctorEnviant = false;
 
 // La mateixa normalització i el mateix recompte que el Worker: el que passa aquí passa allà.
@@ -2497,7 +2504,77 @@ function correctorConsignaInner() {
 // La targeta de l'Inici: només amb sessió i accés. renderMenu() deixa el lloc i
 // correctorRefrescaTargeta() l'omple quan /estat ha respost, com la de la lliga.
 function correctorTargetaHTML() {
-  return `<div id="corrector-targeta">${correctorAdmes() ? correctorTargetaInner() : ''}</div>`;
+  return `<div id="corrector-targeta">${correctorZonaInner()}</div>`;
+}
+// Què va al lloc de la targeta: a qui és admès, la targeta (i, al cap d'una setmana, les 5
+// preguntes); a qui és a la lliga i no és admès, la invitació o la confirmació d'apuntat.
+function correctorZonaInner() {
+  if (correctorAdmes()) return correctorTargetaInner() + correctorPreguntesInner();
+  if (!correctorInvitacioCandidat()) return '';
+  const resposta = correctorInvitacioResposta();
+  if (resposta === 'si') return correctorApuntatInner();
+  if (resposta === 'no') return '';
+  return correctorInvitacioInner();
+}
+function correctorInvitacioResposta() {
+  try { return localStorage.getItem(CORRECTOR_INVITACIO_KEY); } catch (e) { return null; }
+}
+// Amb sessió, dins la lliga i amb /estat respost que no és admès. Sense resposta de /estat
+// (xarxa), res: val més no convidar que convidar qui ja hi té accés.
+function correctorInvitacioCandidat() {
+  return !!(window.fbUser && lligaLocal().dins && _correctorEstat && !_correctorEstat.admes);
+}
+function correctorInvitacioInner() {
+  return `<div class="ct-card" id="corrector-invitacio" style="padding:16px 18px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);">
+      <div style="font-size:15px;font-weight:700;color:var(--accent-blue-text);margin-bottom:8px;">Hola!</div>
+      <div style="font-size:13px;color:var(--accent-blue-val);line-height:1.55;">
+        <p style="margin:0 0 8px;">Volem que AprènCatalà et serveixi per aprendre català de manera completa, i per això hi afegim coses: ara, escriure.</p>
+        <p style="margin:0 0 8px;">Provem aquesta funcionalitat nova, i l'oferim primer a qui aquesta setmana és a la lliga: escrius un text a partir d'una consigna i te'l tornem corregit, amb l'explicació de cada error.</p>
+        <p style="margin:0;">Per ser dels primers tindràs 5 correccions al dia, més que quan s'obri a tothom, i al cap d'una setmana et farem 5 preguntes per conèixer la teva experiència.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+        <button class="ct-btn primary" style="font-size:13px;padding:7px 16px;" onclick="correctorInvitacioRespon(true)">M'hi apunto</button>
+        <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;" onclick="correctorInvitacioRespon(false)">Ara no</button>
+      </div>
+    </div>`;
+}
+function correctorApuntatInner() {
+  return `<div class="ct-card" id="corrector-apuntat" style="padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--text-soft);line-height:1.5;">✓ Apuntat als exercicis d'expressió escrita. En un dia hi tindràs accés: la targeta per escriure et sortirà aquí.</div>`;
+}
+function correctorInvitacioRespon(si) {
+  try { localStorage.setItem(CORRECTOR_INVITACIO_KEY, si ? 'si' : 'no'); } catch (e) {}
+  if (si) window.fbSaveProfile?.({ correctorVoluntari: new Date().toISOString() });
+  const el = document.getElementById('corrector-targeta');
+  if (el) el.innerHTML = correctorZonaInner();
+}
+// Les 5 preguntes: una setmana després d'acceptar la casella, fins que es responen o es diu
+// que no. S'obre el correu amb les preguntes escrites, com «Avisa'ns»: l'app no recull res.
+function correctorPreguntesPendents() {
+  let acceptat = null, fet = null;
+  try { acceptat = localStorage.getItem('corrector_acceptat_at'); fet = localStorage.getItem(CORRECTOR_PREGUNTES_KEY); } catch (e) {}
+  if (!acceptat || fet) return false;
+  const t = Date.parse(acceptat);
+  return Number.isFinite(t) && Date.now() - t >= CORRECTOR_PREGUNTES_DIES * 86400000;
+}
+function correctorPreguntesInner() {
+  if (!correctorPreguntesPendents()) return '';
+  const cos = ['Hola! Ja fa una setmana que escric a l\'app. Les meves respostes:', '',
+    '1. Sobre què has escrit?', '', '2. T\'ha marcat alguna cosa que era correcta? Quina?', '',
+    '3. Alguna explicació que no hagis entès?', '', '4. Ho faries servir cada setmana? Per què?', '', '5. Què hi falta?', ''].join('\n');
+  const href = `mailto:${CORREU_CORRECCIONS}?subject=${encodeURIComponent('Expressió escrita: les 5 preguntes')}&body=${encodeURIComponent(cos)}`;
+  return `<div class="ct-card" id="corrector-preguntes" style="padding:14px 16px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:600;color:var(--heading);">Les 5 preguntes</div>
+      <div style="font-size:13px;color:var(--text-soft);line-height:1.5;margin-top:4px;">Ja fa una setmana que pots escriure-hi. Ens dius com t'ha anat? S'obre el correu amb les cinc preguntes escrites.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+        <a class="ct-btn primary" href="${href}" style="font-size:13px;padding:7px 16px;text-decoration:none;" onclick="correctorPreguntesFet()">Respon</a>
+        <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;" onclick="correctorPreguntesFet()">No, gràcies</button>
+      </div>
+    </div>`;
+}
+function correctorPreguntesFet() {
+  try { localStorage.setItem(CORRECTOR_PREGUNTES_KEY, new Date().toISOString()); } catch (e) {}
+  const el = document.getElementById('corrector-preguntes');
+  if (el) el.remove();
 }
 function correctorTargetaInner() {
   const q = correctorQueden();
@@ -2516,7 +2593,7 @@ async function correctorRefrescaTargeta() {
   if (!window.fbUser) return;
   await correctorEstat();
   const el = document.getElementById('corrector-targeta');
-  if (el) el.innerHTML = correctorAdmes() ? correctorTargetaInner() : '';
+  if (el) el.innerHTML = correctorZonaInner();
 }
 // Firebase confirma la sessió (o la perd) després que l'Inici ja s'hagi pintat: l'estat es
 // torna a demanar i la targeta, o la pantalla si s'hi és, es refan. Ho crida REFRESCOS_SESSIO.
