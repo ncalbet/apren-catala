@@ -144,6 +144,16 @@
     .ct-level-badge:hover { border-color: #f59e0b; }
     @media (max-width: 460px) { .ct-level-badge .lv-name { display: none; } }
     @media (max-width: 374px) { .ct-streak { padding: 5px 7px; } .ct-xp { padding: 4px 8px; } .ct-stats { gap: 5px; } }
+    /* Quan no hi cap (lletra gran del sistema, que les media queries no veuen), la capçalera
+       cedeix per ordre d'importància i la lletra no es toca: primer la insígnia de nivell
+       (repeteix el que diu l'XP), després l'aire de les píndoles. Ho decideix ajustaCapcalera(). */
+    .ct-header.estreta .ct-level-badge { display: none; }
+    .ct-header.molt-estreta .ct-stats { gap: 4px; }
+    .ct-header.molt-estreta .ct-streak { padding: 5px 6px; }
+    .ct-header.molt-estreta .ct-xp { padding: 4px 7px; }
+    .ct-header.molt-estreta .ct-theme-toggle { padding: 3px 4px; }
+    /* Tercer esglaó (lletra ×1,5 o més): la ratxa, que l'Inici ja ensenya a «Dies de ratxa». */
+    .ct-header.extrema .ct-streak { display: none; }
 
     /* NAV — 5 destinacions (Material: 3-5). A l'escriptori, barra superior;
        al mòbil, barra INFERIOR: hi arriba el polze i no cal desplaçament horitzontal. */
@@ -1046,7 +1056,22 @@ function updateHeader() {
   const lv = getLevel(progress.xp);
   const badge = document.getElementById('ct-level-badge');
   if (badge) badge.innerHTML = `<span class="lv-emoji">${lv.emoji}</span><span class="lv-name">${lv.badge||lv.name}</span>`;
+  ajustaCapcalera();
 }
+// La capçalera no pot desbordar (bústia, 29/10: amb la lletra gran del sistema sobresortia per
+// la dreta i la pàgina s'arrossegava de costat). Les media queries no veuen la mida de lletra:
+// es mesura. Si no hi cap, cedeix la insígnia de nivell («estreta»); si encara no, l'aire de
+// les píndoles («molt-estreta»); i en últim terme la ratxa («extrema»). La lletra no es toca mai.
+function ajustaCapcalera() {
+  const h = document.querySelector('.ct-header');
+  if (!h || !h.classList) return;
+  h.classList.remove('estreta', 'molt-estreta', 'extrema');
+  for (const esglao of ['estreta', 'molt-estreta', 'extrema']) {
+    if (h.scrollWidth <= h.clientWidth) break;
+    h.classList.add(esglao);
+  }
+}
+window.addEventListener('resize', () => ajustaCapcalera());
 function showXPPop(n) {
   const el = document.createElement('div');
   el.className = 'ct-xp-pop'; el.textContent = '+' + n + ' XP';
