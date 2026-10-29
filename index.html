@@ -112,6 +112,10 @@
     html { color-scheme: light dark; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); margin: 0; padding: 0; }
+    /* Res no pot fer arrossegar la pàgina de costat (bústia, 29/10: amb la lletra gran del
+       sistema, la capçalera desbordava i quedava una línia a la dreta). «clip», no «hidden»:
+       no crea cap contenidor de desplaçament i la capçalera sticky continua funcionant. */
+    html, body { overflow-x: clip; }
 
     /* HEADER */
     .ct-header { background: var(--c1); color: white; padding: 10px 10px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; gap: 8px; }
@@ -187,9 +191,12 @@
         padding-bottom: env(safe-area-inset-bottom); /* barra de gestos d'Android */
         box-shadow: 0 -2px 12px rgba(0,0,0,0.25);
       }
-      .ct-nav button { flex: 1; flex-direction: column; gap: 4px; padding: 8px 2px 7px; min-height: 56px; border-bottom: none; border-top: none; }
+      /* min-width:0 i l'etiqueta que es pot partir: amb la lletra gran del sistema, els cinc
+         botons es queden dins de la pantalla i l'etiqueta passa a dues línies (la barra creix)
+         en lloc de desbordar per la dreta (bústia, 29/10). */
+      .ct-nav button { flex: 1; min-width: 0; flex-direction: column; gap: 4px; padding: 8px 2px 7px; min-height: 56px; border-bottom: none; border-top: none; }
       .ct-nav .nv-ico svg { width: 23px; height: 23px; }
-      .ct-nav .nv-lab { font-size: 11px; font-weight: 600; }
+      .ct-nav .nv-lab { font-size: 11px; font-weight: 600; white-space: normal; text-align: center; line-height: 1.15; max-width: 100%; }
       /* Com a les referències: l'actiu es marca NOMÉS amb color, sense fons ni vores */
       .ct-nav button.active { color: #fbbf24; border-bottom-color: transparent; }
       /* el desplegable de nivells s'obre cap amunt, damunt de la barra */
