@@ -2596,7 +2596,7 @@ function correctorFormulariHTML() {
       <label for="corrector-text" style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;">EL TEU TEXT</label>
       <textarea id="corrector-text" class="ct-input" rows="9" style="resize:vertical;line-height:1.55;" placeholder="Escriu aquí el teu text (entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules)." oninput="correctorCompta(this.value)">${escText(_correctorText)}</textarea>
       <div id="corrector-compta" style="font-size:12px;color:var(--muted);margin:6px 0 14px;text-align:right;">${correctorComptaText(correctorParaules(_correctorText))}</div>
-      ${correctorAcceptat() ? '' : `<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-soft);line-height:1.55;margin-bottom:14px;cursor:pointer;">
+      ${correctorAcceptat() ? '' : `<label id="corrector-accepta-fila" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-soft);line-height:1.55;margin-bottom:14px;cursor:pointer;">
         <input type="checkbox" id="corrector-accepta" style="margin-top:3px;flex-shrink:0;width:18px;height:18px;">
         <span>Participo en una prova. El text s'envia a un servei extern només per corregir-lo segons la normativa vigent de l'IEC: no s'hi envia cap dada del meu compte, i no es guarda ni es fa servir per a res més.</span>
       </label>`}
@@ -2630,7 +2630,12 @@ async function correctorEnvia() {
   if (n > CORRECTOR_MAX) return diu(`El text no pot passar de ${CORRECTOR_MAX} paraules (en té ${n}).`);
   if (!correctorAcceptat()) {
     const casella = document.getElementById('corrector-accepta');
-    if (!casella || !casella.checked) return diu('Marca la casella per enviar el text.');
+    if (!casella || !casella.checked) {
+      // Bústia, 29/10: «no he vist que era una casella que s'havia de marcar». A més de
+      // l'avís, s'hi va i es ressalta un moment.
+      correctorRessaltaCasella();
+      return diu('Marca la casella per enviar el text.');
+    }
     try { localStorage.setItem('corrector_acceptat_at', new Date().toISOString()); } catch (e) {}
   }
   diu('');
@@ -2650,6 +2655,15 @@ async function correctorEnvia() {
   }
   if (btn) { btn.disabled = false; btn.textContent = 'Corregeix'; }
   diu(correctorMissatgeError(r));
+}
+function correctorRessaltaCasella() {
+  const fila = document.getElementById('corrector-accepta-fila');
+  if (!fila) return;
+  if (typeof fila.scrollIntoView === 'function') fila.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  fila.style.boxShadow = '0 0 0 3px var(--accent-blue-text)';
+  fila.style.transition = 'box-shadow 0.4s';
+  clearTimeout(correctorRessaltaCasella._t);
+  correctorRessaltaCasella._t = setTimeout(() => { fila.style.boxShadow = ''; }, 1400);
 }
 function correctorMissatgeError(r) {
   const codi = (r.dades && r.dades.codi) || r.codi || '';
