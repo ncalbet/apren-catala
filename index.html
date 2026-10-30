@@ -446,6 +446,11 @@
     /* MODALS */
     .ct-modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px; }
     .ct-modal { background:var(--surface);border-radius:16px;padding:24px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.3);animation:popIn 0.2s ease; }
+    /* L'enquesta del corrector: opcions tocables, una de triada. Al mode fosc, el fons i el text de
+       l'accent van junts (--accent-blue-bg / -text), no el mateix to més fosc. */
+    .ct-enq-opcions { display:flex;flex-direction:column;gap:8px; }
+    .ct-enq-opcio { display:block;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font:inherit;font-size:14px;line-height:1.35;cursor:pointer; }
+    .ct-enq-opcio.triada { border-color:var(--accent-blue-text);background:var(--accent-blue-bg);color:var(--accent-blue-text);font-weight:600; }
     .ct-modal p { font-size:15px;color:var(--text);margin:0 0 20px;line-height:1.5; }
     .ct-modal-btns { display:flex;gap:8px; }
     .ct-modal-btns button { flex:1; }
