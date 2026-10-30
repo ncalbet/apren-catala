@@ -1,5 +1,5 @@
 // Català Trainer — Service Worker
-const CACHE_VERSION = 'catala-trainer-v187';
+const CACHE_VERSION = 'catala-trainer-v188';
 // Els clips d'àudio (audio/<nivell>/<id>-v<n>.mp3) tenen memòria cau pròpia, que NO
 // s'esborra amb el bump: sense connexió, els que ja s'han escoltat han de continuar
 // sonant. Pot ser-ho perquè el nom del fitxer porta la versió: un clip refet és un
