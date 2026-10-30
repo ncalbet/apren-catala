@@ -2386,9 +2386,31 @@ const CORRECTOR_INVITACIO_KEY = 'corrector_invitacio_v1';   // 'si' | 'no'
 // La benvinguda (30/10/2026): la primera vegada que l'app veu admès qui va dir «M'hi apunto»,
 // la targeta ho diu i porta a escriure. Un sol cop per dispositiu, i mai si ja ha escrit.
 const CORRECTOR_BENVINGUDA_KEY = 'corrector_benvinguda_v1';
-// Les 5 preguntes, una setmana després d'acceptar la casella (corrector_acceptat_at).
-const CORRECTOR_PREGUNTES_KEY = 'corrector_preguntes_v1';
+// L'enquesta (30/10/2026): un avís emergent amb una pregunta per pantalla, una setmana després
+// de la primera correcció (corrector_acceptat_at). A qui és admès i no ha escrit mai, una sola
+// pregunta una setmana després que l'app el veiés admès (corrector_admes_at). Les respostes
+// van a Firestore (enquestes/{uid}) tal com es llegeixen; les claus i les mides les acoten
+// les regles (firestore.rules). «Més tard» l'ajorna un dia, com a molt tres vegades.
+const CORRECTOR_ENQUESTA_KEY = 'corrector_enquesta_v1';   // { fet, pendent } | { ajornat, ultim }
 const CORRECTOR_PREGUNTES_DIES = 7;
+const CORRECTOR_ENQUESTA_AJORNAMENTS = 3;
+const CORRECTOR_ENQUESTA = {
+  id: 'corrector-1',
+  preguntes: [
+    { clau: 'encert', text: 'Les correccions t\'han semblat encertades?', opcions: ['Sempre', 'Gairebé sempre', 'A vegades no', 'Sovint no'] },
+    { clau: 'ajuda', text: 'T\'ha ajudat a escriure millor en català?', escala: ['Gens', 'Molt'] },
+    { clau: 'pagar', text: 'Pagaries per tenir la correcció de textos sempre a l\'app?', opcions: ['No, només si és gratuïta', 'Sí, fins a 2 € al mes', 'Sí, entre 2 i 5 € al mes', 'Sí, més de 5 € al mes'] },
+    { clau: 'futur', text: 'Què t\'aportaria més valor?', opcions: ['Més correccions al dia', 'Consignes com les dels exàmens oficials', 'Que recordi els meus errors i em proposi exercicis', 'Corregir textos meus: correus, feina, estudis'] },
+    { clau: 'motiu', text: 'Per a què escrius en català, sobretot?', opcions: ['Per a un examen oficial', 'Per la feina o els estudis', 'Per al dia a dia: missatges, correus', 'Gairebé no hi escric, encara'] },
+  ],
+};
+const CORRECTOR_ENQUESTA_SENSE_US = {
+  id: 'corrector-senseus-1',
+  preguntes: [
+    { clau: 'perque_no', text: 'Encara no has provat els exercicis d\'expressió escrita. Per què?', opcions: ['No he tingut temps', 'No sabia què escriure', 'No m\'ha cridat l\'atenció', 'No he trobat on era'] },
+  ],
+};
+let _enquesta = null;   // l'enquesta oberta: { def, i, respostes }
 let _correctorEnviant = false;
 
 // La mateixa normalització i el mateix recompte que el Worker: el que passa aquí passa allà.
@@ -2438,6 +2460,8 @@ async function correctorEstat(forca = false) {
     const r = await correctorCrida('/estat');
     if (r.status === 200 && r.dades) {
       _correctorEstat = { admes: !!r.dades.admes, usats: r.dades.usats | 0, maxim: r.dades.maxim | 0, t: Date.now() };
+      // El primer dia que l'app el veu admès, per a l'enquesta de qui no escriu mai.
+      if (_correctorEstat.admes) { try { if (!localStorage.getItem('corrector_admes_at')) localStorage.setItem('corrector_admes_at', new Date().toISOString()); } catch (e) {} }
     } else if (r.status === 403 || r.status === 401) {
       _correctorEstat = { admes: false, usats: 0, maxim: 0, t: Date.now() };
     }
@@ -2542,10 +2566,10 @@ function correctorTargetaHTML() {
   return `<div id="corrector-targeta">${correctorZonaInner()}</div>`;
 }
 // Què va al lloc de la targeta: a qui és admès, la targeta (la benvinguda, el primer cop que
-// hi és després d'apuntar-s'hi; i, al cap d'una setmana, les 5 preguntes); a qui és a la
-// lliga i no és admès, la invitació o la confirmació d'apuntat.
+// hi és després d'apuntar-s'hi); a qui és a la lliga i no és admès, la invitació o la
+// confirmació d'apuntat. L'enquesta no hi va: és un avís emergent (correctorEnquestaComprova).
 function correctorZonaInner() {
-  if (correctorAdmes()) return (correctorBenvingudaPendent() ? correctorBenvingudaInner() : correctorTargetaInner()) + correctorPreguntesInner();
+  if (correctorAdmes()) return correctorBenvingudaPendent() ? correctorBenvingudaInner() : correctorTargetaInner();
   if (!correctorInvitacioCandidat()) return '';
   const resposta = correctorInvitacioResposta();
   if (resposta === 'si') return correctorApuntatInner();
@@ -2603,34 +2627,107 @@ function correctorBenvingudaFet() {
   showTab('corrector');
 }
 
-// Les 5 preguntes: una setmana després d'acceptar la casella, fins que es responen o es diu
-// que no. S'obre el correu amb les preguntes escrites, com «Avisa'ns»: l'app no recull res.
-function correctorPreguntesPendents() {
-  let acceptat = null, fet = null;
-  try { acceptat = localStorage.getItem('corrector_acceptat_at'); fet = localStorage.getItem(CORRECTOR_PREGUNTES_KEY); } catch (e) {}
-  if (!acceptat || fet) return false;
-  const t = Date.parse(acceptat);
-  return Number.isFinite(t) && Date.now() - t >= CORRECTOR_PREGUNTES_DIES * 86400000;
+// ── L'enquesta ──
+function correctorEnquestaEstat() {
+  try { return JSON.parse(localStorage.getItem(CORRECTOR_ENQUESTA_KEY) || 'null') || {}; } catch (e) { return {}; }
 }
-function correctorPreguntesInner() {
-  if (!correctorPreguntesPendents()) return '';
-  const cos = ['Hola! Ja fa una setmana que escric a l\'app. Les meves respostes:', '',
-    '1. Sobre què has escrit?', '', '2. T\'ha marcat alguna cosa que era correcta? Quina?', '',
-    '3. Alguna explicació que no hagis entès?', '', '4. Ho faries servir cada setmana? Per què?', '', '5. Què hi falta?', ''].join('\n');
-  const href = `mailto:${CORREU_CORRECCIONS}?subject=${encodeURIComponent('Expressió escrita: les 5 preguntes')}&body=${encodeURIComponent(cos)}`;
-  return `<div class="ct-card" id="corrector-preguntes" style="padding:14px 16px;margin-bottom:16px;">
-      <div style="font-size:14px;font-weight:600;color:var(--heading);">Les 5 preguntes</div>
-      <div style="font-size:13px;color:var(--text-soft);line-height:1.5;margin-top:4px;">Ja fa una setmana que pots escriure-hi. Ens dius com t'ha anat? S'obre el correu amb les cinc preguntes escrites.</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
-        <a class="ct-btn primary" href="${href}" style="font-size:13px;padding:7px 16px;text-decoration:none;" onclick="correctorPreguntesFet()">Respon</a>
-        <button class="ct-btn secondary" style="font-size:13px;padding:7px 16px;" onclick="correctorPreguntesFet()">No, gràcies</button>
+function correctorEnquestaDesa(e) {
+  try { localStorage.setItem(CORRECTOR_ENQUESTA_KEY, JSON.stringify(e)); } catch (e2) {}
+}
+// Quina enquesta toca ara, o null. La de les 5 preguntes, una setmana després de la primera
+// correcció; la d'una pregunta, a qui és admès i no ha escrit mai, una setmana després que
+// l'app el veiés admès. Mai dues vegades, no el mateix dia que s'ha ajornat, i com a molt
+// CORRECTOR_ENQUESTA_AJORNAMENTS ajornaments.
+function correctorEnquestaPendent(ara = Date.now()) {
+  if (!correctorAdmes()) return null;
+  const e = correctorEnquestaEstat();
+  if (e.fet || (e.ajornat | 0) >= CORRECTOR_ENQUESTA_AJORNAMENTS) return null;
+  if (e.ultim && ara - Date.parse(e.ultim) < 86400000) return null;
+  let acceptat = null, admesDes = null;
+  try { acceptat = localStorage.getItem('corrector_acceptat_at'); admesDes = localStorage.getItem('corrector_admes_at'); } catch (err) {}
+  const t = Date.parse(acceptat || admesDes || '');
+  if (!Number.isFinite(t) || ara - t < CORRECTOR_PREGUNTES_DIES * 86400000) return null;
+  return acceptat ? CORRECTOR_ENQUESTA : CORRECTOR_ENQUESTA_SENSE_US;
+}
+// En arribar a l'Inici amb l'estat llegit: s'envia el que hagi quedat pendent i, si toca, s'obre.
+async function correctorEnquestaComprova() {
+  if (_navState.screen !== 'menu' || _enquesta) return;
+  if (correctorEnquestaEstat().pendent) { await correctorEnquestaEnvia(); return; }
+  const def = correctorEnquestaPendent();
+  if (def) correctorEnquestaObre(def);
+}
+function correctorEnquestaObre(def) {
+  if (_enquesta) return;
+  _enquesta = { def, i: 0, respostes: {} };
+  const el = document.createElement('div');
+  el.className = 'ct-modal-overlay';
+  el.id = 'corrector-enquesta';
+  document.body.appendChild(el);
+  correctorEnquestaPinta();
+}
+// Una pregunta per pantalla: s'ha de triar una resposta perquè «Següent» (o «Envia») s'activi.
+function correctorEnquestaPinta() {
+  const el = document.getElementById('corrector-enquesta');
+  if (!el || !_enquesta) return;
+  const { def, i, respostes } = _enquesta;
+  const p = def.preguntes[i];
+  const triada = respostes[p.clau];
+  const opcio = (text, estil = '') => `<button type="button" class="ct-enq-opcio${triada === text ? ' triada' : ''}" style="${estil}" onclick="correctorEnquestaTria('${p.clau}', this.textContent)">${escText(text)}</button>`;
+  const opcions = p.escala
+    ? `<div style="display:flex;gap:6px;">${['1', '2', '3', '4', '5'].map(n => opcio(n, 'flex:1;text-align:center;')).join('')}</div>
+       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;"><span>1 = ${escText(p.escala[0])}</span><span>5 = ${escText(p.escala[1])}</span></div>`
+    : p.opcions.map(o => opcio(o)).join('');
+  const ultima = i === def.preguntes.length - 1;
+  el.innerHTML = `<div class="ct-modal" style="max-width:380px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="font-size:12px;color:var(--muted);">✍️ Expressió escrita · ${def.preguntes.length > 1 ? `pregunta ${i + 1} de ${def.preguntes.length}` : 'una pregunta'}</span>
+        <button type="button" onclick="correctorEnquestaAjorna()" style="background:none;border:none;padding:4px 0;font:inherit;font-size:13px;color:var(--muted);text-decoration:underline;cursor:pointer;flex-shrink:0;">Més tard</button>
       </div>
+      <div style="font-size:16px;font-weight:600;color:var(--heading);line-height:1.4;margin-bottom:14px;">${escText(p.text)}</div>
+      <div class="ct-enq-opcions">${opcions}</div>
+      <button class="ct-btn primary" id="corrector-enquesta-seguent" style="width:100%;margin-top:16px;"${triada ? '' : ' disabled'} onclick="correctorEnquestaSeguent()">${ultima ? 'Envia' : 'Següent'}</button>
     </div>`;
 }
-function correctorPreguntesFet() {
-  try { localStorage.setItem(CORRECTOR_PREGUNTES_KEY, new Date().toISOString()); } catch (e) {}
-  const el = document.getElementById('corrector-preguntes');
+function correctorEnquestaTria(clau, valor) {
+  if (!_enquesta) return;
+  _enquesta.respostes[clau] = String(valor).trim();
+  correctorEnquestaPinta();
+}
+function correctorEnquestaSeguent() {
+  if (!_enquesta) return;
+  const { def, i, respostes } = _enquesta;
+  if (!respostes[def.preguntes[i].clau]) return;
+  if (i < def.preguntes.length - 1) { _enquesta.i++; correctorEnquestaPinta(); return; }
+  // L'última: es dona per feta (no es torna a preguntar) i s'envia; si no arriba, queda pendent i
+  // es reintenta en obrir l'app. Mentrestant, les gràcies.
+  const quan = new Date().toISOString();
+  correctorEnquestaDesa({ fet: quan, pendent: { enquesta: def.id, respostes: { ...respostes }, quan } });
+  const el = document.getElementById('corrector-enquesta');
+  if (el) el.innerHTML = `<div class="ct-modal" style="max-width:380px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:8px;">🙏</div>
+      <div style="font-size:16px;font-weight:600;color:var(--heading);line-height:1.4;">Moltes gràcies!</div>
+      <div style="font-size:14px;color:var(--text-soft);line-height:1.5;margin-top:6px;">Les teves respostes ens ajuden a decidir com ha de ser l'expressió escrita a l'app.</div>
+      <button class="ct-btn primary" style="width:100%;margin-top:16px;" onclick="correctorEnquestaTanca()">D'acord</button>
+    </div>`;
+  correctorEnquestaEnvia();
+}
+async function correctorEnquestaEnvia() {
+  const e = correctorEnquestaEstat();
+  if (!e.pendent || !window.fbDesaEnquesta) return false;
+  let ok = false;
+  try { ok = !!(await window.fbDesaEnquesta(e.pendent)); } catch (err) { ok = false; }
+  if (ok) { delete e.pendent; correctorEnquestaDesa(e); }
+  return ok;
+}
+function correctorEnquestaAjorna() {
+  const e = correctorEnquestaEstat();
+  correctorEnquestaDesa({ ajornat: (e.ajornat | 0) + 1, ultim: new Date().toISOString() });
+  correctorEnquestaTanca();
+}
+function correctorEnquestaTanca() {
+  const el = document.getElementById('corrector-enquesta');
   if (el) el.remove();
+  _enquesta = null;
 }
 function correctorTargetaInner() {
   const q = correctorQueden();
@@ -2650,6 +2747,7 @@ async function correctorRefrescaTargeta() {
   await correctorEstat();
   const el = document.getElementById('corrector-targeta');
   if (el) el.innerHTML = correctorZonaInner();
+  await correctorEnquestaComprova();
 }
 // Firebase confirma la sessió (o la perd) després que l'Inici ja s'hagi pintat: l'estat es
 // torna a demanar i la targeta, o la pantalla si s'hi és, es refan. Ho crida REFRESCOS_SESSIO.
