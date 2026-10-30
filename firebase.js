@@ -149,8 +149,12 @@ window.fbDeleteAccount = async (password) => {
   const ref = doc(db, 'users', user.uid);
   const providerId = user.providerData[0]?.providerId;
 
+  // L'enquesta del corrector, si n'ha respost: se'n va amb el compte.
+  const esborraEnquesta = () => deleteDoc(doc(db, 'enquestes', user.uid)).catch(() => {});
+
   const wipe = async () => {
     await esborraLliga(user);
+    await esborraEnquesta();
     await deleteDoc(ref).catch(() => {}); // potser ja esborrat en un intent previ
     await deleteUser(user);
   };
@@ -159,6 +163,7 @@ window.fbDeleteAccount = async (password) => {
     // La lliga primer: per saber què cal esborrar es llegeix el document de
     // l'usuari, i les regles demanen que el lid encara existeixi.
     await esborraLliga(user);
+    await esborraEnquesta();
     await deleteDoc(ref);
     await deleteUser(user);
     return { ok: true };
@@ -208,6 +213,19 @@ window.fbSaveProfile = async (data) => {
   try {
     await setDoc(doc(db, 'users', user.uid), { profile: data }, { merge: true });
   } catch (e) { console.warn('[FB] Error desant perfil:', e.code); }
+};
+
+// ── Enquesta del corrector (30/10/2026) ──
+// Un document per persona a enquestes/{uid}: quina enquesta, quan, i les respostes tal com
+// es llegeixen (clau → text curt). Les regles n'acoten les claus i les mides, i ningú no en
+// llegeix res des del client. Torna si s'ha desat; index.html reintenta si no.
+window.fbDesaEnquesta = async (dades) => {
+  const user = auth.currentUser;
+  if (!user) return false;
+  try {
+    await setDoc(doc(db, 'enquestes', user.uid), dades);
+    return true;
+  } catch (e) { console.warn('[FB] Error desant l\'enquesta:', e.code); return false; }
 };
 
 // ── Lliga setmanal ──

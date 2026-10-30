@@ -196,5 +196,32 @@ service cloud.firestore {
         allow delete: if propietariLid(lid);
       }
     }
+
+    // ═══════════════════ ENQUESTA DEL CORRECTOR (30/10/2026) ═══════════════════
+    //
+    // Un document per persona, només seu: quina enquesta, quan, i les respostes tal com
+    // es llegeixen (clau → text curt, les claus tancades aquí). Cap client no en llegeix
+    // res: les llegeix l'administració amb la clau de servei. S'esborra amb el compte.
+    function respostaCurta(r, k) {
+      return !(k in r) || (r[k] is string && r[k].size() >= 1 && r[k].size() <= 80);
+    }
+    function enquestaValida(d) {
+      return d.keys().hasOnly(['enquesta', 'respostes', 'quan'])
+        && d.enquesta is string && d.enquesta.size() >= 1 && d.enquesta.size() <= 40
+        && d.quan is string && d.quan.size() >= 1 && d.quan.size() <= 40
+        && d.respostes is map
+        && d.respostes.keys().hasOnly(['encert', 'ajuda', 'pagar', 'futur', 'motiu', 'perque_no'])
+        && respostaCurta(d.respostes, 'encert')
+        && respostaCurta(d.respostes, 'ajuda')
+        && respostaCurta(d.respostes, 'pagar')
+        && respostaCurta(d.respostes, 'futur')
+        && respostaCurta(d.respostes, 'motiu')
+        && respostaCurta(d.respostes, 'perque_no');
+    }
+    match /enquestes/{userId} {
+      allow create, update: if signat() && request.auth.uid == userId
+        && enquestaValida(request.resource.data);
+      allow delete: if signat() && request.auth.uid == userId;
+    }
   }
 }
