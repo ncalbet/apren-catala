@@ -2389,7 +2389,7 @@ let _correctorResultat = null;       // l'última correcció, mentre es mira
 // a mà. La resposta es recorda al dispositiu per no tornar a preguntar.
 const CORRECTOR_INVITACIO_KEY = 'corrector_invitacio_v1';   // 'si' | 'no'
 // La benvinguda (30/10/2026): la primera vegada que l'app veu admès qui va dir «M'hi apunto»,
-// la targeta ho diu i porta a escriure. Un sol cop per dispositiu, i mai si ja ha escrit.
+// la targeta ho diu i porta a escriure. Un sol cop per dispositiu, també a qui ja hagi escrit.
 const CORRECTOR_BENVINGUDA_KEY = 'corrector_benvinguda_v1';
 // L'enquesta (30/10/2026): un avís emergent amb una pregunta per pantalla, una setmana després
 // de la primera correcció (corrector_acceptat_at). A qui és admès i no ha escrit mai, una sola
@@ -2612,9 +2612,10 @@ function correctorInvitacioRespon(si) {
   const el = document.getElementById('corrector-targeta');
   if (el) el.innerHTML = correctorZonaInner();
 }
-// La benvinguda, al lloc de la targeta, fins que prem el botó (o ja ha escrit).
+// La benvinguda, al lloc de la targeta, fins que prem el botó. També a qui ja ha escrit abans de
+// veure-la (decisió de l'usuari del 30/10: un voluntari va escriure quatre textos abans de la v188).
 function correctorBenvingudaPendent() {
-  if (correctorInvitacioResposta() !== 'si' || correctorAcceptat()) return false;
+  if (correctorInvitacioResposta() !== 'si') return false;
   try { return !localStorage.getItem(CORRECTOR_BENVINGUDA_KEY); } catch (e) { return false; }
 }
 function correctorBenvingudaInner() {
@@ -2622,7 +2623,7 @@ function correctorBenvingudaInner() {
   return `<div class="ct-card" id="corrector-benvinguda" style="padding:16px 18px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);">
       <div style="font-size:15px;font-weight:700;color:var(--accent-blue-text);margin-bottom:8px;">Ja ets dins de la prova. Moltes gràcies per apuntar-t'hi!</div>
       <div style="font-size:13px;color:var(--accent-blue-val);line-height:1.55;">Tens ${m} correccions al dia: tria una consigna i escriu. D'aquí a una setmana et farem 5 preguntes.</div>
-      <button class="ct-btn primary" style="font-size:13px;padding:7px 16px;margin-top:12px;" onclick="correctorBenvingudaFet()">Escriu el primer text</button>
+      <button class="ct-btn primary" style="font-size:13px;padding:7px 16px;margin-top:12px;" onclick="correctorBenvingudaFet()">${correctorAcceptat() ? 'Escriu un text' : 'Escriu el primer text'}</button>
     </div>`;
 }
 function correctorBenvingudaFet() {
