@@ -2396,17 +2396,21 @@ const CORRECTOR_BENVINGUDA_KEY = 'corrector_benvinguda_v1';
 // pregunta una setmana després que l'app el veiés admès (corrector_admes_at). Les respostes
 // van a Firestore (enquestes/{uid}) tal com es llegeixen; les claus i les mides les acoten
 // les regles (firestore.rules). «Més tard» l'ajorna un dia, com a molt tres vegades.
+// La versió 2 (31/10/2026, abans que en respongués ningú) segueix el que recomanen les fonts:
+// primer si sabria greu perdre-ho (test de Sean Ellis), el que ha fet abans en lloc del que
+// pagaria, i una última oberta que es pot deixar en blanc.
 const CORRECTOR_ENQUESTA_KEY = 'corrector_enquesta_v1';   // { fet, pendent } | { ajornat, ultim }
 const CORRECTOR_PREGUNTES_DIES = 7;
 const CORRECTOR_ENQUESTA_AJORNAMENTS = 3;
+const CORRECTOR_ENQUESTA_MAX_TEXT = 500;   // la pregunta oberta; el mateix número a firestore.rules
 const CORRECTOR_ENQUESTA = {
-  id: 'corrector-1',
+  id: 'corrector-2',
   preguntes: [
-    { clau: 'encert', text: 'Les correccions t\'han semblat encertades?', opcions: ['Sempre', 'Gairebé sempre', 'A vegades no', 'Sovint no'] },
-    { clau: 'ajuda', text: 'T\'ha ajudat a escriure millor en català?', escala: ['Gens', 'Molt'] },
-    { clau: 'pagar', text: 'Pagaries per tenir la correcció de textos sempre a l\'app?', opcions: ['No, només si és gratuïta', 'Sí, fins a 2 € al mes', 'Sí, entre 2 i 5 € al mes', 'Sí, més de 5 € al mes'] },
+    { clau: 'greu', text: 'Si demà l\'app deixés de corregir textos, et sabria greu?', opcions: ['Molt', 'Una mica', 'Gens'] },
+    { clau: 'encert', text: 'Les correccions t\'han semblat encertades?', opcions: ['Sempre', 'Gairebé sempre', 'A vegades no', 'Sovint no', 'No sabria dir-ho'] },
     { clau: 'futur', text: 'Què t\'aportaria més valor?', opcions: ['Més correccions al dia', 'Consignes com les dels exàmens oficials', 'Que recordi els meus errors i em proposi exercicis', 'Corregir textos meus: correus, feina, estudis'] },
-    { clau: 'motiu', text: 'Per a què escrius en català, sobretot?', opcions: ['Per a un examen oficial', 'Per la feina o els estudis', 'Per al dia a dia: missatges, correus', 'Gairebé no hi escric, encara'] },
+    { clau: 'abans', text: 'Abans, com corregies el que escrivies en català?', opcions: ['No ho corregia', 'Amb un corrector (Softcatalà, Word…)', 'Amb ChatGPT o una altra IA', 'M\'ho corregia algú (a classe, un amic…)'] },
+    { clau: 'comentari', text: 'Vols dir-nos res més?', oberta: 'Si vols: què hi milloraries, què t\'ha servit, què hi trobes a faltar…' },
   ],
 };
 const CORRECTOR_ENQUESTA_SENSE_US = {
@@ -2672,17 +2676,17 @@ function correctorEnquestaObre(def) {
   correctorEnquestaPinta();
 }
 // Una pregunta per pantalla: s'ha de triar una resposta perquè «Següent» (o «Envia») s'activi.
+// La pregunta oberta no: es pot enviar en blanc.
 function correctorEnquestaPinta() {
   const el = document.getElementById('corrector-enquesta');
   if (!el || !_enquesta) return;
   const { def, i, respostes } = _enquesta;
   const p = def.preguntes[i];
   const triada = respostes[p.clau];
-  const opcio = (text, estil = '') => `<button type="button" class="ct-enq-opcio${triada === text ? ' triada' : ''}" style="${estil}" onclick="correctorEnquestaTria('${p.clau}', this.textContent)">${escText(text)}</button>`;
-  const opcions = p.escala
-    ? `<div style="display:flex;gap:6px;">${['1', '2', '3', '4', '5'].map(n => opcio(n, 'flex:1;text-align:center;')).join('')}</div>
-       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;"><span>1 = ${escText(p.escala[0])}</span><span>5 = ${escText(p.escala[1])}</span></div>`
-    : p.opcions.map(o => opcio(o)).join('');
+  const opcio = text => `<button type="button" class="ct-enq-opcio${triada === text ? ' triada' : ''}" onclick="correctorEnquestaTria('${p.clau}', this.textContent)">${escText(text)}</button>`;
+  const opcions = p.oberta
+    ? `<textarea id="corrector-enquesta-text" rows="5" maxlength="${CORRECTOR_ENQUESTA_MAX_TEXT}" placeholder="${escText(p.oberta)}" oninput="correctorEnquestaEscriu('${p.clau}', this.value)" style="display:block;width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font:inherit;font-size:14px;line-height:1.45;resize:vertical;">${escText(triada || '')}</textarea>`
+    : p.opcions.map(opcio).join('');
   const ultima = i === def.preguntes.length - 1;
   el.innerHTML = `<div class="ct-modal" style="max-width:380px;text-align:left;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
@@ -2691,7 +2695,7 @@ function correctorEnquestaPinta() {
       </div>
       <div style="font-size:16px;font-weight:600;color:var(--heading);line-height:1.4;margin-bottom:14px;">${escText(p.text)}</div>
       <div class="ct-enq-opcions">${opcions}</div>
-      <button class="ct-btn primary" id="corrector-enquesta-seguent" style="width:100%;margin-top:16px;"${triada ? '' : ' disabled'} onclick="correctorEnquestaSeguent()">${ultima ? 'Envia' : 'Següent'}</button>
+      <button class="ct-btn primary" id="corrector-enquesta-seguent" style="width:100%;margin-top:16px;"${triada || p.oberta ? '' : ' disabled'} onclick="correctorEnquestaSeguent()">${ultima ? 'Envia' : 'Següent'}</button>
     </div>`;
 }
 function correctorEnquestaTria(clau, valor) {
@@ -2699,10 +2703,19 @@ function correctorEnquestaTria(clau, valor) {
   _enquesta.respostes[clau] = String(valor).trim();
   correctorEnquestaPinta();
 }
+// El text de la pregunta oberta, sense repintar (es perdria el focus i el teclat).
+function correctorEnquestaEscriu(clau, valor) {
+  if (_enquesta) _enquesta.respostes[clau] = String(valor);
+}
 function correctorEnquestaSeguent() {
   if (!_enquesta) return;
   const { def, i, respostes } = _enquesta;
-  if (!respostes[def.preguntes[i].clau]) return;
+  const p = def.preguntes[i];
+  if (!p.oberta && !respostes[p.clau]) return;
+  if (p.oberta) {
+    const t = String(respostes[p.clau] || '').trim().slice(0, CORRECTOR_ENQUESTA_MAX_TEXT);
+    if (t) respostes[p.clau] = t; else delete respostes[p.clau];
+  }
   if (i < def.preguntes.length - 1) { _enquesta.i++; correctorEnquestaPinta(); return; }
   // L'última: es dona per feta (no es torna a preguntar) i s'envia; si no arriba, queda pendent i
   // es reintenta en obrir l'app. Mentrestant, les gràcies.
