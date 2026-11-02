@@ -3285,13 +3285,13 @@ function renderSummary() {
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:var(--muted);line-height:1.5;text-align:left;">
         💡 <strong>Exercicis fets</strong> ✅ vol dir que ja els has encertat. El <strong>domini</strong> ⭐ puja un punt cada cop que tornes a encertar un exercici en un <strong>dia diferent</strong> — la pràctica espaiada en dies separats és la clau per consolidar l'aprenentatge. Quan arribes a 5/5 obtens la medalla daurada del tema.
       </div>
-      ${targetaCompteHTML()}
-      ${preguntaRecordatoriHTML(items)}
+      ${cadenaFinalHTML(items)}
       <button class="ct-btn primary" style="width:100%;" onclick="repeatLastSession()">Repetir els exercicis</button>
       ${backBtn}
       ${pct >= 60 ? `<button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="shareSessionResult(${pct},${items.length})">📣 Comparteix el resultat</button>
       <button class="ct-btn wa" style="width:100%;margin-top:8px;" onclick="waSessionResult(${pct},${items.length})">💬 Per WhatsApp</button>` : ''}
     </div>`;
+  lligaFinalRefresca();
 }
 
 // Final de la sessió d'avui del recorregut: el resultat real, sense «ja ho
@@ -3314,12 +3314,12 @@ function renderSummaryRecorregut(dc) {
       <p style="color:var(--muted);font-size:13px;line-height:1.5;margin:12px 0 20px;">${fet
         ? 'Has guanyat els +50 XP del repte. Els repassos tornaran quan els toqui.'
         : 'Per completar el repte i guanyar els +50 XP, cal encertar-los tots. Pots tornar a provar els que falten ara; si no, els fallats tornaran al repàs.'}</p>
-      ${targetaCompteHTML()}
-      ${preguntaRecordatoriHTML(window._lastSession.items || [])}
+      ${cadenaFinalHTML(window._lastSession.items || [])}
       ${fet ? '' : `<button class="ct-btn primary" style="width:100%;" onclick="repeteixPendentsDelRepte()">Torna a provar els que falten (${dc.ids.length - dc.completed.length})</button>`}
       ${seg ? `<button class="ct-btn ${fet ? 'primary' : 'secondary'}" style="width:100%;margin-top:8px;" onclick="continuaRecorregut('${r.id}')">▶ Continua practicant el recorregut</button>` : ''}
       <button class="ct-btn secondary" style="width:100%;margin-top:8px;" onclick="showTab('menu')">Acaba per avui</button>
     </div>`;
+  lligaFinalRefresca();
 }
 function repeteixPendentsDelRepte() {
   const dc = progress.dailyChallenge;
@@ -6179,6 +6179,7 @@ async function respostaRecordatoriFinal(si) {
   if (!si) {
     apuntaAraNo(RECORDATORI_FINAL_KEY);
     if (el) el.remove();
+    lligaFinalMostra();
     return;
   }
   if (el) el.querySelectorAll('button').forEach(b => { b.disabled = true; });
@@ -6188,6 +6189,57 @@ async function respostaRecordatoriFinal(si) {
     : r.reason === 'denied' ? "D'acord, sense recordatoris. Si canvies d'idea, al Perfil t'expliquem com activar-los."
     : "Ara no s'han pogut activar. Ho pots tornar a provar al Perfil.";
   if (el) el.innerHTML = `<div style="font-size:13px;color:var(--accent-blue-text);line-height:1.5;">${text}</div>`;
+  lligaFinalMostra();
+}
+
+// ── La invitació de la lliga al final de la sessió ──
+// L'últim pas de la cadena del final de la sessió: el compte (qui no en té), els
+// recordatoris i la lliga, una cosa cada vegada. Surt quan s'ha respost la pregunta dels
+// recordatoris, o de seguida si aquella no toca (decisió de l'usuari, 02/11/2026): des
+// que la finestra de llançament es va apagar (26/10), els comptes nous gairebé no entraven
+// a la lliga. Després d'un «Ara no», com els recordatoris (araNoDeixa).
+const LLIGA_FINAL_KEY = 'cat_lliga_final_v1';   // { n: «Ara no» dits, dia }
+function cadenaFinalHTML(items) {
+  const recordatori = preguntaRecordatoriHTML(items);
+  return `${targetaCompteHTML()}${recordatori}<div id="lliga-final">${recordatori ? '' : lligaFinalHTML()}</div>`;
+}
+function tocaLligaFinal() {
+  return lligaVisible() && lligaForaConfirmat() && araNoDeixa(LLIGA_FINAL_KEY);
+}
+function lligaFinalText(on) {
+  if (on.posicio) return `🏆 Amb els ${formatXP(on.xp)} XP d'avui, estaries a la ${on.posicio}a posició de la lliga d'aquesta setmana. Entra-hi i et compten.`;
+  if (on.xp > 0) return `🏆 Entra a la Lliga AprènCatalà: els ${formatXP(on.xp)} XP d'avui ja et compten.`;
+  return "🏆 Entra a la Lliga AprènCatalà: cada XP que guanyis et puja a la classificació d'aquesta setmana.";
+}
+function lligaFinalHTML() {
+  if (!tocaLligaFinal()) return '';
+  return `<div style="background:var(--accent-amber-bg);border-left:3px solid var(--accent-amber-val);border-radius:10px;padding:12px 14px;margin-bottom:20px;text-align:left;">
+        <div id="lliga-final-text" style="font-size:14px;font-weight:600;color:var(--accent-amber-text);line-height:1.4;">${lligaFinalText(lligaOnEstaries())}</div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+          <button class="ct-btn primary" style="font-size:13px;padding:6px 14px;margin:0;" onclick="lligaParticipa()">Entra a la lliga</button>
+          <button class="ct-btn secondary" style="font-size:13px;padding:6px 14px;margin:0;" onclick="lligaFinalAraNo()">Ara no</button>
+        </div>
+      </div>`;
+}
+// En respondre la pregunta dels recordatoris, la invitació surt al seu lloc, a sota.
+function lligaFinalMostra() {
+  const el = document.getElementById('lliga-final');
+  if (!el) return;
+  el.innerHTML = lligaFinalHTML();
+  lligaFinalRefresca();
+}
+// La posició demana els punts de la setmana: la invitació es pinta amb el que se sap i
+// es completa quan arriben. Sense XP d'avui no hi ha posició a dir, i no es llegeix res.
+async function lligaFinalRefresca() {
+  if (!document.getElementById('lliga-final-text') || !(lligaXPAvui() > 0)) return;
+  if (!(await lligaOnEstariesRefresca())) return;
+  const t = document.getElementById('lliga-final-text');
+  if (t) t.innerHTML = lligaFinalText(lligaOnEstaries());
+}
+function lligaFinalAraNo() {
+  apuntaAraNo(LLIGA_FINAL_KEY);
+  const el = document.getElementById('lliga-final');
+  if (el) el.innerHTML = '';
 }
 
 function refreshNotifSection() {
