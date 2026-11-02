@@ -4514,6 +4514,33 @@ function lligaSincronitzaSiCal(ms = 5 * 60 * 1000) {
   lligaSincronitza();
 }
 
+// ── On estaria qui no hi és, si hi entrés ara ──
+// Els XP d'avui li compten en entrar-hi (lligaSumaXP, decisió de l'usuari del 13/10), i la
+// posició es compta com a la classificació: entre els que tenen punts, amb els empats. Per
+// a la targeta de l'Inici i la invitació del final de la sessió (02/11/2026).
+let _lligaOnCache = null;   // { setmana, t, punts: [els punts de cada participant] }
+function lligaXPAvui() {
+  const p = lligaLocal().pendent;
+  return (p && p.dia === diaMadrid(Date.now())) ? p.xp : 0;
+}
+function lligaOnEstaries() {
+  const xp = lligaXPAvui(), c = _lligaOnCache;
+  const posicio = (xp > 0 && c && c.setmana === setmanaMadrid(Date.now()))
+    ? 1 + c.punts.filter(p => p > xp).length : null;
+  return { xp, posicio };
+}
+// Llegeix els punts de la setmana, si fa més de «ms» que no se'n llegeixen. Torna si en té.
+async function lligaOnEstariesRefresca(ms = 5 * 60 * 1000) {
+  const s = setmanaMadrid(Date.now());
+  if (_lligaOnCache && _lligaOnCache.setmana === s && Date.now() - _lligaOnCache.t < ms) return true;
+  try {
+    const dades = await window.fbLligaClassificacio?.(s);
+    if (!dades) return false;
+    _lligaOnCache = { setmana: s, t: Date.now(), punts: lligaFiles(dades).map(f => f.punts) };
+    return true;
+  } catch (e) { return false; }
+}
+
 // ── Targeta de l'Inici ──
 function lligaTargetaInner() {
   const l = lligaLocal();
@@ -4526,8 +4553,11 @@ function lligaTargetaInner() {
     const jo = (c && c.setmana === setmanaMadrid(Date.now())) ? lligaFiles(c.dades).find(f => f.lid === l.lid) : null;
     sub = jo ? `Posició ${jo.posicio} · ${jo.punts} punts` : 'Mira la classificació';
   } else if (lligaConvida()) {
+    // Qui avui ja té XP, on estaria si hi entrés; si no, quanta gent hi ha.
+    const on = lligaForaConfirmat() ? lligaOnEstaries() : null;
     const n = lligaForaConfirmat() && _lligaCompte && _lligaCompte.n;
-    sub = (n ? `${n} ${n === 1 ? 'persona' : 'persones'} · ` : '') + 'Participa!';
+    sub = on && on.posicio ? `Amb els XP d'avui, estaries a la ${on.posicio}a posició · Participa!`
+      : (n ? `${n} ${n === 1 ? 'persona' : 'persones'} · ` : '') + 'Participa!';
   } else {
     sub = 'Mira la classificació';
   }
@@ -4579,9 +4609,13 @@ async function lligaRefrescaTargeta() {
         const dades = await window.fbLligaClassificacio?.(s);
         if (dades) desaCacheLliga({ setmana: s, t: Date.now(), dades });
       }
-    } else if (lligaForaConfirmat() && (!_lligaCompte || ara - _lligaCompte.t > 300000)) {
-      const n = await window.fbLligaCompta?.();
-      if (n != null) _lligaCompte = { t: Date.now(), n };
+    } else if (lligaForaConfirmat()) {
+      if (!_lligaCompte || ara - _lligaCompte.t > 300000) {
+        const n = await window.fbLligaCompta?.();
+        if (n != null) _lligaCompte = { t: Date.now(), n };
+      }
+      // Els punts de la setmana, només si avui ja té XP: sense, no hi ha posició a dir.
+      if (lligaXPAvui() > 0) await lligaOnEstariesRefresca();
     }
   } catch (e) { return; }
   // Si ja no s'és a l'Inici, la targeta no existeix i no es toca res.
