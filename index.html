@@ -6079,15 +6079,39 @@ function esperaSessio(maxMs = 5000) {
 // no a l'Inici, on competeix amb els altres avisos. Primer és una pregunta nostra,
 // i el diàleg del sistema només surt si diu que sí: a l'app d'Android, un cop
 // denegat, la pàgina ja no el pot tornar a demanar (vegeu renderNotificationsSection).
-const RECORDATORI_FINAL_SILENCI_DIES = 7;   // després d'un «Ara no»
+const RECORDATORI_FINAL_KEY = 'cat_recordatori_final_v2';   // { n: «Ara no» dits, dia }
+
+// ── Després d'un «Ara no» al final de la sessió ──
+// Torna a preguntar el següent dia de pràctica, i al tercer «Ara no», prou (decisió de
+// l'usuari, 02/11/2026). Abans eren 7 dies naturals: la pregunta només surt en acabar
+// una sessió, i qui deia «Ara no» el primer dia i practicava dos dies més no la tornava
+// a veure. Ho fan servir els recordatoris i la invitació de la lliga.
+const ARA_NO_MAXIM = 3;
+function estatAraNo(clau) {
+  try { return JSON.parse(localStorage.getItem(clau)) || { n: 0, dia: null }; } catch (e) { return { n: 0, dia: null }; }
+}
+function araNoDeixa(clau) {
+  const st = estatAraNo(clau);
+  return st.n < ARA_NO_MAXIM && st.dia !== diaLocal();
+}
+function apuntaAraNo(clau) {
+  localStorage.setItem(clau, JSON.stringify({ n: estatAraNo(clau).n + 1, dia: diaLocal() }));
+}
 
 function tocaPreguntaRecordatori() {
   if (!window.fbUser || !('Notification' in window) || Notification.permission === 'denied') return false;
   // notif_active només s'escriu en activar-los o desactivar-los: si hi ha qualsevol
   // valor, o ja els té o els ha desactivat al Perfil. No se li pregunta.
   if (localStorage.getItem('notif_active') !== null) return false;
-  const at = parseInt(localStorage.getItem('recordatori_final_ara_no_at') || '0', 10);
-  return !at || (Date.now() - at) > RECORDATORI_FINAL_SILENCI_DIES * 24 * 60 * 60 * 1000;
+  // Qui havia dit «Ara no» abans del 02/11 en té l'hora: compta com un «Ara no» d'aquell dia.
+  const vell = localStorage.getItem('recordatori_final_ara_no_at');
+  if (vell !== null) {
+    if (localStorage.getItem(RECORDATORI_FINAL_KEY) === null) {
+      localStorage.setItem(RECORDATORI_FINAL_KEY, JSON.stringify({ n: 1, dia: diaLocal(parseInt(vell, 10) || 0) }));
+    }
+    localStorage.removeItem('recordatori_final_ara_no_at');
+  }
+  return araNoDeixa(RECORDATORI_FINAL_KEY);
 }
 
 function preguntaRecordatoriHTML(items) {
@@ -6119,7 +6143,7 @@ function preguntaRecordatoriHTML(items) {
 async function respostaRecordatoriFinal(si) {
   const el = document.getElementById('recordatori-final');
   if (!si) {
-    localStorage.setItem('recordatori_final_ara_no_at', String(Date.now()));
+    apuntaAraNo(RECORDATORI_FINAL_KEY);
     if (el) el.remove();
     return;
   }
