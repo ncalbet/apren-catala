@@ -728,6 +728,11 @@ const NOVETATS_BANNER_ACTIU = false;
 // shouldShowKofiBanner). És «let» perquè les proves el puguin encendre.
 // (AQUÍ DALT pel mateix motiu que els de Ko-fi: renderMenu() el llegeix en arrencar.)
 let AVIS_RECORREGUTS_ACTIU = false;
+// El bàner «Novetats: el nivell A1 i l'escolta» (avisA1Toca). APAGAT el 02/11/2026,
+// decisió de l'usuari: l'A1 ja no és cap novetat, i el veien també els usuaris nous que
+// començaven per l'A2. «let» perquè les proves el puguin encendre.
+// (AQUÍ DALT pel mateix motiu que els de Ko-fi: renderMenu() el llegeix en arrencar.)
+let AVIS_A1_ACTIU = false;
 // L'enllaç «Creus que la teva resposta era bona? Avisa'ns» de després d'un error
 // (mostraCorreccioDubtosa). S'encén sol el dilluns 5/10/2026, dia de Madrid: decisió
 // de l'usuari el 2/10, que l'avança del 14/10. Abans d'aquell dia no surt.
@@ -6159,7 +6164,7 @@ function dismissNovetatsBanner() {
 // l'acollida. Es tanca amb ✕ o en recomanar-la, i es desa al progrés, no al mòbil,
 // com els recorreguts: no ha de tornar en un mòbil nou.
 function avisA1Toca() {
-  if (!DATA.a1 || progress.avisA1) return false;
+  if (!AVIS_A1_ACTIU || !DATA.a1 || progress.avisA1) return false;
   return Object.keys(progress.mastery || {}).some(id => !id.startsWith('a1-'));
 }
 function textA1() {
