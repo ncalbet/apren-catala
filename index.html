@@ -1520,7 +1520,7 @@ function renderMenu() {
         const dcDone = dc.completed.length === dc.ids.length;
         return dcDone
           ? `<div style="background:var(--accent-green-bg);border:1px solid #059669;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-green-text);font-weight:600;">✅ Repte diari completat! +50 XP</div>`
-          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;line-height:1.35;" onclick="startDailySession()">🎯 Repte diari (${dc.completed.length}/${dc.ids.length} fets)${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
+          : `<button class="ct-btn primary" style="width:100%;margin:0 0 10px;line-height:1.35;" onclick="startDailySession()">🎯 ${dc.completed.length ? `Continua el repte (${faltenDelRepte(dc)})` : `Repte diari (0/${dc.ids.length} fets)`}${dc.recorregut ? `<span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${[
               dc.repassos.length ? `${dc.repassos.length} ${dc.repassos.length === 1 ? 'repàs' : 'repassos'}` : '',
               dc.nous.length ? `${dc.nous.length} de «${escText(findExerciseById(dc.nous[0]).category)}»` : '',
             ].filter(Boolean).join(' · ')}</span>` : ''}</button>`;
@@ -3669,7 +3669,12 @@ function startDailySession() {
   const dc = getDailyChallenge();
   const all = corpusTot();
   const seed = dc.date.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  // Un repte a mitges es reprèn amb els que falten. Abans tornava a portar tots els
+  // exercicis, i els ja encertats tornaven a sumar XP i punts de lliga (bústia #99,
+  // 02/11/2026). La k és la de dc.ids: cada exercici surt amb la variant del primer cop.
+  const falten = dc.ids.filter(id => !dc.completed.includes(id));
   const items = dc.ids.map((id, k) => {
+    if (falten.length && !falten.includes(id)) return null;
     const base = all.find(q => q.id === id);
     if (!base) return null;
     // Els nous de la sessió del recorregut, en la versió base: és el primer contacte,
@@ -3682,6 +3687,12 @@ function startDailySession() {
   document.querySelectorAll('.ct-nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('nav-levels').classList.add('active');
   renderExercise();
+}
+
+// El text del botó d'un repte a mitges: «en falta 1», «en falten 2».
+function faltenDelRepte(dc) {
+  const n = dc.ids.length - dc.completed.length;
+  return `en ${n === 1 ? 'falta' : 'falten'} ${n}`;
 }
 
 function getMidnightCountdown() {
@@ -3772,7 +3783,7 @@ function renderDailyChallengeSection() {
 
       ${!allDone
         ? `<button class="ct-btn primary" style="width:100%;background:#fbbf24;color:#1a2f4e;border:none;font-weight:700;"
-            onclick="startDailySession()">▶ Fer el repte ara</button>`
+            onclick="startDailySession()">▶ ${nDone ? `Continua el repte (${faltenDelRepte(dc)})` : 'Fer el repte ara'}</button>`
         : `<div style="text-align:center;font-size:13px;opacity:0.85;">+50 XP de bonus guanyats! 🎉</div>`
       }
     </div>`;
