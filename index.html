@@ -6207,7 +6207,7 @@ function tocaLligaFinal() {
   return lligaVisible() && lligaForaConfirmat() && araNoDeixa(LLIGA_FINAL_KEY);
 }
 function lligaFinalText(on) {
-  if (on.posicio) return `🏆 Amb els ${formatXP(on.xp)} XP d'avui, estaries a la ${on.posicio}a posició de la lliga d'aquesta setmana. Entra-hi i et compten.`;
+  if (on.posicio) return `🏆 Amb els ${formatXP(on.xp)} XP d'avui, estaries a la ${on.posicio}a posició de la lliga d'aquesta setmana. Entra-hi.`;
   if (on.xp > 0) return `🏆 Entra a la Lliga AprènCatalà: els ${formatXP(on.xp)} XP d'avui ja et compten.`;
   return "🏆 Entra a la Lliga AprènCatalà: cada XP que guanyis et puja a la classificació d'aquesta setmana.";
 }
