@@ -696,8 +696,9 @@ function saveProgress() {
 const SESSION_KEY = 'cat_session_v1';
 
 // Ko-fi: reciprocitat, no insistència. Només es demana a qui ja ha tret valor de
-// l'app (≥10 dies practicats), mai a un usuari nou, mai apilat sobre un altre avís,
-// i amb 30 dies de silenci si el tanca. Veure shouldShowKofiBanner().
+// l'app (≥7 dies practicats; fins al 03/11/2026 eren 10, i només hi arribaven 17 dels 177
+// comptes amb exercicis), mai a un usuari nou, mai apilat sobre un altre avís, mai el dia
+// de la targeta de compte, i amb 30 dies de silenci si el tanca. Veure shouldShowKofiBanner().
 // ⚠️ HAN D'ANAR AQUÍ DALT: renderMenu() les llegeix, i renderMenu() es crida des del
 // bloc d'arrencada. Si es declaren més avall, queden en zona morta temporal i
 // l'arrencada peta amb ReferenceError → Inici en blanc. (Va passar a la v106.)
@@ -706,7 +707,7 @@ const SESSION_KEY = 'cat_session_v1';
 // volíem que es pensessin que els demanàvem diners a ells). REACTIVAT el 2026-08-08, amb
 // l'app ja pública a Play. Les guardes de sota el mantenen discret: mai a un usuari nou.
 const KOFI_BANNER_ACTIU = true;
-const KOFI_DIES_MINIMS = 10;
+const KOFI_DIES_MINIMS = 7;
 const KOFI_SILENCI_DIES = 30;
 
 // La valoració a Google Play (decisió de l'usuari, 03/11/2026): un bàner a l'Inici des del
@@ -6366,6 +6367,8 @@ function shouldShowKofiBanner() {
   // I mentre hi ha la valoració, també; el dia que s'hi respon, tampoc no surt: en tancar-la,
   // el cafè no ha d'aparèixer tot seguit (decisió de l'usuari, 03/11).
   if (valoracioToca() || valoracioRespostaAvui()) return false;
+  // El dia que ha sortit la targeta de compte, tampoc: una sola petició al dia.
+  if (compteFinalAvui()) return false;
   // Qui no ha triat recorregut té l'avís de novetat al davant, si és encès. Fins al 03/11
   // el Ko-fi també callava per a ell amb l'avís apagat (la setmana de la lliga, a l'Inici,
   // com menys avisos, millor), i deixava sense Ko-fi els usuaris més antics: 10 dels 17
