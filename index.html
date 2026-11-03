@@ -724,8 +724,8 @@ const NOVETATS_BANNER_ACTIU = false;
 // n'han triat cap). APAGAT el 28/09/2026, decisió de l'usuari: la setmana de
 // llançament de la lliga, a l'Inici mana la lliga. Els recorreguts hi són igualment
 // (pantalla de cada nivell i acollida dels usuaris nous). Per encendre'l: true.
-// Mentre és apagat, el Ko-fi continua callant per a qui no ha triat (vegeu
-// shouldShowKofiBanner). És «let» perquè les proves el puguin encendre.
+// Encès, el Ko-fi calla per a qui no ha triat (vegeu shouldShowKofiBanner).
+// És «let» perquè les proves el puguin encendre.
 // (AQUÍ DALT pel mateix motiu que els de Ko-fi: renderMenu() el llegeix en arrencar.)
 let AVIS_RECORREGUTS_ACTIU = false;
 // El bàner «Novetats: el nivell A1 i l'escolta» (avisA1Toca). APAGAT el 02/11/2026,
@@ -6297,10 +6297,11 @@ function shouldShowKofiBanner() {
   if (getSavedSession() || shouldShowNovetatsBanner() || lligaPistaDe(Date.now())) return false;
   // Un sol avís alhora: mentre hi ha el de l'A1, el Ko-fi espera.
   if (avisA1Toca()) return false;
-  // Qui no ha triat recorregut té l'avís de novetat al davant. Mentre l'avís és
-  // apagat (AVIS_RECORREGUTS_ACTIU), el Ko-fi també calla per a ell: la setmana de la
-  // lliga, a l'Inici, com menys avisos, millor.
-  if (progress.recorregut === undefined) return false;
+  // Qui no ha triat recorregut té l'avís de novetat al davant, si és encès. Fins al 03/11
+  // el Ko-fi també callava per a ell amb l'avís apagat (la setmana de la lliga, a l'Inici,
+  // com menys avisos, millor), i deixava sense Ko-fi els usuaris més antics: 10 dels 17
+  // que tenien 10 dies de pràctica (decisió de l'usuari, 03/11).
+  if (AVIS_RECORREGUTS_ACTIU && progress.recorregut === undefined) return false;
   const at = parseInt(localStorage.getItem('kofi_banner_dismissed_at') || '0', 10);
   return !at || (Date.now() - at) > KOFI_SILENCI_DIES * 24 * 60 * 60 * 1000;
 }
