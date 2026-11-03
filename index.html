@@ -709,6 +709,19 @@ const KOFI_BANNER_ACTIU = true;
 const KOFI_DIES_MINIMS = 10;
 const KOFI_SILENCI_DIES = 30;
 
+// La valoració a Google Play (decisió de l'usuari, 03/11/2026): un bàner a l'Inici des del
+// 5è dia de pràctica, només dins de l'app d'Android (des del web no es pot valorar). Es queda
+// fins que es prem un botó: «Valora-la» obre la fitxa i ja no torna; ✕ el treu 15 dies, i al
+// segon ✕, prou. Google prohibeix donar res a canvi d'una valoració: res d'XP.
+// Veure valoracioToca(). (AQUÍ DALT pel mateix motiu que els de Ko-fi.)
+const VALORACIO_DIES_MINIMS = 5;
+const VALORACIO_SILENCI_DIES = 15;
+const VALORACIO_TANCAMENTS = 2;
+const DINS_APP_KEY = 'cat_dins_app_v1';   // '1' si alguna vegada s'ha obert des de l'app d'Android
+// La targeta de compte del final de la sessió (vegeu COMPTE_FINAL_DIES). El dia que surt, no
+// se li demana res més: la valoració la mira en arrencar, i per això la clau és AQUÍ DALT.
+const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: vegades que ha sortit, dia }
+
 // Llargada màxima del pseudònim. Es mostra a la salutació de l'Inici i als
 // banners, i un text llarg els trencaria. AQUÍ DALT pel mateix motiu que les
 // de Ko-fi: getPseudo() la llegeix des de renderMenu(), i renderMenu() es crida
@@ -1492,6 +1505,16 @@ function renderMenu() {
   // (preguntaRecordatoriHTML), quan té sentit. El bàner d'aquí competia amb els
   // altres avisos: el 27/09/2026, només 5 dels 110 comptes els tenien activats.
   const diesPracticats = (progress.practiceHistory || []).length;
+  // La valoració a Google Play: veure valoracioToca(). Sense cap frase que pregunti si
+  // agrada l'app (guia de Google) ni res a canvi (política de Play).
+  const valoracioBanner = valoracioToca() ? `
+    <div class="ct-card" id="avis-valoracio" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:flex-start;gap:12px;">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">⭐ Valora AprènCatalà a Google&nbsp;Play</div>
+        <a href="https://play.google.com/store/apps/details?id=cat.aprencatala.app" target="_blank" rel="noopener" onclick="valoracioFeta()" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">Valora-la</a>
+      </div>
+      <button onclick="valoracioTanca()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+    </div>` : '';
   // El botó va a sota del text: al costat, en un mòbil, el text quedava en una
   // columna d'una paraula per línia (bústia, 08/10).
   const kofiBanner = shouldShowKofiBanner() ? `
@@ -1511,6 +1534,7 @@ function renderMenu() {
     ${avisRecorreguts}
     ${avisA1}
     ${novetatsBanner}
+    ${valoracioBanner}
     ${kofiBanner}
     ${lligaTargetaHTML()}
     ${correctorTargetaHTML()}
@@ -6033,12 +6057,16 @@ async function activaRecordatoris() {
 // l'usuari, 27/10). Si el fa, al mateix lloc surt la pregunta dels recordatoris, que
 // sense compte no es podien activar.
 const COMPTE_FINAL_DIES = [1, 2, 5];              // dies de pràctica en què surt
-const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: vegades que ha sortit, dia }
 const COMPTE_SALTAT_KEY = 'cat_compte_saltat_v1'; // ha saltat la pantalla de l'entrada
+// COMPTE_FINAL_KEY és a dalt de tot, amb les del Ko-fi: es llegeix en arrencar.
 
 function estatCompteFinal() {
   try { return JSON.parse(localStorage.getItem(COMPTE_FINAL_KEY)) || { n: 0, dia: null }; }
   catch (e) { return { n: 0, dia: null }; }
+}
+// Avui ja ha sortit la targeta: aquell dia no se li demana res més (decisió de l'usuari, 03/11).
+function compteFinalAvui() {
+  return estatCompteFinal().dia === diaLocal();
 }
 function tocaTargetaCompte() {
   // fbUser és null quan Firebase diu «sense sessió»; undefined, si encara no ho sap
@@ -6291,12 +6319,53 @@ function recomanaA1() {
   tancaAvisA1();
 }
 
+// ── La valoració a Google Play (veure VALORACIO_DIES_MINIMS) ──
+// L'app d'Android (TWA) obre la pàgina amb un referrer android-app://. Es recorda al
+// dispositiu, per si una recàrrega el perd.
+function dinsAppAndroid() {
+  try {
+    if ((document.referrer || '').startsWith('android-app://')) { localStorage.setItem(DINS_APP_KEY, '1'); return true; }
+    return localStorage.getItem(DINS_APP_KEY) === '1';
+  } catch (e) { return false; }
+}
+// progress.valoracio: { fet: true, dia } després de «Valora-la»; { tancat: n, dia } després
+// de ✕. Es desa al progrés, com l'A1: no ha de tornar en un mòbil nou. Un sol avís alhora,
+// com el Ko-fi, i mai el dia que ha sortit la targeta de compte.
+function valoracioToca() {
+  if (!dinsAppAndroid() || (progress.practiceHistory || []).length < VALORACIO_DIES_MINIMS) return false;
+  if (getSavedSession() || shouldShowNovetatsBanner() || lligaPistaDe(Date.now()) || avisA1Toca()) return false;
+  if (AVIS_RECORREGUTS_ACTIU && progress.recorregut === undefined) return false;
+  if (compteFinalAvui()) return false;
+  const v = progress.valoracio;
+  if (!v) return true;
+  if (v.fet || (v.tancat | 0) >= VALORACIO_TANCAMENTS) return false;
+  return typeof v.dia !== 'string' || sumaDies(v.dia, VALORACIO_SILENCI_DIES) <= diaLocal();
+}
+// Si avui s'ha premut un dels dos botons.
+function valoracioRespostaAvui() {
+  return !!progress.valoracio && progress.valoracio.dia === diaLocal();
+}
+function valoracioFeta() {
+  progress.valoracio = { fet: true, dia: diaLocal() };
+  saveProgress();
+  // El bàner es treu després del clic, no durant: l'enllaç s'ha d'obrir igualment.
+  setTimeout(() => { const el = document.getElementById('avis-valoracio'); if (el) el.remove(); }, 0);
+}
+function valoracioTanca() {
+  progress.valoracio = { tancat: ((progress.valoracio || {}).tancat | 0) + 1, dia: diaLocal() };
+  saveProgress();
+  renderMenu();
+}
+
 function shouldShowKofiBanner() {
   if (!KOFI_BANNER_ACTIU) return false;
   if ((progress.practiceHistory || []).length < KOFI_DIES_MINIMS) return false;
   if (getSavedSession() || shouldShowNovetatsBanner() || lligaPistaDe(Date.now())) return false;
   // Un sol avís alhora: mentre hi ha el de l'A1, el Ko-fi espera.
   if (avisA1Toca()) return false;
+  // I mentre hi ha la valoració, també; el dia que s'hi respon, tampoc no surt: en tancar-la,
+  // el cafè no ha d'aparèixer tot seguit (decisió de l'usuari, 03/11).
+  if (valoracioToca() || valoracioRespostaAvui()) return false;
   // Qui no ha triat recorregut té l'avís de novetat al davant, si és encès. Fins al 03/11
   // el Ko-fi també callava per a ell amb l'avís apagat (la setmana de la lliga, a l'Inici,
   // com menys avisos, millor), i deixava sense Ko-fi els usuaris més antics: 10 dels 17
