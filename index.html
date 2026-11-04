@@ -2412,7 +2412,7 @@ const CORRECTOR_TEMPS_MS = 45000;   // el model triga entre 5 i 15 s; més enll�
 // al wrangler.toml): si la data canvia allà, canvia aquí. Decisió del 04/11/2026.
 const CORRECTOR_ULTIM_DIA = '17/11';
 const CORRECTOR_TIPUS = { ortografia: 'ortografia', accentuacio: 'accentuació', apostrof_contraccio: 'apòstrof i contraccions', verb: 'verb', pronom: 'pronom', preposicio: 'preposició', concordanca: 'concordança', lexic: 'lèxic', sintaxi: 'sintaxi', puntuacio: 'puntuació' };
-let _correctorEstat = null;          // { admes, tancat, usats, maxim, t }: l'última lectura de /estat
+let _correctorEstat = null;          // { admes, tancat, obert, total, usats, maxim, t }: l'última lectura de /estat
 let _correctorEstatPromesa = null;   // la lectura en curs, per no fer-ne dues alhora
 let _correctorNivell = null;         // el nivell triat; null = el del recorregut, o B1
 let _correctorText = '';             // el text escrit (en memòria, a posta)
@@ -2438,8 +2438,14 @@ const CORRECTOR_TANCAT_TEXT = 'Moltes gràcies per participar-hi! Cada correcci�
 // La versió 2 (31/10/2026, abans que en respongués ningú) segueix el que recomanen les fonts:
 // primer si sabria greu perdre-ho (test de Sean Ellis), el que ha fet abans en lloc del que
 // pagaria, i una última oberta que es pot deixar en blanc.
+// Amb l'obertura a tothom (04/11/2026): a qui hi entra per l'interruptor (/estat diu «obert»), les
+// preguntes quan ja ha escrit 2 textos i han passat 3 dies del primer (Sean Ellis: a qui l'ha fet
+// servir almenys dos cops), i mai la del «per què no». Un cop tancada la prova, les preguntes sense
+// la del «greu» (ja no té sentit), i la del «per què no», a ningú.
 const CORRECTOR_ENQUESTA_KEY = 'corrector_enquesta_v1';   // { fet, pendent } | { ajornat, ultim }
 const CORRECTOR_PREGUNTES_DIES = 7;
+const CORRECTOR_PREGUNTES_DIES_OBERT = 3;
+const CORRECTOR_ENQUESTA_TEXTS_OBERT = 2;
 const CORRECTOR_ENQUESTA_AJORNAMENTS = 3;
 const CORRECTOR_ENQUESTA_MAX_TEXT = 500;   // la pregunta oberta; el mateix número a firestore.rules
 const CORRECTOR_ENQUESTA = {
@@ -2457,6 +2463,12 @@ const CORRECTOR_ENQUESTA_SENSE_US = {
   preguntes: [
     { clau: 'perque_no', text: 'Encara no has provat els exercicis d\'expressió escrita. Per què?', opcions: ['No he tingut temps', 'No sabia què escriure', 'No m\'ha cridat l\'atenció', 'No he trobat on era'] },
   ],
+};
+// La de després del tancament: les mateixes, sense la del «greu». Identificador propi, per saber
+// a l'hora de llegir-les quines es van respondre amb la prova ja tancada.
+const CORRECTOR_ENQUESTA_FINAL = {
+  id: 'corrector-2-final',
+  preguntes: CORRECTOR_ENQUESTA.preguntes.filter(p => p.clau !== 'greu'),
 };
 let _enquesta = null;   // l'enquesta oberta: { def, i, respostes }
 let _correctorEnviant = false;
@@ -2507,7 +2519,7 @@ async function correctorEstat(forca = false) {
   _correctorEstatPromesa = (async () => {
     const r = await correctorCrida('/estat');
     if (r.status === 200 && r.dades) {
-      _correctorEstat = { admes: !!r.dades.admes, tancat: !!r.dades.tancat, usats: r.dades.usats | 0, maxim: r.dades.maxim | 0, t: Date.now() };
+      _correctorEstat = { admes: !!r.dades.admes, tancat: !!r.dades.tancat, obert: !!r.dades.obert, total: r.dades.total | 0, usats: r.dades.usats | 0, maxim: r.dades.maxim | 0, t: Date.now() };
       // El primer dia que l'app el veu admès, per a l'enquesta de qui no escriu mai.
       if (_correctorEstat.admes) { try { if (!localStorage.getItem('corrector_admes_at')) localStorage.setItem('corrector_admes_at', new Date().toISOString()); } catch (e) {} }
     } else if (r.status === 403 || r.status === 401) {
@@ -2710,20 +2722,32 @@ function correctorEnquestaEstat() {
 function correctorEnquestaDesa(e) {
   try { localStorage.setItem(CORRECTOR_ENQUESTA_KEY, JSON.stringify(e)); } catch (e2) {}
 }
-// Quina enquesta toca ara, o null. La de les 5 preguntes, una setmana després de la primera
-// correcció; la d'una pregunta, a qui és admès i no ha escrit mai, una setmana després que
-// l'app el veiés admès. Mai dues vegades, no el mateix dia que s'ha ajornat, i com a molt
+// Quina enquesta toca ara, o null. Als de la llista: la de les 5 preguntes, una setmana després
+// de la primera correcció; la d'una pregunta, si no han escrit mai, una setmana després que l'app
+// els veiés admesos. Als de l'interruptor (obert): les preguntes amb 2 textos i 3 dies del primer;
+// la d'una pregunta, mai. Amb la prova tancada: les preguntes sense la del «greu», i la d'una
+// pregunta, mai. Mai dues vegades, no el mateix dia que s'ha ajornat, i com a molt
 // CORRECTOR_ENQUESTA_AJORNAMENTS ajornaments.
 function correctorEnquestaPendent(ara = Date.now()) {
-  if (!correctorAdmes()) return null;
+  if (!correctorAdmes() && !correctorTancat()) return null;
+  const est = _correctorEstat;
   const e = correctorEnquestaEstat();
   if (e.fet || (e.ajornat | 0) >= CORRECTOR_ENQUESTA_AJORNAMENTS) return null;
   if (e.ultim && ara - Date.parse(e.ultim) < 86400000) return null;
   let acceptat = null, admesDes = null;
   try { acceptat = localStorage.getItem('corrector_acceptat_at'); admesDes = localStorage.getItem('corrector_admes_at'); } catch (err) {}
-  const t = Date.parse(acceptat || admesDes || '');
+  if (acceptat) {
+    const t = Date.parse(acceptat);
+    if (!Number.isFinite(t)) return null;
+    if (est.obert) {
+      if ((est.total | 0) < CORRECTOR_ENQUESTA_TEXTS_OBERT || ara - t < CORRECTOR_PREGUNTES_DIES_OBERT * 86400000) return null;
+    } else if (ara - t < CORRECTOR_PREGUNTES_DIES * 86400000) return null;
+    return est.tancat ? CORRECTOR_ENQUESTA_FINAL : CORRECTOR_ENQUESTA;
+  }
+  if (est.obert || est.tancat) return null;
+  const t = Date.parse(admesDes || '');
   if (!Number.isFinite(t) || ara - t < CORRECTOR_PREGUNTES_DIES * 86400000) return null;
-  return acceptat ? CORRECTOR_ENQUESTA : CORRECTOR_ENQUESTA_SENSE_US;
+  return CORRECTOR_ENQUESTA_SENSE_US;
 }
 // En arribar a l'Inici amb l'estat llegit: s'envia el que hagi quedat pendent i, si toca, s'obre.
 async function correctorEnquestaComprova() {
@@ -2973,6 +2997,8 @@ async function correctorEnvia() {
   const d = r.dades || {};
   if (_correctorEstat && typeof d.usats === 'number' && typeof d.maxim === 'number') { _correctorEstat.usats = d.usats; _correctorEstat.maxim = d.maxim; }
   if (r.status === 200 && Array.isArray(d.errors)) {
+    // El total que diu /estat no torna a arribar fins al pròxim refresc: es compta aquí, per a l'enquesta.
+    if (_correctorEstat) _correctorEstat.total = (_correctorEstat.total | 0) + 1;
     const consigna = correctorConsigna(nivell);
     _correctorResultat = { text, nivell, consigna: consigna ? consigna.text : '', errors: d.errors, valoracio: String(d.valoracio || ''), usats: d.usats | 0, maxim: d.maxim | 0 };
     if (document.getElementById('corrector-pantalla')) renderCorrector();
