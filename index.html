@@ -2780,7 +2780,7 @@ function correctorEnquestaPinta() {
   const ultima = i === def.preguntes.length - 1;
   el.innerHTML = `<div class="ct-modal" style="max-width:380px;text-align:left;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
-        <span style="font-size:12px;color:var(--muted);">✍️ Expressió escrita · ${def.preguntes.length > 1 ? `pregunta ${i + 1} de ${def.preguntes.length}` : 'una pregunta'}</span>
+        <span style="font-size:12px;color:var(--muted);">✍️ Expressió escrita${def.preguntes.length > 1 ? ` · ${i + 1} de ${def.preguntes.length}` : ''}</span>
         <button type="button" onclick="correctorEnquestaAjorna()" style="background:none;border:none;padding:4px 0;font:inherit;font-size:13px;color:var(--muted);text-decoration:underline;cursor:pointer;flex-shrink:0;">Més tard</button>
       </div>
       <div style="font-size:16px;font-weight:600;color:var(--heading);line-height:1.4;margin-bottom:14px;">${escText(p.text)}</div>
