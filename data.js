@@ -6766,7 +6766,7 @@ const DATA = {
     { id:'c1-pf6', type:'fill', level:'c1', category:'Pronoms febles',
       text:'Quan combinem dos pronoms febles (complement indirecte i directe), l\'ordre i la forma canvien segons el verb.',
       question:'Pronominalitza CD i CI: «Dona el llibre a la Maria» → «Dona-___»:',
-      sentence:'Escriu la combinació completa de pronoms amb guionet darrere el verb.',
+      sentence:'Escriu la combinació de pronoms que va darrere el guionet.',
       display:'CI (li) + CD masculí sing. (el → \'l)', answers:['li\'l','dona-li\'l','l\'hi','dona-l\'hi'],
       variants:[
         { question:'Pronominalitza CD i CI: «Compra el bitllet al teu germà» → «Compra-___»:', answers:['li\'l','compra-li\'l','l\'hi','compra-l\'hi'] },
