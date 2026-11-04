@@ -2395,7 +2395,7 @@ function obreTeoriaTema(categoria = null) {
   document.body.appendChild(el);
 }
 
-// ══ CORRECTOR DE TEXTOS (prova tancada, 28/10/2026) ══
+// ══ CORRECTOR DE TEXTOS (prova: tancada des del 28/10/2026; oberta a tothom amb compte del 06/11 al 17/11) ══
 // Un text de 20 a 400 paraules va al Worker (corrector.aprencatala.cat), que el passa a
 // Claude i torna els errors (fragment → proposta, tipus, explicació i el tema de la teoria)
 // i una valoració curta. La clau de l'API viu al Worker; d'aquí només hi va el token de
@@ -2408,6 +2408,9 @@ const CORRECTOR_NIVELLS = ['A1', 'A2', 'B1', 'B2', 'C1'];
 const CORRECTOR_MIN = 20;           // paraules: els mateixos límits que el Worker (validaEntrada)
 const CORRECTOR_MAX = 400;
 const CORRECTOR_TEMPS_MS = 45000;   // el model triga entre 5 i 15 s; més enllà, es dona per perdut
+// L'últim dia de la prova, per dir-ho a la pantalla. Qui la tanca és el Worker (TANCA_DES = 20261118
+// al wrangler.toml): si la data canvia allà, canvia aquí. Decisió del 04/11/2026.
+const CORRECTOR_ULTIM_DIA = '17/11';
 const CORRECTOR_TIPUS = { ortografia: 'ortografia', accentuacio: 'accentuació', apostrof_contraccio: 'apòstrof i contraccions', verb: 'verb', pronom: 'pronom', preposicio: 'preposició', concordanca: 'concordança', lexic: 'lèxic', sintaxi: 'sintaxi', puntuacio: 'puntuació' };
 let _correctorEstat = null;          // { admes, usats, maxim, t }: l'última lectura de /estat
 let _correctorEstatPromesa = null;   // la lectura en curs, per no fer-ne dues alhora
@@ -2629,7 +2632,7 @@ function correctorInvitacioInner() {
       <div style="font-size:13px;color:var(--accent-blue-val);line-height:1.55;">
         <p style="margin:0 0 8px;">Volem que AprènCatalà et serveixi per aprendre català de manera completa, i per això hi afegim coses: ara, escriure.</p>
         <p style="margin:0 0 8px;">Provem aquesta funcionalitat nova, i l'oferim primer a qui aquesta setmana és a la lliga: escrius un text a partir d'una consigna i te'l tornem corregit, amb l'explicació de cada error.</p>
-        <p style="margin:0;">Per ser dels primers tindràs 5 correccions al dia, més que quan s'obri a tothom, i al cap d'una setmana et farem 5 preguntes per conèixer la teva experiència.</p>
+        <p style="margin:0;">Per ser dels primers tindràs 6 correccions al dia, més que quan s'obri a tothom, i al cap d'una setmana et farem 5 preguntes per conèixer la teva experiència.</p>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
         <button class="ct-btn primary" style="font-size:13px;padding:7px 16px;" onclick="correctorInvitacioRespon(true)">M'hi apunto</button>
@@ -2823,9 +2826,9 @@ function correctorCapHTML(ambAjuda = false) {
 function correctorAjudaHTML() {
   const e = _correctorEstat || {};
   return `<div id="corrector-ajuda" style="display:none;background:var(--accent-amber-bg);color:var(--accent-amber-text);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;line-height:1.6;">
-      <strong>Què és.</strong> Estem provant exercicis nous d'expressió escrita: tries una consigna, escrius el text i te'l tornem corregit segons la normativa vigent de l'IEC, amb el perquè de cada error i el tema de la teoria per repassar-lo. Les formes pròpies del valencià i del balear s'accepten.<br><br>
+      <strong>Què és.</strong> Estem provant exercicis nous d'expressió escrita: tries una consigna, escrius el text i te'l tornem corregit amb ajuda d'IA a partir de la normativa vigent de l'IEC, amb el perquè de cada error i el tema de la teoria per repassar-lo. Les formes pròpies del valencià i del balear s'accepten.<br><br>
       <strong>Límits.</strong> Entre ${CORRECTOR_MIN} i ${CORRECTOR_MAX} paraules per text, i ${(e.maxim | 0) || 3} correccions al dia. És una prova i el corrector pot equivocar-se: si una correcció et sembla dubtosa, comprova-la.<br><br>
-      <strong>On va el text.</strong> S'envia a un servei extern només per corregir-lo. No s'hi envia cap dada del teu compte, i el text no es guarda ni es fa servir per a res més que la correcció.
+      <strong>On va el text.</strong> S'envia a un servei extern d'IA només per corregir-lo. No s'hi envia cap dada del teu compte.
     </div>`;
 }
 function correctorAjuda() {
@@ -2878,11 +2881,11 @@ function correctorFormulariHTML() {
       <div id="corrector-compta" style="font-size:12px;color:var(--muted);margin:6px 0 14px;text-align:right;">${correctorComptaText(correctorParaules(_correctorText))}</div>
       ${correctorAcceptat() ? '' : `<label id="corrector-accepta-fila" style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--text);line-height:1.55;margin-bottom:14px;padding:12px 14px;border:1px solid var(--accent-blue-text);border-radius:10px;background:var(--accent-blue-bg);cursor:pointer;">
         <input type="checkbox" id="corrector-accepta" style="margin-top:1px;flex-shrink:0;width:22px;height:22px;accent-color:var(--accent-blue-text);cursor:pointer;">
-        <span>Participo en una prova. El text s'envia a un servei extern només per corregir-lo segons la normativa vigent de l'IEC: no s'hi envia cap dada del meu compte, i no es guarda ni es fa servir per a res més.</span>
+        <span>Participo en una prova. El text es corregeix amb ajuda d'IA a partir de la normativa vigent de l'IEC.</span>
       </label>`}
       <div id="corrector-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
       <button id="corrector-envia" class="ct-btn primary" style="width:100%;" onclick="correctorEnvia()">Corregeix</button>
-      <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Prova tancada · ${q ? `avui encara en pots fer ${q}` : `avui ja n'has fet ${e.maxim | 0}`} · triga uns segons</div>
+      <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Prova fins al ${CORRECTOR_ULTIM_DIA} · ${q ? `avui encara en pots fer ${q}` : `avui ja n'has fet ${e.maxim | 0}`} · triga uns segons</div>
     </div>`;
 }
 function correctorCompta(valor) {
