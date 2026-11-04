@@ -2528,7 +2528,8 @@ function correctorNivellActual() {
 
 // Les consignes, com a les proves d'expressió escrita de cada nivell: tipus de text i tema,
 // amb una extensió orientativa (no es comprova: els límits són CORRECTOR_MIN i CORRECTOR_MAX).
-// Sense cap formulació que atribueixi gènere a qui escriu. Se'n tria una a l'atzar per nivell
+// Sense cap formulació que atribueixi gènere a qui escriu. L'última de cada nivell és de tema lliure
+// (decisió del 04/11/2026: que se sàpiga que es pot escriure sobre qualsevol cosa). Se'n tria una a l'atzar per nivell
 // i es pot demanar «Una altra». La consigna no viatja al Worker: corregeix el text i prou.
 const CORRECTOR_CONSIGNES = {
   A1: { paraules: [20, 50], llista: [
@@ -2538,6 +2539,7 @@ const CORRECTOR_CONSIGNES = {
     'Descriu casa teva: quantes habitacions té i què hi ha a cada una.',
     'Escriu un missatge curt per quedar amb algú: on, quin dia i a quina hora.',
     'Explica què t\'agrada menjar i beure, i què no.',
+    'Tema lliure: escriu sobre el que vulguis. Per exemple, una cosa que t\'agrada.',
   ] },
   A2: { paraules: [40, 80], llista: [
     'Escriu un correu a una persona amiga explicant-li què vas fer el cap de setmana passat.',
@@ -2546,6 +2548,7 @@ const CORRECTOR_CONSIGNES = {
     'Escriu un missatge per demanar informació sobre un curs: horaris, preu i com apuntar-s\'hi.',
     'Descriu una persona que coneixes bé: com és físicament i de caràcter.',
     'Explica una festa o una tradició del lloc on vius.',
+    'Tema lliure: escriu sobre el que et vingui de gust: una cosa que t\'agrada, una cosa que t\'ha passat…',
   ] },
   B1: { paraules: [80, 150], llista: [
     'Escriu un correu a una botiga per queixar-te d\'un producte que ha arribat fet malbé i demanar una solució.',
@@ -2554,6 +2557,7 @@ const CORRECTOR_CONSIGNES = {
     'Escriu un missatge al grup de veïns per proposar una activitat al barri.',
     'Explica què faries si et toqués un premi important.',
     'Escriu una ressenya d\'un llibre, una pel·lícula o una sèrie que hagis vist fa poc.',
+    'Tema lliure: escriu sobre el que et vingui de gust: el que penses d\'un tema, el que t\'agrada, el que t\'ha passat…',
   ] },
   B2: { paraules: [150, 250], llista: [
     'Escriu un article d\'opinió sobre si les xarxes socials ens acosten o ens allunyen.',
@@ -2562,6 +2566,7 @@ const CORRECTOR_CONSIGNES = {
     'Escriu un text per convèncer algú de llegir més: per què val la pena i com començar.',
     'Explica un problema mediambiental del teu entorn i proposa-hi solucions.',
     'Escriu una sol·licitud per participar en un programa d\'intercanvi, explicant per què t\'hi haurien d\'acceptar.',
+    'Tema lliure: escriu sobre el que vulguis: una opinió, una experiència, un tema que t\'interessi…',
   ] },
   C1: { paraules: [200, 350], llista: [
     'Escriu un article per a una revista sobre el paper de la intel·ligència artificial en l\'aprenentatge de llengües.',
@@ -2570,6 +2575,7 @@ const CORRECTOR_CONSIGNES = {
     'Escriu un informe breu per a la teva empresa o entitat que avaluï una proposta i recomani una decisió.',
     'Escriu un text argumentatiu sobre si cal limitar l\'ús del mòbil a les escoles.',
     'Redacta una crítica cultural (teatre, música, una exposició) amb una valoració raonada.',
+    'Tema lliure: tria el tema i el tipus de text que vulguis: una opinió, una experiència, una reflexió…',
   ] },
 };
 let _correctorConsigna = {};   // nivell → índex de la consigna triada
