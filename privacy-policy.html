@@ -70,7 +70,7 @@
   <header>
     <div class="logo">Aprèn<span>Català</span></div>
     <h1>Política de Privacitat</h1>
-    <p>Última actualització: 23 de setembre de 2026</p>
+    <p>Última actualització: 4 de novembre de 2026</p>
   </header>
 
   <section>
@@ -81,7 +81,7 @@
 
   <section>
     <h2>2. Quines dades tractem</h2>
-    <p><strong>L'app es pot fer servir sense compte.</strong> Algunes funcions opcionals (sincronitzar el progrés, rebre recordatoris i participar a la Lliga AprènCatalà) requereixen iniciar sessió i, quan les uses, tracten algunes dades a través de <strong>Google Firebase</strong>.</p>
+    <p><strong>L'app es pot fer servir sense compte.</strong> Algunes funcions opcionals (sincronitzar el progrés, rebre recordatoris, participar a la Lliga AprènCatalà i, fins al 17 de novembre de 2026, provar els exercicis d'expressió escrita) requereixen iniciar sessió i, quan les uses, tracten algunes dades a través de <strong>Google Firebase</strong> i, per a l'expressió escrita, de <strong>Cloudflare</strong> i <strong>Anthropic</strong>.</p>
 
     <h3>2.1 Ús sense compte (per defecte)</h3>
     <p>Si no inicies sessió, el teu progrés (exercicis fets, puntuació, ratxa, assoliments) es guarda <strong>exclusivament al teu dispositiu</strong>, al <code>localStorage</code> del navegador. No es transmet enlloc i no hi podem accedir.</p>
@@ -101,7 +101,11 @@
     <h3>2.5 Lliga AprènCatalà (opcional, cal apuntar-s'hi)</h3>
     <p>Si entres a la <strong>Lliga AprènCatalà</strong>, la classificació mostra el teu <strong>pseudònim</strong>, els <strong>punts de la setmana</strong> i les <strong>medalles de lliga</strong>. La veuen les persones que fan servir l'app amb la sessió iniciada. No s'hi mostra el teu correu ni cap identificador del teu compte: a la lliga tens un identificador aleatori que no permet saber qui ets. Pots <strong>sortir-ne</strong> quan vulguis des de la mateixa pantalla de la lliga, i en aquell moment deixes de sortir a la classificació. Les teves medalles es conserven sense el teu nom, per si hi tornes; si la teva marca és el rècord de la lliga, s'hi mostra com a «algú que ja no hi participa».</p>
 
-    <h3>2.6 Dades tècniques</h3>
+    <h3>2.6 Exercicis d'expressió escrita (prova fins al 17 de novembre de 2026, opcional, amb compte)</h3>
+    <p>Si escrius un text als exercicis d'expressió escrita, te'l tornem corregit amb ajuda d'IA a partir de la normativa vigent de l'IEC. Per fer-ho, el text i el nivell que tries passen per un servei nostre allotjat a <strong>Cloudflare</strong>, que comprova la teva sessió, i s'envien a <strong>Anthropic</strong>, l'empresa del model d'IA que fa la correcció. A Anthropic no s'hi envia el teu nom, ni el correu, ni cap altra dada del compte. <strong>Nosaltres no desem el text.</strong> Anthropic l'esborra en un màxim de 30 dies (llevat que l'hagi de conservar més temps per fer complir les seves normes d'ús o per obligació legal) i no el fa servir per entrenar els seus models.</p>
+    <p>Per aplicar el límit de correccions al dia, desem a Cloudflare, associat al teu identificador d'usuari, quantes correccions has fet cada dia i quantes en total. Si respons l'<strong>enquesta</strong> sobre la prova, les respostes es desen a Cloud Firestore associades al teu compte.</p>
+
+    <h3>2.7 Dades tècniques</h3>
     <p>Els servidors que allotgen el servei (inclòs Google Firebase) poden registrar temporalment dades tècniques habituals (adreça IP, navegador, hora d'accés) per seguretat i bon funcionament.</p>
   </section>
 
@@ -112,6 +116,7 @@
       <li>Permetre't crear compte i sincronitzar el progrés entre dispositius.</li>
       <li>Enviar-te recordatoris de pràctica, si els actives.</li>
       <li>Mostrar la classificació de la Lliga AprènCatalà, si hi participes.</li>
+<li>Corregir els textos que escrius als exercicis d'expressió escrita i, amb l'enquesta, saber com millorar-los.</li>
       <li>Garantir la seguretat i el bon funcionament del servei.</li>
     </ul>
     <p>No fem servir les teves dades per a publicitat, perfilat ni les venem a tercers.</p>
@@ -119,12 +124,12 @@
 
   <section>
     <h2>4. Base legal</h2>
-    <p>El <strong>consentiment exprés</strong> empara la creació de compte, la sincronització del progrés, l'enviament de recordatoris i la participació a la Lliga AprènCatalà (els pots retirar tancant la sessió, desactivant els recordatoris o sortint de la lliga). L'<strong>interès legítim</strong> empara el tractament de dades tècniques per mantenir el servei segur i operatiu.</p>
+    <p>El <strong>consentiment exprés</strong> empara la creació de compte, la sincronització del progrés, l'enviament de recordatoris, la participació a la Lliga AprènCatalà i la correcció dels textos dels exercicis d'expressió escrita amb la seva enquesta (els pots retirar tancant la sessió, desactivant els recordatoris, sortint de la lliga o deixant d'enviar-hi textos). L'<strong>interès legítim</strong> empara el tractament de dades tècniques per mantenir el servei segur i operatiu.</p>
   </section>
 
   <section>
     <h2>5. Conservació</h2>
-    <p>El compte i el progrés sincronitzat es conserven mentre el compte estigui actiu; si demanes la supressió, eliminem el teu document de progrés i les dades associades. Les dades de recordatoris es conserven mentre els tinguis activats. <strong>Lliga AprènCatalà:</strong> el pseudònim es mostra mentre hi participis; si en surts, les medalles es conserven sense el teu nom. Els punts de cada setmana es conserven associats a l'identificador aleatori de lliga. Si esborres el compte, s'eliminen, i el que en pugui quedar (una posició en un podi passat) ja no es pot relacionar amb ningú. Les dades tècniques, un màxim de 30 dies.</p>
+    <p>El compte i el progrés sincronitzat es conserven mentre el compte estigui actiu; si demanes la supressió, eliminem el teu document de progrés i les dades associades. Les dades de recordatoris es conserven mentre els tinguis activats. <strong>Lliga AprènCatalà:</strong> el pseudònim es mostra mentre hi participis; si en surts, les medalles es conserven sense el teu nom. Els punts de cada setmana es conserven associats a l'identificador aleatori de lliga. Si esborres el compte, s'eliminen, i el que en pugui quedar (una posició en un podi passat) ja no es pot relacionar amb ningú. <strong>Expressió escrita:</strong> el text no el desem, i Anthropic l'esborra en un màxim de 30 dies. Els comptadors de cada dia s'esborren sols al cap de dos dies. El total de correccions i les respostes de l'enquesta es conserven mentre el compte estigui actiu; si l'esborres, les respostes s'eliminen i el total que en queda ja no es pot relacionar amb ningú. Les dades tècniques, un màxim de 30 dies.</p>
   </section>
 
   <section>
@@ -132,6 +137,8 @@
     <ul>
       <li><strong>Google Firebase</strong> (Authentication, Cloud Firestore, Cloud Messaging): autenticació, sincronització i notificacions. Vegeu la <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">privacitat de Firebase</a> i la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de Google</a>.</li>
       <li><strong>Google Fonts</strong> (fonts.googleapis.com): carrega tipografies; Google en rep l'adreça IP.</li>
+<li><strong>Anthropic</strong> (anthropic.com): el model d'IA que corregeix els textos dels exercicis d'expressió escrita. Vegeu la <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">política de privacitat d'Anthropic</a>.</li>
+<li><strong>Cloudflare</strong> (cloudflare.com): allotja el servei que fa de pont entre l'app i Anthropic, i els comptadors de correccions. Vegeu la <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">política de privacitat de Cloudflare</a>.</li>
       <li><strong>Ko-fi</strong> (ko-fi.com): enllaç opcional per a donacions voluntàries, subjecte a la seva pròpia política.</li>
     </ul>
     <p>Aquests proveïdors poden tractar dades <strong>fora de l'EEE</strong>; en aquest cas s'apliquen les clàusules contractuals tipus de la Comissió Europea o altres garanties adequades del RGPD.</p>
