@@ -2412,7 +2412,7 @@ const CORRECTOR_TEMPS_MS = 45000;   // el model triga entre 5 i 15 s; més enll�
 // al wrangler.toml): si la data canvia allà, canvia aquí. Decisió del 04/11/2026.
 const CORRECTOR_ULTIM_DIA = '17/11';
 const CORRECTOR_TIPUS = { ortografia: 'ortografia', accentuacio: 'accentuació', apostrof_contraccio: 'apòstrof i contraccions', verb: 'verb', pronom: 'pronom', preposicio: 'preposició', concordanca: 'concordança', lexic: 'lèxic', sintaxi: 'sintaxi', puntuacio: 'puntuació' };
-let _correctorEstat = null;          // { admes, usats, maxim, t }: l'última lectura de /estat
+let _correctorEstat = null;          // { admes, tancat, usats, maxim, t }: l'última lectura de /estat
 let _correctorEstatPromesa = null;   // la lectura en curs, per no fer-ne dues alhora
 let _correctorNivell = null;         // el nivell triat; null = el del recorregut, o B1
 let _correctorText = '';             // el text escrit (en memòria, a posta)
@@ -2424,6 +2424,12 @@ const CORRECTOR_INVITACIO_KEY = 'corrector_invitacio_v1';   // 'si' | 'no'
 // La benvinguda (30/10/2026): la primera vegada que l'app veu admès qui va dir «M'hi apunto»,
 // la targeta ho diu i porta a escriure. Un sol cop per dispositiu, també a qui ja hagi escrit.
 const CORRECTOR_BENVINGUDA_KEY = 'corrector_benvinguda_v1';
+// El tancament (04/11/2026): des del dia que el Worker diu «tancat» (TANCA_DES; els crèdits caduquen i
+// no hi ha finançament), la targeta i la invitació desapareixen i, a qui hi tenia accés
+// (corrector_admes_at), l'Inici li diu per què fins que prem «D'acord». La pantalla, si s'hi arriba, també.
+const CORRECTOR_TANCAMENT_KEY = 'corrector_tancament_v1';
+const CORRECTOR_TANCAT_TITOL = 'La prova d\'expressió escrita ha acabat.';
+const CORRECTOR_TANCAT_TEXT = 'Moltes gràcies per participar-hi! Cada correcció té un cost, i AprènCatalà és gratuïta i no té finançament, així que de moment no la podem mantenir. Si trobem la manera de fer-ho, tornarà.';
 // L'enquesta (30/10/2026): un avís emergent amb una pregunta per pantalla, una setmana després
 // de la primera correcció (corrector_acceptat_at). A qui és admès i no ha escrit mai, una sola
 // pregunta una setmana després que l'app el veiés admès (corrector_admes_at). Les respostes
@@ -2501,7 +2507,7 @@ async function correctorEstat(forca = false) {
   _correctorEstatPromesa = (async () => {
     const r = await correctorCrida('/estat');
     if (r.status === 200 && r.dades) {
-      _correctorEstat = { admes: !!r.dades.admes, usats: r.dades.usats | 0, maxim: r.dades.maxim | 0, t: Date.now() };
+      _correctorEstat = { admes: !!r.dades.admes, tancat: !!r.dades.tancat, usats: r.dades.usats | 0, maxim: r.dades.maxim | 0, t: Date.now() };
       // El primer dia que l'app el veu admès, per a l'enquesta de qui no escriu mai.
       if (_correctorEstat.admes) { try { if (!localStorage.getItem('corrector_admes_at')) localStorage.setItem('corrector_admes_at', new Date().toISOString()); } catch (e) {} }
     } else if (r.status === 403 || r.status === 401) {
@@ -2514,6 +2520,9 @@ async function correctorEstat(forca = false) {
 }
 function correctorAdmes() {
   return !!(window.fbUser && _correctorEstat && _correctorEstat.admes);
+}
+function correctorTancat() {
+  return !!(window.fbUser && _correctorEstat && _correctorEstat.tancat);
 }
 function correctorQueden() {
   const e = _correctorEstat || {};
@@ -2616,7 +2625,9 @@ function correctorTargetaHTML() {
 // Què va al lloc de la targeta: a qui és admès, la targeta (la benvinguda, el primer cop que
 // hi és després d'apuntar-s'hi); a qui és a la lliga i no és admès, la invitació o la
 // confirmació d'apuntat. L'enquesta no hi va: és un avís emergent (correctorEnquestaComprova).
+// Un cop tancada la prova, només l'avís del tancament, a qui hi tenia accés i fins que el tanca.
 function correctorZonaInner() {
+  if (correctorTancat()) return correctorTancamentPendent() ? correctorTancamentInner() : '';
   if (correctorAdmes()) return correctorBenvingudaPendent() ? correctorBenvingudaInner() : correctorTargetaInner();
   if (!correctorInvitacioCandidat()) return '';
   const resposta = correctorInvitacioResposta();
@@ -2668,6 +2679,22 @@ function correctorBenvingudaInner() {
       <div style="font-size:13px;color:var(--accent-blue-val);line-height:1.55;">Tens ${m} correccions al dia: tria una consigna i escriu. D'aquí a una setmana et farem 5 preguntes.</div>
       <button class="ct-btn primary" style="font-size:13px;padding:7px 16px;margin-top:12px;" onclick="correctorBenvingudaFet()">${correctorAcceptat() ? 'Escriu un text' : 'Escriu el primer text'}</button>
     </div>`;
+}
+// L'avís del tancament, al lloc de la targeta: a qui l'app havia vist admès, fins que prem «D'acord».
+function correctorTancamentPendent() {
+  try { return !!localStorage.getItem('corrector_admes_at') && !localStorage.getItem(CORRECTOR_TANCAMENT_KEY); } catch (e) { return false; }
+}
+function correctorTancamentInner() {
+  return `<div class="ct-card" id="corrector-tancament" style="padding:16px 18px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);">
+      <div style="font-size:15px;font-weight:700;color:var(--accent-blue-text);margin-bottom:8px;">✍️ ${CORRECTOR_TANCAT_TITOL}</div>
+      <div style="font-size:13px;color:var(--accent-blue-val);line-height:1.55;">${CORRECTOR_TANCAT_TEXT}</div>
+      <button class="ct-btn primary" style="font-size:13px;padding:7px 16px;margin-top:12px;" onclick="correctorTancamentFet()">D'acord</button>
+    </div>`;
+}
+function correctorTancamentFet() {
+  try { localStorage.setItem(CORRECTOR_TANCAMENT_KEY, new Date().toISOString()); } catch (e) {}
+  const el = document.getElementById('corrector-targeta');
+  if (el) el.innerHTML = correctorZonaInner();
 }
 function correctorBenvingudaFet() {
   try { localStorage.setItem(CORRECTOR_BENVINGUDA_KEY, new Date().toISOString()); } catch (e) {}
@@ -2852,6 +2879,15 @@ function renderCorrector() {
       </div>`;
     return;
   }
+  if (correctorTancat()) {
+    cos.innerHTML = `<div class="ct-card" id="corrector-pantalla" style="max-width:600px;margin:0 auto;">
+        ${correctorCapHTML()}
+        <p style="font-size:15px;font-weight:600;color:var(--heading);line-height:1.5;margin-bottom:8px;">${CORRECTOR_TANCAT_TITOL}</p>
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:16px;">${CORRECTOR_TANCAT_TEXT}</p>
+        <button class="ct-btn secondary" style="width:100%;" onclick="showTab('menu')">Torna a l'Inici</button>
+      </div>`;
+    return;
+  }
   if (!correctorAdmes()) {
     cos.innerHTML = `<div class="ct-card" id="corrector-pantalla" style="max-width:600px;margin:0 auto;">
         ${correctorCapHTML()}
@@ -2958,7 +2994,7 @@ function correctorMissatgeError(r) {
   const codi = (r.dades && r.dades.codi) || r.codi || '';
   if (r.status === 429) return `Avui ja has fet les ${(r.dades && r.dades.maxim) || ''} correccions del dia. Demà en tindràs més.`.replace('  ', ' ');
   if (r.status === 401) return 'La sessió ha caducat. Torna a entrar amb el compte i prova-ho de nou.';
-  if (r.status === 403) return 'El teu compte no té accés al corrector: és una prova tancada.';
+  if (r.status === 403) return (r.dades && r.dades.error === 'tancat') ? `${CORRECTOR_TANCAT_TITOL} ${CORRECTOR_TANCAT_TEXT}` : 'El teu compte no té accés al corrector: és una prova tancada.';
   if (r.status === 400) {
     if (codi === 'curt') return `El text ha de tenir almenys ${CORRECTOR_MIN} paraules.`;
     if (codi === 'llarg') return `El text no pot passar de ${CORRECTOR_MAX} paraules.`;
