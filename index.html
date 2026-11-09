@@ -6654,10 +6654,10 @@ function renderAccountSection() {
     ${!hasPassword ? `<button class="ct-btn secondary" style="width:100%;margin-bottom:10px;" onclick="fbHandleAddPassword()">Afegeix una contrasenya</button>` : ''}`;
   return `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      ${user.photoURL ? `<img src="${user.photoURL}" style="width:40px;height:40px;border-radius:50%;" alt="">` : ''}
+      ${user.photoURL ? `<img src="${escText(user.photoURL)}" style="width:40px;height:40px;border-radius:50%;" alt="">` : ''}
       <div>
         <div style="font-size:14px;font-weight:600;color:var(--text);">${escText(user.displayName) || 'El teu compte'}</div>
-        <div style="font-size:12px;color:var(--muted);">${user.email}</div>
+        <div style="font-size:12px;color:var(--muted);">${escText(user.email)}</div>
       </div>
     </div>
     <p style="font-size:13px;color:var(--text-soft);margin-bottom:16px;">✅ Progrés sincronitzat al núvol</p>
