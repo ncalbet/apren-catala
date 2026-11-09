@@ -48,6 +48,29 @@ self.addEventListener('activate', event => {
 // ── FETCH ──
 // index.html i data.js: NETWORK-FIRST (els testers reben sempre l'última versió si tenen xarxa).
 // Resta d'assets (icones, manifest): cache-first amb actualització en segon pla.
+//
+// Si la xarxa no ha respost en XARXA_MAX_MS i hi ha còpia a la cau, se serveix la còpia: amb
+// una connexió dolenta (hi ha senyal però no arriba res) el fetch pot quedar penjat un minut
+// i l'app es quedava a la pantalla de càrrega. La petició a la xarxa continua i, si arriba,
+// actualitza la cau per a la propera obertura. Sense còpia, s'espera la xarxa com abans.
+const XARXA_MAX_MS = 4000;
+
+function respostaContingut(request) {
+  const xarxa = fetch(request).then(networkResponse => {
+    if (networkResponse && networkResponse.status === 200) {
+      const responseClone = networkResponse.clone();
+      caches.open(CACHE_VERSION).then(cache => cache.put(request, responseClone));
+    }
+    return networkResponse;
+  });
+  // Sense xarxa: la còpia o, si no n'hi ha, index.html (com sempre). Passat el temps màxim:
+  // només la còpia exacta; si no n'hi ha, es continua esperant la xarxa.
+  const copia = () => caches.match(request);
+  const xarxaOCopia = xarxa.catch(() => copia().then(cached => cached || caches.match('./index.html')));
+  const tard = new Promise(resolve => setTimeout(resolve, XARXA_MAX_MS)).then(copia).then(c => c || xarxaOCopia);
+  return Promise.race([xarxaOCopia, tard]);
+}
+
 self.addEventListener('fetch', event => {
   if (!event.request.url.startsWith(self.location.origin)) return;
 
@@ -58,20 +81,7 @@ self.addEventListener('fetch', event => {
     || path === '/' || path.endsWith('/')
     || path.endsWith('/index.html') || path.endsWith('/data.js');
 
-  if (isContent) {
-    event.respondWith(
-      fetch(event.request).then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_VERSION).then(cache => cache.put(event.request, responseClone));
-        }
-        return networkResponse;
-      }).catch(() =>
-        caches.match(event.request).then(cached => cached || caches.match('./index.html'))
-      )
-    );
-    return;
-  }
+  if (isContent) { event.respondWith(respostaContingut(event.request)); return; }
 
   event.respondWith(
     caches.match(event.request).then(cached => {
