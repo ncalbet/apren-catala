@@ -4316,7 +4316,7 @@ const DATA = {
     { id:'b1-pf5', type:'reading', level:'b1', category:'Pronoms febles B1',
       text:'—Has estat mai a Menorca?\n—Sí, hi vaig anar fa dos estius. Em va agradar molt. M\'hi podria quedar per sempre!\n—I hi tornaràs?\n—Segur que sí!',
       question:'Quina funció té «hi» a «m\'hi podria quedar»?',
-      options:['Substitueix una quantitat de cosa','Indica el lloc on el parlant es quedaria (Menorca)','Substitueix un complement introduït per «de»'],
+      options:['Substitueix una quantitat de cosa','Substitueix un complement de lloc (a Menorca)','Substitueix un complement introduït per «de»'],
       correct:1, theory:"«Hi» pot indicar lloc (referit a Menorca ja esmentat). «Quedar-s'hi» = quedar-se en aquell lloc.", example:"«Et quedes a casa?» «Sí, m'hi quedo.»" },
 
     { id:'b1-pf6', type:'fill', level:'b1', category:'Pronoms febles B1',
