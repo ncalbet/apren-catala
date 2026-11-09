@@ -5382,7 +5382,7 @@ function showAuthSplash() {
       </div>
       <div style="text-align:left;margin-bottom:6px;">
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CONTRASENYA</label>
-        ${pwFieldHtml('auth-password', 'Mínim 6 caràcters', 'new-password')}
+        ${pwFieldHtml('auth-password', `Mínim ${AUTH_PW_MIN} caràcters`, 'new-password')}
       </div>
       <div id="auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
       <button id="auth-email-btn" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="authSplashEmail()">Registra't</button>
@@ -5434,6 +5434,8 @@ async function authSplashEmail() {
   const email    = (document.getElementById('auth-email')?.value || '').trim();
   const password = document.getElementById('auth-password')?.value || '';
   if (!email || !password) { showAuthError('Omple el correu i la contrasenya.'); return; }
+  // Només en registrar-se: qui ja té una contrasenya més curta ha de poder continuar entrant.
+  if (_authMode === 'register' && password.length < AUTH_PW_MIN) { showAuthError(fbErrorMessage('auth/weak-password')); return; }
   if (!window.fbSignInEmail) { showAuthError('Carregant Firebase, espera un moment...'); return; }
   const btn = document.getElementById('auth-email-btn');
   if (btn) { btn.disabled = true; btn.textContent = 'Espera...'; }
@@ -5489,11 +5491,16 @@ function togglePwVisibility(btn, inputId) {
   btn.querySelector('.pw-eye-off').style.display = show ? '' : 'none';
 }
 
+// Mínim de la contrasenya: el mateix que la política de contrasenya de la consola de Firebase
+// (Authentication → Settings → Password policy, 8 caràcters; decisió del 09/11/2026). Es comprova
+// aquí abans de cridar Firebase, per dir-ho a l'instant, i Firebase ho torna a comprovar.
+const AUTH_PW_MIN = 8;
 function fbErrorMessage(code) {
   const m = {
     'auth/email-already-in-use': 'Aquest correu ja té un compte. Intenta iniciar sessió amb Google o amb la teva contrasenya.',
     'auth/invalid-email':        'El format del correu no és vàlid.',
-    'auth/weak-password':        'La contrasenya ha de tenir almenys 6 caràcters.',
+    'auth/weak-password':        `La contrasenya ha de tenir almenys ${AUTH_PW_MIN} caràcters.`,
+    'auth/password-does-not-meet-requirements': `La contrasenya ha de tenir almenys ${AUTH_PW_MIN} caràcters.`,
     'auth/user-not-found':       'No hi ha cap compte amb aquest correu.',
     'auth/wrong-password':       'Contrasenya incorrecta.',
     'auth/invalid-credential':   'Correu o contrasenya incorrectes.',
@@ -5547,7 +5554,7 @@ function showEmailAuthModal(mode = 'register', despres = null) {
     </div>
     <div style="margin-bottom:6px;">
       <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CONTRASENYA</label>
-      ${pwFieldHtml('modal-auth-password', 'Mínim 6 caràcters', 'new-password')}
+      ${pwFieldHtml('modal-auth-password', `Mínim ${AUTH_PW_MIN} caràcters`, 'new-password')}
     </div>
     <div id="modal-auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
     <button id="modal-auth-submit" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="modalAuthSubmit()">Registra't</button>
@@ -5564,6 +5571,7 @@ async function modalAuthSubmit() {
   const email    = (document.getElementById('modal-auth-email')?.value || '').trim();
   const password = document.getElementById('modal-auth-password')?.value || '';
   if (!email || !password) { modalAuthError('Omple el correu i la contrasenya.'); return; }
+  if (_modalAuthMode === 'register' && password.length < AUTH_PW_MIN) { modalAuthError(fbErrorMessage('auth/weak-password')); return; }
   const btn = document.getElementById('modal-auth-submit');
   if (btn) { btn.disabled = true; btn.textContent = 'Espera...'; }
   try {
@@ -6704,6 +6712,7 @@ function fbHandleAddPassword() {
   if (!window.fbLinkPassword) { showAlert('Carregant Firebase, espera un moment...'); return; }
   showPasswordPrompt(async (pw) => {
     if (!pw) return;
+    if (pw.length < AUTH_PW_MIN) { showAlert(fbErrorMessage('auth/weak-password')); return; }
     try {
       await window.fbLinkPassword(pw);
       fbRefreshAccountUI();
@@ -6711,7 +6720,7 @@ function fbHandleAddPassword() {
     } catch (e) {
       showAlert(fbErrorMessage(e.code));
     }
-  }, { message: 'Tria una contrasenya per poder entrar també amb el teu correu (mínim 6 caràcters).', placeholder: 'Nova contrasenya (mín. 6)', autocomplete: 'new-password', okLabel: 'Desar' });
+  }, { message: `Tria una contrasenya per poder entrar també amb el teu correu (mínim ${AUTH_PW_MIN} caràcters).`, placeholder: `Nova contrasenya (mín. ${AUTH_PW_MIN})`, autocomplete: 'new-password', okLabel: 'Desar' });
 }
 
 function fbRefreshAccountUI() {
