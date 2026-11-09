@@ -721,7 +721,7 @@ const VALORACIO_TANCAMENTS = 2;
 const DINS_APP_KEY = 'cat_dins_app_v1';   // '1' si alguna vegada s'ha obert des de l'app d'Android
 // La targeta de compte del final de la sessió (vegeu COMPTE_FINAL_DIES). El dia que surt, no
 // se li demana res més: la valoració la mira en arrencar, i per això la clau és AQUÍ DALT.
-const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: vegades que ha sortit, dia }
+const COMPTE_FINAL_KEY = 'cat_compte_final_v1';   // { n: «Ara no» dits, dia: l'últim que ha sortit }
 
 // Llargada màxima del pseudònim. Es mostra a la salutació de l'Inici i als
 // banners, i un text llarg els trencaria. AQUÍ DALT pel mateix motiu que les
@@ -6121,17 +6121,19 @@ async function activaRecordatoris() {
 }
 
 // ── El compte, al final de la sessió (tanda 2) ──
-// A qui no té compte, en acabar la primera sessió: «Desa el que has fet avui». Si no
-// el fa, torna a sortir el 2n dia de pràctica i el 5è, i prou (decisió de l'usuari,
-// 03/11: abans eren el 3r i el 10è, i al 10è no hi arribava gairebé ningú; dels comptes
-// d'abans del 20/10, 59 arriben al 2n dia, 47 al 3r, 29 al 5è i 17 al 10è); el Perfil
-// l'ofereix sempre. Es compten les vegades que ha sortit, no els «Ara no»: qui la deixa
-// passar també ha dit que ara no. Com a molt un cop al dia.
+// A qui no té compte, en acabar la primera sessió: «Desa el que has fet avui». Si diu
+// «Ara no», torna a sortir el 2n dia de pràctica i el 5è, i al tercer «Ara no», prou
+// (decisió de l'usuari, 03/11: abans eren el 3r i el 10è, i al 10è no hi arribava gairebé
+// ningú; dels comptes d'abans del 20/10, 59 arriben al 2n dia, 47 al 3r, 29 al 5è i 17 al
+// 10è); el Perfil l'ofereix sempre. Es compten els «Ara no», com als recordatoris i a la
+// lliga (decisió de l'usuari, 09/11): qui la deixa passar sense respondre la torna a veure
+// el següent dia de pràctica. Fins al 09/11 es comptaven les vegades que havia sortit, i
+// aquell recompte vell passa per «Ara no» dits. Com a molt un cop al dia.
 // Surt a qui salta la pantalla de compte de l'entrada (des del 26/10, COMPTE_SALTAT_KEY)
 // i a qui no l'ha vista mai (qui va entrar del 12 al 26/10, sense pantalla). Als d'abans
-// del 12/10, que la van saltar quan no hi havia targeta, una sola vegada (decisió de
-// l'usuari, 27/10). Si el fa, al mateix lloc surt la pregunta dels recordatoris, que
-// sense compte no es podien activar.
+// del 12/10, que la van saltar quan no hi havia targeta, fins al primer «Ara no» (decisió
+// de l'usuari, 27/10: «una sola vegada»). Si el fa, al mateix lloc surt la pregunta dels
+// recordatoris, que sense compte no es podien activar.
 const COMPTE_FINAL_DIES = [1, 2, 5];              // dies de pràctica en què surt
 const COMPTE_SALTAT_KEY = 'cat_compte_saltat_v1'; // ha saltat la pantalla de l'entrada
 // COMPTE_FINAL_KEY és a dalt de tot, amb les del Ko-fi: es llegeix en arrencar.
@@ -6155,7 +6157,7 @@ function tocaTargetaCompte() {
 }
 function targetaCompteHTML() {
   if (!tocaTargetaCompte()) return '';
-  localStorage.setItem(COMPTE_FINAL_KEY, JSON.stringify({ n: estatCompteFinal().n + 1, dia: diaLocal() }));
+  localStorage.setItem(COMPTE_FINAL_KEY, JSON.stringify({ n: estatCompteFinal().n, dia: diaLocal() }));
   const xp = progress.xp || 0;
   // Què dona el compte, com a la pantalla de l'entrada: el progrés, la lliga i els
   // recordatoris, aquests només on es podran activar en fer el compte (tocaPreguntaRecordatori).
@@ -6170,7 +6172,7 @@ function targetaCompteHTML() {
         <button id="compte-final-google" class="ct-btn secondary" style="width:100%;font-size:13px;padding:8px 14px;margin:10px 0 0;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="compteFinalGoogle()">${_googleSVG} Continua amb Google</button>
         <div style="display:flex;gap:8px;margin-top:8px;">
           <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="compteFinalCorreu()">Amb correu</button>
-          <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="document.getElementById('compte-final').innerHTML = ''">Ara no</button>
+          <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="compteFinalAraNo()">Ara no</button>
         </div>
         <div id="compte-final-error" style="font-size:12.5px;color:var(--danger);margin-top:6px;"></div>
         <p style="font-size:11.5px;color:var(--accent-blue-text);margin:6px 0 0;line-height:1.5;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:inherit;">política de privacitat</a>.</p>
@@ -6193,6 +6195,11 @@ async function compteFinalGoogle() {
   }
 }
 function compteFinalCorreu() { showEmailAuthModal('register', compteFinalFet); }
+function compteFinalAraNo() {
+  localStorage.setItem(COMPTE_FINAL_KEY, JSON.stringify({ n: estatCompteFinal().n + 1, dia: diaLocal() }));
+  const el = document.getElementById('compte-final');
+  if (el) el.innerHTML = '';
+}
 // Amb el compte fet, al lloc de la targeta, la pregunta dels recordatoris; si no
 // toca, que el progrés ja és desat.
 async function compteFinalFet() {
