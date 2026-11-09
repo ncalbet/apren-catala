@@ -3303,7 +3303,7 @@ const DATA = {
       answers:['tinc'],
       variants:[
         { question:'Completa amb «tenir» en present.', sentence:'Tu ___ trenta anys.', answers:['tens'], theory:'Amb «tu» diem «tens».', example:'Tu tens trenta anys.' },
-        { question:'Completa amb «tenir» en present.', sentence:'El Nil ___ vint anys.', answers:['té'], theory:'Amb «el Nil» diem «té».', example:'El Nil té vint anys.' },
+        { question:'Completa amb «tenir» en present.', sentence:'El Nil ___ vint anys.', answers:['té'], accentsEstrictes:['té'], theory:'Amb «el Nil» diem «té».', example:'El Nil té vint anys.' },
       ],
       theory:"L'edat s'expressa aquí amb «tenir»: «tinc vint anys».",
       example:'La seva germana té divuit anys.' },
@@ -3933,7 +3933,7 @@ const DATA = {
       answers:['tinc'],
       variants:[
         { question:'Completa amb «tenir» en present.', sentence:'Tu ___ gana.', answers:['tens'], theory:'Amb «tu» diem «tens gana».', example:'Tu tens gana.' },
-        { question:'Completa amb «tenir» en present.', sentence:'La Rita ___ son.', answers:['té'], theory:'Amb «la Rita» diem «té son».', example:'La Rita té son.' },
+        { question:'Completa amb «tenir» en present.', sentence:'La Rita ___ son.', answers:['té'], accentsEstrictes:['té'], theory:'Amb «la Rita» diem «té son».', example:'La Rita té son.' },
       ],
       theory:'Amb «jo», la forma és «tinc»: «tinc fred».',
       example:'Tinc gana.' },
