@@ -85,10 +85,11 @@ module.exports = { partsMadrid, utcDeMadrid, setmanaDe, sumaDies, limitsSetmana,
 
 // ── Firestore (només si s'executa com a script) ──
 if (require.main === module) {
-  const admin = require('firebase-admin');
-  admin.initializeApp({ credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)) });
-  const db = admin.firestore();
-  const { Timestamp, FieldValue } = admin.firestore;
+  // API modular de firebase-admin (des de la v14 no hi ha l'espai de noms «admin»).
+  const { initializeApp, cert } = require('firebase-admin/app');
+  const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+  initializeApp({ credential: cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)) });
+  const db = getFirestore();
 
   async function prepara() {
     const ara = Date.now();

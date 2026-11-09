@@ -4,13 +4,17 @@
 //
 // Firebase només s'engega si s'executa com a script. Així les proves de Catala/
 // (tests_notificacions.cjs) poden carregar els textos sense credencials.
-let admin, db, messaging;
+// API modular de firebase-admin (des de la v14 no hi ha l'espai de noms «admin»).
+let db, messaging, FieldValue;
 if (require.main === module) {
-  admin = require('firebase-admin');
+  const { initializeApp, cert } = require('firebase-admin/app');
+  const { getFirestore, FieldValue: FV } = require('firebase-admin/firestore');
+  const { getMessaging } = require('firebase-admin/messaging');
   const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-  db = admin.firestore();
-  messaging = admin.messaging();
+  initializeApp({ credential: cert(serviceAccount) });
+  db = getFirestore();
+  messaging = getMessaging();
+  FieldValue = FV;
 }
 const { partsMadrid, setmanaDe, sumaDies } = require('./lliga_setmanal.cjs');
 
@@ -337,8 +341,8 @@ async function run() {
       // Si ha tornat a practicar, netegem el seguiment de la corba
       if (practicedSince && (data.notifLastMilestone ?? 0) > 0) {
         await userDoc.ref.update({
-          notifLastMilestone: admin.firestore.FieldValue.delete(),
-          notifLastSent: admin.firestore.FieldValue.delete()
+          notifLastMilestone: FieldValue.delete(),
+          notifLastSent: FieldValue.delete()
         });
         reset++;
         console.log('🔄 Cadència reiniciada (ha tornat a practicar)');
@@ -400,7 +404,7 @@ async function run() {
   for (const uid of invalidTokens) {
     try {
       await db.collection('users').doc(uid).update({
-        fcmToken: admin.firestore.FieldValue.delete(),
+        fcmToken: FieldValue.delete(),
         notificacionsActives: false
       });
       console.log('🧹 Token invàlid eliminat');

@@ -6,18 +6,21 @@
 // ⚠️ El repo és PÚBLIC i el log de les Actions també: qualsevol el pot llegir.
 // Per això només escriu recomptes, cap fila per persona. Per saber qui és qui, la
 // consola de Firebase (Authentication) ensenya el correu i la darrera connexió.
-const admin = require('firebase-admin');
+// API modular de firebase-admin (des de la v14 no hi ha l'espai de noms «admin»).
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+const { getAuth } = require('firebase-admin/auth');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+initializeApp({ credential: cert(serviceAccount) });
 
-const db = admin.firestore();
+const db = getFirestore();
 
 async function run() {
   const users = [];
   let pageToken;
   do {
-    const res = await admin.auth().listUsers(1000, pageToken);
+    const res = await getAuth().listUsers(1000, pageToken);
     users.push(...res.users);
     pageToken = res.pageToken;
   } while (pageToken);
