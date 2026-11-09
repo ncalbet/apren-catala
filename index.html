@@ -3037,6 +3037,8 @@ function correctorMissatgeError(r) {
     if (codi === 'llarg') return `El text no pot passar de ${CORRECTOR_MAX} paraules.`;
     return 'El corrector no ha entès el text. Revisa\'l i torna-ho a provar.';
   }
+  // 503 «limit_global»: el topall del dia de tothom (LIMIT_GLOBAL al Worker), no el personal.
+  if (r.status === 503 && r.dades && r.dades.error === 'limit_global') return 'El corrector ha arribat al màxim d\'avui per a tothom. Torna-hi demà.';
   if (r.status >= 500) return 'El corrector no ha pogut respondre. Torna-ho a provar d\'aquí a un moment.';
   if (codi === 'temps') return 'El corrector triga massa. Torna-ho a provar d\'aquí a un moment.';
   if (codi === 'sessio') return 'Cal haver entrat amb el compte.';
