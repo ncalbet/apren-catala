@@ -127,13 +127,13 @@ if (require.main === module) {
         medalles++;
       });
       const ambPunts = files.filter(f => f.punts > 0);
-      // Per revisar el sostre: quanta gent s'hi acosta. 7 dies × 150 = 1.050.
-      const aprop = ambPunts.filter(f => f.punts >= 0.8 * 1050).length;
+      // Fins al 09/11 també es comptava qui s'acostava al sostre de 150 al dia (aprop80); des
+      // del 5/10 no hi ha sostre de joc, i la xifra ja no volia dir res.
       tx.update(ref, {
         tancada: true, podi,
-        estadistiques: { participants: files.length, ambPunts: ambPunts.length, aprop80: aprop },
+        estadistiques: { participants: files.length, ambPunts: ambPunts.length },
       });
-      return { participants: files.length, ambPunts: ambPunts.length, aprop, medalles, prova };
+      return { participants: files.length, ambPunts: ambPunts.length, medalles, prova };
     });
   }
 
@@ -145,7 +145,7 @@ if (require.main === module) {
       if (!r) continue;
       tancades++;
       console.log(`Tancada ${r.prova ? '(prova) ' : ''}${w.id}: ${r.participants} participants, ` +
-        `${r.ambPunts} amb punts, ${r.aprop} a prop del màxim, ${r.medalles} medalles.`);
+        `${r.ambPunts} amb punts, ${r.medalles} medalles.`);
     }
     console.log(`Tanca: ${tancades} setmanes tancades.`);
   }
