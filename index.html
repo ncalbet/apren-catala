@@ -2293,6 +2293,11 @@ function checkFill() {
   const canviaParaula = accentsNous && bona ? paraulaEstrictaFallada(bona, input.value, q.accentsEstrictes) : null;
   const respostaEstricta = canviaParaula ? bona : null;
   if (canviaParaula) { ok = false; bona = null; }
+  // Una forma correcta que l'exercici no demana («noDemanades», 09/11): «en què» on es demana
+  // el relatiu compost. És un error, però la correcció diu què es demanava (el «display»).
+  // Amb els accents comptats: «en que» no és «en què», és l'error de sempre.
+  const noDemanada = !ok && !quasi
+    && (q.noDemanades || []).find(a => normalizeStrict(a) === normalizeStrict(input.value));
   const altres = alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : '';
   const fixat = bona && !accentsNous ? `<br>Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>.` : '';
   document.getElementById('feedback-area').innerHTML = bona && accentsNous
@@ -2303,6 +2308,8 @@ function checkFill() {
     ? `<div class="ct-feedback ko">✗ Gairebé! Sense ${signesDiferents(canviaParaula.bona, canviaParaula.escrita)}, «${canviaParaula.bona}» és una altra paraula: la resposta és <strong>${respostaEstricta}</strong></div>`
     : quasi
       ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
+    : noDemanada
+      ? `<div class="ct-feedback ko">✗ «${noDemanada}» també és correcte, però aquí es demana: <em>${q.display}</em>. La resposta és: <strong>${q.answers[0]}</strong></div>`
       : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
   showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, input.value, q.answers.join(' / '));
