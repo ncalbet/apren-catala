@@ -5996,6 +5996,7 @@ function renderNotificationsSection() {
   if (!('Notification' in window)) {
     return '<p style="font-size:14px;color:var(--muted);">El teu dispositiu no suporta notificacions push.</p>';
   }
+  if (!window.fbUser && sessioPerConfirmar()) return connectantCompteHTML();
   if (!window.fbUser) {
     return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;">Cal <strong>iniciar sessió</strong> (secció anterior) per activar els recordatoris personalitzats.</p>';
   }
@@ -6472,7 +6473,9 @@ function renderProfile() {
   const pseudoActual = getPseudo();
   // Sense sessió, «Compte i sincronització» va amunt: és la invitació a iniciar-la.
   // Amb sessió ja no cal tenir-la al davant —hi diu «✅ Progrés sincronitzat»— i
-  // baixa sota Col·labora, deixant a dalt el que sí que es toca.
+  // baixa sota Col·labora, deixant a dalt el que sí que es toca. Mentre Firebase no ha
+  // respost, mana la sessió que recorda el dispositiu (sessioPerConfirmar).
+  const ambSessio = !!window.fbUser || sessioPerConfirmar();
   const blocCompte = `
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
@@ -6508,7 +6511,7 @@ function renderProfile() {
       </div>
 
 
-      ${!window.fbUser ? blocCompte : ''}
+      ${!ambSessio ? blocCompte : ''}
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Recordatoris</div>
@@ -6541,7 +6544,7 @@ function renderProfile() {
       </a>
       <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:10px;">Mantenir l'app activa té un cost. Ko-fi processa el pagament de forma segura i no cal registrar-s'hi.</p>
 
-      ${window.fbUser ? blocCompte : ''}
+      ${ambSessio ? blocCompte : ''}
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
@@ -6608,8 +6611,20 @@ function renderDataSection() {
 }
 
 /* ══ FIREBASE: Auth + Sync ══ */
+// Firebase encara no ha dit si hi ha sessió (fbUser undefined: carrega, o sense connexió no
+// ha carregat), però el dispositiu recorda que n'hi havia (SESSIO_KEY). El Perfil no ofereix
+// d'entrar a qui ja hi és: quan Firebase respon, fb-auth-change el torna a pintar. Fins al
+// 09/11, undefined es tractava com «sense sessió», el mateix forat que tenia la lliga (28/09).
+function sessioPerConfirmar() {
+  if (window.fbUser !== undefined) return false;
+  try { return localStorage.getItem(SESSIO_KEY) === '1'; } catch (e) { return false; }
+}
+function connectantCompteHTML() {
+  return '<p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin:0;">Connectant amb el teu compte…</p>';
+}
 function renderAccountSection() {
   const user = window.fbUser;
+  if (!user && sessioPerConfirmar()) return connectantCompteHTML();
   if (!user) {
     return `
       <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">
