@@ -3201,7 +3201,7 @@ const DATA = {
       options:['Més de pressa, si us plau.','Bon profit.','Més a poc a poc, si us plau.'],
       correct:2,
       variants:[
-        { question:"No pots seguir l'explicació perquè parlen molt de pressa. Què demanes?", options:['Pots tancar la finestra, si us plau?','On és el forn?','Pots parlar més a poc a poc?'], correct:2, theory:'«Més a poc a poc» demana que parlin més lentament.', example:'Pots parlar més a poc a poc?' },
+        { question:"No entens l'explicació perquè és massa ràpida. Què demanes?", options:['Pots tancar la finestra, si us plau?','On és el forn?','Pots parlar més a poc a poc?'], correct:2, theory:'«Més a poc a poc» demana que parlin més lentament.', example:'Pots parlar més a poc a poc?' },
         { question:'Vols que una persona redueixi el ritme quan parla. Què li dius?', options:['Més a poc a poc, si us plau.','Més de pressa, si us plau.','Fins demà, gràcies.'], correct:0, theory:'Per demanar un ritme més lent diem «més a poc a poc».', example:'Més a poc a poc, si us plau.' },
       ],
       theory:'«A poc a poc» demana un ritme més lent.',
@@ -3517,7 +3517,7 @@ const DATA = {
       correct:2,
       variants:[
         { question:'Busques la farmàcia. Què preguntes?', options:['Quant val la farmàcia?','On és la farmàcia?','Com estàs?'], correct:1, theory:'«On és…?» demana on es troba un lloc.', example:'On és la farmàcia?' },
-        { question:'Necessites trobar la biblioteca. Quina pregunta fas?', options:['Com et dius?','Quants anys tens?','On és la biblioteca?'], correct:2, theory:'Per trobar un lloc podem preguntar «On és…?».', example:'On és la biblioteca?' },
+        { question:'Necessites trobar la biblioteca. Quina pregunta fas?', options:['Com et dius?','Quan obre la biblioteca?','On és la biblioteca?'], correct:2, theory:'Per trobar un lloc podem preguntar «On és…?».', example:'On és la biblioteca?' },
       ],
       theory:"«On és…?» demana la ubicació d'un lloc concret.",
       example:'On és el centre cívic?' },
@@ -3644,7 +3644,7 @@ const DATA = {
       example:'Vaig al centre cívic.' },
 
     { id:'a1-u07-06', type:'choice', level:'a1', category:'Rutines',
-      question:'Quina frase diu que avui no treballes?',
+      question:'Avui tens el dia lliure. Quina frase és certa?',
       options:['Treballo avui.','No treballo avui.','Treballes avui?'],
       correct:1,
       variants:[
