@@ -9,6 +9,11 @@ rules_version = '2';
 //
 // El repo és PÚBLIC: aquestes regles es poden llegir. No passa res, la seguretat no
 // depèn que siguin secretes. El que no pot sortir mai d'aquí és cap dada d'usuari.
+//
+// ⚠️ ORDRE DE DESPLEGAMENT (09/11/2026): primer el client (push de firebase.js i bump del
+// Service Worker), i aquestes regles un dia després. El client nou funciona amb les regles
+// velles; el client vell amb les regles noves no pot entrar a la lliga ni canviar el pseudònim
+// (escriu en l'ordre antic) fins que no es refresca. Qui ja hi és continua sumant punts.
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -17,24 +22,80 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // ── Document privat de cada usuari: progrés, perfil, notificacions ──
-    // Sense canvis respecte a les regles publicades el 17/06/2026.
+    // El document privat de qui fa la petició.
+    function meu() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    // ═══════════════════ DOCUMENT PRIVAT DE CADA USUARI ═══════════════════
+    //
+    // Progrés, perfil, notificacions i identitat de lliga. Només el propietari.
+    //
+    // Esquema (09/11/2026): només els camps que escriuen l'app (firebase.js) i el cron
+    // (scripts/send_notificacions.cjs), cadascun amb el seu tipus. Un merge envia el document
+    // RESULTANT sencer, o sigui que ⚠️ un camp nou que el cron escrigui amb la clau d'admin
+    // s'ha d'afegir AQUÍ abans, o el següent desat de l'usuari fallarà en silenci. Inventari
+    // de producció del 09/11/2026: 238 documents, cap camp fora d'aquests dotze.
+    function enterEntre(v, a, b) {
+      return v is int && v >= a && v <= b;
+    }
+    function textFins(v, n) {
+      return v is string && v.size() <= n;
+    }
+    function lligaValida(l) {
+      return l is map && l.keys().hasOnly(['lid', 'dins'])
+        && (!('lid' in l) || l.lid == null || (l.lid is string && l.lid.matches('^[A-Za-z0-9]{20}$')))
+        && (!('dins' in l) || l.dins is bool);
+    }
+    function perfilValid(pr) {
+      return pr is map && pr.keys().hasOnly(['pseudo', 'at', 'correctorVoluntari'])
+        && (!('pseudo' in pr) || textFins(pr.pseudo, 40))
+        && (!('at' in pr) || pr.at is number)
+        && (!('correctorVoluntari' in pr) || textFins(pr.correctorVoluntari, 40));
+    }
+    function usuariValid(d) {
+      return d.keys().hasOnly(['progress', 'progressAt', 'profile', 'lliga', 'pseudonimClau',
+                               'fcmToken', 'notificacionsActives', 'notifHour', 'notifFrequency',
+                               'notifLastSent', 'notifLastMilestone', 'notifSendCount'])
+        && (!('progress' in d) || d.progress is map)
+        && (!('progressAt' in d) || d.progressAt is number)
+        && (!('profile' in d) || perfilValid(d.profile))
+        && (!('lliga' in d) || lligaValida(d.lliga))
+        && (!('pseudonimClau' in d) || (d.pseudonimClau is string && d.pseudonimClau.matches('^[a-z0-9]{3,15}$')))
+        && (!('fcmToken' in d) || textFins(d.fcmToken, 4096))
+        && (!('notificacionsActives' in d) || d.notificacionsActives is bool)
+        && (!('notifHour' in d) || enterEntre(d.notifHour, 0, 23))
+        && (!('notifFrequency' in d) || enterEntre(d.notifFrequency, 1, 3))
+        && (!('notifLastSent' in d) || textFins(d.notifLastSent, 40))
+        && (!('notifLastMilestone' in d) || d.notifLastMilestone is int)
+        && (!('notifSendCount' in d) || d.notifSendCount is int);
+    }
+    // El lid, un cop posat, no canvia ni es treu: UNA sola identitat de lliga per compte.
+    // Fins al 09/11/2026 un compte podia crear-ne tantes com volgués i omplir la classificació.
+    function lidImmutable() {
+      return !('lliga' in resource.data) || !('lid' in resource.data.lliga) || resource.data.lliga.lid == null
+        || (('lliga' in request.resource.data) && ('lid' in request.resource.data.lliga)
+            && request.resource.data.lliga.lid == resource.data.lliga.lid);
+    }
+
     match /users/{userId} {
-      allow read, write: if signat() && request.auth.uid == userId;
+      allow read, delete: if signat() && request.auth.uid == userId;
+      allow create: if signat() && request.auth.uid == userId && usuariValid(request.resource.data);
+      allow update: if signat() && request.auth.uid == userId && usuariValid(request.resource.data) && lidImmutable();
     }
 
     // ═══════════════════ LLIGA SETMANAL ═══════════════════
     //
     // Ningú no hi apareix amb el seu uid. Cada participant té un identificador de
-    // lliga aleatori (lid), i qui és el propietari d'un lid només ho sap
-    // /lligaIds/{lid}, que no el pot llegir cap client. Així la classificació no
-    // deixa veure l'uid de ningú, ni tan sols a les dades que viatgen.
+    // lliga aleatori (lid), que viu a users/{uid}.lliga.lid (privat) i a /lligaIds/{lid}
+    // (que no el pot llegir cap client). Així la classificació no deixa veure l'uid de
+    // ningú, ni tan sols a les dades que viatgen.
 
-    // Cert si el lid és de qui fa la petició.
+    // Cert si el lid és el de qui fa la petició: el del seu document privat, que no canvia
+    // un cop posat (lidImmutable). Fins al 09/11/2026 es mirava /lligaIds/{lid}, que un
+    // compte podia crear tantes vegades com volgués.
     function propietariLid(lid) {
-      return signat()
-        && exists(/databases/$(database)/documents/lligaIds/$(lid))
-        && get(/databases/$(database)/documents/lligaIds/$(lid)).data.uid == request.auth.uid;
+      return signat() && get(meu()).data.lliga.lid == lid;
     }
 
     // Pseudònim → clau de reserva: minúscules, sense accents i només lletres i
@@ -63,32 +124,45 @@ service cloud.firestore {
         && clauDe(p).size() >= 3;
     }
 
-    // Identitat de lliga. Només es pot crear (una vegada) i esborrar; mai llegir.
+    // Identitat de lliga: UNA per compte. Es crea en el mateix lot que posa
+    // users/{uid}.lliga.lid = lid (getAfter ho comprova) i, com que el lid no canvia un cop
+    // posat, no se'n pot crear una segona. Només crear i esborrar; mai llegir.
     match /lligaIds/{lid} {
       allow create: if signat()
         && lid.matches('^[A-Za-z0-9]{20}$')
         && request.resource.data.keys().hasOnly(['uid'])
-        && request.resource.data.uid == request.auth.uid;
+        && request.resource.data.uid == request.auth.uid
+        && getAfter(meu()).data.lliga.lid == lid;
       allow delete: if signat() && resource.data.uid == request.auth.uid;
     }
 
-    // Reserva de pseudònims: un per clau, i el primer que la reserva se la queda.
-    // Llegir-la només diu si està lliure (no existeix) o si és teva. D'una reserva
-    // d'algú altre no se'n pot llegir res: la petició es denega, i això vol dir
-    // «ja és d'algú altre».
+    // Reserva de pseudònims: un per clau (el primer que la reserva se la queda) i UNA per
+    // compte: la reserva es crea en el mateix lot que posa users/{uid}.pseudonimClau = clau
+    // (getAfter) i, si el compte en tenia una altra, l'esborra en el mateix lot (existsAfter).
+    // Llegir-la només diu si està lliure (no existeix) o si és teva. D'una reserva d'algú
+    // altre no se'n pot llegir res: la petició es denega, i això vol dir «ja és d'algú altre».
+    // Esborrar una reserva que ja no existeix es permet: el lot d'un canvi de pseudònim
+    // l'inclou, i pot haver-se esborrat des de la consola (un pseudònim ofensiu).
     match /pseudonims/{clau} {
       allow get: if signat() && (resource == null || resource.data.uid == request.auth.uid);
       allow create: if signat()
         && clau.matches('^[a-z0-9]{3,15}$')
         && request.resource.data.keys().hasOnly(['uid'])
-        && request.resource.data.uid == request.auth.uid;
-      allow delete: if signat() && resource.data.uid == request.auth.uid;
+        && request.resource.data.uid == request.auth.uid
+        && getAfter(meu()).data.pseudonimClau == clau
+        && (!exists(meu())
+            || !('pseudonimClau' in get(meu()).data)
+            || get(meu()).data.pseudonimClau == clau
+            || !existsAfter(/databases/$(database)/documents/pseudonims/$(get(meu()).data.pseudonimClau)));
+      allow delete: if signat() && (resource == null || resource.data.uid == request.auth.uid);
     }
 
-    // El pseudònim és coherent amb la seva clau i la clau està reservada per qui escriu.
+    // El perfil és coherent: pseudònim vàlid, clau = clauDe(pseudonim), i la clau és LA
+    // reserva del compte (users/{uid}.pseudonimClau), reservada per qui escriu.
     function perfilCoherent(d) {
       return pseudonimValid(d.pseudonim)
         && d.clau == clauDe(d.pseudonim)
+        && d.clau == get(meu()).data.pseudonimClau
         && exists(/databases/$(database)/documents/pseudonims/$(d.clau))
         && get(/databases/$(database)/documents/pseudonims/$(d.clau)).data.uid == request.auth.uid;
     }

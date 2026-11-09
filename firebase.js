@@ -6,7 +6,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc, deleteDoc, updateDoc, deleteField, collection, getDocs,
          getDocFromServer, getDocsFromServer, query, where, runTransaction, getCountFromServer,
-         waitForPendingWrites }
+         waitForPendingWrites, writeBatch }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
 import { getMessaging, getToken, onMessage }
   from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-messaging.js';
@@ -237,6 +237,10 @@ window.fbDesaEnquesta = async (dades) => {
 // Al document privat de l'usuari hi ha:
 //   lliga: { lid, dins }   dins = si ara participa (sortir no esborra el lid)
 //   pseudonimClau          la clau del pseudònim reservat, per poder-lo alliberar
+// Des del 09/11/2026 són LA identitat i LA reserva del compte: les regles no deixen
+// canviar el lid un cop posat ni tenir dues reserves, i per això el lid i la reserva
+// s'escriuen en un lot amb el document de l'usuari (vegeu fbLligaEntra i
+// fbReservaPseudonim).
 
 function nouLid() {
   const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -285,30 +289,39 @@ window.fbLligaEstat = async () => {
 // Reserva el pseudònim (la clau la calcula index.html amb clauPseudonim()).
 // Si la reserva és d'algú altre, les regles deneguen tant la lectura com la
 // creació: això vol dir «ja és d'algú altre». Allibera el pseudònim d'abans.
+// Des del 09/11/2026 les regles només admeten UNA reserva per compte: la reserva
+// nova, la clau al document de l'usuari i l'alliberament de l'anterior van en un sol
+// lot (les regles ho comproven amb getAfter i existsAfter). Un lot denegat també surt
+// com a permission-denied.
 window.fbReservaPseudonim = async (pseudonim, clau) => {
   const user = auth.currentUser;
   if (!user) return { ok: true, local: true };
   try {
     const estat = await llegeixEstatLliga(user);
-    // Sempre es comprova la reserva, fins i tot si la clau desada coincideix: pot
-    // haver-se esborrat des de la consola (un pseudònim ofensiu, per exemple).
     const ref = doc(db, 'pseudonims', clau);
+    const meu = doc(db, 'users', user.uid);
     try {
+      // Sempre es comprova la reserva, fins i tot si la clau desada coincideix: pot
+      // haver-se esborrat des de la consola (un pseudònim ofensiu, per exemple).
       const snap = await getDoc(ref);
-      if (!snap.exists()) await setDoc(ref, { uid: user.uid });
+      if (!snap.exists()) {
+        const lot = writeBatch(db);
+        lot.set(ref, { uid: user.uid });
+        lot.set(meu, { pseudonimClau: clau }, { merge: true });
+        if (estat.clau && estat.clau !== clau) lot.delete(doc(db, 'pseudonims', estat.clau));
+        await lot.commit();
+      } else if (estat.clau !== clau) {
+        // La reserva ja era seva: només cal apuntar-la al document i alliberar l'anterior.
+        await setDoc(meu, { pseudonimClau: clau }, { merge: true });
+        if (estat.clau) await deleteDoc(doc(db, 'pseudonims', estat.clau)).catch(() => {});
+      }
     } catch (e) {
       if (e.code === 'permission-denied') return { ok: false, reason: 'agafat' };
       throw e;
     }
-    if (estat.clau !== clau) {
-      await setDoc(doc(db, 'users', user.uid), { pseudonimClau: clau }, { merge: true });
-    }
     // Si ja és a la lliga, el perfil públic mostra el pseudònim nou.
     if (estat.dins && estat.lid) {
       await setDoc(doc(db, 'lligaPerfils', estat.lid), { pseudonim, clau }, { merge: true });
-    }
-    if (estat.clau && estat.clau !== clau) {
-      await deleteDoc(doc(db, 'pseudonims', estat.clau)).catch(() => {});
     }
     return { ok: true };
   } catch (e) {
@@ -326,8 +339,15 @@ window.fbLligaEntra = async (pseudonim, clau, setmana, dia) => {
   try {
     let { lid } = await llegeixEstatLliga(user);
     if (!lid) {
+      // Identitat nova: el lid al document de l'usuari i /lligaIds en un sol lot (les regles
+      // ho comproven amb getAfter; des del 09/11/2026 un compte només en pot tenir una, i el
+      // lid no canvia un cop posat). El perfil s'escriu DESPRÉS: les regles miren el lid del
+      // document de l'usuari per saber que és seu.
       lid = nouLid();
-      await setDoc(doc(db, 'lligaIds', lid), { uid: user.uid });
+      const lot = writeBatch(db);
+      lot.set(doc(db, 'users', user.uid), { lliga: { lid, dins: true } }, { merge: true });
+      lot.set(doc(db, 'lligaIds', lid), { uid: user.uid });
+      await lot.commit();
     }
     // Si ja havia participat, el perfil hi és (sense nom, amb les medalles): el recupera.
     const perfilRef = doc(db, 'lligaPerfils', lid);
