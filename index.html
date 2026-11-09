@@ -2407,7 +2407,11 @@ const CORRECTOR_URL = 'https://corrector.aprencatala.cat';
 const CORRECTOR_NIVELLS = ['A1', 'A2', 'B1', 'B2', 'C1'];
 const CORRECTOR_MIN = 20;           // paraules: els mateixos límits que el Worker (validaEntrada)
 const CORRECTOR_MAX = 400;
-const CORRECTOR_TEMPS_MS = 45000;   // el model triga entre 5 i 15 s; més enllà, es dona per perdut
+// Quant s'espera el Worker. Ha de ser MÉS que el que el Worker espera el model (TEMPS_MAXIM_MS = 90 s a
+// worker.js): així sempre arriba la seva resposta, la correcció o el seu error, i l'app no plega abans
+// d'hora. Amb 45 s, un text llarg i amb molts errors es perdia: el 08/11, un de 251 paraules i 21 errors va
+// trigar 34 s, i el model escriu unes 135 unitats per segon (amb les 8.000 de màxim, uns 60–65 s).
+const CORRECTOR_TEMPS_MS = 100000;
 // L'últim dia de la prova, per dir-ho a la pantalla. Qui la tanca és el Worker (TANCA_DES = 20261118
 // al wrangler.toml): si la data canvia allà, canvia aquí. Decisió del 04/11/2026.
 const CORRECTOR_ULTIM_DIA = '17/11';
