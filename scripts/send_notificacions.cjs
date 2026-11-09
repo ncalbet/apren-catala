@@ -395,12 +395,18 @@ async function run() {
     }
   }
 
+  // Cadascun en el seu try: si un no es pot esborrar, els altres sí (abans s'aturava tot, i
+  // el resultat ja no sortia). El log només diu el codi, com a la resta del script.
   for (const uid of invalidTokens) {
-    await db.collection('users').doc(uid).update({
-      fcmToken: admin.firestore.FieldValue.delete(),
-      notificacionsActives: false
-    });
-    console.log('🧹 Token invàlid eliminat');
+    try {
+      await db.collection('users').doc(uid).update({
+        fcmToken: admin.firestore.FieldValue.delete(),
+        notificacionsActives: false
+      });
+      console.log('🧹 Token invàlid eliminat');
+    } catch (e) {
+      console.warn(`⚠️ No s'ha pogut eliminar un token invàlid: ${e.code}`);
+    }
   }
 
   console.log(`\nResultat: ${sent} enviats (${delaLliga} de la lliga), ${skipped} omesos (${paused} en pausa, ${reset} cadències reiniciades), ${errors} errors.`);
