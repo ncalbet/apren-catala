@@ -6666,6 +6666,7 @@ function renderAccountSection() {
 }
 
 async function fbHandleSignIn() {
+  if (!window.fbSignIn) { showAlert('Carregant Firebase, espera un moment...'); return; }
   try {
     await window.fbSignIn();
     // onAuthStateChanged ja gestionarà la càrrega del progrés
