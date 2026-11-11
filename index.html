@@ -1418,7 +1418,7 @@ function showMasteryBonusToast() {
     background:#7c3aed;color:#fff;padding:12px 20px;border-radius:12px;
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
-  el.innerHTML = `<span style="font-size:22px;">🌟</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">EXERCICI DOMINAT</div>+25 XP de bonus!</div>`;
+  el.innerHTML = `<span style="font-size:22px;">🌟</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">DOMINI MÀXIM</div>+25 XP de bonus!</div>`;
   mostraToast(el, 4000);
 }
 function showEncouragement(category) {
@@ -2094,7 +2094,8 @@ function renderReview() {
       ${toStudy.map(q => {
         const m = getMastery(q.id);
         const colors = ['','#f59e0b','#f59e0b','#3b82f6','#3b82f6','var(--accent-green-text)'];
-        const labels = ['','Iniciat','Baix','Mig','Alt','Dominat'];
+        // Els mateixos noms que l'ajuda (11/11): «Dominat» és 4, com a la resta de l'app.
+        const labels = ['','Iniciat','Encertat','Consolidant','Dominat','Màxim'];
         // Un consolidat que torna no és un retrocés: és que ja li toca.
         const refresca = pool.length > 0 && m >= 4;
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
@@ -6005,11 +6006,11 @@ function renderHelp() {
         <div class="ct-acc-body">
           Cada exercici té un <strong>nivell de domini</strong> que va de 0 a 5:<br><br>
           <strong>0 — Nou:</strong> encara no l'has fet mai.<br>
-          <strong>1 — Fallat:</strong> l'has intentat i no l'has encertat.<br>
-          <strong>2 — En aprenentatge:</strong> l'has encertat un cop.<br>
+          <strong>1 — Iniciat:</strong> l'has intentat i no l'has encertat.<br>
+          <strong>2 — Encertat:</strong> l'has encertat un cop.<br>
           <strong>3 — Consolidant:</strong> dos encerts en dies diferents.<br>
-          <strong>4 — Ben après:</strong> tres o més encerts en dies diferents.<br>
-          <strong>5 — Dominat:</strong> màxim domini; apareixerà menys sovint al repàs.<br><br>
+          <strong>4 — Dominat:</strong> tres encerts en dies diferents; ja compta per a la medalla del tema.<br>
+          <strong>5 — Màxim:</strong> quatre encerts en dies diferents; torna al repàs un cop al mes.<br><br>
           <strong>Com puja:</strong> el primer encert et posa directament a <strong>2</strong>. A partir d'aquí, cada encert puja <strong>+1</strong>, però <strong>només un cop al dia</strong>: repetir el mateix exercici la mateixa tarda no el fa pujar més. Cal tornar-hi un <strong>dia natural diferent</strong> perquè l'aprenentatge es consolidi de veritat.<br><br>
           <strong>Com baixa:</strong> si t'equivoques, el domini <strong>baixa 1 punt</strong> (mai per sota d'1). Ara bé, si després l'encertes, <strong>recuperes el mateix dia</strong> el que havies perdut: una errada no et castiga la jornada sencera.<br><br>
           <strong>Les medalles no es perden:</strong> si t'equivoques en un exercici que ja havies dominat, el seu domini baixa i el repàs te'l torna a portar, però la medalla que vas guanyar continua sent teva.
