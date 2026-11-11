@@ -561,6 +561,12 @@ function nivellsCEFRText() {
 function nivellsCEFRComes() {
   return NIVELLS_CEFR.filter(l => (DATA[l] || []).length).map(l => l.toUpperCase()).join(', ');
 }
+// El repte diari de qui va per lliure i encara no ha practicat res: els dos primers nivells
+// que hi ha (A1 i A2; sense el mòdul A1, A2 i B1). Decisió de l'usuari (11/11): abans era
+// sempre A2 i B1, massa per a qui comença, ara que hi ha l'A1 i ve gent que no parla català.
+function nivellsInicials() {
+  return NIVELLS_CEFR.filter(l => (DATA[l] || []).length).slice(0, 2);
+}
 function nombreNivellsCEFR() {
   return ['cap', 'un', 'dos', 'tres', 'quatre', 'cinc'][NIVELLS_CEFR.filter(l => (DATA[l] || []).length).length];
 }
@@ -3848,7 +3854,7 @@ function getDailyChallenge() {
   if (ids.length < 3) {
     // El repte de sempre. Amb recorregut, del seu mòdul (també el de Novetats IEC).
     // Sense, ponderat al nivell de l'usuari: els 2 nivells més avançats on ha
-    // practicat (si és nou: A2+B1). En aquest cas el mòdul IEC NO hi entra a posta:
+    // practicat (si és nou, els dos primers: A1 i A2). En aquest cas el mòdul IEC NO hi entra a posta:
     // l'array és una escala de nivells i, si hi fos, practicar-lo un sol cop el
     // faria passar per «el més avançat» i desplaçaria el C1 del repte. És un mòdul
     // transversal, no un esglaó.
@@ -3858,7 +3864,7 @@ function getDailyChallenge() {
       if (counts[lv] !== undefined) counts[lv]++;
     });
     const active = NIVELLS_CEFR.filter(lv => counts[lv] > 0 && (DATA[lv] || []).length);
-    const levels = r ? [r.id] : active.length ? active.slice(-2) : ['a2', 'b1'];
+    const levels = r ? [r.id] : active.length ? active.slice(-2) : nivellsInicials();
     const all = levels.flatMap(lv => DATA[lv] || []).filter(q => !ids.includes(q.id));
     // Exclou els exercicis dels últims 7 reptes perquè no es repeteixin en pocs dies
     let pool = all.filter(q => !recent.includes(q.id));
@@ -6016,7 +6022,7 @@ function renderHelp() {
         <div class="ct-acc-body">
           Cada dia hi ha un <strong>repte diari</strong>. Si l'encertes sencer, guanyes <strong>+50 XP extra</strong>; el que falles el pots tornar a provar el mateix dia.<br><br>
           Si segueixes un <strong>recorregut</strong>, el repte és la teva <strong>sessió d'avui</strong>: fins a <strong>3 repassos</strong> que et toquen (primer els del recorregut) i <strong>2 exercicis nous</strong> del tema on ets.<br><br>
-          Si vas per lliure, són 3 exercicis dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'A2 i B1), sense el mòdul <strong>Novetats IEC</strong>, i s'eviten els que t'han sortit als reptes de l'última setmana.<br><br>
+          Si vas per lliure, són 3 exercicis dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'${nivellsInicials().map(l => l.toUpperCase()).join(' i ')}), sense el mòdul <strong>Novetats IEC</strong>, i s'eviten els que t'han sortit als reptes de l'última setmana.<br><br>
           El recorregut que segueixes és el que tries en començar, o l'últim on prems <strong>Continua</strong> a la pantalla d'un nivell.<br><br>
           El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
         </div>
