@@ -555,8 +555,11 @@ function corpusTot() { return [...corpusCEFR(), ...(DATA.iec || [])]; }
 // ('ca', 'es', 'en'), per a les explicacions traduïdes (11/11).
 function nivellsCEFRText(idioma = 'ca') {
   const n = NIVELLS_CEFR.filter(l => (DATA[l] || []).length).map(l => l.toUpperCase());
-  const i = { ca: 'i', es: 'y', en: 'and' }[idioma] || 'i';
-  return n.slice(0, -1).join(', ') + ` ${i} ` + n[n.length - 1];
+  return n.slice(0, -1).join(', ') + ` ${conjuncioI(idioma)} ` + n[n.length - 1];
+}
+// La «i» d'una llista, en cada idioma de les explicacions.
+function conjuncioI(idioma = 'ca') {
+  return { ca: 'i', es: 'y', en: 'and' }[idioma] || 'i';
 }
 // «A1, A2, B1, B2, C1», sense la «i»: per a les llistes que continuen («… i el mòdul
 // Novetats IEC»). L'ajuda les tenia escrites a mà i es va quedar sense l'A1 (11/11).
@@ -857,6 +860,28 @@ const TRADUCCIONS = {
     ajudaPractica: 'En AprènCatalà se fomenta la <strong>producción de la lengua</strong> en cada sesión: completar frases, ordenar los elementos de una oración, elegir entre opciones razonando y responder preguntas sobre textos.<br><br>Además, el <strong>repaso inteligente</strong> elige los ejercicios que más necesitas en cada momento, para que tu tiempo de estudio rinda al máximo.',
     ajudaContextTitol: 'Aprendizaje contextualizado',
     ajudaContext: 'Cada ejercicio se sitúa en un contexto real: una situación laboral, un correo formal, una conversación, un texto periodístico. Así, en lugar de memorizar reglas aisladas, practicas la lengua en las situaciones en las que tendrás que usarla.<br><br>Los ejercicios de nivel B2 y C1 se centran especialmente en el <strong>registro formal, la cohesión textual, los conectores y la precisión léxica</strong> que evalúan los exámenes oficiales.',
+    // Ajuda, bloc 2: com funciona l'app (11/11). Els rètols que l'app ensenya en català s'hi
+    // queden, amb la traducció entre parèntesis; els rangs de l'XP, «rango» (no «nivel»).
+    ajudaAppTitol: 'Cómo funciona la app',
+    ajudaDominiTitol: 'Sistema de dominio (0 → 5)',
+    ajudaDomini: 'Cada ejercicio tiene un <strong>nivel de dominio</strong> que va de 0 a 5:<br><br><strong>0 — Nuevo:</strong> aún no lo has hecho nunca.<br><strong>1 — Iniciado:</strong> lo has intentado y no lo has acertado.<br><strong>2 — Acertado:</strong> lo has acertado una vez.<br><strong>3 — Consolidando:</strong> dos aciertos en días distintos.<br><strong>4 — Dominado:</strong> tres aciertos en días distintos; ya cuenta para la medalla del tema.<br><strong>5 — Máximo:</strong> cuatro aciertos en días distintos; vuelve al repaso una vez al mes.<br><br><strong>Cómo sube:</strong> el primer acierto te lleva directamente al <strong>2</strong>. A partir de ahí, cada acierto suma <strong>+1</strong>, pero <strong>solo una vez al día</strong>: repetir el mismo ejercicio esa misma tarde no lo hace subir más. Tienes que volver a él <strong>otro día</strong> para que lo aprendido se consolide de verdad.<br><br><strong>Si solo te falla un acento</strong> al escribir la respuesta, la app te dice «≈ Gairebé» (casi): no pierdes nada, pero el dominio no sube y el ejercicio te volverá a salir en el repaso. Cuando el acento cambia la palabra (<em>és</em> y <em>es</em>), y en el módulo Novetats IEC, cuenta como error.<br><br><strong>Cómo baja:</strong> si te equivocas, el dominio <strong>baja 1 punto</strong> (nunca por debajo de 1). Eso sí, si después lo aciertas, <strong>recuperas ese mismo día</strong> lo que habías perdido: un error no te arruina la jornada.<br><br><strong>Las medallas no se pierden:</strong> si fallas un ejercicio que ya dominabas, su dominio baja y el repaso te lo vuelve a traer, pero la medalla que ganaste sigue siendo tuya.',
+    ajudaFetsTitol: '✅ Exercicis fets y ⭐ Dominat',
+    ajudaFets: 'Un tema se marca como <strong>✅ Exercicis fets</strong> (ejercicios hechos) cuando has acertado todos sus ejercicios al menos una vez (dominio ≥ 2 en todos).<br><br>Se marca como <strong>⭐ Dominat</strong> (dominado), con el borde dorado, cuando todos los ejercicios del tema han llegado a dominio ≥ 4.<br><br>«Exercicis fets» quiere decir «lo he practicado todo». «Dominat» quiere decir «lo tengo bien aprendido».',
+    ajudaXpTitol: 'XP y rangos',
+    ajudaXp: 'Ganas <strong>XP</strong> (puntos de experiencia) cuando aciertas un ejercicio. Si lo repites el mismo día, cada vez ganas menos, y a partir de la cuarta ya no ganas nada. La XP acumulada determina tu <strong>rango</strong>, que va de Aprenent a Mestre del Català.<br><br>Los rangos son decorativos y no afectan al contenido: puedes practicar cualquier nivel de catalán ({comes} y el módulo Novetats IEC) desde el primer día.',
+    ajudaRatxaTitol: 'Racha diaria y protectores de racha',
+    ajudaRatxa: 'La <strong>racha</strong> cuenta los días seguidos en los que has practicado. Si practicas cada día, la racha crece.<br><br>Si te saltas un día, la racha vuelve a 1... salvo que tengas <strong>protectores de racha</strong> 🛡️ (<em>gels de ratxa</em>). Cada protector cubre un día de descanso: si te saltas un día y te queda alguno, se gasta uno y la racha se mantiene.<br><br>Empiezas con 1, y ganas otro cada 5 días de racha, hasta un máximo de 3.',
+    ajudaRecorregutsTitol: 'Itinerarios',
+    ajudaRecorreguts: 'Cada nivel (y el módulo <strong>Novetats IEC</strong>) es también un <strong>itinerario</strong>: los temas, agrupados en etapas y en un orden recomendado. En la pantalla del nivel, el tema que te toca aparece marcado con <strong>➜ ET TOCA</strong> (te toca), y el botón <strong>Continua el recorregut</strong> (continúa el itinerario) te lleva directamente a él.<br><br>El tema que te toca es el primero del itinerario que aún no tienes hecho: si ya llevabas medio nivel, te lleva al punto correcto. El orden es una recomendación: puedes entrar en cualquier tema cuando quieras.<br><br>Si has elegido <strong>Voy por libre</strong>, no sigues ninguno y eliges tú los temas. Puedes empezar un itinerario en cualquier momento con el botón <strong>Comença el recorregut</strong> (empieza el itinerario) de la pantalla del nivel.',
+    ajudaRepteTitol: 'Reto diario',
+    ajudaRepte: 'Cada día hay un <strong>reto diario</strong>. Si lo aciertas entero, ganas <strong>+50 XP extra</strong>; lo que falles, puedes volver a intentarlo ese mismo día.<br><br>Si sigues un <strong>itinerario</strong>, el reto es tu <strong>sesión de hoy</strong>: hasta <strong>3 repasos</strong> que te tocan (primero los del itinerario) y <strong>2 ejercicios nuevos</strong> del tema que te toca.<br><br>Si vas por libre, son 3 ejercicios de los <strong>dos niveles más avanzados que ya has practicado</strong> (si acabas de empezar, de {inicials}), sin el módulo <strong>Novetats IEC</strong>, y se evitan los que te han salido en los retos de la última semana.<br><br>El itinerario que sigues es el que eliges al empezar, o el último en el que pulsas <strong>Comença el recorregut</strong> o <strong>Continua el recorregut</strong>.<br><br>El reto se renueva cada medianoche. Una vez completado, no se puede repetir el mismo día.',
+    ajudaRepasTitol: 'Repaso inteligente',
+    ajudaRepas: 'Cada ejercicio que has practicado vuelve al <strong>repaso inteligente</strong> cuando le toca: <strong>al día siguiente</strong> si lo has fallado, y cada vez más espaciado a medida que lo dominas (3, 7, 14 y hasta <strong>30 días</strong>). Nunca vuelve el mismo día en que lo has practicado.<br><br>Primero salen los que peor dominas, y la sesión mezcla temas. Si un día no te toca ninguno, puedes adelantar los que te tocarán antes.<br><br>Con los botones de filtro, puedes repasar un solo nivel ({comes} o 📜 IEC) o todos (<strong>Tot</strong>). El repaso muestra hasta 8 ejercicios por sesión.',
+    ajudaIec: 'Además de los {n} niveles, hay un <strong>módulo transversal</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) sobre <strong>lo que cambió con la normativa del IEC de 2016</strong>: los quince acentos diacríticos que se mantienen y los que desaparecieron, los guiones de los compuestos, los prefijos, la e epentética, la diéresis y la ortografía de los pronombres débiles.<br><br>Está pensado para quien estudió con la normativa antigua y quiere ponerse al día. <strong>No es un nivel del MCER</strong>: no hace falta hacerlo para avanzar y, si vas por libre, no entra en el reto diario; pero cuenta para la XP y tiene <strong>medallas propias</strong>.<br><br>Ojo: en este módulo, los ejercicios de escribir <strong>exigen el acento exacto</strong> (si la respuesta es «sòl», «sol» no vale). Es justo lo que se practica.',
+    ajudaCompteTitol: 'Cuenta y sincronización (opcional)',
+    ajudaCompte: 'Puedes usar la app <strong>sin registrarte</strong>: tu progreso se guarda en tu dispositivo.<br><br>Si quieres, puedes crear una <strong>cuenta gratuita</strong> desde <strong>Perfil → Compte i sincronització</strong> (con tu cuenta de Google o con correo y contraseña). Así tu progreso se <strong>sincroniza en la nube</strong> y lo tienes disponible en cualquier dispositivo, sin riesgo de perderlo.<br><br>Es totalmente opcional, y puedes <strong>borrar la cuenta</strong> cuando quieras desde el mismo Perfil.',
+    ajudaRecordatorisTitol: 'Recordatorios',
+    ajudaRecordatoris: 'Con la sesión iniciada, puedes activar <strong>recordatorios</strong> desde <strong>Perfil → Recordatoris</strong> para que la app te avise de practicar cuando hace días que no entras.<br><br>Puedes elegir la <strong>hora</strong> (mañana, mediodía, tarde o noche) y el <strong>ritmo</strong>: <strong>diario</strong> (los tres primeros días te avisa cada día que no hayas practicado, y después cada vez más de tarde en tarde) o <strong>espaciado</strong> (te avisa al cabo de un par de días, y también cada vez más de tarde en tarde). Si vuelves a practicar, los avisos empiezan de nuevo; si lo dejas del todo, al cabo de unas semanas dejan de llegar. Puedes desactivarlos cuando quieras.',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -904,6 +929,27 @@ const TRADUCCIONS = {
     ajudaPractica: 'AprènCatalà gets you <strong>producing the language</strong> in every session: completing sentences, putting the parts of a sentence in order, choosing between options by reasoning, and answering questions about texts.<br><br>On top of that, <strong>smart review</strong> picks the exercises you need most at any given moment, so you get the most out of your study time.',
     ajudaContextTitol: 'Learning in context',
     ajudaContext: "Each exercise is set in a real context: a work situation, a formal email, a conversation, a newspaper article. So instead of memorising rules in isolation, you practise the language in the situations where you'll need it.<br><br>The B2 and C1 exercises focus especially on <strong>formal register, text cohesion, connectors and precise vocabulary</strong>, which official exams assess.",
+    // Ajuda, bloc 2: com funciona l'app (11/11)
+    ajudaAppTitol: 'How the app works',
+    ajudaDominiTitol: 'Mastery levels (0 → 5)',
+    ajudaDomini: "Each exercise has a <strong>mastery level</strong> from 0 to 5:<br><br><strong>0 — New:</strong> you haven't done it yet.<br><strong>1 — Started:</strong> you've tried it but haven't got it right.<br><strong>2 — Correct:</strong> you've got it right once.<br><strong>3 — Consolidating:</strong> right on two different days.<br><strong>4 — Mastered:</strong> right on three different days; it now counts towards the topic's medal.<br><strong>5 — Maximum:</strong> right on four different days; it comes back in review once a month.<br><br><strong>How it goes up:</strong> your first correct answer takes you straight to <strong>2</strong>. From then on, each correct answer adds <strong>+1</strong>, but <strong>only once a day</strong>: repeating the same exercise that afternoon won't push it any higher. You need to come back to it <strong>on another day</strong> for it to really sink in.<br><br><strong>If only an accent is wrong</strong> when you type your answer, the app shows ‘≈ Gairebé’ (almost): you don't lose anything, but your mastery level doesn't go up and the exercise will come back in review. Where the accent makes it a different word (<em>és</em> and <em>es</em>), and in the Novetats IEC module, it counts as a mistake.<br><br><strong>How it goes down:</strong> if you get it wrong, your mastery level <strong>drops 1 point</strong> (never below 1). But if you then get it right, <strong>you win back what you lost that same day</strong>: one slip doesn't ruin your whole day.<br><br><strong>Medals are never lost:</strong> if you slip up on an exercise you'd already mastered, its level drops and review brings it back, but the medal you earned stays yours.",
+    ajudaFetsTitol: '✅ Exercicis fets vs ⭐ Dominat',
+    ajudaFets: "A topic is marked <strong>✅ Exercicis fets</strong> (exercises done) when you've got all its exercises right at least once (mastery ≥ 2 in all of them).<br><br>It's marked <strong>⭐ Dominat</strong> (mastered), with a gold border, when all the exercises in the topic have reached mastery ≥ 4.<br><br>‘Exercicis fets’ means ‘I've practised everything’. ‘Dominat’ means ‘I've learnt it well’.",
+    ajudaXpTitol: 'XP and ranks',
+    ajudaXp: "You earn <strong>XP</strong> (experience points) when you get an exercise right. If you repeat it on the same day, you earn less each time, and from the fourth time onwards, none at all. Your total XP sets your <strong>rank</strong>, from Aprenent up to Mestre del Català.<br><br>Ranks are purely cosmetic and don't affect the content: you can practise any Catalan level ({comes} and the Novetats IEC module) from day one.",
+    ajudaRatxaTitol: 'Daily streak and streak freezes',
+    ajudaRatxa: "Your <strong>streak</strong> counts the consecutive days you've practised. If you practise every day, it keeps growing.<br><br>If you miss a day, your streak goes back to 1... unless you have <strong>streak freezes</strong> 🛡️ (<em>gels de ratxa</em>). Each freeze covers one day off: if you miss a day and have one left, it's used up and your streak is kept.<br><br>You start with 1, and earn another for every 5 days of streak, up to a maximum of 3.",
+    ajudaRecorregutsTitol: 'Learning paths',
+    ajudaRecorreguts: "Each level (and the <strong>Novetats IEC</strong> module) is also a <strong>learning path</strong>: its topics, grouped into stages and in a recommended order. On the level screen, the topic you're up to is marked <strong>➜ ET TOCA</strong> (your turn), and the <strong>Continua el recorregut</strong> (continue the path) button takes you straight there.<br><br>The topic you're up to is the first one in the path that you haven't done yet: if you'd already done half the level, it takes you to the right place. The order is only a recommendation: you can open any topic whenever you like.<br><br>If you chose <strong>I'll explore on my own</strong>, you don't follow a path and you pick the topics yourself. You can start a path at any time with the <strong>Comença el recorregut</strong> (start the path) button on the level screen.",
+    ajudaRepteTitol: 'Daily challenge',
+    ajudaRepte: "There's a new <strong>daily challenge</strong> every day. Get it all right and you earn <strong>+50 bonus XP</strong>; anything you get wrong, you can try again the same day.<br><br>If you're following a <strong>learning path</strong>, the challenge is <strong>today's session</strong>: up to <strong>3 reviews</strong> that are due (those from your path first) and <strong>2 new exercises</strong> from the topic you're up to.<br><br>If you're exploring on your own, it's 3 exercises from the <strong>two most advanced levels you've already practised</strong> (if you're just starting, from {inicials}), not including the <strong>Novetats IEC</strong> module, and avoiding any you've had in the past week's challenges.<br><br>The path you follow is the one you choose when you start, or the last one where you tap <strong>Comença el recorregut</strong> or <strong>Continua el recorregut</strong>.<br><br>The challenge resets every midnight. Once you've completed it, you can't do it again the same day.",
+    ajudaRepasTitol: 'Smart review',
+    ajudaRepas: "Every exercise you've practised comes back in <strong>smart review</strong> when it's due: <strong>the next day</strong> if you got it wrong, and at longer and longer intervals as you master it (3, 7, 14 and up to <strong>30 days</strong>). It never comes back on the day you practised it.<br><br>The ones you know least well come first, and each session mixes topics. If nothing is due on a given day, you can bring forward the ones due soonest.<br><br>With the filter buttons, you can review a single level ({comes} or 📜 IEC) or all of them (<strong>Tot</strong>). Each review session has up to 8 exercises.",
+    ajudaIec: "Besides the {n} levels, there's a <strong>cross-level module</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) on <strong>what changed with the IEC's 2016 spelling rules</strong>: the fifteen diacritic accents that remain and the ones that were dropped, hyphens in compounds, prefixes, the epenthetic e, the diaeresis and the spelling of weak pronouns.<br><br>It's designed for people who learnt the old rules and want to catch up. <strong>It isn't a CEFR level</strong>: you don't need it to progress and, if you're exploring on your own, it isn't part of the daily challenge; but it counts towards your XP and has <strong>its own medals</strong>.<br><br>Note: in this module, the writing exercises <strong>require the exact accent</strong> (if the answer is ‘sòl’, ‘sol’ isn't accepted). That's precisely what it's for.",
+    ajudaCompteTitol: 'Account and sync (optional)',
+    ajudaCompte: "You can use the app <strong>without signing up</strong>: your progress is saved on your device.<br><br>If you like, you can create a <strong>free account</strong> from <strong>Perfil → Compte i sincronització</strong> (with your Google account or with an email and password). Your progress is then <strong>synced to the cloud</strong> and available on any device, with no risk of losing it.<br><br>It's entirely optional, and you can <strong>delete your account</strong> at any time from the same Perfil screen.",
+    ajudaRecordatorisTitol: 'Reminders',
+    ajudaRecordatoris: "When you're logged in, you can turn on <strong>reminders</strong> from <strong>Perfil → Recordatoris</strong> so the app nudges you to practise when you haven't been in for a while.<br><br>You can choose the <strong>time</strong> (morning, midday, evening or night) and the <strong>frequency</strong>: <strong>daily</strong> (<em>Diari</em>: for the first three days it reminds you every day you haven't practised, then less and less often) or <strong>spaced</strong> (<em>Espaiat</em>: it reminds you after a couple of days, then less and less often). If you start practising again, the reminders start over; if you stop altogether, they stop coming after a few weeks. You can turn them off at any time.",
   },
 };
 function tx(clau, ca, vars) {
@@ -5953,9 +5999,13 @@ function _goBack() {
 // ══ AJUDA ══
 function renderHelp() {
   window.scrollTo(0, 0);
-  // L'idioma de les explicacions (11/11): el bloc 1, el model pedagògic, ja és traduït.
+  // L'idioma de les explicacions (11/11): els blocs 1 (model pedagògic) i 2 (com funciona
+  // l'app) ja són traduïts; les preguntes freqüents, encara no.
   const lt = langTx();
-  const nv = { n: nombreNivellsCEFR(idiomaApp()), nivells: nivellsCEFRText(idiomaApp()) };
+  const nv = {
+    n: nombreNivellsCEFR(idiomaApp()), nivells: nivellsCEFRText(idiomaApp()), comes: nivellsCEFRComes(),
+    inicials: nivellsInicials().map(l => l.toUpperCase()).join(` ${conjuncioI(idiomaApp())} `),
+  };
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
@@ -5999,12 +6049,12 @@ function renderHelp() {
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Com funciona l'app</div>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:14px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span${lt}>${tx('ajudaAppTitol', "Com funciona l'app")}</span></div>
 
-      <details class="ct-acc">
-        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Sistema de domini (0 → 5)</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> ${tx('ajudaDominiTitol', 'Sistema de domini (0 → 5)')}</span></summary>
         <div class="ct-acc-body">
-          Cada exercici té un <strong>nivell de domini</strong> que va de 0 a 5:<br><br>
+          ${tx('ajudaDomini', `Cada exercici té un <strong>nivell de domini</strong> que va de 0 a 5:<br><br>
           <strong>0 — Nou:</strong> encara no l'has fet mai.<br>
           <strong>1 — Iniciat:</strong> l'has intentat i no l'has encertat.<br>
           <strong>2 — Encertat:</strong> l'has encertat un cop.<br>
@@ -6014,88 +6064,88 @@ function renderHelp() {
           <strong>Com puja:</strong> el primer encert et posa directament a <strong>2</strong>. A partir d'aquí, cada encert puja <strong>+1</strong>, però <strong>només un cop al dia</strong>: repetir el mateix exercici la mateixa tarda no el fa pujar més. Cal tornar-hi un <strong>dia natural diferent</strong> perquè l'aprenentatge es consolidi de veritat.<br><br>
           <strong>Si només et falla un accent</strong> en escriure la resposta, l'app et diu «≈ Gairebé»: no perds res, però el domini no puja i l'exercici et tornarà a sortir al repàs. On l'accent fa una altra paraula (<em>és</em> i <em>es</em>), i al mòdul Novetats IEC, compta com a error.<br><br>
           <strong>Com baixa:</strong> si t'equivoques, el domini <strong>baixa 1 punt</strong> (mai per sota d'1). Ara bé, si després l'encertes, <strong>recuperes el mateix dia</strong> el que havies perdut: una errada no et castiga la jornada sencera.<br><br>
-          <strong>Les medalles no es perden:</strong> si t'equivoques en un exercici que ja havies dominat, el seu domini baixa i el repàs te'l torna a portar, però la medalla que vas guanyar continua sent teva.
+          <strong>Les medalles no es perden:</strong> si t'equivoques en un exercici que ja havies dominat, el seu domini baixa i el repàs te'l torna a portar, però la medalla que vas guanyar continua sent teva.`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary>✅ Exercicis fets vs ⭐ Dominat</summary>
+      <details class="ct-acc"${lt}>
+        <summary>${tx('ajudaFetsTitol', '✅ Exercicis fets vs ⭐ Dominat')}</summary>
         <div class="ct-acc-body">
-          Una categoria es marca com a <strong>✅ Exercicis fets</strong> quan has encertat tots els exercicis almenys una vegada (domini ≥ 2 a tots).<br><br>
+          ${tx('ajudaFets', `Una categoria es marca com a <strong>✅ Exercicis fets</strong> quan has encertat tots els exercicis almenys una vegada (domini ≥ 2 a tots).<br><br>
           Es marca com a <strong>⭐ Dominat</strong> (vora daurada) quan tots els exercicis de la categoria han arribat a domini ≥ 4.<br><br>
-          «Exercicis fets» vol dir «he practicat tot». «Dominat» vol dir «ho tinc ben après».
+          «Exercicis fets» vol dir «he practicat tot». «Dominat» vol dir «ho tinc ben après».`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> XP i nivells</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> ${tx('ajudaXpTitol', 'XP i nivells')}</span></summary>
         <div class="ct-acc-body">
-          Guanyes <strong>XP</strong> (punts d'experiència) quan encertes un exercici. Si el repeteixes el mateix dia, cada vegada en guanyes menys, i a partir de la quarta ja no en guanyes. L'XP acumulat determina el teu <strong>nivell</strong>, que va d'Aprenent fins a Mestre del Català.<br><br>
-          Aquests nivells són decoratius i no afecten el contingut: pots practicar qualsevol nivell de català (${nivellsCEFRComes()} i el mòdul Novetats IEC) des del primer dia.
+          ${tx('ajudaXp', `Guanyes <strong>XP</strong> (punts d'experiència) quan encertes un exercici. Si el repeteixes el mateix dia, cada vegada en guanyes menys, i a partir de la quarta ja no en guanyes. L'XP acumulat determina el teu <strong>nivell</strong>, que va d'Aprenent fins a Mestre del Català.<br><br>
+          Aquests nivells són decoratius i no afecten el contingut: pots practicar qualsevol nivell de català (${nivellsCEFRComes()} i el mòdul Novetats IEC) des del primer dia.`, nv)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary>🔥 Ratxa diària i gels de ratxa</summary>
+      <details class="ct-acc"${lt}>
+        <summary>🔥 ${tx('ajudaRatxaTitol', 'Ratxa diària i gels de ratxa')}</summary>
         <div class="ct-acc-body">
-          La <strong>ratxa</strong> compta els dies consecutius en què has practicat. Si practiques cada dia, la ratxa creix.<br><br>
+          ${tx('ajudaRatxa', `La <strong>ratxa</strong> compta els dies consecutius en què has practicat. Si practiques cada dia, la ratxa creix.<br><br>
           Si et saltes un dia, la ratxa es reinicia a 1... tret que tinguis <strong>gels de ratxa</strong> 🛡️. Cada gel protegeix un dia de descans: si et saltes un dia i tens gels disponibles, un gel es consumeix i la ratxa es manté.<br><br>
-          Comences amb 1 gel, i en guanyes 1 cada 5 dies de ratxa, fins a un màxim de 3.
+          Comences amb 1 gel, i en guanyes 1 cada 5 dies de ratxa, fins a un màxim de 3.`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary><span>🧭 Recorreguts</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span>🧭 ${tx('ajudaRecorregutsTitol', 'Recorreguts')}</span></summary>
         <div class="ct-acc-body">
-          Cada nivell (i el mòdul <strong>Novetats IEC</strong>) és també un <strong>recorregut</strong>: els temes, agrupats en etapes i en un ordre recomanat. A la pantalla del nivell, el tema que et toca surt marcat amb <strong>➜ ET TOCA</strong>, i el botó <strong>Continua el recorregut</strong> t'hi porta directament.<br><br>
+          ${tx('ajudaRecorreguts', `Cada nivell (i el mòdul <strong>Novetats IEC</strong>) és també un <strong>recorregut</strong>: els temes, agrupats en etapes i en un ordre recomanat. A la pantalla del nivell, el tema que et toca surt marcat amb <strong>➜ ET TOCA</strong>, i el botó <strong>Continua el recorregut</strong> t'hi porta directament.<br><br>
           El tema que et toca és el primer del recorregut que encara no tens fet: si ja portaves mig nivell fet, et porta al lloc bo. L'ordre és una recomanació: pots entrar a qualsevol tema quan vulguis.<br><br>
-          Si has triat <strong>Vaig per lliure</strong>, no en segueixes cap i tries tu els temes. Pots començar un recorregut en qualsevol moment amb el botó <strong>Comença el recorregut</strong> de la pantalla del nivell.
+          Si has triat <strong>Vaig per lliure</strong>, no en segueixes cap i tries tu els temes. Pots començar un recorregut en qualsevol moment amb el botó <strong>Comença el recorregut</strong> de la pantalla del nivell.`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Repte diari</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${tx('ajudaRepteTitol', 'Repte diari')}</span></summary>
         <div class="ct-acc-body">
-          Cada dia hi ha un <strong>repte diari</strong>. Si l'encertes sencer, guanyes <strong>+50 XP extra</strong>; el que falles el pots tornar a provar el mateix dia.<br><br>
+          ${tx('ajudaRepte', `Cada dia hi ha un <strong>repte diari</strong>. Si l'encertes sencer, guanyes <strong>+50 XP extra</strong>; el que falles el pots tornar a provar el mateix dia.<br><br>
           Si segueixes un <strong>recorregut</strong>, el repte és la teva <strong>sessió d'avui</strong>: fins a <strong>3 repassos</strong> que et toquen (primer els del recorregut) i <strong>2 exercicis nous</strong> del tema que et toca.<br><br>
           Si vas per lliure, són 3 exercicis dels <strong>dos nivells més avançats que ja has practicat</strong> (si tot just comences, d'${nivellsInicials().map(l => l.toUpperCase()).join(' i ')}), sense el mòdul <strong>Novetats IEC</strong>, i s'eviten els que t'han sortit als reptes de l'última setmana.<br><br>
           El recorregut que segueixes és el que tries en començar, o l'últim on prems <strong>Comença el recorregut</strong> o <strong>Continua el recorregut</strong>.<br><br>
-          El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.
+          El repte es renova cada mitjanit. Un cop completat, no es pot repetir el mateix dia.`, nv)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Repàs intel·ligent</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> ${tx('ajudaRepasTitol', 'Repàs intel·ligent')}</span></summary>
         <div class="ct-acc-body">
-          Cada exercici que has practicat torna al <strong>repàs intel·ligent</strong> quan li toca: <strong>l'endemà</strong> si l'has fallat, i cada cop més espaiat a mesura que el domines (3, 7, 14 i fins a <strong>30 dies</strong>). Mai no torna el mateix dia que l'has practicat.<br><br>
+          ${tx('ajudaRepas', `Cada exercici que has practicat torna al <strong>repàs intel·ligent</strong> quan li toca: <strong>l'endemà</strong> si l'has fallat, i cada cop més espaiat a mesura que el domines (3, 7, 14 i fins a <strong>30 dies</strong>). Mai no torna el mateix dia que l'has practicat.<br><br>
           Primer surten els que tens pitjor dominats, i la sessió barreja categories. Si un dia no te'n toca cap, pots avançar els que et tocaran primer.<br><br>
-          Pots filtrar el repàs per nivell (${nivellsCEFRComes()}, 📜 IEC o Tot) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
+          Pots filtrar el repàs per nivell (${nivellsCEFRComes()}, 📜 IEC o Tot) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.`, nv)}
         </div>
       </details>
 
-      <details class="ct-acc">
+      <details class="ct-acc"${lt}>
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Novetats IEC</span></summary>
         <div class="ct-acc-body">
-          A més dels ${nombreNivellsCEFR()} nivells, hi ha un <strong>mòdul transversal</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) sobre <strong>què va canviar amb la normativa de l'IEC del 2016</strong>: els quinze accents diacrítics que queden, els que van desaparèixer, els guionets dels compostos, els prefixos, la e epentètica, la dièresi i l'ortografia dels pronoms febles.<br><br>
+          ${tx('ajudaIec', `A més dels ${nombreNivellsCEFR()} nivells, hi ha un <strong>mòdul transversal</strong> (<strong>Nivells → 📜 Novetats IEC</strong>) sobre <strong>què va canviar amb la normativa de l'IEC del 2016</strong>: els quinze accents diacrítics que queden, els que van desaparèixer, els guionets dels compostos, els prefixos, la e epentètica, la dièresi i l'ortografia dels pronoms febles.<br><br>
           Està pensat per a qui va estudiar amb la normativa antiga i vol posar-se al dia. <strong>No és un nivell del MECR</strong>: no cal fer-lo per avançar i, si vas per lliure, no entra al repte diari; però compta per a l'XP i té <strong>medalles pròpies</strong>.<br><br>
-          Compte: en aquest mòdul, els exercicis d'escriure <strong>exigeixen l'accent exacte</strong> (si la resposta és «sòl», «sol» no val). És justament el que s'hi practica.
+          Compte: en aquest mòdul, els exercicis d'escriure <strong>exigeixen l'accent exacte</strong> (si la resposta és «sòl», «sol» no val). És justament el que s'hi practica.`, nv)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> Compte i sincronització (opcional)</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> ${tx('ajudaCompteTitol', 'Compte i sincronització (opcional)')}</span></summary>
         <div class="ct-acc-body">
-          Pots usar l'app <strong>sense registrar-te</strong>: el progrés es desa al teu dispositiu.<br><br>
+          ${tx('ajudaCompte', `Pots usar l'app <strong>sense registrar-te</strong>: el progrés es desa al teu dispositiu.<br><br>
           Si vols, pots crear un <strong>compte gratuït</strong> des de <strong>Perfil → Compte i sincronització</strong> (amb el teu compte de Google o amb correu i contrasenya). Així el progrés es <strong>sincronitza al núvol</strong> i el tens accessible des de qualsevol dispositiu, sense risc de perdre'l.<br><br>
-          És del tot opcional, i pots <strong>esborrar el compte</strong> quan vulguis des del mateix Perfil.
+          És del tot opcional, i pots <strong>esborrar el compte</strong> quan vulguis des del mateix Perfil.`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Recordatoris</span></summary>
+      <details class="ct-acc"${lt}>
+        <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> ${tx('ajudaRecordatorisTitol', 'Recordatoris')}</span></summary>
         <div class="ct-acc-body">
-          Amb un compte iniciat, pots activar <strong>recordatoris</strong> des de <strong>Perfil → Recordatoris</strong> perquè l'app t'avisi de practicar quan fa dies que no vens.<br><br>
-          Pots triar l'<strong>hora</strong> (matí, migdia, tarda o nit) i el <strong>ritme</strong>: <strong>diari</strong> (els tres primers dies t'avisa cada dia que no hagis practicat, i després cada cop més de tant en tant) o <strong>espaiat</strong> (t'avisa al cap d'un parell de dies, i també cada cop més de tant en tant). Si tornes a practicar, els avisos es reinicien; si ho deixes del tot, al cap d'unes setmanes deixen d'arribar. Pots desactivar-los en qualsevol moment.
+          ${tx('ajudaRecordatoris', `Amb un compte iniciat, pots activar <strong>recordatoris</strong> des de <strong>Perfil → Recordatoris</strong> perquè l'app t'avisi de practicar quan fa dies que no vens.<br><br>
+          Pots triar l'<strong>hora</strong> (matí, migdia, tarda o nit) i el <strong>ritme</strong>: <strong>diari</strong> (els tres primers dies t'avisa cada dia que no hagis practicat, i després cada cop més de tant en tant) o <strong>espaiat</strong> (t'avisa al cap d'un parell de dies, i també cada cop més de tant en tant). Si tornes a practicar, els avisos es reinicien; si ho deixes del tot, al cap d'unes setmanes deixen d'arribar. Pots desactivar-los en qualsevol moment.`)}
         </div>
       </details>
 
