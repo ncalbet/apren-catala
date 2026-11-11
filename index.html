@@ -551,10 +551,12 @@ aplicaModulA1();
 const NIVELLS_CEFR = ['a1', 'a2', 'b1', 'b2', 'c1'];
 function corpusCEFR() { return NIVELLS_CEFR.flatMap(l => DATA[l] || []); }
 function corpusTot() { return [...corpusCEFR(), ...(DATA.iec || [])]; }
-// «A2, B1, B2 i C1», o amb l'A1 al davant si hi és; i quants són, en lletres.
-function nivellsCEFRText() {
+// «A2, B1, B2 i C1», o amb l'A1 al davant si hi és; i quants són, en lletres. L'idioma
+// ('ca', 'es', 'en'), per a les explicacions traduïdes (11/11).
+function nivellsCEFRText(idioma = 'ca') {
   const n = NIVELLS_CEFR.filter(l => (DATA[l] || []).length).map(l => l.toUpperCase());
-  return n.slice(0, -1).join(', ') + ' i ' + n[n.length - 1];
+  const i = { ca: 'i', es: 'y', en: 'and' }[idioma] || 'i';
+  return n.slice(0, -1).join(', ') + ` ${i} ` + n[n.length - 1];
 }
 // «A1, A2, B1, B2, C1», sense la «i»: per a les llistes que continuen («… i el mòdul
 // Novetats IEC»). L'ajuda les tenia escrites a mà i es va quedar sense l'A1 (11/11).
@@ -567,8 +569,13 @@ function nivellsCEFRComes() {
 function nivellsInicials() {
   return NIVELLS_CEFR.filter(l => (DATA[l] || []).length).slice(0, 2);
 }
-function nombreNivellsCEFR() {
-  return ['cap', 'un', 'dos', 'tres', 'quatre', 'cinc'][NIVELLS_CEFR.filter(l => (DATA[l] || []).length).length];
+function nombreNivellsCEFR(idioma = 'ca') {
+  const lletres = {
+    ca: ['cap', 'un', 'dos', 'tres', 'quatre', 'cinc'],
+    es: ['ningún', 'un', 'dos', 'tres', 'cuatro', 'cinco'],
+    en: ['no', 'one', 'two', 'three', 'four', 'five'],
+  };
+  return (lletres[idioma] || lletres.ca)[NIVELLS_CEFR.filter(l => (DATA[l] || []).length).length];
 }
 
 // ══ PROGRÉS amb SRS ══
@@ -838,6 +845,18 @@ const TRADUCCIONS = {
     rec_b2_titol: 'Escribe claro, conecta mejor', rec_b2_promesa: 'Da coherencia a tus textos y afina la expresión.',
     rec_c1_titol: 'Más fuerza, más precisión',  rec_c1_promesa: 'Argumenta, matiza y adapta el registro.',
     rec_iec_titol: 'La ortografía, al día',     rec_iec_promesa: 'Repasa acentos, guiones y grafías que te pueden hacer dudar.',
+    // Ajuda, bloc 1: el model pedagògic (11/11)
+    ajudaTitol: 'Ayuda',
+    ajudaModelTitol: 'Modelo pedagógico',
+    ajudaModelIntro: 'AprènCatalà es una herramienta de <strong>aprendizaje profundo</strong> de la lengua catalana.',
+    ajudaContingutTitol: 'Contenido actualizado y riguroso',
+    ajudaContingut: 'Los ejercicios cubren {n} niveles del Marco Común Europeo de Referencia (MCER): <strong>{nivells}</strong>, además de un módulo transversal, <strong>Novetats IEC</strong>, sobre la normativa de 2016. El contenido sigue la normativa del <strong>Institut d\'Estudis Catalans (IEC)</strong> y el <em>Diccionari de la llengua catalana</em> (DIEC2), y es apto para preparar los exámenes oficiales de catalán, como los de la <strong>Generalitat de Catalunya</strong>.',
+    ajudaSrsTitol: 'Repetición espaciada (SRS)',
+    ajudaSrs: 'La app utiliza el sistema de <strong>repetición espaciada</strong> (Spaced Repetition System, SRS), uno de los métodos de estudio con más evidencia científica.<br><br>La idea es repasar un concepto justo cuando estás a punto de olvidarlo. Así se consolida lo aprendido y el estudio es más eficaz. En la app, esto se concreta en un <em>sistema de aprendizaje personalizado</em>: lo que ya dominas aparece menos, y lo que te cuesta, más a menudo. Cada ejercicio tiene un nivel de dominio de 0 a 5 que sube con la práctica repartida en el tiempo.',
+    ajudaPracticaTitol: 'Práctica activa',
+    ajudaPractica: 'En AprènCatalà se fomenta la <strong>producción de la lengua</strong> en cada sesión: completar frases, ordenar los elementos de una oración, elegir entre opciones razonando y responder preguntas sobre textos.<br><br>Además, el <strong>repaso inteligente</strong> elige los ejercicios que más necesitas en cada momento, para que tu tiempo de estudio rinda al máximo.',
+    ajudaContextTitol: 'Aprendizaje contextualizado',
+    ajudaContext: 'Cada ejercicio se sitúa en un contexto real: una situación laboral, un correo formal, una conversación, un texto periodístico. Así, en lugar de memorizar reglas aisladas, practicas la lengua en las situaciones en las que tendrás que usarla.<br><br>Los ejercicios de nivel B2 y C1 se centran especialmente en el <strong>registro formal, la cohesión textual, los conectores y la precisión léxica</strong> que evalúan los exámenes oficiales.',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -873,6 +892,18 @@ const TRADUCCIONS = {
     rec_b2_titol: 'Write clearly, connect better', rec_b2_promesa: 'Make your texts coherent and refine your expression.',
     rec_c1_titol: 'More power, more precision', rec_c1_promesa: 'Build arguments, add nuance and adapt your register.',
     rec_iec_titol: 'Spelling, up to date',      rec_iec_promesa: 'Review accents, hyphens and spellings that may trip you up.',
+    // Ajuda, bloc 1: el model pedagògic (11/11)
+    ajudaTitol: 'Help',
+    ajudaModelTitol: 'Teaching approach',
+    ajudaModelIntro: 'AprènCatalà is a tool for learning Catalan <strong>in depth</strong>.',
+    ajudaContingutTitol: 'Up-to-date, rigorous content',
+    ajudaContingut: 'The exercises cover {n} levels of the Common European Framework of Reference (CEFR): <strong>{nivells}</strong>, plus a cross-level module, <strong>Novetats IEC</strong>, on the 2016 rules. The content follows the standard set by the <strong>Institut d\'Estudis Catalans (IEC)</strong> and the <em>Diccionari de la llengua catalana</em> (DIEC2), and is suitable for preparing official Catalan exams, such as those of the <strong>Generalitat de Catalunya</strong>.',
+    ajudaSrsTitol: 'Spaced repetition (SRS)',
+    ajudaSrs: "The app uses <strong>spaced repetition</strong> (SRS), one of the study methods with the strongest scientific evidence behind it.<br><br>The idea is to review something just as you're about to forget it. This consolidates what you've learnt and makes studying more effective. In the app, this becomes a <em>personalised learning system</em>: what you already know comes up less often, and what you find hard comes up more. Each exercise has a mastery level from 0 to 5 that goes up as you practise over time.",
+    ajudaPracticaTitol: 'Active practice',
+    ajudaPractica: 'AprènCatalà gets you <strong>producing the language</strong> in every session: completing sentences, putting the parts of a sentence in order, choosing between options by reasoning, and answering questions about texts.<br><br>On top of that, <strong>smart review</strong> picks the exercises you need most at any given moment, so you get the most out of your study time.',
+    ajudaContextTitol: 'Learning in context',
+    ajudaContext: "Each exercise is set in a real context: a work situation, a formal email, a conversation, a newspaper article. So instead of memorising rules in isolation, you practise the language in the situations where you'll need it.<br><br>The B2 and C1 exercises focus especially on <strong>formal register, text cohesion, connectors and precise vocabulary</strong>, which official exams assess.",
   },
 };
 function tx(clau, ca, vars) {
@@ -5921,44 +5952,47 @@ function _goBack() {
 // ══ AJUDA ══
 function renderHelp() {
   window.scrollTo(0, 0);
+  // L'idioma de les explicacions (11/11): el bloc 1, el model pedagògic, ja és traduït.
+  const lt = langTx();
+  const nv = { n: nombreNivellsCEFR(idiomaApp()), nivells: nivellsCEFRText(idiomaApp()) };
   document.getElementById('ct-body').innerHTML = `
     <div class="ct-card" style="max-width:600px;margin:0 auto;">
 
       <button onclick="showTab('profile')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← Perfil</button>
 
-      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17.01"/></svg> Ajuda</div>
+      <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:20px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17.01"/></svg> <span${lt}>${tx('ajudaTitol', 'Ajuda')}</span></div>
 
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Model pedagògic</div>
-      <p style="font-size:13px;color:var(--text-soft);line-height:1.75;margin-bottom:14px;">AprènCatalà és una eina d'<strong>aprenentatge profund</strong> de la llengua catalana.</p>
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> <span${lt}>${tx('ajudaModelTitol', 'Model pedagògic')}</span></div>
+      <p${lt} style="font-size:13px;color:var(--text-soft);line-height:1.75;margin-bottom:14px;">${tx('ajudaModelIntro', "AprènCatalà és una eina d'<strong>aprenentatge profund</strong> de la llengua catalana.")}</p>
 
-      <details class="ct-acc">
-        <summary>Contingut actualitzat i rigorós</summary>
+      <details class="ct-acc"${lt}>
+        <summary>${tx('ajudaContingutTitol', 'Contingut actualitzat i rigorós')}</summary>
         <div class="ct-acc-body">
-          Els exercicis cobreixen ${nombreNivellsCEFR()} nivells del Marc Europeu Comú de Referència (MECR): <strong>${nivellsCEFRText()}</strong>, més un mòdul transversal de <strong>Novetats IEC</strong> sobre la normativa del 2016. El contingut segueix la normativa de l'<strong>Institut d'Estudis Catalans (IEC)</strong> i el <em>Diccionari de la llengua catalana</em> (DIEC2), i és apte per a la preparació dels exàmens oficials de català, com els de la <strong>Generalitat de Catalunya</strong>.
+          ${tx('ajudaContingut', `Els exercicis cobreixen ${nombreNivellsCEFR()} nivells del Marc Europeu Comú de Referència (MECR): <strong>${nivellsCEFRText()}</strong>, més un mòdul transversal de <strong>Novetats IEC</strong> sobre la normativa del 2016. El contingut segueix la normativa de l'<strong>Institut d'Estudis Catalans (IEC)</strong> i el <em>Diccionari de la llengua catalana</em> (DIEC2), i és apte per a la preparació dels exàmens oficials de català, com els de la <strong>Generalitat de Catalunya</strong>.`, nv)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary>Repetició espaiada (SRS)</summary>
+      <details class="ct-acc"${lt}>
+        <summary>${tx('ajudaSrsTitol', 'Repetició espaiada (SRS)')}</summary>
         <div class="ct-acc-body">
-          L'app utilitza el sistema de <strong>repetició espaiada</strong> (Spaced Repetition System, SRS), un dels mètodes d'estudi amb més evidència científica.<br><br>
-          La idea es basa en el recordatori d'un concepte just quan s'està a punt d'oblidar. Això consolida l'aprenentatge i fa més eficaç l'estudi. A l'app, es concreta en un <em>sistema d'aprenentatge personalitzat</em>: els conceptes que ja domines apareixen menys; allò que et costa, apareix més sovint. Cada exercici té un nivell de domini de 0 a 5 que puja amb la pràctica distribuïda en el temps.
+          ${tx('ajudaSrs', `L'app utilitza el sistema de <strong>repetició espaiada</strong> (Spaced Repetition System, SRS), un dels mètodes d'estudi amb més evidència científica.<br><br>
+          La idea es basa en el recordatori d'un concepte just quan s'està a punt d'oblidar. Això consolida l'aprenentatge i fa més eficaç l'estudi. A l'app, es concreta en un <em>sistema d'aprenentatge personalitzat</em>: els conceptes que ja domines apareixen menys; allò que et costa, apareix més sovint. Cada exercici té un nivell de domini de 0 a 5 que puja amb la pràctica distribuïda en el temps.`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary>Pràctica activa</summary>
+      <details class="ct-acc"${lt}>
+        <summary>${tx('ajudaPracticaTitol', 'Pràctica activa')}</summary>
         <div class="ct-acc-body">
-          A AprènCatalà es promou la <strong>producció de la llengua</strong> en cada sessió: completar frases, ordenar els elements d'una oració, triar entre opcions amb raonament i respondre preguntes sobre textos.<br><br>
-          A més, el <strong>repàs intel·ligent</strong> tria els exercicis que més necessites en cada moment, perquè el temps d'estudi rendeixi al màxim.
+          ${tx('ajudaPractica', `A AprènCatalà es promou la <strong>producció de la llengua</strong> en cada sessió: completar frases, ordenar els elements d'una oració, triar entre opcions amb raonament i respondre preguntes sobre textos.<br><br>
+          A més, el <strong>repàs intel·ligent</strong> tria els exercicis que més necessites en cada moment, perquè el temps d'estudi rendeixi al màxim.`)}
         </div>
       </details>
 
-      <details class="ct-acc">
-        <summary>Aprenentatge contextualitzat</summary>
+      <details class="ct-acc"${lt}>
+        <summary>${tx('ajudaContextTitol', 'Aprenentatge contextualitzat')}</summary>
         <div class="ct-acc-body">
-          Cada exercici s'emmarca en un context real: una situació laboral, un correu formal, una conversa, un text periodístic. D'aquesta manera, en lloc de memoritzar regles aïllades, es practica la llengua en situacions en les quals l'hauràs de fer servir.<br><br>
-          Els exercicis de nivell B2 i C1 incideixen especialment en el <strong>registre formal, la cohesió textual, els connectors i la precisió lèxica</strong> que els exàmens oficials avaluen.
+          ${tx('ajudaContext', `Cada exercici s'emmarca en un context real: una situació laboral, un correu formal, una conversa, un text periodístic. D'aquesta manera, en lloc de memoritzar regles aïllades, es practica la llengua en situacions en les quals l'hauràs de fer servir.<br><br>
+          Els exercicis de nivell B2 i C1 incideixen especialment en el <strong>registre formal, la cohesió textual, els connectors i la precisió lèxica</strong> que els exàmens oficials avaluen.`)}
         </div>
       </details>
 
