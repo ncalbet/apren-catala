@@ -773,6 +773,20 @@ function compteAlFinal(ms = Date.now()) {
 // la salta («Continua sense compte») rep igualment la targeta del final de la sessió.
 // COMPTE_A_ENTRADA = false ho torna com a la tanda 2 (només la targeta). «let» per les proves.
 let COMPTE_A_ENTRADA = true;
+// L'idioma de les explicacions (abast B, decisió de l'usuari del 10/11/2026): qui no parla
+// català tria, en obrir l'app per primer cop i abans de cap altra pantalla, si vol la
+// benvinguda, l'ajuda i la teoria de l'A1 en castellà o en anglès. Els exercicis, els menús
+// i la resta de nivells, sempre en català. Qui ja feia servir l'app no veu la tria ni cap
+// anunci: la troba al Perfil (11/11). Apagat mentre es tradueix pas a pas: false ho deixa
+// tot com abans (sense tria, sense l'opció del Perfil, tot en català). «let» per les proves.
+let IDIOMES_ACTIU = false;
+const IDIOMA_KEY = 'cat_idioma_v1';
+// Cada opció, en la seva llengua, i dient què canvia: que no sembli la llengua que s'aprèn.
+const IDIOMA_OPCIONS = [
+  { id: 'ca', nom: 'Català',  nota: 'Explicacions en català' },
+  { id: 'es', nom: 'Español', nota: 'Explicaciones en español' },
+  { id: 'en', nom: 'English', nota: 'Explanations in English' },
+];
 // Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
 // puja) i, on fa una altra paraula (accentsEstrictes), un error. Havia d'encendre's el
 // dilluns 19/10/2026; el 16/10 l'usuari ho va avançar al mateix dia: és un canvi menor, i
@@ -5397,11 +5411,86 @@ function showAuthSplash() {
 }
 
 // Què veu qui obre l'app: l'Inici, l'acollida o, abans de l'acollida, la pantalla de
-// compte (COMPTE_A_ENTRADA, o sempre que no hi hagi la targeta del final).
+// compte (COMPTE_A_ENTRADA, o sempre que no hi hagi la targeta del final). Abans de tot,
+// la tria de l'idioma de les explicacions (IDIOMES_ACTIU), si encara no se n'ha triat cap.
 function pantallaInicial() {
   if (!shouldShowOnboarding()) return 'inici';
+  if (calTriarIdioma()) return 'idioma';
   const compteEntrada = COMPTE_A_ENTRADA || !compteAlFinal();
   return compteEntrada && !localStorage.getItem(AUTH_SPLASH_KEY) ? 'compte' : 'acollida';
+}
+function obrePantallaInicial() {
+  const inicial = pantallaInicial();
+  if (inicial === 'idioma') renderTriaIdioma();
+  else if (inicial === 'compte') showAuthSplash();
+  else if (inicial === 'acollida') renderOnboarding();
+  else renderMenu();
+}
+
+// ══ IDIOMA DE LES EXPLICACIONS ══
+// Només el demana qui encara no ha fet l'acollida: a qui ja feia servir l'app, cap tria
+// ni cap anunci (decisió de l'usuari, 11/11). Amb l'interruptor apagat, sempre català,
+// encara que el dispositiu en tingui un altre de desat.
+function idiomaApp() {
+  if (!IDIOMES_ACTIU) return 'ca';
+  const v = localStorage.getItem(IDIOMA_KEY);
+  return IDIOMA_OPCIONS.some(o => o.id === v) ? v : 'ca';
+}
+function calTriarIdioma() {
+  const v = localStorage.getItem(IDIOMA_KEY);
+  return IDIOMES_ACTIU && shouldShowOnboarding() && !IDIOMA_OPCIONS.some(o => o.id === v);
+}
+function desaIdioma(id) {
+  if (IDIOMA_OPCIONS.some(o => o.id === id)) localStorage.setItem(IDIOMA_KEY, id);
+}
+// La primera pantalla, en les tres llengües perquè encara no se'n sap cap: ha de quedar
+// clar que la llengua que s'aprèn és el català i que la tria és la de les explicacions.
+function renderTriaIdioma() {
+  const overlay = document.createElement('div');
+  overlay.id = 'idioma-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
+  const frase = 'font-size:14px;color:var(--text-soft);line-height:1.5;margin:0 0 8px;';
+  overlay.innerHTML = `
+    <div style="max-width:360px;width:100%;text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:8px;">📚</div>
+      <div style="font-family:'Fraunces',serif;font-size:28px;color:var(--heading);margin-bottom:14px;">AprènCatalà</div>
+      <div style="margin-bottom:20px;">
+        <p lang="ca" style="${frase}">Aprendràs <strong>català</strong>. En quina llengua vols les explicacions per començar?</p>
+        <p lang="es" style="${frase}">Vas a aprender <strong>catalán</strong>. ¿En qué idioma quieres las explicaciones para empezar?</p>
+        <p lang="en" style="${frase}">You're going to learn <strong>Catalan</strong>. Which language would you like the explanations in to start with?</p>
+      </div>
+      ${IDIOMA_OPCIONS.map(o => `
+      <button type="button" class="ct-btn secondary" lang="${o.id}" onclick="triaIdiomaInicial('${o.id}')"
+        style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:11px 14px;line-height:1.35;">
+        <span style="display:block;font-size:15px;font-weight:700;color:var(--heading);">${o.nom}</span>
+        <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${o.nota}</span>
+      </button>`).join('')}
+      <p style="font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:14px;">
+        <span lang="ca" style="white-space:nowrap;">Ho pots canviar al Perfil</span> · <span lang="es" style="white-space:nowrap;">Puedes cambiarlo en Perfil</span> · <span lang="en" style="white-space:nowrap;">You can change it in Perfil</span>
+      </p>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+function triaIdiomaInicial(id) {
+  desaIdioma(id);
+  document.getElementById('idioma-overlay')?.remove();
+  obrePantallaInicial();
+}
+// Al Perfil, per a tothom: és on la troba qui ja feia servir l'app.
+function idiomaPerfilHTML() {
+  const actual = idiomaApp();
+  return `
+      <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Idioma de les explicacions</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;">L'ajuda i la teoria de l'A1. Els exercicis i els menús són sempre en català.</p>
+      <div id="idioma-perfil" style="display:flex;gap:8px;">
+        ${IDIOMA_OPCIONS.map(o => `<button type="button" class="ct-btn ${o.id === actual ? 'primary' : 'secondary'}" lang="${o.id}" style="flex:1;margin:0;padding:9px 6px;font-size:14px;" aria-pressed="${o.id === actual}" onclick="canviaIdioma('${o.id}')">${o.nom}</button>`).join('')}
+      </div>`;
+}
+function canviaIdioma(id) {
+  desaIdioma(id);
+  renderProfile();
 }
 
 function authSplashDismiss() {
@@ -5676,10 +5765,7 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
 } else {
   updateHeader();
   updateThemeIcon();
-  const inicial = pantallaInicial();
-  if (inicial === 'compte') showAuthSplash();
-  else if (inicial === 'acollida') renderOnboarding();
-  else renderMenu();
+  obrePantallaInicial();
   // El modal de novetats també es dispara des de «fb-auth-change», però si Firebase
   // no carrega (offline, bloquejat) aquell esdeveniment no arriba mai. El cridem
   // també aquí; showWhatsNew() ja és idempotent (clau + guarda de duplicat).
@@ -6526,7 +6612,7 @@ function renderProfile() {
         <div id="prof-pseudo-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
         <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
       </div>
-
+      ${IDIOMES_ACTIU ? idiomaPerfilHTML() : ''}
 
       ${!ambSessio ? blocCompte : ''}
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
