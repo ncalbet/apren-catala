@@ -6298,7 +6298,8 @@ function renderNotificationsSection() {
   const selFreq = Math.min(parseInt(localStorage.getItem('notif_freq') || '1'), 2);
   const hours = [{h:9,label:'🌅 Matí'},{h:13,label:'🌞 Migdia'},{h:19,label:'🌆 Tarda'},{h:21,label:'🌙 Nit'}];
   const freqs = [
-    {f:1,label:'🔔 Diari',desc:"T'avisem cada dia que no hagis practicat."},
+    // La corba del servidor (send_notificacions.cjs, SCHEDULES[1]): dies 1, 2, 3, 5, 7, 10 i 15.
+    {f:1,label:'🔔 Diari',desc:"Els tres primers dies t'avisem cada dia que no hagis practicat; després, cada cop més de tant en tant."},
     {f:2,label:'🌿 Espaiat',desc:"T'avisem al cap d'un parell de dies sense practicar."}
   ];
   const prefsUI = active ? `
