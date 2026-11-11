@@ -556,6 +556,11 @@ function nivellsCEFRText() {
   const n = NIVELLS_CEFR.filter(l => (DATA[l] || []).length).map(l => l.toUpperCase());
   return n.slice(0, -1).join(', ') + ' i ' + n[n.length - 1];
 }
+// «A1, A2, B1, B2, C1», sense la «i»: per a les llistes que continuen («… i el mòdul
+// Novetats IEC»). L'ajuda les tenia escrites a mà i es va quedar sense l'A1 (11/11).
+function nivellsCEFRComes() {
+  return NIVELLS_CEFR.filter(l => (DATA[l] || []).length).map(l => l.toUpperCase()).join(', ');
+}
 function nombreNivellsCEFR() {
   return ['cap', 'un', 'dos', 'tres', 'quatre', 'cinc'][NIVELLS_CEFR.filter(l => (DATA[l] || []).length).length];
 }
@@ -5984,7 +5989,7 @@ function renderHelp() {
         <summary><span><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> XP i nivells</span></summary>
         <div class="ct-acc-body">
           Guanyes <strong>XP</strong> (punts d'experiència) cada vegada que encertes un exercici. L'XP acumulat determina el teu <strong>nivell</strong>, que va d'Aprenent fins a Mestre del Català.<br><br>
-          Els nivells són decoratius i no afecten el contingut disponible: pots practicar qualsevol nivell de l'app (A2, B1, B2, C1 i el mòdul Novetats IEC) des del primer dia.
+          Els nivells són decoratius i no afecten el contingut disponible: pots practicar qualsevol nivell de l'app (${nivellsCEFRComes()} i el mòdul Novetats IEC) des del primer dia.
         </div>
       </details>
 
@@ -6022,7 +6027,7 @@ function renderHelp() {
         <div class="ct-acc-body">
           Cada exercici que has practicat torna al <strong>repàs intel·ligent</strong> quan li toca: <strong>l'endemà</strong> si l'has fallat, i cada cop més espaiat a mesura que el domines (3, 7, 14 i fins a <strong>30 dies</strong>). Mai no torna el mateix dia que l'has practicat.<br><br>
           Primer surten els que tens pitjor dominats, i la sessió barreja categories. Si un dia no te'n toca cap, pots avançar els que et tocaran primer.<br><br>
-          Pots filtrar el repàs per nivell (A2, B1, B2, C1, 📜 Novetats IEC o Tot) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
+          Pots filtrar el repàs per nivell (${nivellsCEFRComes()}, 📜 Novetats IEC o Tot) amb els botons de filtre. El repàs mostra fins a 8 exercicis per sessió.
         </div>
       </details>
 
@@ -6081,7 +6086,7 @@ function renderHelp() {
       <details class="ct-acc">
         <summary>Puc fer exercicis d'un nivell superior al meu?</summary>
         <div class="ct-acc-body">
-          Sí, tots els nivells (A2, B1, B2, C1 i el mòdul Novetats IEC) estan disponibles des del primer dia. El teu nivell a l'app (Aprenent, Estudiant…) es basa en l'XP acumulat i és independent del nivell de català que tries practicar.
+          Sí, tots els nivells (${nivellsCEFRComes()} i el mòdul Novetats IEC) estan disponibles des del primer dia. El teu nivell a l'app (Aprenent, Estudiant…) es basa en l'XP acumulat i és independent del nivell de català que tries practicar.
         </div>
       </details>
 
