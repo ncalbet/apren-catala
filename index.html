@@ -787,6 +787,94 @@ const IDIOMA_OPCIONS = [
   { id: 'es', nom: 'Español', nota: 'Explicaciones en español' },
   { id: 'en', nom: 'English', nota: 'Explanations in English' },
 ];
+// Els textos traduïts, per clau. El català es queda al codi de cada pantalla, on era:
+// tx(clau, català) torna el català si l'idioma és el català o si la clau no té traducció.
+// Les {variables} només van a les traduccions (el català ja arriba muntat).
+// Pas 2 (11/11): la pantalla de compte, la benvinguda i «Per on vols començar?». Els
+// missatges d'error es queden en català. Anglès britànic, com la fitxa de Play.
+const TRADUCCIONS = {
+  es: {
+    compteAvantatges: 'Con una cuenta gratuita no pierdes tu progreso, puedes participar en la liga semanal y te avisamos cuando te toca repasar.',
+    compteAvantatgesSenseAvisos: 'Con una cuenta gratuita no pierdes tu progreso y puedes participar en la liga semanal.',
+    continuaGoogle: 'Continuar con Google',
+    o: 'o',
+    correuEtiqueta: 'CORREO ELECTRÓNICO',
+    correuExemple: 'nombre@ejemplo.com',
+    contrasenyaEtiqueta: 'CONTRASEÑA',
+    contrasenyaMinim: 'Mínimo {n} caracteres',
+    registrat: 'Registrarse',
+    iniciaSessio: 'Iniciar sesión',
+    jaTincCompte: '¿Ya tienes cuenta? <strong>Inicia sesión</strong>',
+    encaraNoTensCompte: '¿Aún no tienes cuenta? <strong>Regístrate</strong>',
+    oblidatContrasenya: '¿Has olvidado la contraseña?',
+    continuaSenseCompte: 'Continuar sin cuenta →',
+    acceptesPolitica: 'Al crear una cuenta, aceptas la {a}política de privacidad</a>.',
+    mostraContrasenya: 'Mostrar u ocultar la contraseña',
+    benvingudaTitol: '¡Te damos la bienvenida a AprènCatalà!',
+    benvingudaCos: 'Practica catalán del <strong>{n} al C1</strong> con ejercicios breves y la teoría de cada tema. La app te hace <strong>repasar</strong> lo que más te cuesta, justo cuando toca.',
+    benvingudaNota: 'Los ejercicios están en catalán. La teoría del A1 también la tienes en español.',
+    seguent: 'Siguiente →',
+    comencem: '¡Empecemos! 🚀',
+    jaTensCompte: '¿Ya tienes cuenta? Inicia sesión',
+    ambCorreu: 'Con correo',
+    araNo: 'Ahora no',
+    perOnComencar: '¿Por dónde quieres empezar?',
+    recorregutsExplicacio: 'Cada nivel es un itinerario: los temas en un orden recomendado, y la app te lleva a donde lo dejaste. Siempre puedes entrar en cualquier tema.',
+    vaigPerLliure: 'Voy por libre',
+    rec_a1_titol: 'Empieza a hablar catalán',   rec_a1_promesa: 'Saluda, preséntate y resuelve situaciones del día a día.',
+    rec_a2_titol: 'Hazte entender',             rec_a2_promesa: 'Describe, pregunta y habla del pasado.',
+    rec_b1_titol: 'Que las dudas no te frenen', rec_b1_promesa: 'Gana precisión con verbos, pronombres y conexiones entre frases.',
+    rec_b2_titol: 'Escribe claro, conecta mejor', rec_b2_promesa: 'Da coherencia a tus textos y afina la expresión.',
+    rec_c1_titol: 'Más fuerza, más precisión',  rec_c1_promesa: 'Argumenta, matiza y adapta el registro.',
+    rec_iec_titol: 'La ortografía, al día',     rec_iec_promesa: 'Repasa acentos, guiones y grafías que te pueden hacer dudar.',
+  },
+  en: {
+    compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
+    compteAvantatgesSenseAvisos: 'With a free account you keep your progress and can join the weekly league.',
+    continuaGoogle: 'Continue with Google',
+    o: 'or',
+    correuEtiqueta: 'EMAIL',
+    correuExemple: 'name@example.com',
+    contrasenyaEtiqueta: 'PASSWORD',
+    contrasenyaMinim: 'At least {n} characters',
+    registrat: 'Sign up',
+    iniciaSessio: 'Log in',
+    jaTincCompte: 'Already have an account? <strong>Log in</strong>',
+    encaraNoTensCompte: "Don't have an account yet? <strong>Sign up</strong>",
+    oblidatContrasenya: 'Forgot your password?',
+    continuaSenseCompte: 'Continue without an account →',
+    acceptesPolitica: 'By creating an account, you accept the {a}privacy policy</a>.',
+    mostraContrasenya: 'Show or hide password',
+    benvingudaTitol: 'Welcome to AprènCatalà!',
+    benvingudaCos: 'Practise Catalan from <strong>{n} to C1</strong> with short exercises and the theory for each topic. The app has you <strong>review</strong> what you find hardest, right when you need it.',
+    benvingudaNota: 'The exercises are in Catalan. The A1 theory is also available in English.',
+    seguent: 'Next →',
+    comencem: "Let's get started! 🚀",
+    jaTensCompte: 'Already have an account? Log in',
+    ambCorreu: 'With email',
+    araNo: 'Not now',
+    perOnComencar: 'Where would you like to start?',
+    recorregutsExplicacio: 'Each level is a learning path: the topics in a recommended order, and the app takes you back to where you left off. You can always open any topic.',
+    vaigPerLliure: "I'll explore on my own",
+    rec_a1_titol: 'Start speaking Catalan',     rec_a1_promesa: 'Greet people, introduce yourself and handle everyday situations.',
+    rec_a2_titol: 'Make yourself understood',   rec_a2_promesa: 'Describe, ask questions and talk about the past.',
+    rec_b1_titol: "Don't let doubts hold you back", rec_b1_promesa: 'Gain precision with verbs, pronouns and links between sentences.',
+    rec_b2_titol: 'Write clearly, connect better', rec_b2_promesa: 'Make your texts coherent and refine your expression.',
+    rec_c1_titol: 'More power, more precision', rec_c1_promesa: 'Build arguments, add nuance and adapt your register.',
+    rec_iec_titol: 'Spelling, up to date',      rec_iec_promesa: 'Review accents, hyphens and spellings that may trip you up.',
+  },
+};
+function tx(clau, ca, vars) {
+  const l = idiomaApp();
+  const t = l === 'ca' ? undefined : TRADUCCIONS[l]?.[clau];
+  if (t === undefined) return ca;
+  return vars ? t.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)) : t;
+}
+// L'atribut lang del bloc traduït, perquè el lector de pantalla el llegeixi amb la veu bona.
+function langTx() {
+  const l = idiomaApp();
+  return l === 'ca' ? '' : ` lang="${l}"`;
+}
 // Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
 // puja) i, on fa una altra paraula (accentsEstrictes), un error. Havia d'encendre's el
 // dilluns 19/10/2026; el 16/10 l'usuari ho va avançar al mateix dia: és un canvi menor, i
@@ -955,16 +1043,19 @@ function continuaRecorregut(level) {
 }
 // Botons de tria, compartits per l'acollida i per l'avís de novetat de l'Inici.
 // `accio` és el nom de la funció que rep l'id ('a2'…'iec', o null per anar per lliure).
-function recorregutOpcionsHTML(accio) {
+// `traduit`: a l'acollida, en l'idioma de les explicacions; a l'avís de l'Inici, en català
+// com la resta del menú. Les etiquetes de nivell («A1», «Novetats IEC»), sempre en català.
+function recorregutOpcionsHTML(accio, traduit = false) {
+  const t = traduit ? tx : (clau, ca) => ca;
   return recorregutsVisibles().map(r => `
     <button type="button" class="ct-btn secondary" onclick="${accio}('${r.id}')"
       style="width:100%;margin:0 0 8px;text-align:left;display:block;padding:10px 14px;line-height:1.35;">
-      <span class="ct-badge ${r.id}" style="margin-bottom:5px;">${r.nivell}</span>
-      <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${r.titol}</span>
-      <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${r.promesa}</span>
+      <span class="ct-badge ${r.id}" lang="ca" style="margin-bottom:5px;">${r.nivell}</span>
+      <span style="display:block;font-size:14px;font-weight:600;color:var(--heading);">${t(`rec_${r.id}_titol`, r.titol)}</span>
+      <span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;">${t(`rec_${r.id}_promesa`, r.promesa)}</span>
     </button>`).join('') + `
     <button type="button" class="ct-btn secondary" onclick="${accio}(null)"
-      style="width:100%;margin:4px 0 0;font-size:13px;">Vaig per lliure</button>`;
+      style="width:100%;margin:4px 0 0;font-size:13px;">${t('vaigPerLliure', 'Vaig per lliure')}</button>`;
 }
 // Canviar de recorregut no esborra res: només canvia d'on surt el repte diari i
 // què ofereix el «Continua» de l'Inici. Si el repte d'avui encara no s'ha
@@ -5226,9 +5317,15 @@ const ONBOARDING_KEY = 'cat_onboarding_v1';
 const ONBOARDING_STEPS = [
   {
     emoji: '👋',
-    title: 'Et donem la benvinguda a AprènCatalà!',
-    // Funció, no text: l'abast depèn de si el mòdul A1 és encès.
-    body: () => `Practica català de l'<strong>${DATA.a1 ? 'A1' : 'A2'} al C1</strong> amb exercicis breus i la teoria de cada tema. L'app et fa <strong>repassar</strong> el que més et costa, just quan toca.`,
+    // Funcions, no text: l'idioma de les explicacions es pot canviar, i l'abast depèn de si
+    // el mòdul A1 és encès.
+    title: () => tx('benvingudaTitol', 'Et donem la benvinguda a AprènCatalà!'),
+    body: () => {
+      const n = DATA.a1 ? 'A1' : 'A2';
+      return tx('benvingudaCos', `Practica català de l'<strong>${n} al C1</strong> amb exercicis breus i la teoria de cada tema. L'app et fa <strong>repassar</strong> el que més et costa, just quan toca.`, { n });
+    },
+    // Només en castellà i en anglès: què es queda en català.
+    nota: () => tx('benvingudaNota', ''),
   },
 ];
 
@@ -5257,20 +5354,23 @@ function renderOnboarding() {
     const overlay = document.createElement('div');
     overlay.id = 'onboarding-overlay';
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    const val = v => (typeof v === 'function' ? v() : v);
+    const nota = s && s.nota ? val(s.nota) : '';
     overlay.innerHTML = esTria ? `
-      <div style="background:var(--card);border-radius:22px;padding:28px 20px 24px;max-width:380px;width:100%;max-height:calc(100vh - 40px);overflow-y:auto;text-align:center;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
-        <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:8px;line-height:1.25;">Per on vols començar?</div>
-        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">Cada nivell és un recorregut: els temes en un ordre recomanat, i l'app et porta on ho vas deixar. Sempre pots entrar a qualsevol tema.</p>
+      <div${langTx()} style="background:var(--card);border-radius:22px;padding:28px 20px 24px;max-width:380px;width:100%;max-height:calc(100vh - 40px);overflow-y:auto;text-align:center;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+        <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--heading);margin-bottom:8px;line-height:1.25;">${tx('perOnComencar', 'Per on vols començar?')}</div>
+        <p style="font-size:13px;color:var(--text-soft);line-height:1.6;margin-bottom:16px;">${tx('recorregutsExplicacio', "Cada nivell és un recorregut: els temes en un ordre recomanat, i l'app et porta on ho vas deixar. Sempre pots entrar a qualsevol tema.")}</p>
         <div style="display:flex;gap:6px;justify-content:center;margin-bottom:16px;">${dots}</div>
-        ${recorregutOpcionsHTML('onbTriaRecorregut')}
+        ${recorregutOpcionsHTML('onbTriaRecorregut', true)}
       </div>` : `
-      <div style="background:var(--card);border-radius:22px;padding:40px 28px 32px;max-width:360px;width:100%;text-align:center;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+      <div${langTx()} style="background:var(--card);border-radius:22px;padding:40px 28px 32px;max-width:360px;width:100%;text-align:center;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
         <div style="font-size:62px;margin-bottom:14px;">${s.emoji}</div>
-        <div style="font-family:'Fraunces',serif;font-size:23px;color:var(--heading);margin-bottom:12px;line-height:1.25;">${s.title}</div>
-        <p style="font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:28px;">${typeof s.body === 'function' ? s.body() : s.body}</p>
+        <div style="font-family:'Fraunces',serif;font-size:23px;color:var(--heading);margin-bottom:12px;line-height:1.25;">${val(s.title)}</div>
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:${nota ? 12 : 28}px;">${val(s.body)}</p>
+        ${nota ? `<p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:28px;">${nota}</p>` : ''}
         <div style="display:flex;gap:6px;justify-content:center;margin-bottom:24px;">${dots}</div>
         <button class="ct-btn primary" id="onb-next" style="width:100%;font-size:15px;padding:13px;">
-          ${isLast ? 'Comencem! 🚀' : 'Següent →'}
+          ${isLast ? tx('comencem', 'Comencem! 🚀') : tx('seguent', 'Següent →')}
         </button>
         ${compteAlFinal() && !COMPTE_A_ENTRADA && !window.fbUser ? compteBenvingudaHTML() : ''}
       </div>`;
@@ -5306,14 +5406,14 @@ function onbTriaRecorregut(id) {
 // coneix l'app, i si al núvol té més XP, el diàleg de sempre li ofereix carregar-lo.
 function compteBenvingudaHTML() {
   return `
-        <button type="button" id="onb-compte-enllac" onclick="onbCompteMostra(true)" style="background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:8px;margin-top:12px;">Ja tens compte? Inicia sessió</button>
+        <button type="button" id="onb-compte-enllac" onclick="onbCompteMostra(true)" style="background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;padding:8px;margin-top:12px;">${tx('jaTensCompte', 'Ja tens compte? Inicia sessió')}</button>
         <div id="onb-compte-botons" hidden style="margin-top:14px;">
-          <button type="button" id="onb-compte-google" class="ct-btn secondary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 8px;" onclick="onbCompteGoogle()">${_googleSVG} Continua amb Google</button>
+          <button type="button" id="onb-compte-google" class="ct-btn secondary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 8px;" onclick="onbCompteGoogle()">${_googleSVG} ${tx('continuaGoogle', 'Continua amb Google')}</button>
           <div style="display:flex;gap:8px;">
-            <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteCorreu()">Amb correu</button>
-            <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteMostra(false)">Ara no</button>
+            <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteCorreu()">${tx('ambCorreu', 'Amb correu')}</button>
+            <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteMostra(false)">${tx('araNo', 'Ara no')}</button>
           </div>
-          <div id="onb-compte-error" style="font-size:13px;color:var(--danger);margin-top:8px;"></div>
+          <div id="onb-compte-error" lang="ca" style="font-size:13px;color:var(--danger);margin-top:8px;"></div>
         </div>`;
 }
 function onbCompteMostra(si) {
@@ -5369,43 +5469,45 @@ function showAuthSplash() {
   // activar, com a la targeta del final de la sessió.
   const recorda = 'Notification' in window && Notification.permission !== 'denied';
   const avantatges = recorda
-    ? 'Amb un compte gratuït no perds el progrés, pots participar a la lliga setmanal i et recordem quan et toca repassar.'
-    : 'Amb un compte gratuït no perds el progrés i pots participar a la lliga setmanal.';
+    ? tx('compteAvantatges', 'Amb un compte gratuït no perds el progrés, pots participar a la lliga setmanal i et recordem quan et toca repassar.')
+    : tx('compteAvantatgesSenseAvisos', 'Amb un compte gratuït no perds el progrés i pots participar a la lliga setmanal.');
+  const a = '<a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">';
   const overlay = document.createElement('div');
   overlay.id = 'auth-splash-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
+  // L'idioma de les explicacions (pas 2, 11/11): els textos, sí; els missatges d'error, en català.
   overlay.innerHTML = `
-    <div style="max-width:360px;width:100%;text-align:center;padding:20px 0;">
+    <div${langTx()} style="max-width:360px;width:100%;text-align:center;padding:20px 0;">
       <div style="font-size:48px;margin-bottom:8px;">📚</div>
-      <div style="font-family:'Fraunces',serif;font-size:28px;color:var(--heading);margin-bottom:8px;">AprènCatalà</div>
+      <div lang="ca" style="font-family:'Fraunces',serif;font-size:28px;color:var(--heading);margin-bottom:8px;">AprènCatalà</div>
       <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:28px;">${avantatges}</p>
 
       <button id="auth-google-btn" class="ct-btn primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;" onclick="authSplashGoogle()">
-        ${_googleSVG} Continua amb Google
+        ${_googleSVG} ${tx('continuaGoogle', 'Continua amb Google')}
       </button>
 
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
         <div style="flex:1;height:1px;background:var(--border);"></div>
-        <span style="font-size:12px;color:var(--muted);">o</span>
+        <span style="font-size:12px;color:var(--muted);">${tx('o', 'o')}</span>
         <div style="flex:1;height:1px;background:var(--border);"></div>
       </div>
 
       <div style="text-align:left;margin-bottom:10px;">
-        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CORREU ELECTRÒNIC</label>
-        <input id="auth-email" type="email" class="ct-input" style="margin-top:0;" placeholder="nom@exemple.com" autocomplete="email">
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">${tx('correuEtiqueta', 'CORREU ELECTRÒNIC')}</label>
+        <input id="auth-email" type="email" class="ct-input" style="margin-top:0;" placeholder="${tx('correuExemple', 'nom@exemple.com')}" autocomplete="email">
       </div>
       <div style="text-align:left;margin-bottom:6px;">
-        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CONTRASENYA</label>
-        ${pwFieldHtml('auth-password', `Mínim ${AUTH_PW_MIN} caràcters`, 'new-password')}
+        <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">${tx('contrasenyaEtiqueta', 'CONTRASENYA')}</label>
+        ${pwFieldHtml('auth-password', tx('contrasenyaMinim', `Mínim ${AUTH_PW_MIN} caràcters`, { n: AUTH_PW_MIN }), 'new-password', tx('mostraContrasenya', 'Mostra o amaga la contrasenya'))}
       </div>
-      <div id="auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
-      <button id="auth-email-btn" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="authSplashEmail()">Registra't</button>
-      <button id="auth-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('auth-email', showAuthError)">Has oblidat la contrasenya?</button>
-      <button id="auth-toggle-btn" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:28px;" onclick="toggleAuthMode()">Ja tinc compte? <strong>Inicia sessió</strong></button>
+      <div id="auth-error" lang="ca" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
+      <button id="auth-email-btn" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="authSplashEmail()">${tx('registrat', "Registra't")}</button>
+      <button id="auth-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('auth-email', showAuthError)">${tx('oblidatContrasenya', 'Has oblidat la contrasenya?')}</button>
+      <button id="auth-toggle-btn" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:28px;" onclick="toggleAuthMode()">${tx('jaTincCompte', 'Ja tinc compte? <strong>Inicia sessió</strong>')}</button>
 
-      <button style="background:none;border:none;font-size:13px;color:var(--muted);cursor:pointer;padding:8px;text-decoration:underline;" onclick="authSplashSkip()">Continua sense compte →</button>
+      <button style="background:none;border:none;font-size:13px;color:var(--muted);cursor:pointer;padding:8px;text-decoration:underline;" onclick="authSplashSkip()">${tx('continuaSenseCompte', 'Continua sense compte →')}</button>
 
-      <p style="font-size:11.5px;color:var(--muted);margin-top:18px;line-height:1.5;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">política de privacitat</a>.</p>
+      <p style="font-size:11.5px;color:var(--muted);margin-top:18px;line-height:1.5;">${tx('acceptesPolitica', `En crear un compte, acceptes la ${a}política de privacitat</a>.`, { a })}</p>
     </div>`;
   document.body.appendChild(overlay);
 }
@@ -5533,7 +5635,7 @@ async function authSplashEmail() {
     else await window.fbSignInEmail(email, password);
     authSplashDismiss();
   } catch (e) {
-    if (btn) { btn.disabled = false; btn.textContent = _authMode === 'register' ? "Registra't" : 'Inicia sessió'; }
+    if (btn) { btn.disabled = false; btn.textContent = _authMode === 'register' ? tx('registrat', "Registra't") : tx('iniciaSessio', 'Inicia sessió'); }
     showAuthError(fbErrorMessage(e.code));
   }
 }
@@ -5544,8 +5646,8 @@ function toggleAuthMode() {
   const submitBtn = document.getElementById('auth-email-btn');
   const toggleBtn = document.getElementById('auth-toggle-btn');
   const pwInput   = document.getElementById('auth-password');
-  if (submitBtn) submitBtn.textContent = isLogin ? 'Inicia sessió' : "Registra't";
-  if (toggleBtn) toggleBtn.innerHTML   = isLogin ? "Encara no tens compte? <strong>Registra't</strong>" : "Ja tinc compte? <strong>Inicia sessió</strong>";
+  if (submitBtn) submitBtn.textContent = isLogin ? tx('iniciaSessio', 'Inicia sessió') : tx('registrat', "Registra't");
+  if (toggleBtn) toggleBtn.innerHTML   = isLogin ? tx('encaraNoTensCompte', "Encara no tens compte? <strong>Registra't</strong>") : tx('jaTincCompte', 'Ja tinc compte? <strong>Inicia sessió</strong>');
   if (pwInput)   pwInput.autocomplete  = isLogin ? 'current-password' : 'new-password';
   const forgotBtn = document.getElementById('auth-forgot-btn');
   if (forgotBtn) forgotBtn.style.display = isLogin ? 'block' : 'none';
@@ -5561,10 +5663,10 @@ function showAuthError(msg) {
 }
 
 // Camp de contrasenya amb l'ull per mostrar-la/amagar-la (Feather eye / eye-off)
-function pwFieldHtml(id, placeholder, autocomplete) {
+function pwFieldHtml(id, placeholder, autocomplete, etiquetaUll = 'Mostra o amaga la contrasenya') {
   return `<div style="position:relative;">
     <input id="${id}" type="password" class="ct-input" style="margin-top:0;padding-right:44px;" placeholder="${placeholder}" autocomplete="${autocomplete}">
-    <button type="button" aria-label="Mostra o amaga la contrasenya" onclick="togglePwVisibility(this,'${id}')" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:8px;color:var(--muted);display:flex;align-items:center;">
+    <button type="button" aria-label="${etiquetaUll}" onclick="togglePwVisibility(this,'${id}')" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:8px;color:var(--muted);display:flex;align-items:center;">
       <svg class="pw-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       <svg class="pw-eye-off" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
     </button>
