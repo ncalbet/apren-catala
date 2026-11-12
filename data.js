@@ -79,8 +79,9 @@
           rows: [
             ['Tria','Escull una resposta.'],
             ['Completa','Escriu el que falta.'],
+            ['Escriu','Escriu la paraula que et demanen.'],
             ['Ordena','Posa els fragments en un ordre que tingui sentit.'],
-            ['Llegeix',"Mira el text per entendre'l."],
+            ['Escolta',"Toca el botó i escolta l'àudio."],
           ]
         }
       },
