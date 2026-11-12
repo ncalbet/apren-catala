@@ -71,7 +71,7 @@ const TEORIA_TRADUIDA = {
           table: { headers: ['Question', 'Answer', 'Follow-up'] },
         },
         {
-          title: 'A request and a thank-you',
+          title: 'Please and thank you',
           body: "<p>Ask for things with ‘si us plau’ or ‘per favor’. Say thank you with ‘gràcies’, and reply to thanks with ‘de res’. To get someone's attention or to apologise, you can say ‘perdona’.</p>",
         },
         {
