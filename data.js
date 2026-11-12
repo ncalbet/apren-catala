@@ -29,7 +29,7 @@
           headers: ['Pregunta','Resposta','Per continuar'],
           rows: [
             ['Com estàs?','Bé, gràcies.','I tu?'],
-            ['Com estàs?','Així, així.','Avui necessito descansar.'],
+            ['Com estàs?','Així així.','Avui necessito descansar.'],
             ['Com estàs?','No gaire bé.','Em fa mal el cap.'],
           ]
         }
@@ -3152,7 +3152,7 @@ const DATA = {
       correct:1,
       variants:[
         { question:'Algú et pregunta com et trobes avui. Quina resposta és adequada?', options:['A Girona.','Em dic Jan.','No gaire bé.'], correct:2, theory:'«No gaire bé» explica com es troba una persona.', example:'No gaire bé.' },
-        { question:'—Com estàs? —___', options:['Així, així.','Demà al matí.',"Soc d'Olot."], correct:0, theory:'«Així, així» indica que no et trobes del tot bé.', example:'—Com estàs? —Així, així.' },
+        { question:'—Com estàs? —___', options:['Així així.','Demà al matí.',"Soc d'Olot."], correct:0, theory:'«Així així» indica que no et trobes del tot bé.', example:'—Com estàs? —Així així.' },
       ],
       theory:"La pregunta demana l'estat de la persona, no el nom o el lloc on viu.",
       example:'—Com estàs? —No gaire bé.' },
@@ -3179,7 +3179,7 @@ const DATA = {
       question:'Com està la Rita?',
       text:'Hola, Pau! Soc la Rita. Com estàs? Jo, no gaire bé: avui necessito descansar. Ens veiem dilluns. Bon cap de setmana!',
       audio:'a1/a1-u01-08-v1.mp3',
-      options:['No gaire bé','Molt bé','Així, així'],
+      options:['No gaire bé','Molt bé','Així així'],
       correct:0,
       theory:'«No gaire bé» és una de les tres respostes a «Com estàs?»; «necessito descansar» ho confirma.',
       example:'—Com estàs? —No gaire bé.' },
