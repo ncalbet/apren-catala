@@ -508,6 +508,7 @@
 </div>
 <div class="ct-body" id="ct-body"></div>
 
+<script src="teoria_traduida.js"></script>
 <script src="data.js"></script>
 <script>
 // El formatador de dates de Madrid (partsMadrid, diaMadrid, més avall). Es crea una sola
@@ -896,6 +897,9 @@ const TRADUCCIONS = {
     ajudaFaqBaixa: 'Porque lo has fallado: un error <strong>baja el dominio 1 punto</strong> (nunca por debajo de 1). Gracias a eso, el repaso te vuelve a traer lo que se te ha oxidado.<br><br>No te preocupes: si lo vuelves a acertar <strong>el mismo día</strong>, recuperas el punto perdido. Un error puntual no borra el trabajo hecho.',
     ajudaFaqReiniciTitol: '¿Cómo puedo reiniciar mi progreso?',
     ajudaFaqReinici: 'Desde <strong>Perfil → Gestió de les dades</strong> (gestión de datos), al final de la pantalla. Borra la XP, la racha y el dominio de todos los ejercicios de este dispositivo y, si tienes la sesión iniciada, también los de la nube. <strong>No se puede deshacer</strong>.<br><br>Con la sesión iniciada, ahí mismo encontrarás también la opción de <strong>borrar la cuenta</strong> y los datos sincronizados en la nube.',
+    // Pas 4 (12/11), la teoria de l'A1: els textos són a teoria_traduida.js; aquí, els rètols.
+    teoriaExemples: 'Ejemplos',
+    teoriaVeureTraduida: 'Ver en español',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -978,6 +982,8 @@ const TRADUCCIONS = {
     ajudaFaqBaixa: "Because you got it wrong: a mistake <strong>lowers your mastery level by 1 point</strong> (never below 1). That's how review knows to bring back what's gone rusty.<br><br>Don't worry: if you get it right again <strong>the same day</strong>, you win back the lost point. One slip doesn't wipe out the work you've done.",
     ajudaFaqReiniciTitol: 'How can I reset my progress?',
     ajudaFaqReinici: "From <strong>Perfil → Gestió de les dades</strong> (data management), at the bottom of the screen. It deletes your XP, your streak and the mastery level of every exercise on this device and, if you're logged in, in the cloud too. <strong>It can't be undone</strong>.<br><br>When you're logged in, you'll also find the option to <strong>delete your account</strong> and the data synced to the cloud there.",
+    teoriaExemples: 'Examples',
+    teoriaVeureTraduida: 'Show in English',
   },
 };
 function tx(clau, ca, vars) {
@@ -1924,16 +1930,19 @@ function openCategory(level, cat) {
   // Primer els exercicis i la teoria plegada a sota, per a qui la vulgui: decisió de
   // l'usuari (28/09). Amb la teoria sencera a dalt, una persona nova va creure que
   // l'app era «tot teoria» i va plegar sense fer cap exercici.
+  // Amb la teoria traduïda, el nom del tema es queda en català (el del menú) amb la
+  // traducció entre parèntesis, i el subtítol, traduït.
+  const tr = th && teoriaTraduida(cat);
   const heroHTML = th ? `
       <div class="th-hero">
         <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
-        <div class="th-hero-title">${th.icon} ${cat}</div>
-        <div class="th-hero-sub">${th.subtitle}</div>
+        <div class="th-hero-title">${th.icon} ${cat}${nomTraduitHTML(tr)}</div>
+        <div class="th-hero-sub"${tr && tr.subtitle ? langTx() : ''}>${(tr && tr.subtitle) || th.subtitle}</div>
       </div>` : '';
   const theoryHTML = th ? `
       <details id="teoria-tema" style="max-width:640px;margin:20px auto 0;">
         <summary class="ct-btn secondary" style="display:block;width:100%;text-align:center;cursor:pointer;">📖 Llegeix la teoria del tema</summary>
-        <div style="margin-top:14px;">${th.sections.map(s => renderTheorySection(s)).join('')}</div>
+        <div style="margin-top:14px;">${teoriaCosHTML(cat)}</div>
       </details>` : '';
 
   const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',listen:'🎧'};
@@ -1980,14 +1989,50 @@ function openCategory(level, cat) {
     ${theoryHTML}`;
 }
 
-function renderTheorySection(s) {
+// La teoria de l'A1 en l'idioma de les explicacions (pas 4, 12/11): la traducció del tema
+// (teoria_traduida.js) o null si no n'hi ha (un altre nivell, el català triat, l'interruptor
+// apagat o el fitxer que no ha arribat).
+function teoriaTraduida(nom) {
+  const l = idiomaApp();
+  if (l === 'ca' || typeof TEORIA_TRADUIDA === 'undefined') return null;
+  return (TEORIA_TRADUIDA[l] && TEORIA_TRADUIDA[l][nom]) || null;
+}
+function nomTraduitHTML(tr) {
+  return tr && tr.nom ? ` <span${langTx()} style="font-weight:400;">(${tr.nom})</span>` : '';
+}
+// El cos de la teoria d'un tema (la pantalla del tema i la finestra des d'un exercici). Si
+// té traducció, surt traduït amb un botó a dalt per veure'l en català i tornar-hi (decisió
+// de l'usuari, 12/11): canvia només la teoria oberta i no es recorda.
+function teoriaCosHTML(nom, enCatala = false) {
+  const th = THEORY[nom];
+  const tr = teoriaTraduida(nom);
+  const l = tr && !enCatala ? idiomaApp() : null;
+  // Amb la teoria en català, el botó torna a la traducció i ho diu en la seva llengua.
+  const boto = tr ? `<div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+      <button type="button" class="ct-btn secondary" style="padding:6px 12px;font-size:13px;"${enCatala ? langTx() : ''} onclick="canviaLlenguaTeoria(this)">${enCatala ? tx('teoriaVeureTraduida', 'Veure-ho traduït') : 'Veure-ho en català'}</button>
+    </div>` : '';
+  const seccions = (th.sections || []).map((s, i) => renderTheorySection(s, l && tr.sections && tr.sections[i], l)).join('');
+  return `<div class="teoria-cos" data-tema="${escText(nom)}"${enCatala ? ' data-ca="1"' : ''}>${boto}${seccions}</div>`;
+}
+function canviaLlenguaTeoria(boto) {
+  const cos = boto.closest('.teoria-cos');
+  if (cos) cos.outerHTML = teoriaCosHTML(cos.dataset.tema, !cos.dataset.ca);
+}
+
+// Una secció de la teoria. Amb t (la secció traduïda) i l (la seva llengua), el títol,
+// l'explicació i les cel·les que la traducció omple, traduïts; la resta (les cel·les a null
+// i els exemples), en català i amb lang="ca".
+function renderTheorySection(s, t = null, l = null) {
+  const tt = t && t.table;
+  const cel = (tag, orig, trad) => trad != null ? `<${tag}>${trad}</${tag}>` : `<${tag}${l ? ' lang="ca"' : ''}>${orig}</${tag}>`;
   let content = '';
-  if (s.body) content += `<div class="th-body">${s.body}</div>`;
+  const body = (t && t.body) || s.body;
+  if (body) content += `<div class="th-body">${body}</div>`;
   if (s.table) {
     content += `<div style="overflow-x:auto;margin:10px 0;">
       <table class="th-table">
-        <thead><tr>${s.table.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-        <tbody>${s.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+        <thead><tr>${s.table.headers.map((h, k) => cel('th', h, tt && tt.headers && tt.headers[k])).join('')}</tr></thead>
+        <tbody>${s.table.rows.map((r, j) => `<tr>${r.map((c, k) => cel('td', c, tt && tt.rows && tt.rows[j] && tt.rows[j][k])).join('')}</tr>`).join('')}</tbody>
       </table></div>`;
   }
   if (s.rules) {
@@ -2000,18 +2045,18 @@ function renderTheorySection(s) {
   }
   if (s.examples) {
     content += `<div class="th-example-box">
-      <div class="th-ex-label">Exemples</div>
+      <div class="th-ex-label">${l ? tx('teoriaExemples', 'Exemples') : 'Exemples'}</div>
       ${s.examples.map(e => `
-        <div class="th-ex-row">
+        <div class="th-ex-row"${l ? ' lang="ca"' : ''}>
           <span class="th-ex-dot"></span>
           <span class="th-ex-text">${e.text}</span>
         </div>`).join('')}
     </div>`;
   }
   return `
-    <div class="th-section">
+    <div class="th-section"${l ? ` lang="${l}"` : ''}>
       <div class="th-section-title">
-        <span class="th-section-icon">${s.icon}</span> ${s.title}
+        <span class="th-section-icon">${s.icon}</span> ${(t && t.title) || s.title}
       </div>
       ${content}
     </div>`;
@@ -2615,10 +2660,10 @@ function obreTeoriaTema(categoria = null) {
   el.id = 'teoria-modal';
   el.innerHTML = `<div style="background:var(--bg);border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">
-        <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);line-height:1.25;">${th.icon} ${escText(nom)}</div>
+        <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);line-height:1.25;">${th.icon} ${escText(nom)}${nomTraduitHTML(teoriaTraduida(nom))}</div>
         <button type="button" class="ct-btn secondary" style="padding:6px 12px;font-size:13px;flex-shrink:0;" onclick="document.getElementById('teoria-modal').remove()">Tanca</button>
       </div>
-      ${(th.sections || []).map(renderTheorySection).join('')}
+      ${teoriaCosHTML(nom)}
       <button type="button" class="ct-btn primary" style="width:100%;margin-top:8px;" onclick="document.getElementById('teoria-modal').remove()">${categoria ? 'Tanca' : 'Torna a l\'exercici'}</button>
     </div>`;
   document.body.appendChild(el);

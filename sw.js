@@ -14,6 +14,7 @@ const ASSETS_TO_CACHE = [
   './icons/icon-512x512.png',
   './icons/badge-96.png',
   './data.js',
+  './teoria_traduida.js',
   './firebase.js'
 ];
 
