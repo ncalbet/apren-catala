@@ -14,7 +14,7 @@
 // · El català citat a les explicacions, tal qual: entre «» en castellà i entre ‘’ en anglès.
 // Cada tema, revisat per l'usuari abans d'entrar-hi (12/11: «Salutacions»; 16/11: «Demanar
 // ajuda», «Presentacions» i «Persones properes»; i, més tard, «Casa i objectes», «El barri» i
-// «Rutines»).
+// «Rutines», i «Dies i hores», «Compres» i «Menjar i beure»).
 // tests_arrencada.cjs (secció 25) comprova que la forma de cada tema és la de THEORY i que
 // el català citat hi és.
 const TEORIA_TRADUIDA = {
@@ -281,6 +281,106 @@ const TEORIA_TRADUIDA = {
         },
       ],
     },
+    'Dies i hores': {
+      nom: 'Días y horas',
+      subtitle: 'Pregunta la hora y sitúa una actividad en el calendario.',
+      sections: [
+        {
+          title: 'La semana',
+          body: '<p>«Avui» (hoy) es el día actual; «ahir» (ayer), el día anterior; «demà» (mañana), el día siguiente.</p>',
+          table: { headers: ['Orden', 'Día', 'Ejemplo'] },
+        },
+        {
+          title: 'Los meses',
+          body: '<p>«12 de novembre» se puede escribir «12/11». En estas fechas escribimos primero el día y después el mes.</p>',
+          table: { headers: [null, null, null] },
+        },
+        {
+          title: 'La hora y cuándo ocurre algo',
+          body: '<p>En la tabla: «Quina hora és?» (¿qué hora es?) y «A quina hora comença?» (¿a qué hora empieza?).</p>',
+          table: { headers: ['Hora', null, null] },
+        },
+        {
+          title: 'Reconocer los cuartos',
+          table: {
+            headers: ['Hora', 'Expresión con cuartos', 'Qué quiere decir'],
+            rows: [
+              [null, null, 'Ha pasado el primer cuarto de la hora que termina a las diez.'],
+              [null, null, 'Ha pasado media hora desde las nueve.'],
+              [null, null, 'Falta un cuarto para las diez.'],
+            ],
+          },
+        },
+        {
+          title: 'Leer un horario',
+          body: '<p>En «de nou a una» (de nueve a una), la primera hora es el inicio y la segunda, el final. «Obert» (abierto) y «tancat» (cerrado) informan del estado del servicio: «La botiga està oberta», «El centre està tancat». Para indicar una costumbre, el día lleva artículo: «el dilluns» o «els dilluns» (cada lunes). Sin artículo, «dilluns» es el de esta semana.</p>',
+        },
+      ],
+    },
+    'Compres': {
+      nom: 'Compras',
+      subtitle: 'Lee etiquetas y di qué quieres comprar y cuánto necesitas.',
+      sections: [
+        {
+          title: 'Una compra sencilla',
+          body: '<p>Para saber el precio: «Quant val?», «Quant costa?» o «Quin preu té?» (¿cuánto cuesta?). Mira si la etiqueta indica el precio por unidad, kilo o litro: «Pomes: 2 € el quilo» (manzanas: 2 € el kilo).</p>',
+        },
+        {
+          title: 'Producto y cantidad',
+          body: '<p>Practicamos «dos pans» (dos panes) y «dues pomes» (dos manzanas). En algunas zonas también se usa «dos» con nombres femeninos. En la tabla: «mig quilo» (medio kilo), «pastanagues» (zanahorias), «llet» (leche), «ampolla» (botella), «aigua» (agua) y «arròs» (arroz).</p>',
+          table: { headers: ['Cantidad', 'Ejemplo'] },
+        },
+        {
+          title: 'Del 11 al 20',
+          table: { headers: ['Cifra', 'Palabra', 'Cifra', 'Palabra'] },
+        },
+        {
+          title: 'Del 21 al 100',
+          body: '<p>Del 21 al 29: <span style="white-space:nowrap">«vint-i-tres» (23)</span>, <span style="white-space:nowrap">«vint-i-set» (27)</span>. A partir de treinta: <span style="white-space:nowrap">«trenta-set» (37)</span>, <span style="white-space:nowrap">«quaranta-dos» (42)</span>.</p>',
+          table: { headers: ['Cifra', 'Palabra', 'Ejemplo compuesto'] },
+        },
+        {
+          title: 'Cantidades no exactas y negación',
+          body: "<p>Si no queda ni una: «No queda cap poma» (no queda ninguna manzana). Si la jarra está vacía: «No queda gens d'aigua» (no queda nada de agua). En la tabla: «molt/molta» (mucho/mucha), «poc/poca» (poco/poca), «cap» (ningún, ninguna) y «gens de» (nada de).</p>",
+          table: { headers: ['Expresión', 'Ejemplo'] },
+        },
+      ],
+    },
+    'Menjar i beure': {
+      nom: 'Comer y beber',
+      subtitle: 'Pide comida o bebida y expresa gustos y preferencias sencillas.',
+      sections: [
+        {
+          title: 'Un pedido claro',
+          body: '<p>«Un entrepà de formatge, si us plau» (un bocadillo de queso, por favor). También puedes decir «Voldria un entrepà» (quisiera un bocadillo). Para terminar: «El compte, si us plau» (la cuenta, por favor).</p>',
+        },
+        {
+          title: 'Amb (con) y sense (sin)',
+          body: '<p>En la tabla: «cafè amb llet» (café con leche), «te» (té), «sucre» (azúcar), «entrepà» (bocadillo) y «tomàquet» (tomate).</p>',
+          table: { headers: ['Quieres incluir…', 'Quieres quitar…'] },
+        },
+        {
+          title: "¿M'agrada o m'agraden?",
+          body: "<p>En la tabla: «m'agrada» (me gusta), «m'agraden» (me gustan), «maduixes» (fresas) y «cuinar» (cocinar).</p>",
+          table: {
+            headers: ['Lo que te gusta', 'Frase', 'El verbo'],
+            rows: [
+              ['Un nombre en singular', null, null],
+              ['Un nombre en plural', null, null],
+              ['Una actividad', null, 'agrada + infinitivo'],
+            ],
+          },
+        },
+        {
+          title: 'Pregunta y responde sobre gustos',
+          body: "<p>«T'agrada el te?» (¿te gusta el té?) — «Sí, m'agrada molt» (sí, me gusta mucho), «No m'agrada gaire» (no me gusta mucho) o «No m'agrada gens» (no me gusta nada). «No gaire» indica poco; «gens», que no te gusta en absoluto.</p>",
+        },
+        {
+          title: 'Coincidir o no',
+          table: { headers: ['Primer mensaje', 'Respuesta coherente'] },
+        },
+      ],
+    },
   },
   en: {
     'Salutacions': {
@@ -542,6 +642,107 @@ const TEORIA_TRADUIDA = {
         {
           title: 'Questions, statements and negatives',
           body: "<p>‘Treballes avui?’ (are you working today?) asks a question. ‘Treballo avui’ makes a statement. ‘No treballo avui’ makes it negative. Also: ‘No em llevo aviat’ (I don't get up early).</p>",
+        },
+      ],
+    },
+    'Dies i hores': {
+      nom: 'Days and times',
+      subtitle: 'Ask the time and place an activity on the calendar.',
+      sections: [
+        {
+          title: 'The week',
+          body: '<p>‘Avui’ (today) is the current day; ‘ahir’ (yesterday), the day before; ‘demà’ (tomorrow), the next day.</p>',
+          table: { headers: ['Order', 'Day', 'Example'] },
+        },
+        {
+          title: 'The months',
+          body: '<p>‘12 de novembre’ can be written ‘12/11’. In these dates we write the day first and then the month.</p>',
+          table: { headers: [null, null, null] },
+        },
+        {
+          title: 'The time, and when things happen',
+          body: '<p>In the table: ‘Quina hora és?’ (what time is it?) and ‘A quina hora comença?’ (what time does it start?).</p>',
+          table: { headers: ['Time', null, null] },
+        },
+        {
+          title: 'Recognising quarter hours',
+          table: {
+            headers: ['Time', 'Using quarters', 'What it means'],
+            rows: [
+              [null, null, 'The first quarter of the hour ending at ten has gone by.'],
+              [null, null, 'Half an hour has gone by since nine.'],
+              [null, null, "It's a quarter to ten."],
+            ],
+          },
+        },
+        {
+          title: 'Reading opening hours',
+          body: "<p>In ‘de nou a una’ (from nine to one), the first time is the start and the second is the end. ‘Obert’ (open) and ‘tancat’ (closed) tell you the status of the service: ‘La botiga està oberta’, ‘El centre està tancat’. For something that happens regularly, the day takes the article: ‘el dilluns’ or ‘els dilluns’ (every Monday). Without it, ‘dilluns’ is this week's Monday.</p>",
+        },
+      ],
+    },
+    'Compres': {
+      nom: 'Shopping',
+      subtitle: 'Read labels and say what you want to buy and how much you need.',
+      sections: [
+        {
+          title: 'A simple purchase',
+          body: '<p>To find out the price: ‘Quant val?’, ‘Quant costa?’ or ‘Quin preu té?’ (how much is it?). Check whether the label gives the price per item, per kilo or per litre: ‘Pomes: 2 € el quilo’ (apples: €2 a kilo).</p>',
+        },
+        {
+          title: 'Products and quantities',
+          body: '<p>We practise ‘dos pans’ (two loaves of bread) and ‘dues pomes’ (two apples). In some areas ‘dos’ is also used with feminine nouns. In the table: ‘mig quilo’ (half a kilo), ‘pastanagues’ (carrots), ‘llet’ (milk), ‘ampolla’ (bottle), ‘aigua’ (water) and ‘arròs’ (rice).</p>',
+          table: { headers: ['Quantity', 'Example'] },
+        },
+        {
+          title: 'From 11 to 20',
+          table: { headers: ['Number', 'Word', 'Number', 'Word'] },
+        },
+        {
+          title: 'From 21 to 100',
+          body: '<p>From 21 to 29: <span style="white-space:nowrap">‘vint-i-tres’ (23)</span>, <span style="white-space:nowrap">‘vint-i-set’ (27)</span>. From thirty on: <span style="white-space:nowrap">‘trenta-set’ (37)</span>, <span style="white-space:nowrap">‘quaranta-dos’ (42)</span>.</p>',
+          table: { headers: ['Number', 'Word', 'Compound example'] },
+        },
+        {
+          title: 'Vague amounts and negatives',
+          body: "<p>If there isn't a single one left: ‘No queda cap poma’ (there are no apples left). If the jug is empty: ‘No queda gens d'aigua’ (there's no water left at all). In the table: ‘molt/molta’ (a lot of), ‘poc/poca’ (not much), ‘cap’ (no, not a single) and ‘gens de’ (no … at all).</p>",
+          table: { headers: ['Expression', 'Example'] },
+        },
+      ],
+    },
+    'Menjar i beure': {
+      nom: 'Food and drink',
+      subtitle: 'Order food or drink and talk about simple likes and preferences.',
+      sections: [
+        {
+          title: 'A clear order',
+          body: "<p>‘Un entrepà de formatge, si us plau’ (a cheese sandwich, please). You can also say ‘Voldria un entrepà’ (I'd like a sandwich). To finish: ‘El compte, si us plau’ (the bill, please).</p>",
+        },
+        {
+          title: 'Amb (with) and sense (without)',
+          body: '<p>In the table: ‘cafè amb llet’ (coffee with milk), ‘te’ (tea), ‘sucre’ (sugar), ‘entrepà’ (sandwich) and ‘tomàquet’ (tomato).</p>',
+          table: { headers: ['You want to include…', 'You want to leave out…'] },
+        },
+        {
+          title: "M'agrada or m'agraden?",
+          body: "<p>In the table: ‘m'agrada’ and ‘m'agraden’ (I like), ‘maduixes’ (strawberries) and ‘cuinar’ (to cook).</p>",
+          table: {
+            headers: ['What you like', 'Sentence', 'The verb'],
+            rows: [
+              ['A singular noun', null, null],
+              ['A plural noun', null, null],
+              ['An activity', null, 'agrada + infinitive'],
+            ],
+          },
+        },
+        {
+          title: 'Ask and answer about likes',
+          body: "<p>‘T'agrada el te?’ (do you like tea?) — ‘Sí, m'agrada molt’ (yes, I like it a lot), ‘No m'agrada gaire’ (I don't like it much) or ‘No m'agrada gens’ (I don't like it at all). ‘No gaire’ means not much; ‘gens’ means not at all.</p>",
+        },
+        {
+          title: 'Same or different',
+          body: "<p>In the table: ‘A mi també’ (me too), ‘A mi tampoc’ (me neither), ‘A mi no’ (I don't) and ‘A mi sí’ (I do).</p>",
+          table: { headers: ['First message', 'A reply that fits'] },
         },
       ],
     },
