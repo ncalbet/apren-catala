@@ -137,7 +137,7 @@ const TEORIA_TRADUIDA = {
         {
           title: 'Los posesivos cambian con el nombre',
           body: '<p>También son válidas «meua/meues», «teua/teues» y «seua/seues». El posesivo cambia según la cosa: «el meu llibre», «les meves bosses».</p>',
-          table: { headers: ['Persona de referencia', 'Masculino singular', 'Femenino singular', 'Plural'] },
+          table: { headers: ['Persona', 'Singular', 'Plural'] },
         },
         {
           title: 'Concordancia: las palabras se ajustan',
@@ -282,7 +282,7 @@ const TEORIA_TRADUIDA = {
         {
           title: 'Possessives change with the noun',
           body: '<p>Also correct: ‘meua/meues’, ‘teua/teues’ and ‘seua/seues’. The possessive changes with the thing: ‘el meu llibre’, ‘les meves bosses’.</p>',
-          table: { headers: ['Owner', 'Masculine singular', 'Feminine singular', 'Plural'] },
+          table: { headers: ['Owner', 'Singular', 'Plural'] },
         },
         {
           title: 'Agreement: words change to match',

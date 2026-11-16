@@ -216,11 +216,11 @@
         icon: '📊',
         body: '<p>També són vàlides «meua/meues», «teua/teues» i «seua/seues». El possessiu canvia amb la cosa: «el meu llibre», «les meves bosses».</p>',
         table: {
-          headers: ['Persona de referència','Masculí singular','Femení singular','Plural'],
+          headers: ['Persona','Singular','Plural'],
           rows: [
-            ['jo','el meu llibre','la meva bossa','els meus llibres / les meves bosses'],
-            ['tu','el teu llibre','la teva bossa','els teus llibres / les teves bosses'],
-            ['ell / ella','el seu llibre','la seva bossa','els seus llibres / les seves bosses'],
+            ['jo','el meu llibre / la meva bossa','els meus llibres / les meves bosses'],
+            ['tu','el teu llibre / la teva bossa','els teus llibres / les teves bosses'],
+            ['ell / ella','el seu llibre / la seva bossa','els seus llibres / les seves bosses'],
           ]
         }
       },
