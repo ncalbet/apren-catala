@@ -14,7 +14,8 @@
 // · El català citat a les explicacions, tal qual: entre «» en castellà i entre ‘’ en anglès.
 // Cada tema, revisat per l'usuari abans d'entrar-hi (12/11: «Salutacions»; 16/11: «Demanar
 // ajuda», «Presentacions» i «Persones properes»; i, més tard, «Casa i objectes», «El barri» i
-// «Rutines», i «Dies i hores», «Compres» i «Menjar i beure»).
+// «Rutines», i «Dies i hores», «Compres» i «Menjar i beure», i «Necessitats» i «Quedar amb
+// algú»: els 12 temes de l'A1).
 // tests_arrencada.cjs (secció 25) comprova que la forma de cada tema és la de THEORY i que
 // el català citat hi és.
 const TEORIA_TRADUIDA = {
@@ -381,6 +382,89 @@ const TEORIA_TRADUIDA = {
         },
       ],
     },
+    'Necessitats': {
+      nom: 'Necesidades',
+      subtitle: 'Expresa sensaciones, necesidades e instrucciones básicas; habla del tiempo.',
+      sections: [
+        {
+          title: 'Expresiones frecuentes',
+          body: '<p>Con «tenir» (tener): «jo tinc», «tu tens», «ell/ella té».</p>',
+          table: {
+            headers: ['Sensación o necesidad', 'Expresión'],
+            rows: [
+              ['Necesidad de beber', null],
+              ['Necesidad de comer', null],
+              ['Necesidad de dormir', null],
+              ['Sensación de temperatura', null],
+              ['Necesidad de ayuda', null],
+              ['Malestar', null],
+            ],
+          },
+        },
+        {
+          title: 'El cuerpo y el dolor',
+          body: '<p>Con una parte del cuerpo: «Em fa mal el peu» (me duele el pie). Con más de una: «Em fan mal els peus» (me duelen los pies). En la tabla: «cap» (cabeza), «panxa» (barriga), «mà» (mano), «peu» (pie) y «cames» (piernas).</p>',
+          table: { headers: ['Parte del cuerpo', 'Ejemplo'] },
+        },
+        {
+          title: 'Voler, poder y necessitar',
+          body: '<p>Los verbos de la tabla: «voler» (querer), «poder» (poder) y «necessitar» (necesitar).</p>',
+          table: { headers: ['Persona', null, null, null] },
+        },
+        {
+          title: 'Entender qué hay que hacer',
+          body: '<p>«He de portar el document» (tengo que traer el documento) expresa una obligación. Para hablarle a otra persona: «Has de portar el document» (tienes que traer el documento). Sin decir quién: «Cal portar el document» (hay que traer el documento).</p>',
+        },
+        {
+          title: 'El tiempo y las sensaciones',
+          body: '<p>En la tabla: «Fa fred» (hace frío), «Fa calor» (hace calor), «Plou» (llueve), «Neva» (nieva) y «Fa sol» (hace sol).</p>',
+          table: { headers: ['Hablamos del tiempo', 'Hablamos de una persona'] },
+        },
+      ],
+    },
+    'Quedar amb algú': {
+      nom: 'Quedar con alguien',
+      subtitle: 'Propón un encuentro, responde y une información con conectores básicos.',
+      sections: [
+        {
+          title: 'Propón y responde',
+          body: '<p>Para quedar, concreta el día, la hora y el lugar. Días: «dilluns» (lunes), «dimarts» (martes), «dimecres» (miércoles), «dijous» (jueves), «divendres» (viernes), «dissabte» (sábado) y «diumenge» (domingo). En la tabla: «em va bé» (me va bien), «no puc» (no puedo) y «Fins dijous!» (¡hasta el jueves!).</p>',
+          table: {
+            headers: ['Función', 'Ejemplo'],
+            rows: [
+              ['Proponer', null],
+              ['Aceptar', null],
+              ['Decir que no puedes', null],
+              ['Pedir una alternativa', null],
+              ['Concretar', null],
+              ['Confirmar', null],
+            ],
+          },
+        },
+        {
+          title: 'Conecta las ideas',
+          body: '<p>En la tabla: «i» (y), «o» (o), «però» (pero), «perquè» (porque), «també» (también) y «tampoc» (tampoco).</p>',
+          table: {
+            headers: ['Palabra', 'Función', 'Ejemplo'],
+            rows: [
+              [null, 'Añadir información', null],
+              [null, 'Presentar alternativas', null],
+              [null, 'Introducir un contraste', null],
+              [null, 'Dar una causa', null],
+              [null, 'Coincidir en una frase afirmativa', null],
+              [null, 'Coincidir en una frase negativa', null],
+            ],
+          },
+        },
+        {
+          title: 'Per què y perquè',
+          body: '<p>«Per què no pots venir?» (¿por qué no puedes venir?) pregunta el motivo. «Perquè treballo» (porque trabajo) responde.</p>',
+        },
+        {
+          title: 'Dos mensajes posibles',
+        },
+      ],
+    },
   },
   en: {
     'Salutacions': {
@@ -743,6 +827,89 @@ const TEORIA_TRADUIDA = {
           title: 'Same or different',
           body: "<p>In the table: ‘A mi també’ (me too), ‘A mi tampoc’ (me neither), ‘A mi no’ (I don't) and ‘A mi sí’ (I do).</p>",
           table: { headers: ['First message', 'A reply that fits'] },
+        },
+      ],
+    },
+    'Necessitats': {
+      nom: 'Needs',
+      subtitle: 'Express feelings, needs and basic instructions; talk about the weather.',
+      sections: [
+        {
+          title: 'Common expressions',
+          body: '<p>With ‘tenir’ (to have): ‘jo tinc’, ‘tu tens’, ‘ell/ella té’.</p>',
+          table: {
+            headers: ['Feeling or need', 'Expression'],
+            rows: [
+              ['Need to drink', null],
+              ['Need to eat', null],
+              ['Need to sleep', null],
+              ['Feeling cold or hot', null],
+              ['Needing help', null],
+              ['Feeling unwell', null],
+            ],
+          },
+        },
+        {
+          title: 'When something hurts',
+          body: '<p>With one part of the body: ‘Em fa mal el peu’ (my foot hurts). With more than one: ‘Em fan mal els peus’ (my feet hurt). In the table: ‘cap’ (head), ‘panxa’ (belly, stomach), ‘mà’ (hand), ‘peu’ (foot) and ‘cames’ (legs).</p>',
+          table: { headers: ['Body part', 'Example'] },
+        },
+        {
+          title: 'Voler, poder and necessitar',
+          body: '<p>The verbs in the table: ‘voler’ (to want), ‘poder’ (can, to be able to) and ‘necessitar’ (to need).</p>',
+          table: { headers: ['Person', null, null, null] },
+        },
+        {
+          title: 'Understanding what you have to do',
+          body: "<p>‘He de portar el document’ (I have to bring the document) expresses an obligation. To tell someone else: ‘Has de portar el document’ (you have to bring the document). Without saying who: ‘Cal portar el document’ (it's necessary to bring the document).</p>",
+        },
+        {
+          title: 'The weather and how you feel',
+          body: "<p>In the table: ‘Fa fred’ (it's cold), ‘Fa calor’ (it's hot), ‘Plou’ (it's raining), ‘Neva’ (it's snowing) and ‘Fa sol’ (it's sunny).</p>",
+          table: { headers: ['Talking about the weather', 'Talking about a person'] },
+        },
+      ],
+    },
+    'Quedar amb algú': {
+      nom: 'Meeting up',
+      subtitle: 'Suggest meeting up, reply, and join ideas with simple linking words.',
+      sections: [
+        {
+          title: 'Suggest and reply',
+          body: "<p>To arrange to meet, give the day, the time and the place. Days: ‘dilluns’ (Monday), ‘dimarts’ (Tuesday), ‘dimecres’ (Wednesday), ‘dijous’ (Thursday), ‘divendres’ (Friday), ‘dissabte’ (Saturday) and ‘diumenge’ (Sunday). In the table: ‘em va bé’ (that works for me), ‘no puc’ (I can't) and ‘Fins dijous!’ (see you on Thursday!).</p>",
+          table: {
+            headers: ['Function', 'Example'],
+            rows: [
+              ['Suggest', null],
+              ['Accept', null],
+              ["Say you can't", null],
+              ['Ask for an alternative', null],
+              ['Give details', null],
+              ['Confirm', null],
+            ],
+          },
+        },
+        {
+          title: 'Linking ideas',
+          body: '<p>In the table: ‘i’ (and), ‘o’ (or), ‘però’ (but), ‘perquè’ (because), ‘també’ (also, too) and ‘tampoc’ (neither, not either).</p>',
+          table: {
+            headers: ['Word', 'Use', 'Example'],
+            rows: [
+              [null, 'Adding information', null],
+              [null, 'Giving alternatives', null],
+              [null, 'Introducing a contrast', null],
+              [null, 'Giving a reason', null],
+              [null, 'Saying the same (positive)', null],
+              [null, 'Saying the same (negative)', null],
+            ],
+          },
+        },
+        {
+          title: 'Per què and perquè',
+          body: "<p>‘Per què no pots venir?’ (why can't you come?) asks for the reason. ‘Perquè treballo’ (because I work) answers it.</p>",
+        },
+        {
+          title: 'Two example messages',
         },
       ],
     },
