@@ -378,7 +378,7 @@
         title: 'Un avís i una conversa',
         icon: '💬',
         examples: [
-          { text: 'Avís: «Atenció al segon pis. Per a la inscripció, cal portar el formulari».' },
+          { text: 'Avís: «Atenció al públic: segon pis. Per a la inscripció, cal portar el formulari».' },
           { text: "—Perdona, on és el centre cívic? —Al costat de l'escola. Continua recte i gira a la dreta." },
         ]
       },
