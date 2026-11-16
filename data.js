@@ -554,7 +554,7 @@
       {
         title: 'Del 21 al 100',
         icon: '📊',
-        body: '<p>Del 21 al 29: «vint-i-tres», «vint-i-set». Des de trenta: «trenta-set», «quaranta-dos».</p>',
+        body: '<p>Del 21 al 29: <span style="white-space:nowrap">«vint-i-tres»</span>, <span style="white-space:nowrap">«vint-i-set»</span>. Des de trenta: <span style="white-space:nowrap">«trenta-set»</span>, <span style="white-space:nowrap">«quaranta-dos»</span>.</p>',
         table: {
           headers: ['Quantitat','Nom','Un exemple compost'],
           rows: [
