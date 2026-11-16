@@ -506,7 +506,7 @@
       {
         title: 'Llegir un horari',
         icon: '📌',
-        body: "<p>En «de nou a una», la primera hora és l'inici i la segona és el final. «Obert» i «tancat» informen de l'estat del servei: «La botiga està oberta», «El centre està tancat». Per indicar un costum, pots trobar «els dilluns»; «dilluns» també pot referir-se a un dia concret segons el context.</p>"
+        body: "<p>En «de nou a una», la primera hora és l'inici i la segona és el final. «Obert» i «tancat» informen de l'estat del servei: «La botiga està oberta», «El centre està tancat». Per indicar un costum, el dia porta article: «el dilluns» o «els dilluns» (cada dilluns). Sense article, «dilluns» és el d'aquesta setmana.</p>"
       },
     ]
   },
