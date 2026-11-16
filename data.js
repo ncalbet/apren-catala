@@ -552,7 +552,7 @@
         }
       },
       {
-        title: 'Desenes, centenes i mil',
+        title: 'Del 21 al 100',
         icon: '📊',
         body: '<p>Del 21 al 29: «vint-i-tres», «vint-i-set». Des de trenta: «trenta-set», «quaranta-dos».</p>',
         table: {
