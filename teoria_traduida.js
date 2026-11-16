@@ -4,6 +4,8 @@
 // a index.html). Surt només amb IDIOMES_ACTIU; si aquest fitxer no arriba, tot en català.
 // · nom: la traducció del nom del tema, que surt entre parèntesis al costat del català.
 // · sections: les mateixes que a THEORY i en el mateix ordre, amb title, body i table.
+// · body també on l'original no en té, només per a les glosses del català d'una taula que
+//   no porta cap explicació (decisió de l'usuari del 16/11: «glosses sí, on hi càpiguen»).
 // · A les taules, null vol dir «la cel·la de l'original»: el català que s'aprèn no es copia
 //   i així no es pot desajustar. Una taula sense rows té totes les files en català. Val també
 //   per a les capçaleres (16/11, «Presentacions»: «Dir-se», «Ser»… en català; amb la glossa
@@ -11,7 +13,8 @@
 // · Els exemples no hi són: sempre en català.
 // · El català citat a les explicacions, tal qual: entre «» en castellà i entre ‘’ en anglès.
 // Cada tema, revisat per l'usuari abans d'entrar-hi (12/11: «Salutacions»; 16/11: «Demanar
-// ajuda», «Presentacions» i «Persones properes»).
+// ajuda», «Presentacions» i «Persones properes»; i, més tard, «Casa i objectes», «El barri» i
+// «Rutines»).
 // tests_arrencada.cjs (secció 25) comprova que la forma de cada tema és la de THEORY i que
 // el català citat hi és.
 const TEORIA_TRADUIDA = {
@@ -159,6 +162,125 @@ const TEORIA_TRADUIDA = {
         },
       ],
     },
+    'Casa i objectes': {
+      nom: 'Casa y objetos',
+      subtitle: 'Usa artículos, plurales y expresiones de lugar para describir un espacio.',
+      sections: [
+        {
+          title: 'Qué hay y dónde está',
+          body: '<p>«Hi ha una cadira» (hay una silla) presenta una cosa. «La cadira és al menjador» (la silla está en el comedor) dice dónde está. «A la cuina» (en la cocina) preparamos la comida; «al dormitori» (en el dormitorio) dormimos, y «al bany» (en el baño) está la ducha.</p>',
+        },
+        {
+          title: 'Artículos con nombres comunes',
+          table: {
+            headers: ['Uso', 'Singular', 'Plural'],
+            rows: [
+              ['Presentamos algo nuevo', null, null],
+              ['Identificamos algo conocido', null, null],
+            ],
+          },
+        },
+        {
+          title: 'El apóstrofo en palabras habituales',
+          body: "<p>Aprende «l'armari», «l'habitació» y «l'escola», con apóstrofo. En cambio, escribimos «el llit» y «la taula».</p>",
+        },
+        {
+          title: 'Una cosa o más de una',
+          table: {
+            headers: ['Singular', 'Plural', '¿Qué cambia?'],
+            rows: [
+              [null, null, 'Añadimos -s.'],
+              [null, null, 'La terminación -a pasa a -es.'],
+              [null, null, 'Cambian el nombre y el adjetivo.'],
+              [null, null, 'Este plural añade <span style="white-space:nowrap">-s.</span>'],
+            ],
+          },
+        },
+        {
+          title: '¿Dónde está?',
+          body: '<p>En la tabla: «damunt de» y «sobre» (encima de), «sota» (debajo de), «dins de» (dentro de), «al costat de» (al lado de), «davant de» (delante de) y «darrere de» (detrás de).</p>',
+          table: { headers: ['Expresión', 'Ejemplo'] },
+        },
+      ],
+    },
+    'El barri': {
+      nom: 'El barrio',
+      subtitle: 'Encuentra un lugar, entiende indicaciones y reconoce qué pide un aviso.',
+      sections: [
+        {
+          title: 'Preguntas útiles',
+          table: {
+            headers: ['Quieres saber…', 'Pregunta'],
+            rows: [
+              ['Si hay un servicio cerca', null],
+              ['Dónde está un lugar concreto', null],
+              ['Cómo llegar', null],
+              ['Dónde conseguir información', null],
+              ['Si necesitas pedir cita', null],
+            ],
+          },
+        },
+        {
+          title: 'Preposiciones y artículos',
+          table: {
+            headers: ['Combinación', 'Forma', 'Ejemplo'],
+            rows: [
+              [null, null, null],
+              [null, null, null],
+              [null, null, null],
+              [null, null, null],
+              ['Ante un artículo con apóstrofo', null, null],
+              ['Con artículo femenino', null, null],
+            ],
+          },
+        },
+        {
+          title: 'Entender un recorrido',
+          table: {
+            headers: ['Indicación', 'Qué quiere decir'],
+            rows: [
+              [null, 'Sigue todo recto.'],
+              [null, 'Gira a la derecha.'],
+              [null, 'Gira a la izquierda.'],
+              [null, 'Sube al primer piso.'],
+              [null, 'Bájate aquí (de un autobús, por ejemplo) o baja por aquí, según la situación.'],
+            ],
+          },
+        },
+        {
+          title: 'Orden de los pisos: tabla de consulta',
+          table: { headers: ['Número', 'Masculino', 'Femenino'] },
+        },
+        {
+          title: 'Un aviso y una conversación',
+        },
+      ],
+    },
+    'Rutines': {
+      nom: 'Rutinas',
+      subtitle: 'Construye frases en presente sobre actividades, trabajo y momentos del día.',
+      sections: [
+        {
+          title: 'Un modelo regular: treballar (trabajar)',
+          body: '<p>«Estudiar» sigue el mismo modelo: «estudio, estudies, estudia, estudiem, estudieu, estudien». También puedes encontrar «treballe» o «treball» para «jo» (yo), según la zona.</p>',
+          table: { headers: ['Persona', 'Forma', 'Ejemplo'] },
+        },
+        {
+          title: 'Otras formas frecuentes',
+          body: '<p>Los verbos de la tabla: «anar» (ir), «fer» (hacer), «dormir» y «llevar-se» (levantarse).</p>',
+          table: { headers: ['Verbo', null, null, null] },
+        },
+        {
+          title: 'Organiza el día',
+          body: '<p>En la tabla: «al matí» (por la mañana), «al migdia» (al mediodía), «a la tarda» (por la tarde), «al vespre» (al anochecer), «a la nit» (por la noche), «cada dia» (cada día), «sovint» (a menudo) y «mai» (nunca).</p>',
+          table: { headers: ['Momento o frecuencia', 'Ejemplo'] },
+        },
+        {
+          title: 'Pregunta, afirma o niega',
+          body: '<p>«Treballes avui?» (¿trabajas hoy?) pregunta. «Treballo avui» afirma. «No treballo avui» niega. También: «No em llevo aviat» (no me levanto temprano).</p>',
+        },
+      ],
+    },
   },
   en: {
     'Salutacions': {
@@ -301,6 +423,125 @@ const TEORIA_TRADUIDA = {
               ['Further away', null, null],
             ],
           },
+        },
+      ],
+    },
+    'Casa i objectes': {
+      nom: 'Around the house',
+      subtitle: 'Use articles, plurals and expressions of place to describe a space.',
+      sections: [
+        {
+          title: 'What there is and where it is',
+          body: "<p>‘Hi ha una cadira’ (there's a chair) introduces something. ‘La cadira és al menjador’ (the chair is in the dining room) says where it is. ‘A la cuina’ (in the kitchen) we cook, ‘al dormitori’ (in the bedroom) we sleep and ‘al bany’ (in the bathroom) there's the shower.</p>",
+        },
+        {
+          title: 'Articles with common nouns',
+          table: {
+            headers: ['Use', 'Singular', 'Plural'],
+            rows: [
+              ['Introducing something new', null, null],
+              ['Referring to something known', null, null],
+            ],
+          },
+        },
+        {
+          title: 'The apostrophe in everyday words',
+          body: "<p>Learn ‘l'armari’, ‘l'habitació’ and ‘l'escola’, with an apostrophe. But we write ‘el llit’ and ‘la taula’.</p>",
+        },
+        {
+          title: 'One or more',
+          table: {
+            headers: ['Singular', 'Plural', 'What changes?'],
+            rows: [
+              [null, null, 'We add -s.'],
+              [null, null, 'The ending -a becomes -es.'],
+              [null, null, 'The noun and the adjective both change.'],
+              [null, null, 'This plural adds -s.'],
+            ],
+          },
+        },
+        {
+          title: 'Where is it?',
+          body: '<p>In the table: ‘damunt de’ and ‘sobre’ (on), ‘sota’ (under), ‘dins de’ (inside), ‘al costat de’ (next to), ‘davant de’ (in front of) and ‘darrere de’ (behind).</p>',
+          table: { headers: ['Expression', 'Example'] },
+        },
+      ],
+    },
+    'El barri': {
+      nom: 'The neighbourhood',
+      subtitle: 'Find a place, understand directions and work out what a notice is asking for.',
+      sections: [
+        {
+          title: 'Useful questions',
+          table: {
+            headers: ['You want to know…', 'Question'],
+            rows: [
+              ["Whether there's a service nearby", null],
+              ['Where a particular place is', null],
+              ['How to get there', null],
+              ['Where to get information', null],
+              ['Whether you need an appointment', null],
+            ],
+          },
+        },
+        {
+          title: 'Prepositions and articles',
+          table: {
+            headers: ['Combination', 'Form', 'Example'],
+            rows: [
+              [null, null, null],
+              [null, null, null],
+              [null, null, null],
+              [null, null, null],
+              ['Before an article with an apostrophe', null, null],
+              ['With a feminine article', null, null],
+            ],
+          },
+        },
+        {
+          title: 'Following directions',
+          table: {
+            headers: ['Direction', 'What it means'],
+            rows: [
+              [null, 'Go straight on.'],
+              [null, 'Turn right.'],
+              [null, 'Turn left.'],
+              [null, 'Go up to the first floor.'],
+              [null, 'Get off here (a bus, for example) or go down here, depending on the situation.'],
+            ],
+          },
+        },
+        {
+          title: 'Floor numbers: reference table',
+          table: { headers: ['Number', 'Masculine', 'Feminine'] },
+        },
+        {
+          title: 'A notice and a conversation',
+        },
+      ],
+    },
+    'Rutines': {
+      nom: 'Daily routine',
+      subtitle: 'Build present-tense sentences about activities, work and times of day.',
+      sections: [
+        {
+          title: 'A regular pattern: treballar (to work)',
+          body: "<p>‘Estudiar’ (to study) follows the same pattern: ‘estudio, estudies, estudia, estudiem, estudieu, estudien’. You may also see ‘treballe’ or ‘treball’ for ‘jo’ (I), depending on the region.</p>",
+          table: { headers: ['Person', 'Form', 'Example'] },
+        },
+        {
+          title: 'Other common forms',
+          body: '<p>The verbs in the table: ‘anar’ (to go), ‘fer’ (to do, to make), ‘dormir’ (to sleep) and ‘llevar-se’ (to get up).</p>',
+          table: { headers: ['Verb', null, null, null] },
+        },
+        {
+          title: 'Organise your day',
+          body: '<p>In the table: ‘al matí’ (in the morning), ‘al migdia’ (at midday), ‘a la tarda’ (in the afternoon), ‘al vespre’ (in the evening), ‘a la nit’ (at night), ‘cada dia’ (every day), ‘sovint’ (often) and ‘mai’ (never).</p>',
+          table: { headers: ['Time or frequency', 'Example'] },
+        },
+        {
+          title: 'Questions, statements and negatives',
+          body: "<p>‘Treballes avui?’ (are you working today?) asks a question. ‘Treballo avui’ makes a statement. ‘No treballo avui’ makes it negative. Also: ‘No em llevo aviat’ (I don't get up early).</p>",
         },
       ],
     },
