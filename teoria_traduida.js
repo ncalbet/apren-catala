@@ -5,10 +5,13 @@
 // · nom: la traducció del nom del tema, que surt entre parèntesis al costat del català.
 // · sections: les mateixes que a THEORY i en el mateix ordre, amb title, body i table.
 // · A les taules, null vol dir «la cel·la de l'original»: el català que s'aprèn no es copia
-//   i així no es pot desajustar. Una taula sense rows té totes les files en català.
+//   i així no es pot desajustar. Una taula sense rows té totes les files en català. Val també
+//   per a les capçaleres (16/11, «Presentacions»: «Dir-se», «Ser»… en català; amb la glossa
+//   a la capçalera, la taula no hi cabia a 360 px i la glossa va a l'explicació).
 // · Els exemples no hi són: sempre en català.
 // · El català citat a les explicacions, tal qual: entre «» en castellà i entre ‘’ en anglès.
-// Cada tema, revisat per l'usuari abans d'entrar-hi (12/11: «Salutacions»).
+// Cada tema, revisat per l'usuari abans d'entrar-hi (12/11: «Salutacions»; 16/11: «Demanar
+// ajuda», «Presentacions» i «Persones properes»).
 // tests_arrencada.cjs (secció 25) comprova que la forma de cada tema és la de THEORY i que
 // el català citat hi és.
 const TEORIA_TRADUIDA = {
@@ -45,6 +48,117 @@ const TEORIA_TRADUIDA = {
         },
       ],
     },
+    'Demanar ajuda': {
+      nom: 'Pedir ayuda',
+      subtitle: 'Pide que te repitan algo, reconoce las instrucciones de la app y deletrea un nombre.',
+      sections: [
+        {
+          title: 'Elige la ayuda que necesitas',
+          body: '<p>Si no entiendes algo, puedes decir «No ho entenc».</p>',
+          table: {
+            headers: ['Necesitas…', 'Puedes preguntar…'],
+            rows: [
+              ['Volver a oír la información', null],
+              ['Un ritmo más lento', null],
+              ['Saber el significado', null],
+              ['Saber cómo se escribe', null],
+              ['Saber una palabra en catalán', null],
+            ],
+          },
+        },
+        {
+          title: 'Instrucciones que encontrarás',
+          table: {
+            headers: ['Instrucción', 'Qué tienes que hacer'],
+            rows: [
+              [null, 'Escoge una respuesta.'],
+              [null, 'Escribe lo que falta.'],
+              [null, 'Escribe la palabra que te piden.'],
+              [null, 'Pon los fragmentos en un orden que tenga sentido.'],
+              [null, 'Toca el botón y escucha el audio.'],
+            ],
+          },
+        },
+        {
+          title: 'Letras y nombres',
+          body: '<p>Deletrear es decir las letras una a una: «Ona: o, ena, a». Consulta la tabla cuando lo necesites.</p>',
+          table: { headers: ['Letra', 'Nombre', 'Letra', 'Nombre'] },
+        },
+        {
+          title: 'Pide y confirma',
+        },
+      ],
+    },
+    'Presentacions': {
+      nom: 'Presentaciones',
+      subtitle: 'Explica quién eres, de dónde eres, dónde vives y qué idiomas hablas.',
+      sections: [
+        {
+          title: 'Preguntas y respuestas',
+          body: '<p>«Soc de» indica de dónde eres; «visc a», dónde vives. Puedes practicar con datos inventados.</p>',
+          table: { headers: ['Pregunta', 'Respuesta posible'] },
+        },
+        {
+          title: 'Formas útiles en presente',
+          body: '<p>Para la edad se usa «tenir»: «tinc vint anys». Los verbos de la tabla: «dir-se» (llamarse), «ser», «viure» (vivir) y «tenir» (tener).</p>',
+          table: { headers: ['Persona', null, null, null, null] },
+        },
+        {
+          title: "De, d' y a",
+          body: "<p>«Soc de Lleida», «soc d'Amposta» y «visc a Lleida». Aprende estas expresiones con el nombre del lugar.</p>",
+        },
+        {
+          title: 'Leer un formulario',
+          table: {
+            headers: ['Campo', 'Información que pide', 'Ejemplo'],
+            rows: [
+              [null, 'Nombre de la persona', null],
+              [null, 'Apellidos de la persona', null],
+              [null, 'Años que tiene', null],
+              [null, 'Calle, número y otros datos del domicilio', null],
+              [null, 'Dirección para recibir mensajes', null],
+            ],
+          },
+        },
+        {
+          title: 'Primeros números',
+          table: { headers: ['Cifra', 'Palabra', 'Cifra', 'Palabra'] },
+        },
+      ],
+    },
+    'Persones properes': {
+      nom: 'Personas cercanas',
+      subtitle: 'Habla de relaciones, ropa y rasgos sencillos; haz que las palabras concuerden.',
+      sections: [
+        {
+          title: 'Palabras para las relaciones',
+          table: { headers: ['Relación', 'Ejemplo'] },
+        },
+        {
+          title: 'Los posesivos cambian con el nombre',
+          body: '<p>También son válidas «meua/meues», «teua/teues» y «seua/seues». El posesivo cambia según la cosa: «el meu llibre», «les meves bosses».</p>',
+          table: { headers: ['Persona de referencia', 'Masculino singular', 'Femenino singular', 'Plural'] },
+        },
+        {
+          title: 'Concordancia: las palabras se ajustan',
+          body: '<p>«Un amic alt», «una amiga alta», «uns amics alts», «unes amigues altes». También: «petit/petita/petits/petites». Fíjate en los plurales: «germana/germanes», «amiga/amigues», «botiga/botigues».</p>',
+        },
+        {
+          title: 'Ropa y colores',
+          table: { headers: ['Una prenda', 'Dos prendas', 'Descripción'] },
+        },
+        {
+          title: 'Señalar lo que está cerca y más lejos',
+          table: {
+            headers: ['Distancia', 'Singular', 'Plural'],
+            rows: [
+              ['Cerca', null, null],
+              ['Más lejos', null, null],
+            ],
+          },
+        },
+      ],
+    },
   },
   en: {
     'Salutacions': {
@@ -76,6 +190,117 @@ const TEORIA_TRADUIDA = {
         },
         {
           title: 'A sample conversation',
+        },
+      ],
+    },
+    'Demanar ajuda': {
+      nom: 'Asking for help',
+      subtitle: "Ask someone to repeat something, recognise the app's instructions and spell a name.",
+      sections: [
+        {
+          title: 'Choose the help you need',
+          body: "<p>If you don't understand something, you can say ‘No ho entenc’.</p>",
+          table: {
+            headers: ['You need…', 'You can ask…'],
+            rows: [
+              ['To hear it again', null],
+              ['A slower pace', null],
+              ['To know what it means', null],
+              ["To know how it's spelt", null],
+              ['To know a word in Catalan', null],
+            ],
+          },
+        },
+        {
+          title: "Instructions you'll see",
+          table: {
+            headers: ['Instruction', 'What to do'],
+            rows: [
+              [null, 'Choose an answer.'],
+              [null, "Write what's missing."],
+              [null, "Write the word you're asked for."],
+              [null, 'Put the pieces in an order that makes sense.'],
+              [null, 'Tap the button and listen to the audio.'],
+            ],
+          },
+        },
+        {
+          title: 'Letters and names',
+          body: '<p>Spelling means saying the letters one by one: ‘Ona: o, ena, a’. Check the table whenever you need to.</p>',
+          table: { headers: ['Letter', 'Name', 'Letter', 'Name'] },
+        },
+        {
+          title: 'Ask and check',
+        },
+      ],
+    },
+    'Presentacions': {
+      nom: 'Introductions',
+      subtitle: "Say who you are, where you're from, where you live and which languages you speak.",
+      sections: [
+        {
+          title: 'Questions and answers',
+          body: "<p>‘Soc de’ says where you're from; ‘visc a’, where you live. You can practise with made-up details.</p>",
+          table: { headers: ['Question', 'Possible answer'] },
+        },
+        {
+          title: 'Useful present-tense forms',
+          body: '<p>For age, Catalan uses ‘tenir’: ‘tinc vint anys’. The verbs in the table: ‘dir-se’ (to be called), ‘ser’ (to be), ‘viure’ (to live) and ‘tenir’ (to have).</p>',
+          table: { headers: ['Person', null, null, null, null] },
+        },
+        {
+          title: "De, d' and a",
+          body: "<p>‘Soc de Lleida’, ‘soc d'Amposta’ and ‘visc a Lleida’. Learn these phrases together with the place name.</p>",
+        },
+        {
+          title: 'Reading a form',
+          table: {
+            headers: ['Field', 'What it asks for', 'Example'],
+            rows: [
+              [null, "The person's first name", null],
+              [null, "The person's surnames", null],
+              [null, 'How old they are', null],
+              [null, 'Street, number and other details of the home address', null],
+              [null, 'Address for receiving messages', null],
+            ],
+          },
+        },
+        {
+          title: 'Your first numbers',
+          table: { headers: ['Number', 'Word', 'Number', 'Word'] },
+        },
+      ],
+    },
+    'Persones properes': {
+      nom: 'People close to you',
+      subtitle: 'Talk about relationships, clothes and simple traits, and make words agree.',
+      sections: [
+        {
+          title: 'Words for relationships',
+          table: { headers: ['Relationship', 'Example'] },
+        },
+        {
+          title: 'Possessives change with the noun',
+          body: '<p>Also correct: ‘meua/meues’, ‘teua/teues’ and ‘seua/seues’. The possessive changes with the thing: ‘el meu llibre’, ‘les meves bosses’.</p>',
+          table: { headers: ['Owner', 'Masculine singular', 'Feminine singular', 'Plural'] },
+        },
+        {
+          title: 'Agreement: words change to match',
+          body: '<p>‘Un amic alt’, ‘una amiga alta’, ‘uns amics alts’, ‘unes amigues altes’. Also: ‘petit/petita/petits/petites’. Look at the plurals: ‘germana/germanes’, ‘amiga/amigues’, ‘botiga/botigues’.</p>',
+        },
+        {
+          title: 'Clothes and colours',
+          table: { headers: ['One item', 'Two items', 'Description'] },
+        },
+        {
+          title: "Pointing to what's near and further away",
+          table: {
+            headers: ['Distance', 'Singular', 'Plural'],
+            rows: [
+              ['Near', null, null],
+              ['Further away', null, null],
+            ],
+          },
         },
       ],
     },
