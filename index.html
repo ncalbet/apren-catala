@@ -319,6 +319,8 @@
     .th-table .pill { display: inline-block; background: #dbeafe; color: #1e40af; border-radius: 4px; padding: 1px 6px; font-size: 12px; }
     .th-table .pill.red { background: #fee2e2; color: #991b1b; }
     .th-table .pill.green { background: #d1fae5; color: #065f46; }
+    /* Al mòbil, cel·les més estretes: a 360 px, les taules de verbs de l'A1 (4 i 5 columnes) sobresortien 7 px (16/11). */
+    @media (max-width: 460px) { .th-table th, .th-table td { padding: 8px 8px; } }
 
     /* LESSON CARDS on level menu */
     .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
