@@ -169,7 +169,7 @@
             ['Cognoms','Cognoms de la persona','Serra Pont'],
             ['Edat','Anys que té','30'],
             ['Adreça','Carrer, número i altres dades del domicili','carrer de la Font, 12'],
-            ['Correu electrònic','Adreça per rebre missatges','dalia@example.org'],
+            ['Correu electrònic','Adreça per rebre missatges','dalia@<wbr>example<wbr>.org'],
           ]
         }
       },
