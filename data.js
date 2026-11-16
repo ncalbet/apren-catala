@@ -3666,8 +3666,8 @@ const DATA = {
 
     { id:'a1-u07-08', type:'listen', level:'a1', category:'Rutines',
       question:'Quan treballa?',
-      text:'—Treballes al matí? —No, al matí estudio. Treballo a la tarda, en un mercat. —I al vespre? —Al vespre faig esport. No treballo mai diumenge.',
-      audio:'a1/a1-u07-08-v1.mp3',
+      text:'—Treballes al matí? —No, al matí estudio. Treballo a la tarda, en un mercat. —I al vespre? —Al vespre faig esport. No treballo mai els diumenges.',
+      audio:'a1/a1-u07-08-v2.mp3',
       options:['A la tarda','Al matí','Al vespre'],
       correct:0,
       theory:'«Treballo a la tarda». Al matí estudia i al vespre fa esport.',
