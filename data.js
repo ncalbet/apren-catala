@@ -430,7 +430,7 @@
             ['a la tarda','A la tarda estudio.'],
             ['al vespre','Al vespre sopo.'],
             ['a la nit','A la nit dormo.'],
-            ['cada dia / sovint / mai','Cada dia camino. Sovint llegeixo. No treballo mai diumenge.'],
+            ['cada dia / sovint / mai','Cada dia camino. Sovint llegeixo. No treballo mai els diumenges.'],
           ]
         }
       },
