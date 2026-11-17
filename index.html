@@ -5647,8 +5647,11 @@ function showAuthSplash() {
   overlay.id = 'auth-splash-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
   // L'idioma de les explicacions (pas 2, 11/11): els textos, sí; els missatges d'error, en català.
+  // margin:auto i no només align-items:center (17/11): si el contingut no hi cap (pantalla
+  // petita, teclat obert), la part de dalt quedava fora i no s'hi podia arribar; el títol
+  // sortia tallat. Amb margin:auto, centrat si hi cap i, si no, des de dalt.
   overlay.innerHTML = `
-    <div${langTx()} style="max-width:360px;width:100%;text-align:center;padding:20px 0;">
+    <div${langTx()} style="margin:auto;max-width:360px;width:100%;text-align:center;padding:20px 0;">
       <div style="font-size:48px;margin-bottom:8px;">📚</div>
       <div lang="ca" style="font-family:'Fraunces',serif;font-size:28px;color:var(--heading);margin-bottom:8px;">AprènCatalà</div>
       <p style="font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:28px;">${avantatges}</p>
@@ -5723,8 +5726,9 @@ function renderTriaIdioma() {
   overlay.id = 'idioma-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
   const frase = 'font-size:14px;color:var(--text-soft);line-height:1.5;margin:0 0 8px;';
+  // margin:auto: com a la pantalla de compte (showAuthSplash), que la part de dalt no quedi fora.
   overlay.innerHTML = `
-    <div style="max-width:360px;width:100%;text-align:center;padding:20px 0;">
+    <div style="margin:auto;max-width:360px;width:100%;text-align:center;padding:20px 0;">
       <div style="font-size:48px;margin-bottom:8px;">📚</div>
       <div style="font-family:'Fraunces',serif;font-size:28px;color:var(--heading);margin-bottom:14px;">AprènCatalà</div>
       <div style="margin-bottom:20px;">
