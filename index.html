@@ -801,9 +801,14 @@ let COMPTE_A_ENTRADA = true;
 // català tria, en obrir l'app per primer cop i abans de cap altra pantalla, si vol la
 // benvinguda, l'ajuda i la teoria de l'A1 en castellà o en anglès. Els exercicis, els menús
 // i la resta de nivells, sempre en català. Qui ja feia servir l'app no veu la tria ni cap
-// anunci: la troba al Perfil (11/11). Apagat mentre es tradueix pas a pas: false ho deixa
-// tot com abans (sense tria, sense l'opció del Perfil, tot en català). «let» per les proves.
-let IDIOMES_ACTIU = false;
+// anunci: la troba al Perfil (11/11). S'encén sol el dilluns 23/11/2026, dia de Madrid
+// (decisió de l'usuari, 17/11: el canvi gros d'aquella setmana; si es pot, s'avança, i
+// llavors es canvia IDIOMES_DES_DE). IDIOMES_ACTIU = true/false el força; null = segons la
+// data. false ho deixa tot com abans (sense tria, sense l'opció del Perfil, tot en català).
+// «let» per les proves.
+const IDIOMES_DES_DE = 20261123;
+let IDIOMES_ACTIU = null;
+function idiomesActius(ms = Date.now()) { return IDIOMES_ACTIU ?? diaMadrid(ms) >= IDIOMES_DES_DE; }
 const IDIOMA_KEY = 'cat_idioma_v1';
 // Cada opció, en la seva llengua, i dient què canvia: que no sembli la llengua que s'aprèn.
 const IDIOMA_OPCIONS = [
@@ -5678,7 +5683,7 @@ function showAuthSplash() {
 
 // Què veu qui obre l'app: l'Inici, l'acollida o, abans de l'acollida, la pantalla de
 // compte (COMPTE_A_ENTRADA, o sempre que no hi hagi la targeta del final). Abans de tot,
-// la tria de l'idioma de les explicacions (IDIOMES_ACTIU), si encara no se n'ha triat cap.
+// la tria de l'idioma de les explicacions (idiomesActius()), si encara no se n'ha triat cap.
 function pantallaInicial() {
   if (!shouldShowOnboarding()) return 'inici';
   if (calTriarIdioma()) return 'idioma';
@@ -5698,13 +5703,13 @@ function obrePantallaInicial() {
 // ni cap anunci (decisió de l'usuari, 11/11). Amb l'interruptor apagat, sempre català,
 // encara que el dispositiu en tingui un altre de desat.
 function idiomaApp() {
-  if (!IDIOMES_ACTIU) return 'ca';
+  if (!idiomesActius()) return 'ca';
   const v = localStorage.getItem(IDIOMA_KEY);
   return IDIOMA_OPCIONS.some(o => o.id === v) ? v : 'ca';
 }
 function calTriarIdioma() {
   const v = localStorage.getItem(IDIOMA_KEY);
-  return IDIOMES_ACTIU && shouldShowOnboarding() && !IDIOMA_OPCIONS.some(o => o.id === v);
+  return idiomesActius() && shouldShowOnboarding() && !IDIOMA_OPCIONS.some(o => o.id === v);
 }
 function desaIdioma(id) {
   if (IDIOMA_OPCIONS.some(o => o.id === id)) localStorage.setItem(IDIOMA_KEY, id);
@@ -6888,7 +6893,7 @@ function renderProfile() {
         <div id="prof-pseudo-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
         <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
       </div>
-      ${IDIOMES_ACTIU ? idiomaPerfilHTML() : ''}
+      ${idiomesActius() ? idiomaPerfilHTML() : ''}
 
       ${!ambSessio ? blocCompte : ''}
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
