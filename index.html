@@ -690,6 +690,8 @@ let _lligaVolEntrar = false;
 // dispositiu. Mentrestant es desa al dispositiu i prou.
 let _progresComparat = false;
 let _progresSincronitzant = false;
+// El progrés del núvol mentre s'espera que la persona triï amb quin continua (triaProgres).
+let _progresNuvolPendent = null;
 let _streakFrozen = 0;
 function _setNav(s) {
   _navState = s;
@@ -713,7 +715,7 @@ function aturaAudio() {
 
 function saveProgress() {
   localStorage.setItem('cat_prog_v7', JSON.stringify(progress));
-  if (_progresComparat) window.fbSaveProgress?.(progress);
+  if (_progresComparat && !_progresNuvolPendent) window.fbSaveProgress?.(progress);
 }
 
 // ══ SESSIÓ ACTIVA (persistència per reprendre on s'ha deixat) ══
@@ -7235,6 +7237,7 @@ document.addEventListener('fb-auth-change', async (e) => {
     // debò o esborrar el compte (lligaOblida).
     lligaApunta('sessió: no');
     _progresComparat = false;   // la sessió següent es torna a comparar
+    _progresNuvolPendent = null;
     _lligaPrimeraSinc = null;
     _lligaConfirmat = null;
     desaLligaLocal({ pendent: null });
@@ -7257,7 +7260,8 @@ document.addEventListener('fb-auth-change', async (e) => {
 });
 
 // En iniciar sessió es compara el progrés d'aquest dispositiu amb el del núvol: si el del
-// núvol té més XP, es pregunta si es vol carregar; si no, es puja el d'aquí. Si no es pot
+// núvol té més XP, es carrega (si aquí no n'hi ha) o es tria (triaProgres); si no, es puja
+// el d'aquí. Si no es pot
 // llegir (sense connexió en obrir l'app), es torna a provar com la lliga (1,5 s i 4 s) i,
 // si tot falla, en tornar a l'app; fins aleshores el progrés es desa només al dispositiu
 // (saveProgress). Abans, una lectura fallida es prenia per un primer inici de sessió.
@@ -7278,17 +7282,19 @@ async function sincronitzaProgres() {
       }
       const localXP = progress.xp || 0;
       const cloudXP = cloud.xp || 0;
-      if (cloudXP > localXP) {
-        showConfirm(
-          `Al núvol tens ${cloudXP} XP i aquí ${localXP} XP. Vols carregar el progrés del núvol?`,
-          () => {
-            const { _updatedAt, progressAt, ...cloudProgress } = cloud;
-            progress = { ...progress, ...cloudProgress };
-            saveProgress();
-            updateHeader();
-            showAlert('Progrés carregat des del núvol ✅');
-          }
-        );
+      if (cloudXP > localXP && !localXP) {
+        // En aquest dispositiu encara no hi ha res (un mòbil nou, una finestra privada): no hi
+        // ha res a perdre i es carrega sense preguntar. Fins al 17/11 es preguntava, i un
+        // «Cancel·lar» feia que el primer exercici substituís el del núvol pel buit d'aquí.
+        carregaProgresNuvol(cloud);
+      } else if (cloudXP > localXP) {
+        // Tots dos en tenen: es tria, i el diàleg diu què passa amb l'altre. Mentre no es
+        // tria, desar no puja res (saveProgress).
+        _progresNuvolPendent = cloud;
+        const el = document.createElement('div');
+        el.className = 'ct-modal-overlay';
+        el.innerHTML = `<div class="ct-modal"><p>Al núvol tens ${cloudXP} XP i en aquest dispositiu ${localXP} XP. Amb quin progrés vols continuar?</p><p style="font-size:13px;color:var(--muted);">Si tries el d'aquí, el del núvol se substituirà.</p><div class="ct-modal-btns"><button class="ct-btn secondary" onclick="triaProgres(false, this)">El d'aquí</button><button class="ct-btn primary" onclick="triaProgres(true, this)">El del núvol</button></div></div>`;
+        document.body.appendChild(el);
       } else {
         // Local és igual o millor: pugem al núvol silenciosament
         window.fbSaveProgress?.(progress);
@@ -7298,6 +7304,23 @@ async function sincronitzaProgres() {
   } finally {
     _progresSincronitzant = false;
   }
+}
+function carregaProgresNuvol(cloud) {
+  const { _updatedAt, progressAt, ...cloudProgress } = cloud;
+  progress = { ...progress, ...cloudProgress };
+  saveProgress();
+  updateHeader();
+  showAlert('Progrés carregat des del núvol ✅');
+}
+// Els botons del diàleg de sincronitzaProgres. Si mentrestant s'ha tancat la sessió, ja no
+// hi ha res pendent i només es tanca.
+function triaProgres(delNuvol, boto) {
+  boto?.closest('.ct-modal-overlay')?.remove();
+  const cloud = _progresNuvolPendent;
+  _progresNuvolPendent = null;
+  if (!cloud) return;
+  if (delNuvol) carregaProgresNuvol(cloud);
+  else window.fbSaveProgress?.(progress);
 }
 
 /* ══ PWA: Registre del Service Worker ══ */
