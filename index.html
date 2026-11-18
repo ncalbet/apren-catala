@@ -949,6 +949,26 @@ const TRADUCCIONS = {
     kofiCos: 'AprènCatalà es gratis y sin anuncios. Si te está siendo útil, puedes invitarme a un café.',
     kofiBoto: 'Invítame',
     tancar: 'Cerrar',
+    // La pantalla del nivell (fase 2, pas 2). Els temes, en català amb la glossa de la teoria.
+    // La descripció i les etapes, per nivell: nivellDesc_<nivell> i etapa_<nivell>_<posició>.
+    nivellTitol: 'Nivel {nivell}',
+    nivellDesc_a1: '¡Atrévete con el catalán! Frases que puedes usar desde el primer día.',
+    etapa_a1_0: 'Primer contacto', etapa_a1_1: 'Tu entorno', etapa_a1_2: 'El día a día', etapa_a1_3: 'Usa el catalán',
+    etapaAltres: 'Otros temas',
+    comencaRecorregut: 'Empieza el itinerario', continuaRecorregutNivell: 'Continúa el itinerario',
+    recorregutFet: 'Has hecho todos los ejercicios de este itinerario. Ahora toca repasarlos.',
+    practicaTots: 'Practicar todos los ejercicios ({n})',
+    etToca: 'TE TOCA',
+    estatDominat: 'Dominado', estatFets: 'Ejercicios hechos', estatEnCurs: 'En curso ({fets}/{n})', estatPerComencar: 'Por empezar',
+    pctDomini: '{pct}% de dominio',
+    dominiQueVolDir: '¿Qué quiere decir el dominio?',
+    etiquetaTeoria: 'TEORÍA', etiquetaExercicis: 'EJERCICIOS',
+    // La finestra del «?» del domini
+    dominiTitol: '¿Qué quiere decir el «dominio»?',
+    dominiFets: '<strong>✅ Ejercicios hechos</strong> quiere decir que has hecho bien todos los ejercicios del tema al menos una vez. ¡Muy bien!',
+    dominiPct: 'El <strong>% de dominio</strong> mide lo consolidado que tienes el tema. Sube poco a poco: cada ejercicio solo suma dominio <strong>una vez al día</strong>, aunque lo aciertes muchas veces seguidas.',
+    dominiPerAixo: 'Por eso un tema puede tener todos los <strong>ejercicios hechos</strong> y el dominio por debajo del 100%. No es ningún error: el secreto para dominarlo de verdad es <strong>volver a él en días distintos</strong> (repetición espaciada).',
+    dominiEntes: 'Entendido',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -1074,6 +1094,26 @@ const TRADUCCIONS = {
     kofiCos: "AprènCatalà is free and has no ads. If it's helping you, you can buy me a coffee.",
     kofiBoto: 'Buy me a coffee',
     tancar: 'Close',
+    // La pantalla del nivell (fase 2, pas 2). Els temes, en català amb la glossa de la teoria.
+    // La descripció i les etapes, per nivell: nivellDesc_<nivell> i etapa_<nivell>_<posició>.
+    nivellTitol: 'Level {nivell}',
+    nivellDesc_a1: 'Give Catalan a go! Phrases you can use from day one.',
+    etapa_a1_0: 'First contact', etapa_a1_1: 'Around you', etapa_a1_2: 'Everyday life', etapa_a1_3: 'Put your Catalan to use',
+    etapaAltres: 'Other topics',
+    comencaRecorregut: 'Start the learning path', continuaRecorregutNivell: 'Continue the learning path',
+    recorregutFet: "You've done all the exercises in this learning path. Now it's time to review them.",
+    practicaTots: 'Practise all the exercises ({n})',
+    etToca: 'UP NEXT',
+    estatDominat: 'Mastered', estatFets: 'Exercises done', estatEnCurs: 'In progress ({fets}/{n})', estatPerComencar: 'Not started',
+    pctDomini: '{pct}% mastery',
+    dominiQueVolDir: 'What does mastery mean?',
+    etiquetaTeoria: 'THEORY', etiquetaExercicis: 'EXERCISES',
+    // La finestra del «?» del domini
+    dominiTitol: 'What does ‘mastery’ mean?',
+    dominiFets: "<strong>✅ Exercises done</strong> means you've got every exercise in the topic right at least once. Well done!",
+    dominiPct: "The <strong>mastery %</strong> shows how well you've consolidated the topic. It goes up slowly: each exercise only adds mastery <strong>once a day</strong>, however many times in a row you get it right.",
+    dominiPerAixo: "That's why a topic can have all its <strong>exercises done</strong> and its mastery still below 100%. It isn't a mistake: the secret to really mastering it is <strong>coming back to it on different days</strong> (spaced repetition).",
+    dominiEntes: 'Got it',
   },
 };
 function tx(clau, ca, vars) {
@@ -1238,14 +1278,15 @@ function recorregutActiu() {
 }
 // Les etapes d'un nivell amb les categories que té DE DEBÒ a data.js. Una categoria
 // nova que encara no s'hagi posat a cap etapa no desapareix: va a «Altres temes».
+// k: la posició de l'etapa a RECORREGUTS (la clau de la seva traducció); null, «Altres temes».
 function etapesDe(level) {
   const r = recorregutDe(level);
   const cats = [...new Set((DATA[level] || []).map(q => q.category))];
-  const etapes = (r ? r.etapes : []).map(([nom, cs]) => ({ nom, cats: cs.filter(c => cats.includes(c)) }))
+  const etapes = (r ? r.etapes : []).map(([nom, cs], k) => ({ nom, k, cats: cs.filter(c => cats.includes(c)) }))
     .filter(e => e.cats.length);
   const posades = new Set(etapes.flatMap(e => e.cats));
   const altres = cats.filter(c => !posades.has(c));
-  if (altres.length) etapes.push({ nom: 'Altres temes', cats: altres });
+  if (altres.length) etapes.push({ nom: 'Altres temes', k: null, cats: altres });
   return etapes;
 }
 // ── Càpsules (CAPSULES, a data.js) ──
@@ -2019,10 +2060,10 @@ function renderLevelMenu(level) {
     const masteryPct = Math.round(avgMastery / 5 * 100);
     const masteryColor = avgMastery === 0 ? 'var(--track)' : avgMastery < 2 ? '#f59e0b' : avgMastery < 4 ? '#3b82f6' : '#d4a72c';
     const statusBadge =
-        state === 'mastered'  ? '<span style="display:inline-block;background:#fdf0d5;color:#9a6700;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⭐ Dominat</span>'
-      : state === 'completed' ? '<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ Exercicis fets</span>'
-      : state === 'started'   ? `<span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🔵 En curs (${nDone}/${qs.length})</span>`
-      :                         '<span style="display:inline-block;background:#f1f5f9;color:#64748b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⚪ Per començar</span>';
+        state === 'mastered'  ? `<span style="display:inline-block;background:#fdf0d5;color:#9a6700;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⭐ ${txi('estatDominat', 'Dominat')}</span>`
+      : state === 'completed' ? `<span style="display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">✅ ${txi('estatFets', 'Exercicis fets')}</span>`
+      : state === 'started'   ? `<span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">🔵 ${txi('estatEnCurs', `En curs (${nDone}/${qs.length})`, { fets: nDone, n: qs.length })}</span>`
+      :                         `<span style="display:inline-block;background:#f1f5f9;color:#64748b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;">⚪ ${txi('estatPerComencar', 'Per començar')}</span>`;
     const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
     const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
@@ -2030,19 +2071,19 @@ function renderLevelMenu(level) {
       <div class="ct-lesson-card ${cardClass}"${esSeguent ? ' style="border:2px solid var(--c1-line);"' : ''} onclick="openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" onkeydown="if(event.key==='Enter'||event.key===' ')openCategory('${level}','${cat.replace(/'/g,"\\'")}')\" role="button" tabindex="0">
         ${corner}
         <div class="ct-lesson-icon">${icon}</div>
-        ${esSeguent ? '<div style="font-size:11px;font-weight:700;letter-spacing:0.5px;color:var(--c1-line);margin-bottom:2px;">➜ ET TOCA</div>' : ''}
-        <div class="ct-lesson-title">${cat}</div>
+        ${esSeguent ? `<div style="font-size:11px;font-weight:700;letter-spacing:0.5px;color:var(--c1-line);margin-bottom:2px;">➜ ${txi('etToca', 'ET TOCA')}</div>` : ''}
+        <div class="ct-lesson-title">${nomTemaHTML(cat)}</div>
         <div style="margin-top:6px;">${statusBadge}</div>
         <div style="margin-top:8px;height:4px;background:var(--track);border-radius:2px;overflow:hidden;">
           <div style="height:100%;width:${masteryPct}%;background:${masteryColor};transition:width 0.3s;border-radius:2px;"></div>
         </div>
         <div style="font-size:10px;color:var(--muted);margin-top:4px;display:flex;align-items:center;justify-content:flex-end;gap:5px;">
-          <span>${masteryPct}% de domini</span>
-          <button type="button" aria-label="Què vol dir el domini?" onclick="event.stopPropagation();showMasteryInfo()" style="width:16px;height:16px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:10px;font-weight:700;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;">?</button>
+          <span>${txi('pctDomini', `${masteryPct}% de domini`, { pct: masteryPct })}</span>
+          <button type="button" aria-label="${txi('dominiQueVolDir', 'Què vol dir el domini?')}" onclick="event.stopPropagation();showMasteryInfo()" style="width:16px;height:16px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:10px;font-weight:700;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;">?</button>
         </div>
         <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
-          ${th ? '<span style="background:#ede9fe;color:#6d28d9;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">TEORIA</span>' : ''}
-          <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">EXERCICIS</span>
+          ${th ? `<span style="background:#ede9fe;color:#6d28d9;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">${txi('etiquetaTeoria', 'TEORIA')}</span>` : ''}
+          <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">${txi('etiquetaExercicis', 'EXERCICIS')}</span>
         </div>
       </div>`;
   };
@@ -2054,25 +2095,35 @@ function renderLevelMenu(level) {
   // «Etapa 2» a qui no havia seguit mai el recorregut no s'entenia.
   const r = recorregutDe(level);
   const seg = seguentDelRecorregut(level);
+  // Fase 2 (pas 2, 18/11): els textos de la pantalla, en l'idioma triat amb txi(). Els
+  // temes, en català amb la glossa (nomTemaHTML). La descripció i les etapes es tradueixen
+  // per nivell (nivellDesc_<nivell>, etapa_<nivell>_<k>); sense traducció, en català.
   const etapesHTML = etapesDe(level).map((e, i) => `
-      <div style="font-size:13px;font-weight:700;color:var(--heading);margin:${i ? 22 : 4}px 0 10px;">${e.nom}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--heading);margin:${i ? 22 : 4}px 0 10px;">${e.k === null ? txi('etapaAltres', e.nom) : txi(`etapa_${level}_${e.k}`, e.nom)}</div>
       <div class="ct-grid">${e.cats.map(c => cardDe(c, cats[c], !!seg && seg.cat === c)).join('')}</div>`).join('');
 
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
-    <div style="max-width:640px;margin:0 auto;">
-      <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">Nivell ${level.toUpperCase()}</div>
-      ${r ? `<div style="font-size:15px;font-weight:600;color:var(--heading);margin-bottom:6px;">🧭 ${r.titol}</div>` : ''}
-      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">${desc}</p>
+    <div style="max-width:640px;margin:0 auto;"${langTxi()}>
+      <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">${txi('nivellTitol', `Nivell ${level.toUpperCase()}`, { nivell: level.toUpperCase() })}</div>
+      ${r ? `<div style="font-size:15px;font-weight:600;color:var(--heading);margin-bottom:6px;">🧭 ${txi(`rec_${level}_titol`, r.titol)}</div>` : ''}
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">${txi(`nivellDesc_${level}`, desc)}</p>
       ${seg
         ? `<button class="ct-btn primary" style="width:100%;margin-bottom:10px;line-height:1.35;" onclick="continuaRecorregut('${level}')">
-            <span style="display:block;">▶ ${progress.recorregut === level ? 'Continua' : 'Comença'} el recorregut</span>
-            <span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${seg.cat}</span>
+            <span style="display:block;">▶ ${progress.recorregut === level ? txi('continuaRecorregutNivell', 'Continua el recorregut') : txi('comencaRecorregut', 'Comença el recorregut')}</span>
+            <span style="display:block;font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;">${nomTemaHTML(seg.cat)}</span>
           </button>`
-        : `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:600;">✅ Has fet tots els exercicis d'aquest recorregut. Ara toca repassar-los.</div>`}
-      <button class="ct-btn secondary" style="width:100%;margin-bottom:20px;" onclick="startAllSession('${level}')">▶ Practicar tots els exercicis (${items.length})</button>
+        : `<div style="background:var(--accent-green-bg);color:var(--accent-green-text);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:600;">✅ ${txi('recorregutFet', "Has fet tots els exercicis d'aquest recorregut. Ara toca repassar-los.")}</div>`}
+      <button class="ct-btn secondary" style="width:100%;margin-bottom:20px;" onclick="startAllSession('${level}')">▶ ${txi('practicaTots', `Practicar tots els exercicis (${items.length})`, { n: items.length })}</button>
       ${etapesHTML}
     </div>`;
+}
+// El nom d'un tema a la interfície traduïda (fase 2): en català i amb lang="ca", i amb la
+// traducció entre parèntesis si la teoria en té (l'A1), com a la capçalera del tema.
+// Apagada, o amb el català triat, el nom sol, com sempre.
+function nomTemaHTML(cat) {
+  if (idiomaInterficie() === 'ca') return cat;
+  return `<span lang="ca">${cat}</span>${nomTraduitHTML(teoriaTraduida(cat))}`;
 }
 
 // ══ TEORIA + EXERCICIS ══
@@ -7117,14 +7168,15 @@ function showConfirm(msg, onConfirm) {
 function showMasteryInfo() {
   const el = document.createElement('div');
   el.className = 'ct-modal-overlay';
-  el.innerHTML = `<div class="ct-modal" style="max-width:360px;max-height:80vh;overflow-y:auto;text-align:left;">
-    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:12px;">Què vol dir el «domini»?</div>
+  // Fase 2 (pas 2): en l'idioma triat, com la pantalla del nivell d'on s'obre.
+  el.innerHTML = `<div class="ct-modal"${langTxi()} style="max-width:360px;max-height:80vh;overflow-y:auto;text-align:left;">
+    <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);margin-bottom:12px;">${txi('dominiTitol', 'Què vol dir el «domini»?')}</div>
     <div style="font-size:13.5px;color:var(--text-soft);line-height:1.6;">
-      <div style="margin-bottom:10px;"><strong>✅ Exercicis fets</strong> vol dir que has fet tots els exercicis del tema correctament almenys un cop. Molt bé!</div>
-      <div style="margin-bottom:10px;">El <strong>% de domini</strong> mesura com de consolidat tens el tema. Puja a poc a poc: cada exercici només suma domini <strong>un cop al dia</strong>, encara que l'encertis moltes vegades seguides.</div>
-      <div>Per això un tema pot tenir tots els <strong>exercicis fets</strong> i el domini per sota del 100%. No és cap error: el secret per dominar-lo de debò és <strong>tornar-hi dies diferents</strong> (repetició espaiada).</div>
+      <div style="margin-bottom:10px;">${txi('dominiFets', '<strong>✅ Exercicis fets</strong> vol dir que has fet tots els exercicis del tema correctament almenys un cop. Molt bé!')}</div>
+      <div style="margin-bottom:10px;">${txi('dominiPct', "El <strong>% de domini</strong> mesura com de consolidat tens el tema. Puja a poc a poc: cada exercici només suma domini <strong>un cop al dia</strong>, encara que l'encertis moltes vegades seguides.")}</div>
+      <div>${txi('dominiPerAixo', 'Per això un tema pot tenir tots els <strong>exercicis fets</strong> i el domini per sota del 100%. No és cap error: el secret per dominar-lo de debò és <strong>tornar-hi dies diferents</strong> (repetició espaiada).')}</div>
     </div>
-    <button class="ct-btn primary" style="width:100%;margin-top:18px;" onclick="this.closest('.ct-modal-overlay').remove()">Ho he entès</button>
+    <button class="ct-btn primary" style="width:100%;margin-top:18px;" onclick="this.closest('.ct-modal-overlay').remove()">${txi('dominiEntes', 'Ho he entès')}</button>
   </div>`;
   document.body.appendChild(el);
 }
