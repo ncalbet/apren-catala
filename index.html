@@ -488,24 +488,24 @@
     <!-- Icones: Feather Icons (MIT) — línia monocroma, traç 2, stroke="currentColor" perquè
          la icona i l'etiqueta s'encenguin JUNTES amb l'estat actiu. Res d'emoji al moble. -->
     <button onclick="showTab('menu')" id="nav-menu" class="active" title="Inici" aria-label="Inici">
-      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="nv-lab">Inici</span></button>
+      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="nv-lab" id="nav-menu-lab">Inici</span></button>
     <button onclick="toggleLevelsMenu()" id="nav-levels" title="Nivells" aria-label="Nivells">
-      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><span class="nv-lab">Nivells ▾</span></button>
+      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><span class="nv-lab" id="nav-levels-lab">Nivells ▾</span></button>
     <button onclick="showTab('achievements')" id="nav-achievements" title="Fites i medalles" aria-label="Fites i medalles">
-      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg></span><span class="nv-lab">Fites</span></button>
+      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg></span><span class="nv-lab" id="nav-achievements-lab">Fites</span></button>
     <button onclick="showTab('progress')" id="nav-progress" title="Progrés" aria-label="Progrés">
-      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="16"/><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/></svg></span><span class="nv-lab">Progrés</span></button>
+      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="16"/><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/></svg></span><span class="nv-lab" id="nav-progress-lab">Progrés</span></button>
     <button onclick="showTab('profile')" id="nav-profile" title="Perfil" aria-label="Perfil">
-      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nv-lab">Perfil</span></button>
+      <span class="nv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nv-lab" id="nav-profile-lab">Perfil</span></button>
   </div>
   <div class="ct-levels-drop" id="ct-levels-drop">
-    <button class="ct-lv-btn" id="drop-a1" onclick="showTab('a1')" style="display:none;"><div class="lc">A1</div><div class="ll">Inicial</div><div class="ls">Comença a comunicar-te</div></button>
-    <button class="ct-lv-btn" id="drop-a2" onclick="showTab('a2')"><div class="lc">A2</div><div class="ll">Bàsic</div><div class="ls">Vocabulari i gramàtica inicial</div></button>
-    <button class="ct-lv-btn" id="drop-b1" onclick="showTab('b1')"><div class="lc">B1</div><div class="ll">Elemental</div><div class="ls">Comunicació quotidiana</div></button>
-    <button class="ct-lv-btn" id="drop-b2" onclick="showTab('b2')"><div class="lc">B2</div><div class="ll">Intermedi</div><div class="ls">Registres i matisos</div></button>
-    <button class="ct-lv-btn" id="drop-c1" onclick="showTab('c1')"><div class="lc">C1</div><div class="ll">Avançat</div><div class="ls">Llengua formal i complexa</div></button>
-    <button class="ct-lv-btn" id="drop-iec" onclick="showTab('iec')" style="border-top:1px solid var(--border);"><div class="lc">📜</div><div class="ll">Novetats IEC</div><div class="ls">Què va canviar amb la normativa del 2016</div></button>
-    <button class="ct-lv-btn" id="drop-review" onclick="showTab('review')" style="border-top:1px solid var(--border);"><div class="lc">🔁</div><div class="ll">Repàs</div><div class="ls">Exercicis que necessites practicar</div></button>
+    <button class="ct-lv-btn" id="drop-a1" onclick="showTab('a1')" style="display:none;"><div class="lc">A1</div><div class="ll">Inicial</div><div class="ls" id="drop-a1-ls">Comença a comunicar-te</div></button>
+    <button class="ct-lv-btn" id="drop-a2" onclick="showTab('a2')"><div class="lc">A2</div><div class="ll">Bàsic</div><div class="ls" id="drop-a2-ls">Vocabulari i gramàtica inicial</div></button>
+    <button class="ct-lv-btn" id="drop-b1" onclick="showTab('b1')"><div class="lc">B1</div><div class="ll">Elemental</div><div class="ls" id="drop-b1-ls">Comunicació quotidiana</div></button>
+    <button class="ct-lv-btn" id="drop-b2" onclick="showTab('b2')"><div class="lc">B2</div><div class="ll">Intermedi</div><div class="ls" id="drop-b2-ls">Registres i matisos</div></button>
+    <button class="ct-lv-btn" id="drop-c1" onclick="showTab('c1')"><div class="lc">C1</div><div class="ll">Avançat</div><div class="ls" id="drop-c1-ls">Llengua formal i complexa</div></button>
+    <button class="ct-lv-btn" id="drop-iec" onclick="showTab('iec')" style="border-top:1px solid var(--border);"><div class="lc">📜</div><div class="ll">Novetats IEC</div><div class="ls" id="drop-iec-ls">Què va canviar amb la normativa del 2016</div></button>
+    <button class="ct-lv-btn" id="drop-review" onclick="showTab('review')" style="border-top:1px solid var(--border);"><div class="lc">🔁</div><div class="ll" id="drop-review-ll">Repàs</div><div class="ls" id="drop-review-ls">Exercicis que necessites practicar</div></button>
   </div>
 </div>
 <div class="ct-body" id="ct-body"></div>
@@ -909,6 +909,19 @@ const TRADUCCIONS = {
     // Pas 4 (12/11), la teoria de l'A1: els textos són a teoria_traduida.js; aquí, els rètols.
     teoriaExemples: 'Ejemplos',
     teoriaVeureTraduida: 'Ver en español',
+    // Fase 2 (18/11), amb txi(): la barra i el desplegable de nivells.
+    barraInici: 'Inicio',     barraIniciNom: 'Inicio',
+    barraNivells: 'Niveles ▾', barraNivellsNom: 'Niveles',
+    barraFites: 'Logros',     barraFitesNom: 'Logros y medallas',
+    barraProgres: 'Progreso', barraProgresNom: 'Progreso',
+    barraPerfil: 'Perfil',    barraPerfilNom: 'Perfil',
+    despA1: 'Empieza a comunicarte',
+    despA2: 'Vocabulario y gramática inicial',
+    despB1: 'Comunicación cotidiana',
+    despB2: 'Registros y matices',
+    despC1: 'Lengua formal y compleja',
+    despIEC: 'Qué cambió con la normativa de 2016',
+    despRepas: 'Ejercicios que necesitas practicar', despRepasNom: 'Repaso',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -993,6 +1006,20 @@ const TRADUCCIONS = {
     ajudaFaqReinici: "From <strong>Perfil → Gestió de les dades</strong> (data management), at the bottom of the screen. It deletes your XP, your streak and the mastery level of every exercise on this device and, if you're logged in, in the cloud too. <strong>It can't be undone</strong>.<br><br>When you're logged in, you'll also find the option to <strong>delete your account</strong> and the data synced to the cloud there.",
     teoriaExemples: 'Examples',
     teoriaVeureTraduida: 'Show in English',
+    // Fase 2 (18/11), amb txi(): la barra i el desplegable de nivells. «Awards», i no
+    // «Milestones», perquè càpiga a la barra (decisió de l'usuari, 18/11).
+    barraInici: 'Home',       barraIniciNom: 'Home',
+    barraNivells: 'Levels ▾', barraNivellsNom: 'Levels',
+    barraFites: 'Awards',     barraFitesNom: 'Awards and medals',
+    barraProgres: 'Progress', barraProgresNom: 'Progress',
+    barraPerfil: 'Profile',   barraPerfilNom: 'Profile',
+    despA1: 'Start communicating',
+    despA2: 'Basic vocabulary and grammar',
+    despB1: 'Everyday communication',
+    despB2: 'Registers and nuances',
+    despC1: 'Formal, complex language',
+    despIEC: 'What changed with the 2016 rules',
+    despRepas: 'Exercises you need to practise', despRepasNom: 'Review',
   },
 };
 function tx(clau, ca, vars) {
@@ -1005,6 +1032,66 @@ function tx(clau, ca, vars) {
 function langTx() {
   const l = idiomaApp();
   return l === 'ca' ? '' : ` lang="${l}"`;
+}
+// ══ FASE 2: LA INTERFÍCIE EN L'IDIOMA TRIAT ══
+// Pla aprovat el 18/11/2026: la barra, l'Inici, l'exercici i l'A1, en castellà o en anglès
+// per a qui ho ha triat. Té un interruptor propi i apagat: la tria ja és encesa, i sense
+// interruptor cada tros sortiria traduït en pujar-lo. S'encendrà un dilluns, no abans del
+// 30/11, amb INTERFICIE_DES_DE (AAAAMMDD; null = encara sense data, apagat).
+// INTERFICIE_ACTIU = true/false el força; null = segons la data. «let» per les proves.
+const INTERFICIE_DES_DE = null;
+let INTERFICIE_ACTIU = null;
+function interficieActiva(ms = Date.now()) {
+  if (!idiomesActius(ms)) return false;
+  return INTERFICIE_ACTIU ?? (INTERFICIE_DES_DE !== null && diaMadrid(ms) >= INTERFICIE_DES_DE);
+}
+// L'idioma de la interfície: el triat, amb la fase 2 encesa; si no, el català.
+function idiomaInterficie() { return interficieActiva() ? idiomaApp() : 'ca'; }
+// Com tx(), però per a la interfície: apagada, sempre el català.
+function txi(clau, ca, vars) { return idiomaInterficie() === 'ca' ? ca : tx(clau, ca, vars); }
+function langTxi() {
+  const l = idiomaInterficie();
+  return l === 'ca' ? '' : ` lang="${l}"`;
+}
+// La barra de baix i el desplegable de nivells són HTML fix. El català és allà i aquí, per
+// poder-hi tornar si es canvia l'idioma; una prova vigila que tots dos diguin el mateix.
+// nom: el title i l'aria-label del botó.
+const BARRA_IDIOMA = [
+  { id: 'nav-menu',         clau: 'barraInici',   lab: 'Inici',     nom: 'Inici' },
+  { id: 'nav-levels',       clau: 'barraNivells', lab: 'Nivells ▾', nom: 'Nivells' },
+  { id: 'nav-achievements', clau: 'barraFites',   lab: 'Fites',     nom: 'Fites i medalles' },
+  { id: 'nav-progress',     clau: 'barraProgres', lab: 'Progrés',   nom: 'Progrés' },
+  { id: 'nav-profile',      clau: 'barraPerfil',  lab: 'Perfil',    nom: 'Perfil' },
+];
+// Els noms dels nivells es queden en català (decisió de l'usuari, 18/11): «Elemental», en
+// anglès, voldria dir principiant. Es tradueixen els subtítols, i «Repàs».
+const DESPLEGABLE_IDIOMA = [
+  { id: 'drop-a1',     clau: 'despA1',    ls: 'Comença a comunicar-te' },
+  { id: 'drop-a2',     clau: 'despA2',    ls: 'Vocabulari i gramàtica inicial' },
+  { id: 'drop-b1',     clau: 'despB1',    ls: 'Comunicació quotidiana' },
+  { id: 'drop-b2',     clau: 'despB2',    ls: 'Registres i matisos' },
+  { id: 'drop-c1',     clau: 'despC1',    ls: 'Llengua formal i complexa' },
+  { id: 'drop-iec',    clau: 'despIEC',   ls: 'Què va canviar amb la normativa del 2016' },
+  { id: 'drop-review', clau: 'despRepas', ls: 'Exercicis que necessites practicar', ll: 'Repàs' },
+];
+// En arrencar i en canviar l'idioma (desaIdioma).
+function aplicaIdiomaBarra() {
+  const l = idiomaInterficie();
+  for (const b of BARRA_IDIOMA) {
+    const btn = document.getElementById(b.id), lab = document.getElementById(b.id + '-lab');
+    if (!btn || !lab) continue;
+    const nom = txi(b.clau + 'Nom', b.nom);
+    lab.textContent = txi(b.clau, b.lab);
+    btn.title = nom;
+    btn.setAttribute('aria-label', nom);
+    btn.lang = l;
+  }
+  for (const d of DESPLEGABLE_IDIOMA) {
+    const ls = document.getElementById(d.id + '-ls');
+    if (ls) { ls.textContent = txi(d.clau, d.ls); ls.lang = l; }
+    const ll = d.ll && document.getElementById(d.id + '-ll');
+    if (ll) { ll.textContent = txi(d.clau + 'Nom', d.ll); ll.lang = l; }
+  }
 }
 // Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
 // puja) i, on fa una altra paraula (accentsEstrictes), un error. Havia d'encendre's el
@@ -5722,6 +5809,7 @@ function calTriarIdioma() {
 function desaIdioma(id) {
   if (!IDIOMA_OPCIONS.some(o => o.id === id)) return;
   localStorage.setItem(IDIOMA_KEY, id);
+  aplicaIdiomaBarra();
   window.fbSaveProfile?.({ idioma: id });
 }
 // En iniciar sessió, si el compte no té l'idioma d'aquí (triat sense sessió, o abans que
@@ -6057,6 +6145,7 @@ if (typeof DATA === 'undefined' || typeof THEORY === 'undefined') {
 } else {
   updateHeader();
   updateThemeIcon();
+  aplicaIdiomaBarra();
   obrePantallaInicial();
   // El modal de novetats també es dispara des de «fb-auth-change», però si Firebase
   // no carrega (offline, bloquejat) aquell esdeveniment no arriba mai. El cridem
