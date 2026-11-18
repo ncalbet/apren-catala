@@ -940,6 +940,15 @@ const TRADUCCIONS = {
     practicaNivell: 'Practicar nivel {nivell}',
     repasToca1: 'Hoy te toca repasar 1 ejercicio', repasTocaN: 'Hoy te toca repasar {n} ejercicios',
     repasNoToca: 'Hoy no te toca ningún repaso · Adelanta algunos',
+    // L'Inici: els avisos (la sessió a mitges, valorar l'app i el cafè). La lliga, en català.
+    sessioMitges: 'Tienes una sesión a medias', sessioMitgesNom: '{nom}, tienes una sesión a medias',
+    sessioMitgesCos: 'Ejercicio {i} de {n}. ¿Quieres continuar donde lo dejaste?',
+    continuar: 'Continuar', descartar: 'Descartar',
+    valoraTitol: 'Valora AprènCatalà en Google&nbsp;Play', valoraBoto: 'Valórala',
+    kofiTitolNom: '¡Gracias, {nom}! Ya has practicado {n} días.', kofiTitol: 'Ya has practicado {n} días. ¡Gracias!',
+    kofiCos: 'AprènCatalà es gratis y sin anuncios. Si te está siendo útil, puedes invitarme a un café.',
+    kofiBoto: 'Invítame',
+    tancar: 'Cerrar',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -1056,6 +1065,15 @@ const TRADUCCIONS = {
     practicaNivell: 'Practise level {nivell}',
     repasToca1: 'Today you have 1 exercise to review', repasTocaN: 'Today you have {n} exercises to review',
     repasNoToca: 'Nothing to review today · Get ahead on some',
+    // L'Inici: els avisos (la sessió a mitges, valorar l'app i el cafè). La lliga, en català.
+    sessioMitges: 'You have an unfinished session', sessioMitgesNom: '{nom}, you have an unfinished session',
+    sessioMitgesCos: 'Exercise {i} of {n}. Do you want to carry on where you left off?',
+    continuar: 'Continue', descartar: 'Discard',
+    valoraTitol: 'Rate AprènCatalà on Google&nbsp;Play', valoraBoto: 'Rate it',
+    kofiTitolNom: "Thanks, {nom}! That's {n} days of practice.", kofiTitol: "That's {n} days of practice. Thank you!",
+    kofiCos: "AprènCatalà is free and has no ads. If it's helping you, you can buy me a coffee.",
+    kofiBoto: 'Buy me a coffee',
+    tancar: 'Close',
   },
 };
 function tx(clau, ca, vars) {
@@ -1809,12 +1827,12 @@ function renderMenu() {
   const saved = getSavedSession();
   const pseudo = escText(getPseudo());
   const resumeBanner = saved ? `
-    <div class="ct-card" style="padding:16px 18px;margin-bottom:16px;border:1px solid var(--c1-line);background:var(--surface);">
-      <div style="font-size:14px;font-weight:600;color:var(--heading);margin-bottom:4px;">⏸️ ${pseudo ? `${pseudo}, tens` : 'Tens'} una sessió a mitges</div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Exercici ${saved.idx + 1} de ${saved.ids.length}. Vols continuar on ho vas deixar?</div>
+    <div class="ct-card"${langTxi()} style="padding:16px 18px;margin-bottom:16px;border:1px solid var(--c1-line);background:var(--surface);">
+      <div style="font-size:14px;font-weight:600;color:var(--heading);margin-bottom:4px;">⏸️ ${pseudo ? txi('sessioMitgesNom', `${pseudo}, tens una sessió a mitges`, { nom: pseudo }) : txi('sessioMitges', 'Tens una sessió a mitges')}</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">${txi('sessioMitgesCos', `Exercici ${saved.idx + 1} de ${saved.ids.length}. Vols continuar on ho vas deixar?`, { i: saved.idx + 1, n: saved.ids.length })}</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="ct-btn primary" style="flex:1;min-width:140px;" onclick="resumeSavedSession()">▶ Continuar</button>
-        <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="clearActiveSession();renderMenu()">Descartar</button>
+        <button class="ct-btn primary" style="flex:1;min-width:140px;" onclick="resumeSavedSession()">▶ ${txi('continuar', 'Continuar')}</button>
+        <button class="ct-btn secondary" style="flex:1;min-width:140px;" onclick="clearActiveSession();renderMenu()">${txi('descartar', 'Descartar')}</button>
       </div>
     </div>` : '';
   // Avís de novetat dels recorreguts per a qui no n'ha triat mai (usuaris d'abans
@@ -1868,24 +1886,24 @@ function renderMenu() {
   // La valoració a Google Play: veure valoracioToca(). Sense cap frase que pregunti si
   // agrada l'app (guia de Google) ni res a canvi (política de Play).
   const valoracioBanner = valoracioToca() ? `
-    <div class="ct-card" id="avis-valoracio" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:flex-start;gap:12px;">
+    <div class="ct-card" id="avis-valoracio"${langTxi()} style="padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--accent-blue-text);background:var(--accent-blue-bg);display:flex;align-items:flex-start;gap:12px;">
       <div style="flex:1;min-width:0;">
-        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">⭐ Valora AprènCatalà a Google&nbsp;Play</div>
-        <a href="https://play.google.com/store/apps/details?id=cat.aprencatala.app" target="_blank" rel="noopener" onclick="valoracioFeta()" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">Valora-la</a>
+        <div style="font-size:14px;font-weight:600;color:var(--accent-blue-text);">⭐ ${txi('valoraTitol', 'Valora AprènCatalà a Google&nbsp;Play')}</div>
+        <a href="https://play.google.com/store/apps/details?id=cat.aprencatala.app" target="_blank" rel="noopener" onclick="valoracioFeta()" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">${txi('valoraBoto', 'Valora-la')}</a>
       </div>
-      <button onclick="valoracioTanca()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+      <button onclick="valoracioTanca()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="${txi('tancar', 'Tancar')}">✕</button>
     </div>` : '';
   // El botó va a sota del text: al costat, en un mòbil, el text quedava en una
   // columna d'una paraula per línia (bústia, 08/10).
   const kofiBanner = shouldShowKofiBanner() ? `
-    <div class="ct-card" style="padding:14px 16px;margin-bottom:16px;border-left:3px solid #f59e0b;background:var(--accent-amber-bg);display:flex;align-items:flex-start;gap:12px;">
+    <div class="ct-card"${langTxi()} style="padding:14px 16px;margin-bottom:16px;border-left:3px solid #f59e0b;background:var(--accent-amber-bg);display:flex;align-items:flex-start;gap:12px;">
       <span style="font-size:24px;flex-shrink:0;display:flex;color:var(--accent-amber-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.` : `Ja has practicat ${diesPracticats} dies. Gràcies!`}</div>
-        <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots convidar-me a un cafè.</div>
-        <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">Convida'm</a>
+        <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? txi('kofiTitolNom', `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.`, { nom: pseudo, n: diesPracticats }) : txi('kofiTitol', `Ja has practicat ${diesPracticats} dies. Gràcies!`, { n: diesPracticats })}</div>
+        <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">${txi('kofiCos', "AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots convidar-me a un cafè.")}</div>
+        <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">${txi('kofiBoto', "Convida'm")}</a>
       </div>
-      <button onclick="dismissKofiBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="Tancar">✕</button>
+      <button onclick="dismissKofiBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="${txi('tancar', 'Tancar')}">✕</button>
     </div>` : '';
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
