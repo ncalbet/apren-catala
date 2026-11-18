@@ -375,6 +375,15 @@
     .ct-mastery-dot.mastered { background:#059669; }
     .ct-lesson-card.mastered { border-color:#d4a72c; }
     .ct-state { font-size:12px; font-weight:600; margin-top:6px; }
+    /* L'estat de cada tipus a la pantalla del tema (18/11/2026). Al mode fosc, els colors del
+       clar quedaven a 2,2–3,2:1 sobre la targeta: el -text de l'accent, que hi és per això. */
+    .ct-state.dominat { color:#9a6700; }
+    .ct-state.fets { color:#166534; }
+    .ct-state.en-curs { color:#1d4ed8; }
+    .ct-state.per-comencar { color:var(--muted); }
+    [data-theme="dark"] .ct-state.dominat { color:var(--accent-amber-text); }
+    [data-theme="dark"] .ct-state.fets { color:var(--accent-green-text); }
+    [data-theme="dark"] .ct-state.en-curs { color:var(--accent-blue-text); }
 
     /* DISTRIBUCIÓ DEL DOMINI (Progrés) — 4 caselles de recompte.
        Amb 1fr (= minmax(auto,1fr)) el mínim de cada columna és el seu text
@@ -2215,10 +2224,10 @@ function openCategory(level, cat) {
     const n = group.length;
     const nDone = masteries.filter(m => m >= 2).length;
     const stateBadge =
-        state === 'mastered'  ? `<div class="ct-state" style="color:#9a6700;">⭐ ${txi('estatDominat', 'Dominat')}</div>`
-      : state === 'completed' ? `<div class="ct-state" style="color:#166534;">✓ ${txi('estatFets', 'Exercicis fets')}</div>`
-      : state === 'started'   ? `<div class="ct-state" style="color:#1d4ed8;">● ${txi('estatEnCurs', `En curs (${nDone}/${n})`, { fets: nDone, n })}</div>`
-      :                         `<div class="ct-state" style="color:var(--muted);">○ ${txi('estatPerComencar', 'Per començar')}</div>`;
+        state === 'mastered'  ? `<div class="ct-state dominat">⭐ ${txi('estatDominat', 'Dominat')}</div>`
+      : state === 'completed' ? `<div class="ct-state fets">✓ ${txi('estatFets', 'Exercicis fets')}</div>`
+      : state === 'started'   ? `<div class="ct-state en-curs">● ${txi('estatEnCurs', `En curs (${nDone}/${n})`, { fets: nDone, n })}</div>`
+      :                         `<div class="ct-state per-comencar">○ ${txi('estatPerComencar', 'Per començar')}</div>`;
     const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
     const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
