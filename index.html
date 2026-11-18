@@ -6914,13 +6914,13 @@ function renderProfile() {
         <div id="prof-pseudo-error" role="alert" style="font-size:13px;color:var(--danger);margin-bottom:8px;"></div>
         <button id="prof-save" class="ct-btn primary" style="width:100%;margin-bottom:0;" onclick="saveProfileData()">Desar canvis</button>
       </div>
-      ${idiomesActius() ? idiomaPerfilHTML() : ''}
 
       ${!ambSessio ? blocCompte : ''}
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:12px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Recordatoris</div>
       <div id="notif-section">${renderNotificationsSection()}</div>
+      ${idiomesActius() ? idiomaPerfilHTML() : ''}
 
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
