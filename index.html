@@ -5716,8 +5716,23 @@ function calTriarIdioma() {
   const v = localStorage.getItem(IDIOMA_KEY);
   return idiomesActius() && shouldShowOnboarding() && !IDIOMA_OPCIONS.some(o => o.id === v);
 }
+// També es desa al compte, només per saber quanta gent tria cada idioma (decisió de
+// l'usuari, 18/11/2026). L'app no el torna a llegir: mana el del dispositiu. Sense sessió,
+// fbSaveProfile no fa res, i el puja syncIdioma quan se n'iniciï una.
 function desaIdioma(id) {
-  if (IDIOMA_OPCIONS.some(o => o.id === id)) localStorage.setItem(IDIOMA_KEY, id);
+  if (!IDIOMA_OPCIONS.some(o => o.id === id)) return;
+  localStorage.setItem(IDIOMA_KEY, id);
+  window.fbSaveProfile?.({ idioma: id });
+}
+// En iniciar sessió, si el compte no té l'idioma d'aquí (triat sense sessió, o abans que
+// es desés), es puja. Qui no n'ha triat mai cap no en puja res: «no ha triat» no és
+// «català», i no es llegeix el núvol.
+async function syncIdioma() {
+  const local = localStorage.getItem(IDIOMA_KEY);
+  if (!idiomesActius() || !IDIOMA_OPCIONS.some(o => o.id === local)) return;
+  const remot = await window.fbLoadProfile?.();
+  if (remot === undefined) return;   // no s'ha pogut llegir: la propera vegada
+  if (remot?.idioma !== local) window.fbSaveProfile?.({ idioma: local });
 }
 // La primera pantalla, en les tres llengües perquè encara no se'n sap cap: ha de quedar
 // clar que la llengua que s'aprèn és el català i que la tria és la de les explicacions.
@@ -7259,6 +7274,7 @@ document.addEventListener('fb-auth-change', async (e) => {
   // espera aquesta lectura abans de dir si hi ets (lligaRefrescaTargeta).
   _lligaPrimeraSinc = lligaSincronitzaAmbReintents();
   syncPseudonim();
+  syncIdioma();
   refrescaAmbSessio(user).finally(treuSplash);
   await sincronitzaProgres();
 });
