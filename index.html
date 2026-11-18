@@ -803,12 +803,12 @@ let COMPTE_A_ENTRADA = true;
 // català tria, en obrir l'app per primer cop i abans de cap altra pantalla, si vol la
 // benvinguda, l'ajuda i la teoria de l'A1 en castellà o en anglès. Els exercicis, els menús
 // i la resta de nivells, sempre en català. Qui ja feia servir l'app no veu la tria ni cap
-// anunci: la troba al Perfil (11/11). S'encén sol el dilluns 23/11/2026, dia de Madrid
-// (decisió de l'usuari, 17/11: el canvi gros d'aquella setmana; si es pot, s'avança, i
-// llavors es canvia IDIOMES_DES_DE). IDIOMES_ACTIU = true/false el força; null = segons la
+// anunci: la troba al Perfil (11/11). S'encén el dimecres 18/11/2026, dia de Madrid
+// (decisió de l'usuari, 18/11: avançat del dilluns 23/11 que es va fixar el 17/11).
+// IDIOMES_ACTIU = true/false el força; null = segons la
 // data. false ho deixa tot com abans (sense tria, sense l'opció del Perfil, tot en català).
 // «let» per les proves.
-const IDIOMES_DES_DE = 20261123;
+const IDIOMES_DES_DE = 20261118;
 let IDIOMES_ACTIU = null;
 function idiomesActius(ms = Date.now()) { return IDIOMES_ACTIU ?? diaMadrid(ms) >= IDIOMES_DES_DE; }
 const IDIOMA_KEY = 'cat_idioma_v1';
