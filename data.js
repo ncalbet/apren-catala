@@ -2345,22 +2345,43 @@
         icon: '📌',
         body: `<p>Els verbs més usats en qualsevol llengua tendeixen a ser els més irregulars. En català, verbs com <strong>ser, estar, anar, fer, poder, voler, saber, tenir, venir, dir</strong> presenten formes pròpies que cal memoritzar.</p>`
       },
+      // El present, partit en singular i plural (18/11/2026): amb les 7 columnes en una sola
+      // taula, a 360 px feia 414 px en 271 i calia lliscar de costat per veure el plural.
       {
-        title: "Verbs essencials: present d'indicatiu",
+        title: "Verbs essencials: present d'indicatiu (singular)",
         icon: '📊',
         table: {
-          headers: ['Verb', 'jo', 'tu', 'ell/ella', 'nosaltres', 'vosaltres', 'ells/elles'],
+          headers: ['Verb', 'jo', 'tu', 'ell/ella'],
           rows: [
-            ['ser', 'soc', 'ets', 'és', 'som', 'sou', 'són'],
-            ['estar', 'estic', 'estàs', 'està', 'estem', 'esteu', 'estan'],
-            ['anar', 'vaig', 'vas', 'va', 'anem', 'aneu', 'van'],
-            ['fer', 'faig', 'fas', 'fa', 'fem', 'feu', 'fan'],
-            ['poder', 'puc', 'pots', 'pot', 'podem', 'podeu', 'poden'],
-            ['voler', 'vull', 'vols', 'vol', 'volem', 'voleu', 'volen'],
-            ['saber', 'sé', 'saps', 'sap', 'sabem', 'sabeu', 'saben'],
-            ['tenir', 'tinc', 'tens', 'té', 'tenim', 'teniu', 'tenen'],
-            ['venir', 'vinc', 'vens', 've', 'venim', 'veniu', 'venen'],
-            ['dir', 'dic', 'dius', 'diu', 'diem', 'dieu', 'diuen'],
+            ['ser', 'soc', 'ets', 'és'],
+            ['estar', 'estic', 'estàs', 'està'],
+            ['anar', 'vaig', 'vas', 'va'],
+            ['fer', 'faig', 'fas', 'fa'],
+            ['poder', 'puc', 'pots', 'pot'],
+            ['voler', 'vull', 'vols', 'vol'],
+            ['saber', 'sé', 'saps', 'sap'],
+            ['tenir', 'tinc', 'tens', 'té'],
+            ['venir', 'vinc', 'vens', 've'],
+            ['dir', 'dic', 'dius', 'diu'],
+          ]
+        }
+      },
+      {
+        title: "Verbs essencials: present d'indicatiu (plural)",
+        icon: '📊',
+        table: {
+          headers: ['Verb', 'nosaltres', 'vosaltres', 'ells/elles'],
+          rows: [
+            ['ser', 'som', 'sou', 'són'],
+            ['estar', 'estem', 'esteu', 'estan'],
+            ['anar', 'anem', 'aneu', 'van'],
+            ['fer', 'fem', 'feu', 'fan'],
+            ['poder', 'podem', 'podeu', 'poden'],
+            ['voler', 'volem', 'voleu', 'volen'],
+            ['saber', 'sabem', 'sabeu', 'saben'],
+            ['tenir', 'tenim', 'teniu', 'tenen'],
+            ['venir', 'venim', 'veniu', 'venen'],
+            ['dir', 'diem', 'dieu', 'diuen'],
           ]
         }
       },
