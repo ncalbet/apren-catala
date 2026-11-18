@@ -987,6 +987,11 @@ const TRADUCCIONS = {
     dominiPct: 'El <strong>% de dominio</strong> mide lo consolidado que tienes el tema. Sube poco a poco: cada ejercicio solo suma dominio <strong>una vez al día</strong>, aunque lo aciertes muchas veces seguidas.',
     dominiPerAixo: 'Por eso un tema puede tener todos los <strong>ejercicios hechos</strong> y el dominio por debajo del 100%. No es ningún error: el secreto para dominarlo de verdad es <strong>volver a él en días distintos</strong> (repetición espaciada).',
     dominiEntes: 'Entendido',
+    // La pantalla del tema (fase 2, pas 2). L'estat de cada tipus, amb les claus del nivell.
+    tornarNivell: 'Volver', ferTotsTema: 'Hacer todos los ejercicios de este tema ({n})',
+    tipusChoice: 'Opción múltiple', tipusFill: 'Rellenar huecos', tipusReorder: 'Ordenar', tipusReading: 'Comprensión', tipusListen: 'Escucha',
+    nExercicis: '{n} ejercicios',
+    llegeixTeoria: 'Lee la teoría del tema',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -1150,6 +1155,12 @@ const TRADUCCIONS = {
     dominiPct: "The <strong>mastery %</strong> shows how well you've consolidated the topic. It goes up slowly: each exercise only adds mastery <strong>once a day</strong>, however many times in a row you get it right.",
     dominiPerAixo: "That's why a topic can have all its <strong>exercises done</strong> and its mastery still below 100%. It isn't a mistake: the secret to really mastering it is <strong>coming back to it on different days</strong> (spaced repetition).",
     dominiEntes: 'Got it',
+    // La pantalla del tema (fase 2, pas 2). «Put in order» i «Reading»: «Reorder» sona a
+    // menú d'aplicació i «Comprehension», a examen.
+    tornarNivell: 'Back', ferTotsTema: 'Do all the exercises in this topic ({n})',
+    tipusChoice: 'Multiple choice', tipusFill: 'Fill in the gaps', tipusReorder: 'Put in order', tipusReading: 'Reading', tipusListen: 'Listening',
+    nExercicis: '{n} exercises',
+    llegeixTeoria: 'Read the theory for this topic',
   },
 };
 function tx(clau, ca, vars) {
@@ -2174,21 +2185,25 @@ function openCategory(level, cat) {
   // l'app era «tot teoria» i va plegar sense fer cap exercici.
   // Amb la teoria traduïda, el nom del tema es queda en català (el del menú) amb la
   // traducció entre parèntesis, i el subtítol, traduït.
+  // Fase 2 (pas 2, 18/11): l'etiqueta, els botons i les targetes, en l'idioma triat amb
+  // txi(); el nom del tema de l'etiqueta, en català (lang="ca").
   const tr = th && teoriaTraduida(cat);
+  const catCa = idiomaInterficie() === 'ca' ? cat : `<span lang="ca">${cat}</span>`;
   const heroHTML = th ? `
       <div class="th-hero">
-        <div class="th-hero-label">Nivell ${level.toUpperCase()} · ${cat}</div>
+        <div class="th-hero-label"${langTxi()}>${txi('nivellTitol', `Nivell ${level.toUpperCase()}`, { nivell: level.toUpperCase() })} · ${catCa}</div>
         <div class="th-hero-title">${th.icon} ${cat}${nomTraduitHTML(tr)}</div>
         <div class="th-hero-sub"${tr && tr.subtitle ? langTx() : ''}>${(tr && tr.subtitle) || th.subtitle}</div>
       </div>` : '';
   const theoryHTML = th ? `
       <details id="teoria-tema" style="max-width:640px;margin:20px auto 0;">
-        <summary class="ct-btn secondary" style="display:block;width:100%;text-align:center;cursor:pointer;">📖 Llegeix la teoria del tema</summary>
+        <summary class="ct-btn secondary"${langTxi()} style="display:block;width:100%;text-align:center;cursor:pointer;">📖 ${txi('llegeixTeoria', 'Llegeix la teoria del tema')}</summary>
         <div style="margin-top:14px;">${teoriaCosHTML(cat)}</div>
       </details>` : '';
 
   const icons = {choice:'🎯',fill:'✏️',reorder:'🔀',reading:'📖',listen:'🎧'};
-  const names = {choice:'Opció múltiple',fill:'Omplir buits',reorder:'Reordenar',reading:'Comprensió',listen:'Escolta'};
+  const names = {choice: txi('tipusChoice', 'Opció múltiple'), fill: txi('tipusFill', 'Omplir buits'), reorder: txi('tipusReorder', 'Reordenar'),
+    reading: txi('tipusReading', 'Comprensió'), listen: txi('tipusListen', 'Escolta')};
   const typeOrder = ['choice','fill','reorder','reading','listen'];
 
   const byType = {};
@@ -2200,14 +2215,14 @@ function openCategory(level, cat) {
     const n = group.length;
     const nDone = masteries.filter(m => m >= 2).length;
     const stateBadge =
-        state === 'mastered'  ? '<div class="ct-state" style="color:#9a6700;">⭐ Dominat</div>'
-      : state === 'completed' ? '<div class="ct-state" style="color:#166534;">✓ Exercicis fets</div>'
-      : state === 'started'   ? `<div class="ct-state" style="color:#1d4ed8;">● En curs (${nDone}/${n})</div>`
-      :                         '<div class="ct-state" style="color:var(--muted);">○ Per començar</div>';
+        state === 'mastered'  ? `<div class="ct-state" style="color:#9a6700;">⭐ ${txi('estatDominat', 'Dominat')}</div>`
+      : state === 'completed' ? `<div class="ct-state" style="color:#166534;">✓ ${txi('estatFets', 'Exercicis fets')}</div>`
+      : state === 'started'   ? `<div class="ct-state" style="color:#1d4ed8;">● ${txi('estatEnCurs', `En curs (${nDone}/${n})`, { fets: nDone, n })}</div>`
+      :                         `<div class="ct-state" style="color:var(--muted);">○ ${txi('estatPerComencar', 'Per començar')}</div>`;
     const cardClass = state === 'mastered' ? 'done mastered' : (state === 'completed' ? 'done' : '');
     const corner = state === 'mastered' ? '<div class="ct-lesson-done" style="color:#d4a72c;">⭐</div>'
                  : state === 'completed' ? '<div class="ct-lesson-done">✓</div>' : '';
-    const desc = n > 1 ? `<div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${n} exercicis</div>` : '';
+    const desc = n > 1 ? `<div class="ct-lesson-desc" style="font-size:11px;margin-top:4px;">${txi('nExercicis', `${n} exercicis`, { n })}</div>` : '';
     return `
       <div class="ct-lesson-card ${cardClass}" onclick="startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" onkeydown="if(event.key==='Enter'||event.key===' ')startCategoryType('${level}','${cat.replace(/'/g,"\\'")}','${t}')" role="button" tabindex="0" style="cursor:pointer;">
         ${corner}
@@ -2220,12 +2235,12 @@ function openCategory(level, cat) {
 
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
-    <div style="max-width:640px;margin:0 auto 8px;padding:0 0 4px;">
-      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← Tornar</button>
+    <div style="max-width:640px;margin:0 auto 8px;padding:0 0 4px;"${langTxi()}>
+      <button class="ct-btn secondary" style="padding:8px 14px;font-size:13px;margin-bottom:16px;" onclick="renderLevelMenu('${level}')">← ${txi('tornarNivell', 'Tornar')}</button>
     </div>
     ${heroHTML}
-    <div style="max-width:640px;margin:0 auto;">
-      <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startCategorySession('${level}','${cat.replace(/'/g,"\\'")}')">▶ Fer tots els exercicis d'aquest tema (${exercises.length})</button>
+    <div style="max-width:640px;margin:0 auto;"${langTxi()}>
+      <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startCategorySession('${level}','${cat.replace(/'/g,"\\'")}')">▶ ${txi('ferTotsTema', `Fer tots els exercicis d'aquest tema (${exercises.length})`, { n: exercises.length })}</button>
       <div class="ct-grid">${exCards}</div>
     </div>
     ${theoryHTML}`;
