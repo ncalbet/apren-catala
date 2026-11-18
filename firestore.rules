@@ -47,11 +47,15 @@ service cloud.firestore {
         && (!('lid' in l) || l.lid == null || (l.lid is string && l.lid.matches('^[A-Za-z0-9]{20}$')))
         && (!('dins' in l) || l.dins is bool);
     }
+    // idioma (18/11/2026): l'idioma de les explicacions que s'ha triat, només per comptar
+    // quanta gent tria cada un. ⚠️ Un cop n'hi hagi de desats, no es pot treure d'aquí: el
+    // document sencer deixaria de ser vàlid i no s'hi podria desar res, ni el progrés.
     function perfilValid(pr) {
-      return pr is map && pr.keys().hasOnly(['pseudo', 'at', 'correctorVoluntari'])
+      return pr is map && pr.keys().hasOnly(['pseudo', 'at', 'correctorVoluntari', 'idioma'])
         && (!('pseudo' in pr) || textFins(pr.pseudo, 40))
         && (!('at' in pr) || pr.at is number)
-        && (!('correctorVoluntari' in pr) || textFins(pr.correctorVoluntari, 40));
+        && (!('correctorVoluntari' in pr) || textFins(pr.correctorVoluntari, 40))
+        && (!('idioma' in pr) || pr.idioma in ['ca', 'es', 'en']);
     }
     function usuariValid(d) {
       return d.keys().hasOnly(['progress', 'progressAt', 'profile', 'lliga', 'pseudonimClau',
