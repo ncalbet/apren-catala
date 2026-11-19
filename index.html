@@ -1843,7 +1843,7 @@ function groupState(masteries) {
 
 // ══ UI ══
 function updateHeader() {
-  document.getElementById('ct-xp').innerHTML = `<span class="xp-num">${formatXP(progress.xp)}</span><span class="xp-label">XP</span>`;
+  document.getElementById('ct-xp').innerHTML = `<span class="xp-num">${formatXP(progress.xp, idiomaInterficie())}</span><span class="xp-label">XP</span>`;
   document.getElementById('ct-streak').textContent = '🔥 ' + progress.streak;
   const lv = getLevel(progress.xp);
   const badge = document.getElementById('ct-level-badge');
@@ -1935,11 +1935,13 @@ function showLevelDoneCelebration(emoji, title, sub) {
 // Celebració gran per als milers d'XP que no coincideixen amb cap pujada de rang
 // (3.000, 4.000, 6.000…). A 100, 500, 1.000, 2.000, 5.000 i 10.000 ja hi ha la
 // finestra del rang i l'assoliment. Es dispara des de checkXPMilestone().
-function formatXP(n) {
-  return n >= 1000 ? Math.floor(n / 1000) + '.' + String(n % 1000).padStart(3, '0') : String(n);
+// l: l'idioma de la xifra. En anglès, els milers amb coma (1,250); en català i en castellà, amb
+// punt. A la interfície, idiomaInterficie(); a Fites, a Progrés i a la lliga, en català.
+function formatXP(n, l = 'ca') {
+  return n >= 1000 ? Math.floor(n / 1000) + (l === 'en' ? ',' : '.') + String(n % 1000).padStart(3, '0') : String(n);
 }
 function showFitaXP(m) {
-  const xp = formatXP(m);
+  const xp = formatXP(m, idiomaInterficie());
   showConfetti();
   const overlay = document.createElement('div');
   overlay.className = 'ct-levelup-overlay';
@@ -1961,7 +1963,7 @@ function showFitaXP(m) {
   document.body.appendChild(overlay);
 }
 function textFitaXP(m) {
-  return txi('compartirFitaXP', `🎉 He arribat a ${formatXP(m)} XP aprenent català amb AprènCatalà! És gratis i sense anuncis.`, { xp: formatXP(m) });
+  return txi('compartirFitaXP', `🎉 He arribat a ${formatXP(m)} XP aprenent català amb AprènCatalà! És gratis i sense anuncis.`, { xp: formatXP(m, idiomaInterficie()) });
 }
 // Celebració gran per a una medalla de categoria (dominar-ne tots els exercicis).
 // És una fita de setmanes, i es pot compartir. Es dispara des de
@@ -2353,7 +2355,7 @@ function renderMenu() {
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
         <div style="background:var(--accent-blue-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:22px;font-weight:700;color:var(--accent-blue-text);">${lv.emoji} ${lv.name}</div>
-          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">${formatXP(progress.xp)} XP</div>
+          <div style="font-size:12px;color:var(--accent-blue-val);margin-top:2px;">${formatXP(progress.xp, idiomaInterficie())} XP</div>
         </div>
         <div style="background:var(--accent-green-bg);border-radius:12px;padding:16px 22px;min-width:100px;">
           <div style="font-size:26px;font-weight:700;color:var(--accent-green-text);">${mastered}/${total}</div>
@@ -7133,7 +7135,7 @@ function targetaCompteHTML() {
   // recordatoris, aquests només on es podran activar en fer el compte (tocaPreguntaRecordatori).
   const recorda = 'Notification' in window && Notification.permission !== 'denied';
   // Traduïda, la targeta hereta el lang de la del final; els errors d'entrar, encara en català.
-  const perds = xp > 0 ? txi('compteFinalXP', `no perds els ${formatXP(xp)} XP`, { xp: formatXP(xp) }) : txi('compteFinalNoHoPerds', 'no ho perds');
+  const perds = xp > 0 ? txi('compteFinalXP', `no perds els ${formatXP(xp)} XP`, { xp: formatXP(xp, idiomaInterficie()) }) : txi('compteFinalNoHoPerds', 'no ho perds');
   const text = recorda
     ? txi('compteFinal', `Desa el que has fet avui: amb un compte gratuït ${perds}, pots participar a la lliga setmanal i et recordem quan et toca repassar.`, { perds })
     : txi('compteFinalSenseAvisos', `Desa el que has fet avui: amb un compte gratuït ${perds} i pots participar a la lliga setmanal.`, { perds });
