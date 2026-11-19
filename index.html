@@ -2631,7 +2631,7 @@ function renderReorder(q) {
   const shuffled = shuffleReorderParts(q);
   window._reorder_parts = shuffled;
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Ordena els blocs amb les fletxes ▲ ▼ de cada línia per moure'l amunt o avall (també pots tocar-ne dos per intercanviar-los, o arrossegar).</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Ordena els blocs: amb les fletxes ▲ ▼ mous cada bloc amunt o avall. També pots tocar-ne dos per intercanviar-los, o arrossegar-los.</p>
     <div class="ct-parts" id="reorder-list">${reorderBlockHTML(shuffled)}</div>
     <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()">Comprovar ordre</button>`;
 }
