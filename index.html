@@ -908,8 +908,9 @@ const IDIOMA_OPCIONS = [
 // Els textos traduïts, per clau. El català es queda al codi de cada pantalla, on era:
 // tx(clau, català) torna el català si l'idioma és el català o si la clau no té traducció.
 // Les {variables} només van a les traduccions (el català ja arriba muntat).
-// Pas 2 (11/11): la pantalla de compte, la benvinguda i «Per on vols començar?». Els
-// missatges d'error es queden en català. Anglès britànic, com la fitxa de Play.
+// Pas 2 (11/11): la pantalla de compte, la benvinguda i «Per on vols començar?». Des del
+// 19/11, també els missatges d'error i la finestra «Amb correu». Anglès britànic, com la
+// fitxa de Play.
 const TRADUCCIONS = {
   es: {
     compteAvantatges: 'Con una cuenta gratuita no pierdes tu progreso, puedes participar en la liga semanal y te avisamos cuando te toca repasar.',
@@ -928,6 +929,28 @@ const TRADUCCIONS = {
     continuaSenseCompte: 'Continuar sin cuenta →',
     acceptesPolitica: 'Al crear una cuenta, aceptas la {a}política de privacidad</a>.',
     mostraContrasenya: 'Mostrar u ocultar la contraseña',
+    // Els errors d'entrar i la finestra «Amb correu» (19/11). Sense «Firebase»: és el nom
+    // d'un servei, i a qui no el coneix no li diu res.
+    carregantFirebase: 'Cargando, espera un momento...',
+    errorGoogle: 'Error al iniciar sesión con Google.',
+    compteEsDeCorreu: 'Esta cuenta es de correo y contraseña: entra con «Con correo».',
+    jaTensCompteContrasenya: 'Ya tienes una cuenta con este correo. Entra con tu contraseña (abajo) y después enlaza Google desde Perfil.',
+    ompleCorreu: 'Rellena el correo y la contraseña.',
+    errCorreuJaTeCompte: 'Este correo ya tiene una cuenta. Prueba a iniciar sesión con Google o con tu contraseña.',
+    errFormatCorreu: 'El formato del correo no es válido.',
+    errContrasenyaCurta: 'La contraseña debe tener al menos {n} caracteres.',
+    errSenseCompte: 'No hay ninguna cuenta con este correo.',
+    errContrasenya: 'Contraseña incorrecta.',
+    errCredencials: 'Correo o contraseña incorrectos.',
+    errMassaIntents: 'Demasiados intentos. Espera unos minutos y vuelve a intentarlo.',
+    errInesperat: 'Error inesperado. Vuelve a intentarlo.',
+    oblidatEscriuCorreu: 'Escribe tu correo arriba y vuelve a pulsar «¿Has olvidado la contraseña?».',
+    oblidatCompteGoogle: 'Esta cuenta se creó con Google y no tiene contraseña. Pulsa «Continuar con Google» para entrar.',
+    oblidatEnviat: 'Te hemos enviado un correo con el enlace para restablecer la contraseña. Si no lo ves en la bandeja de entrada, revisa la carpeta de spam.',
+    oblidatSiHiHa: 'Si hay una cuenta con este correo, te hemos enviado un enlace para restablecer la contraseña. Si no lo ves en la bandeja de entrada, revisa la carpeta de spam.',
+    registratCorreu: 'Regístrate con correo',
+    iniciaSessioCorreu: 'Inicia sesión con correo',
+    cancellar: 'Cancelar',
     benvingudaTitol: '¡Te damos la bienvenida a AprènCatalà!',
     benvingudaCos: 'Practica catalán del <strong>{n} al C1</strong> con ejercicios breves y la teoría de cada tema. La app te hace <strong>repasar</strong> lo que más te cuesta, justo cuando toca.',
     benvingudaNota: 'Los ejercicios están en catalán. La teoría del A1 también la tienes en español.',
@@ -1205,6 +1228,26 @@ const TRADUCCIONS = {
     continuaSenseCompte: 'Continue without an account →',
     acceptesPolitica: 'By creating an account, you accept the {a}privacy policy</a>.',
     mostraContrasenya: 'Show or hide password',
+    carregantFirebase: 'Loading, please wait...',
+    errorGoogle: "Couldn't sign in with Google.",
+    compteEsDeCorreu: 'This account uses an email and password: sign in with ‘With email’.',
+    jaTensCompteContrasenya: 'You already have an account with this email. Sign in with your password (below), then link Google from Profile.',
+    ompleCorreu: 'Enter your email and password.',
+    errCorreuJaTeCompte: 'This email already has an account. Try signing in with Google or with your password.',
+    errFormatCorreu: "That email address isn't valid.",
+    errContrasenyaCurta: 'Your password must be at least {n} characters long.',
+    errSenseCompte: "There's no account with this email.",
+    errContrasenya: 'Wrong password.',
+    errCredencials: 'Wrong email or password.',
+    errMassaIntents: 'Too many attempts. Wait a few minutes and try again.',
+    errInesperat: 'Something went wrong. Please try again.',
+    oblidatEscriuCorreu: 'Type your email above and tap ‘Forgot your password?’ again.',
+    oblidatCompteGoogle: 'This account was created with Google and has no password. Tap ‘Continue with Google’ to sign in.',
+    oblidatEnviat: "We've sent you an email with a link to reset your password. If you can't see it in your inbox, check your spam folder.",
+    oblidatSiHiHa: "If there's an account with this email, we've sent it a link to reset your password. If you can't see it in your inbox, check your spam folder.",
+    registratCorreu: 'Sign up with email',
+    iniciaSessioCorreu: 'Log in with email',
+    cancellar: 'Cancel',
     benvingudaTitol: 'Welcome to AprènCatalà!',
     benvingudaCos: 'Practise Catalan from <strong>{n} to C1</strong> with short exercises and the theory for each topic. The app has you <strong>review</strong> what you find hardest, right when you need it.',
     benvingudaNota: 'The exercises are in Catalan. The A1 theory is also available in English.',
@@ -1455,17 +1498,22 @@ const TRADUCCIONS = {
     compartirMedalla: "{icona} I've mastered {nom} learning Catalan with AprènCatalà! It's free and has no ads.",
   },
 };
-function tx(clau, ca, vars) {
-  const l = idiomaApp();
+// Com tx(), però en l'idioma que es passa (l). Per a les peces que s'obren des de pantalles
+// de fases diferents (la finestra «Amb correu», els errors d'entrar, 19/11): cadascuna, en el
+// de la pantalla que l'obre. Amb una funció local t(clau, ca, vars), perquè la prova de claus
+// en vegi la clau.
+function txl(l, clau, ca, vars) {
   const t = l === 'ca' ? undefined : TRADUCCIONS[l]?.[clau];
   if (t === undefined) return ca;
   return vars ? t.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)) : t;
 }
+function tx(clau, ca, vars) { return txl(idiomaApp(), clau, ca, vars); }
 // L'atribut lang del bloc traduït, perquè el lector de pantalla el llegeixi amb la veu bona.
 function langTx() {
   const l = idiomaApp();
   return l === 'ca' ? '' : ` lang="${l}"`;
 }
+function langDe(l) { return l === 'ca' ? '' : ` lang="${l}"`; }
 // ══ FASE 2: LA INTERFÍCIE EN L'IDIOMA TRIAT ══
 // Pla aprovat el 18/11/2026: la barra, l'Inici, l'exercici i l'A1, en castellà o en anglès
 // per a qui ho ha triat. Té un interruptor propi i apagat: la tria ja és encesa, i sense
@@ -3095,7 +3143,7 @@ function checkFill() {
   const input = document.getElementById('fill-in');
   const norm = q.strictAccents ? normalizeStrict : normalize;
   const val = norm(input.value);
-  if (!val) { showAlert(txi('exEscriuResposta', 'Escriu una resposta primer.'), true); return; }
+  if (!val) { showAlert(txi('exEscriuResposta', 'Escriu una resposta primer.'), idiomaInterficie()); return; }
   currentSession.answered = true;
   input.disabled = true;
   let ok = q.answers.some(a => norm(a) === val);
@@ -6164,7 +6212,7 @@ function compteBenvingudaHTML() {
             <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteCorreu()">${tx('ambCorreu', 'Amb correu')}</button>
             <button type="button" class="ct-btn secondary" style="flex:1;margin:0;" onclick="onbCompteMostra(false)">${tx('araNo', 'Ara no')}</button>
           </div>
-          <div id="onb-compte-error" lang="ca" style="font-size:13px;color:var(--danger);margin-top:8px;"></div>
+          <div id="onb-compte-error" style="font-size:13px;color:var(--danger);margin-top:8px;"></div>
         </div>`;
 }
 function onbCompteMostra(si) {
@@ -6175,7 +6223,7 @@ function onbCompteMostra(si) {
 }
 async function onbCompteGoogle() {
   const error = document.getElementById('onb-compte-error');
-  if (!window.fbSignIn) { if (error) error.textContent = 'Carregant Firebase, espera un moment...'; return; }
+  if (!window.fbSignIn) { if (error) error.textContent = tx('carregantFirebase', 'Carregant Firebase, espera un moment...'); return; }
   const btn = document.getElementById('onb-compte-google');
   if (btn) btn.disabled = true;
   try {
@@ -6185,11 +6233,11 @@ async function onbCompteGoogle() {
     if (btn) btn.disabled = false;
     if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
     if (error) error.textContent = e.code === 'auth/account-exists-with-different-credential'
-      ? 'Aquest compte és de correu i contrasenya: entra-hi amb «Amb correu».'
-      : 'Error en iniciar sessió amb Google.';
+      ? tx('compteEsDeCorreu', 'Aquest compte és de correu i contrasenya: entra-hi amb «Amb correu».')
+      : tx('errorGoogle', 'Error en iniciar sessió amb Google.');
   }
 }
-function onbCompteCorreu() { showEmailAuthModal('login', finishOnboarding); }
+function onbCompteCorreu() { showEmailAuthModal('login', finishOnboarding, idiomaApp()); }
 
 function finishOnboarding() {
   localStorage.setItem(ONBOARDING_KEY, '1');
@@ -6226,7 +6274,8 @@ function showAuthSplash() {
   const overlay = document.createElement('div');
   overlay.id = 'auth-splash-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
-  // L'idioma de les explicacions (pas 2, 11/11): els textos, sí; els missatges d'error, en català.
+  // L'idioma de les explicacions (pas 2, 11/11): els textos i, des del 19/11, també els
+  // missatges d'error, que hereten el lang del bloc.
   // margin:auto i no només align-items:center (17/11): si el contingut no hi cap (pantalla
   // petita, teclat obert), la part de dalt quedava fora i no s'hi podia arribar; el títol
   // sortia tallat. Amb margin:auto, centrat si hi cap i, si no, des de dalt.
@@ -6254,9 +6303,9 @@ function showAuthSplash() {
         <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">${tx('contrasenyaEtiqueta', 'CONTRASENYA')}</label>
         ${pwFieldHtml('auth-password', tx('contrasenyaMinim', `Mínim ${AUTH_PW_MIN} caràcters`, { n: AUTH_PW_MIN }), 'new-password', tx('mostraContrasenya', 'Mostra o amaga la contrasenya'))}
       </div>
-      <div id="auth-error" lang="ca" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
+      <div id="auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
       <button id="auth-email-btn" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="authSplashEmail()">${tx('registrat', "Registra't")}</button>
-      <button id="auth-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('auth-email', showAuthError)">${tx('oblidatContrasenya', 'Has oblidat la contrasenya?')}</button>
+      <button id="auth-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('auth-email', showAuthError, idiomaApp())">${tx('oblidatContrasenya', 'Has oblidat la contrasenya?')}</button>
       <button id="auth-toggle-btn" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:28px;" onclick="toggleAuthMode()">${tx('jaTincCompte', 'Ja tinc compte? <strong>Inicia sessió</strong>')}</button>
 
       <button style="background:none;border:none;font-size:13px;color:var(--muted);cursor:pointer;padding:8px;text-decoration:underline;" onclick="authSplashSkip()">${tx('continuaSenseCompte', 'Continua sense compte →')}</button>
@@ -6375,7 +6424,7 @@ function authSplashDismiss() {
 }
 
 async function authSplashGoogle() {
-  if (!window.fbSignIn) { showAuthError('Carregant Firebase, espera un moment...'); return; }
+  if (!window.fbSignIn) { showAuthError(tx('carregantFirebase', 'Carregant Firebase, espera un moment...')); return; }
   const btn = document.getElementById('auth-google-btn');
   if (btn) btn.disabled = true;
   try {
@@ -6385,9 +6434,9 @@ async function authSplashGoogle() {
     if (btn) btn.disabled = false;
     if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
     if (e.code === 'auth/account-exists-with-different-credential') {
-      showAuthError('Ja tens un compte amb aquest correu. Entra amb la teva contrasenya (a sota) i després enllaça Google des del Perfil.');
+      showAuthError(tx('jaTensCompteContrasenya', 'Ja tens un compte amb aquest correu. Entra amb la teva contrasenya (a sota) i després enllaça Google des del Perfil.'));
     } else {
-      showAuthError('Error en iniciar sessió amb Google.');
+      showAuthError(tx('errorGoogle', 'Error en iniciar sessió amb Google.'));
     }
   }
 }
@@ -6395,10 +6444,10 @@ async function authSplashGoogle() {
 async function authSplashEmail() {
   const email    = (document.getElementById('auth-email')?.value || '').trim();
   const password = document.getElementById('auth-password')?.value || '';
-  if (!email || !password) { showAuthError('Omple el correu i la contrasenya.'); return; }
+  if (!email || !password) { showAuthError(tx('ompleCorreu', 'Omple el correu i la contrasenya.')); return; }
   // Només en registrar-se: qui ja té una contrasenya més curta ha de poder continuar entrant.
-  if (_authMode === 'register' && password.length < AUTH_PW_MIN) { showAuthError(fbErrorMessage('auth/weak-password')); return; }
-  if (!window.fbSignInEmail) { showAuthError('Carregant Firebase, espera un moment...'); return; }
+  if (_authMode === 'register' && password.length < AUTH_PW_MIN) { showAuthError(fbErrorMessage('auth/weak-password', idiomaApp())); return; }
+  if (!window.fbSignInEmail) { showAuthError(tx('carregantFirebase', 'Carregant Firebase, espera un moment...')); return; }
   const btn = document.getElementById('auth-email-btn');
   if (btn) { btn.disabled = true; btn.textContent = 'Espera...'; }
   try {
@@ -6407,7 +6456,7 @@ async function authSplashEmail() {
     authSplashDismiss();
   } catch (e) {
     if (btn) { btn.disabled = false; btn.textContent = _authMode === 'register' ? tx('registrat', "Registra't") : tx('iniciaSessio', 'Inicia sessió'); }
-    showAuthError(fbErrorMessage(e.code));
+    showAuthError(fbErrorMessage(e.code, idiomaApp()));
   }
 }
 
@@ -6457,83 +6506,98 @@ function togglePwVisibility(btn, inputId) {
 // (Authentication → Settings → Password policy, 8 caràcters; decisió del 09/11/2026). Es comprova
 // aquí abans de cridar Firebase, per dir-ho a l'instant, i Firebase ho torna a comprovar.
 const AUTH_PW_MIN = 8;
-function fbErrorMessage(code) {
+// l: l'idioma de la pantalla d'on surt l'error (19/11). Els tres d'enllaçar un compte només
+// surten al Perfil, que és en català: no tenen traducció.
+function fbErrorMessage(code, l = 'ca') {
+  const t = (clau, ca, vars) => txl(l, clau, ca, vars);
+  const curta = t('errContrasenyaCurta', `La contrasenya ha de tenir almenys ${AUTH_PW_MIN} caràcters.`, { n: AUTH_PW_MIN });
   const m = {
-    'auth/email-already-in-use': 'Aquest correu ja té un compte. Intenta iniciar sessió amb Google o amb la teva contrasenya.',
-    'auth/invalid-email':        'El format del correu no és vàlid.',
-    'auth/weak-password':        `La contrasenya ha de tenir almenys ${AUTH_PW_MIN} caràcters.`,
-    'auth/password-does-not-meet-requirements': `La contrasenya ha de tenir almenys ${AUTH_PW_MIN} caràcters.`,
-    'auth/user-not-found':       'No hi ha cap compte amb aquest correu.',
-    'auth/wrong-password':       'Contrasenya incorrecta.',
-    'auth/invalid-credential':   'Correu o contrasenya incorrectes.',
-    'auth/too-many-requests':    'Massa intents. Espera uns minuts i torna-ho a intentar.',
+    'auth/email-already-in-use': t('errCorreuJaTeCompte', 'Aquest correu ja té un compte. Intenta iniciar sessió amb Google o amb la teva contrasenya.'),
+    'auth/invalid-email':        t('errFormatCorreu', 'El format del correu no és vàlid.'),
+    'auth/weak-password':        curta,
+    'auth/password-does-not-meet-requirements': curta,
+    'auth/user-not-found':       t('errSenseCompte', 'No hi ha cap compte amb aquest correu.'),
+    'auth/wrong-password':       t('errContrasenya', 'Contrasenya incorrecta.'),
+    'auth/invalid-credential':   t('errCredencials', 'Correu o contrasenya incorrectes.'),
+    'auth/too-many-requests':    t('errMassaIntents', 'Massa intents. Espera uns minuts i torna-ho a intentar.'),
     'auth/credential-already-in-use': 'Aquest compte de Google ja està enllaçat a un altre usuari.',
     'auth/provider-already-linked':   'Ja tens aquest mètode enllaçat.',
     'auth/requires-recent-login':     'Per seguretat, tanca la sessió, torna a entrar i prova-ho de nou.',
   };
-  return m[code] || 'Error inesperat. Torna-ho a intentar.';
+  return m[code] || t('errInesperat', 'Error inesperat. Torna-ho a intentar.');
 }
 
-async function fbForgotPassword(emailId, showErr) {
+// l: l'idioma de la pantalla del botó (19/11): els errors, els avisos i el seu «D'acord».
+async function fbForgotPassword(emailId, showErr, l = 'ca') {
+  const t = (clau, ca) => txl(l, clau, ca);
   const email = (document.getElementById(emailId)?.value || '').trim();
-  if (!email) { showErr('Escriu el teu correu a dalt i torna a prémer «Has oblidat la contrasenya?».'); return; }
-  if (!window.fbResetPassword) { showErr('Carregant Firebase, espera un moment...'); return; }
+  if (!email) { showErr(t('oblidatEscriuCorreu', 'Escriu el teu correu a dalt i torna a prémer «Has oblidat la contrasenya?».')); return; }
+  if (!window.fbResetPassword) { showErr(t('carregantFirebase', 'Carregant Firebase, espera un moment...')); return; }
   try {
     // Amb la protecció d'enumeració de Firebase desactivada, la llista de mètodes
     // diu com es va crear el compte; si està activada, retorna [] i anem al camí genèric.
     const methods = window.fbGetSignInMethods ? await window.fbGetSignInMethods(email) : [];
     if (methods.length && !methods.includes('password')) {
       showErr('');
-      showAlert('Aquest compte es va crear amb Google i no té contrasenya. Prem «Continua amb Google» per entrar-hi.');
+      showAlert(t('oblidatCompteGoogle', 'Aquest compte es va crear amb Google i no té contrasenya. Prem «Continua amb Google» per entrar-hi.'), l);
       return;
     }
     await window.fbResetPassword(email);
     showErr('');
     if (methods.includes('password')) {
-      showAlert('T\'hem enviat un correu amb l\'enllaç per restablir la contrasenya. Si no el veus a la safata d\'entrada, revisa la carpeta de correu brossa.');
+      showAlert(t('oblidatEnviat', "T'hem enviat un correu amb l'enllaç per restablir la contrasenya. Si no el veus a la safata d'entrada, revisa la carpeta de correu brossa."), l);
     } else {
-      showAlert('Si hi ha un compte amb aquest correu, t\'hi hem enviat un enllaç per restablir la contrasenya. Si no el veus a la safata d\'entrada, revisa la carpeta de correu brossa.');
+      showAlert(t('oblidatSiHiHa', "Si hi ha un compte amb aquest correu, t'hi hem enviat un enllaç per restablir la contrasenya. Si no el veus a la safata d'entrada, revisa la carpeta de correu brossa."), l);
     }
   } catch (e) {
-    showErr(fbErrorMessage(e.code));
+    showErr(fbErrorMessage(e.code, l));
   }
 }
 
 // `mode`: 'register' (alta) o 'login' (entrar). `despres`: què fer quan s'ha entrat
 // (la targeta del final de la sessió i la benvinguda en continuen el camí).
+// `l`: l'idioma de la finestra, el de la pantalla que l'obre (19/11): des de la benvinguda,
+// el de les explicacions; des del final de la sessió, el de la interfície; des del Perfil i
+// de la lliga, el català. «Espera...» del botó, en català (decisió de l'usuari, 11/11).
 let _modalAuthDespres = null;
-function showEmailAuthModal(mode = 'register', despres = null) {
+let _modalAuthIdioma = 'ca';
+function showEmailAuthModal(mode = 'register', despres = null, l = 'ca') {
   _modalAuthMode = 'register';
   _modalAuthDespres = despres;
+  _modalAuthIdioma = l;
+  const t = (clau, ca, vars) => txl(l, clau, ca, vars);
+  const a = '<a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">';
   const overlay = document.createElement('div');
   overlay.id = 'email-auth-modal';
   overlay.className = 'ct-modal-overlay';
-  overlay.innerHTML = `<div class="ct-modal" style="max-width:360px;text-align:left;">
-    <div id="email-modal-title" style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:16px;">Registra't amb correu</div>
+  overlay.innerHTML = `<div class="ct-modal"${langDe(l)} style="max-width:360px;text-align:left;">
+    <div id="email-modal-title" style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:16px;">${t('registratCorreu', "Registra't amb correu")}</div>
     <div style="margin-bottom:10px;">
-      <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CORREU ELECTRÒNIC</label>
-      <input id="modal-auth-email" type="email" class="ct-input" style="margin-top:0;" placeholder="nom@exemple.com" autocomplete="email">
+      <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">${t('correuEtiqueta', 'CORREU ELECTRÒNIC')}</label>
+      <input id="modal-auth-email" type="email" class="ct-input" style="margin-top:0;" placeholder="${t('correuExemple', 'nom@exemple.com')}" autocomplete="email">
     </div>
     <div style="margin-bottom:6px;">
-      <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">CONTRASENYA</label>
-      ${pwFieldHtml('modal-auth-password', `Mínim ${AUTH_PW_MIN} caràcters`, 'new-password')}
+      <label style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.5px;display:block;margin-bottom:4px;">${t('contrasenyaEtiqueta', 'CONTRASENYA')}</label>
+      ${pwFieldHtml('modal-auth-password', t('contrasenyaMinim', `Mínim ${AUTH_PW_MIN} caràcters`, { n: AUTH_PW_MIN }), 'new-password', t('mostraContrasenya', 'Mostra o amaga la contrasenya'))}
     </div>
     <div id="modal-auth-error" style="font-size:13px;color:var(--danger);min-height:18px;margin-bottom:10px;"></div>
-    <button id="modal-auth-submit" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="modalAuthSubmit()">Registra't</button>
-    <button id="modal-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('modal-auth-email', modalAuthError)">Has oblidat la contrasenya?</button>
-    <button id="modal-auth-toggle" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:10px;" onclick="modalToggleAuthMode()">Ja tinc compte? <strong>Inicia sessió</strong></button>
-    <button class="ct-btn secondary" style="width:100%;font-size:13px;" onclick="document.getElementById('email-auth-modal').remove()">Cancel·lar</button>
-    <p style="font-size:11.5px;color:var(--muted);margin-top:12px;margin-bottom:0;line-height:1.5;text-align:center;">En crear un compte, acceptes la <a href="https://aprencatala.cat/privacitat.html" target="_blank" rel="noopener" style="color:var(--muted);">política de privacitat</a>.</p>
+    <button id="modal-auth-submit" class="ct-btn primary" style="width:100%;margin-bottom:8px;" onclick="modalAuthSubmit()">${t('registrat', "Registra't")}</button>
+    <button id="modal-forgot-btn" style="display:none;background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;padding:6px;margin-bottom:8px;text-decoration:underline;width:100%;" onclick="fbForgotPassword('modal-auth-email', modalAuthError, _modalAuthIdioma)">${t('oblidatContrasenya', 'Has oblidat la contrasenya?')}</button>
+    <button id="modal-auth-toggle" class="ct-btn secondary" style="width:100%;font-size:13px;padding:9px;margin-bottom:10px;" onclick="modalToggleAuthMode()">${t('jaTincCompte', 'Ja tinc compte? <strong>Inicia sessió</strong>')}</button>
+    <button class="ct-btn secondary" style="width:100%;font-size:13px;" onclick="document.getElementById('email-auth-modal').remove()">${t('cancellar', 'Cancel·lar')}</button>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:12px;margin-bottom:0;line-height:1.5;text-align:center;">${t('acceptesPolitica', `En crear un compte, acceptes la ${a}política de privacitat</a>.`, { a })}</p>
   </div>`;
   document.body.appendChild(overlay);
   if (mode === 'login') modalToggleAuthMode();
 }
 
 async function modalAuthSubmit() {
+  const l = _modalAuthIdioma;
+  const t = (clau, ca) => txl(l, clau, ca);
   const email    = (document.getElementById('modal-auth-email')?.value || '').trim();
   const password = document.getElementById('modal-auth-password')?.value || '';
-  if (!email || !password) { modalAuthError('Omple el correu i la contrasenya.'); return; }
-  if (_modalAuthMode === 'register' && password.length < AUTH_PW_MIN) { modalAuthError(fbErrorMessage('auth/weak-password')); return; }
+  if (!email || !password) { modalAuthError(t('ompleCorreu', 'Omple el correu i la contrasenya.')); return; }
+  if (_modalAuthMode === 'register' && password.length < AUTH_PW_MIN) { modalAuthError(fbErrorMessage('auth/weak-password', l)); return; }
   const btn = document.getElementById('modal-auth-submit');
   if (btn) { btn.disabled = true; btn.textContent = 'Espera...'; }
   try {
@@ -6544,21 +6608,22 @@ async function modalAuthSubmit() {
     _modalAuthDespres = null;
     if (despres) despres();
   } catch (e) {
-    if (btn) { btn.disabled = false; btn.textContent = _modalAuthMode === 'register' ? "Registra't" : 'Inicia sessió'; }
-    modalAuthError(fbErrorMessage(e.code));
+    if (btn) { btn.disabled = false; btn.textContent = _modalAuthMode === 'register' ? t('registrat', "Registra't") : t('iniciaSessio', 'Inicia sessió'); }
+    modalAuthError(fbErrorMessage(e.code, l));
   }
 }
 
 function modalToggleAuthMode() {
   _modalAuthMode = _modalAuthMode === 'register' ? 'login' : 'register';
   const isLogin  = _modalAuthMode === 'login';
+  const t = (clau, ca) => txl(_modalAuthIdioma, clau, ca);
   const title  = document.getElementById('email-modal-title');
   const submit = document.getElementById('modal-auth-submit');
   const toggle = document.getElementById('modal-auth-toggle');
   const pw     = document.getElementById('modal-auth-password');
-  if (title)  title.textContent = isLogin ? 'Inicia sessió amb correu' : "Registra't amb correu";
-  if (submit) submit.textContent = isLogin ? 'Inicia sessió' : "Registra't";
-  if (toggle) toggle.innerHTML   = isLogin ? "Encara no tens compte? <strong>Registra't</strong>" : "Ja tinc compte? <strong>Inicia sessió</strong>";
+  if (title)  title.textContent = isLogin ? t('iniciaSessioCorreu', 'Inicia sessió amb correu') : t('registratCorreu', "Registra't amb correu");
+  if (submit) submit.textContent = isLogin ? t('iniciaSessio', 'Inicia sessió') : t('registrat', "Registra't");
+  if (toggle) toggle.innerHTML   = isLogin ? t('encaraNoTensCompte', "Encara no tens compte? <strong>Registra't</strong>") : t('jaTincCompte', 'Ja tinc compte? <strong>Inicia sessió</strong>');
   if (pw)     pw.autocomplete    = isLogin ? 'current-password' : 'new-password';
   const forgotBtn = document.getElementById('modal-forgot-btn');
   if (forgotBtn) forgotBtn.style.display = isLogin ? 'block' : 'none';
@@ -7537,11 +7602,13 @@ function initBackHandler() {
 }
 
 /* ══ MODALS ══ */
-// interficie: el missatge ve de txi() (fase 2): el botó i el lang, en el mateix idioma.
-function showAlert(msg, interficie = false) {
+// l: l'idioma del missatge (el de txi(), a la fase 2; el de la pantalla, als errors del compte):
+// el botó i el lang, en el mateix idioma. Per defecte, el català.
+function showAlert(msg, l = 'ca') {
+  const t = (clau, ca) => txl(l, clau, ca);
   const el = document.createElement('div');
   el.className = 'ct-modal-overlay';
-  el.innerHTML = `<div class="ct-modal"${interficie ? langTxi() : ''}><p>${msg}</p><button class="ct-btn primary" onclick="this.closest('.ct-modal-overlay').remove()">${interficie ? txi('dacord', "D'acord") : "D'acord"}</button></div>`;
+  el.innerHTML = `<div class="ct-modal"${langDe(l)}><p>${msg}</p><button class="ct-btn primary" onclick="this.closest('.ct-modal-overlay').remove()">${t('dacord', "D'acord")}</button></div>`;
   document.body.appendChild(el);
 }
 function showConfirm(msg, onConfirm) {
