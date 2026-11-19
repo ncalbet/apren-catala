@@ -935,6 +935,7 @@ const TRADUCCIONS = {
     errorGoogle: 'Error al iniciar sesión con Google.',
     compteEsDeCorreu: 'Esta cuenta es de correo y contraseña: entra con «Con correo».',
     jaTensCompteContrasenya: 'Ya tienes una cuenta con este correo. Entra con tu contraseña (abajo) y después enlaza Google desde Perfil.',
+    jaTensCompteCorreu: 'Ya tienes una cuenta con este correo: entra con «Con correo».',
     ompleCorreu: 'Rellena el correo y la contraseña.',
     errCorreuJaTeCompte: 'Este correo ya tiene una cuenta. Prueba a iniciar sesión con Google o con tu contraseña.',
     errFormatCorreu: 'El formato del correo no es válido.',
@@ -1232,6 +1233,7 @@ const TRADUCCIONS = {
     errorGoogle: "Couldn't sign in with Google.",
     compteEsDeCorreu: 'This account uses an email and password: sign in with ‘With email’.',
     jaTensCompteContrasenya: 'You already have an account with this email. Sign in with your password (below), then link Google from Profile.',
+    jaTensCompteCorreu: 'You already have an account with this email: sign in with ‘With email’.',
     ompleCorreu: 'Enter your email and password.',
     errCorreuJaTeCompte: 'This email already has an account. Try signing in with Google or with your password.',
     errFormatCorreu: "That email address isn't valid.",
@@ -7199,7 +7201,8 @@ function targetaCompteHTML() {
   // Què dona el compte, com a la pantalla de l'entrada: el progrés, la lliga i els
   // recordatoris, aquests només on es podran activar en fer el compte (tocaPreguntaRecordatori).
   const recorda = 'Notification' in window && Notification.permission !== 'denied';
-  // Traduïda, la targeta hereta el lang de la del final; els errors d'entrar, encara en català.
+  // Traduïda, la targeta hereta el lang de la del final; des del 19/11, també els errors
+  // d'entrar i la finestra «Amb correu».
   const perds = xp > 0 ? txi('compteFinalXP', `no perds els ${formatXP(xp)} XP`, { xp: formatXP(xp, idiomaInterficie()) }) : txi('compteFinalNoHoPerds', 'no ho perds');
   const text = recorda
     ? txi('compteFinal', `Desa el que has fet avui: amb un compte gratuït ${perds}, pots participar a la lliga setmanal i et recordem quan et toca repassar.`, { perds })
@@ -7213,13 +7216,13 @@ function targetaCompteHTML() {
           <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="compteFinalCorreu()">${txi('ambCorreu', 'Amb correu')}</button>
           <button class="ct-btn secondary" style="flex:1;font-size:13px;padding:6px 14px;margin:0;" onclick="compteFinalAraNo()">${txi('araNo', 'Ara no')}</button>
         </div>
-        <div id="compte-final-error"${langCaTxi()} style="font-size:12.5px;color:var(--danger);margin-top:6px;"></div>
+        <div id="compte-final-error" style="font-size:12.5px;color:var(--danger);margin-top:6px;"></div>
         <p style="font-size:11.5px;color:var(--accent-blue-text);margin:6px 0 0;line-height:1.5;">${txi('acceptesPolitica', `En crear un compte, acceptes la ${a}política de privacitat</a>.`, { a })}</p>
       </div></div>`;
 }
 async function compteFinalGoogle() {
   const error = document.getElementById('compte-final-error');
-  if (!window.fbSignIn) { if (error) error.textContent = 'Carregant Firebase, espera un moment...'; return; }
+  if (!window.fbSignIn) { if (error) error.textContent = txi('carregantFirebase', 'Carregant Firebase, espera un moment...'); return; }
   const btn = document.getElementById('compte-final-google');
   if (btn) btn.disabled = true;
   try {
@@ -7229,11 +7232,11 @@ async function compteFinalGoogle() {
     if (btn) btn.disabled = false;
     if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
     if (error) error.textContent = e.code === 'auth/account-exists-with-different-credential'
-      ? 'Ja tens un compte amb aquest correu: entra-hi amb «Amb correu».'
-      : 'Error en iniciar sessió amb Google.';
+      ? txi('jaTensCompteCorreu', 'Ja tens un compte amb aquest correu: entra-hi amb «Amb correu».')
+      : txi('errorGoogle', 'Error en iniciar sessió amb Google.');
   }
 }
-function compteFinalCorreu() { showEmailAuthModal('register', compteFinalFet); }
+function compteFinalCorreu() { showEmailAuthModal('register', compteFinalFet, idiomaInterficie()); }
 function compteFinalAraNo() {
   localStorage.setItem(COMPTE_FINAL_KEY, JSON.stringify({ n: estatCompteFinal().n + 1, dia: diaLocal() }));
   const el = document.getElementById('compte-final');
