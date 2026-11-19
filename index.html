@@ -1828,7 +1828,7 @@ function showFitaXP(m) {
     <div class="ct-levelup-box">
       <div class="ct-levelup-emoji">🎉</div>
       <div style="font-size:26px;font-weight:700;color:var(--heading);margin-bottom:6px;">${xp} XP!</div>
-      <div class="ct-levelup-sub">Felicitats, has arribat als ${xp} XP!!</div>
+      <div class="ct-levelup-sub">Felicitats, has arribat als ${xp} XP!</div>
       <button class="ct-btn primary" style="width:100%;" onclick="this.closest('.ct-levelup-overlay').remove()">
         Continuar 🎉
       </button>
@@ -4877,7 +4877,7 @@ function checkLevelMilestones() {
     if (!flags[l.k+'_fets'] && l.ds.every(q => getMastery(q.id) >= 2)) {
       flags[l.k+'_fets'] = true;
       queue.push({ emoji:'🎉', title:l.fetsTitle,
-        sub:'Has fet tots els exercicis del nivell almenys un cop. Ara torna-hi en dies diferents per dominar-lo del tot. 💪' });
+        sub:'Has encertat tots els exercicis del nivell almenys un cop. Ara torna-hi en dies diferents per dominar-lo del tot. 💪' });
     }
     if (!flags[l.k+'_dom'] && l.ds.every(q => haDominat(progress, q.id))) {
       flags[l.k+'_dom'] = true;
