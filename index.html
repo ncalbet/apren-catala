@@ -610,7 +610,7 @@ function getNextLevel(xp) { const i = LEVELS.findIndex(l => xp >= l.min && xp <=
 
 // ══ MISSATGES D'ÀNIM PER CATEGORIA ══
 const ENCOURAGEMENT = {
-  'Connectors':               "💪 Els connectors fan textos molt més rics. Practica-les en veu alta!",
+  'Connectors':               "💪 Els connectors fan textos molt més rics. Practica'ls en veu alta!",
   'Subjuntiu':                "🔀 El subjuntiu és un dels reptes més grans del català. Poc a poc!",
   'Cohesió textual':          "🧩 La cohesió es nota molt en textos escrits. Segueix endavant!",
   'Comprensió lectora':       "📖 Llegir bé és una habilitat que millora amb el temps. No t'aturis!",
@@ -619,11 +619,11 @@ const ENCOURAGEMENT = {
   'Lèxic formal':             "📚 El lèxic precís marca la diferència en textos professionals.",
   'Interferències':           "🚧 Les interferències del castellà costen, però amb pràctica s'eviten!",
   'Perífrasis verbals':       "⚙️ Les perífrasis donen molta riquesa expressiva. Continua!",
-  'Temps verbals':            "⏱️ Els temps verbals en català tenen matisos únics. Quasi!",
+  'Temps verbals':            "⏱️ Els temps verbals del català tenen molts matisos. Poc a poc!",
   'Preposicions':             "🔧 El règim preposicional s'aprèn amb la pràctica. Endavant!",
   'Construccions comparatives':"⚖️ Els comparatius irregulars cal memoritzar-los. Tu pots!",
   'Ortografia B2':             "✏️ L'ortografia és la targeta de visita d'un bon text. No et rendeixis!",
-  'Pronoms febles B2':         "🔵 Els pronoms febles del català no s'assemblen a res en castellà. Paciència i pràctica!",
+  'Pronoms febles B2':         "🔵 Triar el pronom feble que toca costa a tothom. Paciència i pràctica!",
   'Subjuntiu avançat':        "🔀 El subjuntiu avançat és complex fins i tot per a nadius. Molt bé pel fet d'intentar-ho!",
   'Connectors concessius':    "🔗 Els concessius marquen un nivell alt de domini. Segueix!",
   'Argumentació':             "🧠 Argumentar bé en català és una habilitat molt valorada.",
@@ -631,16 +631,16 @@ const ENCOURAGEMENT = {
   'Producció formal':         "🖊️ El registre acadèmic es domina amb molta lectura i pràctica.",
   'Oracions de relatiu':      "🔗 Les relatives cultes distingeixen un C1 de veritat. Ànims!",
   'Subjuntiu imperfet':       "🔀 La concordança temporal és dels punts més delicats. Persevera!",
-  'Pronoms febles':           "🔵 Els pronoms febles del català no tenen equivalent en castellà. Paciència!",
-  'Frases fetes':             "💬 La fraseologia és el toc final d'un català natural. Genial!",
-  'Derivació i flexió':       "🧬 La morfologia és la base de tot. Molt bé pel treball!",
+  'Pronoms febles':           "🔵 Els pronoms febles, i sobretot «en» i «hi», demanen molta pràctica. Paciència!",
+  'Frases fetes':             "💬 La fraseologia és el toc final d'un català natural. Segueix!",
+  'Derivació i flexió':       "🧬 La morfologia és la base de tot. No t'aturis!",
   'Estil indirecte':          "💬 L'estil indirecte requereix molt de control gramatical. Segueix!",
-  'Passiva i impersonal':     "🔄 La passiva reflexa és la marca del català genuí. Quasi!",
+  'Passiva i impersonal':     "🔄 En català, la passiva reflexa és molt més habitual que la perifràstica. Endavant!",
   'Imperfet i perifràstic B1': "⏱️ Distingir l'imperfet del perifràstic és clau en català. Poc a poc!",
   'Pronoms febles B1':         "🔵 Els pronoms febles costen a tothom. La pràctica ho soluciona!",
   'Verbs irregulars B1':       "🔀 Els irregulars cal memoritzar-los. Fes-los servir en frases pròpies!",
   'Connectors B1':             "🔗 Els connectors fan els textos molt més fluids. Continua!",
-  'Futur i condicional B1':    "🔮 Futur i condicional donen molta expressivitat. Quasi!",
+  'Futur i condicional B1':    "🔮 Futur i condicional donen molta expressivitat. Endavant!",
   'Perífrasis B1':             "⚙️ Les perífrasis verbals enriqueixen molt el català. Endavant!",
   'Subordinades B1':           "🧩 Les subordinades connecten idees complexes. No et rendeixis!",
   'Lèxic quotidià B1':         "📚 El lèxic quotidià és la base de la comunicació real. Segueix!",
@@ -3925,7 +3925,7 @@ function markDone(ok, xp, gairebe = false) {
     const el = document.getElementById('theory-area');
     if (el) {
       const msg = xpDecayNote === 'zero'
-        ? `🌱 <strong>Ja has practicat prou aquest exercici per avui!</strong> Repetir-lo més estones seguides ja no suma XP, i està bé que sigui així. El que de debò fixa un tema és tornar-hi <strong>un altre dia</strong>: la repetició espaiada (no la continuada) és el secret per dominar-lo de veritat. Ara passa al següent exercici i segueix avançant! 💪`
+        ? `🌱 <strong>Ja has practicat prou aquest exercici per avui!</strong> Repetir-lo més vegades seguides ja no suma XP, i està bé que sigui així. El que de debò fixa un tema és tornar-hi <strong>un altre dia</strong>: la repetició espaiada (no la continuada) és el secret per dominar-lo de veritat. Ara passa al següent exercici i segueix avançant! 💪`
         : `🌱 Aquesta repetició suma menys XP, i no passa res. Per consolidar de debò un tema, el que funciona és <strong>tornar-hi en dies diferents</strong> més que repetir-lo molts cops seguits. Vas pel bon camí!`;
       el.innerHTML += `<div style="font-size:12.5px;line-height:1.5;color:var(--accent-green-text);background:var(--accent-green-bg);border-radius:10px;padding:10px 12px;margin-top:8px;">${msg}</div>`;
     }
