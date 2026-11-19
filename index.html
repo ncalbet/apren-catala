@@ -646,6 +646,84 @@ const ENCOURAGEMENT = {
   'Lèxic quotidià B1':         "📚 El lèxic quotidià és la base de la comunicació real. Segueix!",
   'default':                  "💪 Cada error és una oportunitat d'aprendre. Continua practicant!",
 };
+// Els mateixos missatges en castellà i en anglès (fase 2, pas 3): els tria missatgeAnim()
+// segons l'idioma de la interfície. Una prova vigila que tinguin les mateixes claus.
+const ENCOURAGEMENT_TRADUIT = {
+  es: {
+    'Connectors':               "💪 Los conectores hacen los textos mucho más ricos. ¡Practícalos en voz alta!",
+    'Subjuntiu':                "🔀 El subjuntivo es uno de los mayores retos del catalán. ¡Poco a poco!",
+    'Cohesió textual':          "🧩 La cohesión se nota mucho en los textos escritos. ¡Sigue adelante!",
+    'Comprensió lectora':       "📖 Leer bien es una habilidad que mejora con el tiempo. ¡No te detengas!",
+    'Producció escrita':        "✏️ Escribir es la mejor manera de consolidar todo lo que aprendes.",
+    'Lèxic formal B2':          "📚 El vocabulario preciso es lo que distingue un buen texto. ¡Continúa!",
+    'Lèxic formal':             "📚 El léxico preciso marca la diferencia en los textos profesionales.",
+    'Interferències':           "🚧 Las interferencias del castellano cuestan, ¡pero con práctica se evitan!",
+    'Perífrasis verbals':       "⚙️ Las perífrasis dan mucha riqueza expresiva. ¡Continúa!",
+    'Temps verbals':            "⏱️ Los tiempos verbales del catalán tienen muchos matices. ¡Poco a poco!",
+    'Preposicions':             "🔧 El régimen preposicional se aprende con la práctica. ¡Adelante!",
+    'Construccions comparatives':"⚖️ Los comparativos irregulares hay que memorizarlos. ¡Tú puedes!",
+    'Ortografia B2':            "✏️ La ortografía es la carta de presentación de un buen texto. ¡No te rindas!",
+    'Pronoms febles B2':        "🔵 Elegir el pronombre débil adecuado le cuesta a todo el mundo. ¡Paciencia y práctica!",
+    'Subjuntiu avançat':        "🔀 El subjuntivo avanzado es complejo incluso para los nativos. ¡Muy bien por intentarlo!",
+    'Connectors concessius':    "🔗 Los concesivos indican un alto nivel de dominio. ¡Sigue!",
+    'Argumentació':             "🧠 Argumentar bien en catalán es una habilidad muy valorada.",
+    'Comprensió crítica':       "🔍 Leer entre líneas es la clave del C1. ¡No te rindas!",
+    'Producció formal':         "🖊️ El registro académico se domina con mucha lectura y práctica.",
+    'Oracions de relatiu':      "🔗 Las relativas cultas distinguen un verdadero C1. ¡Ánimo!",
+    'Subjuntiu imperfet':       "🔀 La concordancia temporal es de los puntos más delicados. ¡Persevera!",
+    'Pronoms febles':           "🔵 Los pronombres débiles, y sobre todo «en» y «hi», requieren mucha práctica. ¡Paciencia!",
+    'Frases fetes':             "💬 La fraseología es el toque final de un catalán natural. ¡Sigue!",
+    'Derivació i flexió':       "🧬 La morfología es la base de todo. ¡No te detengas!",
+    'Estil indirecte':          "💬 El estilo indirecto requiere mucho control gramatical. ¡Sigue!",
+    'Passiva i impersonal':     "🔄 En catalán, la pasiva refleja es mucho más habitual que la perifrástica. ¡Adelante!",
+    'Imperfet i perifràstic B1': "⏱️ Distinguir el imperfecto del perifrástico es clave en catalán. ¡Poco a poco!",
+    'Pronoms febles B1':        "🔵 Los pronombres débiles le cuestan a todo el mundo. ¡La práctica lo soluciona!",
+    'Verbs irregulars B1':      "🔀 Los irregulares hay que memorizarlos. ¡Úsalos en tus propias frases!",
+    'Connectors B1':            "🔗 Los conectores hacen los textos mucho más fluidos. ¡Continúa!",
+    'Futur i condicional B1':   "🔮 El futuro y el condicional dan mucha expresividad. ¡Adelante!",
+    'Perífrasis B1':            "⚙️ Las perífrasis verbales enriquecen mucho el catalán. ¡Adelante!",
+    'Subordinades B1':          "🧩 Las subordinadas conectan ideas complejas. ¡No te rindas!",
+    'Lèxic quotidià B1':        "📚 El léxico cotidiano es la base de la comunicación real. ¡Sigue!",
+    'default':                  "💪 Cada error es una oportunidad para aprender. ¡Sigue practicando!",
+  },
+  en: {
+    'Connectors':               "💪 Connectors make your writing much richer. Practise them out loud!",
+    'Subjuntiu':                "🔀 The subjunctive is one of the biggest challenges in Catalan. One step at a time!",
+    'Cohesió textual':          "🧩 Cohesion really shows in written texts. Keep going!",
+    'Comprensió lectora':       "📖 Reading well is a skill that improves with time. Don't stop now!",
+    'Producció escrita':        "✏️ Writing is the best way to consolidate everything you learn.",
+    'Lèxic formal B2':          "📚 Precise vocabulary is what sets a good text apart. Keep at it!",
+    'Lèxic formal':             "📚 Precise vocabulary makes all the difference in professional writing.",
+    'Interferències':           "🚧 Interference from Spanish is tricky, but with practice you can avoid it!",
+    'Perífrasis verbals':       "⚙️ Periphrastic verb forms give you a lot of expressive range. Keep at it!",
+    'Temps verbals':            "⏱️ Catalan verb tenses have lots of nuances. One step at a time!",
+    'Preposicions':             "🔧 Which preposition goes with which verb is learnt through practice. Keep going!",
+    'Construccions comparatives':"⚖️ Irregular comparatives have to be memorised. You can do it!",
+    'Ortografia B2':            "✏️ Spelling is a good text's calling card. Don't give up!",
+    'Pronoms febles B2':        "🔵 Choosing the right weak pronoun is hard for everyone. Patience and practice!",
+    'Subjuntiu avançat':        "🔀 The advanced subjunctive is hard even for native speakers. Well done for trying!",
+    'Connectors concessius':    "🔗 Concessive connectors are the sign of a high level. Keep going!",
+    'Argumentació':             "🧠 Arguing a point well in Catalan is a highly valued skill.",
+    'Comprensió crítica':       "🔍 Reading between the lines is the key to C1. Don't give up!",
+    'Producció formal':         "🖊️ Academic register comes with lots of reading and practice.",
+    'Oracions de relatiu':      "🔗 Formal relative clauses are the mark of a true C1. You've got this!",
+    'Subjuntiu imperfet':       "🔀 Sequence of tenses is one of the trickiest points. Stick with it!",
+    'Pronoms febles':           "🔵 Weak pronouns, especially ‘en’ and ‘hi’, take a lot of practice. Be patient!",
+    'Frases fetes':             "💬 Idioms are the finishing touch of natural Catalan. Keep going!",
+    'Derivació i flexió':       "🧬 Morphology is the foundation of everything. Don't stop now!",
+    'Estil indirecte':          "💬 Reported speech takes a lot of grammatical control. Keep going!",
+    'Passiva i impersonal':     "🔄 In Catalan, the reflexive passive is far more common than the passive with ‘ser’. Keep going!",
+    'Imperfet i perifràstic B1': "⏱️ Telling the imperfect from the periphrastic past is key in Catalan. One step at a time!",
+    'Pronoms febles B1':        "🔵 Weak pronouns are hard for everyone. Practice sorts it out!",
+    'Verbs irregulars B1':      "🔀 Irregular verbs have to be memorised. Use them in sentences of your own!",
+    'Connectors B1':            "🔗 Connectors make texts flow much better. Keep at it!",
+    'Futur i condicional B1':   "🔮 The future and the conditional are very expressive. Keep going!",
+    'Perífrasis B1':            "⚙️ Periphrastic verb forms make your Catalan much richer. Keep going!",
+    'Subordinades B1':          "🧩 Subordinate clauses link complex ideas. Don't give up!",
+    'Lèxic quotidià B1':        "📚 Everyday vocabulary is the basis of real communication. Keep going!",
+    'default':                  "💪 Every mistake is a chance to learn. Keep practising!",
+  },
+};
 
 // Llegeix i parseja una clau de localStorage; si està corrupta retorna null en lloc de petar tota l'app
 function safeParse(key) {
@@ -1018,6 +1096,35 @@ const TRADUCCIONS = {
     exAraNoPuc: 'Ahora no puedo escuchar',
     exEscriuResposta: 'Escribe una respuesta primero.',
     dacord: 'De acuerdo',
+    // El retorn (fase 2, pas 3, tanda 2). En català, amb caTxi(): la resposta, la forma
+    // demanada, l'etiqueta i la nota de les formes d'un parlar, i l'ordre bo; l'explicació del
+    // «Per què no», la nota i l'exemple hereten el lang="ca" de l'arrel. L'assumpte del correu
+    // d'«Avisa'ns», en català. «Cerrar» és la clau «tancar» del Ko-fi. Els missatges d'ànim, a
+    // ENCOURAGEMENT_TRADUIT.
+    exCorrecte: '¡Correcto!',
+    exGairebe: 'Casi. Fíjate en {signes}: se escribe <strong>{bona}</strong>. Te volverá a salir en el repaso.',
+    exCanviaParaula: '¡Casi! Sin {signes}, «{paraula}» es otra palabra: la respuesta es <strong>{resposta}</strong>',
+    exQuasiEstricte: '¡Casi! Aquí {signe} lo es todo: la respuesta es <strong>{resposta}</strong>',
+    exNoDemanada: '«{forma}» también es correcto, pero aquí se pide: <em>{demanada}</em>. La respuesta es: <strong>{resposta}</strong>',
+    exNoCorrecte: 'No es correcto. La respuesta es: <strong>{resposta}</strong>',
+    exAltresFormes: 'Otras formas válidas: <strong>{formes}</strong>.',
+    signeAccent: 'el acento', signeAccents: 'los acentos', signeDieresi: 'la diéresis', signeDieresis: 'las diéresis',
+    signeCedilla: 'la cedilla', signeCedilles: 'las cedillas', signeI: ' y ',
+    exOrdrePerfecte: '¡Orden perfecto!',
+    exOrdreCorrecte: 'El orden correcto es:',
+    exMiraTeoria: 'Mira la teoría del tema',
+    exPerQueNo: 'Por qué no:', exNotaGramatical: 'Nota gramatical:', exExemple: 'Ejemplo:',
+    exTornaExercici: 'Volver al ejercicio',
+    exDominiCanvi: 'Dominio: {n}/5',
+    exRepeticioMenys: 'Esta repetición suma menos XP, y no pasa nada. Para consolidar de verdad un tema, lo que funciona es <strong>volver a él en días distintos</strong> más que repetirlo muchas veces seguidas. ¡Vas por buen camino!',
+    exRepeticioZero: '<strong>¡Ya has practicado bastante este ejercicio por hoy!</strong> Repetirlo más veces seguidas ya no suma XP, y está bien que sea así. Lo que realmente fija un tema es volver a él <strong>otro día</strong>: la repetición espaciada (no la continuada) es el secreto para dominarlo de verdad. ¡Ahora pasa al siguiente ejercicio y sigue avanzando! 💪',
+    exDubtosaPregunta: '¿Crees que tu respuesta era correcta?',
+    exAvisans: 'Avísanos',
+    exDubtosaGracies: 'Te lo agradeceremos, y tu progreso no cambia.',
+    exDubtosaAdreca: 'Si no se te ha abierto el correo, escribe a <strong>{adreca}</strong> con el código <strong style="white-space:nowrap;">{codi}</strong>.',
+    exCorreuExercici: 'Ejercicio:', exCorreuPregunta: 'Pregunta:', exCorreuFrase: 'Frase:',
+    exCorreuMeva: 'Mi respuesta:', exCorreuApp: 'La respuesta de la app:',
+    exCorreuPerQue: 'Por qué creo que la mía también es correcta:',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -1202,6 +1309,31 @@ const TRADUCCIONS = {
     exAraNoPuc: "I can't listen right now",
     exEscriuResposta: 'Type your answer first.',
     dacord: 'OK',
+    // El retorn (fase 2, pas 3, tanda 2)
+    exCorrecte: 'Correct!',
+    exGairebe: "Almost. Mind {signes}: it's spelt <strong>{bona}</strong>. It will come back in review.",
+    exCanviaParaula: 'Almost! Without {signes}, ‘{paraula}’ is a different word: the answer is <strong>{resposta}</strong>',
+    exQuasiEstricte: 'Almost! Here {signe} makes all the difference: the answer is <strong>{resposta}</strong>',
+    exNoDemanada: "‘{forma}’ is also correct, but here you're asked for: <em>{demanada}</em>. The answer is: <strong>{resposta}</strong>",
+    exNoCorrecte: "That's not right. The answer is: <strong>{resposta}</strong>",
+    exAltresFormes: 'Other valid forms: <strong>{formes}</strong>.',
+    signeAccent: 'the accent', signeAccents: 'the accents', signeDieresi: 'the diaeresis', signeDieresis: 'the diaereses',
+    signeCedilla: 'the cedilla', signeCedilles: 'the cedillas', signeI: ' and ',
+    exOrdrePerfecte: "That's the right order!",
+    exOrdreCorrecte: 'The correct order is:',
+    exMiraTeoria: 'See the theory for this topic',
+    exPerQueNo: "Why it's wrong:", exNotaGramatical: 'Grammar note:', exExemple: 'Example:',
+    exTornaExercici: 'Back to the exercise',
+    exDominiCanvi: 'Mastery: {n}/5',
+    exRepeticioMenys: "This repetition earns less XP, and that's fine. To really consolidate a topic, what works is <strong>coming back to it on different days</strong> rather than repeating it many times in a row. You're on the right track!",
+    exRepeticioZero: "<strong>You've practised this exercise enough for today!</strong> Repeating it more times in a row no longer earns XP, and that's how it should be. What really makes a topic stick is coming back to it <strong>on another day</strong>: spaced repetition (not back-to-back repetition) is the secret to truly mastering it. Now move on to the next exercise and keep going! 💪",
+    exDubtosaPregunta: 'Think your answer was right?',
+    exAvisans: 'Let us know',
+    exDubtosaGracies: "We'd appreciate it, and your progress won't change.",
+    exDubtosaAdreca: 'If your email app didn\'t open, write to <strong>{adreca}</strong> with the code <strong style="white-space:nowrap;">{codi}</strong>.',
+    exCorreuExercici: 'Exercise:', exCorreuPregunta: 'Question:', exCorreuFrase: 'Sentence:',
+    exCorreuMeva: 'My answer:', exCorreuApp: "The app's answer:",
+    exCorreuPerQue: 'Why I think mine is right too:',
   },
 };
 function tx(clau, ca, vars) {
@@ -1235,6 +1367,10 @@ function langTxi() {
   const l = idiomaInterficie();
   return l === 'ca' ? '' : ` lang="${l}"`;
 }
+// Un tros en català (una resposta, una forma) dins d'un text de la interfície traduït, amb
+// lang="ca". Apagada, o amb el català triat, el text sol, com sempre.
+function caTxi(html) { return idiomaInterficie() === 'ca' ? html : `<span lang="ca">${html}</span>`; }
+function langCaTxi() { return idiomaInterficie() === 'ca' ? '' : ' lang="ca"'; }
 // La barra de baix i el desplegable de nivells són HTML fix. El català és allà i aquí, per
 // poder-hi tornar si es canvia l'idioma; una prova vigila que tots dos diguin el mateix.
 // nom: el title i l'aria-label del botó.
@@ -1780,11 +1916,17 @@ function showMasteryBonusToast() {
   el.innerHTML = `<span style="font-size:22px;">🌟</span><div><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">DOMINI MÀXIM</div>+25 XP de bonus!</div>`;
   mostraToast(el, 4000);
 }
+// El missatge d'ànim del tema, o el general, en l'idioma de la interfície.
+function missatgeAnim(category) {
+  const clau = ENCOURAGEMENT[category] ? category : 'default';
+  const l = idiomaInterficie();
+  return (l !== 'ca' && ENCOURAGEMENT_TRADUIT[l]?.[clau]) || ENCOURAGEMENT[clau];
+}
 function showEncouragement(category) {
-  const msg = ENCOURAGEMENT[category] || ENCOURAGEMENT['default'];
   const el = document.createElement('div');
   el.className = 'ct-encouragement';
-  el.textContent = msg;
+  el.textContent = missatgeAnim(category);
+  if (idiomaInterficie() !== 'ca') el.lang = idiomaInterficie();
   const fa = document.getElementById('feedback-area');
   if (fa) fa.appendChild(el);
 }
@@ -2799,11 +2941,12 @@ function signesDiferents(bona, escrita) {
     else if (marques.includes('\u0327')) compte.cedilla++;
     else compte.accent++;
   });
+  // En l'idioma de la interfície (fase 2): els noms surten dins del retorn traduït.
   const noms = [];
-  if (compte.accent) noms.push(compte.accent > 1 ? 'els accents' : 'l\'accent');
-  if (compte.dieresi) noms.push(compte.dieresi > 1 ? 'les dièresis' : 'la dièresi');
-  if (compte.cedilla) noms.push(compte.cedilla > 1 ? 'les ces trencades' : 'la ce trencada');
-  return noms.join(' i ') || 'l\'accent';
+  if (compte.accent) noms.push(compte.accent > 1 ? txi('signeAccents', 'els accents') : txi('signeAccent', 'l\'accent'));
+  if (compte.dieresi) noms.push(compte.dieresi > 1 ? txi('signeDieresis', 'les dièresis') : txi('signeDieresi', 'la dièresi'));
+  if (compte.cedilla) noms.push(compte.cedilla > 1 ? txi('signeCedilles', 'les ces trencades') : txi('signeCedilla', 'la ce trencada'));
+  return noms.join(txi('signeI', ' i ')) || txi('signeAccent', 'l\'accent');
 }
 // La primera paraula d'«accentsEstrictes» que la persona ha escrit amb un altre accent, o
 // null. «bona» i «escrita» ja casen sense diacrítics, o sigui que tenen els mateixos mots.
@@ -2837,14 +2980,14 @@ function checkFill() {
   // l'altra és bona. Sense formes declarades, la llista és la de sempre.
   const alts = q.answers.filter(a => a !== escrita && (norm(a) !== val || formes[a] || formes[escrita]));
   const ambEtiqueta = a => formes[a] ? `${a} (${formes[a].etiqueta})` : a;
-  const nota = ok && formes[escrita] ? `<br>ℹ️ ${formes[escrita].nota}` : '';
+  const nota = ok && formes[escrita] ? `<br>ℹ️ ${caTxi(formes[escrita].nota)}` : '';
   // Si només ha fallat el diacrític en un exercici de diacrítics, dir-ho: és
   // justament la lliçó. I dir-ne el nom que toca — a la categoria de la dièresi,
   // parlar d'«accent» confon exactament allò que s'hi ensenya.
   const quasi = !ok && q.strictAccents
     && q.answers.find(a => normalize(a) === normalize(input.value));
   const marca = quasi && /[ïü]/i.test(quasi) !== /[ïü]/i.test(input.value)
-    ? 'la dièresi' : 'l\'accent';
+    ? txi('signeDieresi', 'la dièresi') : txi('signeAccent', 'l\'accent');
   // Fora dels exercicis estrictes, normalize() perdona els diacrítics: «cafe» no és un
   // error. Però els accents són ortografia (decisió de l'usuari, 15/10): és «gairebé», no
   // es perd res però el domini no puja, i l'exercici torna al repàs fins que s'escriu bé.
@@ -2864,19 +3007,25 @@ function checkFill() {
   // Amb els accents comptats: «en que» no és «en què», és l'error de sempre.
   const noDemanada = !ok && !quasi
     && (q.noDemanades || []).find(a => normalizeStrict(a) === normalizeStrict(input.value));
-  const altres = alts.length ? `${nota ? '<br>' : ' '}Altres formes vàlides: <strong>${alts.map(ambEtiqueta).join(', ')}</strong>.` : '';
+  const llistaAltres = alts.map(ambEtiqueta).join(', ');
+  const altres = alts.length ? `${nota ? '<br>' : ' '}${txi('exAltresFormes', `Altres formes vàlides: <strong>${llistaAltres}</strong>.`, { formes: caTxi(llistaAltres) })}` : '';
+  // Des del 16/10 (ACCENTS_ESTRICTES) no surt mai: no es tradueix.
   const fixat = bona && !accentsNous ? `<br>Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>.` : '';
+  // Fase 2 (pas 3): el retorn en l'idioma de la interfície; la resposta i les formes, en
+  // català (caTxi).
+  const signes = bona ? signesDiferents(bona, input.value) : '';
+  const signesCanvia = canviaParaula ? signesDiferents(canviaParaula.bona, canviaParaula.escrita) : '';
   document.getElementById('feedback-area').innerHTML = bona && accentsNous
-    ? `<div class="ct-feedback quasi">≈ Gairebé. Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>. Et tornarà a sortir al repàs.${nota}${altres}</div>`
+    ? `<div class="ct-feedback quasi"${langTxi()}>≈ ${txi('exGairebe', `Gairebé. Fixa't en ${signes}: s'escriu <strong>${bona}</strong>. Et tornarà a sortir al repàs.`, { signes, bona: caTxi(bona) })}${nota}${altres}</div>`
     : ok
-    ? `<div class="ct-feedback ok">✓ Correcte!${fixat}${nota}${altres}</div>`
+    ? `<div class="ct-feedback ok"${langTxi()}>✓ ${txi('exCorrecte', 'Correcte!')}${fixat}${nota}${altres}</div>`
     : canviaParaula
-    ? `<div class="ct-feedback ko">✗ Gairebé! Sense ${signesDiferents(canviaParaula.bona, canviaParaula.escrita)}, «${canviaParaula.bona}» és una altra paraula: la resposta és <strong>${respostaEstricta}</strong></div>`
+    ? `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exCanviaParaula', `Gairebé! Sense ${signesCanvia}, «${canviaParaula.bona}» és una altra paraula: la resposta és <strong>${respostaEstricta}</strong>`, { signes: signesCanvia, paraula: caTxi(canviaParaula.bona), resposta: caTxi(respostaEstricta) })}</div>`
     : quasi
-      ? `<div class="ct-feedback ko">✗ Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong></div>`
+      ? `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exQuasiEstricte', `Gairebé! Aquí ${marca} ho és tot: la resposta és <strong>${quasi}</strong>`, { signe: marca, resposta: caTxi(quasi) })}</div>`
     : noDemanada
-      ? `<div class="ct-feedback ko">✗ «${noDemanada}» també és correcte, però aquí es demana: <em>${q.display}</em>. La resposta és: <strong>${q.answers[0]}</strong></div>`
-      : `<div class="ct-feedback ko">✗ No és correcte. La resposta és: <strong>${q.answers[0]}</strong></div>`;
+      ? `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exNoDemanada', `«${noDemanada}» també és correcte, però aquí es demana: <em>${q.display}</em>. La resposta és: <strong>${q.answers[0]}</strong>`, { forma: caTxi(noDemanada), demanada: caTxi(q.display), resposta: caTxi(q.answers[0]) })}</div>`
+      : `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exNoCorrecte', `No és correcte. La resposta és: <strong>${q.answers[0]}</strong>`, { resposta: caTxi(q.answers[0]) })}</div>`;
   showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, input.value, q.answers.join(' / '));
   markDone(ok, 10, accentsNous && !!bona);
@@ -2924,8 +3073,8 @@ function checkReorder() {
   const ok = allCorrect.some(order => cur.every((p,i)=>p===order[i]));
   const mainOrder = allCorrect[0];
   document.getElementById('feedback-area').innerHTML = ok
-    ? `<div class="ct-feedback ok">✓ Ordre perfecte!</div>`
-    : `<div class="ct-feedback ko">✗ L'ordre correcte és:<br><ol style="margin-top:8px;padding-left:18px;line-height:1.8;">${mainOrder.map(p=>`<li>${p}</li>`).join('')}</ol></div>`;
+    ? `<div class="ct-feedback ok"${langTxi()}>✓ ${txi('exOrdrePerfecte', 'Ordre perfecte!')}</div>`
+    : `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exOrdreCorrecte', 'L\'ordre correcte és:')}<br><ol style="margin-top:8px;padding-left:18px;line-height:1.8;"${langCaTxi()}>${mainOrder.map(p=>`<li>${p}</li>`).join('')}</ol></div>`;
   showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, cur.join(' / '), mainOrder.join(' / '));
   markDone(ok, 15);
@@ -2934,12 +3083,14 @@ function checkReorder() {
 function showTheory(q, ok = true, explicacio = null) {
   // Després d'un error, la teoria sencera del tema a un toc (exercicis primer, 4/4).
   const teoria = !ok && THEORY[q.category]
-    ? `<div style="margin-top:10px;"><button type="button" onclick="obreTeoriaTema()" style="background:none;border:none;padding:4px 0;font:inherit;font-weight:600;color:inherit;text-decoration:underline;cursor:pointer;">📖 Mira la teoria del tema</button></div>`
+    ? `<div style="margin-top:10px;"><button type="button" onclick="obreTeoriaTema()" style="background:none;border:none;padding:4px 0;font:inherit;font-weight:600;color:inherit;text-decoration:underline;cursor:pointer;"${langTxi()}>📖 ${txi('exMiraTeoria', 'Mira la teoria del tema')}</button></div>`
     : '';
+  // Fase 2 (pas 3): les etiquetes, en l'idioma de la interfície; l'explicació, la nota i
+  // l'exemple, en català (hereten el lang="ca" de l'arrel).
   document.getElementById('theory-area').innerHTML = `
     <div class="ct-theory">
-      ${explicacio ? `<strong>Per què no:</strong> ${explicacio}<br><br>` : ''}<strong>Nota gramatical:</strong> ${q.theory}<br><br>
-      <strong>Exemple:</strong> <em>${q.example||q.sample||''}</em>${teoria}
+      ${explicacio ? `<strong${langTxi()}>${txi('exPerQueNo', 'Per què no:')}</strong> ${explicacio}<br><br>` : ''}<strong${langTxi()}>${txi('exNotaGramatical', 'Nota gramatical:')}</strong> ${q.theory}<br><br>
+      <strong${langTxi()}>${txi('exExemple', 'Exemple:')}</strong> <em>${q.example||q.sample||''}</em>${teoria}
     </div>`;
 }
 
@@ -2960,10 +3111,10 @@ function obreTeoriaTema(categoria = null) {
   el.innerHTML = `<div style="background:var(--bg);border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">
         <div style="font-family:'Fraunces',serif;font-size:19px;color:var(--heading);line-height:1.25;">${th.icon} ${escText(nom)}${nomTraduitHTML(teoriaTraduida(nom))}</div>
-        <button type="button" class="ct-btn secondary" style="padding:6px 12px;font-size:13px;flex-shrink:0;" onclick="document.getElementById('teoria-modal').remove()">Tanca</button>
+        <button type="button" class="ct-btn secondary" style="padding:6px 12px;font-size:13px;flex-shrink:0;" onclick="document.getElementById('teoria-modal').remove()"${langTxi()}>${txi('tancar', 'Tanca')}</button>
       </div>
       ${teoriaCosHTML(nom)}
-      <button type="button" class="ct-btn primary" style="width:100%;margin-top:8px;" onclick="document.getElementById('teoria-modal').remove()">${categoria ? 'Tanca' : 'Torna a l\'exercici'}</button>
+      <button type="button" class="ct-btn primary" style="width:100%;margin-top:8px;" onclick="document.getElementById('teoria-modal').remove()"${langTxi()}>${categoria ? txi('tancar', 'Tanca') : txi('exTornaExercici', 'Torna a l\'exercici')}</button>
     </div>`;
   document.body.appendChild(el);
 }
@@ -3707,24 +3858,26 @@ function mostraCorreccioDubtosa(q, resposta, bona) {
   const codi = q.id + (q._variant ? `#v${q._variant}` : '');
   const retalla = t => t.length > 300 ? t.slice(0, 300) + '…' : t;
   const frase = (q.type === 'reading' || q.type === 'listen') ? '' : textPla(q.sentence || q.text);   // la lectura, sencera, no hi cap
+  // Fase 2 (pas 3): el text i les etiquetes del cos, en l'idioma de la interfície (qui
+  // escriu ha d'entendre on va el perquè); l'assumpte, en català, per trobar-lo a la safata.
   const linies = [
-    `Exercici: ${codi}`,
-    `Pregunta: ${retalla(textPla(q.question))}`,
-    ...(frase ? [`Frase: ${retalla(frase)}`] : []),
-    `La meva resposta: ${textPla(resposta)}`,
-    `La resposta de l'app: ${textPla(bona)}`,
+    `${txi('exCorreuExercici', 'Exercici:')} ${codi}`,
+    `${txi('exCorreuPregunta', 'Pregunta:')} ${retalla(textPla(q.question))}`,
+    ...(frase ? [`${txi('exCorreuFrase', 'Frase:')} ${retalla(frase)}`] : []),
+    `${txi('exCorreuMeva', 'La meva resposta:')} ${textPla(resposta)}`,
+    `${txi('exCorreuApp', 'La resposta de l\'app:')} ${textPla(bona)}`,
     '',
-    'Per què crec que la meva també és bona:',
+    txi('exCorreuPerQue', 'Per què crec que la meva també és bona:'),
     '',
   ];
   const href = `mailto:${CORREU_CORRECCIONS}?subject=${encodeURIComponent('Correcció dubtosa: ' + codi)}`
     + `&amp;body=${encodeURIComponent(linies.join('\r\n'))}`;
-  el.innerHTML = `<div style="margin-top:14px;text-align:center;font-size:12px;line-height:1.5;color:var(--muted);">
-      Creus que la teva resposta era bona?
+  el.innerHTML = `<div style="margin-top:14px;text-align:center;font-size:12px;line-height:1.5;color:var(--muted);"${langTxi()}>
+      ${txi('exDubtosaPregunta', 'Creus que la teva resposta era bona?')}
       <a href="${href}" onclick="document.getElementById('report-adreca').hidden = false"
-        style="color:var(--muted);text-decoration:underline;padding:4px 0;">Avisa'ns</a>.
-      T'ho agrairem, i el teu progrés no canvia.
-      <div id="report-adreca" hidden style="margin-top:4px;">Si no se t'ha obert el correu, escriu a <strong>${CORREU_CORRECCIONS}</strong> amb el codi <strong style="white-space:nowrap;">${escText(codi)}</strong>.</div>
+        style="color:var(--muted);text-decoration:underline;padding:4px 0;">${txi('exAvisans', 'Avisa\'ns')}</a>.
+      ${txi('exDubtosaGracies', 'T\'ho agrairem, i el teu progrés no canvia.')}
+      <div id="report-adreca" hidden style="margin-top:4px;">${txi('exDubtosaAdreca', `Si no se t'ha obert el correu, escriu a <strong>${CORREU_CORRECCIONS}</strong> amb el codi <strong style="white-space:nowrap;">${escText(codi)}</strong>.`, { adreca: CORREU_CORRECCIONS, codi: escText(codi) })}</div>
     </div>`;
 }
 
@@ -3916,7 +4069,7 @@ function markDone(ok, xp, gairebe = false) {
     const el = document.getElementById('theory-area');
     if (el) {
       const arrow = newM > prev ? '⬆️' : '⬇️';
-      el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:6px;text-align:right;">${arrow} Domini: ${newM}/5</div>`;
+      el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:6px;text-align:right;"${langTxi()}>${arrow} ${txi('exDominiCanvi', `Domini: ${newM}/5`, { n: newM })}</div>`;
     }
   }
 
@@ -3925,9 +4078,9 @@ function markDone(ok, xp, gairebe = false) {
     const el = document.getElementById('theory-area');
     if (el) {
       const msg = xpDecayNote === 'zero'
-        ? `🌱 <strong>Ja has practicat prou aquest exercici per avui!</strong> Repetir-lo més vegades seguides ja no suma XP, i està bé que sigui així. El que de debò fixa un tema és tornar-hi <strong>un altre dia</strong>: la repetició espaiada (no la continuada) és el secret per dominar-lo de veritat. Ara passa al següent exercici i segueix avançant! 💪`
-        : `🌱 Aquesta repetició suma menys XP, i no passa res. Per consolidar de debò un tema, el que funciona és <strong>tornar-hi en dies diferents</strong> més que repetir-lo molts cops seguits. Vas pel bon camí!`;
-      el.innerHTML += `<div style="font-size:12.5px;line-height:1.5;color:var(--accent-green-text);background:var(--accent-green-bg);border-radius:10px;padding:10px 12px;margin-top:8px;">${msg}</div>`;
+        ? txi('exRepeticioZero', `<strong>Ja has practicat prou aquest exercici per avui!</strong> Repetir-lo més vegades seguides ja no suma XP, i està bé que sigui així. El que de debò fixa un tema és tornar-hi <strong>un altre dia</strong>: la repetició espaiada (no la continuada) és el secret per dominar-lo de veritat. Ara passa al següent exercici i segueix avançant! 💪`)
+        : txi('exRepeticioMenys', `Aquesta repetició suma menys XP, i no passa res. Per consolidar de debò un tema, el que funciona és <strong>tornar-hi en dies diferents</strong> més que repetir-lo molts cops seguits. Vas pel bon camí!`);
+      el.innerHTML += `<div style="font-size:12.5px;line-height:1.5;color:var(--accent-green-text);background:var(--accent-green-bg);border-radius:10px;padding:10px 12px;margin-top:8px;"${langTxi()}>🌱 ${msg}</div>`;
     }
   }
 }
