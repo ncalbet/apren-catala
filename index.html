@@ -2030,7 +2030,7 @@ function showFreezeToast(n) {
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
   const queden = progress.freezes === 1
-    ? txi('gelSalvat1', 'Has salvat la ratxa! Et queden 1 gel.')
+    ? txi('gelSalvat1', 'Has salvat la ratxa! Et queda 1 gel.')
     : txi('gelSalvatN', `Has salvat la ratxa! Et queden ${progress.freezes} gels.`, { n: progress.freezes });
   el.innerHTML = `<span style="font-size:22px;">🛡️</span><div${langTxi()}><div style="font-size:11px;opacity:0.8;margin-bottom:1px;">${txi('gelEtiqueta', 'GEL DE RATXA')}</div>${queden}</div>`;
   mostraToast(el, 4000);
