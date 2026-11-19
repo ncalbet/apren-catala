@@ -1001,6 +1001,23 @@ const TRADUCCIONS = {
     tipusChoice: 'Opción múltiple', tipusFill: 'Rellenar huecos', tipusReorder: 'Ordenar', tipusReading: 'Comprensión', tipusListen: 'Escucha',
     nExercicis: '{n} ejercicios',
     llegeixTeoria: 'Lee la teoría del tema',
+    // La pantalla de l'exercici, abans de respondre (fase 2, pas 3). El tema, en català sense
+    // glossa (a 360 px no hi cap); «Forma:» (A2 amunt) i la microteoria (B1), en català.
+    // «Siguiente →» és la clau «seguent» de la benvinguda.
+    exRepteDiari: 'RETO DIARIO',
+    exTeoria: 'Teoría',
+    exDomini: 'Dominio {n}/5',
+    exDominiTitol: 'Tu dominio de este ejercicio (de 0 a 5). Sube cuando lo aciertas y baja si fallas.',
+    exComprovar: 'Comprobar',
+    exOrdenaBlocs: 'Ordena los bloques: con las flechas ▲ ▼ mueves cada bloque arriba o abajo. También puedes tocar dos para intercambiarlos, o arrastrarlos.',
+    exComprovarOrdre: 'Comprobar el orden',
+    exMouAmunt: 'Subir', exMouAvall: 'Bajar',
+    exEscolta: 'Escuchar', exTornaEscoltar: 'Volver a escuchar', exPara: 'Parar',
+    exAudioNoCarrega: 'No se ha podido cargar el audio.', exAudioNoReprodueix: 'No se ha podido reproducir el audio.',
+    exEscoltaTria: 'Escucha y elige la respuesta.',
+    exAraNoPuc: 'Ahora no puedo escuchar',
+    exEscriuResposta: 'Escribe una respuesta primero.',
+    dacord: 'De acuerdo',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -1170,6 +1187,21 @@ const TRADUCCIONS = {
     tipusChoice: 'Multiple choice', tipusFill: 'Fill in the gaps', tipusReorder: 'Put in order', tipusReading: 'Reading', tipusListen: 'Listening',
     nExercicis: '{n} exercises',
     llegeixTeoria: 'Read the theory for this topic',
+    // La pantalla de l'exercici, abans de respondre (fase 2, pas 3)
+    exRepteDiari: 'DAILY CHALLENGE',
+    exTeoria: 'Theory',
+    exDomini: 'Mastery {n}/5',
+    exDominiTitol: 'Your mastery of this exercise (0 to 5). It goes up when you get it right and down when you get it wrong.',
+    exComprovar: 'Check',
+    exOrdenaBlocs: 'Put the blocks in order: the ▲ ▼ arrows move each block up or down. You can also tap two blocks to swap them, or drag them.',
+    exComprovarOrdre: 'Check the order',
+    exMouAmunt: 'Move up', exMouAvall: 'Move down',
+    exEscolta: 'Listen', exTornaEscoltar: 'Listen again', exPara: 'Stop',
+    exAudioNoCarrega: "The audio couldn't be loaded.", exAudioNoReprodueix: "The audio couldn't be played.",
+    exEscoltaTria: 'Listen and choose the answer.',
+    exAraNoPuc: "I can't listen right now",
+    exEscriuResposta: 'Type your answer first.',
+    dacord: 'OK',
   },
 };
 function tx(clau, ca, vars) {
@@ -2526,7 +2558,7 @@ function renderExercise() {
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;">
-      ${currentSession.isDailyChallenge ? `<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:0.5px;color:#f59e0b;margin-bottom:4px;">🎯 REPTE DIARI</div>` : ''}
+      ${currentSession.isDailyChallenge ? `<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:0.5px;color:#f59e0b;margin-bottom:4px;"${langTxi()}>🎯 ${txi('exRepteDiari', 'REPTE DIARI')}</div>` : ''}
       <div class="ct-step">${idx+1} / ${items.length}</div>
       <div class="ct-progress-bar"><div class="ct-progress-fill" style="width:${pct}%"></div></div>
       <div class="ct-card">
@@ -2534,10 +2566,10 @@ function renderExercise() {
           <div>
             <span class="ct-badge ${q.level||'b2'}">${(q.level||'b2').toUpperCase()}</span>
             <span style="font-size:11px;color:var(--muted);margin-left:6px;">${q.category}</span>
-            ${THEORY[q.category] ? `<button type="button" onclick="obreTeoriaTema()" style="background:none;border:1px solid var(--border);border-radius:10px;padding:1px 8px;margin-left:6px;font-size:11px;color:var(--muted);cursor:pointer;">📖 Teoria</button>` : ''}
+            ${THEORY[q.category] ? `<button type="button" onclick="obreTeoriaTema()" style="background:none;border:1px solid var(--border);border-radius:10px;padding:1px 8px;margin-left:6px;font-size:11px;color:var(--muted);cursor:pointer;"${langTxi()}>📖 ${txi('exTeoria', 'Teoria')}</button>` : ''}
           </div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0;" title="El teu domini d'aquest exercici (de 0 a 5). Puja quan l'encertes i baixa si falles.">
-            Domini ${getMastery(q.id)}/5 ${masteryHTML(q.id)}
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0;" title="${txi('exDominiTitol', "El teu domini d'aquest exercici (de 0 a 5). Puja quan l'encertes i baixa si falles.")}"${langTxi()}>
+            ${txi('exDomini', `Domini ${getMastery(q.id)}/5`, { n: getMastery(q.id) })} ${masteryHTML(q.id)}
           </div>
         </div>
         ${microteoriaHTML(q)}
@@ -2546,7 +2578,7 @@ function renderExercise() {
         <div id="feedback-area"></div>
         <div id="theory-area"></div>
         <div class="ct-nav-row" id="nav-row" style="display:none;">
-          <button class="ct-btn secondary" onclick="goNext()">Següent →</button>
+          <button class="ct-btn secondary" onclick="goNext()"${langTxi()}>${txi('seguent', 'Següent →')}</button>
         </div>
         <div id="report-area"></div>
       </div>
@@ -2591,7 +2623,7 @@ function renderFill(q) {
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
     <div class="ct-sentence">${sentenceHTML}</div>
     ${q.display ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Forma: <em>${q.display}</em></div>` : ''}
-    <button class="ct-btn primary" onclick="checkFill()">Comprovar</button>`;
+    <button class="ct-btn primary" onclick="checkFill()"${langTxi()}>${txi('exComprovar', 'Comprovar')}</button>`;
 }
 function reorderBlockHTML(parts) {
   const n = parts.length;
@@ -2599,8 +2631,8 @@ function reorderBlockHTML(parts) {
     <div class="ct-part" draggable="true" data-idx="${i}" ondragstart="onDragStart(${i})" ondragover="onDragOver(event,${i})" ondrop="onDrop(${i})" onclick="onTapSelect(${i})" onkeydown="if(event.key==='Enter'||event.key===' ')onTapSelect(${i})" role="button" tabindex="0">
       <span class="ct-handle">⠿</span><span style="flex:1;">${p}</span>
       <span class="ct-move">
-        <button type="button" class="ct-move-btn" ${i===0?'disabled':''} onclick="moveReorderBlock(${i},-1,event)" aria-label="Mou amunt">▲</button>
-        <button type="button" class="ct-move-btn" ${i===n-1?'disabled':''} onclick="moveReorderBlock(${i},1,event)" aria-label="Mou avall">▼</button>
+        <button type="button" class="ct-move-btn" ${i===0?'disabled':''} onclick="moveReorderBlock(${i},-1,event)" aria-label="${txi('exMouAmunt', 'Mou amunt')}"${langTxi()}>▲</button>
+        <button type="button" class="ct-move-btn" ${i===n-1?'disabled':''} onclick="moveReorderBlock(${i},1,event)" aria-label="${txi('exMouAvall', 'Mou avall')}"${langTxi()}>▼</button>
       </span>
     </div>`).join('');
 }
@@ -2631,9 +2663,9 @@ function renderReorder(q) {
   const shuffled = shuffleReorderParts(q);
   window._reorder_parts = shuffled;
   return `${q.text ? `<p style="font-size:15px;color:var(--text-soft);margin-bottom:12px;line-height:1.55;">${q.text}</p>` : ''}
-    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Ordena els blocs: amb les fletxes ▲ ▼ mous cada bloc amunt o avall. També pots tocar-ne dos per intercanviar-los, o arrossegar-los.</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;"${langTxi()}>${txi('exOrdenaBlocs', 'Ordena els blocs: amb les fletxes ▲ ▼ mous cada bloc amunt o avall. També pots tocar-ne dos per intercanviar-los, o arrossegar-los.')}</p>
     <div class="ct-parts" id="reorder-list">${reorderBlockHTML(shuffled)}</div>
-    <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()">Comprovar ordre</button>`;
+    <button class="ct-btn primary" style="margin-top:10px;" onclick="checkReorder()"${langTxi()}>${txi('exComprovarOrdre', 'Comprovar ordre')}</button>`;
 }
 function renderReading(q) {
   return `<div style="background:var(--surface);border-radius:10px;padding:16px;font-size:14px;line-height:1.7;color:var(--text-soft);margin-bottom:16px;border-left:3px solid var(--c1-line);">${q.text}</div>
@@ -2644,8 +2676,8 @@ function renderReading(q) {
 function audioHTML(q, dins) {
   if (!q.audio) return '';
   return `<div style="display:flex;align-items:center;gap:10px;margin:${dins ? '0' : '-6px 0 16px'};">
-      <button type="button" class="ct-btn secondary" id="ct-audio-btn" style="padding:8px 14px;" onclick="escolta()">🔊 Escolta</button>
-      <span id="ct-audio-estat" style="font-size:12px;color:var(--muted);" aria-live="polite"></span>
+      <button type="button" class="ct-btn secondary" id="ct-audio-btn" style="padding:8px 14px;" onclick="escolta()"${langTxi()}>🔊 ${txi('exEscolta', 'Escolta')}</button>
+      <span id="ct-audio-estat" style="font-size:12px;color:var(--muted);" aria-live="polite"${langTxi()}></span>
     </div>`;
 }
 function escolta() {
@@ -2654,24 +2686,25 @@ function escolta() {
   const btn = document.getElementById('ct-audio-btn');
   const estat = document.getElementById('ct-audio-estat');
   const posa = (text, avis) => { if (btn) btn.textContent = text; if (estat) estat.textContent = avis || ''; };
-  if (_audio && !_audio.paused) { aturaAudio(); posa('🔊 Escolta'); return; }
+  const escoltaText = '🔊 ' + txi('exEscolta', 'Escolta');
+  if (_audio && !_audio.paused) { aturaAudio(); posa(escoltaText); return; }
   aturaAudio();
   const a = new Audio(`audio/${q.audio}`);
   _audio = a;
-  a.onended = () => { if (_audio === a) _audio = null; posa('🔊 Torna-ho a escoltar'); };
-  a.onerror = () => { if (_audio === a) _audio = null; posa('🔊 Escolta', "No s'ha pogut carregar l'àudio."); };
-  posa('⏸ Para');
+  a.onended = () => { if (_audio === a) _audio = null; posa('🔊 ' + txi('exTornaEscoltar', 'Torna-ho a escoltar')); };
+  a.onerror = () => { if (_audio === a) _audio = null; posa(escoltaText, txi('exAudioNoCarrega', "No s'ha pogut carregar l'àudio.")); };
+  posa('⏸ ' + txi('exPara', 'Para'));
   const p = a.play();
-  if (p && p.catch) p.catch(() => { if (_audio === a) _audio = null; posa('🔊 Escolta', "No s'ha pogut reproduir l'àudio."); });
+  if (p && p.catch) p.catch(() => { if (_audio === a) _audio = null; posa(escoltaText, txi('exAudioNoReprodueix', "No s'ha pogut reproduir l'àudio.")); });
 }
 // ══ ESCOLTA (tipus «listen») ══
 // Només l'àudio, la pregunta i les opcions; la transcripció (q.text) surt en respondre.
 function renderListen(q) {
   return `<div style="background:var(--surface);border-radius:10px;padding:16px;margin-bottom:16px;border-left:3px solid var(--c1-line);">
-      <div style="font-size:13px;color:var(--muted);margin-bottom:10px;">🎧 Escolta i tria la resposta.</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:10px;"${langTxi()}>🎧 ${txi('exEscoltaTria', 'Escolta i tria la resposta.')}</div>
       ${audioHTML(q, true)}
       <div id="ct-transcripcio" style="display:none;font-size:14px;line-height:1.7;color:var(--text-soft);margin-top:12px;"></div>
-      <button type="button" id="ct-sense-audio" onclick="senseAudio()" style="background:none;border:none;padding:0;margin-top:12px;font-size:12px;color:var(--muted);text-decoration:underline;cursor:pointer;">Ara no puc escoltar</button>
+      <button type="button" id="ct-sense-audio" onclick="senseAudio()" style="background:none;border:none;padding:0;margin-top:12px;font-size:12px;color:var(--muted);text-decoration:underline;cursor:pointer;"${langTxi()}>${txi('exAraNoPuc', 'Ara no puc escoltar')}</button>
     </div>
     ${shuffledOptionsHTML(q)}`;
 }
@@ -2790,7 +2823,7 @@ function checkFill() {
   const input = document.getElementById('fill-in');
   const norm = q.strictAccents ? normalizeStrict : normalize;
   const val = norm(input.value);
-  if (!val) { showAlert('Escriu una resposta primer.'); return; }
+  if (!val) { showAlert(txi('exEscriuResposta', 'Escriu una resposta primer.'), true); return; }
   currentSession.answered = true;
   input.disabled = true;
   let ok = q.answers.some(a => norm(a) === val);
@@ -7212,10 +7245,11 @@ function initBackHandler() {
 }
 
 /* ══ MODALS ══ */
-function showAlert(msg) {
+// interficie: el missatge ve de txi() (fase 2): el botó i el lang, en el mateix idioma.
+function showAlert(msg, interficie = false) {
   const el = document.createElement('div');
   el.className = 'ct-modal-overlay';
-  el.innerHTML = `<div class="ct-modal"><p>${msg}</p><button class="ct-btn primary" onclick="this.closest('.ct-modal-overlay').remove()">D'acord</button></div>`;
+  el.innerHTML = `<div class="ct-modal"${interficie ? langTxi() : ''}><p>${msg}</p><button class="ct-btn primary" onclick="this.closest('.ct-modal-overlay').remove()">${interficie ? txi('dacord', "D'acord") : "D'acord"}</button></div>`;
   document.body.appendChild(el);
 }
 function showConfirm(msg, onConfirm) {
