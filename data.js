@@ -3925,7 +3925,7 @@ const DATA = {
       audio:'a1/a1-u10-07-v1.mp3',
       options:['Un cafè amb llet','Un te sense sucre','Un entrepà de formatge'],
       correct:0,
-      theory:"Cada persona demana una cosa: la Marta, «un cafè amb llet»; l'altra, «un te sense sucre».",
+      theory:"La Marta demana «un cafè amb llet»; l'altra persona, «un te sense sucre» i «un entrepà de formatge».",
       example:'Un cafè amb llet, si us plau.' },
 
     { id:'a1-u10-08', type:'listen', level:'a1', category:'Menjar i beure',
