@@ -6481,7 +6481,7 @@ function idiomaPerfilHTML() {
       <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
 
       <div style="font-family:'Fraunces',serif;font-size:18px;color:var(--heading);margin-bottom:6px;"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Idioma de les explicacions</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;">L'ajuda i la teoria de l'A1. Els exercicis i els menús són sempre en català.</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;">${interficieActiva() ? "Els menús, l'ajuda i la teoria de l'A1. Els exercicis són sempre en català." : "L'ajuda i la teoria de l'A1. Els exercicis i els menús són sempre en català."}</p>
       <div id="idioma-perfil" style="display:flex;gap:8px;">
         ${IDIOMA_OPCIONS.map(o => `<button type="button" class="ct-btn ${o.id === actual ? 'primary' : 'secondary'}" lang="${o.id}" style="flex:1;margin:0;padding:9px 6px;font-size:14px;" aria-pressed="${o.id === actual}" onclick="canviaIdioma('${o.id}')">${o.nom}</button>`).join('')}
       </div>`;
