@@ -15,8 +15,9 @@
 // · El català citat, tal qual: entre «» en castellà i entre ‘’ en anglès.
 // · Glossa entre parèntesis («viure» (vivir), ‘jo’ (I)) només on cal per entendre què es
 //   demana, i mai on el mot és el que pregunta l'exercici (decisió de l'usuari, 20/11).
-// Cada tema, revisat per l'usuari abans d'entrar-hi (20/11: «Salutacions»; «Demanar ajuda»,
-// «Presentacions» i «Persones properes»).
+// Cada tema, revisat per l'usuari abans d'entrar-hi: els dotze de l'A1, el 20/11 («Salutacions»;
+// «Demanar ajuda», «Presentacions» i «Persones properes»; «Casa i objectes», «El barri» i
+// «Rutines»; «Dies i hores», «Compres» i «Menjar i beure»; «Necessitats» i «Quedar amb algú»).
 const EXERCICIS_TRADUITS = {
   // ── SALUTACIONS ──
   'a1-u01-01': [
@@ -2093,6 +2094,424 @@ const EXERCICIS_TRADUITS = {
         ca: '«No gaire» vol dir que agrada poc: el te. El cafè li agrada més, i les maduixes, molt.',
         es: '«No gaire» quiere decir que gusta poco: el té. El café le gusta más, y las fresas, mucho.',
         en: "‘No gaire’ means not much: that's the tea. They like coffee more, and strawberries a lot.",
+      },
+    },
+  ],
+  // ── NECESSITATS ──
+  'a1-u11-01': [
+    {
+      question: {
+        ca: 'Necessites beure aigua. Quina frase ho expressa?',
+        es: 'Necesitas beber agua. ¿Qué frase lo expresa?',
+        en: 'You need to drink water. Which sentence says that?',
+      },
+      theory: {
+        ca: 'La set és la necessitat de beure.',
+        es: 'La sed es la necesidad de beber.',
+        en: 'Thirst is the need to drink.',
+      },
+    },
+    {
+      question: {
+        ca: 'Necessites menjar. Quina frase ho expressa?',
+        es: 'Necesitas comer. ¿Qué frase lo expresa?',
+        en: 'You need to eat. Which sentence says that?',
+      },
+      theory: {
+        ca: 'La gana és la necessitat de menjar.',
+        es: 'El hambre es la necesidad de comer.',
+        en: 'Hunger is the need to eat.',
+      },
+    },
+    {
+      question: {
+        ca: 'Necessites dormir. Quina frase ho expressa?',
+        es: 'Necesitas dormir. ¿Qué frase lo expresa?',
+        en: 'You need to sleep. Which sentence says that?',
+      },
+      theory: {
+        ca: 'La son és la necessitat de dormir.',
+        es: 'El sueño es la necesidad de dormir.',
+        en: 'Sleepiness is the need to sleep.',
+      },
+    },
+  ],
+  'a1-u11-02': [
+    {
+      question: {
+        ca: 'Completa amb una forma de «tenir».',
+        es: 'Completa con una forma de «tenir» (tener).',
+        en: 'Fill in a form of ‘tenir’ (to have).',
+      },
+      theory: {
+        ca: 'Amb «jo», la forma és «tinc»: «tinc fred».',
+        es: 'Con «jo», la forma es «tinc»: «tinc fred» (tengo frío).',
+        en: "With ‘jo’ (I), the form is ‘tinc’: ‘tinc fred’ (I'm cold).",
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb «tenir» en present.',
+        es: 'Completa con «tenir» (tener) en presente.',
+        en: 'Fill in ‘tenir’ (to have) in the present tense.',
+      },
+      theory: {
+        ca: 'Amb «tu» diem «tens gana».',
+        es: 'Con «tu» decimos «tens gana» (tienes hambre).',
+        en: "With ‘tu’ (you), we say ‘tens gana’ (you're hungry).",
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb «tenir» en present.',
+        es: 'Completa con «tenir» (tener) en presente.',
+        en: 'Fill in ‘tenir’ (to have) in the present tense.',
+      },
+      theory: {
+        ca: 'Amb «la Rita» diem «té son».',
+        es: 'Con «la Rita» decimos «té son» (tiene sueño).',
+        en: 'With ‘la Rita’, we say ‘té son’ (is sleepy).',
+      },
+    },
+  ],
+  'a1-u11-03': [
+    {
+      question: {
+        ca: 'Quina part del cos li fa mal?',
+        es: '¿Qué parte del cuerpo le duele?',
+        en: "Which part of Marc's body hurts?",
+      },
+      theory: {
+        ca: 'El text diu que li fa mal el peu.',
+        es: 'El texto dice que le duele el pie.',
+        en: "The text says that Marc's foot hurts.",
+      },
+    },
+  ],
+  'a1-u11-04': [
+    {
+      question: {
+        ca: 'Completa amb una forma del verb «fer» en present.',
+        es: 'Completa con una forma del verbo «fer» (hacer) en presente.',
+        en: 'Fill in a form of the verb ‘fer’ (to do, to make) in the present tense.',
+      },
+      theory: {
+        ca: '«Les cames» és plural: «em fan mal».',
+        es: '«Les cames» (las piernas) es plural: «em fan mal» (me duelen).',
+        en: '‘Les cames’ (legs) is plural: ‘em fan mal’ (they hurt).',
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb «fer» en present.',
+        es: 'Completa con «fer» (hacer) en presente.',
+        en: 'Fill in ‘fer’ (to do, to make) in the present tense.',
+      },
+      theory: {
+        ca: 'Amb «el cap» diem «em fa mal».',
+        es: 'Con «el cap» (la cabeza) decimos «em fa mal» (me duele).',
+        en: 'With ‘el cap’ (head), we say ‘em fa mal’ (it hurts).',
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb «fer» en present.',
+        es: 'Completa con «fer» (hacer) en presente.',
+        en: 'Fill in ‘fer’ (to do, to make) in the present tense.',
+      },
+      theory: {
+        ca: 'Amb «els peus» diem «em fan mal».',
+        es: 'Con «els peus» (los pies) decimos «em fan mal» (me duelen).',
+        en: 'With ‘els peus’ (feet), we say ‘em fan mal’ (they hurt).',
+      },
+    },
+  ],
+  'a1-u11-05': [
+    {
+      question: {
+        ca: 'Completa la frase que descriu el temps: «Avui ___ fred».',
+        es: 'Completa la frase que describe el tiempo: «Avui ___ fred».',
+        en: 'Complete the sentence about the weather: ‘Avui ___ fred’.',
+      },
+      theory: {
+        ca: '«Fa fred» descriu el temps. «Tinc fred» descriu una sensació personal.',
+        es: '«Fa fred» (hace frío) describe el tiempo. «Tinc fred» (tengo frío) describe una sensación personal.',
+        en: "‘Fa fred’ (it's cold) describes the weather. ‘Tinc fred’ (I'm cold) describes how you feel.",
+      },
+    },
+    {
+      question: {
+        ca: 'Completa la frase sobre el temps: «Avui ___ calor».',
+        es: 'Completa la frase sobre el tiempo: «Avui ___ calor».',
+        en: 'Complete the sentence about the weather: ‘Avui ___ calor’.',
+      },
+      theory: {
+        ca: '«Fa calor» descriu el temps.',
+        es: '«Fa calor» (hace calor) describe el tiempo.',
+        en: "‘Fa calor’ (it's hot) describes the weather.",
+      },
+    },
+    {
+      question: {
+        ca: 'Completa la frase sobre una sensació personal: «Jo ___ fred».',
+        es: 'Completa la frase sobre una sensación personal: «Jo ___ fred».',
+        en: 'Complete the sentence about how you feel: ‘Jo ___ fred’.',
+      },
+      theory: {
+        ca: '«Tinc fred» expressa una sensació de la persona.',
+        es: '«Tinc fred» (tengo frío) expresa una sensación de la persona.',
+        en: "‘Tinc fred’ (I'm cold) expresses how the person feels.",
+      },
+    },
+  ],
+  'a1-u11-06': [
+    {
+      question: { ca: 'Completa: «Per a aquesta activitat, he ___ portar una llibreta».' },
+      theory: {
+        ca: '«Haver de + infinitiu» expressa aquí una obligació.',
+        es: '«Haver de + infinitiu» (tener que + infinitivo) expresa aquí una obligación.',
+        en: '‘Haver de + infinitiu’ (to have to + infinitive) expresses an obligation here.',
+      },
+    },
+    {
+      question: { ca: 'Completa: «Per entrar al taller, has ___ mostrar la inscripció».' },
+      theory: {
+        ca: 'Diem «has de» per expressar una obligació.',
+        es: 'Decimos «has de» (tienes que) para expresar una obligación.',
+        en: 'We say ‘has de’ (you have to) to express an obligation.',
+      },
+    },
+    {
+      question: { ca: 'Completa: «Demà he ___ portar el llibre».' },
+      theory: {
+        ca: 'La construcció és «he de portar».',
+        es: 'La construcción es «he de portar» (tengo que traer).',
+        en: 'The pattern is ‘he de portar’ (I have to bring).',
+      },
+    },
+  ],
+  'a1-u11-07': [
+    {
+      question: {
+        ca: 'Què li fa mal a la Laia?',
+        es: '¿Qué le duele a Laia?',
+        en: 'Where does Laia hurt?',
+      },
+      theory: {
+        ca: '«Em fa mal el cap» diu quina part del cos fa mal; «tinc fred» és una sensació.',
+        es: '«Em fa mal el cap» (me duele la cabeza) dice qué parte del cuerpo duele; «tinc fred» (tengo frío) es una sensación.',
+        en: "‘Em fa mal el cap’ (my head hurts) says which part of the body hurts; ‘tinc fred’ (I'm cold) is a feeling.",
+      },
+    },
+  ],
+  'a1-u11-08': [
+    {
+      question: {
+        ca: 'Quin temps fa avui?',
+        es: '¿Qué tiempo hace hoy?',
+        en: "What's the weather like today?",
+      },
+      theory: {
+        ca: '«Plou i fa fred». Les altres dues van amb «no»: «no fa sol», «no neva».',
+        es: '«Plou i fa fred» (llueve y hace frío). Las otras dos van con «no»: «no fa sol» (no hace sol), «no neva» (no nieva).',
+        en: "‘Plou i fa fred’ (it's raining and it's cold). The other two go with ‘no’: ‘no fa sol’ (it isn't sunny), ‘no neva’ (it isn't snowing).",
+      },
+    },
+  ],
+  // ── QUEDAR AMB ALGÚ ──
+  'a1-u12-01': [
+    {
+      question: {
+        ca: 'On es trobaran?',
+        es: '¿Dónde se encontrarán?',
+        en: 'Where will they meet?',
+      },
+      theory: {
+        ca: 'El lloc indicat és davant del mercat.',
+        es: 'El lugar indicado es delante del mercado.',
+        en: 'The place given is in front of the market.',
+      },
+    },
+  ],
+  'a1-u12-02': [
+    {
+      question: {
+        ca: 'Et proposen quedar avui, però treballes i no hi pots anar. Què respons?',
+        es: 'Te proponen quedar hoy, pero trabajas y no puedes ir. ¿Qué respondes?',
+        en: "Someone suggests meeting up today, but you're working and can't go. What do you reply?",
+      },
+      theory: {
+        ca: "«Avui no puc» indica que no pots acceptar la proposta d'avui.",
+        es: '«Avui no puc» (hoy no puedo) indica que no puedes aceptar la propuesta de hoy.',
+        en: "‘Avui no puc’ (I can't today) shows you can't accept the plan for today.",
+      },
+    },
+    {
+      question: {
+        ca: 'Et proposen quedar demà i hi pots anar. Què respons per acceptar?',
+        es: 'Te proponen quedar mañana y puedes ir. ¿Qué respondes para aceptar?',
+        en: 'Someone suggests meeting up tomorrow and you can go. What do you reply to accept?',
+      },
+      theory: {
+        ca: '«Em va bé» accepta la proposta.',
+        es: '«Em va bé» (me va bien) acepta la propuesta.',
+        en: '‘Em va bé’ (that works for me) accepts the plan.',
+      },
+    },
+    {
+      question: {
+        ca: 'Et proposen quedar divendres, però tens classe. Què respons?',
+        es: 'Te proponen quedar el viernes, pero tienes clase. ¿Qué respondes?',
+        en: 'Someone suggests meeting up on Friday, but you have class. What do you reply?',
+      },
+      theory: {
+        ca: '«No puc» indica que no pots acceptar la proposta.',
+        es: '«No puc» (no puedo) indica que no puedes aceptar la propuesta.',
+        en: "‘No puc’ (I can't) shows you can't accept the plan.",
+      },
+    },
+  ],
+  'a1-u12-03': [
+    {
+      question: {
+        ca: 'Escriu el dia que falta.',
+        es: 'Escribe el día que falta.',
+        en: 'Write the missing day.',
+      },
+      theory: {
+        ca: 'Després de dimarts ve dimecres.',
+        es: 'Después del martes viene el miércoles.',
+        en: 'Wednesday comes after Tuesday.',
+      },
+    },
+    {
+      question: {
+        ca: 'Escriu el dia que falta.',
+        es: 'Escribe el día que falta.',
+        en: 'Write the missing day.',
+      },
+      theory: {
+        ca: 'Després de dijous ve divendres.',
+        es: 'Después del jueves viene el viernes.',
+        en: 'Friday comes after Thursday.',
+      },
+    },
+    {
+      question: {
+        ca: 'Escriu el dia que falta.',
+        es: 'Escribe el día que falta.',
+        en: 'Write the missing day.',
+      },
+      theory: {
+        ca: 'Després de dissabte ve diumenge.',
+        es: 'Después del sábado viene el domingo.',
+        en: 'Sunday comes after Saturday.',
+      },
+    },
+  ],
+  'a1-u12-04': [
+    {
+      question: { ca: 'Completa la resposta: «—Per què no vens? —___ treballo».' },
+      theory: {
+        ca: '«Perquè» introdueix la causa en aquesta resposta.',
+        es: '«Perquè» (porque) introduce la causa en esta respuesta.',
+        en: '‘Perquè’ (because) introduces the reason in this answer.',
+      },
+    },
+    {
+      question: { ca: 'Completa: «—Per què no vens? —___ tinc classe».' },
+      theory: {
+        ca: '«Perquè» introdueix el motiu de no venir.',
+        es: '«Perquè» (porque) introduce el motivo de no venir.',
+        en: '‘Perquè’ (because) introduces the reason for not coming.',
+      },
+    },
+    {
+      question: { ca: 'Completa: «No vinc ___ no em trobo bé».' },
+      theory: {
+        ca: '«Perquè» uneix la causa amb el que explica.',
+        es: '«Perquè» (porque) une la causa con lo que explica.',
+        en: '‘Perquè’ (because) links the reason to what it explains.',
+      },
+    },
+  ],
+  'a1-u12-05': [
+    {
+      question: {
+        ca: 'Completa amb el connector de contrast: «Vull venir, ___ no puc».',
+        es: 'Completa con el conector de contraste: «Vull venir, ___ no puc».',
+        en: 'Fill the gap with the linking word that shows contrast: ‘Vull venir, ___ no puc’.',
+      },
+      theory: {
+        ca: '«Però» contraposa la voluntat de venir i la impossibilitat de fer-ho.',
+        es: '«Però» (pero) contrapone las ganas de venir y la imposibilidad de hacerlo.',
+        en: '‘Però’ (but) contrasts wanting to come with not being able to.',
+      },
+    },
+    {
+      question: {
+        ca: "Completa amb la paraula que expressa contrast: «M'agrada el cafè, ___ ara no en vull».",
+        es: "Completa con la palabra que expresa contraste: «M'agrada el cafè, ___ ara no en vull».",
+        en: "Fill the gap with the word that shows contrast: ‘M'agrada el cafè, ___ ara no en vull’.",
+      },
+      theory: {
+        ca: "«Però» contraposa el gust i la decisió de no prendre'n.",
+        es: '«Però» (pero) contrapone el gusto por el café y la decisión de no tomarlo.',
+        en: '‘Però’ (but) contrasts liking coffee with deciding not to have any.',
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb la paraula que expressa contrast: «Vull sortir, ___ avui he de treballar».',
+        es: 'Completa con la palabra que expresa contraste: «Vull sortir, ___ avui he de treballar».',
+        en: 'Fill the gap with the word that shows contrast: ‘Vull sortir, ___ avui he de treballar’.',
+      },
+      theory: {
+        ca: '«Però» contraposa dues idees.',
+        es: '«Però» (pero) contrapone dos ideas.',
+        en: '‘Però’ (but) contrasts two ideas.',
+      },
+    },
+  ],
+  'a1-u12-06': [
+    {
+      question: {
+        ca: 'Quan i on han acordat trobar-se?',
+        es: '¿Cuándo y dónde han quedado?',
+        en: 'When and where have they agreed to meet?',
+      },
+      theory: {
+        ca: "El dia canvia a dissabte; el lloc i l'hora es mantenen.",
+        es: 'El día cambia al sábado; el lugar y la hora se mantienen.',
+        en: 'The day changes to Saturday; the place and the time stay the same.',
+      },
+    },
+  ],
+  'a1-u12-07': [
+    {
+      question: {
+        ca: 'Quan queden?',
+        es: '¿Cuándo quedan?',
+        en: 'When are they meeting?',
+      },
+      theory: {
+        ca: 'La primera proposta (diumenge) es rebutja; queden amb la segona: «dijous a la tarda».',
+        es: 'La primera propuesta (el domingo) se rechaza; quedan con la segunda: «dijous a la tarda» (el jueves por la tarde).',
+        en: 'The first suggestion (Sunday) is turned down; they go with the second: ‘dijous a la tarda’ (Thursday afternoon).',
+      },
+    },
+  ],
+  'a1-u12-08': [
+    {
+      question: {
+        ca: 'Quin dia proposa quedar?',
+        es: '¿Qué día propone para quedar?',
+        en: 'What day does Anna suggest meeting up?',
+      },
+      theory: {
+        ca: 'Dimecres no pot i dijous tampoc; proposa «divendres a les set».',
+        es: 'El miércoles no puede y el jueves tampoco; propone «divendres a les set» (el viernes a las siete).',
+        en: 'Wednesday and Thursday are no good for Anna; the suggestion is ‘divendres a les set’ (Friday at seven).',
       },
     },
   ],
