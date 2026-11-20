@@ -3185,7 +3185,7 @@ const DATA = {
       audio:'a1/a1-u01-06-v1.mp3',
       options:['Saludar en arribar','Demanar ajuda','Acomiadar-se'],
       correct:2,
-      theory:'«Adeu» tanca aquest intercanvi.',
+      theory:'«Adeu» tanca aquest missatge.',
       example:'Adeu, fins aviat!' },
 
     { id:'a1-u01-07', type:'listen', level:'a1', category:'Salutacions',
