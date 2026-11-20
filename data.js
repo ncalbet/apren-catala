@@ -3916,7 +3916,7 @@ const DATA = {
         { question:"Vols dir que les olives no t'agraden de cap manera. Quina frase ho expressa?", options:["No m'agraden gens.","No m'agraden gaire.","M'agraden molt."], correct:0, theory:"«No… gens» expressa que no t'agraden de cap manera.", example:"No m'agraden gens." },
         { question:"El te t'agrada una mica, però no gaire. Quina frase ho expressa?", options:["No m'agrada gens.","No m'agrada gaire.","M'agrada molt."], correct:1, theory:'«No gaire» expressa un grau baix; «gens» expressa absència.', example:"No m'agrada gaire." },
       ],
-      theory:"«Gens» expressa absència de gust en aquest context; «no gaire» n'indica poca quantitat.",
+      theory:"«Gens» vol dir que no t'agrada de cap manera; «no gaire», que t'agrada poc.",
       example:"No m'agraden gens les olives." },
 
     { id:'a1-u10-07', type:'listen', level:'a1', category:'Menjar i beure',

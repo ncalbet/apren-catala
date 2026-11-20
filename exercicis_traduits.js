@@ -2038,9 +2038,9 @@ const EXERCICIS_TRADUITS = {
         en: "You want to say you don't like coffee at all. Which sentence says that?",
       },
       theory: {
-        ca: "«Gens» expressa absència de gust en aquest context; «no gaire» n'indica poca quantitat.",
-        es: '«Gens» indica aquí que no gusta en absoluto; «no gaire», que gusta poco.',
-        en: '‘Gens’ here means not at all; ‘no gaire’ means not much.',
+        ca: "«Gens» vol dir que no t'agrada de cap manera; «no gaire», que t'agrada poc.",
+        es: '«Gens» quiere decir que no te gusta en absoluto; «no gaire», que te gusta poco.',
+        en: "‘Gens’ means you don't like it at all; ‘no gaire’ means you don't like it much.",
       },
     },
     {
