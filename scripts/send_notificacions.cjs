@@ -27,14 +27,14 @@ const LEVELS = [
   { min: 2000, max: Infinity, name: 'Mestre del Català' },
 ];
 
-// ── Cadència de recordatoris segons la freqüència que tria l'usuari a Perfil ──
-// Cada opció («cada dia / cada 2 / cada 3») té la seva corba d'espaiat creixent,
-// en dies sense practicar. Quan s'arriba a l'últim valor, s'atura fins que torni
-// a practicar. La corba es reinicia cada cop que l'usuari practica.
+// ── Cadència de recordatoris ──
+// Una corba d'espaiat creixent, en dies sense practicar. Quan s'arriba a l'últim
+// valor, s'atura fins que torni a practicar. La corba es reinicia cada cop que
+// l'usuari practica. Hi havia hagut tres ritmes (1 diari, 2 i 3 espaiats): el
+// 18/11/2026 el ritme es va treure del Perfil, i el 20/11 cap compte no tenia ni
+// el 2 ni el 3. Un notifFrequency que no sigui aquí fa servir el diari (més avall).
 const SCHEDULES = {
-  1: [1, 2, 3, 5, 7, 10, 15],   // cada dia: insistent al principi, després espaia
-  2: [2, 4, 6, 9, 13, 18],      // cada 2 dies: to mitjà
-  3: [3, 6, 10, 15, 21],        // cada 3 dies: suau
+  1: [1, 2, 3, 5, 7, 10, 15],   // insistent al principi, després espaia
 };
 
 function getNextLevel(xp) {
