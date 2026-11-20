@@ -3846,7 +3846,7 @@ const DATA = {
       audio:'a1/a1-u09-07-v1.mp3',
       options:['Set euros amb cinquanta','Set euros amb quinze','Disset euros amb cinquanta'],
       correct:0,
-      theory:'«Set euros amb cinquanta» és 7,50 €. Compte amb els parells que sonen semblants: set i disset, quinze i cinquanta.',
+      theory:'«Set euros amb cinquanta» és 7,50 €. Compte amb els parells que sonen semblants: «set» i «disset», «quinze» i «cinquanta».',
       example:'—Quant val tot? —Set euros amb cinquanta.' },
 
     { id:'a1-u09-08', type:'listen', level:'a1', category:'Compres',
