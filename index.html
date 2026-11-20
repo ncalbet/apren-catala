@@ -520,6 +520,7 @@
 <div class="ct-body" id="ct-body"></div>
 
 <script src="teoria_traduida.js"></script>
+<script src="exercicis_traduits.js"></script>
 <script src="data.js"></script>
 <script>
 // El formatador de dates de Madrid (partsMadrid, diaMadrid, més avall). Es crea una sola
@@ -2894,7 +2895,7 @@ function renderExercise() {
           </div>
         </div>
         ${microteoriaHTML(q)}
-        <div class="ct-q">${q.question}</div>
+        <div class="ct-q">${q.question}</div>${enunciatTraduitHTML(q)}
         ${body}
         <div id="feedback-area"></div>
         <div id="theory-area"></div>
@@ -2905,6 +2906,49 @@ function renderExercise() {
       </div>
     </div>`;
   if (q.type==='reorder') { dragIdx = null; tapSelectedIdx = null; }
+}
+
+// ══ FASE 2, PAS 4: L'ENUNCIAT I LA NOTA DE L'A1, TRADUÏTS (20/11/2026) ══
+// L'enunciat (question) o la nota (theory) d'un exercici en l'idioma de la interfície
+// (exercicis_traduits.js), o null: la fase 2 apagada, el català triat, un exercici o un camp
+// sense traducció, el fitxer que no ha arribat, o un català que ja no és el de data.js (la
+// traducció seria d'un text vell). Una variant sense el camp agafa el de la base.
+function exerciciTraduit(q, camp) {
+  const l = idiomaInterficie();
+  if (l === 'ca' || !q || typeof EXERCICIS_TRADUITS === 'undefined') return null;
+  const tr = EXERCICIS_TRADUITS[q.id];
+  if (!tr) return null;
+  const t = (tr[q._variant || 0] || {})[camp] || (tr[0] || {})[camp];
+  return t && t.ca === q[camp] && t[l] ? t[l] : null;
+}
+// L'enunciat es queda en català; un toc hi posa la traducció a sota i el botó desapareix
+// (decisió de l'usuari, 20/11). No es recorda d'un exercici a l'altre. Sense traducció, res.
+function enunciatTraduitHTML(q) {
+  if (!exerciciTraduit(q, 'question')) return '';
+  return `<div id="ct-q-tr" style="margin:-8px 0 16px;"><button type="button" onclick="mostraEnunciatTraduit()" style="background:none;border:none;padding:0;font:inherit;font-size:13px;color:var(--muted);text-decoration:underline;cursor:pointer;"${langTxi()}>${txi('teoriaVeureTraduida', 'Veure-ho traduït')}</button></div>`;
+}
+function mostraEnunciatTraduit() {
+  const q = currentSession && currentSession.items[currentSession.idx];
+  const t = exerciciTraduit(q, 'question');
+  const el = document.getElementById('ct-q-tr');
+  if (t && el) el.innerHTML = `<div${langTxi()} style="font-size:15px;line-height:1.45;color:var(--muted);">${t}</div>`;
+}
+// La nota gramatical de després de respondre: amb traducció, en l'idioma de la interfície i
+// amb un botó per veure-la en català i tornar-hi, com la teoria (decisió de l'usuari, 18/11).
+// No es recorda. Sense traducció, el català sol, com sempre.
+function notaHTML(q) {
+  return exerciciTraduit(q, 'theory') ? `<span id="ct-nota">${notaCosHTML(q, false)}</span>` : q.theory;
+}
+function notaCosHTML(q, enCatala) {
+  const estil = 'background:none;border:none;padding:0;font:inherit;font-size:12px;color:inherit;text-decoration:underline;cursor:pointer;white-space:nowrap;';
+  return enCatala
+    ? `${q.theory} <button type="button" onclick="canviaLlenguaNota(false)" style="${estil}"${langTxi()}>${txi('teoriaVeureTraduida', 'Veure-ho traduït')}</button>`
+    : `<span${langTxi()}>${exerciciTraduit(q, 'theory')}</span> <button type="button" onclick="canviaLlenguaNota(true)" style="${estil}">Veure-ho en català</button>`;
+}
+function canviaLlenguaNota(enCatala) {
+  const q = currentSession && currentSession.items[currentSession.idx];
+  const el = document.getElementById('ct-nota');
+  if (el && exerciciTraduit(q, 'theory')) el.innerHTML = notaCosHTML(q, enCatala);
 }
 
 /* RENDERITZADORS */
@@ -3264,11 +3308,11 @@ function showTheory(q, ok = true, explicacio = null) {
   const teoria = !ok && THEORY[q.category]
     ? `<div style="margin-top:10px;"><button type="button" onclick="obreTeoriaTema()" style="background:none;border:none;padding:4px 0;font:inherit;font-weight:600;color:inherit;text-decoration:underline;cursor:pointer;"${langTxi()}>📖 ${txi('exMiraTeoria', 'Mira la teoria del tema')}</button></div>`
     : '';
-  // Fase 2 (pas 3): les etiquetes, en l'idioma de la interfície; l'explicació, la nota i
-  // l'exemple, en català (hereten el lang="ca" de l'arrel).
+  // Fase 2 (pas 3): les etiquetes, en l'idioma de la interfície; l'explicació i l'exemple, en
+  // català (hereten el lang="ca" de l'arrel). La nota, traduïda a l'A1 (pas 4, notaHTML).
   document.getElementById('theory-area').innerHTML = `
     <div class="ct-theory">
-      ${explicacio ? `<strong${langTxi()}>${txi('exPerQueNo', 'Per què no:')}</strong> ${explicacio}<br><br>` : ''}<strong${langTxi()}>${txi('exNotaGramatical', 'Nota gramatical:')}</strong> ${q.theory}<br><br>
+      ${explicacio ? `<strong${langTxi()}>${txi('exPerQueNo', 'Per què no:')}</strong> ${explicacio}<br><br>` : ''}<strong${langTxi()}>${txi('exNotaGramatical', 'Nota gramatical:')}</strong> ${notaHTML(q)}<br><br>
       <strong${langTxi()}>${txi('exExemple', 'Exemple:')}</strong> <em>${q.example||q.sample||''}</em>${teoria}
     </div>`;
 }
