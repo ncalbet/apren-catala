@@ -1469,4 +1469,631 @@ const EXERCICIS_TRADUITS = {
       },
     },
   ],
+  // ── DIES I HORES ──
+  'a1-u08-01': [
+    {
+      question: {
+        ca: 'A quina hora obre dissabte?',
+        es: '¿A qué hora abre el sábado?',
+        en: 'What time does it open on Saturday?',
+      },
+      theory: {
+        ca: "L'hora inicial de l'horari és les deu.",
+        es: 'El horario empieza a las diez.',
+        en: 'The opening hours start at ten.',
+      },
+    },
+  ],
+  'a1-u08-02': [
+    {
+      question: {
+        ca: 'Avui és dilluns. Quin dia serà demà?',
+        es: 'Hoy es lunes. ¿Qué día será mañana?',
+        en: 'Today is Monday. What day will it be tomorrow?',
+      },
+      theory: {
+        ca: 'El dia següent a dilluns és dimarts.',
+        es: 'El día siguiente al lunes es el martes.',
+        en: 'The day after Monday is Tuesday.',
+      },
+    },
+    {
+      question: {
+        ca: 'Avui és dijous. Quin dia serà demà?',
+        es: 'Hoy es jueves. ¿Qué día será mañana?',
+        en: 'Today is Thursday. What day will it be tomorrow?',
+      },
+      theory: {
+        ca: 'Després de dijous ve divendres.',
+        es: 'Después del jueves viene el viernes.',
+        en: 'Friday comes after Thursday.',
+      },
+    },
+    {
+      question: {
+        ca: 'Avui és diumenge. Quin dia serà demà?',
+        es: 'Hoy es domingo. ¿Qué día será mañana?',
+        en: 'Today is Sunday. What day will it be tomorrow?',
+      },
+      theory: {
+        ca: 'Després de diumenge ve dilluns.',
+        es: 'Después del domingo viene el lunes.',
+        en: 'Monday comes after Sunday.',
+      },
+    },
+  ],
+  'a1-u08-03': [
+    {
+      question: {
+        ca: 'Escriu la paraula que falta per indicar a quina hora comença la classe.',
+        es: 'Escribe la palabra que falta para indicar a qué hora empieza la clase.',
+        en: 'Write the missing word to say what time the class starts.',
+      },
+      theory: {
+        ca: '«A les nou» indica a quina hora comença una activitat.',
+        es: '«A les nou» (a las nueve) indica a qué hora empieza una actividad.',
+        en: '‘A les nou’ (at nine) tells you what time something starts.',
+      },
+    },
+    {
+      question: {
+        ca: "Escriu la paraula que falta per indicar l'hora de la cita.",
+        es: 'Escribe la palabra que falta para indicar la hora de la cita.',
+        en: 'Write the missing word to give the time of the appointment.',
+      },
+      theory: {
+        ca: "Diem «a les cinc» per indicar l'hora.",
+        es: 'Decimos «a les cinc» (a las cinco) para indicar la hora.',
+        en: 'We say ‘a les cinc’ (at five) to give the time.',
+      },
+    },
+    {
+      question: {
+        ca: "Escriu la paraula que falta per indicar l'hora de sortida.",
+        es: 'Escribe la palabra que falta para indicar la hora de salida.',
+        en: 'Write the missing word to give the departure time.',
+      },
+      theory: {
+        ca: "Diem «a les deu» per indicar l'hora.",
+        es: 'Decimos «a les deu» (a las diez) para indicar la hora.',
+        en: 'We say ‘a les deu’ (at ten) to give the time.',
+      },
+    },
+  ],
+  'a1-u08-04': [
+    {
+      question: {
+        ca: 'El rellotge marca les 09.30. Quina expressió correspon a aquesta hora?',
+        es: 'El reloj marca las 09.30. ¿Qué expresión corresponde a esta hora?',
+        en: 'The clock shows 09.30. Which expression matches this time?',
+      },
+      theory: {
+        ca: "A les 09.30 han passat dos quarts de l'hora que acaba a les deu.",
+        es: 'A las 09.30 han pasado dos cuartos de la hora que termina a las diez.',
+        en: 'At 09.30, two quarters of the hour ending at ten have gone by.',
+      },
+    },
+    {
+      question: {
+        ca: 'El rellotge marca les 09.15. Quina expressió correspon a aquesta hora?',
+        es: 'El reloj marca las 09.15. ¿Qué expresión corresponde a esta hora?',
+        en: 'The clock shows 09.15. Which expression matches this time?',
+      },
+      theory: {
+        ca: 'Les 09.15 són un quart de deu.',
+        es: 'A las 09.15 ha pasado el primer cuarto de la hora que termina a las diez.',
+        en: 'At 09.15, the first quarter of the hour ending at ten has gone by.',
+      },
+    },
+    {
+      question: {
+        ca: 'El rellotge marca les 09.45. Quina expressió correspon a aquesta hora?',
+        es: 'El reloj marca las 09.45. ¿Qué expresión corresponde a esta hora?',
+        en: 'The clock shows 09.45. Which expression matches this time?',
+      },
+      theory: {
+        ca: 'Les 09.45 són tres quarts de deu.',
+        es: 'A las 09.45 han pasado tres cuartos de la hora que termina a las diez.',
+        en: 'At 09.45, three quarters of the hour ending at ten have gone by.',
+      },
+    },
+  ],
+  'a1-u08-05': [
+    {
+      question: {
+        ca: 'Quina data hi correspon?',
+        es: '¿Qué fecha corresponde?',
+        en: 'Which date is it (day/month)?',
+      },
+      theory: {
+        ca: "Novembre és l'onzè mes: 12/11.",
+        es: 'Noviembre es el undécimo mes: 12/11.',
+        en: 'November is the eleventh month: 12/11 (day/month).',
+      },
+    },
+  ],
+  'a1-u08-06': [
+    {
+      question: { ca: 'Completa: «La cita és ___ una».' },
+      theory: {
+        ca: 'Amb la una fem servir el singular: «a la una».',
+        es: 'Con la una usamos el singular: «a la una».',
+        en: "With one o'clock, we use the singular: ‘a la una’.",
+      },
+    },
+    {
+      question: { ca: 'Completa: «El taller comença ___ dues».' },
+      theory: {
+        ca: 'Amb «dues» diem «a les dues».',
+        es: 'Con «dues» (2) decimos «a les dues».',
+        en: 'With ‘dues’ (2), we say ‘a les dues’.',
+      },
+    },
+    {
+      question: { ca: 'Completa: «La biblioteca obre ___ onze».' },
+      theory: {
+        ca: 'Diem «a les onze» per indicar aquesta hora.',
+        es: 'Decimos «a les onze» (a las once) para indicar esta hora.',
+        en: 'We say ‘a les onze’ (at eleven) for this time.',
+      },
+    },
+  ],
+  'a1-u08-07': [
+    {
+      question: {
+        ca: 'A quina hora és la classe?',
+        es: '¿A qué hora es la clase?',
+        en: 'What time is the class?',
+      },
+      theory: {
+        ca: "«A les sis de la tarda» diu l'hora; «els dimarts» diu quin dia es repeteix.",
+        es: '«A les sis de la tarda» (a las seis de la tarde) dice la hora; «els dimarts» (los martes), qué día se repite.',
+        en: '‘A les sis de la tarda’ (at six in the evening) gives the time; ‘els dimarts’ (on Tuesdays) says which day it happens every week.',
+      },
+    },
+  ],
+  'a1-u08-08': [
+    {
+      question: {
+        ca: 'A quina hora obre el centre dijous?',
+        es: '¿A qué hora abre el centro el jueves?',
+        en: 'What time does the centre open on Thursday?',
+      },
+      theory: {
+        ca: '«Dijous obrim a les nou». A la una tanquen, i a les deu obren dissabte.',
+        es: '«Dijous obrim a les nou» (el jueves abrimos a las nueve). A la una cierran, y el sábado abren a las diez.',
+        en: '‘Dijous obrim a les nou’ (on Thursday we open at nine). They close at one, and on Saturday they open at ten.',
+      },
+    },
+  ],
+  // ── COMPRES ──
+  'a1-u09-01': [
+    {
+      question: {
+        ca: "Vols saber el preu d'un pa. Què preguntes?",
+        es: 'Quieres saber el precio de un pan. ¿Qué preguntas?',
+        en: 'You want to know the price of a loaf of bread. What do you ask?',
+      },
+      theory: {
+        ca: '«Quant val?» demana el preu.',
+        es: '«Quant val?» pregunta el precio.',
+        en: '‘Quant val?’ asks the price.',
+      },
+    },
+    {
+      question: {
+        ca: "Vols saber el preu d'una llibreta. Què preguntes?",
+        es: 'Quieres saber el precio de una libreta. ¿Qué preguntas?',
+        en: 'You want to know the price of a notebook. What do you ask?',
+      },
+      theory: {
+        ca: '«Quant costa?» demana el preu.',
+        es: '«Quant costa?» pregunta el precio.',
+        en: '‘Quant costa?’ asks the price.',
+      },
+    },
+    {
+      question: {
+        ca: 'Vols saber què val una bossa. Quina pregunta fas?',
+        es: 'Quieres saber cuánto vale una bolsa. ¿Qué pregunta haces?',
+        en: 'You want to know how much a bag costs. What question do you ask?',
+      },
+      theory: {
+        ca: '«Quin preu té?» serveix per preguntar el preu.',
+        es: '«Quin preu té?» sirve para preguntar el precio.',
+        en: '‘Quin preu té?’ is a way to ask the price.',
+      },
+    },
+  ],
+  'a1-u09-02': [
+    {
+      question: {
+        ca: 'Quin producte val dos euros el quilo?',
+        es: '¿Qué producto vale dos euros el kilo?',
+        en: 'Which product costs two euros a kilo?',
+      },
+      theory: {
+        ca: "L'etiqueta de les pomes marca dos euros per quilo.",
+        es: 'La etiqueta de las manzanas marca dos euros el kilo.',
+        en: 'The label for the apples says two euros a kilo.',
+      },
+    },
+  ],
+  'a1-u09-03': [
+    {
+      question: {
+        ca: 'Completa amb la preposició que uneix la quantitat i el producte.',
+        es: 'Completa con la preposición que une la cantidad y el producto.',
+        en: 'Fill in the preposition that links the quantity and the product.',
+      },
+      theory: {
+        ca: 'La construcció és «un quilo de» davant de «tomàquets».',
+        es: 'La construcción es «un quilo de» delante de «tomàquets» (tomates).',
+        en: 'The pattern is ‘un quilo de’ (a kilo of) before ‘tomàquets’ (tomatoes).',
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb la paraula que uneix la quantitat i el producte.',
+        es: 'Completa con la palabra que une la cantidad y el producto.',
+        en: 'Fill in the word that links the quantity and the product.',
+      },
+      theory: {
+        ca: 'Diem «mig quilo de peres».',
+        es: 'Decimos «mig quilo de peres» (medio kilo de peras).',
+        en: 'We say ‘mig quilo de peres’ (half a kilo of pears).',
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb la paraula que uneix la quantitat i el producte.',
+        es: 'Completa con la palabra que une la cantidad y el producto.',
+        en: 'Fill in the word that links the quantity and the product.',
+      },
+      theory: {
+        ca: 'Diem «un litre de llet».',
+        es: 'Decimos «un litre de llet» (un litro de leche).',
+        en: 'We say ‘un litre de llet’ (a litre of milk).',
+      },
+    },
+  ],
+  'a1-u09-04': [
+    {
+      question: {
+        ca: 'Quina xifra correspon a «vint-i-set»?',
+        es: '¿Qué cifra corresponde a «vint-i-set»?',
+        en: 'Which number is ‘vint-i-set’?',
+      },
+      theory: {
+        ca: 'Vint-i-set correspon a 27.',
+        es: 'Es el 27.',
+        en: "It's 27.",
+      },
+    },
+    {
+      question: {
+        ca: 'Quina xifra correspon a «vint-i-tres»?',
+        es: '¿Qué cifra corresponde a «vint-i-tres»?',
+        en: 'Which number is ‘vint-i-tres’?',
+      },
+      theory: {
+        ca: 'Vint-i-tres correspon a 23.',
+        es: 'Es el 23.',
+        en: "It's 23.",
+      },
+    },
+    {
+      question: {
+        ca: 'Quina xifra correspon a «trenta-set»?',
+        es: '¿Qué cifra corresponde a «trenta-set»?',
+        en: 'Which number is ‘trenta-set’?',
+      },
+      theory: {
+        ca: 'Trenta-set correspon a 37.',
+        es: 'Es el 37.',
+        en: "It's 37.",
+      },
+    },
+  ],
+  'a1-u09-05': [
+    {
+      question: { ca: 'Completa: «Vull ___ pomes».' },
+      theory: {
+        ca: '«Dues pomes» és el model que practiquem. En alguns parlars també es diu «dos pomes».',
+        es: '«Dues pomes» (dos manzanas) es el modelo que practicamos. En algunas hablas también se dice «dos pomes».',
+        en: "‘Dues pomes’ (two apples) is the form we're practising. Some dialects also say ‘dos pomes’.",
+      },
+    },
+    {
+      question: { ca: 'Completa: «Vull ___ pans».' },
+      theory: {
+        ca: '«Pans» és plural: «dos pans».',
+        es: '«Pans» (panes) es plural: «dos pans».',
+        en: '‘Pans’ (loaves) is plural: ‘dos pans’.',
+      },
+    },
+    {
+      question: { ca: 'Completa: «Vull ___ peres».' },
+      theory: {
+        ca: '«Dues peres» és el model que practiquem; alguns parlars també fan servir «dos peres».',
+        es: '«Dues peres» (dos peras) es el modelo que practicamos; algunas hablas también usan «dos peres».',
+        en: "‘Dues peres’ (two pears) is the form we're practising; some dialects also use ‘dos peres’.",
+      },
+    },
+  ],
+  'a1-u09-06': [
+    {
+      question: {
+        ca: 'No hi ha ni una poma. Completa amb una sola paraula.',
+        es: 'No hay ni una manzana. Completa con una sola palabra.',
+        en: "There isn't a single apple. Fill in the gap with one word.",
+      },
+      theory: {
+        ca: '«Cap» acompanya el nom comptable «poma» en aquesta frase negativa.',
+        es: '«Cap» (ninguna) acompaña al nombre contable «poma» (manzana) en esta frase negativa.',
+        en: '‘Cap’ (no, not a single) goes with the countable noun ‘poma’ (apple) in this negative sentence.',
+      },
+    },
+    {
+      question: {
+        ca: 'No hi ha ni una pera. Completa amb una sola paraula.',
+        es: 'No hay ni una pera. Completa con una sola palabra.',
+        en: "There isn't a single pear. Fill in the gap with one word.",
+      },
+      theory: {
+        ca: 'Diem «cap pera» quan no en queda ni una.',
+        es: 'Decimos «cap pera» (ninguna pera) cuando no queda ni una.',
+        en: "We say ‘cap pera’ (no pears) when there isn't a single one left.",
+      },
+    },
+    {
+      question: {
+        ca: 'La gerra és buida. Completa per dir que no hi ha aigua.',
+        es: 'La jarra está vacía. Completa para decir que no hay agua.',
+        en: "The jug is empty. Fill in the gap to say there's no water.",
+      },
+      theory: {
+        ca: "«Gens d'aigua» expressa que no en queda. També podem dir «ni gota d'aigua».",
+        es: "«Gens d'aigua» (nada de agua) expresa que no queda. También podemos decir «ni gota d'aigua».",
+        en: "‘Gens d'aigua’ (no water at all) means there's none left. We can also say ‘ni gota d'aigua’ (not a drop of water).",
+      },
+    },
+  ],
+  'a1-u09-07': [
+    {
+      question: {
+        ca: 'Quant val tot?',
+        es: '¿Cuánto vale todo?',
+        en: 'How much is it altogether?',
+      },
+      theory: {
+        ca: '«Set euros amb cinquanta» és 7,50 €. Compte amb els parells que sonen semblants: «set» i «disset», «quinze» i «cinquanta».',
+        es: '«Set euros amb cinquanta» son 7,50 €. Cuidado con las parejas que suenan parecido: «set» y «disset» (7 y 17), «quinze» y «cinquanta» (15 y 50).',
+        en: '‘Set euros amb cinquanta’ is €7.50. Watch out for pairs that sound alike: ‘set’ and ‘disset’ (7 and 17), ‘quinze’ and ‘cinquanta’ (15 and 50).',
+      },
+    },
+  ],
+  'a1-u09-08': [
+    {
+      question: {
+        ca: 'Quant val el quilo de peres?',
+        es: '¿Cuánto vale el kilo de peras?',
+        en: 'How much is a kilo of pears?',
+      },
+      theory: {
+        ca: '«Peres a dos euros el quilo». «Dos» i «dotze» sonen semblants: a dotze hi ha el formatge.',
+        es: '«Peres a dos euros el quilo» (peras a dos euros el kilo). «Dos» y «dotze» (2 y 12) suenan parecido: a doce euros está el queso.',
+        en: '‘Peres a dos euros el quilo’ (pears at two euros a kilo). ‘Dos’ and ‘dotze’ (2 and 12) sound alike: the cheese is twelve euros.',
+      },
+    },
+  ],
+  // ── MENJAR I BEURE ──
+  'a1-u10-01': [
+    {
+      question: {
+        ca: 'No vols sucre al te. Què demanes?',
+        es: 'No quieres azúcar en el té. ¿Qué pides?',
+        en: "You don't want sugar in your tea. What do you order?",
+      },
+      theory: {
+        ca: '«Sense sucre» exclou el sucre de la beguda.',
+        es: '«Sense sucre» (sin azúcar) deja el azúcar fuera de la bebida.',
+        en: '‘Sense sucre’ (without sugar) leaves the sugar out of the drink.',
+      },
+    },
+    {
+      question: {
+        ca: 'Vols cafè i hi vols llet. Què demanes?',
+        es: 'Quieres café y quieres que lleve leche. ¿Qué pides?',
+        en: 'You want coffee and you want milk in it. What do you order?',
+      },
+      theory: {
+        ca: '«Amb llet» inclou la llet a la comanda.',
+        es: '«Amb llet» (con leche) incluye la leche en el pedido.',
+        en: '‘Amb llet’ (with milk) includes milk in the order.',
+      },
+    },
+    {
+      question: {
+        ca: 'Vols un entrepà i no hi vols tomàquet. Què demanes?',
+        es: 'Quieres un bocadillo y no quieres que lleve tomate. ¿Qué pides?',
+        en: "You want a sandwich, but you don't want tomato in it. What do you order?",
+      },
+      theory: {
+        ca: "«Sense tomàquet» indica que no en vols a l'entrepà.",
+        es: '«Sense tomàquet» (sin tomate) indica que no lo quieres en el bocadillo.',
+        en: "‘Sense tomàquet’ (without tomato) means you don't want any in your sandwich.",
+      },
+    },
+  ],
+  'a1-u10-02': [
+    {
+      question: {
+        ca: 'Qui demana aigua?',
+        es: '¿Quién pide agua?',
+        en: 'Who orders water?',
+      },
+      theory: {
+        ca: "La comanda d'aigua correspon a la Júlia.",
+        es: 'Quien pide agua es Júlia.',
+        en: 'Júlia is the one who orders water.',
+      },
+    },
+  ],
+  'a1-u10-03': [
+    {
+      question: {
+        ca: 'Ordena la comanda. Comença pel producte i acaba amb la fórmula de cortesia.',
+        es: 'Ordena el pedido. Empieza por el producto y termina con la fórmula de cortesía.',
+        en: 'Put the words of the order in the right sequence. Start with the item and end with the polite phrase.',
+      },
+      theory: {
+        ca: 'La comanda indica el producte, el tipus i la fórmula de cortesia.',
+        es: 'El pedido dice el producto, de qué tipo es y la fórmula de cortesía.',
+        en: 'The order gives the item, what kind it is and the polite phrase.',
+      },
+    },
+  ],
+  'a1-u10-04': [
+    {
+      question: {
+        ca: 'Completa amb una forma del verb «agradar» en present.',
+        es: 'Completa con una forma del verbo «agradar» (gustar) en presente.',
+        en: 'Fill in a form of the verb ‘agradar’ (to like) in the present tense.',
+      },
+      theory: {
+        ca: '«Les maduixes» és plural; per això fem servir «agraden».',
+        es: '«Les maduixes» (las fresas) es plural; por eso usamos «agraden».',
+        en: '‘Les maduixes’ (strawberries) is plural, so we use ‘agraden’.',
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb «agradar» en present.',
+        es: 'Completa con «agradar» (gustar) en presente.',
+        en: 'Fill in ‘agradar’ (to like) in the present tense.',
+      },
+      theory: {
+        ca: "Amb «la sopa» diem «m'agrada».",
+        es: "Con «la sopa» decimos «m'agrada».",
+        en: "With ‘la sopa’ (soup), we say ‘m'agrada’.",
+      },
+    },
+    {
+      question: {
+        ca: 'Completa amb «agradar» en present.',
+        es: 'Completa con «agradar» (gustar) en presente.',
+        en: 'Fill in ‘agradar’ (to like) in the present tense.',
+      },
+      theory: {
+        ca: "Amb «els tomàquets» diem «m'agraden».",
+        es: "Con «els tomàquets» (los tomates) decimos «m'agraden».",
+        en: "With ‘els tomàquets’ (tomatoes), we say ‘m'agraden’.",
+      },
+    },
+  ],
+  'a1-u10-05': [
+    {
+      question: {
+        ca: "Una persona diu «No m'agrada el te». A tu no t'agrada. Què respons?",
+        es: "Una persona dice «No m'agrada el te». A ti no te gusta. ¿Qué respondes?",
+        en: "Someone says ‘No m'agrada el te’ (I don't like tea). You don't like it either. What do you reply?",
+      },
+      theory: {
+        ca: '«Tampoc» afegeix coincidència amb una afirmació negativa.',
+        es: '«Tampoc» expresa coincidencia con una frase negativa.',
+        en: '‘Tampoc’ (neither) shows you agree with a negative statement.',
+      },
+    },
+    {
+      question: {
+        ca: "Una persona diu «M'agrada la sopa». A tu també t'agrada. Què respons?",
+        es: "Una persona dice «M'agrada la sopa». A ti también te gusta. ¿Qué respondes?",
+        en: "Someone says ‘M'agrada la sopa’ (I like soup). You like it too. What do you reply?",
+      },
+      theory: {
+        ca: '«També» expressa que coincidiu en un gust afirmatiu.',
+        es: '«També» expresa que a los dos os gusta.',
+        en: '‘També’ (too) shows you both like it.',
+      },
+    },
+    {
+      question: {
+        ca: "Una persona diu «M'agrada el cafè». A tu no t'agrada. Què respons?",
+        es: "Una persona dice «M'agrada el cafè». A ti no te gusta. ¿Qué respondes?",
+        en: "Someone says ‘M'agrada el cafè’ (I like coffee). You don't like it. What do you reply?",
+      },
+      theory: {
+        ca: '«A mi no» expressa un gust diferent en aquest context.',
+        es: 'Aquí, «A mi no» expresa un gusto distinto.',
+        en: "Here, ‘A mi no’ (I don't) shows your taste is different.",
+      },
+    },
+  ],
+  'a1-u10-06': [
+    {
+      question: {
+        ca: "Vols dir que el cafè no t'agrada de cap manera. Quina frase ho expressa?",
+        es: 'Quieres decir que el café no te gusta en absoluto. ¿Qué frase lo expresa?',
+        en: "You want to say you don't like coffee at all. Which sentence says that?",
+      },
+      theory: {
+        ca: "«Gens» expressa absència de gust en aquest context; «no gaire» n'indica poca quantitat.",
+        es: '«Gens» indica aquí que no gusta en absoluto; «no gaire», que gusta poco.',
+        en: '‘Gens’ here means not at all; ‘no gaire’ means not much.',
+      },
+    },
+    {
+      question: {
+        ca: "Vols dir que les olives no t'agraden de cap manera. Quina frase ho expressa?",
+        es: 'Quieres decir que las aceitunas no te gustan en absoluto. ¿Qué frase lo expresa?',
+        en: "You want to say you don't like olives at all. Which sentence says that?",
+      },
+      theory: {
+        ca: "«No… gens» expressa que no t'agraden de cap manera.",
+        es: '«No… gens» expresa que no te gustan en absoluto.',
+        en: "‘No… gens’ means you don't like them at all.",
+      },
+    },
+    {
+      question: {
+        ca: "El te t'agrada una mica, però no gaire. Quina frase ho expressa?",
+        es: 'El té te gusta un poco, pero no mucho. ¿Qué frase lo expresa?',
+        en: 'You like tea a little, but not much. Which sentence says that?',
+      },
+      theory: {
+        ca: '«No gaire» expressa un grau baix; «gens» expressa absència.',
+        es: '«No gaire» indica poco; «gens», que no te gusta en absoluto.',
+        en: '‘No gaire’ means not much; ‘gens’ means not at all.',
+      },
+    },
+  ],
+  'a1-u10-07': [
+    {
+      question: {
+        ca: 'Què demana la Marta?',
+        es: '¿Qué pide Marta?',
+        en: 'What does Marta order?',
+      },
+      theory: {
+        ca: "La Marta demana «un cafè amb llet»; l'altra persona, «un te sense sucre» i «un entrepà de formatge».",
+        es: 'Marta pide «un cafè amb llet»; la otra persona, «un te sense sucre» y «un entrepà de formatge» (un bocadillo de queso).',
+        en: 'Marta orders ‘un cafè amb llet’ (a coffee with milk); the other person orders ‘un te sense sucre’ (tea without sugar) and ‘un entrepà de formatge’ (a cheese sandwich).',
+      },
+    },
+  ],
+  'a1-u10-08': [
+    {
+      question: {
+        ca: 'Què no li agrada gaire?',
+        es: '¿Qué no le gusta mucho?',
+        en: "What don't they like much?",
+      },
+      theory: {
+        ca: '«No gaire» vol dir que agrada poc: el te. El cafè li agrada més, i les maduixes, molt.',
+        es: '«No gaire» quiere decir que gusta poco: el té. El café le gusta más, y las fresas, mucho.',
+        en: "‘No gaire’ means not much: that's the tea. They like coffee more, and strawberries a lot.",
+      },
+    },
+  ],
 };
