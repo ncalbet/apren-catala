@@ -193,10 +193,11 @@ window.fbDeleteAccount = async (password) => {
 };
 
 // ── Perfil ──
-// El perfil (avui: el pseudònim) va al mateix document que el progrés, sota
-// «profile». S'esborra amb el compte, perquè fbDeleteAccount esborra el
-// document sencer. Qui guanya quan dos dispositius discrepen ho decideix
-// index.html amb el segell «at» que hi va dins.
+// El perfil (el pseudònim amb el seu segell «at», l'idioma i correctorVoluntari)
+// va al mateix document que el progrés, sota «profile». Cada crida a
+// fbSaveProfile només escriu els camps que porta (merge). S'esborra amb el
+// compte, perquè fbDeleteAccount esborra el document sencer. Del pseudònim, qui
+// guanya quan dos dispositius discrepen ho decideix index.html amb el segell «at».
 // null si al núvol no n'hi ha; undefined si no s'ha pogut llegir (vegeu fbLoadProgress).
 window.fbLoadProfile = async () => {
   const user = auth.currentUser;

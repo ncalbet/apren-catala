@@ -7045,7 +7045,8 @@ function lligaDiagnosticText() {
 // tornaven a llegir per reomplir els mateixos camps. Ara el pseudònim surt a la
 // salutació de l'Inici i als banners; el camp «nom» s'ha retirat, i si algú
 // només l'havia omplert a ell, el seu valor passa a fer de pseudònim en lloc de
-// quedar orfe. Es desa NOMÉS en aquest dispositiu (no puja a Firestore).
+// quedar orfe. Es desa en aquest dispositiu i, amb sessió iniciada, també al
+// compte; quan les dues còpies discrepen, mana la més recent (syncPseudonim).
 function getPseudo() {
   const p = safeParse('cat_profile_v1') || {};
   return ((p.pseudo || p.nom || '') + '').trim().slice(0, PSEUDO_MAX);
