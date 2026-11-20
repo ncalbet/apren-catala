@@ -890,7 +890,7 @@ let COMPTE_A_ENTRADA = true;
 // L'idioma de les explicacions (abast B, decisió de l'usuari del 10/11/2026): qui no parla
 // català tria, en obrir l'app per primer cop i abans de cap altra pantalla, si vol la
 // benvinguda, l'ajuda i la teoria de l'A1 en castellà o en anglès. Els exercicis, els menús
-// i la resta de nivells, sempre en català. Qui ja feia servir l'app no veu la tria ni cap
+// i la resta de nivells, sempre en català (els menús, fins a la fase 2: INTERFICIE_DES_DE). Qui ja feia servir l'app no veu la tria ni cap
 // anunci: la troba al Perfil (11/11). S'encén el dimecres 18/11/2026, dia de Madrid
 // (decisió de l'usuari, 18/11: avançat del dilluns 23/11 que es va fixar el 17/11).
 // IDIOMES_ACTIU = true/false el força; null = segons la
@@ -1550,10 +1550,11 @@ function langDe(l) { return l === 'ca' ? '' : ` lang="${l}"`; }
 // ══ FASE 2: LA INTERFÍCIE EN L'IDIOMA TRIAT ══
 // Pla aprovat el 18/11/2026: la barra, l'Inici, l'exercici i l'A1, en castellà o en anglès
 // per a qui ho ha triat. Té un interruptor propi i apagat: la tria ja és encesa, i sense
-// interruptor cada tros sortiria traduït en pujar-lo. S'encendrà un dilluns, no abans del
-// 30/11, amb INTERFICIE_DES_DE (AAAAMMDD; null = encara sense data, apagat).
+// interruptor cada tros sortiria traduït en pujar-lo. S'encén sola el dilluns 30/11/2026, dia
+// de Madrid (decisió de l'usuari, 20/11; es pot avançar). INTERFICIE_DES_DE: AAAAMMDD, o null
+// per deixar-la apagada sense data.
 // INTERFICIE_ACTIU = true/false el força; null = segons la data. «let» per les proves.
-const INTERFICIE_DES_DE = null;
+const INTERFICIE_DES_DE = 20261130;
 let INTERFICIE_ACTIU = null;
 function interficieActiva(ms = Date.now()) {
   if (!idiomesActius(ms)) return false;
