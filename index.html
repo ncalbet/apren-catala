@@ -8053,6 +8053,10 @@ function carregaProgresNuvol(cloud) {
   // directament a l'Inici amb el seu progrés (decisió de l'usuari, 17/11). Abans la tornava
   // a veure, com si no hi hagués entrat mai. Si el del núvol no es carrega, la benvinguda segueix.
   if (shouldShowOnboarding()) finishOnboarding();
+  // Amb l'Inici ja obert, les xifres (domini, ratxa, recorregut) eren les d'abans fins que es
+  // canviava de pantalla: es repinta, com a syncPseudonim. No es menja cap toc: l'avís de sota
+  // tapa la pantalla. (L'Inici és on s'és quan es carrega, en obrir l'app.)
+  else if (_navState.screen === 'menu') renderMenu();
   updateHeader();
   showAlert('Progrés carregat des del núvol ✅');
 }
