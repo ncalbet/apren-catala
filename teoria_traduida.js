@@ -41,6 +41,7 @@ const TEORIA_TRADUIDA = {
         },
         {
           title: 'Pregunta a alguien cómo está',
+          body: '<p>En la tabla: «Com estàs?» (¿cómo estás?), «Bé, gràcies» (bien, gracias), «Així així» (así así), «No gaire bé» (no muy bien), «I tu?» (¿y tú?), «Avui necessito descansar» (hoy necesito descansar) y «Em fa mal el cap» (me duele la cabeza).</p>',
           table: { headers: ['Pregunta', 'Respuesta', 'Para seguir'] },
         },
         {
@@ -99,7 +100,7 @@ const TEORIA_TRADUIDA = {
       sections: [
         {
           title: 'Preguntas y respuestas',
-          body: '<p>«Soc de» indica de dónde eres; «visc a», dónde vives. Puedes practicar con datos inventados.</p>',
+          body: "<p>«Soc de» indica de dónde eres; «visc a», dónde vives. Puedes practicar con datos inventados. En la tabla: «Com et dius?» (¿cómo te llamas?), «D'on ets?» (¿de dónde eres?), «On vius?» (¿dónde vives?), «Quants anys tens?» (¿cuántos años tienes?), «Quines llengües parles?» (¿qué lenguas hablas?) y «De què treballes?» (¿en qué trabajas?).</p>",
           table: { headers: ['Pregunta', 'Respuesta posible'] },
         },
         {
@@ -136,6 +137,7 @@ const TEORIA_TRADUIDA = {
       sections: [
         {
           title: 'Palabras para las relaciones',
+          body: '<p>En la tabla: «pare / mare» (padre / madre), «germà / germana» (hermano / hermana), «fill / filla» (hijo / hija), «avi / àvia» (abuelo / abuela), «amic / amiga» (amigo / amiga) y «parella» (pareja).</p>',
           table: { headers: ['Relación', 'Ejemplo'] },
         },
         {
@@ -149,6 +151,7 @@ const TEORIA_TRADUIDA = {
         },
         {
           title: 'Ropa y colores',
+          body: '<p>En la tabla: «sabata» (zapato), «jersei» (jersey), «jaqueta» (chaqueta), «blava» (azul), «negres» (negras), «verd» (verde) y «vermella» (roja).</p>',
           table: { headers: ['Una prenda', 'Dos prendas', 'Descripción'] },
         },
         {
@@ -488,6 +491,7 @@ const TEORIA_TRADUIDA = {
         },
         {
           title: 'Ask someone how they are',
+          body: '<p>In the table: ‘Com estàs?’ (how are you?), ‘Bé, gràcies’ (fine, thanks), ‘Així així’ (so-so), ‘No gaire bé’ (not very well), ‘I tu?’ (and you?), ‘Avui necessito descansar’ (I need to rest today) and ‘Em fa mal el cap’ (my head hurts).</p>',
           table: { headers: ['Question', 'Answer', 'Follow-up'] },
         },
         {
@@ -546,7 +550,7 @@ const TEORIA_TRADUIDA = {
       sections: [
         {
           title: 'Questions and answers',
-          body: "<p>‘Soc de’ says where you're from; ‘visc a’, where you live. You can practise with made-up details.</p>",
+          body: "<p>‘Soc de’ says where you're from; ‘visc a’, where you live. You can practise with made-up details. In the table: ‘Com et dius?’ (what's your name?), ‘D'on ets?’ (where are you from?), ‘On vius?’ (where do you live?), ‘Quants anys tens?’ (how old are you?), ‘Quines llengües parles?’ (what languages do you speak?) and ‘De què treballes?’ (what do you do for a living?).</p>",
           table: { headers: ['Question', 'Possible answer'] },
         },
         {
@@ -583,6 +587,7 @@ const TEORIA_TRADUIDA = {
       sections: [
         {
           title: 'Words for relationships',
+          body: '<p>In the table: ‘pare / mare’ (father / mother), ‘germà / germana’ (brother / sister), ‘fill / filla’ (son / daughter), ‘avi / àvia’ (grandfather / grandmother), ‘amic / amiga’ (friend) and ‘parella’ (partner).</p>',
           table: { headers: ['Relationship', 'Example'] },
         },
         {
@@ -596,6 +601,7 @@ const TEORIA_TRADUIDA = {
         },
         {
           title: 'Clothes and colours',
+          body: '<p>In the table: ‘camisa’ (shirt), ‘sabata’ (shoe), ‘jersei’ (jumper), ‘jaqueta’ (jacket), ‘blava’ (blue), ‘negres’ (black), ‘verd’ (green) and ‘vermella’ (red).</p>',
           table: { headers: ['One item', 'Two items', 'Description'] },
         },
         {
