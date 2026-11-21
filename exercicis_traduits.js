@@ -215,8 +215,8 @@ const EXERCICIS_TRADUITS = {
       },
       theory: {
         ca: '«No gaire bé» és una de les tres respostes a «Com estàs?»; «necessito descansar» ho confirma.',
-        es: '«No gaire bé» es una de las tres respuestas a «Com estàs?»; «necessito descansar» lo confirma.',
-        en: '‘No gaire bé’ is one of the three replies to ‘Com estàs?’; ‘necessito descansar’ confirms it.',
+        es: '«No gaire bé» es una de las tres respuestas a «Com estàs?»; «necessito descansar» (necesito descansar) lo confirma.',
+        en: '‘No gaire bé’ is one of the three replies to ‘Com estàs?’; ‘necessito descansar’ (I need to rest) confirms it.',
       },
     },
   ],
