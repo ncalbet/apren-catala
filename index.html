@@ -2087,14 +2087,26 @@ function textMedalla(idx) {
 // Si n'hi ha un altre a la vista, el nou es posa al
 // damunt en lloc de tapar-lo: «Primer pas» i «Primera encertada» surten junts.
 const _toastsVisibles = [];
+// On va un avís nou de «alt» px: el lloc més baix, des de 80 px, on no toca cap dels que
+// hi ha («ocupats»: [{ baix, alt }]), amb 10 px entre l'un i l'altre. Fins al 21/11 anava
+// per pisos de 66 px, i qualsevol avís de més de 56 px (a 360 px, tots) tapava el de sota.
+function llocAvis(alt, ocupats) {
+  let baix = 80;
+  for (const o of [...ocupats].sort((a, b) => a.baix - b.baix)) {
+    if (baix + alt + 10 <= o.baix) break;          // hi cap per sota d'aquest
+    baix = Math.max(baix, o.baix + o.alt + 10);    // si no, per sobre
+  }
+  return baix;
+}
 function mostraToast(el, ms) {
   el.classList.add('ct-avis');
-  let pis = 0;
-  while (_toastsVisibles.some(t => t._pis === pis)) pis++;
-  el._pis = pis;
-  el.style.bottom = (80 + pis * 66) + 'px';
-  _toastsVisibles.push(el);
+  // S'afegeix abans de col·locar-lo per saber-ne l'alçada (dues línies si el text no hi
+  // cap); es col·loca abans que es pinti. 56 px, el d'una línia, si no es pot mesurar.
   document.body.appendChild(el);
+  const alt = el.offsetHeight || 56;
+  el._lloc = { baix: llocAvis(alt, _toastsVisibles.map(t => t._lloc)), alt };
+  el.style.bottom = el._lloc.baix + 'px';
+  _toastsVisibles.push(el);
   setTimeout(() => {
     el.remove();
     const i = _toastsVisibles.indexOf(el);
