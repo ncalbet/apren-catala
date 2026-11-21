@@ -448,6 +448,11 @@
     }
     @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
     @keyframes popIn   { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
+    /* AVISOS PETITS (mostraToast: gel, domini màxim, repte, assoliments): a baix, al mig, tan
+       amples com el text i mai més que la pantalla. Centrats amb margin:auto i no amb
+       left:50% + translateX(-50%): així l'amplada no es queda en la meitat de la pantalla, i
+       popIn, que mou transform, ja no els fa sortir desplaçats cap a la dreta. */
+    .ct-avis { left:0; right:0; margin:0 auto; width:max-content; max-width:calc(100% - 32px); box-sizing:border-box; }
     /* MISSATGE D'ÀNIM */
     .ct-encouragement {
       background:var(--accent-amber-bg); border-left:3px solid #f59e0b;
