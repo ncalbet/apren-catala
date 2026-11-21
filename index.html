@@ -2083,10 +2083,12 @@ function textMedalla(idx) {
   return m ? txi('compartirMedalla', `${m.icon} He dominat ${nomMedalla(m)} aprenent català amb AprènCatalà! És gratis i sense anuncis.`, { icona: m.icon, nom: nomMedalla(m, idiomaInterficie()) }) : '';
 }
 // Avisos de celebració (gel de ratxa, bonus de domini, repte diari, assoliments).
-// Surten tots a baix, al mig. Si n'hi ha un altre a la vista, el nou es posa al
+// Surten tots a baix, al mig (la classe ct-avis els centra i els dona l'amplada del text).
+// Si n'hi ha un altre a la vista, el nou es posa al
 // damunt en lloc de tapar-lo: «Primer pas» i «Primera encertada» surten junts.
 const _toastsVisibles = [];
 function mostraToast(el, ms) {
+  el.classList.add('ct-avis');
   let pis = 0;
   while (_toastsVisibles.some(t => t._pis === pis)) pis++;
   el._pis = pis;
@@ -2101,7 +2103,7 @@ function mostraToast(el, ms) {
 }
 function showFreezeToast(n) {
   const el = document.createElement('div');
-  el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  el.style.cssText = `position:fixed;bottom:80px;
     background:#0e7490;color:#fff;padding:12px 20px;border-radius:12px;
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
@@ -2113,7 +2115,7 @@ function showFreezeToast(n) {
 }
 function showMasteryBonusToast() {
   const el = document.createElement('div');
-  el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  el.style.cssText = `position:fixed;bottom:80px;
     background:#7c3aed;color:#fff;padding:12px 20px;border-radius:12px;
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
     display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
@@ -4285,7 +4287,7 @@ function markDone(ok, xp, gairebe = false) {
         lligaSumaXP(50);
         showXPPop(50);
         const el = document.createElement('div');
-        el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+        el.style.cssText = `position:fixed;bottom:80px;
           background:#059669;color:#fff;padding:14px 22px;border-radius:12px;
           font-size:14px;font-weight:700;z-index:9998;animation:popIn 0.4s ease;
           display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
@@ -5093,7 +5095,7 @@ function checkNewAchievements(prevUnlocked) {
     if (!a) return;
     setTimeout(() => {
       const el = document.createElement('div');
-      el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+      el.style.cssText = `position:fixed;bottom:80px;
         background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
         font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;
         display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
