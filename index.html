@@ -1612,17 +1612,6 @@ function aplicaIdiomaBarra() {
     if (ll) { ll.textContent = txi(d.clau + 'Nom', d.ll); ll.lang = l; }
   }
 }
-// Els accents (decisió de l'usuari, 15/10): un accent mal posat és «gairebé» (el domini no
-// puja) i, on fa una altra paraula (accentsEstrictes), un error. Havia d'encendre's el
-// dilluns 19/10/2026; el 16/10 l'usuari ho va avançar al mateix dia: és un canvi menor, i
-// el dl 19 és per a l'A1. ACCENTS_ESTRICTES = false ho torna com abans («cafe» compta
-// com a encert, amb la nota); null = segons la data. «let» per les proves.
-const ACCENTS_ESTRICTES_DES_DE = 20261016;
-let ACCENTS_ESTRICTES = null;
-function accentsEstrictesActius(ms = Date.now()) {
-  return ACCENTS_ESTRICTES ?? diaMadrid(ms) >= ACCENTS_ESTRICTES_DES_DE;
-}
-
 // ══ RECORREGUTS ══
 // Cada nivell és també un recorregut: les seves categories, agrupades en etapes i
 // en un ordre recomanat (annex A del pla). La pantalla del nivell les mostra així,
@@ -3251,9 +3240,7 @@ function checkFill() {
   // «accentsEstrictes» són les paraules de les respostes que, sense l'accent, en fan una
   // altra o un altre temps («té» → «te», «coneguí» → «conegui», subjuntiu). Si la que
   // falla és una d'aquestes, és un error; si és una altra («mànec»), «gairebé».
-  // Fins al dl 19/10 (ACCENTS_ESTRICTES), com abans: és un encert, amb la nota de l'accent.
-  const accentsNous = accentsEstrictesActius();
-  const canviaParaula = accentsNous && bona ? paraulaEstrictaFallada(bona, input.value, q.accentsEstrictes) : null;
+  const canviaParaula = bona ? paraulaEstrictaFallada(bona, input.value, q.accentsEstrictes) : null;
   const respostaEstricta = canviaParaula ? bona : null;
   if (canviaParaula) { ok = false; bona = null; }
   // Una forma correcta que l'exercici no demana («noDemanades», 09/11): «en què» on es demana
@@ -3263,16 +3250,14 @@ function checkFill() {
     && (q.noDemanades || []).find(a => normalizeStrict(a) === normalizeStrict(input.value));
   const llistaAltres = alts.map(ambEtiqueta).join(', ');
   const altres = alts.length ? `${nota ? '<br>' : ' '}${txi('exAltresFormes', `Altres formes vàlides: <strong>${llistaAltres}</strong>.`, { formes: caTxi(llistaAltres) })}` : '';
-  // Des del 16/10 (ACCENTS_ESTRICTES) no surt mai: no es tradueix.
-  const fixat = bona && !accentsNous ? `<br>Fixa't en ${signesDiferents(bona, input.value)}: s'escriu <strong>${bona}</strong>.` : '';
   // Fase 2 (pas 3): el retorn en l'idioma de la interfície; la resposta i les formes, en
   // català (caTxi).
   const signes = bona ? signesDiferents(bona, input.value) : '';
   const signesCanvia = canviaParaula ? signesDiferents(canviaParaula.bona, canviaParaula.escrita) : '';
-  document.getElementById('feedback-area').innerHTML = bona && accentsNous
+  document.getElementById('feedback-area').innerHTML = bona
     ? `<div class="ct-feedback quasi"${langTxi()}>≈ ${txi('exGairebe', `Gairebé. Fixa't en ${signes}: s'escriu <strong>${bona}</strong>. Et tornarà a sortir al repàs.`, { signes, bona: caTxi(bona) })}${nota}${altres}</div>`
     : ok
-    ? `<div class="ct-feedback ok"${langTxi()}>✓ ${txi('exCorrecte', 'Correcte!')}${fixat}${nota}${altres}</div>`
+    ? `<div class="ct-feedback ok"${langTxi()}>✓ ${txi('exCorrecte', 'Correcte!')}${nota}${altres}</div>`
     : canviaParaula
     ? `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exCanviaParaula', `Gairebé! Sense ${signesCanvia}, «${canviaParaula.bona}» és una altra paraula: la resposta és <strong>${respostaEstricta}</strong>`, { signes: signesCanvia, paraula: caTxi(canviaParaula.bona), resposta: caTxi(respostaEstricta) })}</div>`
     : quasi
@@ -3282,7 +3267,7 @@ function checkFill() {
       : `<div class="ct-feedback ko"${langTxi()}>✗ ${txi('exNoCorrecte', `No és correcte. La resposta és: <strong>${q.answers[0]}</strong>`, { resposta: caTxi(q.answers[0]) })}</div>`;
   showTheory(q, ok);
   if (!ok) mostraCorreccioDubtosa(q, input.value, q.answers.join(' / '));
-  markDone(ok, 10, accentsNous && !!bona);
+  markDone(ok, 10, !!bona);
 }
 function onTapSelect(i) {
   if (dragIdx !== null) return;
