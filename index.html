@@ -2082,8 +2082,8 @@ function textMedalla(idx) {
   const m = getAllMedals()[idx];
   return m ? txi('compartirMedalla', `${m.icon} He dominat ${nomMedalla(m)} aprenent català amb AprènCatalà! És gratis i sense anuncis.`, { icona: m.icon, nom: nomMedalla(m, idiomaInterficie()) }) : '';
 }
-// Avisos de celebració (gel de ratxa, bonus de domini, repte diari, assoliments).
-// Surten tots a baix, al mig (la classe ct-avis els centra i els dona l'amplada del text).
+// Avisos de celebració (gel de ratxa, bonus de domini, repte diari, assoliments) i el de
+// compartir (shareToast, des del 22/11). Surten tots a baix, al mig (la classe ct-avis els centra i els dona l'amplada del text).
 // Si n'hi ha un altre a la vista, el nou es posa al
 // damunt en lloc de tapar-lo: «Primer pas» i «Primera encertada» surten junts.
 const _toastsVisibles = [];
@@ -2152,15 +2152,15 @@ function showEncouragement(category) {
 // On porten els botons de compartir: la fitxa de Play, no el web. Qui rep el
 // missatge acaba amb l'app instal\u00b7lada.
 const APP_SHARE_URL = 'https://play.google.com/store/apps/details?id=cat.aprencatala.app';
+// Per mostraToast, com els de celebració: centrat, amb l'amplada del text i sense tapar-ne cap.
 function shareToast(msg) {
   const el = document.createElement('div');
-  el.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  el.style.cssText = `position:fixed;bottom:80px;
     background:#1a2f4e;color:#fff;padding:12px 20px;border-radius:12px;
     font-size:13px;font-weight:600;z-index:9998;animation:popIn 0.4s ease;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
   el.textContent = msg;
   if (idiomaInterficie() !== 'ca') el.lang = idiomaInterficie();
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 3000);
+  mostraToast(el, 3000);
 }
 // \u26a0 Aquesta cadena ha d'acabar SEMPRE amb alguna cosa visible. La primera
 // versi\u00f3 era \u00abif (share) \u2026 else if (clipboard) \u2026\u00bb sense sortida final: en un
