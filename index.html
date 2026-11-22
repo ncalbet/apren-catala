@@ -1228,6 +1228,10 @@ const TRADUCCIONS = {
     compartirRang: '{emoji} ¡He subido al rango «{nom}» aprendiendo catalán con AprènCatalà! 🎉 Es gratis y sin anuncios.',
     compartirFitaXP: '🎉 ¡He llegado a {xp} XP aprendiendo catalán con AprènCatalà! Es gratis y sin anuncios.',
     compartirMedalla: '{icona} ¡He dominado {nom} aprendiendo catalán con AprènCatalà! Es gratis y sin anuncios.',
+    nuvolTens: 'En la nube tienes {nuvol} XP y en este dispositivo, {aqui} XP. ¿Con qué progreso quieres continuar?',
+    nuvolSubstitueix: 'Si eliges el de aquí, se sustituirá el de la nube.',
+    nuvolAqui: 'El de aquí', nuvolDelNuvol: 'El de la nube',
+    nuvolCarregat: 'Progreso cargado desde la nube ✅',
   },
   en: {
     compteAvantatges: "With a free account you keep your progress, you can join the weekly league and we'll remind you when it's time to review.",
@@ -1530,6 +1534,10 @@ const TRADUCCIONS = {
     compartirRang: "{emoji} I've reached the ‘{nom}’ rank learning Catalan with AprènCatalà! 🎉 It's free and has no ads.",
     compartirFitaXP: "🎉 I've reached {xp} XP learning Catalan with AprènCatalà! It's free and has no ads.",
     compartirMedalla: "{icona} I've mastered {nom} learning Catalan with AprènCatalà! It's free and has no ads.",
+    nuvolTens: 'You have {nuvol} XP in the cloud and {aqui} XP on this device. Which progress do you want to continue with?',
+    nuvolSubstitueix: 'If you choose this device, the progress in the cloud will be replaced.',
+    nuvolAqui: 'This device', nuvolDelNuvol: 'The cloud',
+    nuvolCarregat: 'Progress loaded from the cloud ✅',
   },
 };
 // Com tx(), però en l'idioma que es passa (l). Per a les peces que s'obren des de pantalles
@@ -8030,10 +8038,12 @@ async function sincronitzaProgres() {
       } else if (cloudXP > localXP) {
         // Tots dos en tenen: es tria, i el diàleg diu què passa amb l'altre. Mentre no es
         // tria, desar no puja res (saveProgress).
+        // En l'idioma de la interfície (fase 2, 22/11), com el final de sessió: surt sol en
+        // entrar al compte, sigui on sigui.
         _progresNuvolPendent = cloud;
         const el = document.createElement('div');
         el.className = 'ct-modal-overlay';
-        el.innerHTML = `<div class="ct-modal"><p>Al núvol tens ${cloudXP} XP i en aquest dispositiu ${localXP} XP. Amb quin progrés vols continuar?</p><p style="font-size:13px;color:var(--muted);">Si tries el d'aquí, el del núvol se substituirà.</p><div class="ct-modal-btns"><button class="ct-btn secondary" onclick="triaProgres(false, this)">El d'aquí</button><button class="ct-btn primary" onclick="triaProgres(true, this)">El del núvol</button></div></div>`;
+        el.innerHTML = `<div class="ct-modal"${langTxi()}><p>${txi('nuvolTens', `Al núvol tens ${cloudXP} XP i en aquest dispositiu ${localXP} XP. Amb quin progrés vols continuar?`, { nuvol: cloudXP, aqui: localXP })}</p><p style="font-size:13px;color:var(--muted);">${txi('nuvolSubstitueix', "Si tries el d'aquí, el del núvol se substituirà.")}</p><div class="ct-modal-btns"><button class="ct-btn secondary" onclick="triaProgres(false, this)">${txi('nuvolAqui', "El d'aquí")}</button><button class="ct-btn primary" onclick="triaProgres(true, this)">${txi('nuvolDelNuvol', 'El del núvol')}</button></div></div>`;
         document.body.appendChild(el);
       } else {
         // Local és igual o millor: pugem al núvol silenciosament
@@ -8058,7 +8068,7 @@ function carregaProgresNuvol(cloud) {
   // tapa la pantalla.
   else repintaProgres();
   updateHeader();
-  showAlert('Progrés carregat des del núvol ✅');
+  showAlert(txi('nuvolCarregat', 'Progrés carregat des del núvol ✅'), idiomaInterficie());
 }
 // Torna a pintar la pantalla oberta si mostra el progrés: l'Inici (on s'és en obrir l'app,
 // quan arriba el del núvol), un nivell, un tema, el repàs, Fites i Progrés. L'exercici i el
