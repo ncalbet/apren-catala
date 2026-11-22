@@ -2559,10 +2559,14 @@ function renderLevelMenu(level) {
       <div style="font-size:13px;font-weight:700;color:var(--heading);margin:${i ? 22 : 4}px 0 10px;">${e.k === null ? txi('etapaAltres', e.nom) : txi(`etapa_${level}_${e.k}`, e.nom)}</div>
       <div class="ct-grid">${e.cats.map(c => cardDe(c, cats[c], !!seg && seg.cat === c)).join('')}</div>`).join('');
 
+  // El mòdul IEC no és cap nivell (22/11): el títol és el seu nom, «Novetats IEC», com al
+  // desplegable i a l'Inici, i en català a totes les llengües.
+  const titolNivell = level === 'iec' ? caTxi('Novetats IEC') : txi('nivellTitol', `Nivell ${level.toUpperCase()}`, { nivell: level.toUpperCase() });
+
   window.scrollTo(0, 0);
   document.getElementById('ct-body').innerHTML = `
     <div style="max-width:640px;margin:0 auto;"${langTxi()}>
-      <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">${txi('nivellTitol', `Nivell ${level.toUpperCase()}`, { nivell: level.toUpperCase() })}</div>
+      <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--heading);margin-bottom:4px;">${titolNivell}</div>
       ${r ? `<div style="font-size:15px;font-weight:600;color:var(--heading);margin-bottom:6px;">🧭 ${txi(`rec_${level}_titol`, r.titol)}</div>` : ''}
       <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">${txi(`nivellDesc_${level}`, desc)}</p>
       ${seg
@@ -2599,9 +2603,12 @@ function openCategory(level, cat) {
   // txi(); el nom del tema de l'etiqueta, en català (lang="ca").
   const tr = th && teoriaTraduida(cat);
   const catCa = idiomaInterficie() === 'ca' ? cat : `<span lang="ca">${cat}</span>`;
+  // Al mòdul IEC, «IEC» (22/11): no és cap nivell, i amb «Novetats IEC» l'etiqueta passava a
+  // dues línies a 360 px. Una sigla, igual a totes les llengües.
+  const nivellEtiqueta = level === 'iec' ? 'IEC' : txi('nivellTitol', `Nivell ${level.toUpperCase()}`, { nivell: level.toUpperCase() });
   const heroHTML = th ? `
       <div class="th-hero">
-        <div class="th-hero-label"${langTxi()}>${txi('nivellTitol', `Nivell ${level.toUpperCase()}`, { nivell: level.toUpperCase() })} · ${catCa}</div>
+        <div class="th-hero-label"${langTxi()}>${nivellEtiqueta} · ${catCa}</div>
         <div class="th-hero-title">${th.icon} ${cat}${nomTraduitHTML(tr)}</div>
         <div class="th-hero-sub"${tr && tr.subtitle ? langTx() : ''}>${(tr && tr.subtitle) || th.subtitle}</div>
       </div>` : '';
