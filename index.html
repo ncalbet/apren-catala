@@ -8053,12 +8053,24 @@ function carregaProgresNuvol(cloud) {
   // directament a l'Inici amb el seu progrés (decisió de l'usuari, 17/11). Abans la tornava
   // a veure, com si no hi hagués entrat mai. Si el del núvol no es carrega, la benvinguda segueix.
   if (shouldShowOnboarding()) finishOnboarding();
-  // Amb l'Inici ja obert, les xifres (domini, ratxa, recorregut) eren les d'abans fins que es
-  // canviava de pantalla: es repinta, com a syncPseudonim. No es menja cap toc: l'avís de sota
-  // tapa la pantalla. (L'Inici és on s'és quan es carrega, en obrir l'app.)
-  else if (_navState.screen === 'menu') renderMenu();
+  // Amb una pantalla de progrés ja oberta, les xifres (domini, ratxa, recorregut) eren les
+  // d'abans fins que es canviava de pantalla: es repinta. No es menja cap toc: l'avís de sota
+  // tapa la pantalla.
+  else repintaProgres();
   updateHeader();
   showAlert('Progrés carregat des del núvol ✅');
+}
+// Torna a pintar la pantalla oberta si mostra el progrés: l'Inici (on s'és en obrir l'app,
+// quan arriba el del núvol), un nivell, un tema, el repàs, Fites i Progrés. L'exercici i el
+// final de sessió, no (es perdria la sessió), ni les que no en mostren.
+function repintaProgres() {
+  const s = _navState;
+  if (s.screen === 'menu') renderMenu();
+  else if (s.screen === 'level') renderLevelMenu(s.level);
+  else if (s.screen === 'cat') openCategory(s.level, s.cat);
+  else if (s.screen === 'review') renderReview();
+  else if (s.screen === 'achievements') renderAchievements();
+  else if (s.screen === 'progress') renderProgress();
 }
 // Els botons del diàleg de sincronitzaProgres. Si mentrestant s'ha tancat la sessió, ja no
 // hi ha res pendent i només es tanca.
