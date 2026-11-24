@@ -1083,8 +1083,8 @@ const TRADUCCIONS = {
     continuar: 'Continuar', descartar: 'Descartar',
     valoraTitol: 'Valora AprènCatalà en Google&nbsp;Play', valoraBoto: 'Valórala',
     kofiTitolNom: '¡Gracias, {nom}! Ya has practicado {n} días.', kofiTitol: 'Ya has practicado {n} días. ¡Gracias!',
-    kofiCos: 'AprènCatalà es gratis y sin anuncios. Si te está siendo útil, puedes invitarme a un café.',
-    kofiBoto: 'Invítame',
+    kofiCos: 'AprènCatalà es gratis y sin anuncios. Si te está siendo útil, puedes hacer una aportación.',
+    kofiBoto: 'Haz una aportación',
     tancar: 'Cerrar',
     // La pantalla del nivell (fase 2, pas 2). Els temes, en català amb la glossa de la teoria.
     // La descripció i les etapes, per nivell: nivellDesc_<nivell> i etapa_<nivell>_<posició>.
@@ -1408,8 +1408,8 @@ const TRADUCCIONS = {
     continuar: 'Continue', descartar: 'Discard',
     valoraTitol: 'Rate AprènCatalà on Google&nbsp;Play', valoraBoto: 'Rate it',
     kofiTitolNom: "Thanks, {nom}! That's {n} days of practice.", kofiTitol: "That's {n} days of practice. Thank you!",
-    kofiCos: "AprènCatalà is free and has no ads. If it's helping you, you can buy me a coffee.",
-    kofiBoto: 'Buy me a coffee',
+    kofiCos: "AprènCatalà is free and has no ads. If it's helping you, you can support it.",
+    kofiBoto: 'Support the app',
     tancar: 'Close',
     // La pantalla del nivell (fase 2, pas 2). Els temes, en català amb la glossa de la teoria.
     // La descripció i les etapes, per nivell: nivellDesc_<nivell> i etapa_<nivell>_<posició>.
@@ -2416,8 +2416,8 @@ function renderMenu() {
       <span style="font-size:24px;flex-shrink:0;display:flex;color:var(--accent-amber-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? txi('kofiTitolNom', `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.`, { nom: pseudo, n: diesPracticats }) : txi('kofiTitol', `Ja has practicat ${diesPracticats} dies. Gràcies!`, { n: diesPracticats })}</div>
-        <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">${txi('kofiCos', "AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots convidar-me a un cafè.")}</div>
-        <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">${txi('kofiBoto', "Convida'm")}</a>
+        <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">${txi('kofiCos', "AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots fer-hi una aportació.")}</div>
+        <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">${txi('kofiBoto', 'Fes una aportació')}</a>
       </div>
       <button onclick="dismissKofiBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="${txi('tancar', 'Tancar')}">✕</button>
     </div>` : '';
@@ -5323,7 +5323,7 @@ function renderProgress() {
       <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener"
         style="display:flex;align-items:center;gap:12px;background:var(--accent-amber-bg);border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--accent-amber-text);">
         <span style="font-size:28px;">☕</span>
-        <div style="font-size:14px;font-weight:700;">T'ha estat útil? Convida'm a un cafè</div>
+        <div style="font-size:14px;font-weight:700;">T'ha estat útil? Fes una aportació</div>
         <span style="font-size:18px;margin-left:auto;">→</span>
       </a>
     </div>`;
