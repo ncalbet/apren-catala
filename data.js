@@ -6023,7 +6023,7 @@ const DATA = {
       theory:'L\'imperfet expressa hàbits, accions repetides o estats en el passat. «Abans… ara» contraposa un costum d\'abans amb el present → imperfet. «Cada estiu», sola, no ho decidiria.', example:'Quan era jove, estudiava fins a les dotze cada nit.' },
     { id:'b2-tv3', type:'fill', level:'b2', category:'Temps verbals',
       question:'Completa amb un verb de moviment en passat perifràstic (va + infinitiu):',
-      sentence:'Quan el professor ___ a classe, tots els alumnes s\'aixecaren.',
+      sentence:'Quan el professor ___ a classe, tots els alumnes es van aixecar.',
       answers:['va entrar','va anar','va arribar','va venir'],
       variants:[
         { question:'Completa amb un verb de comunicació en passat perifràstic (va + infinitiu):', sentence:'Quan la directora ___ la notícia, tothom va aplaudir.', answers:['va anunciar','va dir','va comunicar','va donar','va explicar'] },
