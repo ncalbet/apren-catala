@@ -961,13 +961,13 @@
         title: 'Irregulars importants a A2',
         icon: '📋',
         table: {
-          headers: ['Infinitiu', 'Jo', 'Tu', 'Ell/ella', 'Nosaltres'],
+          headers: ['Infinitiu', 'Jo, ell/ella', 'Tu', 'Nosaltres'],
           rows: [
-            ['ser', 'era', 'eres', 'era', 'érem'],
-            ['fer', 'feia', 'feies', 'feia', 'fèiem'],
-            ['tenir', 'tenia', 'tenies', 'tenia', 'teníem'],
-            ['anar', 'anava', 'anaves', 'anava', 'anàvem'],
-            ['venir', 'venia', 'venies', 'venia', 'veníem'],
+            ['ser', 'era', 'eres', 'érem'],
+            ['fer', 'feia', 'feies', 'fèiem'],
+            ['tenir', 'tenia', 'tenies', 'teníem'],
+            ['anar', 'anava', 'anaves', 'anàvem'],
+            ['venir', 'venia', 'venies', 'veníem'],
           ]
         }
       },
