@@ -2107,7 +2107,7 @@
           headers: ['Passat perifràstic', 'Imperfet', 'Ús'],
           rows: [
             ['Vaig menjar.', 'Menjava.', 'Acció puntual acabada vs. acció en curs/habitual'],
-            ['Va trucar tres vegades.', 'Trucava cada dia.', 'Acció comptada/delimitada vs. hàbit'],
+            ['Va trucar tres vegades.', 'Trucava cada dia.', 'Acció comptada o delimitada vs. hàbit'],
             ['Quan va entrar...', '...plorava (de fons)', 'Acció nova vs. acció de fons'],
           ]
         }
