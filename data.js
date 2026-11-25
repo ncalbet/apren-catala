@@ -2024,7 +2024,7 @@
             ['re-', 'repetició, intensitat', 'refer, rellegir, reforçar, reorganitzar'],
             ['sub-', 'inferioritat, insuficiència', 'subestimar, subordinat, subconjunt'],
             ['pre-', 'anterioritat', 'preveure, predeterminar, precedent'],
-            ['co-/con-', 'conjunció, participació', 'coautoria, coexistir, conviure, corresponsabilitat'],
+            ['co-, con-', 'conjunció, participació', 'coautoria, coexistir, conviure, cooperar'],
             ['anti-', 'oposició', 'antidemocràtic, anticossos, antisocial'],
             ['inter-', 'entre, mutuament', 'intercanvi, interacció, interdisciplinari'],
             ['multi-', 'multiplicitat', 'multicultural, multidisciplinari, multilingüe'],
