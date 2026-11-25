@@ -5413,7 +5413,7 @@ const DATA = {
       answers:['feia'],
       variants:[
         { text:"El verb «dir» és irregular en imperfet i es conjuga com «fer». Recorda'n la forma.", sentence:"De petita, la meva mare sempre em ___ (dir) que estudiés molt.", display:"imperfet 3a pers. sing. de «dir»", answers:['deia'], theory:"«Dir» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «riure»: jo deia, tu deies, ell deia, nosaltres dèiem, vosaltres dèieu, ells deien.", example:"El meu avi sempre deia que la paciència ho és tot." },
-        { text:"El verb «riure» fa l'imperfet sobre l'arrel «re-» amb la terminació -ia de la 2a conjugació. Recorda'n la forma.", sentence:"Quan ens explicava acudits, tothom ___ (riure) molt.", display:"imperfet 3a pers. sing. de «riure»", answers:['reia'], theory:"«Riure» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «dir»: jo reia, tu reies, ell reia, nosaltres rèiem, vosaltres rèieu, ells reien.", example:'Quan tenia sis anys, reia molt amb els dibuixos animats.' },
+        { text:"El verb «riure» és irregular en imperfet i es conjuga com «fer». Recorda'n la forma.", sentence:"Quan ens explicava acudits, tothom ___ (riure) molt.", display:"imperfet 3a pers. sing. de «riure»", answers:['reia'], theory:"«Riure» fa l'imperfet d'indicatiu amb -ei-, com «fer» i «dir»: jo reia, tu reies, ell reia, nosaltres rèiem, vosaltres rèieu, ells reien.", example:'Quan tenia sis anys, reia molt amb els dibuixos animats.' },
       ],
       theory:"«Fer» en imperfet d'indicatiu: jo feia, tu feies, ell feia, nosaltres fèiem, vosaltres fèieu, ells feien. La terminació -ia/-ies és regular per als verbs de la 2a conjugació.", example:"Quan tenia vint anys, feia molt esport cada dia." },
 
