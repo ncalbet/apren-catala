@@ -1635,16 +1635,30 @@
         body: `<p>Al C1, el lèxic genèric és un dels errors més penalitzats. Cada paraula ha d'aportar informació precisa. Els verbs «fer», «dir», «tenir» i els noms «cosa», «aspecte», «tema» (quan no és necessari) solen ser senyals d'imprecisió lèxica.</p>`
       },
       {
-        title: 'Famílies lèxiques per a la producció formal',
+        title: 'Famílies lèxiques: verbs precisos',
         icon: '📊',
         table: {
-          headers: ['Camp semàntic', 'Verbs precisos', 'Noms associats'],
+          headers: ['Camp semàntic', 'Verbs precisos'],
           rows: [
-            ['Comunicació', 'manifestar, declarar, anunciar, expressar, al·ludir, subratllar', 'declaració, afirmació, discurs, al·locució'],
-            ['Acció / Execució', 'dur a terme, executar, impulsar, promoure, implementar', 'implementació, execució, desplegament'],
-            ['Anàlisi', 'examinar, avaluar, constatar, determinar, evidenciar', 'anàlisi, diagnosi, avaluació, estudi'],
-            ['Problema', 'sorgir, agreujar-se, persistir, resoldre, abordar', 'problemàtica, mancança, dèficit, repte'],
-            ['Millora', 'optimitzar, reforçar, consolidar, enfortir, actualitzar', 'millora, avenç, progrés, optimització'],
+            ['Comunicació', 'manifestar, declarar, anunciar, expressar, al·ludir, subratllar'],
+            ['Acció / Execució', 'dur a terme, executar, impulsar, promoure, implementar'],
+            ['Anàlisi', 'examinar, avaluar, constatar, determinar, evidenciar'],
+            ['Problema', 'sorgir, agreujar-se, persistir, resoldre, abordar'],
+            ['Millora', 'optimitzar, reforçar, consolidar, enfortir, actualitzar'],
+          ]
+        }
+      },
+      {
+        title: 'Famílies lèxiques: noms associats',
+        icon: '📊',
+        table: {
+          headers: ['Camp semàntic', 'Noms associats'],
+          rows: [
+            ['Comunicació', 'declaració, afirmació, discurs, al·locució'],
+            ['Acció / Execució', 'implementació, execució, desplegament'],
+            ['Anàlisi', 'anàlisi, diagnosi, avaluació, estudi'],
+            ['Problema', 'problemàtica, mancança, dèficit, repte'],
+            ['Millora', 'millora, avenç, progrés, optimització'],
           ]
         }
       },
