@@ -1111,16 +1111,24 @@
         title: 'Connectors per funció',
         icon: '📊',
         table: {
-          headers: ['Funció', 'Connectors principals', 'Exemple'],
+          headers: ['Funció', 'Connectors principals'],
           rows: [
-            ['Addició', 'a més (a més), també, fins i tot, d\'altra banda', 'A més, cal tenir en compte els costos.'],
-            ['Causa', 'perquè, ja que, atès que, donat que, com que', 'No va venir perquè estava malalt.'],
-            ['Conseqüència', 'per tant, per consegüent, és per això que, així doncs', 'Va treballar molt; per tant, va tenir èxit.'],
-            ['Oposició', 'però, tanmateix, no obstant això, malgrat tot', 'És difícil; tanmateix, és possible.'],
-            ['Concessió', 'tot i que, encara que, malgrat que, per bé que', 'Tot i que plovia, van sortir.'],
-            ['Ordre', 'en primer lloc, a continuació, finalment, per acabar', 'En primer lloc, analitzarem...'],
+            ['Addició', 'a més (a més), també, fins i tot, d\'altra banda'],
+            ['Causa', 'perquè, ja que, atès que, donat que, com que'],
+            ['Conseqüència', 'per tant, per consegüent, és per això que, així doncs'],
+            ['Oposició', 'però, tanmateix, no obstant això, malgrat tot'],
+            ['Concessió', 'tot i que, encara que, malgrat que, per bé que'],
+            ['Ordre', 'en primer lloc, a continuació, finalment, per acabar'],
           ]
-        }
+        },
+        examples: [
+          { text: 'Addició: «A més, cal tenir en compte els costos.»' },
+          { text: 'Causa: «No va venir perquè estava malalt.»' },
+          { text: 'Conseqüència: «Va treballar molt; per tant, va tenir èxit.»' },
+          { text: 'Oposició: «És difícil; tanmateix, és possible.»' },
+          { text: 'Concessió: «Tot i que plovia, van sortir.»' },
+          { text: 'Ordre: «En primer lloc, analitzarem...»' },
+        ]
       },
       {
         title: 'Errors freqüents',
