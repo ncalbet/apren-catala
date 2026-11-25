@@ -915,7 +915,7 @@
             ['la', 'nom femení singular determinat', "«Has vist la Maria?» «Sí, l'he vista.»"],
             ['els', 'nom masculí plural determinat', "«On has posat els documents?» «Els he deixat a la taula.»"],
             ['les', 'nom femení plural determinat', "«Has vist les amigues?» «Sí, les he vistes.»"],
-            ['ho', 'atribut o idea abstracta/neutra', "«És simpàtic?» «Sí, ho és.»"],
+            ['ho', 'atribut o idea abstracta o neutra', "«És simpàtic?» «Sí, ho és.»"],
             ['en', 'CD sense article / quantitat indeterminada', "«Vols pa?» «Sí, en vull.»"],
           ]
         }
