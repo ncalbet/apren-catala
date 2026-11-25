@@ -2179,7 +2179,7 @@
             ['Superioritat', 'més + adj./adv. + que', 'És més alt que el seu germà.'],
             ['Inferioritat', 'menys + adj./adv. + que', 'Parla menys fluïdament.'],
             ['Igualtat (adj./adv.)', 'tan + adj./adv. + com', 'És tan intel·ligent com diuen.'],
-            ['Igualtat (verb/nom)', 'tant com / tanta/tants/tantes + nom + com', 'Treballa tant com pot.'],
+            ['Igualtat (verb/nom)', 'tant com / tant, tanta, tants, tantes + nom + com', 'Treballa tant com pot.'],
           ]
         }
       },
