@@ -783,8 +783,6 @@ let _lligaVolEntrar = false;
 // dispositiu. Mentrestant es desa al dispositiu i prou.
 let _progresComparat = false;
 let _progresSincronitzant = false;
-// El progrés del núvol mentre s'espera que la persona triï amb quin continua (triaProgres).
-let _progresNuvolPendent = null;
 let _streakFrozen = 0;
 function _setNav(s) {
   _navState = s;
@@ -808,7 +806,7 @@ function aturaAudio() {
 
 function saveProgress() {
   localStorage.setItem('cat_prog_v7', JSON.stringify(progress));
-  if (_progresComparat && !_progresNuvolPendent) window.fbSaveProgress?.(progress);
+  if (_progresComparat) window.fbSaveProgress?.(progress);
 }
 
 // ══ SESSIÓ ACTIVA (persistència per reprendre on s'ha deixat) ══
@@ -1237,9 +1235,6 @@ const TRADUCCIONS = {
     compartirRang: '{emoji} ¡He subido al rango «{nom}» aprendiendo catalán con AprènCatalà! 🎉 Es gratis y sin anuncios.',
     compartirFitaXP: '🎉 ¡He llegado a {xp} XP aprendiendo catalán con AprènCatalà! Es gratis y sin anuncios.',
     compartirMedalla: '{icona} ¡He dominado {nom} aprendiendo catalán con AprènCatalà! Es gratis y sin anuncios.',
-    nuvolTens: 'En la nube tienes {nuvol} XP y en este dispositivo, {aqui} XP. ¿Con qué progreso quieres continuar?',
-    nuvolSubstitueix: 'Si eliges el de aquí, se sustituirá el de la nube.',
-    nuvolAqui: 'El de aquí', nuvolDelNuvol: 'El de la nube',
     nuvolCarregat: 'Progreso cargado desde la nube ✅',
   },
   en: {
@@ -1552,9 +1547,6 @@ const TRADUCCIONS = {
     compartirRang: "{emoji} I've reached the ‘{nom}’ rank learning Catalan with AprènCatalà! 🎉 It's free and has no ads.",
     compartirFitaXP: "🎉 I've reached {xp} XP learning Catalan with AprènCatalà! It's free and has no ads.",
     compartirMedalla: "{icona} I've mastered {nom} learning Catalan with AprènCatalà! It's free and has no ads.",
-    nuvolTens: 'You have {nuvol} XP in the cloud and {aqui} XP on this device. Which progress do you want to continue with?',
-    nuvolSubstitueix: 'If you choose this device, the progress in the cloud will be replaced.',
-    nuvolAqui: 'This device', nuvolDelNuvol: 'The cloud',
     nuvolCarregat: 'Progress loaded from the cloud ✅',
   },
 };
@@ -8016,7 +8008,6 @@ document.addEventListener('fb-auth-change', async (e) => {
     // debò o esborrar el compte (lligaOblida).
     lligaApunta('sessió: no');
     _progresComparat = false;   // la sessió següent es torna a comparar
-    _progresNuvolPendent = null;
     _lligaPrimeraSinc = null;
     _lligaConfirmat = null;
     desaLligaLocal({ pendent: null });
@@ -8039,12 +8030,16 @@ document.addEventListener('fb-auth-change', async (e) => {
   await sincronitzaProgres();
 });
 
-// En iniciar sessió es compara el progrés d'aquest dispositiu amb el del núvol: si el del
-// núvol té més XP, es carrega (si aquí no n'hi ha) o es tria (triaProgres); si no, es puja
-// el d'aquí. Si no es pot
-// llegir (sense connexió en obrir l'app), es torna a provar com la lliga (1,5 s i 4 s) i,
-// si tot falla, en tornar a l'app; fins aleshores el progrés es desa només al dispositiu
-// (saveProgress). Abans, una lectura fallida es prenia per un primer inici de sessió.
+// En iniciar sessió (i cada cop que s'obre l'app amb la sessió iniciada) el progrés d'aquest
+// dispositiu es fusiona amb el del núvol (carregaProgresNuvol) i el resultat es puja. Si al
+// núvol no n'hi ha, es puja el d'aquí. Si no es pot llegir (sense connexió en obrir l'app),
+// es torna a provar com la lliga (1,5 s i 4 s) i, si tot falla, en tornar a l'app; fins
+// aleshores el progrés es desa només al dispositiu (saveProgress). Abans, una lectura
+// fallida es prenia per un primer inici de sessió.
+// Fins al 25/11 es comparaven només els XP: el que en tenia més (o, si tots dos en tenien,
+// el que es triava en un diàleg) substituïa l'altre sencer, i es perdien els dies practicats
+// i el domini de l'altre dispositiu. Ara no es pregunta res i no es perd res (decisió de
+// l'usuari, 25/11).
 async function sincronitzaProgres() {
   if (_progresComparat || _progresSincronitzant) return;
   _progresSincronitzant = true;
@@ -8060,40 +8055,26 @@ async function sincronitzaProgres() {
         window.fbSaveProgress?.(progress);
         return;
       }
-      const localXP = progress.xp || 0;
-      const cloudXP = cloud.xp || 0;
-      if (cloudXP > localXP && !localXP) {
-        // En aquest dispositiu encara no hi ha res (un mòbil nou, una finestra privada): no hi
-        // ha res a perdre i es carrega sense preguntar. Fins al 17/11 es preguntava, i un
-        // «Cancel·lar» feia que el primer exercici substituís el del núvol pel buit d'aquí.
-        carregaProgresNuvol(cloud);
-      } else if (cloudXP > localXP) {
-        // Tots dos en tenen: es tria, i el diàleg diu què passa amb l'altre. Mentre no es
-        // tria, desar no puja res (saveProgress).
-        // En l'idioma de la interfície (fase 2, 22/11), com el final de sessió: surt sol en
-        // entrar al compte, sigui on sigui.
-        _progresNuvolPendent = cloud;
-        const el = document.createElement('div');
-        el.className = 'ct-modal-overlay';
-        el.innerHTML = `<div class="ct-modal"${langTxi()}><p>${txi('nuvolTens', `Al núvol tens ${cloudXP} XP i en aquest dispositiu ${localXP} XP. Amb quin progrés vols continuar?`, { nuvol: cloudXP, aqui: localXP })}</p><p style="font-size:13px;color:var(--muted);">${txi('nuvolSubstitueix', "Si tries el d'aquí, el del núvol se substituirà.")}</p><div class="ct-modal-btns"><button class="ct-btn secondary" onclick="triaProgres(false, this)">${txi('nuvolAqui', "El d'aquí")}</button><button class="ct-btn primary" onclick="triaProgres(true, this)">${txi('nuvolDelNuvol', 'El del núvol')}</button></div></div>`;
-        document.body.appendChild(el);
-      } else {
-        // Local és igual o millor: pugem al núvol silenciosament
-        window.fbSaveProgress?.(progress);
-      }
+      carregaProgresNuvol(cloud);
       return;
     }
   } finally {
     _progresSincronitzant = false;
   }
 }
+// Fusiona el del núvol amb el d'aquí, el desa i el puja (saveProgress, ja comparat). Si el del
+// núvol no hi afegeix res que es vegi (més XP, un dia practicat, el domini d'un exercici), no
+// es diu res ni es torna a pintar.
 function carregaProgresNuvol(cloud) {
   const { _updatedAt, progressAt, ...cloudProgress } = cloud;
-  progress = { ...progress, ...cloudProgress };
+  const abans = progress;
+  progress = fusionaProgres(abans, cloudProgress);
   saveProgress();
+  if (!aportaProgres(abans, progress)) return;
   // Qui entra al seu compte en un dispositiu nou ja ha fet servir l'app: sense la benvinguda,
   // directament a l'Inici amb el seu progrés (decisió de l'usuari, 17/11). Abans la tornava
-  // a veure, com si no hi hagués entrat mai. Si el del núvol no es carrega, la benvinguda segueix.
+  // a veure, com si no hi hagués entrat mai. Si el del núvol no hi afegeix res, la benvinguda
+  // segueix.
   if (shouldShowOnboarding()) finishOnboarding();
   // Amb una pantalla de progrés ja oberta, les xifres (domini, ratxa, recorregut) eren les
   // d'abans fins que es canviava de pantalla: es repinta. No es menja cap toc: l'avís de sota
@@ -8101,6 +8082,90 @@ function carregaProgresNuvol(cloud) {
   else repintaProgres();
   updateHeader();
   showAlert(txi('nuvolCarregat', 'Progrés carregat des del núvol ✅'), idiomaInterficie());
+}
+// La fusió del progrés (25/11). El d'aquí i el del núvol poden ser de dos dispositius que han
+// practicat cadascun pel seu compte, o l'un pot ser una còpia endarrerida de l'altre. Del
+// primer cas no s'ha de perdre res; en el segon, ha de sortir exactament el més nou.
+// - Dies practicats i dies salvats amb un gel: els de tots dos (els 30 últims, com markDone).
+// - XP, sessions perfectes, la fita d'XP i el domini més alt de cada exercici (maxMastery):
+//   el més alt, perquè només creixen.
+// - El domini de cada exercici, que pot baixar amb un error: el del costat que l'ha practicat
+//   més tard, amb les seves dates de repàs; si és el mateix dia, el més alt.
+// - Nivells celebrats, medalles celebrades, càpsules vistes, repeticions del dia: tots. Una
+//   valoració feta, de qualsevol costat.
+// - La resta (gels, repte del dia, recorregut…): del que ha practicat més tard; si és el
+//   mateix dia, del que té més XP. La ratxa també, però continua la de l'altre si els dies
+//   d'enmig hi són tots (practicats o salvats amb un gel): un mòbil nou no la torna a 1.
+//   Els gels, no: si en aquell mòbil se n'han fet servir o guanyat, compten els seus.
+function fusionaProgres(aqui, nuvol) {
+  const a = aqui || {}, b = nuvol || {};
+  const dia = p => { const t = new Date(p.lastDay || NaN).getTime(); return isNaN(t) ? -Infinity : t; };
+  const recent = dia(a) !== dia(b) ? (dia(a) > dia(b) ? a : b) : ((b.xp || 0) > (a.xp || 0) ? b : a);
+  const altre = recent === a ? b : a;
+  const f = { ...altre, ...recent };
+  const dies = (x, y) => [...new Set([...(x || []), ...(y || [])])]
+    .filter(s => !isNaN(new Date(s).getTime()))
+    .sort((p, q) => new Date(p) - new Date(q))
+    .slice(-30);
+  f.practiceHistory = dies(a.practiceHistory, b.practiceHistory);
+  f.frozenDays = dies(a.frozenDays, b.frozenDays);
+  f.xp = Math.max(a.xp || 0, b.xp || 0);
+  f.perfectSessions = Math.max(a.perfectSessions || 0, b.perfectSessions || 0);
+  const fites = [a.fitaXP, b.fitaXP].filter(x => typeof x === 'number');
+  if (fites.length) f.fitaXP = Math.max(...fites);
+  f.maxMastery = { ...(altre.maxMastery || {}) };
+  for (const [id, v] of Object.entries(recent.maxMastery || {})) f.maxMastery[id] = Math.max(f.maxMastery[id] || 0, v || 0);
+  // El domini, exercici per exercici
+  const ma = a.mastery || {}, mb = b.mastery || {};
+  const quan = (p, id) => ((p.masteryDayStart || {})[id] || {}).date || (p.lastMasteryDate || {})[id] || '';
+  f.mastery = {};
+  f.lastMasteryDate = { ...(altre.lastMasteryDate || {}), ...(recent.lastMasteryDate || {}) };
+  f.masteryDayStart = { ...(altre.masteryDayStart || {}), ...(recent.masteryDayStart || {}) };
+  for (const id of new Set([...Object.keys(ma), ...Object.keys(mb)])) {
+    const qa = quan(a, id), qb = quan(b, id);
+    const s = !(id in mb) ? a : !(id in ma) ? b
+      : qa !== qb ? (qa > qb ? a : b)
+      : ma[id] !== mb[id] ? (ma[id] > mb[id] ? a : b) : recent;
+    f.mastery[id] = s.mastery[id];
+    for (const k of ['lastMasteryDate', 'masteryDayStart']) {
+      if (s[k] && id in s[k]) f[k][id] = s[k][id];
+      else delete f[k][id];
+    }
+  }
+  for (const k of ['celebratedLevels', 'capsulesVistes', 'xpReps']) {
+    if (a[k] || b[k]) f[k] = { ...(altre[k] || {}), ...(recent[k] || {}) };
+  }
+  if (Array.isArray(a.celebratedAch) || Array.isArray(b.celebratedAch)) {
+    f.celebratedAch = [...new Set([...(a.celebratedAch || []), ...(b.celebratedAch || [])])];
+  }
+  const valorada = [a, b].find(p => p.valoracio && p.valoracio.fet);
+  if (valorada) f.valoracio = valorada.valoracio;
+  f.streak = ratxaFusionada(recent, altre, new Set(f.practiceHistory), new Set(f.frozenDays));
+  return f;
+}
+// La ratxa del que ha practicat més tard o, si continua sense forats la de l'altre (cada dia
+// d'enmig practicat o salvat amb un gel), la de l'altre més els dies practicats d'enmig.
+function ratxaFusionada(recent, altre, practicats, gelats) {
+  const r = recent.streak || 0;
+  const fi = new Date(recent.lastDay || NaN), inici = new Date(altre.lastDay || NaN);
+  if (isNaN(fi.getTime()) || isNaN(inici.getTime()) || inici > fi) return r;
+  if (inici.getTime() === fi.getTime()) return Math.max(r, altre.streak || 0);
+  let nous = 0;
+  for (const d = new Date(inici); d < fi;) {
+    d.setDate(d.getDate() + 1);
+    const s = d.toDateString();
+    if (practicats.has(s)) nous++;
+    else if (!gelats.has(s)) return r;   // un forat: la de l'altre es va trencar
+  }
+  return Math.max(r, (altre.streak || 0) + nous);
+}
+// Si la fusió hi ha afegit res que es vegi: XP, un dia practicat o el domini d'un exercici.
+function aportaProgres(abans, ara) {
+  if ((ara.xp || 0) > (abans.xp || 0)) return true;
+  const dies = new Set(abans.practiceHistory || []);
+  if ((ara.practiceHistory || []).some(d => !dies.has(d))) return true;
+  const m0 = abans.mastery || {}, m1 = ara.mastery || {};
+  return Object.keys(m1).some(id => m1[id] !== m0[id]);
 }
 // Torna a pintar la pantalla oberta si mostra el progrés: l'Inici (on s'és en obrir l'app,
 // quan arriba el del núvol), un nivell, un tema, el repàs, Fites i Progrés. L'exercici i el
@@ -8113,16 +8178,6 @@ function repintaProgres() {
   else if (s.screen === 'review') renderReview();
   else if (s.screen === 'achievements') renderAchievements();
   else if (s.screen === 'progress') renderProgress();
-}
-// Els botons del diàleg de sincronitzaProgres. Si mentrestant s'ha tancat la sessió, ja no
-// hi ha res pendent i només es tanca.
-function triaProgres(delNuvol, boto) {
-  boto?.closest('.ct-modal-overlay')?.remove();
-  const cloud = _progresNuvolPendent;
-  _progresNuvolPendent = null;
-  if (!cloud) return;
-  if (delNuvol) carregaProgresNuvol(cloud);
-  else window.fbSaveProgress?.(progress);
 }
 
 /* ══ PWA: Registre del Service Worker ══ */
