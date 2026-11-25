@@ -1547,15 +1547,16 @@
       {
         title: 'Terminacions del subjuntiu imperfet',
         icon: '📊',
+        body: `<p>Els verbs en -re i en -er, i també «tenir» i «venir», porten les mateixes terminacions que els verbs en -ar: «perdés», «tingués», «vingués». Els altres verbs en -ir canvien la «e» per una «i»: «dormís».</p>`,
         table: {
-          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er (tenir)', 'Verbs en -ir (venir)'],
+          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -ir (dormir)'],
           rows: [
-            ['jo', 'parlés', 'tingués', 'vingués'],
-            ['tu', 'parlessis', 'tinguessis', 'vinguessis'],
-            ['ell/ella', 'parlés', 'tingués', 'vingués'],
-            ['nosaltres', 'parléssim', 'tinguéssim', 'vinguéssim'],
-            ['vosaltres', 'parléssiu', 'tinguéssiu', 'vinguéssiu'],
-            ['ells/elles', 'parlessin', 'tinguessin', 'vinguessin'],
+            ['jo', 'parlés', 'dormís'],
+            ['tu', 'parlessis', 'dormissis'],
+            ['ell/ella', 'parlés', 'dormís'],
+            ['nosaltres', 'parléssim', 'dormíssim'],
+            ['vosaltres', 'parléssiu', 'dormíssiu'],
+            ['ells/elles', 'parlessin', 'dormissin'],
           ]
         }
       },
