@@ -3064,7 +3064,7 @@
                <p>La supressió no és total: hi ha una condició, i és la que ho decideix tot.</p>`
       },
       {
-        title: 'La regla: mireu el mot primitiu',
+        title: 'La regla: mira el mot primitiu',
         icon: '🔑',
         body: `<p>La dièresi cau <strong>només si el mot primitiu no en duu</strong>. Dit d'una altra manera: si al mot d'origen la <em>i</em> ja forma un diftong, el derivat en -al se'l queda i no cal marcar res.</p>
                <p><em>trapezoide</em> → <strong>trapezoidal</strong> · <em>helicoide</em> → <strong>helicoidal</strong> · <em>col·loide</em> → <strong>col·loidal</strong> · <em>romboide</em> → <strong>romboidal</strong> · <em>esferoide</em> → <strong>esferoidal</strong> · <em>laic</em> → <strong>laical</strong> · <em>fluid</em> → <strong>fluidal</strong> · <em>coit</em> → <strong>coital</strong>.</p>
@@ -7559,7 +7559,7 @@ const DATA = {
         { options:["Han citat a declarar un exalt càrrec.","Han citat a declarar un ex alt càrrec.","Han citat a declarar un ex-alt càrrec."], correct:1 },
         { options:["La viceprimera ministra visita Brussel·les.","La vice-primera ministra visita Brussel·les.","La vice primera ministra visita Brussel·les."], correct:2 },
       ],
-      theory:"Dues preguntes. La primera: el que ve darrere del prefix és una expressió fixada? Si ho és, el prefix va SEPARAT: ex alt càrrec, ex número dos, vice primera ministra, anti pena de mort. Si no ho és, s'aglutina amb el primer mot: exministre de l'Interior, exalcaldessa d'Alacant, excompany de pis, antiprivatització de la sanitat pública. La segona, afegida el novembre del 2025: encara que el sintagma no sigui fixat, si el primer mot no n'és el nucli, el prefix també se'n separa — un producte anti males olors, la ruta està mega ben senyalitzada. Com a comprovació ràpida, mireu si prefix + primer mot fan una paraula que existeixi: exministre sí, *exalt no.", example:"exministre de l'Interior, exalcaldessa d'Alacant (aglutinats) / ex alt càrrec, anti males olors (separats)" },
+      theory:"Dues preguntes. La primera: el que ve darrere del prefix és una expressió fixada? Si ho és, el prefix va SEPARAT: ex alt càrrec, ex número dos, vice primera ministra, anti pena de mort. Si no ho és, s'aglutina amb el primer mot: exministre de l'Interior, exalcaldessa d'Alacant, excompany de pis, antiprivatització de la sanitat pública. La segona, afegida el novembre del 2025: encara que el sintagma no sigui fixat, si el primer mot no n'és el nucli, el prefix també se'n separa — un producte anti males olors, la ruta està mega ben senyalitzada. Com a comprovació ràpida, mira si prefix + primer mot fan una paraula que existeixi: exministre sí, *exalt no.", example:"exministre de l'Interior, exalcaldessa d'Alacant (aglutinats) / ex alt càrrec, anti males olors (separats)" },
 
     { id:'iec-pj4', type:'choice', level:'iec', category:'Prefixos: junt o separat',
       question:'Darrere de prefix, la erra de vegades es dobla i de vegades no. Quina parella està ben escrita?',
