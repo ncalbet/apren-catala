@@ -7846,7 +7846,7 @@ const DATA = {
 
     { id:'iec-di4', type:'fill', level:'iec', strictAccents:true, category:'La dièresi que va caure',
       question:'Escriu el derivat en -al (pensa si duu dièresi):',
-      text:'Ara mireu el mot primitiu abans de decidir.',
+      text:'Ara mira el mot primitiu abans de decidir.',
       sentence:'El camí ___ que uneix les dues masies s\'ha asfaltat aquest estiu.',
       display:'relatiu als veïns, de «veí»',
       answers:['veïnal'],
