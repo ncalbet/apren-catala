@@ -826,14 +826,14 @@
         title: 'Patrons principals de flexió',
         icon: '📊',
         table: {
-          headers: ['Patró', 'Masc. sing.', 'Fem. sing.', 'Masc. pl.', 'Fem. pl.'],
+          headers: ['Patró', 'Singular (masc., fem.)', 'Plural (masc., fem.)'],
           rows: [
-            ['-a / -es', 'sincer', 'sincera', 'sincers', 'sinceres'],
-            ['-t / -da', 'divertit', 'divertida', 'divertits', 'divertides'],
-            ['-c / -ca', 'simpàtic', 'simpàtica', 'simpàtics', 'simpàtiques'],
-            ['-l / -l·la', 'tranquil', 'tranquil·la', 'tranquils', 'tranquil·les'],
-            ['invariable (-ble, -nt)', 'amable', 'amable', 'amables', 'amables'],
-            ['-ós / -osa', 'generós', 'generosa', 'generosos', 'generoses'],
+            ['-a / -es', 'sincer, sincera', 'sincers, sinceres'],
+            ['-t / -da', 'divertit, divertida', 'divertits, divertides'],
+            ['-c / -ca', 'simpàtic, simpàtica', 'simpàtics, simpàtiques'],
+            ['-l / -l·la', 'tranquil, tranquil·la', 'tranquils, tranquil·les'],
+            ['invariable (-ble, -nt)', 'amable, amable', 'amables, amables'],
+            ['-ós / -osa', 'generós, generosa', 'generosos, generoses'],
           ]
         }
       },
