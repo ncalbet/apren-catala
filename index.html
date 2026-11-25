@@ -2416,7 +2416,7 @@ function renderMenu() {
       <span style="font-size:24px;flex-shrink:0;display:flex;color:var(--accent-amber-text);"><svg class="ct-hico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--accent-amber-text);">${pseudo ? txi('kofiTitolNom', `Gràcies, ${pseudo}! Ja has practicat ${diesPracticats} dies.`, { nom: pseudo, n: diesPracticats }) : txi('kofiTitol', `Ja has practicat ${diesPracticats} dies. Gràcies!`, { n: diesPracticats })}</div>
-        <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">${txi('kofiCos', "AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots fer-hi una aportació.")}</div>
+        <div style="font-size:12px;color:var(--accent-amber-val);margin-top:2px;">${txi('kofiCos', "AprènCatalà és gratuït i sense anuncis. Si t'està sent útil, pots fer una aportació.")}</div>
         <a href="https://ko-fi.com/aprencatala" target="_blank" rel="noopener" class="ct-btn primary" style="font-size:13px;padding:8px 14px;margin-top:10px;text-decoration:none;white-space:nowrap;">${txi('kofiBoto', 'Fes una aportació')}</a>
       </div>
       <button onclick="dismissKofiBanner()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px;line-height:1;flex-shrink:0;" aria-label="${txi('tancar', 'Tancar')}">✕</button>
