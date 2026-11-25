@@ -2545,12 +2545,12 @@
         title: 'Tipus de subordinades B1',
         icon: '📊',
         table: {
-          headers: ['Tipus', 'Nexe principal', 'Mode', 'Exemple'],
+          headers: ['Tipus', 'Nexe i mode', 'Exemple'],
           rows: [
-            ['Causal', 'perquè, ja que, com que', 'Indicatiu', 'No vaig sortir perquè plovia.'],
-            ['Final', 'perquè, per tal que', 'Subjuntiu (si canvi de subjecte)', 'Ho faig perquè aprengueu.'],
-            ['Temporal', 'quan, mentre, fins que, abans que', 'Indicatiu (present/passat)', 'Quan arribi, truqueu-me.'],
-            ['Condicional', 'si', 'Indicatiu (condició real)', 'Si tens temps, vine.'],
+            ['Causal', 'perquè, ja que, com que + indicatiu', 'No vaig sortir perquè plovia.'],
+            ['Final', 'perquè, per tal que + subjuntiu (si canvia el subjecte)', 'Ho faig perquè aprengueu.'],
+            ['Temporal', 'quan, mentre, fins que + indicatiu (subjuntiu si és futur); abans que + subjuntiu', 'Quan arribi, truqueu-me.'],
+            ['Condicional', 'si + indicatiu (condició real)', 'Si tens temps, vine.'],
           ]
         }
       },
