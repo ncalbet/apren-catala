@@ -4535,7 +4535,7 @@ const DATA = {
       answers:['podré'],
       variants:[
         { sentence:"Quan acabi els estudis, ___ (poder, jo) buscar una bona feina.", display:'poder → 1a pers. sing. futur', answers:['podré'] },
-        { text:'El verb «saber» és irregular en futur: la base canvia respecte a l\'infinitiu (sabr-). Recorda com es forma.', sentence:"Demà ja ___ (saber, jo) els resultats de l'examen.", display:'saber → 1a pers. sing. futur', answers:['sabré'], theory:"«Saber» és irregular al futur: sabré, sabràs, sabrà, sabrem, sabreu, sabran." },
+        { text:'El verb «saber» és irregular en futur: la base canvia respecte a l\'infinitiu. Recorda com es forma.', sentence:"Demà ja ___ (saber, jo) els resultats de l'examen.", display:'saber → 1a pers. sing. futur', answers:['sabré'], theory:"«Saber» és irregular al futur: sabré, sabràs, sabrà, sabrem, sabreu, sabran." },
       ],
       theory:"«Poder» és irregular al futur: podré, podràs, podrà, podrem, podreu, podran.", example:"Demà podré venir a la reunió." },
 
@@ -6277,7 +6277,7 @@ const DATA = {
       answers:["d'"],
       variants:[
         { sentence:'Em va agradar molt el llibre ___ història que em vas recomanar.', display:'de → d\' (si correspon)', answers:["d'"] },
-        { text:'L\'apòstrof en català segueix regles precises segons el so amb què comença la paraula següent. Recorda que «de» no s\'apostrofa davant i/u semiconsonàntiques.', sentence:'És professor ___ ioga des de fa molts anys.', display:'de → d\' (només si correspon!)', answers:['de'] },
+        { text:'Abans d\'apostrofar, fixa\'t en com sona la «i» de «ioga».', sentence:'És professor ___ ioga des de fa molts anys.', display:'de → d\' (només si correspon!)', answers:['de'] },
       ],
       theory:'La preposició «de» s\'apostrofa davant paraula que comença en vocal o h muda: d\'estiu, d\'hivern, d\'una, d\'hora. NO s\'apostrofa davant i o u semiconsonàntiques: de ioga, de Wuhan.', example:'les fotos d\'estiu, una tarda d\'hivern, el gust d\'una victòria.' },
 
