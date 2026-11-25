@@ -997,14 +997,14 @@
         title: "Adjectius d'estat i reaccions",
         icon: '📊',
         table: {
-          headers: ['Adjectiu', 'Masculí/Femení', 'Exemple'],
+          headers: ['Adjectiu (masc. / fem.)', 'Exemple'],
           rows: [
-            ['nerviós/osa', 'nerviós / nerviosa', "Estic nerviosa abans dels exàmens."],
-            ['content/a', 'content / contenta', "Estan contents amb el resultat."],
-            ['trist/a', 'trist / trista', "Avui estic una mica trist."],
-            ['avergonyit/ida', 'avergonyit / avergonyida', "Em vaig posar molt avergonyida."],
-            ['enfadat/ada', 'enfadat / enfadada', "El director estava molt enfadat."],
-            ['sorprès/esa', 'sorprès / sorpresa', "Va quedar molt sorpresa."],
+            ['nerviós / nerviosa', "Estic nerviosa abans dels exàmens."],
+            ['content / contenta', "Estan contents amb el resultat."],
+            ['trist / trista', "Avui estic una mica trist."],
+            ['avergonyit / avergonyida', "Em vaig posar molt avergonyida."],
+            ['enfadat / enfadada', "El director estava molt enfadat."],
+            ['sorprès / sorpresa', "Va quedar molt sorpresa."],
           ]
         }
       },
