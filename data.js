@@ -1311,7 +1311,7 @@
         title: 'Substitucions clau',
         icon: '🔄',
         table: {
-          headers: ['Registre informal/genèric', 'Registre formal/precís', 'Exemple'],
+          headers: ['Informal o genèric', 'Formal o precís', 'Exemple'],
           rows: [
             ['dir', 'afirmar, manifestar, declarar, anunciar', 'La directora va declarar que...'],
             ['fer', 'dur a terme, realitzar, executar, impulsar', 'Van dur a terme les reformes.'],
