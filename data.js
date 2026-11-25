@@ -6271,7 +6271,7 @@ const DATA = {
       theory:'La dièresi marca que la i o la u sona independent de la vocal anterior. EXCEPCIONS (mai dièresi): infinitius -uir/-air (conduir, construir, fluir); sufixos -isme/-ista (altruisme); prefixos anti-, co-, semi-.', example:'veïna, raïm, heroïna, Raül ✓ / conduir, altruisme, antiinflamatori (sense dièresi) ✓.' },
 
     { id:'b2-ort5', type:'fill', level:'b2', category:'Ortografia B2',
-      question:'Omple el buit amb la preposició apostrofada correcta:',
+      question:'Omple el buit amb la forma correcta de la preposició:',
       sentence:'Les fotografies ___ estiu que vam fer aquell juliol eren molt boniques.',
       display:'de → d\' (si correspon)',
       answers:["d'"],
