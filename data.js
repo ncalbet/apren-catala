@@ -6421,7 +6421,7 @@ const DATA = {
       answers:['malgrat','tot i'],
       variants:[
         { sentence:'___ la manca de pressupost, el projecte va arribar a bon port.', display:'connector concessiu + sintagma nominal (sense verb conjugat)', answers:['malgrat','tot i'] },
-        { text:'Davant d\'un infinitiu (sense verb conjugat), no tots els connectors concessius hi encaixen igual.', sentence:'___ saber que era arriscat, va decidir tirar endavant la idea.', display:'connector concessiu + infinitiu (sense verb conjugat)', answers:['tot i','malgrat'] },
+        { question:'Omple amb el connector concessiu adequat davant un infinitiu:', sentence:'___ saber que era arriscat, va decidir tirar endavant la idea.', display:'connector concessiu + infinitiu (sense verb conjugat)', answers:['tot i','malgrat'] },
       ],
       theory:'«Malgrat» i «tot i» van seguits de nom, pronom o infinitiu. «Malgrat que» i «tot i que» van seguits de verb conjugat.', example:'Malgrat la pluja, vam sortir. / Tot i ploure, vam sortir.' },
     { id:'c1-cc2', type:'choice', level:'c1', category:'Connectors concessius',
