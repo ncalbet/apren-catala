@@ -1578,7 +1578,7 @@
         rules: [
           { label: 'Sense que (verb directe)', example: '«Vull que vingui» → formal: «Li demano que prengui nota.»' },
           { label: 'Relatives amb antecedent negatiu', example: '«No hi ha ningú que sàpiga respondre.»' },
-          { label: 'Oracions temporals de futur', example: '«Quan arribi, l\'avisa.» → NO «quan arribarà».' },
+          { label: 'Oracions temporals de futur', example: '«Quan arribi, l\'avisaré.» El futur d\'indicatiu també s\'admet («quan arribarà»), però avui és menys habitual.' },
           { label: 'Per bé que / si bé (concessives)', example: '«Per bé que sigui difícil, cal intentar-ho.»' },
         ]
       }
