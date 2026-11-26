@@ -1169,14 +1169,14 @@
         title: 'Formes del present de subjuntiu',
         icon: '📊',
         table: {
-          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er/-re (poder)', 'Verbs en -ir (venir)'],
+          headers: ['Persona', 'Verbs en -ar (parlar)', 'Verbs en -er/-re (poder)', 'Verbs en -ir (dormir)'],
           rows: [
-            ['jo', 'parli', 'pugui', 'vingui'],
-            ['tu', 'parlis', 'puguis', 'vinguis'],
-            ['ell/ella', 'parli', 'pugui', 'vingui'],
-            ['nosaltres', 'parlem', 'puguem', 'vinguem'],
-            ['vosaltres', 'parleu', 'pugueu', 'vingueu'],
-            ['ells/elles', 'parlin', 'puguin', 'vinguin'],
+            ['jo', 'parli', 'pugui', 'dormi'],
+            ['tu', 'parlis', 'puguis', 'dormis'],
+            ['ell/ella', 'parli', 'pugui', 'dormi'],
+            ['nosaltres', 'parlem', 'puguem', 'dormim'],
+            ['vosaltres', 'parleu', 'pugueu', 'dormiu'],
+            ['ells/elles', 'parlin', 'puguin', 'dormin'],
           ]
         }
       },
