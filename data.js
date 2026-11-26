@@ -2549,7 +2549,7 @@
           rows: [
             ['Causal', 'perquè, ja que, com que + indicatiu', 'No vaig sortir perquè plovia.'],
             ['Final', 'perquè, per tal que + subjuntiu (si canvia el subjecte)', 'Ho faig perquè aprengueu.'],
-            ['Temporal', 'quan, mentre, fins que + indicatiu (subjuntiu si és futur); abans que + subjuntiu', 'Quan arribi, truqueu-me.'],
+            ['Temporal', 'quan, mentre, fins que + indicatiu (subjuntiu si és futur); abans que + subjuntiu', 'Quan arribi, <span style="white-space:nowrap">truqueu-me.</span>'],
             ['Condicional', 'si + indicatiu (condició real)', 'Si tens temps, vine.'],
           ]
         }
