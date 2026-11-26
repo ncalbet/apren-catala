@@ -1113,7 +1113,7 @@
         table: {
           headers: ['Funció', 'Connectors principals'],
           rows: [
-            ['Addició', 'a més (a més), també, fins i tot, d\'altra banda'],
+            ['Addició', 'a més, a més a més, també, fins i tot, d\'altra banda'],
             ['Causa', 'perquè, ja que, atès que, donat que, com que'],
             ['Conseqüència', 'per tant, per consegüent, és per això que, així doncs'],
             ['Oposició', 'però, tanmateix, no obstant això, malgrat tot'],
@@ -5652,7 +5652,7 @@ const DATA = {
         { sentence:'El nou pla amplia la cobertura sanitària. ___, escurça les llistes d\'espera.', display:'connector d\'addició formal', answers:['a més','a més a més','així mateix','addicionalment','igualment'], accentsEstrictes:['més'] },
         { sentence:'La proposta és econòmicament sostenible. ___, respecta el medi ambient.', display:'connector d\'addició formal', answers:['a més','a més a més','així mateix','addicionalment','igualment'], accentsEstrictes:['més'] },
       ],
-      theory:'En registre formal, «a més (a més)» o «així mateix» substitueixen el col·loquial «també».', example:'La proposta és viable; a més, compta amb el suport tècnic necessari.', accentsEstrictes:['més'] },
+      theory:'En registre formal, «a més», «a més a més» o «així mateix» substitueixen el col·loquial «també».', example:'La proposta és viable; a més, compta amb el suport tècnic necessari.', accentsEstrictes:['més'] },
     { id:'b2-con4', type:'reorder', level:'b2', category:'Connectors',
       question:'Ordena les frases perquè el text sigui lògicament coherent:',
       text:'Els connectors textuals marquen la relació lògica entre les idees: causalitat, addició, contrast o conclusió. Ordena els fragments d\'un informe sobre qualitat de vida urbana.',
