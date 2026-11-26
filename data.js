@@ -832,7 +832,7 @@
             ['-t / -da', 'divertit, divertida', 'divertits, divertides'],
             ['-c / -ca', 'simpàtic, simpàtica', 'simpàtics, simpàtiques'],
             ['-l / -l·la', 'tranquil, tranquil·la', 'tranquils, tranquil·les'],
-            ['invariable (-ble, -nt)', 'amable, amable', 'amables, amables'],
+            ['invariable (-ble, molts en -nt)', 'amable, amable', 'amables, amables'],
             ['-ós / -osa', 'generós, generosa', 'generosos, generoses'],
           ]
         }
