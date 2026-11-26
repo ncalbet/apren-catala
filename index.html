@@ -2,6 +2,23 @@
 <html lang="ca" translate="no">
 <head>
   <meta charset="UTF-8">
+  <!-- CSP (fora d'abast 13, 26/11/2026). Ha d'anar abans de qualsevol recurs: no s'aplica al que
+       es carrega abans d'ella. 'unsafe-inline' és obligat (gestors onclick i els dos blocs de
+       codi en línia), així que no frena un script injectat en línia; sí que frena scripts,
+       connexions, imatges i iframes d'altres dominis, els objectes incrustats, l'etiqueta base
+       i eval. Dins d'una etiqueta meta no hi valen frame-ancestors ni els informes. Un domini
+       nou que carregui l'app s'ha d'afegir aquí: la secció 41 de tests_arrencada.cjs ho
+       comprova. No escriguis etiquetes HTML en aquest comentari: la prova retalla els scripts
+       amb una expressió regular. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    script-src 'self' 'unsafe-inline' https://www.gstatic.com https://apis.google.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src https://fonts.gstatic.com;
+    img-src 'self' https://*.googleusercontent.com;
+    connect-src 'self' https://*.googleapis.com https://corrector.aprencatala.cat;
+    frame-src https://apren-catala.firebaseapp.com;
+    media-src 'self'; worker-src 'self'; manifest-src 'self';
+    object-src 'none'; base-uri 'self'; form-action 'none'">
   <!-- Bloqueja l'oferta de traducció de Chrome: traduir la pàgina reescriu el
        DOM i trenca la correcció dels exercicis (les respostes no coincideixen) -->
   <meta name="google" content="notranslate">
