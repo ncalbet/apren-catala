@@ -1160,7 +1160,7 @@
         rules: [
           { label: 'Desig i voluntat', example: '«Vull que vinguis.» «Espero que pugui ser.»' },
           { label: 'Valoració', example: '«És important que ho entenguis.» «Cal que ho facis ara.»' },
-          { label: 'Ordre i petició', example: '«Et demano que ho revisis.» «Insisteix que venguin.»' },
+          { label: 'Ordre i petició', example: '«Et demano que ho revisis.» «Insisteix que vinguin.»' },
           { label: 'Dubte i negació d\'existència', example: '«Dubto que sigui veritat.» «No hi ha ningú que sàpiga.»' },
           { label: 'Concessió (hipotètica)', example: '«Encara que plogui, sortirem.»' },
         ]
