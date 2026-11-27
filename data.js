@@ -3174,8 +3174,8 @@ const DATA = {
       options:['Gràcies!','Com et dius?','Bona nit!'],
       correct:0,
       variants:[
-        { question:'Et deixen una cadira i vols donar les gràcies. Què dius?', options:['Moltes gràcies!','On és?','Fins dilluns!'], correct:0, theory:'«Moltes gràcies!» expressa agraïment.', example:'Moltes gràcies!' },
-        { question:"Una persona t'ajuda a trobar el carrer. Com li agraeixes l'ajuda?", options:['Quants anys tens?',"Gràcies per l'ajuda!",'No ho entenc.'], correct:1, theory:'Agraïm una ajuda amb «Gràcies!».', example:"Gràcies per l'ajuda!" },
+        { question:'Et deixen una cadira i vols agrair-ho. Què dius?', options:['Moltes gràcies!','On és?','Fins dilluns!'], correct:0, theory:'«Moltes gràcies!» expressa agraïment.', example:'Moltes gràcies!' },
+        { question:"Una persona t'indica on és el carrer. Com li ho agraeixes?", options:['Quants anys tens?',"Gràcies per l'ajuda!",'No ho entenc.'], correct:1, theory:'Agraïm una ajuda amb «Gràcies!».', example:"Gràcies per l'ajuda!" },
       ],
       theory:'«Gràcies» expressa agraïment.',
       example:"Moltes gràcies per l'ajuda." },

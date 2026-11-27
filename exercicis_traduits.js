@@ -87,9 +87,9 @@ const EXERCICIS_TRADUITS = {
     },
     {
       question: {
-        ca: 'Et deixen una cadira i vols donar les gràcies. Què dius?',
-        es: 'Te dejan una silla y quieres dar las gracias. ¿Qué dices?',
-        en: 'Someone lets you use their chair and you want to say thank you. What do you say?',
+        ca: 'Et deixen una cadira i vols agrair-ho. Què dius?',
+        es: 'Te dejan una silla y quieres agradecerlo. ¿Qué dices?',
+        en: 'Someone lets you use their chair and you want to thank them. What do you say?',
       },
       theory: {
         ca: '«Moltes gràcies!» expressa agraïment.',
@@ -99,9 +99,9 @@ const EXERCICIS_TRADUITS = {
     },
     {
       question: {
-        ca: "Una persona t'ajuda a trobar el carrer. Com li agraeixes l'ajuda?",
-        es: 'Una persona te ayuda a encontrar la calle. ¿Cómo le agradeces la ayuda?',
-        en: 'Someone helps you find the street. How do you thank them for their help?',
+        ca: "Una persona t'indica on és el carrer. Com li ho agraeixes?",
+        es: 'Una persona te indica dónde está la calle. ¿Cómo se lo agradeces?',
+        en: 'Someone shows you where the street is. How do you thank them?',
       },
       theory: {
         ca: 'Agraïm una ajuda amb «Gràcies!».',
