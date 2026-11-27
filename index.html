@@ -1089,6 +1089,7 @@ const TRADUCCIONS = {
     repasCos: 'Hoy te toca repasar <strong>{exs}</strong>, elegidos entre los que te conviene consolidar. Primero, los de dominio más bajo.',
     repasNoTocaTot: 'Hoy no te toca ningún repaso. Si quieres, adelanta algunos: son los que te tocarán primero.',
     repasNoTocaNivell: 'Hoy no te toca ningún repaso en este nivel. Si quieres, adelanta algunos: son los que te tocarán primero.',
+    repasBuitTot: 'Aún no tienes ejercicios para repasar. ¡Practica un poco más y el repaso se activará solo!',
     repasBuit: 'Aún no tienes ejercicios para repasar en este nivel. ¡Practica un poco más y el repaso se activará solo!',
     repasInicia: 'Iniciar repaso ({exs})', repasAvanca: 'Adelantar repaso ({exs})', repasRefresca: 'toca refrescarlo',
     grauDomini1: 'Iniciado', grauDomini2: 'Acertado', grauDomini3: 'Consolidando', grauDomini4: 'Dominado', grauDomini5: 'Máximo',
@@ -1411,6 +1412,7 @@ const TRADUCCIONS = {
     repasCos: 'Today you have <strong>{exs}</strong> to review, picked from the ones you need to consolidate. Lowest mastery first.',
     repasNoTocaTot: "Nothing to review today. If you like, get ahead on some: they're the ones that will be due first.",
     repasNoTocaNivell: "Nothing to review at this level today. If you like, get ahead on some: they're the ones that will be due first.",
+    repasBuitTot: "You don't have any exercises to review yet. Practise a bit more and review will start on its own!",
     repasBuit: "You don't have any exercises to review at this level yet. Practise a bit more and review will start on its own!",
     repasInicia: 'Start review ({exs})', repasAvanca: 'Get ahead ({exs})', repasRefresca: 'due for a refresh',
     grauDomini1: 'Started', grauDomini2: 'Correct', grauDomini3: 'Consolidating', grauDomini4: 'Mastered', grauDomini5: 'Maximum',
@@ -2914,7 +2916,9 @@ function renderReview() {
             ? (reviewLevel === 'all'
               ? txi('repasNoTocaTot', "Avui no et toca cap repàs. Si vols, avança'n alguns: són els que et tocaran primer.")
               : txi('repasNoTocaNivell', "Avui no et toca cap repàs en aquest nivell. Si vols, avança'n alguns: són els que et tocaran primer."))
-            : txi('repasBuit', "Encara no tens exercicis per repassar en aquest nivell. Practica una mica més i el repàs s'activarà sol!")}
+            : (reviewLevel === 'all'
+              ? txi('repasBuitTot', "Encara no tens exercicis per repassar. Practica una mica més i el repàs s'activarà sol!")
+              : txi('repasBuit', "Encara no tens exercicis per repassar en aquest nivell. Practica una mica més i el repàs s'activarà sol!"))}
       </p>
       ${n > 0 ? `
         <button class="ct-btn primary" style="width:100%;margin-bottom:16px;" onclick="startReviewSession()">
