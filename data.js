@@ -3235,7 +3235,7 @@ const DATA = {
       options:['Quants anys tens?','Pots repetir-ho?','On vius?'],
       correct:1,
       variants:[
-        { question:"No has sentit l'hora de la cita. Què pots preguntar?", options:['Quants anys tens?',"Pots repetir l'hora?",'On és la cita, si us plau?'], correct:1, theory:'Pots demanar que et repeteixin la informació.', example:"Pots repetir l'hora?" },
+        { question:"No has sentit quan és la cita. Què pots preguntar?", options:['Quants anys tens?',"Pots repetir l'hora?",'On és la cita, si us plau?'], correct:1, theory:'Pots demanar que et repeteixin la informació.', example:"Pots repetir l'hora?" },
         { question:"T'han dit un carrer, però no has entès el nom. Què demanes?", options:['Quant val?','Quina hora és, si us plau?','Ho pots tornar a dir?'], correct:2, theory:'«Ho pots tornar a dir?» demana una repetició.', example:'Ho pots tornar a dir?' },
       ],
       theory:'Demanar una repetició permet tornar a sentir la informació.',

@@ -236,9 +236,9 @@ const EXERCICIS_TRADUITS = {
     },
     {
       question: {
-        ca: "No has sentit l'hora de la cita. Què pots preguntar?",
-        es: 'No has oído la hora de la cita. ¿Qué puedes preguntar?',
-        en: "You didn't catch the time of the appointment. What can you ask?",
+        ca: 'No has sentit quan és la cita. Què pots preguntar?',
+        es: 'No has oído cuándo es la cita. ¿Qué puedes preguntar?',
+        en: "You didn't catch when the appointment is. What can you ask?",
       },
       theory: {
         ca: 'Pots demanar que et repeteixin la informació.',
